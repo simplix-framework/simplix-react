@@ -1,4 +1,6 @@
-import { useId, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
+
+import { cn } from "../../utils/cn";
 
 import { useTranslation } from "@simplix-react/i18n/react";
 
@@ -77,6 +79,8 @@ export function MultiSelectField<T extends string = string>({
   const noResultsMessage = emptyMessage ?? t("field.noResults");
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [highlighted, setHighlighted] = useState(-1);
+  const listRef = useRef<HTMLUListElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const boxRef = useRef<HTMLSpanElement>(null);
   const listboxId = useId();
@@ -101,6 +105,32 @@ export function MultiSelectField<T extends string = string>({
     }
   }
 
+  useEffect(() => {
+    listRef.current?.querySelector('[data-highlighted="true"]')?.scrollIntoView({ block: "nearest" });
+  }, [highlighted]);
+
+  function handleInputKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      e.preventDefault();
+      setOpen(true);
+      if (!filtered.length) return;
+      const delta = e.key === "ArrowDown" ? 1 : -1;
+      setHighlighted((previous) => previous < 0
+        ? (delta > 0 ? 0 : filtered.length - 1)
+        : (previous + delta + filtered.length) % filtered.length);
+    } else if (e.key === "Enter") {
+      // Selection stays inside the field; Enter must never submit its enclosing form.
+      e.preventDefault();
+      if (open && filtered[highlighted]) toggleOption(filtered[highlighted].value);
+      else setOpen(true);
+    } else if (e.key === "Escape" && open) {
+      e.preventDefault();
+      e.stopPropagation();
+      setOpen(false);
+      setHighlighted(-1);
+    }
+  }
+
   function removeOption(optValue: T) {
     onChange(value.filter((v) => v !== optValue));
   }
@@ -117,7 +147,7 @@ export function MultiSelectField<T extends string = string>({
       {...variantProps}
     >
       {({ id, labelId }) => (
-        <Popover open={open} onOpenChange={(v) => { if (disabled) return; setOpen(v); }}>
+        <Popover open={open} onOpenChange={(v) => { if (disabled) return; setOpen(v); if (!v) setHighlighted(-1); }}>
           {/* The box holds controls of its own — a chip's remove button, the search
               input — so it anchors the popover instead of triggering it. A trigger
               here would nest a control inside a control, and the keyboard and
@@ -126,7 +156,7 @@ export function MultiSelectField<T extends string = string>({
           <PopoverAnchor asChild>
             <span
               ref={boxRef}
-              className="flex h-8 w-full items-center"
+              className="flex min-h-8 w-full items-center py-1"
               {...slotAttributes(multiSelectBoxStyle, { disabled: !!disabled, invalid: !!error })}
               onMouseDown={(e) => {
                 // A press on the box's own surface belongs to the search input.
@@ -137,7 +167,7 @@ export function MultiSelectField<T extends string = string>({
               }}
             >
               <span
-                className="flex flex-1 items-center overflow-hidden"
+                className="flex min-w-0 flex-1 flex-wrap items-center"
                 {...slotAttributes(multiSelectChipsStyle, {})}
               >
               {selectedLabels.map((opt) => (
@@ -181,10 +211,12 @@ export function MultiSelectField<T extends string = string>({
                 aria-expanded={open}
                 aria-controls={open ? listboxId : undefined}
                 aria-autocomplete="list"
+                aria-activedescendant={open && filtered[highlighted] ? `${listboxId}-${highlighted}` : undefined}
                 aria-labelledby={labelId}
                 aria-label={variantProps.layout === "hidden" ? label : undefined}
                 value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={(e) => { setQuery(e.target.value); setHighlighted(-1); }}
+                onKeyDown={handleInputKeyDown}
                 onFocus={() => setOpen(true)}
                 onClick={() => setOpen(true)}
                 // Tabbing on closes the list. An open popover holds a focus scope that pauses the
@@ -217,6 +249,9 @@ export function MultiSelectField<T extends string = string>({
             <ul
               className="max-h-60 overflow-y-auto"
               role="listbox"
+              ref={listRef}
+              aria-multiselectable="true"
+              aria-labelledby={labelId}
               id={listboxId}
               {...slotAttributes(multiSelectListStyle, {})}
             >
@@ -225,24 +260,31 @@ export function MultiSelectField<T extends string = string>({
                   {noResultsMessage}
                 </li>
               )}
-              {filtered.map((opt) => {
+              {filtered.map((opt, index) => {
                 const selected = value.includes(opt.value);
                 return (
                   <li
                     key={opt.value}
+                    id={`${listboxId}-${index}`}
+                    data-highlighted={index === highlighted || undefined}
+                    onMouseEnter={() => setHighlighted(index)}
                     role="option"
                     aria-selected={selected}
                     className="relative flex cursor-pointer select-none items-center"
                     {...slotAttributes(multiSelectOptionStyle, { selected })}
+                    // Keep focus on the input so its blur handler cannot close the list
+                    // between pointer selections, before the next option receives a click.
+                    onMouseDown={(e) => e.preventDefault()}
                     onClick={() => toggleOption(opt.value)}
                     onKeyDown={(e) => {
                       if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
                         toggleOption(opt.value);
                       }
                     }}
                   >
                     <span
-                      className="flex h-4 w-4 items-center justify-center"
+                      className={cn("flex h-4 w-4 items-center justify-center", index === highlighted && "ring-2 ring-ring ring-offset-2")}
                       {...slotAttributes(multiSelectCheckStyle, { selected })}
                     >
                       {selected && (
