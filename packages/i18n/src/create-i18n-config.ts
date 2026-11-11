@@ -13,6 +13,24 @@ import {
 import type { LocaleCode, LocaleConfig } from "./types.js";
 import { DEFAULT_LOCALES } from "./utils/locale-config.js";
 
+/** Merge module defaults beneath application-owned values without sharing their source objects. */
+function applicationTranslations(
+  defaults: Record<string, unknown>,
+  overrides: Record<string, unknown>,
+): Record<string, unknown> {
+  const result = new Map(Object.entries(structuredClone(defaults)));
+  for (const [key, value] of Object.entries(overrides)) {
+    const current = result.get(key);
+    result.set(key,
+      value && typeof value === "object" && !Array.isArray(value) &&
+      current && typeof current === "object" && !Array.isArray(current)
+        ? applicationTranslations(current as Record<string, unknown>, value as Record<string, unknown>)
+        : structuredClone(value),
+    );
+  }
+  return Object.fromEntries(result);
+}
+
 /**
  * Configures the {@link createI18nConfig} factory function.
  */
@@ -122,7 +140,7 @@ export function createI18nConfig(
     defaultLocale,
     fallbackLocale,
     locales: supportedLocales,
-    resources,
+    resources: structuredClone(resources),
     debug,
   });
 
@@ -141,7 +159,10 @@ export function createI18nConfig(
         const translations = await mod.load(locale);
         for (const [componentPath, data] of Object.entries(translations)) {
           const namespace = `${mod.namespace}/${componentPath}`;
-          adapter.addResources(locale, namespace, data);
+          const overrides = resources[locale]?.[namespace];
+          adapter.addResources(locale, namespace,
+            overrides ? applicationTranslations(data, overrides) : data,
+          );
         }
       }),
     );

@@ -48,6 +48,41 @@ describe("createI18nConfig", () => {
     expect(adapter.tn("common", "greeting")).toBe("Hello");
   });
 
+  it("preserves application values over initial module defaults without mutating the source", async () => {
+    const product = { field: { label: "Product label" }, productOnly: "Product only" };
+    const original = structuredClone(product);
+    const { adapter, i18nReady } = createI18nConfig({
+      defaultLocale: "en",
+      appTranslations: { "/locales/product-override/features/en.json": { default: product } },
+      moduleTranslations: [buildModuleTranslations({
+        namespace: "product-override", locales: ["en"],
+        components: { features: { en: async () => ({ default: { field: { label: "Module label", hint: "Module hint" }, moduleOnly: "Module only" } }) } },
+      })],
+    });
+    await i18nReady;
+    expect(adapter.tn("product-override/features", "field.label")).toBe("Product label");
+    expect(adapter.tn("product-override/features", "field.hint")).toBe("Module hint");
+    expect(adapter.tn("product-override/features", "productOnly")).toBe("Product only");
+    expect(adapter.tn("product-override/features", "moduleOnly")).toBe("Module only");
+    expect(product).toEqual(original);
+  });
+
+  it("preserves application values when module defaults arrive after initialization", async () => {
+    const product = { field: { label: "Late product label" } };
+    const { adapter, i18nReady } = createI18nConfig({
+      defaultLocale: "en",
+      appTranslations: { "/locales/late-product-override/features/en.json": { default: product } },
+    });
+    await i18nReady;
+    registerModuleTranslations(buildModuleTranslations({
+      namespace: "late-product-override", locales: ["en"],
+      components: { features: { en: async () => ({ default: { field: { label: "Late module label" }, loaded: "Module loaded" } }) } },
+    }));
+    await vi.waitFor(() => expect(adapter.tn("late-product-override/features", "loaded")).toBe("Module loaded"));
+    expect(adapter.tn("late-product-override/features", "field.label")).toBe("Late product label");
+    expect(product.field.label).toBe("Late product label");
+  });
+
   it("handles app translations without default export wrapper", async () => {
     const appTranslations = {
       "/locales/common/en.json": { greeting: "Hi" },
