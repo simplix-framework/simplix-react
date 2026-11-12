@@ -149,6 +149,29 @@ describe("TabsList scrollArrows", () => {
     expect(strip.scrollLeft).toBe(13);
   });
 
+  it("keeps the reader's scroll when an arrow appearing cuts the chosen tab that stood near the end", () => {
+    render(four("c"));
+    const strip = screen.getByRole("tablist");
+    const { geometry, scrollIntoView } = layOut(strip, { A: 100, B: 100, C: 100, D: 100 }, 300);
+    // C runs from 200 to 300, wholly in sight and within an arrow's width of the strip's end.
+    expect(strip.scrollLeft).toBe(0);
+    // The reader presses the arrow at the end; the smooth scroll's first step is read.
+    act(() => {
+      strip.scrollLeft = 2;
+      fireEvent.scroll(strip);
+    });
+    // The arrow at the start appears and narrows the strip, which cuts C at the end; the next step
+    // of the scroll and the resize are read together.
+    geometry.clientWidth = 268;
+    act(() => {
+      strip.scrollLeft = 13;
+      fireEvent.scroll(strip);
+      FakeResizeObserver.resize(strip);
+    });
+    expect(scrollIntoView).not.toHaveBeenCalled();
+    expect(strip.scrollLeft).toBe(13);
+  });
+
   it("keeps the chosen tab in sight when the strip narrows and a scroll event is read before the resize", () => {
     render(four("d"));
     const strip = screen.getByRole("tablist");

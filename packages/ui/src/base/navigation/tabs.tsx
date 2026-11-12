@@ -136,10 +136,12 @@ export const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
  * Which ends of the strip hide tabs, kept current as the strip scrolls or changes size, and the
  * chosen tab brought into sight whenever it changes.
  *
- * <p>A change of size brings the chosen tab back only when it was in sight at the last reading.
- * An arrow appearing or leaving changes the strip's own width, and it does so because the reader
- * scrolled; bringing the chosen tab back then would undo that scroll and keep the reader from the
- * tabs at the other end.
+ * <p>A change of size brings the chosen tab back only while the strip stands where the last
+ * bringing-back left it. An arrow appearing or leaving changes the strip's own width, and it does so
+ * because the reader scrolled; bringing the chosen tab back then would stop that scroll, even when
+ * the chosen tab was in sight and only the new arrow cut it, and keep the reader from the tabs at
+ * the other end. A newly chosen tab or a tab added brings the chosen tab back again, which sets a
+ * new place to compare against.
  */
 function useOverflowEdges(list: { readonly current: HTMLDivElement | null }, enabled: boolean): OverflowEdges {
   const [edges, setEdges] = useState<OverflowEdges>({ start: false, end: false });
@@ -147,45 +149,32 @@ function useOverflowEdges(list: { readonly current: HTMLDivElement | null }, ena
     const strip = list.current;
     if (!enabled || !strip) return;
     const chosenTab = () => strip.querySelector<HTMLElement>('[role="tab"][data-state="active"]');
-    // Measured in the strip's own scrolled coordinates (the strip is the tabs' offset parent), so
-    // the view's width can be given apart from where it stands.
-    const inSight = (tab: HTMLElement, viewWidth: number) =>
+    // Measured in the strip's own scrolled coordinates: the strip is the tabs' offset parent.
+    const inSight = (tab: HTMLElement) =>
       whollyInSight(
         { start: tab.offsetLeft, end: tab.offsetLeft + tab.offsetWidth },
-        { start: strip.scrollLeft, end: strip.scrollLeft + viewWidth },
+        { start: strip.scrollLeft, end: strip.scrollLeft + strip.clientWidth },
       );
-    // Whether the chosen tab lay wholly inside the strip at the last reading, and the strip's width
-    // when its size was last read; a strip without a chosen tab has nothing to bring back.
-    let chosenInSight = true;
-    let readWidth = strip.clientWidth;
-    const readEdges = () => setEdges(overflowEdges(strip.scrollLeft, strip.clientWidth, strip.scrollWidth));
-    const read = () => {
-      readEdges();
-      const chosen = chosenTab();
-      chosenInSight = chosen === null || inSight(chosen, strip.clientWidth);
-      readWidth = strip.clientWidth;
-    };
-    // A scroll is judged against the width last read, not the current one: the browser can dispatch
-    // the scroll event after an arrow appeared or left but before the resize callback runs, and a
-    // tab cut off by the arrow alone was not scrolled away by the reader.
-    const scrolled = () => {
-      readEdges();
-      const chosen = chosenTab();
-      chosenInSight = chosen === null || inSight(chosen, readWidth);
-    };
+    // Where the strip stood when the chosen tab was last brought into sight. The browser places the
+    // tab at once (the strip sets no smooth scrolling), so any later difference is a scroll that
+    // did not come from bringing it back.
+    let revealedAt = strip.scrollLeft;
+    const read = () => setEdges(overflowEdges(strip.scrollLeft, strip.clientWidth, strip.scrollWidth));
     const reveal = () => {
       const chosen = chosenTab();
       // Left alone when already in sight: a scroll to where the strip stands still stops a smooth
       // scroll the reader started.
-      if (chosen && !inSight(chosen, strip.clientWidth)) chosen.scrollIntoView({ block: "nearest", inline: "nearest" });
+      if (chosen && !inSight(chosen)) chosen.scrollIntoView({ block: "nearest", inline: "nearest" });
+      revealedAt = strip.scrollLeft;
       read();
     };
+    // The pixel of slack matches the one `whollyInSight` and `overflowEdges` allow.
     const resized = () => {
-      if (chosenInSight) reveal();
+      if (Math.abs(strip.scrollLeft - revealedAt) <= 1) reveal();
       else read();
     };
     reveal();
-    strip.addEventListener("scroll", scrolled, { passive: true });
+    strip.addEventListener("scroll", read, { passive: true });
     // The strip's box keeps its width while a tab inside it grows (a web font arriving, a count
     // filling in), so the tabs are observed too: either change moves the scroll width and can push
     // the chosen tab out of sight.
@@ -203,7 +192,7 @@ function useOverflowEdges(list: { readonly current: HTMLDivElement | null }, ena
     });
     members.observe(strip, { childList: true });
     return () => {
-      strip.removeEventListener("scroll", scrolled);
+      strip.removeEventListener("scroll", read);
       sizes?.disconnect();
       states.disconnect();
       members.disconnect();
