@@ -14,7 +14,7 @@ import { useTranslation } from "@simplix-react/i18n/react";
 
 import { slotAttributes } from "../../design/slot-style";
 import { cn } from "../../utils/cn";
-import { arrowStep, overflowEdges, type OverflowEdges } from "./tab-overflow";
+import { arrowStep, overflowEdges, type OverflowEdges, whollyInSight } from "./tab-overflow";
 import { tabsContentStyle, tabsInkStyle, tabsListStyle, tabsScrollArrowStyle, tabsScrollerStyle, tabsTriggerStyle } from "./tabs.style";
 
 // Root - pass through
@@ -135,24 +135,61 @@ export const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
 /**
  * Which ends of the strip hide tabs, kept current as the strip scrolls or changes size, and the
  * chosen tab brought into sight whenever it changes.
+ *
+ * <p>A change of size brings the chosen tab back only when it was in sight at the last reading.
+ * An arrow appearing or leaving changes the strip's own width, and it does so because the reader
+ * scrolled; bringing the chosen tab back then would undo that scroll and keep the reader from the
+ * tabs at the other end.
  */
 function useOverflowEdges(list: { readonly current: HTMLDivElement | null }, enabled: boolean): OverflowEdges {
   const [edges, setEdges] = useState<OverflowEdges>({ start: false, end: false });
   useEffect(() => {
     const strip = list.current;
     if (!enabled || !strip) return;
-    const read = () => setEdges(overflowEdges(strip.scrollLeft, strip.clientWidth, strip.scrollWidth));
+    const chosenTab = () => strip.querySelector<HTMLElement>('[role="tab"][data-state="active"]');
+    // Measured in the strip's own scrolled coordinates (the strip is the tabs' offset parent), so
+    // the view's width can be given apart from where it stands.
+    const inSight = (tab: HTMLElement, viewWidth: number) =>
+      whollyInSight(
+        { start: tab.offsetLeft, end: tab.offsetLeft + tab.offsetWidth },
+        { start: strip.scrollLeft, end: strip.scrollLeft + viewWidth },
+      );
+    // Whether the chosen tab lay wholly inside the strip at the last reading, and the strip's width
+    // when its size was last read; a strip without a chosen tab has nothing to bring back.
+    let chosenInSight = true;
+    let readWidth = strip.clientWidth;
+    const readEdges = () => setEdges(overflowEdges(strip.scrollLeft, strip.clientWidth, strip.scrollWidth));
+    const read = () => {
+      readEdges();
+      const chosen = chosenTab();
+      chosenInSight = chosen === null || inSight(chosen, strip.clientWidth);
+      readWidth = strip.clientWidth;
+    };
+    // A scroll is judged against the width last read, not the current one: the browser can dispatch
+    // the scroll event after an arrow appeared or left but before the resize callback runs, and a
+    // tab cut off by the arrow alone was not scrolled away by the reader.
+    const scrolled = () => {
+      readEdges();
+      const chosen = chosenTab();
+      chosenInSight = chosen === null || inSight(chosen, readWidth);
+    };
     const reveal = () => {
-      const chosen = strip.querySelector<HTMLElement>('[role="tab"][data-state="active"]');
-      chosen?.scrollIntoView({ block: "nearest", inline: "nearest" });
+      const chosen = chosenTab();
+      // Left alone when already in sight: a scroll to where the strip stands still stops a smooth
+      // scroll the reader started.
+      if (chosen && !inSight(chosen, strip.clientWidth)) chosen.scrollIntoView({ block: "nearest", inline: "nearest" });
       read();
     };
+    const resized = () => {
+      if (chosenInSight) reveal();
+      else read();
+    };
     reveal();
-    strip.addEventListener("scroll", read, { passive: true });
+    strip.addEventListener("scroll", scrolled, { passive: true });
     // The strip's box keeps its width while a tab inside it grows (a web font arriving, a count
     // filling in), so the tabs are observed too: either change moves the scroll width and can push
     // the chosen tab out of sight.
-    const sizes = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(reveal);
+    const sizes = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(resized);
     const observeAll = () => {
       sizes?.observe(strip);
       for (const tab of strip.children) sizes?.observe(tab);
@@ -166,7 +203,7 @@ function useOverflowEdges(list: { readonly current: HTMLDivElement | null }, ena
     });
     members.observe(strip, { childList: true });
     return () => {
-      strip.removeEventListener("scroll", read);
+      strip.removeEventListener("scroll", scrolled);
       sizes?.disconnect();
       states.disconnect();
       members.disconnect();
