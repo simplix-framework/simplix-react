@@ -195,7 +195,7 @@ const more = async (page, item) => {
 test("adds a recurring task and changes its rule afterwards", async () => {
   const page = await open("default");
   await more(page, "Add recurring task");
-  await page.getByLabel("Name").fill("Weekly sync");
+  await page.getByRole("dialog").getByLabel("Name").fill("Weekly sync");
   await page.getByLabel("Occurrences").fill("3");
   await page.getByRole("button", { name: "Create" }).click();
   await page.waitForFunction(() => document.querySelectorAll("[data-gantt-row]").length === 26);

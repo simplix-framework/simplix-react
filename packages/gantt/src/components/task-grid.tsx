@@ -13,7 +13,7 @@ import {
   updateTask,
 } from "@simplix-react/gantt-core";
 import type { ConflictKind, Id, Schedule } from "@simplix-react/gantt-core";
-import { CalendarClock, ChevronDown, ChevronRight, Columns3, StickyNote, TriangleAlert } from "lucide-react";
+import { CalendarClock, ChevronDown, ChevronRight, StickyNote, TriangleAlert } from "lucide-react";
 import { useMemo, useState } from "react";
 import type { PointerEvent as ReactPointerEvent } from "react";
 
@@ -39,8 +39,9 @@ import type { ViewRow } from "../lib/view-rows";
 import { useDrag } from "../lib/use-drag";
 import { useGanttTranslation } from "../lib/use-gantt-translation";
 import { CellEditor } from "./cell-editor";
-import { ColumnChooser } from "./column-chooser";
 
+export { TaskGridHeader } from "./task-grid-header";
+export type { TaskGridHeaderProps } from "./task-grid-header";
 export { DEFAULT_COLUMNS, DEFAULT_COLUMN_WIDTHS, INDICATOR_WIDTH, columnWidth, gridContentWidth, isEditableCell };
 export type { BuiltInColumnId, ColumnWidths, GanttColumnId };
 
@@ -51,100 +52,6 @@ export interface GridEditing {
   initial?: string;
 }
 
-
-/** Props for {@link TaskGridHeader}. */
-export interface TaskGridHeaderProps {
-  columns: readonly GanttColumnId[];
-  widths: ColumnWidths;
-  onResize: (column: GanttColumnId, width: number) => void;
-  /** Called with the place among the columns a dragged heading was dropped at. */
-  onMove: (column: GanttColumnId, toIndex: number) => void;
-  /** Width of the leading row number column; narrower in a narrow table. */
-  indicatorWidth?: number;
-}
-
-/** A column never gets narrower than this. */
-const MIN_COLUMN_WIDTH = 48;
-
-/** The heading row of the task table. The right edge of a heading drags to resize its column. */
-export function TaskGridHeader({ columns, widths, onResize, onMove, indicatorWidth = INDICATOR_WIDTH }: TaskGridHeaderProps) {
-  const { t } = useGanttTranslation();
-  const customFields = useGantt((state) => state.history.present.customFields);
-  const labelOf = (column: GanttColumnId): string =>
-    column.startsWith("custom:")
-      ? (customFields?.find((field) => `custom:${field.id}` === column)?.name ?? "")
-      : t(`column.${column}`);
-  // Dragging a heading sideways drops its column where the pointer is.
-  const beginMove = useDrag<{ column: GanttColumnId; row: Element | null }>({
-    onMove: () => undefined,
-    onEnd({ column, row }, position) {
-      const left = (row?.getBoundingClientRect().left ?? 0) + indicatorWidth;
-      let edge = left;
-      let target = columns.length - 1;
-      for (let i = 0; i < columns.length; i++) {
-        edge += columnWidth(columns[i], widths);
-        if (position.clientX < edge) {
-          target = i;
-          break;
-        }
-      }
-      onMove(column, target);
-    },
-  });
-  const beginResize = useDrag<{ column: GanttColumnId; origin: number }>({
-    onMove: ({ column, origin }, position) => onResize(column, Math.max(MIN_COLUMN_WIDTH, origin + position.dx)),
-    onEnd: ({ column, origin }, position) => onResize(column, Math.max(MIN_COLUMN_WIDTH, origin + position.dx)),
-    onCancel: ({ column, origin }) => onResize(column, origin),
-  });
-  return (
-    <div className="flex h-full items-end text-xs font-medium text-foreground" role="row">
-      {/* The corner over the row numbers holds the list of columns, where a reader looks for it. */}
-      <div className="flex h-full shrink-0 items-center justify-center border-r" style={{ width: indicatorWidth }}>
-        <ColumnChooser>
-          <button
-            type="button"
-            aria-label={t("column.choose")}
-            title={t("column.choose")}
-            className="flex size-6 items-center justify-center rounded-sm text-muted-foreground hover:bg-background hover:text-foreground"
-            data-gantt-slot="column-chooser-button"
-          >
-            <Columns3 className="size-4" />
-          </button>
-        </ColumnChooser>
-      </div>
-      {columns.map((column) => (
-        <div
-          key={column}
-          role="columnheader"
-          title={t("column.move")}
-          className={cn("relative flex h-full shrink-0 cursor-grab touch-none items-center border-r px-2", NUMERIC.has(column) && "justify-end")}
-          style={{ width: columnWidth(column, widths) }}
-          data-gantt-column={column}
-          onPointerDown={(event) => beginMove({ column, row: event.currentTarget.parentElement }, event)}
-        >
-          <span className="truncate">{labelOf(column)}</span>
-          {/* raw layout: absolute drag handle on the heading's right edge */}
-          <div
-            role="separator"
-            aria-orientation="vertical"
-            aria-label={t("column.resize")}
-            title={t("column.resize")}
-            // A grip line shows where to take hold; it brightens under the pointer.
-            className="group/grip absolute -right-1.5 top-0 z-10 flex h-full w-3 cursor-col-resize touch-none items-center justify-center"
-            data-gantt-slot="column-resize"
-            onPointerDown={(event) => beginResize({ column, origin: columnWidth(column, widths) }, event)}
-            onDoubleClick={(event) => {
-              event.stopPropagation();
-              onResize(column, columnWidth(column, {}));
-            }}
-          >
-            <div className="h-4 w-0.5 rounded-full bg-foreground/25 group-hover/grip:h-full group-hover/grip:bg-primary" />
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 /** Props for {@link TaskGridRows}. */
 export interface TaskGridRowsProps {
@@ -160,6 +67,8 @@ export interface TaskGridRowsProps {
   readOnly: boolean;
   /** Width of the leading row number column; narrower in a narrow table. */
   indicatorWidth?: number;
+  /** Whether the first column stays in place beside the row numbers while the others scroll sideways. */
+  pinFirstColumn?: boolean;
   /** Rows to draw, as indexes into `rows` with their vertical offset. */
   window: readonly { index: number; start: number }[];
   rowHeight: number;
@@ -176,6 +85,7 @@ export function TaskGridRows({
   movable,
   readOnly,
   indicatorWidth = INDICATOR_WIDTH,
+  pinFirstColumn = false,
   rows,
   window,
   rowHeight,
@@ -297,10 +207,12 @@ export function TaskGridRows({
             <div
               key={`group:${row.key}`}
               role="row"
-              className="absolute left-0 flex w-full items-center gap-1 border-b bg-muted px-2 text-sm font-semibold"
+              className="absolute left-0 w-full border-b bg-muted text-sm font-semibold"
               style={{ top: start, height: rowHeight }}
               data-gantt-group={row.key}
             >
+              {/* raw layout: the heading stays at the table's left edge while its row scrolls sideways */}
+              <div className="sticky left-0 flex h-full w-fit items-center gap-1 px-2">
               <button
                 type="button"
                 className="flex size-4 items-center justify-center rounded-sm text-muted-foreground hover:bg-background"
@@ -312,6 +224,7 @@ export function TaskGridRows({
               </button>
               <span className="truncate">{label}</span>
               <span className="text-xs font-normal text-muted-foreground tabular-nums">{row.count}</span>
+              </div>
             </div>
           );
         }
@@ -344,7 +257,7 @@ export function TaskGridRows({
           >
             <div
               className={cn(
-                "flex shrink-0 touch-none items-center justify-end gap-0.5 border-r px-1.5 text-xs text-muted-foreground tabular-nums",
+                "sticky left-0 z-[2] flex shrink-0 touch-none items-center justify-end gap-0.5 border-r bg-inherit px-1.5 text-xs text-muted-foreground tabular-nums",
                 movable && "cursor-grab",
               )}
               style={{ width: indicatorWidth }}
@@ -373,7 +286,8 @@ export function TaskGridRows({
               )}
               {row.index + 1}
             </div>
-            {columns.map((column) => {
+            {columns.map((column, position) => {
+              const pinned = pinFirstColumn && position === 0;
               const field = customFieldOf(column, project);
               const editable = !readOnly && isEditableCell(column, row, project);
               const active = column === activeColumn && selected.has(row.task.id);
@@ -391,8 +305,10 @@ export function TaskGridRows({
                     NUMERIC.has(column) && "justify-end tabular-nums",
                     row.summary && column === "name" && "font-semibold",
                     isEditing && "px-0",
+                    pinned && "sticky z-[1] bg-inherit",
                   )}
-                  style={{ width: columnWidth(column, widths) }}
+                  style={{ width: columnWidth(column, widths), left: pinned ? indicatorWidth : undefined }}
+                  data-gantt-pinned={pinned || undefined}
                   onDoubleClick={(event) => {
                     if (field?.type === "flag" && !readOnly) {
                       // A flag has nothing to type: a double click turns it over.

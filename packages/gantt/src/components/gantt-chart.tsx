@@ -1,21 +1,20 @@
-import { MINUTES_PER_DAY, compileCalendars, setCustomValue, setTaskDuration, setTaskStart, updateTask } from "@simplix-react/gantt-core";
+import { MINUTES_PER_DAY } from "@simplix-react/gantt-core";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { KeyboardEvent } from "react";
 
 import { useGantt, useGanttStore } from "../context/gantt-context";
 import { dateMarkers, nowOnProjectClock, startOfDay, timelineSpan } from "../lib/markers";
-import type { VisibleRow } from "../lib/rows";
 import { isPlainView, viewRows } from "../lib/view-rows";
+import { PRINT_WIDTH, printLevel } from "../lib/print-layout";
 import { ZOOM_LEVELS, createTimeScale } from "../lib/time-scale";
-import type { ZoomLevel } from "../lib/time-scale";
-import { useDrag } from "../lib/use-drag";
-import { useGanttTranslation } from "../lib/use-gantt-translation";
+import { useTableScroll } from "../lib/use-table-scroll";
 import { RowMenu } from "./row-menu";
-import { INDICATOR_WIDTH, TaskGridHeader, TaskGridRows, columnWidth, gridContentWidth, isEditableCell } from "./task-grid";
+import { TableSplitter } from "./table-splitter";
+import { INDICATOR_WIDTH, TaskGridHeader, TaskGridRows, columnWidth, gridContentWidth } from "./task-grid";
 import type { GanttColumnId, GridEditing } from "./task-grid";
 import { TimelineBody } from "./timeline-body";
 import { TimelineHeader } from "./timeline-header";
+import { useChartKeys } from "./use-chart-keys";
 
 const ROW_HEIGHT = 32;
 const HEADER_HEIGHT = 48;
@@ -32,21 +31,8 @@ const NARROW_GRID_WIDTH = 260;
 const OVERSCAN = 8;
 /** Height of the scroll bar under a table whose columns are wider than it. */
 const TABLE_SCROLLER_HEIGHT = 12;
-/** Width, in CSS pixels, a landscape A4 page leaves between its margins. */
-const PRINT_WIDTH = 1040;
-
-/** A plan may be shrunk to this share of its size before a coarser scale is used instead. */
-const MIN_PRINT_SCALE = 0.6;
-
-/** The closest zoom step at which a plan of `minutes` still fits the page width without shrinking too far. */
-function printLevel(minutes: number, gridWidth: number): ZoomLevel {
-  const days = minutes / MINUTES_PER_DAY + 3;
-  const room = PRINT_WIDTH / MIN_PRINT_SCALE - gridWidth;
-  for (let i = ZOOM_LEVELS.length - 1; i > 0; i--) {
-    if (days * ZOOM_LEVELS[i].pxPerDay <= room) return ZOOM_LEVELS[i];
-  }
-  return ZOOM_LEVELS[0];
-}
+/** The scrolling columns keep at least this much of the table beside a pinned first column. */
+const MIN_SCROLLING_WIDTH = 96;
 
 /** Props for {@link GanttChart}. */
 export interface GanttChartProps {
@@ -62,7 +48,6 @@ export interface GanttChartProps {
  * and header cells on screen are drawn.
  */
 export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartProps) {
-  const { t } = useGanttTranslation();
   const store = useGanttStore();
   const project = useGantt((state) => state.history.present);
   const schedule = useGantt((state) => state.schedule);
@@ -94,8 +79,9 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
   const [viewport, setViewport] = useState({ left: 0, top: 0, width: 1200, height: 600 });
   // The table never takes the whole chart: on a narrow screen it gives way so the timeline stays in reach.
   const widest = Math.max(MIN_GRID_WIDTH, viewport.width - MIN_TIMELINE_WIDTH);
-  const gridWidth = Math.min(widest, storedGridWidth ?? Math.min(openingGridWidth, Math.max(MIN_GRID_WIDTH, Math.round(viewport.width * OPENING_GRID_SHARE))));
-  const setGridWidth = store.getState().setGridWidth;
+  const screenGridWidth = Math.min(widest, storedGridWidth ?? Math.min(openingGridWidth, Math.max(MIN_GRID_WIDTH, Math.round(viewport.width * OPENING_GRID_SHARE))));
+  // On paper the table is as wide as its columns, so every column shown on screen is printed.
+  const gridWidth = printing ? columns.reduce((sum, column) => sum + columnWidth(column, widths), INDICATOR_WIDTH) : screenGridWidth;
   // A narrow table gives the row number column only what the number needs, and the name the rest.
   const indicatorWidth = gridWidth < NARROW_GRID_WIDTH ? 36 : INDICATOR_WIDTH;
   // A table too narrow for its first column draws that column as wide as the room there is,
@@ -108,15 +94,37 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
   }, [widths, firstColumn, gridWidth, indicatorWidth]);
   // Columns wider together than the table scroll sideways inside it, by the bar under the table.
   const tableWidth = columns.reduce((sum, column) => sum + columnWidth(column, shownWidths), indicatorWidth);
-  const [tableScroll, setTableScroll] = useState(0);
-  const tableOffset = printing ? 0 : Math.min(tableScroll, Math.max(0, tableWidth - gridWidth));
+  const scrollsSideways = tableWidth > gridWidth && !printing;
+  // The first column stays beside the row numbers while the rest scroll, as long as the rest keep some room.
+  const firstWidth = firstColumn === undefined ? 0 : columnWidth(firstColumn, shownWidths);
+  const pinFirstColumn = scrollsSideways && gridWidth - indicatorWidth - firstWidth >= MIN_SCROLLING_WIDTH;
+  const pinnedWidth = indicatorWidth + (pinFirstColumn ? firstWidth : 0);
+  const tableScroll = useTableScroll(tableWidth, gridWidth, pinnedWidth);
   // The table's scroll bar takes a strip below the last row instead of lying over it.
-  const tableScrollerHeight = tableWidth > gridWidth && !printing ? TABLE_SCROLLER_HEIGHT : 0;
+  const tableScrollerHeight = scrollsSideways ? TABLE_SCROLLER_HEIGHT : 0;
   // The column keyboard editing and sideways arrow keys act on.
   const [activeColumn, setActiveColumn] = useState<GanttColumnId>("name");
   const [menu, setMenu] = useState<{ x: number; y: number } | null>(null);
   const [editing, setEditing] = useState<GridEditing | null>(null);
-  const projectTime = useMemo(() => compileCalendars(project.calendars).get(project.calendarId), [project.calendars, project.calendarId]);
+  // The active cell and a column that has just been added are scrolled into the table's view.
+  const revealColumn = (column: GanttColumnId): void => {
+    const at = columns.indexOf(column);
+    if (at === -1 || (pinFirstColumn && at === 0)) return;
+    const left = columns.slice(0, at).reduce((sum, other) => sum + columnWidth(other, shownWidths), indicatorWidth);
+    tableScroll.reveal(left, left + columnWidth(column, shownWidths));
+  };
+  useEffect(() => {
+    revealColumn(activeColumn);
+    // Only a move of the active cell scrolls: a resize must not pull the table back to it.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeColumn]);
+  const knownColumns = useRef(columns);
+  useEffect(() => {
+    const added = columns.find((column) => !knownColumns.current.includes(column));
+    knownColumns.current = columns;
+    if (added !== undefined) revealColumn(added);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [columns]);
 
   const rows = useMemo(() => viewRows(project, schedule, collapsed, viewOptions), [project, schedule, collapsed, viewOptions]);
   const level = printing ? printLevel(schedule.finish - Math.min(schedule.start, project.start), gridWidth) : ZOOM_LEVELS[zoom];
@@ -231,106 +239,15 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
     return () => element.removeEventListener("wheel", onWheel);
   }, [store]);
 
-  const beginSplit = useDrag<number>({
-    onMove: (origin, position) => setGridWidth(Math.max(MIN_GRID_WIDTH, origin + position.dx)),
-    onEnd: (origin, position) => setGridWidth(Math.max(MIN_GRID_WIDTH, origin + position.dx)),
-    onCancel: (origin) => setGridWidth(origin),
+  const onKeyDown = useChartKeys({
+    rows,
+    columns,
+    activeColumn,
+    onActiveColumnChange: setActiveColumn,
+    editing,
+    onEditingChange: setEditing,
+    scrollToRow: (index) => virtualizer.scrollToIndex(index, { align: "auto" }),
   });
-
-  const moveSelection = (delta: number, extend: boolean): void => {
-    const { selection, selectRow } = store.getState();
-    const last = selection[selection.length - 1];
-    const current = last === undefined ? -1 : rows.findIndex((row) => row.kind === "task" && row.task.id === last);
-    // Step over the headings of groups: only tasks are selected.
-    let next = current === -1 ? 0 : current + delta;
-    while (rows[next] && rows[next].kind !== "task") next += delta > 0 ? 1 : -1;
-    const target = rows[next];
-    if (!target || target.kind !== "task") return;
-    selectRow(target.task.id, extend ? "extend" : "replace");
-    virtualizer.scrollToIndex(next, { align: "auto" });
-  };
-
-  const moveColumnFocus = (delta: number): void => {
-    const at = Math.max(0, columns.indexOf(activeColumn));
-    setActiveColumn(columns[Math.max(0, Math.min(columns.length - 1, at + delta))] ?? "name");
-  };
-
-  /** Moves the selected tasks one working day earlier or later. */
-  const nudge = (days: number): void => {
-    const state = store.getState();
-    if (!projectTime || state.selection.length === 0) return;
-    state.apply("move-task", (p, s) => {
-      let next = p;
-      for (const id of state.selection) {
-        const at = s.tasks.get(id);
-        if (!at || at.summary) continue;
-        next = setTaskStart(next, id, projectTime.snapForward(projectTime.add(at.start, days * p.minutesPerDay)));
-      }
-      return next;
-    });
-  };
-
-  /** Copies the active cell of the first selected row, in row order, into the other selected rows. */
-  const fillDown = (): void => {
-    const state = store.getState();
-    const chosen = rows.filter((row): row is VisibleRow => row.kind === "task" && state.selection.includes(row.task.id));
-    if (chosen.length < 2) return;
-    const [source, ...targets] = chosen;
-    state.apply("fill-down", (p) => {
-      let next = p;
-      for (const target of targets) {
-        if (!isEditableCell(activeColumn, target, p)) continue;
-        if (activeColumn === "duration") {
-          next = setTaskDuration(next, target.task.id, source.task.duration, { unit: source.task.durationUnit, elapsed: source.task.elapsed, estimated: source.task.estimated });
-        } else if (activeColumn === "name") {
-          next = updateTask(next, target.task.id, { name: source.task.name });
-        } else if (activeColumn === "actualCost") {
-          next = updateTask(next, target.task.id, { actualCost: source.task.actualCost });
-        } else if (activeColumn.startsWith("custom:")) {
-          const fieldId = activeColumn.slice("custom:".length);
-          next = setCustomValue(next, target.task.id, fieldId, source.task.custom?.[fieldId]);
-        }
-      }
-      return next;
-    });
-  };
-
-  const editActive = (id: string, initial?: string): boolean => {
-    const row = rows.find((candidate) => candidate.kind === "task" && candidate.task.id === id);
-    const column = columns.includes(activeColumn) ? activeColumn : "name";
-    if (readOnly || !row || row.kind !== "task" || !isEditableCell(column, row, project)) return false;
-    setEditing({ id, column, initial });
-    return true;
-  };
-
-  const onKeyDown = (event: KeyboardEvent<HTMLDivElement>): void => {
-    if (editing) return;
-    const state = store.getState();
-    const mod = event.metaKey || event.ctrlKey;
-    const last = state.selection[state.selection.length - 1];
-    let handled = true;
-    if (event.key === "ArrowDown") moveSelection(1, event.shiftKey);
-    else if (event.key === "ArrowUp") moveSelection(-1, event.shiftKey);
-    else if (event.altKey && event.shiftKey && event.key === "ArrowRight") state.indentSelected();
-    else if (event.altKey && event.shiftKey && event.key === "ArrowLeft") state.outdentSelected();
-    else if (event.altKey && event.key === "ArrowRight") nudge(1);
-    else if (event.altKey && event.key === "ArrowLeft") nudge(-1);
-    else if (event.key === "ArrowRight" || (event.key === "Tab" && !event.shiftKey && last !== undefined)) moveColumnFocus(1);
-    else if (event.key === "ArrowLeft" || (event.key === "Tab" && event.shiftKey && last !== undefined)) moveColumnFocus(-1);
-    else if (mod && event.key.toLowerCase() === "z" && event.shiftKey) state.redo();
-    else if (mod && event.key.toLowerCase() === "z") state.undo();
-    else if (mod && event.key.toLowerCase() === "y") state.redo();
-    else if (mod && event.key.toLowerCase() === "d") fillDown();
-    else if (event.key === "Insert") state.addTask(t("task.newName"));
-    else if (event.key === "Delete" || (event.key === "Backspace" && mod)) state.removeSelected();
-    else if ((event.key === "F2" || event.key === "Enter") && last !== undefined) handled = editActive(last);
-    else if (event.key === "Escape") state.select([]);
-    else if (last !== undefined && event.key.length === 1 && !mod && !event.altKey) {
-      // Typing on a selected row starts editing its active cell with the typed character.
-      handled = editActive(last, event.key);
-    } else handled = false;
-    if (handled) event.preventDefault();
-  };
 
   const timelineFromX = printing ? 0 : Math.max(0, viewport.left - gridWidth);
   const timelineToX = printing ? scale.width : viewport.left + viewport.width;
@@ -388,15 +305,21 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
         }}
       >
         <div className={`${sticky}top-0 z-30 flex border-b bg-muted`} style={{ height: HEADER_HEIGHT }}>
-          <div className={`${sticky}left-0 z-40 shrink-0 overflow-hidden border-r bg-muted`} style={{ width: gridWidth }}>
-            {/* raw layout: the heading row, shifted by the table's own sideways scroll */}
-            <div className="h-full" style={{ width: Math.max(tableWidth, gridWidth), transform: `translateX(${-tableOffset}px)` }}>
+          <div
+            ref={tableScroll.header}
+            className={`${sticky}left-0 z-40 shrink-0 overflow-hidden border-r bg-muted`}
+            style={{ width: gridWidth }}
+            onScroll={tableScroll.onScroll}
+          >
+            {/* raw layout: the heading row at its full width, scrolled sideways inside the table */}
+            <div className="h-full" style={{ width: Math.max(tableWidth, gridWidth) }}>
               <TaskGridHeader
                 columns={columns}
                 widths={shownWidths}
                 onResize={store.getState().setColumnWidth}
                 onMove={store.getState().moveColumn}
                 indicatorWidth={indicatorWidth}
+                pinFirstColumn={pinFirstColumn}
               />
             </div>
           </div>
@@ -408,13 +331,14 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
             style={{ width: gridWidth, height: bodyHeight + tableScrollerHeight }}
             data-gantt-slot="grid"
           >
-            <div className="relative overflow-hidden" style={{ height: bodyHeight }}>
-              {/* raw layout: the rows, shifted by the table's own sideways scroll */}
-              <div className="relative h-full" style={{ width: Math.max(tableWidth, gridWidth), transform: `translateX(${-tableOffset}px)` }}>
+            <div ref={tableScroll.body} className="relative overflow-hidden" style={{ height: bodyHeight }} onScroll={tableScroll.onScroll} data-gantt-slot="table-body">
+              {/* raw layout: the rows at their full width, scrolled sideways inside the table */}
+              <div className="relative h-full" style={{ width: Math.max(tableWidth, gridWidth) }}>
               <TaskGridRows
                 columns={columns}
                 widths={shownWidths}
                 indicatorWidth={indicatorWidth}
+                pinFirstColumn={pinFirstColumn}
                 movable={!readOnly && isPlainView(viewOptions)}
                 readOnly={readOnly}
                 activeColumn={activeColumn}
@@ -434,31 +358,18 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
             {tableScrollerHeight > 0 && (
               // raw layout: a scroll bar of the table's own, kept at the foot of the visible rows
               <div
+                ref={tableScroll.bar}
                 className="sticky bottom-0 z-10 overflow-x-auto overflow-y-hidden border-t bg-background"
                 style={{ width: gridWidth, height: TABLE_SCROLLER_HEIGHT }}
                 data-gantt-slot="table-scroller"
-                onScroll={(event) => setTableScroll(event.currentTarget.scrollLeft)}
+                onScroll={tableScroll.onScroll}
               >
                 <div style={{ width: tableWidth, height: 1 }} />
               </div>
             )}
-            {/* raw layout: absolute drag handle on the table's right edge */}
-            <div
-              role="separator"
-              aria-orientation="vertical"
-              aria-label={t("toolbar.resizeTable")}
-              title={t("toolbar.resizeTable")}
-              className="group/split absolute -right-1.5 top-0 z-10 flex h-full w-3 cursor-col-resize touch-none justify-center"
-              data-gantt-slot="splitter"
-              onPointerDown={(event) => beginSplit(gridWidth, event)}
-            >
-              {/* A grip at the middle of the rows in view marks the edge that can be dragged. */}
-              <div
-                className="absolute h-8 w-1 -translate-y-1/2 rounded-full bg-foreground/25 group-hover/split:bg-primary"
-                style={{ top: splitGripY }}
-                data-gantt-slot="splitter-grip"
-              />
-            </div>
+            {!printing && (
+              <TableSplitter width={gridWidth} min={MIN_GRID_WIDTH} max={widest} gripY={splitGripY} onResize={store.getState().setGridWidth} />
+            )}
           </div>
           <TimelineBody
             scale={scale}
