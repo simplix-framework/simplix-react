@@ -53,6 +53,41 @@ export const CostsAndCustomFields: Story = {
   ),
 };
 
+/** Every dependency as boxes and lines, by how deep a task sits in the chain. */
+export const Network: Story = {
+  render: () => <Gantt defaultProject={samplePlan()} view="network" />,
+};
+
+/** One month as a grid of days, each naming the tasks that work on it. */
+export const Calendar: Story = {
+  render: () => <Gantt defaultProject={samplePlan()} view="calendar" />,
+};
+
+/** Booked work against capacity, as a column per day for every resource. */
+export const Graph: Story = {
+  render: () => <Gantt defaultProject={samplePlan()} view="graph" />,
+};
+
+/** Hours per assignment and day, under each task. */
+export const TaskUsageTable: Story = {
+  render: () => <Gantt defaultProject={samplePlan()} view="taskUsage" />,
+};
+
+/** A chart that shows its plan and refuses every edit. */
+export const ReadOnly: Story = {
+  render: () => <Gantt defaultProject={samplePlan()} readOnly />,
+};
+
+/** Tasks gathered by resource, with bars coloured by resource and the progress line on. */
+export const GroupedByResource: Story = {
+  render: () => (
+    <Gantt
+      defaultProject={{ ...samplePlan(), statusDate: samplePlan().start + 9 * 1440 }}
+      layout={{ viewOptions: { filter: "all", resourceId: null, search: "", sort: "start", sortDescending: false, group: "resource" }, barColoring: "resource", barText: "name", showProgressLine: true }}
+    />
+  ),
+};
+
 /** The resource sheet. */
 export const Resources: Story = {
   render: () => <Gantt defaultProject={samplePlan()} view="resources" />,
