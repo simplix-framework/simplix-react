@@ -1,10 +1,11 @@
 import { MINUTES_PER_DAY, computeSchedule, parseLocalDateTime } from "@simplix-react/gantt-core";
 import { describe, expect, it, vi } from "vitest";
 
-import { pathData, routeLink } from "../lib/link-path";
+import { pathData, roundedPathData, routeLink, traceRoundedPath } from "../lib/link-path";
 import { dateMarkers, timelineSpan } from "../lib/markers";
 import { barColors } from "../lib/bar-color";
-import { buildPdf, layoutPdf, pdfRows } from "../lib/pdf-export";
+import { layoutPdf, pdfRows } from "../lib/pdf-export";
+import { buildPdf } from "../lib/pdf-file";
 import type { PdfRow } from "../lib/pdf-export";
 import { visibleRows } from "../lib/rows";
 import { DEFAULT_VIEW, isPlainView, viewRows } from "../lib/view-rows";
@@ -45,6 +46,35 @@ describe("time scale", () => {
 
 describe("link route", () => {
   const a = { left: 100, right: 200, y: 16 };
+
+  it("takes every corner with a curve that starts and ends on the straight runs", () => {
+    const route = routeLink("FS", a, { left: 260, right: 360, y: 48 }, 10, 32);
+    expect(roundedPathData(route.points, 5)).toBe("M200 16 L205 16 Q210 16 210 21 L210 43 Q210 48 215 48 L260 48");
+    // The ends of the line are where they were: the bar's edge and the arrow's tip.
+    expect(roundedPathData(route.points, 5).startsWith("M200 16 ")).toBe(true);
+    expect(roundedPathData(route.points, 5).endsWith(" L260 48")).toBe(true);
+  });
+
+  it("shares a run shorter than two radii between its two corners, and leaves a straight line straight", () => {
+    // The two corners are 4 apart: each curve takes half of the run between them.
+    expect(roundedPathData([{ x: 0, y: 0 }, { x: 20, y: 0 }, { x: 20, y: 4 }, { x: 40, y: 4 }], 5)).toBe("M0 0 L18 0 Q20 0 20 2 L20 2 Q20 4 22 4 L40 4");
+    expect(roundedPathData([{ x: 0, y: 0 }, { x: 10, y: 0 }, { x: 30, y: 0 }], 5)).toBe("M0 0 L10 0 L30 0");
+    // Two bars on one row are joined by a line with no corner to curve.
+    const level = routeLink("FS", a, { left: 260, right: 360, y: 16 }, 10, 32);
+    expect(roundedPathData(level.points, 5)).not.toContain("Q");
+  });
+
+  it("traces the same curves on a canvas", () => {
+    const calls: string[] = [];
+    const tracer = {
+      moveTo: (x: number, y: number) => calls.push(`M${x} ${y}`),
+      lineTo: (x: number, y: number) => calls.push(`L${x} ${y}`),
+      quadraticCurveTo: (cx: number, cy: number, x: number, y: number) => calls.push(`Q${cx} ${cy} ${x} ${y}`),
+    };
+    const route = routeLink("FS", a, { left: 150, right: 250, y: 48 }, 10, 32);
+    traceRoundedPath(tracer, route.points, 5);
+    expect(calls.join(" ")).toBe(roundedPathData(route.points, 5));
+  });
 
   it("uses one elbow when the ends face each other with room", () => {
     const route = routeLink("FS", a, { left: 260, right: 360, y: 48 }, 10, 32);

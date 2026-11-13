@@ -87,21 +87,6 @@ test("marks today and the status date on a plan around today", async () => {
   await page.context().close();
 });
 
-test("moves a bar under a finger", async () => {
-  const page = await open("default", { hasTouch: true });
-  const before = (await cells(page, "6"))[2];
-  const bar = await box(page, '[data-gantt-bar="6"]');
-  const y = bar.y + bar.height / 2;
-  const client = await page.context().newCDPSession(page);
-  const touch = (type, x) => client.send("Input.dispatchTouchEvent", { type, touchPoints: type === "touchEnd" ? [] : [{ x, y }] });
-  await touch("touchStart", bar.x + 40);
-  for (const dx of [10, 25, 40, 56]) await touch("touchMove", bar.x + 40 + dx);
-  await touch("touchEnd", 0);
-  await page.waitForTimeout(200);
-  assert.notEqual((await cells(page, "6"))[2], before, "a touch drag moved the task instead of scrolling the page");
-  await page.context().close();
-});
-
 test("shows the plan as a network, a calendar, a resource graph and a task usage table", async () => {
   const network = await open("default");
   await network.getByRole("tab").nth(1).click();

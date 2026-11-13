@@ -7,7 +7,7 @@ import { useMemo, useState } from "react";
 import { useGantt, useGanttStore } from "../context/gantt-context";
 import { cn } from "../lib/cn";
 import { nowOnProjectClock } from "../lib/markers";
-import { useDrag } from "../lib/use-drag";
+import { TOUCH_HOLD, useDrag } from "../lib/use-drag";
 import { useGanttTranslation } from "../lib/use-gantt-translation";
 import { weekdayName } from "./dialog-fields";
 
@@ -54,7 +54,7 @@ export function CalendarView({ weekStartsOn = 0 }: CalendarViewProps) {
       const moved = projectTime.snapForward(start + (toDay - fromDay) * MINUTES_PER_DAY);
       store.getState().apply("move-task", (p) => setTaskStart(p, id, moved));
     },
-  });
+  }, { touchHold: TOUCH_HOLD });
   // The day whose tasks a narrow calendar lists under the month.
   const [chosenDay, setChosenDay] = useState<number | null>(null);
 
@@ -136,7 +136,7 @@ export function CalendarView({ weekStartsOn = 0 }: CalendarViewProps) {
                     type="button"
                     title={task.name}
                     className={cn(
-                      "hidden touch-none truncate rounded-sm px-1 text-left text-xs @2xl:block",
+                      "hidden truncate rounded-sm px-1 text-left text-xs @2xl:block",
                       !readOnly && "cursor-grab",
                       task.critical ? "bg-destructive/15 text-destructive" : "bg-primary/15 text-foreground",
                     )}

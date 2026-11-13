@@ -37,7 +37,7 @@ import type { BuiltInColumnId, ColumnWidths, GanttColumnId } from "../lib/grid-c
 import { formatDate } from "../lib/format";
 import { groupHeading } from "../lib/view-rows";
 import type { ViewRow } from "../lib/view-rows";
-import { useDrag } from "../lib/use-drag";
+import { TOUCH_HOLD, useDrag } from "../lib/use-drag";
 import { useGanttTranslation } from "../lib/use-gantt-translation";
 import { CellEditor } from "./cell-editor";
 
@@ -180,7 +180,7 @@ export function TaskGridRows({
         return moveTask(p, id, before, target?.task.outlineLevel ?? 1);
       });
     },
-  });
+  }, { touchHold: TOUCH_HOLD });
 
   const onRowPointerDown = (id: Id, event: ReactPointerEvent<HTMLDivElement>): void => {
     if (event.button !== 0) return;
@@ -205,6 +205,8 @@ export function TaskGridRows({
             <div
               key={`group:${row.key}`}
               role="row"
+              // Rows are counted as they are shown, after the heading row.
+              aria-rowindex={index + 2}
               className="absolute left-0 w-full border-b bg-muted text-sm font-semibold"
               style={{ top: start, height: rowHeight }}
               data-gantt-group={row.key}
@@ -241,7 +243,7 @@ export function TaskGridRows({
           <div
             key={row.task.id}
             role="row"
-            aria-rowindex={row.index + 1}
+            aria-rowindex={index + 2}
             aria-selected={selected.has(row.task.id)}
             data-gantt-row={row.task.id}
             className={cn(
@@ -255,7 +257,7 @@ export function TaskGridRows({
           >
             <div
               className={cn(
-                "sticky left-0 z-[2] flex shrink-0 touch-none items-center justify-end gap-0.5 border-r bg-inherit px-1.5 text-xs text-muted-foreground tabular-nums",
+                "sticky left-0 z-[2] flex shrink-0 items-center justify-end gap-0.5 border-r bg-inherit px-1.5 text-xs text-muted-foreground tabular-nums",
                 movable && "cursor-grab",
               )}
               style={{ width: indicatorWidth }}

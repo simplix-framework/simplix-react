@@ -5,9 +5,8 @@ import { describe, expect, it } from "vitest";
 import { BOX_HEIGHT, BOX_WIDTH, layoutNetwork } from "../lib/network-layout";
 import { plan } from "./fixtures";
 
-/** Horizontal and vertical runs of a path made of `M` and `L` commands. */
-function segments(d: string): { x1: number; y1: number; x2: number; y2: number }[] {
-  const points = [...d.matchAll(/[ML](-?[\d.]+) (-?[\d.]+)/g)].map((match) => ({ x: Number(match[1]), y: Number(match[2]) }));
+/** The straight runs between the corners of a line. */
+function segments(points: readonly { x: number; y: number }[]): { x1: number; y1: number; x2: number; y2: number }[] {
   return points.slice(1).map((point, i) => ({ x1: points[i].x, y1: points[i].y, x2: point.x, y2: point.y }));
 }
 
@@ -47,7 +46,7 @@ describe("layoutNetwork", () => {
     const project = plan(["a", "b", "c", "d"], [["a", "b"], ["b", "c"], ["c", "d"], ["a", "d"]]);
     const { nodes, edges } = laidOut(project);
     for (const edge of edges) {
-      for (const run of segments(edge.d)) {
+      for (const run of segments(edge.points)) {
         for (const node of nodes) expect(crosses(run, node), `line ${edge.id} through box ${node.task.id}`).toBe(false);
       }
     }

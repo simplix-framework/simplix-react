@@ -48,3 +48,31 @@ export function Toggle({ label, checked, onChange, aligned = true }: ToggleProps
     </div>
   );
 }
+
+/** Props for {@link Choice}. */
+export interface ChoiceProps {
+  value: string;
+  onChange: (value: string) => void;
+  options: readonly { value: string; label: string }[];
+  /** Read out for the list; it has no visible label of its own. */
+  label: string;
+}
+
+/** A drop-down list as wide as its place in a dialog. */
+export function Choice({ value, onChange, options, label }: ChoiceProps) {
+  const ui = useFlatUIComponents();
+  return (
+    <ui.Select value={value} onValueChange={onChange}>
+      <ui.SelectTrigger aria-label={label} className="w-full">
+        <ui.SelectValue />
+      </ui.SelectTrigger>
+      <ui.SelectContent>
+        {options.map((option) => (
+          <ui.SelectItem key={option.value} value={option.value}>
+            {option.label}
+          </ui.SelectItem>
+        ))}
+      </ui.SelectContent>
+    </ui.Select>
+  );
+}

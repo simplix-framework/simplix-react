@@ -1,10 +1,11 @@
 import { Columns3 } from "lucide-react";
+import { useEffect, useRef } from "react";
 
 import { useGantt } from "../context/gantt-context";
 import { cn } from "../lib/cn";
 import { INDICATOR_WIDTH, NUMERIC, columnWidth } from "../lib/grid-columns";
 import type { ColumnWidths, GanttColumnId } from "../lib/grid-columns";
-import { useDrag } from "../lib/use-drag";
+import { TOUCH_HOLD, useDrag } from "../lib/use-drag";
 import { useGanttTranslation } from "../lib/use-gantt-translation";
 import { ColumnChooser } from "./column-chooser";
 
@@ -23,9 +24,9 @@ export interface TaskGridHeaderProps {
 
 /** A column never gets narrower than this. */
 const MIN_COLUMN_WIDTH = 48;
-/** A dragged heading this close to an edge of the table scrolls the columns, this far for each move of the pointer. */
+/** A dragged heading held this close to an edge of the table scrolls the columns, this far for each frame it stays there. */
 const EDGE_ZONE = 28;
-const EDGE_STEP = 14;
+const EDGE_STEP = 8;
 /** Pixels one arrow key press on a column's grip changes its width; with Shift, four times as far. */
 const KEY_STEP = 8;
 
@@ -37,6 +38,18 @@ export function TaskGridHeader({ columns, widths, onResize, onMove, indicatorWid
     column.startsWith("custom:")
       ? (customFields?.find((field) => `custom:${field.id}` === column)?.name ?? "")
       : t(`column.${column}`);
+  // The columns keep scrolling while a dragged heading rests near an edge, without the pointer having to move.
+  const scrolling = useRef(0);
+  const edgeScroll = (box: HTMLElement | null, direction: -1 | 0 | 1): void => {
+    cancelAnimationFrame(scrolling.current);
+    if (!box || direction === 0) return;
+    const step = (): void => {
+      box.scrollLeft += direction * EDGE_STEP;
+      scrolling.current = requestAnimationFrame(step);
+    };
+    scrolling.current = requestAnimationFrame(step);
+  };
+  useEffect(() => () => cancelAnimationFrame(scrolling.current), []);
   // Dragging a heading sideways drops its column where the pointer is.
   const beginMove = useDrag<{ column: GanttColumnId; row: Element | null }>({
     onMove({ row }, position) {
@@ -44,10 +57,14 @@ export function TaskGridHeader({ columns, widths, onResize, onMove, indicatorWid
       const box = row?.closest<HTMLElement>('[data-gantt-slot="table-header"]');
       if (!box) return;
       const edge = box.getBoundingClientRect();
-      if (position.clientX > edge.right - EDGE_ZONE) box.scrollLeft += EDGE_STEP;
-      else if (position.clientX < edge.left + indicatorWidth + EDGE_ZONE) box.scrollLeft -= EDGE_STEP;
+      // The left edge is where the columns come out from under what is pinned, not the edge of the table.
+      const pinned = indicatorWidth + (pinFirstColumn ? columnWidth(columns[0], widths) : 0);
+      const direction = position.clientX > edge.right - EDGE_ZONE ? 1 : position.clientX < edge.left + pinned + EDGE_ZONE ? -1 : 0;
+      edgeScroll(box, direction);
     },
+    onCancel: () => edgeScroll(null, 0),
     onEnd({ column, row }, position) {
+      edgeScroll(null, 0);
       const left = (row?.getBoundingClientRect().left ?? 0) + indicatorWidth;
       let edge = left;
       let target = columns.length - 1;
@@ -60,14 +77,14 @@ export function TaskGridHeader({ columns, widths, onResize, onMove, indicatorWid
       }
       onMove(column, target);
     },
-  });
+  }, { touchHold: TOUCH_HOLD });
   const beginResize = useDrag<{ column: GanttColumnId; origin: number }>({
     onMove: ({ column, origin }, position) => onResize(column, Math.max(MIN_COLUMN_WIDTH, origin + position.dx)),
     onEnd: ({ column, origin }, position) => onResize(column, Math.max(MIN_COLUMN_WIDTH, origin + position.dx)),
     onCancel: ({ column, origin }) => onResize(column, origin),
   });
   return (
-    <div className="flex h-full items-end text-xs font-medium text-foreground" role="row">
+    <div className="flex h-full items-end text-xs font-medium text-foreground" role="row" aria-rowindex={1}>
       {/* The corner over the row numbers holds the list of columns, where a reader looks for it. */}
       <div className="sticky left-0 z-30 flex h-full shrink-0 items-center justify-center border-r bg-muted" style={{ width: indicatorWidth }}>
         <ColumnChooser>
@@ -91,12 +108,13 @@ export function TaskGridHeader({ columns, widths, onResize, onMove, indicatorWid
           role="columnheader"
           title={t("column.move")}
           className={cn(
-            "flex h-full shrink-0 cursor-grab touch-none items-center border-r px-2",
+            "flex h-full shrink-0 cursor-grab items-center border-r px-2",
             pinned ? "sticky z-20 bg-muted" : "relative",
             NUMERIC.has(column) && "justify-end",
           )}
           style={{ width, left: pinned ? indicatorWidth : undefined }}
           data-gantt-column={column}
+          data-gantt-pinned={pinned || undefined}
           onPointerDown={(event) => beginMove({ column, row: event.currentTarget.parentElement }, event)}
         >
           <span className="truncate">{labelOf(column)}</span>

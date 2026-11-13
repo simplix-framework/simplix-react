@@ -64,3 +64,68 @@
     print-color-adjust: exact;
   }
 }
+
+/*
+ * Forced colours (Windows contrast themes) paint every background in the page
+ * colour, which would leave only the outlines of plain bars. What the chart
+ * draws with a fill keeps one, in the colours of the reader's theme: summary
+ * bars and milestones in the text colour, progress in the highlight colour.
+ * Critical tasks have a double outline and selected bars a highlight one,
+ * since neither can be told by hue there.
+ */
+@media (forced-colors: active) {
+  [data-gantt-kind="summary"],
+  [data-gantt-slot="milestone"],
+  [data-gantt-slot="progress"],
+  [data-gantt-slot="segment"],
+  [data-gantt-slot="baseline"],
+  [data-gantt-slot="non-working"],
+  [data-gantt-slot="marker-line"],
+  [data-gantt-marker-tag] {
+    forced-color-adjust: none;
+  }
+
+  [data-gantt-kind="summary"],
+  [data-gantt-slot="milestone"] {
+    background-color: CanvasText;
+  }
+
+  [data-gantt-slot="progress"],
+  [data-gantt-slot="segment"] {
+    background-color: Highlight;
+  }
+
+  [data-gantt-slot="baseline"] {
+    background-color: GrayText;
+  }
+
+  [data-gantt-slot="non-working"] {
+    background-color: transparent;
+    background-image: repeating-linear-gradient(135deg, GrayText 0 1px, transparent 1px 6px);
+  }
+
+  [data-gantt-slot="marker-line"] {
+    border-color: Highlight;
+    border-left-width: 2px;
+  }
+
+  [data-gantt-marker-tag] {
+    background-color: Highlight;
+    color: HighlightText;
+  }
+
+  [data-gantt-kind="task"][data-gantt-critical] {
+    border-style: double;
+    border-width: 3px;
+  }
+
+  [data-gantt-critical] > [data-gantt-slot="milestone"] {
+    background-color: Canvas;
+    border: 3px double CanvasText;
+  }
+
+  [data-gantt-selected] {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+}

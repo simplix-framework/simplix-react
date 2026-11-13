@@ -28,9 +28,12 @@ export function useTableScroll(contentWidth: number, viewWidth: number, pinnedWi
   const bar = useRef<HTMLDivElement | null>(null);
   const limit = Math.max(0, contentWidth - viewWidth);
 
+  // Where the boxes were last put. A box reports the move it was given as a scroll of its own, a moment later.
+  const settled = useRef(0);
   const scrollTo = useCallback(
     (x: number): void => {
       const next = Math.max(0, Math.min(limit, x));
+      settled.current = next;
       for (const element of [body.current, header.current, bar.current]) {
         if (element && Math.abs(element.scrollLeft - next) > 0.5) element.scrollLeft = next;
       }
@@ -43,7 +46,14 @@ export function useTableScroll(contentWidth: number, viewWidth: number, pinnedWi
     scrollTo(body.current?.scrollLeft ?? 0);
   }, [scrollTo, viewWidth]);
 
-  const onScroll = useCallback((event: UIEvent<HTMLDivElement>): void => scrollTo(event.currentTarget.scrollLeft), [scrollTo]);
+  const onScroll = useCallback(
+    (event: UIEvent<HTMLDivElement>): void => {
+      const at = event.currentTarget.scrollLeft;
+      // A box following another must not pull the one that moved back to where it was a frame ago.
+      if (Math.abs(at - settled.current) > 0.5) scrollTo(at);
+    },
+    [scrollTo],
+  );
 
   const reveal = useCallback(
     (left: number, right: number): void => {

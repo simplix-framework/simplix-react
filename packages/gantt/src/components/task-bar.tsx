@@ -82,7 +82,14 @@ export function TaskBar({
             ? `${formatDate(at.start, language)} - ${formatDate(at.finish, language)}`
             : resources;
   // What a screen reader says for the bar: the picture has no text of its own.
-  const spoken = t("task.barLabel", { name: task.name, start: formatDate(at.start, language), finish: formatDate(at.finish, language), percent: at.percentComplete });
+  // It also says what the shape and the colour show: a milestone, a critical task.
+  const spoken = [
+    t("task.barLabel", { name: task.name, start: formatDate(at.start, language), finish: formatDate(at.finish, language), percent: at.percentComplete }),
+    at.milestone && t("task.milestone"),
+    critical && t("task.critical"),
+  ]
+    .filter(Boolean)
+    .join(", ");
   // A colour of the bar's own replaces the theme's on the border and the fills; the critical colour still wins.
   const tint = color && !critical ? { borderColor: color, backgroundColor: `color-mix(in srgb, ${color} 25%, transparent)` } : undefined;
   const fill = color && !critical ? { backgroundColor: color } : undefined;
@@ -121,6 +128,8 @@ export function TaskBar({
         {baselineBar}
         <div
           data-gantt-bar={task.id}
+          data-gantt-kind="summary"
+          data-gantt-selected={selected || undefined}
           role="img"
           aria-label={spoken}
           title={title}
@@ -147,11 +156,14 @@ export function TaskBar({
         {deadline}
         <div
           data-gantt-bar={task.id}
+          data-gantt-kind="milestone"
+          data-gantt-critical={critical || undefined}
+          data-gantt-selected={selected || undefined}
           role="img"
           aria-label={spoken}
           title={title}
           className={cn(
-            "group absolute cursor-grab touch-none",
+            "group absolute cursor-grab",
             dragging && "cursor-grabbing",
             task.inactive && "opacity-40",
           )}
@@ -160,6 +172,7 @@ export function TaskBar({
           onDoubleClick={open}
         >
           <div
+            data-gantt-slot="milestone"
             className={cn(
               "size-full rotate-45 rounded-[2px]",
               critical ? "bg-destructive" : "bg-foreground",
@@ -186,11 +199,14 @@ export function TaskBar({
       {deadline}
       <div
         data-gantt-bar={task.id}
+        data-gantt-kind="task"
+        data-gantt-critical={critical || undefined}
+        data-gantt-selected={selected || undefined}
         role="img"
         aria-label={spoken}
         title={title}
         className={cn(
-          "group absolute cursor-grab touch-none rounded-[3px] border",
+          "group absolute cursor-grab rounded-[3px] border",
           critical ? "border-destructive" : "border-primary",
           // A split task shows its pauses as the dashed, empty part of the bar.
           split ? "border-dashed bg-transparent" : critical ? "bg-destructive/25" : "bg-primary/25",

@@ -20,7 +20,7 @@ import type { ViewRow } from "../lib/view-rows";
 import type { DateMarker } from "../lib/markers";
 import { scaleCells } from "../lib/time-scale";
 import type { TimeScale, ZoomLevel } from "../lib/time-scale";
-import { useDrag } from "../lib/use-drag";
+import { TOUCH_HOLD, useDrag } from "../lib/use-drag";
 import { TaskBar } from "./task-bar";
 import type { BarGesture } from "./task-bar";
 import { TimelineLinks } from "./timeline-links";
@@ -179,7 +179,7 @@ export function TimelineBody({ scale, level, rows, window, rowHeight, fromX, toX
         }
       }
     },
-  });
+  }, { touchHold: TOUCH_HOLD });
 
   const shading = useMemo(() => {
     if (!projectTime || level.pxPerDay < SHADING_MIN_PX_PER_DAY) return [];
@@ -230,7 +230,7 @@ export function TimelineBody({ scale, level, rows, window, rowHeight, fromX, toX
       onPointerDown={() => store.getState().select([])}
     >
       {shading.map((span) => (
-        <div key={span.key} className="absolute top-0 h-full bg-muted/60" style={{ left: span.x, width: span.width }} />
+        <div key={span.key} className="absolute top-0 h-full bg-muted/60" style={{ left: span.x, width: span.width }} data-gantt-slot="non-working" />
       ))}
       {gridLines.map((cell) => (
         <div key={cell.from} className="absolute top-0 h-full border-l border-border/60" style={{ left: cell.x }} />
@@ -259,7 +259,7 @@ export function TimelineBody({ scale, level, rows, window, rowHeight, fromX, toX
             {marker.kind === "today" && scale.pxPerDay >= 5 && (
               <div className="absolute top-0 h-full bg-sky-500/10" style={{ left: scale.x(startOfDay(marker.at)), width: scale.pxPerDay }} />
             )}
-            <div className={cn("absolute top-0 h-full", MARKER_STYLE[marker.kind].line)} style={{ left: scale.x(marker.at) }} />
+            <div className={cn("absolute top-0 h-full", MARKER_STYLE[marker.kind].line)} style={{ left: scale.x(marker.at) }} data-gantt-slot="marker-line" />
           </div>
         );
       })}

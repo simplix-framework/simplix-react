@@ -247,7 +247,7 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
       ref={scrollRef}
       tabIndex={0}
       role="grid"
-      aria-rowcount={rows.length}
+      aria-rowcount={rows.length + 1}
       aria-colcount={columns.length + 1}
       className={
         printing

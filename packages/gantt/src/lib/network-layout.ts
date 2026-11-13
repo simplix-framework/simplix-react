@@ -1,5 +1,8 @@
 import type { Id, Project, Schedule, Task, TaskSchedule } from "@simplix-react/gantt-core";
 
+import { roundedPathData } from "./link-path";
+import type { PathPoint } from "./link-path";
+
 export const BOX_WIDTH = 184;
 export const BOX_HEIGHT = 60;
 const GAP_X = 56;
@@ -14,11 +17,16 @@ export interface NetworkNode {
   y: number;
 }
 
+/** Radius of the curve a line of the diagram takes a corner with. */
+const NETWORK_CORNER = 8;
+
 /** A dependency's line on the network diagram. */
 export interface NetworkEdge {
   id: Id;
   critical: boolean;
-  /** SVG path from the predecessor's right edge to the successor's left edge. */
+  /** The corners of the line, from the predecessor's right edge to the successor's left edge. */
+  points: PathPoint[];
+  /** The line as an SVG path, its corners curved. */
   d: string;
 }
 
@@ -100,11 +108,12 @@ export function layoutNetwork(project: Project, schedule: Schedule): NetworkLayo
     const y2 = to.y + BOX_HEIGHT / 2;
     const leave = x1 + GAP_X / 2;
     const enter = to.x - GAP_X / 2;
-    if ((column.get(link.successorId) ?? 0) - (column.get(link.predecessorId) ?? 0) <= 1) {
-      return [{ id: link.id, critical, d: `M${x1} ${y1} L${leave} ${y1} L${leave} ${y2} L${to.x} ${y2}` }];
-    }
     const lane = to.y - GAP_Y / 2;
-    return [{ id: link.id, critical, d: `M${x1} ${y1} L${leave} ${y1} L${leave} ${lane} L${enter} ${lane} L${enter} ${y2} L${to.x} ${y2}` }];
+    const points: PathPoint[] =
+      (column.get(link.successorId) ?? 0) - (column.get(link.predecessorId) ?? 0) <= 1
+        ? [{ x: x1, y: y1 }, { x: leave, y: y1 }, { x: leave, y: y2 }, { x: to.x, y: y2 }]
+        : [{ x: x1, y: y1 }, { x: leave, y: y1 }, { x: leave, y: lane }, { x: enter, y: lane }, { x: enter, y: y2 }, { x: to.x, y: y2 }];
+    return [{ id: link.id, critical, points, d: roundedPathData(points, NETWORK_CORNER) }];
   });
   return {
     nodes: leaves.map((task) => ({ task, at: schedule.tasks.get(task.id), ...place(task.id) })),

@@ -16,7 +16,8 @@ import { chromium } from "playwright-core";
 export const BASE = process.env.GANTT_STORYBOOK_URL ?? "http://localhost:6006";
 
 /** Everything the stories under test are built from: the two packages and the stories themselves. */
-const SOURCE_ROOTS = ["../src", "../../gantt-core/src", "../../../apps/storybook/src/stories/gantt"].map((path) => join(dirname(fileURLToPath(import.meta.url)), path));
+const HERE = dirname(fileURLToPath(import.meta.url));
+const SOURCE_ROOTS = ["../src", "../../gantt-core/src", "../../../apps/storybook/src/stories/gantt"].map((path) => join(HERE, path));
 
 async function sourceFiles(directory) {
   const found = [];
@@ -61,6 +62,9 @@ async function assertServedSource() {
   const fresh = await Promise.all(files.map(servedFromDisk));
   const stale = files.filter((_, i) => !fresh[i]);
   assert.equal(stale.length, 0, `Storybook serves an older copy of:\n${stale.join("\n")}\nRestart Storybook and run the checks again.`);
+  // The stylesheet reaches Storybook as the built copy, which only a build brings up to date.
+  const [written, built] = await Promise.all(["../src/styles.css", "../dist/styles.css"].map((path) => readFile(join(HERE, path), "utf8").catch(() => null)));
+  assert.equal(built, written, "dist/styles.css is not the stylesheet in src. Run `pnpm --filter @simplix-react/gantt build` and the checks again.");
 }
 
 /** @type {import("playwright-core").Browser} */

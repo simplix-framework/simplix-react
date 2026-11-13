@@ -64,3 +64,71 @@ export function routeLink(type: LinkType, from: BarBox, to: BarBox, stub: number
 export function pathData(points: readonly PathPoint[]): string {
   return points.map((point, i) => `${i === 0 ? "M" : "L"}${Math.round(point.x)} ${Math.round(point.y)}`).join(" ");
 }
+
+/** Radius of the curve a dependency line takes each of its corners with, in pixels. */
+export const CORNER_RADIUS = 5;
+
+/** A corner of a polyline cut back to a curve: where the line leaves its straight run, the corner itself, and where it is straight again. */
+interface Corner {
+  enter: PathPoint;
+  at: PathPoint;
+  leave: PathPoint;
+}
+
+/**
+ * The corners of a polyline, each cut back by up to `radius` along both of
+ * its runs. A run shorter than two radii is shared between its two corners,
+ * and a point the line passes straight through is not a corner.
+ */
+function corners(points: readonly PathPoint[], radius: number): (Corner | null)[] {
+  return points.map((at, i) => {
+    const before = points[i - 1];
+    const after = points[i + 1];
+    if (!before || !after) return null;
+    const inLength = Math.hypot(at.x - before.x, at.y - before.y);
+    const outLength = Math.hypot(after.x - at.x, after.y - at.y);
+    const cut = Math.min(radius, inLength / 2, outLength / 2);
+    const turns = (at.x - before.x) * (after.y - at.y) - (at.y - before.y) * (after.x - at.x) !== 0;
+    if (!turns || cut < 0.5) return null;
+    return {
+      enter: { x: at.x - ((at.x - before.x) / inLength) * cut, y: at.y - ((at.y - before.y) / inLength) * cut },
+      at,
+      leave: { x: at.x + ((after.x - at.x) / outLength) * cut, y: at.y + ((after.y - at.y) / outLength) * cut },
+    };
+  });
+}
+
+const rounded = (value: number): number => Math.round(value * 10) / 10;
+
+/** Writes a polyline as an SVG path whose corners are curves. */
+export function roundedPathData(points: readonly PathPoint[], radius: number = CORNER_RADIUS): string {
+  const turns = corners(points, radius);
+  return points
+    .map((point, i) => {
+      const corner = turns[i];
+      if (!corner) return `${i === 0 ? "M" : "L"}${rounded(point.x)} ${rounded(point.y)}`;
+      return `L${rounded(corner.enter.x)} ${rounded(corner.enter.y)} Q${rounded(corner.at.x)} ${rounded(corner.at.y)} ${rounded(corner.leave.x)} ${rounded(corner.leave.y)}`;
+    })
+    .join(" ");
+}
+
+/** The part of a canvas context a path is traced on. */
+export interface PathTracer {
+  moveTo(x: number, y: number): void;
+  lineTo(x: number, y: number): void;
+  quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void;
+}
+
+/** Traces a polyline on a canvas with the same curved corners as {@link roundedPathData}. */
+export function traceRoundedPath(tracer: PathTracer, points: readonly PathPoint[], radius: number = CORNER_RADIUS): void {
+  const turns = corners(points, radius);
+  points.forEach((point, i) => {
+    const corner = turns[i];
+    if (i === 0) tracer.moveTo(point.x, point.y);
+    else if (!corner) tracer.lineTo(point.x, point.y);
+    else {
+      tracer.lineTo(corner.enter.x, corner.enter.y);
+      tracer.quadraticCurveTo(corner.at.x, corner.at.y, corner.leave.x, corner.leave.y);
+    }
+  });
+}

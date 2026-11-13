@@ -1,27 +1,14 @@
-import {
-  addLink,
-  assignResource,
-  setCustomValue,
-  formatDuration,
-  parseDuration,
-  parseLocalDateTime,
-  removeAssignments,
-  removeLinks,
-  setPercentComplete,
-  updateAssignment,
-  updateLink,
-  updateTask,
-} from "@simplix-react/gantt-core";
-import type { ConstraintType, Id, Link, LinkType, Project, Task, TaskMode, TaskType, WorkContour } from "@simplix-react/gantt-core";
+import { parseLocalDateTime, setCustomValue, setPercentComplete, updateTask } from "@simplix-react/gantt-core";
+import type { ConstraintType, Task, TaskMode, TaskType } from "@simplix-react/gantt-core";
 import { Button, useFlatUIComponents } from "@simplix-react/ui";
-import { Trash2 } from "lucide-react";
 import type { ReactNode } from "react";
 
 import { useGantt, useGanttStore } from "../context/gantt-context";
 import { durationWords, formatDurationText, toCanonicalDuration } from "../lib/duration-text";
 import { toDateInputValue } from "../lib/format";
 import { useGanttTranslation } from "../lib/use-gantt-translation";
-import { Field, Toggle } from "./dialog-fields";
+import { Choice, Field, Toggle } from "./dialog-fields";
+import { TaskAssignments, TaskPredecessors } from "./task-dialog-lists";
 import { TaskSplits } from "./task-splits";
 
 const NONE = "__none";
@@ -36,14 +23,6 @@ const CONSTRAINTS: readonly ConstraintType[] = [
   "finish-no-later-than",
 ];
 const TASK_TYPES: readonly TaskType[] = ["fixed-units", "fixed-duration", "fixed-work"];
-const LINK_TYPES: readonly LinkType[] = ["FS", "SS", "FF", "SF"];
-const CONTOURS: readonly WorkContour[] = ["flat", "front-loaded", "back-loaded", "bell"];
-
-function lagText(link: Link, project: Project): string {
-  if (link.lagMode === "percent") return `${link.lag}%`;
-  return formatDuration({ minutes: link.lag, unit: link.lagUnit, elapsed: link.lagMode === "elapsed", estimated: false }, project);
-}
-
 /** The task information dialog: every field of one task, its predecessors and its resources. Each change is one undo step. */
 export function TaskDialog() {
   const { t } = useGanttTranslation();
@@ -63,33 +42,9 @@ export function TaskDialog() {
     apply(label, (p) => updateTask(p, task.id, change));
   };
   const dated = task.constraintType !== "asap" && task.constraintType !== "alap";
-  const incoming = project.links.filter((link) => link.successorId === task.id);
-  const assignments = project.assignments.filter((assignment) => assignment.taskId === task.id);
-  const linkable = project.tasks.filter(
-    (other) =>
-      other.id !== task.id &&
-      !project.links.some(
-        (link) =>
-          (link.predecessorId === other.id && link.successorId === task.id) ||
-          (link.predecessorId === task.id && link.successorId === other.id),
-      ),
-  );
-  const assignable = project.resources.filter((resource) => !assignments.some((a) => a.resourceId === resource.id));
-  const rowNumber = (id: Id): number => project.tasks.findIndex((other) => other.id === id) + 1;
 
   const select = (value: string, onChange: (value: string) => void, options: readonly { value: string; label: string }[], label: string): ReactNode => (
-    <ui.Select value={value} onValueChange={onChange}>
-      <ui.SelectTrigger aria-label={label} className="w-full">
-        <ui.SelectValue />
-      </ui.SelectTrigger>
-      <ui.SelectContent>
-        {options.map((option) => (
-          <ui.SelectItem key={option.value} value={option.value}>
-            {option.label}
-          </ui.SelectItem>
-        ))}
-      </ui.SelectContent>
-    </ui.Select>
+    <Choice value={value} onChange={onChange} options={options} label={label} />
   );
 
   return (
@@ -198,118 +153,11 @@ export function TaskDialog() {
           </ui.TabsContent>
 
           <ui.TabsContent value="predecessors" className="flex flex-col gap-2 overflow-x-auto pt-2">
-            {incoming.map((link) => (
-              <div key={link.id} className="grid min-w-max grid-cols-[1fr_11rem_6rem_auto] items-center gap-2">
-                <span className="truncate text-sm">
-                  {rowNumber(link.predecessorId)}. {project.tasks.find((other) => other.id === link.predecessorId)?.name}
-                </span>
-                {select(
-                  link.type,
-                  (value) => apply("set-link-type", (p) => updateLink(p, link.id, { type: value as LinkType })),
-                  LINK_TYPES.map((type) => ({ value: type, label: t(`linkType.${type}`) })),
-                  t("field.linkType"),
-                )}
-                <ui.Input
-                  key={lagText(link, project)}
-                  aria-label={t("field.lag")}
-                  defaultValue={lagText(link, project)}
-                  onBlur={(event) => {
-                    const text = event.target.value.trim();
-                    if (text === lagText(link, project)) return;
-                    apply("set-lag", (p) => {
-                      if (text.endsWith("%")) return updateLink(p, link.id, { lag: Number(text.slice(0, -1)), lagMode: "percent" });
-                      const lag = parseDuration(text === "" ? "0" : text, p, link.lagUnit);
-                      return updateLink(p, link.id, { lag: lag.minutes, lagMode: lag.elapsed ? "elapsed" : "working", lagUnit: lag.unit });
-                    });
-                  }}
-                />
-                <Button
-                  variant="ghost"
-                  size="icon-sm"
-                  aria-label={t("dialog.remove")}
-                  onClick={() => apply("remove-link", (p) => removeLinks(p, [link.id]))}
-                >
-                  <Trash2 />
-                </Button>
-              </div>
-            ))}
-            {linkable.length > 0 && (
-              <ui.Select value="" onValueChange={(value) => apply("link-tasks", (p) => addLink(p, { predecessorId: value, successorId: task.id }))}>
-                <ui.SelectTrigger aria-label={t("dialog.add")} className="w-full">
-                  <ui.SelectValue placeholder={t("dialog.add")} />
-                </ui.SelectTrigger>
-                <ui.SelectContent>
-                  {linkable.map((other) => (
-                    <ui.SelectItem key={other.id} value={other.id}>
-                      {rowNumber(other.id)}. {other.name}
-                    </ui.SelectItem>
-                  ))}
-                </ui.SelectContent>
-              </ui.Select>
-            )}
+            <TaskPredecessors task={task} />
           </ui.TabsContent>
 
           <ui.TabsContent value="resources" className="flex flex-col gap-2 overflow-x-auto pt-2">
-            {assignments.map((assignment) => (
-              <div key={assignment.id} className="grid min-w-max grid-cols-[1fr_5rem_6rem_9rem_auto] items-center gap-2" data-gantt-assignment={assignment.id}>
-                <span className="truncate text-sm">{project.resources.find((r) => r.id === assignment.resourceId)?.name}</span>
-                <ui.Input
-                  key={assignment.units}
-                  type="number"
-                  min={1}
-                  aria-label={t("field.units")}
-                  defaultValue={Math.round(assignment.units * 100)}
-                  onBlur={(event) => {
-                    const units = Number(event.target.value) / 100;
-                    if (units !== assignment.units) apply("set-units", (p) => updateAssignment(p, assignment.id, { units }));
-                  }}
-                />
-                <ui.Input
-                  key={`overtime:${assignment.overtimeWork ?? 0}`}
-                  type="number"
-                  min={0}
-                  step="0.5"
-                  aria-label={t("field.overtime")}
-                  title={t("field.overtime")}
-                  defaultValue={(assignment.overtimeWork ?? 0) / 60}
-                  onBlur={(event) => {
-                    const overtimeWork = Math.round(Number(event.target.value) * 60);
-                    if (overtimeWork !== (assignment.overtimeWork ?? 0)) {
-                      apply("set-overtime", (p) => updateAssignment(p, assignment.id, { overtimeWork }));
-                    }
-                  }}
-                />
-                {select(
-                  assignment.contour ?? "flat",
-                  (value) => apply("set-contour", (p) => updateAssignment(p, assignment.id, { contour: value as WorkContour })),
-                  CONTOURS.map((contour) => ({ value: contour, label: t(`contour.${contour}`) })),
-                  t("field.contour"),
-                )}
-                <Button
-                  variant="ghost"
-                  size="icon-sm"
-                  aria-label={t("dialog.remove")}
-                  onClick={() => apply("unassign", (p) => removeAssignments(p, [assignment.id]))}
-                >
-                  <Trash2 />
-                </Button>
-              </div>
-            ))}
-            {assignable.length > 0 && (
-              <ui.Select value="" onValueChange={(value) => apply("assign", (p) => assignResource(p, task.id, value))}>
-                <ui.SelectTrigger aria-label={t("dialog.add")} className="w-full">
-                  <ui.SelectValue placeholder={t("dialog.add")} />
-                </ui.SelectTrigger>
-                <ui.SelectContent>
-                  {assignable.map((resource) => (
-                    <ui.SelectItem key={resource.id} value={resource.id}>
-                      {resource.name}
-                    </ui.SelectItem>
-                  ))}
-                </ui.SelectContent>
-              </ui.Select>
-            )}
-            {assignments.length === 0 && assignable.length === 0 && <p className="text-sm text-muted-foreground">{t("resource.emptyHint")}</p>}
+            <TaskAssignments task={task} />
           </ui.TabsContent>
 
           <ui.TabsContent value="advanced" className="grid grid-cols-1 gap-x-4 gap-y-3 pt-2 sm:grid-cols-2">

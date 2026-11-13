@@ -3,7 +3,7 @@ import { useMemo } from "react";
 
 import { useGantt, useGanttStore } from "../context/gantt-context";
 import { cn } from "../lib/cn";
-import { pathData, routeLink } from "../lib/link-path";
+import { roundedPathData, routeLink } from "../lib/link-path";
 import type { BarBox, PathPoint } from "../lib/link-path";
 
 /** Length of the straight piece a link runs before it turns. */
@@ -65,7 +65,7 @@ export function TimelineLinks({ project, schedule, boxOf, fromY, toY, rowHeight,
           <g key={id} className={tone} data-gantt-link={id}>
             {/* A wide transparent stroke makes the thin line easy to hit. */}
             <path
-              d={pathData(route.points)}
+              d={roundedPathData(route.points)}
               fill="none"
               stroke="transparent"
               strokeWidth={10}
@@ -76,7 +76,7 @@ export function TimelineLinks({ project, schedule, boxOf, fromY, toY, rowHeight,
               }}
             />
             <path
-              d={pathData(route.points)}
+              d={roundedPathData(route.points)}
               fill="none"
               stroke="currentColor"
               strokeWidth={selected ? 2 : 1.25}

@@ -203,7 +203,14 @@ test("scrolls the table's columns under a finger, and the rows under a finger mo
       await session.send("Input.dispatchTouchEvent", { type: "touchMove", touchPoints: [{ x: from.x + ((to.x - from.x) * i) / 8, y: from.y + ((to.y - from.y) * i) / 8 }] });
     }
     await session.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
-    await page.waitForTimeout(600);
+    // The boxes coast on after the finger lifts: wait until they rest.
+    const at = () => page.evaluate(() => [document.querySelector('[data-gantt-slot="table-body"]').scrollLeft, document.querySelector('[data-gantt-slot="scroll"]').scrollTop].join());
+    for (let last = ""; ; ) {
+      await page.waitForTimeout(250);
+      const now = await at();
+      if (now === last) break;
+      last = now;
+    }
   };
   const table = await box(page, '[data-gantt-slot="table-body"]');
   const read = () =>
@@ -219,7 +226,8 @@ test("scrolls the table's columns under a finger, and the rows under a finger mo
   assert.equal(sideways.header, sideways.table, "the headings follow");
   assert.equal(sideways.bar, sideways.table, "and so does the bar");
   assert.equal(sideways.rows, 0);
-  await swipe({ x: table.x + 250, y: table.y + 300 }, { x: table.x + 250, y: table.y + 120 });
+  // The finger goes down on a row number: a press on a cell would bring that cell's column whole into view.
+  await swipe({ x: table.x + 15, y: table.y + 300 }, { x: table.x + 15, y: table.y + 120 });
   const down = await read();
   assert.ok(down.rows > 100, `a swipe upwards scrolled the rows by ${down.rows}px`);
   assert.equal(down.table, sideways.table);
