@@ -131,6 +131,7 @@ An edit the engine refuses (a dependency loop, a duration that is not one) leave
 - The PDF file holds each sheet as an image, so its text cannot be selected or searched. Printing through the browser scales a wide plan to one page width; the PDF export is what splits it across sheets.
 - Pasted spreadsheet rows carry a name and a duration. Dates, links and resources in further cells are not read.
 - Microsoft Project XML has no place for the pauses of split tasks, the colours of single tasks, the rule of a recurring task or custom fields beyond the number Microsoft Project offers per type. The chart says so before an export.
+- A custom field read from Microsoft Project XML has the id Microsoft Project gives it (`text1`, `number3`), so a `custom:<id>` column stored before an export and import has to be chosen again.
 - Whether the table or the timeline is shown alone is not part of the stored layout.
 - The PDF leaves out the headings of grouped rows and draws the tasks under them in the screen's order.
 - A subproject is inserted as a copy under a summary task. It is not kept in step with the file it came from, and its calendars, baselines and custom fields are not carried over.
