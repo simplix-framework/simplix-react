@@ -27,6 +27,24 @@ export function spanLength(task: Task): number {
   return length;
 }
 
+/** The stretches of work of a task placed at `span`, cut at its splits. */
+export function segmentsOf(task: Task, time: WorkingTime, span: Span): Span[] {
+  const splits = [...(task.splits ?? [])].filter((split) => split.gap > 0 && split.offset > 0 && split.offset < task.duration);
+  if (splits.length === 0) return [span];
+  splits.sort((a, b) => a.offset - b.offset);
+  const segments: Span[] = [];
+  let cursor = span.start;
+  let worked = 0;
+  for (const split of splits) {
+    const finish = time.add(cursor, split.offset - worked);
+    segments.push({ start: cursor, finish });
+    worked = split.offset;
+    cursor = time.snapForward(time.add(finish, split.gap));
+  }
+  segments.push({ start: cursor, finish: Math.max(cursor, span.finish) });
+  return segments;
+}
+
 /** Calendar a link's lag is counted on: the successor's, or the project's for an elapsed successor. */
 export function lagTime(net: Network, successor: number): WorkingTime {
   return net.tasks[successor].elapsed ? net.projectTime : net.clocks[successor].primary;
@@ -97,8 +115,14 @@ function rollUp(net: Network, index: number, dates: Dates): Span | null {
   return rows.length > 0 ? { start, finish } : null;
 }
 
-function placeForward(net: Network, index: number, anchor: Minutes, startBound: number, finishBound: number): Span {
-  const task = net.tasks[index];
+function placeForward(
+  net: Network,
+  index: number,
+  anchor: Minutes,
+  startBound: number,
+  finishBound: number,
+  task: Task = net.tasks[index],
+): Span {
   const clock = net.clocks[index];
   const honor = net.project.honorConstraints;
   const date = task.constraintDate as Minutes;
@@ -245,4 +269,38 @@ export function backwardPass(net: Network, anchor: Minutes, preset: Preset): Dat
     dates.finish[i] = span.finish;
   }
   return dates;
+}
+
+/**
+ * Places one row as early as the current dates of its predecessors allow,
+ * leaving every other row where it is. `task` stands in for the row's own
+ * task, so a caller can try a delay or a split without rebuilding the network.
+ * The dates of the rows the row depends on must be current.
+ */
+export function placeOne(net: Network, dates: Dates, index: number, anchor: Minutes, task: Task): Span {
+  const held = heldSpan(net, index);
+  if (held) return held;
+  let startBound = -Infinity;
+  let finishBound = -Infinity;
+  // A link into a summary task binds every task under it, so gather up the outline.
+  for (let at = index; at !== -1; at = net.outline.parent[at]) {
+    for (const link of net.incoming[at]) {
+      const p = net.outline.indexById.get(link.predecessorId) as number;
+      const bound = lagAfter(net, link, predecessorDate(link, dates, p), p, at);
+      if (endsAtStart(link)) startBound = Math.max(startBound, bound);
+      else finishBound = Math.max(finishBound, bound);
+    }
+  }
+  return placeForward(net, index, anchor, startBound, finishBound, task);
+}
+
+/** Takes a summary row's dates from the rows under it again, and so on up the outline. */
+export function rollUpAncestors(net: Network, dates: Dates, index: number): void {
+  for (let at = net.outline.parent[index]; at !== -1; at = net.outline.parent[at]) {
+    const span = rollUp(net, at, dates);
+    if (span) {
+      dates.start[at] = span.start;
+      dates.finish[at] = span.finish;
+    }
+  }
 }

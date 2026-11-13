@@ -2,7 +2,7 @@ import { nextId, taskIndex } from "./edit-tasks";
 import { ScheduleError } from "./errors";
 import { buildNetwork } from "./network";
 import { buildOutline, isAncestor } from "./outline";
-import type { Assignment, Id, Link, Project, Resource, Task, WorkCalendar } from "./types";
+import type { Assignment, Id, Link, Project, Resource, Task, WorkCalendar, WorkContour } from "./types";
 
 /**
  * Adds a dependency. Omitted fields default to finish-to-start with no lag.
@@ -98,7 +98,8 @@ function durationForWork(assignments: readonly Assignment[], fallback: number): 
   let any = false;
   for (const assignment of assignments) {
     if (assignment.units <= 0) continue;
-    duration = Math.max(duration, Math.round(assignment.work / assignment.units));
+    // Overtime is worked outside working time, so it takes no duration.
+    duration = Math.max(duration, Math.round((assignment.work - (assignment.overtimeWork ?? 0)) / assignment.units));
     any = true;
   }
   return any ? duration : fallback;
@@ -167,11 +168,19 @@ export function assignResource(project: Project, taskId: Id, resourceId: Id, uni
  * by the task's type: fixed units and fixed work move the duration, fixed
  * duration moves the other of units and work.
  */
-export function updateAssignment(project: Project, id: Id, patch: { units?: number; work?: number }): Project {
+export function updateAssignment(
+  project: Project,
+  id: Id,
+  patch: { units?: number; work?: number; overtimeWork?: number; contour?: WorkContour },
+): Project {
   const current = project.assignments.find((assignment) => assignment.id === id);
   if (!current) throw new ScheduleError("unknown-reference", `No assignment "${id}"`, [id]);
   const task = project.tasks[taskIndex(project, current.taskId)];
   let next: Assignment = { ...current, ...patch };
+  const overtime = next.overtimeWork ?? 0;
+  if (overtime < 0 || overtime > next.work || !Number.isFinite(overtime)) {
+    throw new ScheduleError("invalid-operation", "Overtime work must lie between zero and the assignment's work", [id]);
+  }
   if (next.units <= 0 || next.work < 0 || !Number.isFinite(next.units) || !Number.isFinite(next.work)) {
     throw new ScheduleError("invalid-operation", "Assignment units must be above zero and work cannot be negative", [id]);
   }

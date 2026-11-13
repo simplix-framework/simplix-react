@@ -8,7 +8,7 @@
 
 > **putCalendar**(`project`, `calendar`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-links.ts:223](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-links.ts#L223)
+Defined in: [packages/gantt-core/src/edit-links.ts:232](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-links.ts#L232)
 
 Adds a calendar, or replaces the one with the same id.
 

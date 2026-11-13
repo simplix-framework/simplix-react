@@ -6,7 +6,7 @@
 
 # Interface: Schedule
 
-Defined in: [packages/gantt-core/src/types.ts:279](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L279)
+Defined in: [packages/gantt-core/src/types.ts:298](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L298)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/gantt-core/src/types.ts:279](https://github.com/simplix-re
 
 > **conflicts**: readonly [`ScheduleConflict`](ScheduleConflict.md)[]
 
-Defined in: [packages/gantt-core/src/types.ts:284](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L284)
+Defined in: [packages/gantt-core/src/types.ts:303](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L303)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [packages/gantt-core/src/types.ts:284](https://github.com/simplix-re
 
 > **finish**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:281](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L281)
+Defined in: [packages/gantt-core/src/types.ts:300](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L300)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [packages/gantt-core/src/types.ts:281](https://github.com/simplix-re
 
 > **links**: `ReadonlyMap`\<`string`, [`LinkSchedule`](LinkSchedule.md)\>
 
-Defined in: [packages/gantt-core/src/types.ts:283](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L283)
+Defined in: [packages/gantt-core/src/types.ts:302](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L302)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [packages/gantt-core/src/types.ts:283](https://github.com/simplix-re
 
 > **start**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:280](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L280)
+Defined in: [packages/gantt-core/src/types.ts:299](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L299)
 
 ***
 
@@ -46,4 +46,4 @@ Defined in: [packages/gantt-core/src/types.ts:280](https://github.com/simplix-re
 
 > **tasks**: `ReadonlyMap`\<`string`, [`TaskSchedule`](TaskSchedule.md)\>
 
-Defined in: [packages/gantt-core/src/types.ts:282](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L282)
+Defined in: [packages/gantt-core/src/types.ts:301](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L301)

@@ -6,7 +6,7 @@
 
 # Interface: TaskSchedule
 
-Defined in: [packages/gantt-core/src/types.ts:240](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L240)
+Defined in: [packages/gantt-core/src/types.ts:259](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L259)
 
 Computed dates of one task.
 
@@ -16,7 +16,7 @@ Computed dates of one task.
 
 > **calendarId**: `string`
 
-Defined in: [packages/gantt-core/src/types.ts:267](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L267)
+Defined in: [packages/gantt-core/src/types.ts:286](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L286)
 
 Calendar the dates were computed on.
 
@@ -26,7 +26,7 @@ Calendar the dates were computed on.
 
 > **critical**: `boolean`
 
-Defined in: [packages/gantt-core/src/types.ts:263](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L263)
+Defined in: [packages/gantt-core/src/types.ts:282](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L282)
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: [packages/gantt-core/src/types.ts:263](https://github.com/simplix-re
 
 > **duration**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:254](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L254)
+Defined in: [packages/gantt-core/src/types.ts:273](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L273)
 
 Working minutes of work between start and finish, pauses left out; clock minutes for an elapsed task.
 
@@ -44,7 +44,7 @@ Working minutes of work between start and finish, pauses left out; clock minutes
 
 > **earlyFinish**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:256](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L256)
+Defined in: [packages/gantt-core/src/types.ts:275](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L275)
 
 ***
 
@@ -52,7 +52,7 @@ Defined in: [packages/gantt-core/src/types.ts:256](https://github.com/simplix-re
 
 > **earlyStart**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:255](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L255)
+Defined in: [packages/gantt-core/src/types.ts:274](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L274)
 
 ***
 
@@ -60,7 +60,7 @@ Defined in: [packages/gantt-core/src/types.ts:255](https://github.com/simplix-re
 
 > **finish**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:250](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L250)
+Defined in: [packages/gantt-core/src/types.ts:269](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L269)
 
 ***
 
@@ -68,7 +68,7 @@ Defined in: [packages/gantt-core/src/types.ts:250](https://github.com/simplix-re
 
 > **freeSlack**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:262](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L262)
+Defined in: [packages/gantt-core/src/types.ts:281](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L281)
 
 Working minutes the task can slip without moving any successor.
 
@@ -78,7 +78,7 @@ Working minutes the task can slip without moving any successor.
 
 > **id**: `string`
 
-Defined in: [packages/gantt-core/src/types.ts:241](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L241)
+Defined in: [packages/gantt-core/src/types.ts:260](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L260)
 
 ***
 
@@ -86,7 +86,7 @@ Defined in: [packages/gantt-core/src/types.ts:241](https://github.com/simplix-re
 
 > **index**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:243](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L243)
+Defined in: [packages/gantt-core/src/types.ts:262](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L262)
 
 Row position in `Project.tasks`.
 
@@ -96,7 +96,7 @@ Row position in `Project.tasks`.
 
 > **lateFinish**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:258](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L258)
+Defined in: [packages/gantt-core/src/types.ts:277](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L277)
 
 ***
 
@@ -104,7 +104,7 @@ Defined in: [packages/gantt-core/src/types.ts:258](https://github.com/simplix-re
 
 > **lateStart**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:257](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L257)
+Defined in: [packages/gantt-core/src/types.ts:276](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L276)
 
 ***
 
@@ -112,7 +112,7 @@ Defined in: [packages/gantt-core/src/types.ts:257](https://github.com/simplix-re
 
 > **milestone**: `boolean`
 
-Defined in: [packages/gantt-core/src/types.ts:248](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L248)
+Defined in: [packages/gantt-core/src/types.ts:267](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L267)
 
 ***
 
@@ -120,7 +120,7 @@ Defined in: [packages/gantt-core/src/types.ts:248](https://github.com/simplix-re
 
 > **parentId**: `string` \| `null`
 
-Defined in: [packages/gantt-core/src/types.ts:244](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L244)
+Defined in: [packages/gantt-core/src/types.ts:263](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L263)
 
 ***
 
@@ -128,7 +128,7 @@ Defined in: [packages/gantt-core/src/types.ts:244](https://github.com/simplix-re
 
 > **percentComplete**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:265](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L265)
+Defined in: [packages/gantt-core/src/types.ts:284](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L284)
 
 Own value for a task; duration-weighted over the tasks under a summary.
 
@@ -138,7 +138,7 @@ Own value for a task; duration-weighted over the tasks under a summary.
 
 > **segments**: readonly `object`[]
 
-Defined in: [packages/gantt-core/src/types.ts:252](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L252)
+Defined in: [packages/gantt-core/src/types.ts:271](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L271)
 
 The stretches the task works in: one, or one more than it has splits.
 
@@ -148,7 +148,7 @@ The stretches the task works in: one, or one more than it has splits.
 
 > **start**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:249](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L249)
+Defined in: [packages/gantt-core/src/types.ts:268](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L268)
 
 ***
 
@@ -156,7 +156,7 @@ Defined in: [packages/gantt-core/src/types.ts:249](https://github.com/simplix-re
 
 > **summary**: `boolean`
 
-Defined in: [packages/gantt-core/src/types.ts:247](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L247)
+Defined in: [packages/gantt-core/src/types.ts:266](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L266)
 
 ***
 
@@ -164,7 +164,7 @@ Defined in: [packages/gantt-core/src/types.ts:247](https://github.com/simplix-re
 
 > **totalSlack**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:260](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L260)
+Defined in: [packages/gantt-core/src/types.ts:279](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L279)
 
 Working minutes the task can slip without moving the project's end. Negative when a late date is already missed.
 
@@ -174,6 +174,6 @@ Working minutes the task can slip without moving the project's end. Negative whe
 
 > **wbs**: `string`
 
-Defined in: [packages/gantt-core/src/types.ts:246](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L246)
+Defined in: [packages/gantt-core/src/types.ts:265](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L265)
 
 Outline number, such as `1.2.3`.

@@ -14,6 +14,16 @@ a row with rows under it is a summary task whose dates come from them.
 
 ## Properties
 
+### actualCost?
+
+> `optional` **actualCost**: `number`
+
+Defined in: [packages/gantt-core/src/types.ts:112](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L112)
+
+What the task has cost so far. Earned value takes the earned amount when it is not recorded.
+
+***
+
 ### actualFinish?
 
 > `optional` **actualFinish**: `number`
@@ -60,7 +70,7 @@ Defined in: [packages/gantt-core/src/types.ts:87](https://github.com/simplix-rea
 
 > `optional` **custom**: `Readonly`\<`Record`\<`string`, [`CustomValue`](../type-aliases/CustomValue.md)\>\>
 
-Defined in: [packages/gantt-core/src/types.ts:112](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L112)
+Defined in: [packages/gantt-core/src/types.ts:114](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L114)
 
 Values of the plan's custom fields, by field id.
 

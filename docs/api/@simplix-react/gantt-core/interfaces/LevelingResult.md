@@ -6,7 +6,7 @@
 
 # Interface: LevelingResult
 
-Defined in: [packages/gantt-core/src/leveling.ts:15](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/leveling.ts#L15)
+Defined in: [packages/gantt-core/src/leveling.ts:16](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/leveling.ts#L16)
 
 Outcome of leveling: the delayed project and what could not be resolved.
 
@@ -16,7 +16,7 @@ Outcome of leveling: the delayed project and what could not be resolved.
 
 > **project**: [`Project`](Project.md)
 
-Defined in: [packages/gantt-core/src/leveling.ts:16](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/leveling.ts#L16)
+Defined in: [packages/gantt-core/src/leveling.ts:17](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/leveling.ts#L17)
 
 ***
 
@@ -24,6 +24,6 @@ Defined in: [packages/gantt-core/src/leveling.ts:16](https://github.com/simplix-
 
 > **unresolved**: [`Overallocation`](Overallocation.md)[]
 
-Defined in: [packages/gantt-core/src/leveling.ts:18](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/leveling.ts#L18)
+Defined in: [packages/gantt-core/src/leveling.ts:19](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/leveling.ts#L19)
 
 Overallocations left because no task in them may be delayed.

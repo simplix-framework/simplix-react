@@ -42,6 +42,7 @@ export type {
   TaskSplit,
   TaskType,
   WeekPattern,
+  WorkContour,
   WorkCalendar,
   WorkingRange,
 } from "./types";
@@ -94,6 +95,10 @@ export {
   splitTask,
 } from "./edit-extras";
 export type { Recurrence } from "./edit-extras";
+export { computeEarnedValue, rescheduleUncompletedWork } from "./progress";
+export type { EarnedValue } from "./progress";
+export { diffProjects } from "./diff";
+export type { ChangeEntity, ProjectChange } from "./diff";
 export { computeCosts } from "./costs";
 export type { TaskCost } from "./costs";
 export { baselineVariance, clearBaseline, setBaseline } from "./baseline";
@@ -101,7 +106,7 @@ export type { BaselineVariance } from "./baseline";
 export { findOverallocations, resourceUsage } from "./resources";
 export type { Overallocation, ResourceUsage } from "./resources";
 export { clearLeveling, levelResources } from "./leveling";
-export type { LevelingResult } from "./leveling";
+export type { LevelingOptions, LevelingResult } from "./leveling";
 export { commit, createHistory, redo, redoLabel, undo, undoLabel } from "./history";
 export type { History, HistoryEntry } from "./history";
 export { formatMspdiDuration, parseMspdiDuration, readMspdi, writeMspdi } from "./mspdi";

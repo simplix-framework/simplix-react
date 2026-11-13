@@ -6,7 +6,7 @@
 
 # Interface: ScheduleConflict
 
-Defined in: [packages/gantt-core/src/types.ts:233](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L233)
+Defined in: [packages/gantt-core/src/types.ts:252](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L252)
 
 A rule the computed dates break. The plan is still scheduled.
 
@@ -16,7 +16,7 @@ A rule the computed dates break. The plan is still scheduled.
 
 > **kind**: [`ConflictKind`](../type-aliases/ConflictKind.md)
 
-Defined in: [packages/gantt-core/src/types.ts:234](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L234)
+Defined in: [packages/gantt-core/src/types.ts:253](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L253)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/gantt-core/src/types.ts:234](https://github.com/simplix-re
 
 > `optional` **linkId**: `string`
 
-Defined in: [packages/gantt-core/src/types.ts:236](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L236)
+Defined in: [packages/gantt-core/src/types.ts:255](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L255)
 
 ***
 
@@ -32,4 +32,4 @@ Defined in: [packages/gantt-core/src/types.ts:236](https://github.com/simplix-re
 
 > **taskId**: `string`
 
-Defined in: [packages/gantt-core/src/types.ts:235](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L235)
+Defined in: [packages/gantt-core/src/types.ts:254](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L254)

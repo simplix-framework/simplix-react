@@ -50,7 +50,12 @@ function resourceContext(project: Project, schedule: Schedule): ResourceContext 
     if (!list || index === undefined || !outline.active[index] || outline.summary[index]) continue;
     const scheduled = schedule.tasks.get(assignment.taskId);
     if (!scheduled || scheduled.finish <= scheduled.start) continue;
-    list.push({ assignment, task: project.tasks[index], index, start: scheduled.start, finish: scheduled.finish });
+    // A split task books its resource only while it works, not through its pauses.
+    for (const segment of scheduled.segments) {
+      if (segment.finish > segment.start) {
+        list.push({ assignment, task: project.tasks[index], index, start: segment.start, finish: segment.finish });
+      }
+    }
   }
   return { projectTime, calendars, bookings };
 }
@@ -83,7 +88,7 @@ export function findOverallocations(project: Project, schedule: Schedule): Overa
         open = null;
         continue;
       }
-      const taskIds = inside.sort((a, b) => a.index - b.index).map((booking) => booking.task.id);
+      const taskIds = [...new Set(inside.sort((a, b) => a.index - b.index).map((booking) => booking.task.id))];
       if (open && open.to === from && open.taskIds.join("\n") === taskIds.join("\n")) {
         open.to = to;
         continue;
@@ -93,6 +98,24 @@ export function findOverallocations(project: Project, schedule: Schedule): Overa
     }
   }
   return result;
+}
+
+/**
+ * How much of an evenly spread share a moment of the task carries under a
+ * contour. Each weight averages one over the task, so the total work stays
+ * close to the assignment's work.
+ */
+function contourWeight(contour: Assignment["contour"], position: number): number {
+  switch (contour) {
+    case "front-loaded":
+      return 2 * (1 - position);
+    case "back-loaded":
+      return 2 * position;
+    case "bell":
+      return 6 * position * (1 - position);
+    default:
+      return 1;
+  }
 }
 
 /** Work and capacity of one resource for a run of days, in minutes. */
@@ -128,7 +151,12 @@ export function resourceUsage(project: Project, schedule: Schedule, fromDay: num
         const to = Math.min(dayEnd, booking.finish);
         if (to <= from) continue;
         const counted = booking.task.elapsed ? ELAPSED_TIME : time;
-        work[d] += counted.workBetween(from, to) * booking.assignment.units;
+        const minutes = counted.workBetween(from, to) * booking.assignment.units;
+        // A contour reweights the day by where it lies in the task, from 0 at the start to 1 at the finish.
+        const whole = schedule.tasks.get(booking.task.id);
+        const length = whole ? whole.finish - whole.start : 0;
+        const position = whole && length > 0 ? ((from + to) / 2 - whole.start) / length : 0.5;
+        work[d] += minutes * contourWeight(booking.assignment.contour, position);
       }
     }
     result.set(resource.id, { resourceId: resource.id, work, capacity });

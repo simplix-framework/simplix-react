@@ -6,7 +6,7 @@
 
 # Interface: Project
 
-Defined in: [packages/gantt-core/src/types.ts:189](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L189)
+Defined in: [packages/gantt-core/src/types.ts:206](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L206)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/gantt-core/src/types.ts:189](https://github.com/simplix-re
 
 > **assignments**: readonly [`Assignment`](Assignment.md)[]
 
-Defined in: [packages/gantt-core/src/types.ts:218](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L218)
+Defined in: [packages/gantt-core/src/types.ts:235](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L235)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [packages/gantt-core/src/types.ts:218](https://github.com/simplix-re
 
 > **baselines**: `Readonly`\<`Record`\<`number`, [`Baseline`](../type-aliases/Baseline.md)\>\>
 
-Defined in: [packages/gantt-core/src/types.ts:220](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L220)
+Defined in: [packages/gantt-core/src/types.ts:237](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L237)
 
 Saved baselines by number, 0 to 10.
 
@@ -32,7 +32,7 @@ Saved baselines by number, 0 to 10.
 
 > **calendarId**: `string`
 
-Defined in: [packages/gantt-core/src/types.ts:198](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L198)
+Defined in: [packages/gantt-core/src/types.ts:215](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L215)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [packages/gantt-core/src/types.ts:198](https://github.com/simplix-re
 
 > **calendars**: readonly [`WorkCalendar`](WorkCalendar.md)[]
 
-Defined in: [packages/gantt-core/src/types.ts:214](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L214)
+Defined in: [packages/gantt-core/src/types.ts:231](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L231)
 
 ***
 
@@ -48,9 +48,19 @@ Defined in: [packages/gantt-core/src/types.ts:214](https://github.com/simplix-re
 
 > **criticalSlackLimit**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:207](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L207)
+Defined in: [packages/gantt-core/src/types.ts:224](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L224)
 
 A task with total slack at or under this many working minutes is critical.
+
+***
+
+### currencyCode?
+
+> `optional` **currencyCode**: `string`
+
+Defined in: [packages/gantt-core/src/types.ts:241](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L241)
+
+ISO 4217 code of the currency costs are in, such as `KRW`. Costs show as plain numbers without one.
 
 ***
 
@@ -58,7 +68,7 @@ A task with total slack at or under this many working minutes is critical.
 
 > `optional` **customFields**: readonly [`CustomField`](CustomField.md)[]
 
-Defined in: [packages/gantt-core/src/types.ts:222](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L222)
+Defined in: [packages/gantt-core/src/types.ts:239](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L239)
 
 Fields the plan adds to its tasks.
 
@@ -68,7 +78,7 @@ Fields the plan adds to its tasks.
 
 > **daysPerMonth**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:202](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L202)
+Defined in: [packages/gantt-core/src/types.ts:219](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L219)
 
 ***
 
@@ -76,7 +86,7 @@ Defined in: [packages/gantt-core/src/types.ts:202](https://github.com/simplix-re
 
 > **defaultFinishTime**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:205](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L205)
+Defined in: [packages/gantt-core/src/types.ts:222](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L222)
 
 ***
 
@@ -84,7 +94,7 @@ Defined in: [packages/gantt-core/src/types.ts:205](https://github.com/simplix-re
 
 > **defaultStartTime**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:204](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L204)
+Defined in: [packages/gantt-core/src/types.ts:221](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L221)
 
 Minutes after midnight a date typed without a time starts and ends at.
 
@@ -94,7 +104,7 @@ Minutes after midnight a date typed without a time starts and ends at.
 
 > `optional` **finish**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:195](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L195)
+Defined in: [packages/gantt-core/src/types.ts:212](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L212)
 
 Required when `scheduleFrom` is `finish`.
 
@@ -104,7 +114,7 @@ Required when `scheduleFrom` is `finish`.
 
 > **honorConstraints**: `boolean`
 
-Defined in: [packages/gantt-core/src/types.ts:213](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L213)
+Defined in: [packages/gantt-core/src/types.ts:230](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L230)
 
 When true a must-start-on, must-finish-on, start-no-later-than or
 finish-no-later-than date wins over a link that needs a later date, and
@@ -116,7 +126,7 @@ the link is reported as violated. When false the link wins.
 
 > **links**: readonly [`Link`](Link.md)[]
 
-Defined in: [packages/gantt-core/src/types.ts:216](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L216)
+Defined in: [packages/gantt-core/src/types.ts:233](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L233)
 
 ***
 
@@ -124,7 +134,7 @@ Defined in: [packages/gantt-core/src/types.ts:216](https://github.com/simplix-re
 
 > **minutesPerDay**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:200](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L200)
+Defined in: [packages/gantt-core/src/types.ts:217](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L217)
 
 Working minutes a duration of one day, one week and one month stand for.
 
@@ -134,7 +144,7 @@ Working minutes a duration of one day, one week and one month stand for.
 
 > **minutesPerWeek**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:201](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L201)
+Defined in: [packages/gantt-core/src/types.ts:218](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L218)
 
 ***
 
@@ -142,7 +152,7 @@ Defined in: [packages/gantt-core/src/types.ts:201](https://github.com/simplix-re
 
 > **name**: `string`
 
-Defined in: [packages/gantt-core/src/types.ts:190](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L190)
+Defined in: [packages/gantt-core/src/types.ts:207](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L207)
 
 ***
 
@@ -150,7 +160,7 @@ Defined in: [packages/gantt-core/src/types.ts:190](https://github.com/simplix-re
 
 > **resources**: readonly [`Resource`](Resource.md)[]
 
-Defined in: [packages/gantt-core/src/types.ts:217](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L217)
+Defined in: [packages/gantt-core/src/types.ts:234](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L234)
 
 ***
 
@@ -158,7 +168,7 @@ Defined in: [packages/gantt-core/src/types.ts:217](https://github.com/simplix-re
 
 > **scheduleFrom**: `"start"` \| `"finish"`
 
-Defined in: [packages/gantt-core/src/types.ts:192](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L192)
+Defined in: [packages/gantt-core/src/types.ts:209](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L209)
 
 Schedules forward from `start`, or backward from `finish`.
 
@@ -168,7 +178,7 @@ Schedules forward from `start`, or backward from `finish`.
 
 > **start**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:193](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L193)
+Defined in: [packages/gantt-core/src/types.ts:210](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L210)
 
 ***
 
@@ -176,7 +186,7 @@ Defined in: [packages/gantt-core/src/types.ts:193](https://github.com/simplix-re
 
 > `optional` **statusDate**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:197](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L197)
+Defined in: [packages/gantt-core/src/types.ts:214](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L214)
 
 Progress is reported as of this instant.
 
@@ -186,4 +196,4 @@ Progress is reported as of this instant.
 
 > **tasks**: readonly [`Task`](Task.md)[]
 
-Defined in: [packages/gantt-core/src/types.ts:215](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L215)
+Defined in: [packages/gantt-core/src/types.ts:232](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L232)

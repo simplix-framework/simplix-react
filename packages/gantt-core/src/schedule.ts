@@ -1,10 +1,9 @@
 import { buildNetwork } from "./network";
 import type { Network, Span } from "./network";
-import { backwardPass, forwardPass, heldSpan, lagAfter, lagTime, predecessorDate, spanLength, successorDate } from "./passes";
+import { backwardPass, forwardPass, heldSpan, lagAfter, lagTime, predecessorDate, segmentsOf, spanLength, successorDate } from "./passes";
 import type { Dates, Preset } from "./passes";
 import type { Minutes } from "./time";
-import type { WorkingTime } from "./calendar";
-import type { Id, LinkSchedule, Project, Schedule, ScheduleConflict, Task, TaskSchedule } from "./types";
+import type { Id, LinkSchedule, Project, Schedule, ScheduleConflict, TaskSchedule } from "./types";
 
 function spanOf(dates: Dates, index: number): Span {
   return { start: dates.start[index], finish: dates.finish[index] };
@@ -91,24 +90,6 @@ function constraintBroken(net: Network, index: number, span: Span): boolean {
     default:
       return false;
   }
-}
-
-/** The stretches of work of a task placed at `span`, cut at its splits. */
-function segmentsOf(task: Task, time: WorkingTime, span: Span): Span[] {
-  const splits = [...(task.splits ?? [])].filter((split) => split.gap > 0 && split.offset > 0 && split.offset < task.duration);
-  if (splits.length === 0) return [span];
-  splits.sort((a, b) => a.offset - b.offset);
-  const segments: Span[] = [];
-  let cursor = span.start;
-  let worked = 0;
-  for (const split of splits) {
-    const finish = time.add(cursor, split.offset - worked);
-    segments.push({ start: cursor, finish });
-    worked = split.offset;
-    cursor = time.snapForward(time.add(finish, split.gap));
-  }
-  segments.push({ start: cursor, finish: Math.max(cursor, span.finish) });
-  return segments;
 }
 
 function summaryProgress(net: Network, index: number): number {

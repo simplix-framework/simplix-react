@@ -196,6 +196,38 @@ describe("resources", () => {
     expect(clearLeveling(leveled.project)).toEqual(p);
   });
 
+  it("keeps within slack when asked, and pauses a task that has begun instead of moving all of it", () => {
+    // a (4d) and c (1d, after x) share r1: c lands in the middle of a.
+    let p = project([task("a", 4), task("x", 1), task("c", 1), task("end", 1)], [link("x", "c"), link("a", "end"), link("c", "end")]);
+    p = addResource(p, { id: "r1", name: "Kim" });
+    p = assignResource(assignResource(p, "a", "r1"), "c", "r1");
+    const plain = computeSchedule(levelResources(p).project);
+    expect(span(plain, "a")).toBe("10-17 08:00 > 10-22 17:00");
+    expect(span(plain, "c")).toBe("10-23 08:00 > 10-23 17:00");
+    expect(span(plain, "end")).toBe("10-24 08:00 > 10-24 17:00");
+
+    const held = levelResources(p, { withinSlack: true });
+    expect(held.unresolved).toHaveLength(1);
+    expect(computeSchedule(held.project).finish).toBe(computeSchedule(p).finish);
+
+    // A more urgent c fixed on Monday is placed first, and a pauses around it.
+    const urgent = {
+      ...p,
+      links: p.links.filter((l) => l.id !== "x>c"),
+      tasks: p.tasks.map((t) =>
+        t.id === "c" ? { ...t, priority: 900, constraintType: "start-no-earlier-than" as const, constraintDate: at("2014-10-20T08:00") } : t,
+      ),
+    };
+    const split = levelResources(urgent, { split: true });
+    expect(split.unresolved).toEqual([]);
+    expect(split.project.tasks[0].splits).toEqual([{ offset: DAY, gap: DAY, leveled: true }]);
+    const s = computeSchedule(split.project);
+    expect(span(s, "c")).toBe("10-20 08:00 > 10-20 17:00");
+    expect(span(s, "a")).toBe("10-17 08:00 > 10-23 17:00");
+    expect(s.tasks.get("a")?.segments).toHaveLength(2);
+    expect(clearLeveling(split.project)).toEqual(urgent);
+  });
+
   it("leaves an overallocation it may not resolve", () => {
     let p = assignResource(staffed({ priority: 1000 }), "b", "r1");
     p = { ...p, tasks: p.tasks.map((t) => ({ ...t, priority: 1000 })) };

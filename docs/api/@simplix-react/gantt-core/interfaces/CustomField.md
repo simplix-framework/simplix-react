@@ -6,7 +6,7 @@
 
 # Interface: CustomField
 
-Defined in: [packages/gantt-core/src/types.ts:125](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L125)
+Defined in: [packages/gantt-core/src/types.ts:129](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L129)
 
 A field a plan adds to its tasks.
 
@@ -16,7 +16,7 @@ A field a plan adds to its tasks.
 
 > **id**: `string`
 
-Defined in: [packages/gantt-core/src/types.ts:126](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L126)
+Defined in: [packages/gantt-core/src/types.ts:130](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L130)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/gantt-core/src/types.ts:126](https://github.com/simplix-re
 
 > **name**: `string`
 
-Defined in: [packages/gantt-core/src/types.ts:127](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L127)
+Defined in: [packages/gantt-core/src/types.ts:131](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L131)
 
 ***
 
@@ -32,4 +32,4 @@ Defined in: [packages/gantt-core/src/types.ts:127](https://github.com/simplix-re
 
 > **type**: [`CustomFieldType`](../type-aliases/CustomFieldType.md)
 
-Defined in: [packages/gantt-core/src/types.ts:128](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L128)
+Defined in: [packages/gantt-core/src/types.ts:132](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L132)

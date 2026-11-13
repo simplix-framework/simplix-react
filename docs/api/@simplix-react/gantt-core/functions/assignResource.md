@@ -8,7 +8,7 @@
 
 > **assignResource**(`project`, `taskId`, `resourceId`, `units?`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-links.ts:124](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-links.ts#L124)
+Defined in: [packages/gantt-core/src/edit-links.ts:125](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-links.ts#L125)
 
 Assigns a resource to a task at `units` (1 is full time).
 

@@ -8,7 +8,7 @@
 
 > **computeSchedule**(`project`): [`Schedule`](../interfaces/Schedule.md)
 
-Defined in: [packages/gantt-core/src/schedule.ts:150](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/schedule.ts#L150)
+Defined in: [packages/gantt-core/src/schedule.ts:131](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/schedule.ts#L131)
 
 Computes the dates, slack, critical path and conflicts of a project.
 

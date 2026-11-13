@@ -9,6 +9,11 @@
       "source": "./src/index.ts",
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
+    },
+    "./mspdi": {
+      "source": "./src/mspdi/index.ts",
+      "types": "./dist/mspdi.d.ts",
+      "import": "./dist/mspdi.js"
     }
   },
   "main": "./dist/index.js",

@@ -8,7 +8,7 @@
 
 > **resourceUsage**(`project`, `schedule`, `fromDay`, `toDay`): `Map`\<`string`, [`ResourceUsage`](../interfaces/ResourceUsage.md)\>
 
-Defined in: [packages/gantt-core/src/resources.ts:112](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/resources.ts#L112)
+Defined in: [packages/gantt-core/src/resources.ts:135](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/resources.ts#L135)
 
 Totals the booked work of every work resource for each day of an inclusive
 range of day indexes. An assignment counts its units against the working

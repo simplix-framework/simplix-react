@@ -8,6 +8,6 @@
 
 > **Baseline** = `Readonly`\<`Record`\<[`Id`](Id.md), [`BaselineEntry`](../interfaces/BaselineEntry.md)\>\>
 
-Defined in: [packages/gantt-core/src/types.ts:187](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L187)
+Defined in: [packages/gantt-core/src/types.ts:204](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L204)
 
 Saved dates of every task, by task id.

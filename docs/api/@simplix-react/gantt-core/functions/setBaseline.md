@@ -8,7 +8,7 @@
 
 > **setBaseline**(`project`, `schedule`, `number?`, `taskIds?`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/baseline.ts:17](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/baseline.ts#L17)
+Defined in: [packages/gantt-core/src/baseline.ts:18](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/baseline.ts#L18)
 
 Saves the scheduled dates as a baseline. With `taskIds` only those tasks
 are saved and the other entries of the baseline stay.

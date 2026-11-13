@@ -8,6 +8,6 @@
 
 > **CustomFieldType** = `"text"` \| `"number"` \| `"date"` \| `"flag"`
 
-Defined in: [packages/gantt-core/src/types.ts:122](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L122)
+Defined in: [packages/gantt-core/src/types.ts:126](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L126)
 
 What a custom field holds.

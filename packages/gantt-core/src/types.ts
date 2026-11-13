@@ -108,6 +108,8 @@ export interface Task {
   splits?: readonly TaskSplit[];
   /** A cost of the task itself, on top of what its resources cost. */
   fixedCost?: number;
+  /** What the task has cost so far. Earned value takes the earned amount when it is not recorded. */
+  actualCost?: number;
   /** Values of the plan's custom fields, by field id. */
   custom?: Readonly<Record<Id, CustomValue>>;
 }
@@ -116,6 +118,8 @@ export interface Task {
 export interface TaskSplit {
   offset: number;
   gap: number;
+  /** True for a pause resource leveling added; clearing the leveling removes it. */
+  leveled?: boolean;
 }
 
 /** What a custom field holds. */
@@ -164,7 +168,14 @@ export interface Resource {
   standardRate?: number;
   /** Cost added once for every task the resource is assigned to. */
   costPerUse?: number;
+  /** Cost of one hour of overtime. The standard rate applies when it is not set. */
+  overtimeRate?: number;
+  /** Standard rates that take effect from a date on, in any order. A task is costed at the rate in effect when it starts. */
+  rates?: readonly { from: Minutes; standardRate: number }[];
 }
+
+/** How an assignment's work is spread over the task: evenly, or weighted toward the start, the end or the middle. */
+export type WorkContour = "flat" | "front-loaded" | "back-loaded" | "bell";
 
 export interface Assignment {
   id: Id;
@@ -174,6 +185,10 @@ export interface Assignment {
   units: number;
   /** Working minutes the resource spends on the task. */
   work: number;
+  /** Minutes of the work done outside working time: they cost the overtime rate and take no duration. */
+  overtimeWork?: number;
+  /** How the work is spread over the task in the usage figures. Flat when not set. */
+  contour?: WorkContour;
 }
 
 /** The dates a task had when a baseline was saved. */
@@ -181,6 +196,8 @@ export interface BaselineEntry {
   start: Minutes;
   finish: Minutes;
   duration: number;
+  /** The task's cost when the baseline was saved: its budget. */
+  cost?: number;
 }
 
 /** Saved dates of every task, by task id. */
@@ -220,6 +237,8 @@ export interface Project {
   baselines: Readonly<Record<number, Baseline>>;
   /** Fields the plan adds to its tasks. */
   customFields?: readonly CustomField[];
+  /** ISO 4217 code of the currency costs are in, such as `KRW`. Costs show as plain numbers without one. */
+  currencyCode?: string;
 }
 
 export type ConflictKind =

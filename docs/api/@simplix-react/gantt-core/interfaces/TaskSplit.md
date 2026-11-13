@@ -6,7 +6,7 @@
 
 # Interface: TaskSplit
 
-Defined in: [packages/gantt-core/src/types.ts:116](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L116)
+Defined in: [packages/gantt-core/src/types.ts:118](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L118)
 
 A pause inside a task: after `offset` working minutes of work, work stops for `gap` working minutes.
 
@@ -16,7 +16,17 @@ A pause inside a task: after `offset` working minutes of work, work stops for `g
 
 > **gap**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:118](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L118)
+Defined in: [packages/gantt-core/src/types.ts:120](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L120)
+
+***
+
+### leveled?
+
+> `optional` **leveled**: `boolean`
+
+Defined in: [packages/gantt-core/src/types.ts:122](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L122)
+
+True for a pause resource leveling added; clearing the leveling removes it.
 
 ***
 
@@ -24,4 +34,4 @@ Defined in: [packages/gantt-core/src/types.ts:118](https://github.com/simplix-re
 
 > **offset**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:117](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L117)
+Defined in: [packages/gantt-core/src/types.ts:119](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L119)

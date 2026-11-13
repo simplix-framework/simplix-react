@@ -120,6 +120,8 @@ The sample files come from the MPXJ project (LGPL-2.1) and are not part of this 
 | Recurring tasks | `addRecurringTask`, `recurrenceDays` |
 | Custom fields | `addCustomField`, `renameCustomField`, `removeCustomField`, `setCustomValue` |
 | Costs | `computeCosts` |
+| Progress | `rescheduleUncompletedWork`, `computeEarnedValue` |
+| Changes | `diffProjects` |
 | Resource load | `findOverallocations`, `resourceUsage`, `levelResources`, `clearLeveling` |
 | Text entry | `parseDuration`, `formatDuration`, `parsePredecessors`, `formatPredecessors` |
 | Undo | `createHistory`, `commit`, `undo`, `redo` |
@@ -130,16 +132,27 @@ Assignments follow the task type: on a fixed-units task a change of work moves t
 
 `addRecurringTask` adds a summary task with one task per occurrence of a daily, weekly or monthly recurrence, each held to its day by a start-no-earlier-than constraint.
 
-`levelResources` delays tasks until no work resource is booked beyond its maximum units. It places tasks one at a time in dependency order, higher priority first, and only delays an automatic as-soon-as-possible task that has not started and whose priority is under 1000. It returns what it could not resolve.
+`levelResources` delays tasks until no work resource is booked beyond its maximum units. It places tasks one at a time in dependency order, higher priority first, and only moves an automatic as-soon-as-possible task that has not started and whose priority is under 1000. `withinSlack` keeps every delay inside the task's total slack, so the project's finish does not move; `split` pauses a task where a conflict begins instead of moving all of it. It returns what it could not resolve. A plan of 400 tasks with 200 assignments levels in about 15 ms.
+
+`rescheduleUncompletedWork` moves work that has not been done to after the status date: a task that has not started gets a start-no-earlier-than constraint there, and a task in progress pauses where its completed work ends.
+
+`computeEarnedValue` measures a plan against a baseline as of the status date: planned value, earned value, actual cost, the schedule and cost variances and the two performance indexes, per task, per summary task and for the project. A baseline saves each task's cost as its budget.
+
+`diffProjects` lists what differs between two versions of a plan record by record (added, updated and removed tasks, links, resources, assignments, calendars and custom fields, the row order, plan settings and baselines), which is what a server needs to store an edit without rewriting the plan.
+
+A resource can carry an overtime rate and standard rates that take effect from a date; an assignment can carry overtime work, which costs the overtime rate and takes no duration, and a work contour, which weights its daily work toward the start, the end or the middle in `resourceUsage`.
 
 ## Microsoft Project XML
 
 ```ts
-import { computeSchedule, readMspdi, writeMspdi } from "@simplix-react/gantt-core";
+import { computeSchedule } from "@simplix-react/gantt-core";
+import { readMspdi, writeMspdi } from "@simplix-react/gantt-core/mspdi";
 
 const { project, warnings } = readMspdi(xmlText);
 const xml = writeMspdi(project, computeSchedule(project));
 ```
+
+The exchange code is also exported from the package root; importing it from `@simplix-react/gantt-core/mspdi` keeps it out of a bundle that loads it on demand.
 
 `readMspdi` returns the plan and a list of warnings for data it did not carry over. `writeMspdi` writes the plan with the computed dates, slack and outline numbers, in the element order of the files Microsoft Project saves.
 
@@ -167,8 +180,10 @@ MIT
 - [CivilDateTime](interfaces/CivilDateTime.md)
 - [CustomField](interfaces/CustomField.md)
 - [DurationValue](interfaces/DurationValue.md)
+- [EarnedValue](interfaces/EarnedValue.md)
 - [History](interfaces/History.md)
 - [HistoryEntry](interfaces/HistoryEntry.md)
+- [LevelingOptions](interfaces/LevelingOptions.md)
 - [LevelingResult](interfaces/LevelingResult.md)
 - [Link](interfaces/Link.md)
 - [LinkSchedule](interfaces/LinkSchedule.md)
@@ -195,6 +210,7 @@ MIT
 ## Type Aliases
 
 - [Baseline](type-aliases/Baseline.md)
+- [ChangeEntity](type-aliases/ChangeEntity.md)
 - [ConflictKind](type-aliases/ConflictKind.md)
 - [ConstraintType](type-aliases/ConstraintType.md)
 - [CustomFieldType](type-aliases/CustomFieldType.md)
@@ -205,6 +221,7 @@ MIT
 - [LinkType](type-aliases/LinkType.md)
 - [Minutes](type-aliases/Minutes.md)
 - [MspdiWarningCode](type-aliases/MspdiWarningCode.md)
+- [ProjectChange](type-aliases/ProjectChange.md)
 - [ProjectSettings](type-aliases/ProjectSettings.md)
 - [ResourceType](type-aliases/ResourceType.md)
 - [ScheduleErrorCode](type-aliases/ScheduleErrorCode.md)
@@ -212,6 +229,7 @@ MIT
 - [TaskType](type-aliases/TaskType.md)
 - [UnitSizes](type-aliases/UnitSizes.md)
 - [WeekPattern](type-aliases/WeekPattern.md)
+- [WorkContour](type-aliases/WorkContour.md)
 
 ## Variables
 
@@ -234,6 +252,7 @@ MIT
 - [commit](functions/commit.md)
 - [compileCalendars](functions/compileCalendars.md)
 - [computeCosts](functions/computeCosts.md)
+- [computeEarnedValue](functions/computeEarnedValue.md)
 - [computeSchedule](functions/computeSchedule.md)
 - [continuousCalendar](functions/continuousCalendar.md)
 - [copyTasks](functions/copyTasks.md)
@@ -241,6 +260,7 @@ MIT
 - [createTask](functions/createTask.md)
 - [dayIndexOf](functions/dayIndexOf.md)
 - [daysFromCivil](functions/daysFromCivil.md)
+- [diffProjects](functions/diffProjects.md)
 - [findOverallocations](functions/findOverallocations.md)
 - [formatClockTime](functions/formatClockTime.md)
 - [formatDuration](functions/formatDuration.md)
@@ -278,6 +298,7 @@ MIT
 - [removeResources](functions/removeResources.md)
 - [removeTasks](functions/removeTasks.md)
 - [renameCustomField](functions/renameCustomField.md)
+- [rescheduleUncompletedWork](functions/rescheduleUncompletedWork.md)
 - [resourceUsage](functions/resourceUsage.md)
 - [setBaseline](functions/setBaseline.md)
 - [setCustomValue](functions/setCustomValue.md)

@@ -8,6 +8,6 @@
 
 > **CustomValue** = `string` \| `number` \| `boolean`
 
-Defined in: [packages/gantt-core/src/types.ts:132](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L132)
+Defined in: [packages/gantt-core/src/types.ts:136](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L136)
 
 A value of a custom field: text, a number, an instant for a date, or a flag.

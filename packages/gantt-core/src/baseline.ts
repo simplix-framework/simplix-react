@@ -1,4 +1,5 @@
 import { compileCalendars } from "./calendar";
+import { computeCosts } from "./costs";
 import { ScheduleError } from "./errors";
 import type { Baseline, BaselineEntry, Id, Project, Schedule } from "./types";
 
@@ -18,9 +19,10 @@ export function setBaseline(project: Project, schedule: Schedule, number = 0, ta
   checkNumber(number);
   const selected = taskIds ? new Set(taskIds) : null;
   const entries: Record<Id, BaselineEntry> = selected ? { ...project.baselines[number] } : {};
+  const costs = computeCosts(project, schedule);
   for (const [id, task] of schedule.tasks) {
     if (selected && !selected.has(id)) continue;
-    entries[id] = { start: task.start, finish: task.finish, duration: task.duration };
+    entries[id] = { start: task.start, finish: task.finish, duration: task.duration, cost: costs.get(id)?.cost ?? 0 };
   }
   return { ...project, baselines: { ...project.baselines, [number]: entries } };
 }
