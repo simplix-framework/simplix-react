@@ -13,6 +13,10 @@ const config: StorybookConfig = {
   viteFinal(config) {
     config.plugins ??= [];
     config.plugins.push(tailwindcss());
+    // Read the workspace packages from their TypeScript source (their `source` export
+    // condition), so an edit shows up without building the package first.
+    // Setting the list replaces Vite's own, so its client defaults are repeated after `source`.
+    config.resolve = { ...config.resolve, conditions: ["source", "module", "browser", "development|production"] };
     return config;
   },
 };
