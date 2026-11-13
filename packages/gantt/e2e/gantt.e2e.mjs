@@ -433,3 +433,19 @@ test("keeps the table splitter's grip at the middle of the rows in view", async 
   assert.ok((await offCentre(long)) <= 1, "centred after scrolling down");
   await long.context().close();
 });
+
+test("prints the table from its first column however far it was scrolled", async () => {
+  const page = await open("default");
+  await page.evaluate(() => (window.print = () => {}));
+  await page.locator('[data-gantt-slot="table-scroller"]').evaluate((element) => (element.scrollLeft = 200));
+  await page.waitForTimeout(200);
+  await page.getByRole("button", { name: "More" }).click();
+  await page.getByRole("menuitem", { name: /Print/ }).first().click();
+  await page.waitForFunction(() => !document.querySelector('[data-gantt-slot="table-scroller"]'));
+  const gap = await page.evaluate(() => {
+    const first = document.querySelector("[role=columnheader]").getBoundingClientRect();
+    return first.left - document.querySelector('[data-gantt-slot="grid"]').getBoundingClientRect().left;
+  });
+  assert.ok(gap >= 0, `the first column prints ${Math.round(gap)}px from the table's left edge`);
+  await page.context().close();
+});

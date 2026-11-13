@@ -109,7 +109,7 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
   // Columns wider together than the table scroll sideways inside it, by the bar under the table.
   const tableWidth = columns.reduce((sum, column) => sum + columnWidth(column, shownWidths), indicatorWidth);
   const [tableScroll, setTableScroll] = useState(0);
-  const tableOffset = Math.min(tableScroll, Math.max(0, tableWidth - gridWidth));
+  const tableOffset = printing ? 0 : Math.min(tableScroll, Math.max(0, tableWidth - gridWidth));
   // The table's scroll bar takes a strip below the last row instead of lying over it.
   const tableScrollerHeight = tableWidth > gridWidth && !printing ? TABLE_SCROLLER_HEIGHT : 0;
   // The column keyboard editing and sideways arrow keys act on.
