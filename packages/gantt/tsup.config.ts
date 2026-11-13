@@ -3,6 +3,7 @@ import { defineConfig } from "tsup";
 export default defineConfig((options) => ({
   entry: {
     index: "src/index.ts",
+    pdf: "src/pdf.ts",
   },
   format: ["esm"],
   dts: !options.watch,

@@ -89,7 +89,6 @@
     "collapse": "접기",
     "critical": "중요 작업",
     "milestone": "마일스톤",
-    "summary": "요약 작업",
     "manual": "수동 일정",
     "auto": "자동 일정",
     "moveRow": "끌어서 행 이동",
@@ -125,7 +124,6 @@
     "lag": "지연",
     "units": "단위",
     "work": "작업 시간",
-    "resource": "자원",
     "fixedCost": "고정 비용",
     "overtime": "초과 근무(시간)",
     "contour": "작업 분포",
@@ -249,7 +247,6 @@
   },
   "customField": {
     "name": "필드 이름",
-    "type": "종류",
     "add": "필드 추가",
     "newName": "새 필드",
     "empty": "사용자 지정 필드가 없습니다. 프로젝트 정보 대화 상자에서 추가해 주세요."

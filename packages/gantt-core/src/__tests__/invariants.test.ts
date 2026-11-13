@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { compileCalendars } from "../calendar";
-import { diffProjects, mergeProjects } from "../diff";
+import { diffProjects, mergeProjects, takeTheirs } from "../diff";
 import { addResource, assignResource } from "../edit-links";
 import { indentTasks, moveTask, outdentTasks } from "../edit-outline";
 import { removeTasks, setTaskDuration } from "../edit-tasks";
@@ -9,41 +9,9 @@ import { rescheduleUncompletedWork } from "../progress";
 import { levelResources } from "../leveling";
 import { findOverallocations } from "../resources";
 import { computeSchedule } from "../schedule";
-import type { Link, LinkType, Project, Schedule, Task } from "../types";
+import type { Project, Schedule } from "../types";
 import { DAY, at, link, project, span, task } from "./fixtures";
-
-function generator(seed: number): (n: number) => number {
-  let state = seed;
-  return (n) => {
-    state = (state * 1103515245 + 12345) % 2147483648;
-    // The low bits of this generator repeat with a short period; draw from the high ones.
-    return Math.floor(state / 65536) % n;
-  };
-}
-
-const TYPES: LinkType[] = ["FS", "SS", "FF", "SF"];
-
-/** A random plan: a few summary tasks, links that only point down the row list, mixed link types and lags. */
-export function randomProject(seed: number): Project {
-  const random = generator(seed);
-  const tasks: Task[] = [];
-  const count = 5 + random(25);
-  let level = 1;
-  for (let i = 0; i < count; i++) {
-    const previous = i === 0 ? 0 : tasks[i - 1].outlineLevel;
-    level = i === 0 ? 1 : Math.max(1, Math.min(previous + 1, level + random(3) - 1));
-    tasks.push(task(`t${i}`, 0, { outlineLevel: level, duration: random(6) === 0 ? 0 : (1 + random(40)) * 60 }));
-  }
-  const isSummary = (i: number): boolean => i + 1 < count && tasks[i + 1].outlineLevel > tasks[i].outlineLevel;
-  const links: Link[] = [];
-  for (let i = 1; i < count; i++) {
-    if (isSummary(i) || random(3) === 0) continue;
-    const from = random(i);
-    if (isSummary(from)) continue;
-    links.push(link(`t${from}`, `t${i}`, TYPES[random(4)], 0, { lag: (random(7) - 2) * 120 }));
-  }
-  return project(tasks, links);
-}
+import { generator, randomProject } from "./random-plans";
 
 function assertLinksHold(p: Project, s: Schedule): void {
   expect(s.conflicts).toEqual([]);
@@ -162,6 +130,30 @@ describe("random edits on two sides", () => {
       expect(diffProjects(mergeProjects(base, base, theirs).project, theirs), `seed ${seed}`).toEqual([]);
       expect(() => computeSchedule(mergeProjects(base, mine, theirs).project), `seed ${seed}`).not.toThrow();
     }
+  });
+
+  it("settle every conflict the other way to a plan that schedules and holds the other side's records", () => {
+    let conflicts = 0;
+    for (const seed of Array.from({ length: 150 }, (_, i) => i + 1)) {
+      const random = generator(seed * 13);
+      const base = randomProject(seed);
+      const mine = edit(edit(base, random), random);
+      const theirs = edit(edit(base, random), random);
+      const merged = mergeProjects(base, mine, theirs);
+      expect(takeTheirs(merged.project, theirs, []), `seed ${seed}`).toEqual(merged.project);
+      const settled = takeTheirs(merged.project, theirs, merged.conflicts);
+      expect(() => computeSchedule(settled), `seed ${seed}`).not.toThrow();
+      for (const conflict of merged.conflicts) {
+        if (conflict.entity !== "task") continue;
+        conflicts += 1;
+        const other = theirs.tasks.find((t) => t.id === conflict.id);
+        const now = settled.tasks.find((t) => t.id === conflict.id);
+        // The outline level can be lowered to fit the rows around it; everything else is the other side's.
+        expect(now && { ...now, outlineLevel: 0 }, `seed ${seed}, task ${conflict.id}`).toEqual(other && { ...other, outlineLevel: 0 });
+      }
+    }
+    // The random edits do meet on the same task often enough for the check to mean something.
+    expect(conflicts).toBeGreaterThan(20);
   });
 
   it("reschedule to a status date once: a second pass changes nothing and no unstarted work stays before the date", () => {

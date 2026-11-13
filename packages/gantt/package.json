@@ -17,6 +17,11 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./pdf": {
+      "source": "./src/pdf.ts",
+      "types": "./dist/pdf.d.ts",
+      "import": "./dist/pdf.js"
+    },
     "./styles.css": "./dist/styles.css"
   },
   "files": [

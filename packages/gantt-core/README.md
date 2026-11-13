@@ -152,7 +152,7 @@ const { project, warnings } = readMspdi(xmlText);
 const xml = writeMspdi(project, computeSchedule(project));
 ```
 
-The exchange code is also exported from the package root; importing it from `@simplix-react/gantt-core/mspdi` keeps it out of a bundle that loads it on demand.
+The exchange code is exported from `@simplix-react/gantt-core/mspdi` alone, so an application that loads it on demand keeps it out of what it loads first.
 
 `readMspdi` returns the plan and a list of warnings for data it did not carry over. `writeMspdi` writes the plan with the computed dates, slack and outline numbers, in the element order of the files Microsoft Project saves. `mspdiExportLosses(project)` lists what of a plan the document has no place for.
 

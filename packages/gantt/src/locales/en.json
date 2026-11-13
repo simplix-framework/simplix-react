@@ -89,7 +89,6 @@
     "collapse": "Collapse",
     "critical": "Critical",
     "milestone": "Milestone",
-    "summary": "Summary task",
     "manual": "Manually scheduled",
     "auto": "Auto scheduled",
     "moveRow": "Drag to move the row",
@@ -125,7 +124,6 @@
     "lag": "Lag",
     "units": "Units",
     "work": "Work",
-    "resource": "Resource",
     "fixedCost": "Fixed cost",
     "overtime": "Overtime (hours)",
     "contour": "Work contour",
@@ -249,7 +247,6 @@
   },
   "customField": {
     "name": "Field name",
-    "type": "Type",
     "add": "Add field",
     "newName": "New field",
     "empty": "No custom fields. Add one in the project information dialog."

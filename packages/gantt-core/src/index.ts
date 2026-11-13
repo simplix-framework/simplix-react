@@ -114,5 +114,3 @@ export { PLAN_FORMAT, PLAN_FORMAT_VERSION, parseProject, serializeProject, toSav
 export type { SavedPlan } from "./plan-format";
 export { commit, createHistory, redo, redoLabel, undo, undoLabel } from "./history";
 export type { History, HistoryEntry } from "./history";
-export { formatMspdiDuration, parseMspdiDuration, readMspdi, writeMspdi } from "./mspdi";
-export type { MspdiReadResult, MspdiWarning, MspdiWarningCode } from "./mspdi";
