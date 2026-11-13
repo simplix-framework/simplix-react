@@ -7,7 +7,7 @@ import { box, drag, open } from "./helpers.mjs";
 const scrollOf = (page) =>
   page.evaluate(() => ({
     table: document.querySelector('[data-gantt-slot="table-body"]').scrollLeft,
-    header: document.querySelector("[role=columnheader]").closest(".overflow-hidden").scrollLeft,
+    header: document.querySelector('[data-gantt-slot="table-header"]').scrollLeft,
     bar: document.querySelector('[data-gantt-slot="table-scroller"]')?.scrollLeft,
     timeline: document.querySelector('[data-gantt-slot="scroll"]').scrollLeft,
   }));
@@ -188,4 +188,59 @@ test("moves a task by dragging it to another day of the calendar", async () => {
   await fixed.waitForTimeout(300);
   assert.equal(await fixed.locator(`[data-gantt-day="${dayOf([2026, 2, 2])}"] [data-gantt-calendar-task="2"]`).count(), 1);
   await fixed.context().close();
+});
+
+test("scrolls the table's columns under a finger, and the rows under a finger moving down", async () => {
+  const page = await open("default", { viewport: { width: 375, height: 700 }, hasTouch: true, isMobile: true });
+  await page.getByRole("button", { name: "More" }).tap();
+  await page.getByRole("menuitem", { name: /^Show:/ }).press("ArrowRight");
+  await page.getByRole("menuitemradio", { name: "Table only", exact: true }).press("Enter");
+  await page.waitForTimeout(300);
+  const session = await page.context().newCDPSession(page);
+  const swipe = async (from, to) => {
+    await session.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [from] });
+    for (let i = 1; i <= 8; i++) {
+      await session.send("Input.dispatchTouchEvent", { type: "touchMove", touchPoints: [{ x: from.x + ((to.x - from.x) * i) / 8, y: from.y + ((to.y - from.y) * i) / 8 }] });
+    }
+    await session.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+    await page.waitForTimeout(600);
+  };
+  const table = await box(page, '[data-gantt-slot="table-body"]');
+  const read = () =>
+    page.evaluate(() => ({
+      table: document.querySelector('[data-gantt-slot="table-body"]').scrollLeft,
+      header: document.querySelector('[data-gantt-slot="table-header"]').scrollLeft,
+      bar: document.querySelector('[data-gantt-slot="table-scroller"]').scrollLeft,
+      rows: document.querySelector('[data-gantt-slot="scroll"]').scrollTop,
+    }));
+  await swipe({ x: table.x + 300, y: table.y + 200 }, { x: table.x + 120, y: table.y + 200 });
+  const sideways = await read();
+  assert.ok(sideways.table > 100, `a sideways swipe scrolled the table by ${sideways.table}px`);
+  assert.equal(sideways.header, sideways.table, "the headings follow");
+  assert.equal(sideways.bar, sideways.table, "and so does the bar");
+  assert.equal(sideways.rows, 0);
+  await swipe({ x: table.x + 250, y: table.y + 300 }, { x: table.x + 250, y: table.y + 120 });
+  const down = await read();
+  assert.ok(down.rows > 100, `a swipe upwards scrolled the rows by ${down.rows}px`);
+  assert.equal(down.table, sideways.table);
+  await page.context().close();
+});
+
+test("scrolls the columns under a dragged heading at the table's edge, so it can be dropped on one out of view", async () => {
+  const page = await open("default");
+  const order = () => page.$$eval("[role=columnheader]", (cells) => cells.map((cell) => cell.dataset.ganttColumn));
+  assert.deepEqual(await order(), ["name", "duration", "start", "finish", "predecessors", "percentComplete", "resources"]);
+  const grid = await box(page, '[data-gantt-slot="grid"]');
+  const from = await box(page, '[role=columnheader][data-gantt-column="duration"]');
+  await page.mouse.move(from.x + from.width / 2, from.y + 20);
+  await page.mouse.down();
+  // Held near the right edge, the pointer's small moves keep the columns coming.
+  for (let i = 0; i < 60; i++) await page.mouse.move(grid.x + grid.width - 10 - (i % 2), from.y + 20);
+  const scrolled = await page.locator('[data-gantt-slot="table-body"]').evaluate((element) => element.scrollLeft);
+  assert.ok(scrolled > 200, `the table scrolled ${scrolled}px while the heading was held at its edge`);
+  await page.mouse.up();
+  await page.waitForTimeout(200);
+  const after = await order();
+  assert.ok(after.indexOf("duration") >= 4, `the heading was dropped at place ${after.indexOf("duration")}: ${after.join(", ")}`);
+  await page.context().close();
 });

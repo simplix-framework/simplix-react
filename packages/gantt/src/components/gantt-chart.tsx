@@ -32,6 +32,8 @@ const NARROW_GRID_WIDTH = 260;
 const OVERSCAN = 8;
 /** Height of the scroll bar under a table whose columns are wider than it. */
 const TABLE_SCROLLER_HEIGHT = 12;
+/** The table scrolls sideways by wheel and finger with no bar of its own, and keeps the scroll from what is behind it. */
+const TABLE_SCROLLS = "overflow-x-auto overflow-y-hidden overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden";
 /** The scrolling columns keep at least this much of the table beside a pinned first column. */
 const MIN_SCROLLING_WIDTH = 96;
 
@@ -288,9 +290,10 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
         <div className={`${sticky}top-0 z-30 flex border-b bg-muted`} style={{ height: HEADER_HEIGHT }}>
           {pane !== "timeline" && <div
             ref={tableScroll.header}
-            className={`${sticky}left-0 z-40 shrink-0 overflow-hidden border-r bg-muted`}
+            className={`${sticky}left-0 z-40 shrink-0 border-r bg-muted ${printing ? "overflow-hidden" : TABLE_SCROLLS}`}
             style={{ width: gridWidth }}
             onScroll={tableScroll.onScroll}
+            data-gantt-slot="table-header"
           >
             {/* raw layout: the heading row at its full width, scrolled sideways inside the table */}
             <div className="h-full" style={{ width: Math.max(tableWidth, gridWidth) }}>
@@ -312,7 +315,7 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
             style={{ width: gridWidth, height: bodyHeight + tableScrollerHeight }}
             data-gantt-slot="grid"
           >
-            <div ref={tableScroll.body} className="relative overflow-hidden" style={{ height: bodyHeight }} onScroll={tableScroll.onScroll} data-gantt-slot="table-body">
+            <div ref={tableScroll.body} className={`relative ${printing ? "overflow-hidden" : TABLE_SCROLLS}`} style={{ height: bodyHeight }} onScroll={tableScroll.onScroll} data-gantt-slot="table-body">
               {/* raw layout: the rows at their full width, scrolled sideways inside the table */}
               <div className="relative h-full" style={{ width: Math.max(tableWidth, gridWidth) }}>
               <TaskGridRows

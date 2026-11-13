@@ -6,7 +6,7 @@ import type { ReactNode } from "react";
 import { useGantt, useGanttStore } from "../context/gantt-context";
 import { barColors } from "../lib/bar-color";
 import { useGanttTranslation } from "../lib/use-gantt-translation";
-import { viewRows } from "../lib/view-rows";
+import { groupHeading, viewRows } from "../lib/view-rows";
 import type { GroupKey, SortKey, TaskFilter } from "../lib/view-rows";
 import type { BarColoring, BarText, GanttPane } from "../model/gantt-store";
 import { useFoldableCommands } from "./toolbar-commands";
@@ -57,7 +57,6 @@ export function ToolbarMenu({ xmlExchange, planFiles, onSavePlan, onOpenPlan, fo
   const readOnly = useGantt((state) => state.readOnly);
   const commands = useFoldableCommands();
   const state = store.getState();
-
   /** A submenu that picks one of several values. */
   const radioMenu = <T extends string>(label: string, value: T, values: readonly T[], labelOf: (value: T) => string, onPick: (value: T) => void): ReactNode => (
     <ui.DropdownMenuSub>
@@ -148,7 +147,7 @@ export function ToolbarMenu({ xmlExchange, planFiles, onSavePlan, onOpenPlan, fo
                   // The PDF shows the rows and colours of the screen: what is filtered out or folded away is left out.
                   const shown = viewRows(current.history.present, current.schedule, current.collapsed, current.viewOptions);
                   await downloadPdf(current.history.present, current.schedule, language, (key) => t(key), {
-                    rows: shown.flatMap((row) => (row.kind === "task" ? [row.task.id] : [])),
+                    rows: shown.map((row) => (row.kind === "task" ? row.task.id : { heading: `${groupHeading(current.history.present, current.viewOptions.group, row.key, (key) => t(key))} (${row.count})` })),
                     colorOf: barColors(current.history.present, current.barColoring),
                     showCriticalPath: current.showCriticalPath,
                   });

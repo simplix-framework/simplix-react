@@ -56,6 +56,8 @@ export interface GanttLayout {
   barText: BarText;
   barColoring: BarColoring;
   viewOptions: ViewOptions;
+  /** Whether the Gantt view shows the table, the timeline or both. */
+  pane: GanttPane;
 }
 
 /** A change of the plan: receives the current project and its schedule, returns the next project. */
@@ -76,7 +78,7 @@ export interface GanttStoreState {
   showLinks: boolean;
   /** Whether today, the status date and the ends of the plan are marked on the timeline. */
   showMarkers: boolean;
-  /** Whether the Gantt view shows the table, the timeline or both. Not part of the saved layout. */
+  /** Whether the Gantt view shows the table, the timeline or both. */
   pane: GanttPane;
   /** Baseline drawn under the bars, or `null` for none. */
   baselineNumber: number | null;

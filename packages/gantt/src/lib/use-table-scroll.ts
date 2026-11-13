@@ -18,8 +18,8 @@ export interface TableScroll {
 /**
  * Sideways scrolling of a table whose columns are wider than the room it has.
  * The heading row, the rows and the scroll bar are three boxes kept at one
- * scroll position; a sideways wheel over the table moves the table and not
- * what lies around it. `pinnedWidth` is the width of the leading columns that
+ * scroll position. The heading row and the rows scroll by a sideways wheel or
+ * a finger like any scrolling box, with their own scroll bars hidden. `pinnedWidth` is the width of the leading columns that
  * stay in place, which a revealed span must clear.
  */
 export function useTableScroll(contentWidth: number, viewWidth: number, pinnedWidth: number): TableScroll {
@@ -42,20 +42,6 @@ export function useTableScroll(contentWidth: number, viewWidth: number, pinnedWi
   useEffect(() => {
     scrollTo(body.current?.scrollLeft ?? 0);
   }, [scrollTo, viewWidth]);
-
-  // The listener is not passive, so a sideways wheel can be kept from what is behind the table.
-  useEffect(() => {
-    const boxes = [header.current, body.current].filter((element): element is HTMLDivElement => element !== null);
-    const onWheel = (event: WheelEvent): void => {
-      if (limit === 0 || event.ctrlKey || event.metaKey || Math.abs(event.deltaX) <= Math.abs(event.deltaY)) return;
-      event.preventDefault();
-      scrollTo((body.current?.scrollLeft ?? 0) + event.deltaX);
-    };
-    for (const box of boxes) box.addEventListener("wheel", onWheel, { passive: false });
-    return () => {
-      for (const box of boxes) box.removeEventListener("wheel", onWheel);
-    };
-  }, [limit, scrollTo]);
 
   const onScroll = useCallback((event: UIEvent<HTMLDivElement>): void => scrollTo(event.currentTarget.scrollLeft), [scrollTo]);
 

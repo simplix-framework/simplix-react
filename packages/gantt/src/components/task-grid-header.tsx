@@ -23,6 +23,9 @@ export interface TaskGridHeaderProps {
 
 /** A column never gets narrower than this. */
 const MIN_COLUMN_WIDTH = 48;
+/** A dragged heading this close to an edge of the table scrolls the columns, this far for each move of the pointer. */
+const EDGE_ZONE = 28;
+const EDGE_STEP = 14;
 /** Pixels one arrow key press on a column's grip changes its width; with Shift, four times as far. */
 const KEY_STEP = 8;
 
@@ -36,7 +39,14 @@ export function TaskGridHeader({ columns, widths, onResize, onMove, indicatorWid
       : t(`column.${column}`);
   // Dragging a heading sideways drops its column where the pointer is.
   const beginMove = useDrag<{ column: GanttColumnId; row: Element | null }>({
-    onMove: () => undefined,
+    onMove({ row }, position) {
+      // Near an edge of the table the columns scroll under the pointer, so a heading can be dropped on one out of view.
+      const box = row?.closest<HTMLElement>('[data-gantt-slot="table-header"]');
+      if (!box) return;
+      const edge = box.getBoundingClientRect();
+      if (position.clientX > edge.right - EDGE_ZONE) box.scrollLeft += EDGE_STEP;
+      else if (position.clientX < edge.left + indicatorWidth + EDGE_ZONE) box.scrollLeft -= EDGE_STEP;
+    },
     onEnd({ column, row }, position) {
       const left = (row?.getBoundingClientRect().left ?? 0) + indicatorWidth;
       let edge = left;

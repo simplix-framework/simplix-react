@@ -5,6 +5,7 @@ import { pathData, routeLink } from "../lib/link-path";
 import { dateMarkers, timelineSpan } from "../lib/markers";
 import { barColors } from "../lib/bar-color";
 import { buildPdf, layoutPdf, pdfRows } from "../lib/pdf-export";
+import type { PdfRow } from "../lib/pdf-export";
 import { visibleRows } from "../lib/rows";
 import { DEFAULT_VIEW, isPlainView, viewRows } from "../lib/view-rows";
 import type { ViewRow } from "../lib/view-rows";
@@ -231,10 +232,11 @@ describe("pdf", () => {
   it("draws the rows a view names, in its order, and sizes the sheets to them", () => {
     const plan = project(Array.from({ length: 100 }, (_, i) => task(String(i + 1), 1)));
     const schedule = computeSchedule(plan);
-    expect(pdfRows(schedule, {}).map((row) => row.id)).toHaveLength(100);
-    // A filtered, re-sorted view: the PDF follows it and skips an id the plan no longer has.
-    const shown = pdfRows(schedule, { rows: ["7", "3", "gone", "50"] });
-    expect(shown.map((row) => row.id)).toEqual(["7", "3", "50"]);
+    const idOf = (row: PdfRow): string => ("heading" in row ? `[${row.heading}]` : row.id);
+    expect(pdfRows(schedule, {})).toHaveLength(100);
+    // A filtered, re-sorted, grouped view: the PDF follows it, headings included, and skips an id the plan no longer has.
+    const shown = pdfRows(schedule, { rows: [{ heading: "Late (2)" }, "7", "3", "gone", { heading: "On time (1)" }, "50"] });
+    expect(shown.map(idOf)).toEqual(["[Late (2)]", "7", "3", "[On time (1)]", "50"]);
     expect(layoutPdf(schedule, plan, shown.length).sheetsDown).toBe(1);
     expect(layoutPdf(schedule, plan).sheetsDown).toBe(3);
   });
@@ -354,10 +356,13 @@ describe("layout, read-only and merging", () => {
     store.getState().toggleCollapsed("1");
     store.getState().selectRow("1");
     expect(seen).toHaveLength(3);
+    store.getState().setPane("table");
+    expect(seen).toHaveLength(4);
     const stored = store.getState().getLayout();
-    expect(stored).toMatchObject({ zoom: 2, columnWidths: { name: 300 }, collapsed: ["1"] });
+    expect(stored).toMatchObject({ zoom: 2, columnWidths: { name: 300 }, collapsed: ["1"], pane: "table" });
     const reopened = createGanttStore(project([task("1", 2)]), { layout: JSON.parse(JSON.stringify(stored)), zoom: 6 });
     expect(reopened.getState().zoom).toBe(2);
+    expect(reopened.getState().pane).toBe("table");
     expect(reopened.getState().collapsed.has("1")).toBe(true);
     reopened.getState().applyLayout({ zoom: 99, viewOptions: { ...DEFAULT_VIEW, filter: "critical" } });
     expect([reopened.getState().zoom, reopened.getState().viewOptions.filter]).toEqual([6, "critical"]);

@@ -196,3 +196,8 @@ export function viewRows(project: Project, schedule: Schedule, collapsed: Readon
 export function taskRows(rows: readonly ViewRow[]): VisibleRow[] {
   return rows.filter((candidate): candidate is VisibleRow => candidate.kind === "task");
 }
+
+/** The heading of a group of rows: the resource's name, or the translated name of a status or of being critical. */
+export function groupHeading(project: Project, group: GroupKey, key: string, t: (key: string) => string): string {
+  return group === "resource" ? (project.resources.find((resource) => resource.id === key)?.name ?? t("group.unassigned")) : t(`group.${key}`);
+}

@@ -35,6 +35,7 @@ import {
 } from "../lib/grid-columns";
 import type { BuiltInColumnId, ColumnWidths, GanttColumnId } from "../lib/grid-columns";
 import { formatDate } from "../lib/format";
+import { groupHeading } from "../lib/view-rows";
 import type { ViewRow } from "../lib/view-rows";
 import { useDrag } from "../lib/use-drag";
 import { useGanttTranslation } from "../lib/use-gantt-translation";
@@ -199,10 +200,7 @@ export function TaskGridRows({
         const row = rows[index];
         if (row.kind === "group") {
           const folded = collapsed.has(`group:${row.key}`);
-          const label =
-            viewOptions.group === "resource"
-              ? (project.resources.find((resource) => resource.id === row.key)?.name ?? t("group.unassigned"))
-              : t(`group.${row.key}`);
+          const label = groupHeading(project, viewOptions.group, row.key, (key) => t(key));
           return (
             <div
               key={`group:${row.key}`}

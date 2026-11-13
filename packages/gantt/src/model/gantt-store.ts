@@ -67,6 +67,7 @@ function layoutOf(state: GanttStoreState): GanttLayout {
     barText: state.barText,
     barColoring: state.barColoring,
     viewOptions: state.viewOptions,
+    pane: state.pane,
   };
 }
 
@@ -130,7 +131,7 @@ export function createGanttStore(initial: Project, options: CreateGanttStoreOpti
       projectDialogOpen: false,
       recurringDialogOpen: false,
       printing: false,
-      pane: "both",
+      pane: layout.pane ?? "both",
       view: layout.view ?? options.view ?? "gantt",
       columns: layout.columns ?? options.columns ?? DEFAULT_COLUMNS,
       columnWidths: layout.columnWidths ?? {},

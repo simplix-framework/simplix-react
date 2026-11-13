@@ -113,8 +113,12 @@ export interface PdfLayout {
 
 /** What of the screen's view a PDF follows. Left out, the PDF shows the whole plan in the chart's own colours. */
 export interface PdfView {
-  /** Ids of the tasks to draw, in the order to draw them: the rows the screen shows after filtering, sorting and folding. */
-  rows?: readonly Id[];
+  /**
+   * The rows to draw, in order: the id of a task, or the heading of a group of
+   * the rows after it. These are the rows the screen shows after filtering,
+   * sorting, grouping and folding.
+   */
+  rows?: readonly (Id | { heading: string })[];
   /** The colour of a task's bar, or `undefined` for the chart's own. */
   colorOf?: (task: Task) => string | undefined;
   /** Whether critical tasks are drawn in the critical colour. */
@@ -173,7 +177,7 @@ function drawSheet(
   project: Project,
   schedule: Schedule,
   layout: PdfLayout,
-  rows: readonly TaskSchedule[],
+  rows: readonly PdfRow[],
   sheet: { down: number; across: number; number: number; total: number },
   language: string,
   label: (key: string) => string,
@@ -209,8 +213,18 @@ function drawSheet(
     x += column.width;
   }
   sheetRows.forEach((at, i) => {
-    const task = project.tasks[at.index];
     const y = bodyTop + i * ROW + ROW / 2;
+    if ("heading" in at) {
+      // A group's heading: a shaded band across the table and the timeline, named at its left.
+      ctx.fillStyle = SHADE;
+      ctx.fillRect(MARGIN, bodyTop + i * ROW, GRID_WIDTH + timelineWidth, ROW);
+      font("600", 10);
+      ctx.fillStyle = INK;
+      ctx.textAlign = "left";
+      ctx.fillText(fitText(ctx, at.heading, GRID_WIDTH - 10), MARGIN + 5, y);
+      return;
+    }
+    const task = project.tasks[at.index];
     const cells: Record<(typeof COLUMNS)[number]["key"], string> = {
       row: String(at.index + 1),
       name: task.name,
@@ -287,7 +301,7 @@ function drawSheet(
   }
   ctx.textAlign = "left";
 
-  const rowOf = new Map(sheetRows.map((at, i) => [at.id, i]));
+  const rowOf = new Map(sheetRows.flatMap((at, i) => ("heading" in at ? [] : [[at.id, i] as const])));
   const boxOf = (id: string): BarBox | null => {
     const i = rowOf.get(id);
     const at = schedule.tasks.get(id);
@@ -316,6 +330,7 @@ function drawSheet(
     ctx.fill();
   }
   sheetRows.forEach((at, i) => {
+    if ("heading" in at) return;
     const y = bodyTop + i * ROW;
     const left = scale.x(at.start);
     const width = Math.max(scale.x(at.finish) - left, 2);
@@ -402,11 +417,15 @@ function canvasToJpeg(canvas: HTMLCanvasElement): Promise<Uint8Array> {
   });
 }
 
+/** One line of a PDF sheet: a task, or the heading of a group of tasks. */
+export type PdfRow = TaskSchedule | { heading: string };
+
 /** The rows a PDF draws: the ones a view names, in its order, or every task of the plan. */
-export function pdfRows(schedule: Schedule, view: PdfView): TaskSchedule[] {
+export function pdfRows(schedule: Schedule, view: PdfView): PdfRow[] {
   if (!view.rows) return [...schedule.tasks.values()];
-  return view.rows.flatMap((id) => {
-    const at = schedule.tasks.get(id);
+  return view.rows.flatMap((row): PdfRow[] => {
+    if (typeof row !== "string") return [row];
+    const at = schedule.tasks.get(row);
     return at ? [at] : [];
   });
 }
