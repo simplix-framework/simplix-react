@@ -30,6 +30,8 @@ const OPENING_GAP = 48;
 const NARROW_GRID_WIDTH = 260;
 /** Rows drawn beyond the visible ones, so a fast scroll does not show a gap. */
 const OVERSCAN = 8;
+/** Height of the scroll bar under a table whose columns are wider than it. */
+const TABLE_SCROLLER_HEIGHT = 12;
 /** Width, in CSS pixels, a landscape A4 page leaves between its margins. */
 const PRINT_WIDTH = 1040;
 
@@ -104,6 +106,12 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
     const room = gridWidth - indicatorWidth;
     return columnWidth(firstColumn, widths) > room ? { ...widths, [firstColumn]: Math.max(48, room) } : widths;
   }, [widths, firstColumn, gridWidth, indicatorWidth]);
+  // Columns wider together than the table scroll sideways inside it, by the bar under the table.
+  const tableWidth = columns.reduce((sum, column) => sum + columnWidth(column, shownWidths), indicatorWidth);
+  const [tableScroll, setTableScroll] = useState(0);
+  const tableOffset = Math.min(tableScroll, Math.max(0, tableWidth - gridWidth));
+  // The table's scroll bar takes a strip below the last row instead of lying over it.
+  const tableScrollerHeight = tableWidth > gridWidth && !printing ? TABLE_SCROLLER_HEIGHT : 0;
   // The column keyboard editing and sideways arrow keys act on.
   const [activeColumn, setActiveColumn] = useState<GanttColumnId>("name");
   const [menu, setMenu] = useState<{ x: number; y: number } | null>(null);
@@ -371,30 +379,35 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
         className="relative"
         style={{
           width: gridWidth + scale.width,
-          height: HEADER_HEIGHT + bodyHeight,
+          height: HEADER_HEIGHT + bodyHeight + tableScrollerHeight,
           // Shrinks a plan wider than the page to the page; a narrower one prints at full size.
           zoom: printing ? Math.min(1, PRINT_WIDTH / (gridWidth + scale.width)) : undefined,
         }}
       >
         <div className={`${sticky}top-0 z-30 flex border-b bg-muted`} style={{ height: HEADER_HEIGHT }}>
           <div className={`${sticky}left-0 z-40 shrink-0 overflow-hidden border-r bg-muted`} style={{ width: gridWidth }}>
-            <TaskGridHeader
-              columns={columns}
-              widths={shownWidths}
-              onResize={store.getState().setColumnWidth}
-              onMove={store.getState().moveColumn}
-              indicatorWidth={indicatorWidth}
-            />
+            {/* raw layout: the heading row, shifted by the table's own sideways scroll */}
+            <div className="h-full" style={{ width: Math.max(tableWidth, gridWidth), transform: `translateX(${-tableOffset}px)` }}>
+              <TaskGridHeader
+                columns={columns}
+                widths={shownWidths}
+                onResize={store.getState().setColumnWidth}
+                onMove={store.getState().moveColumn}
+                indicatorWidth={indicatorWidth}
+              />
+            </div>
           </div>
-          <TimelineHeader scale={scale} level={level} fromX={timelineFromX} toX={timelineToX} weekStartsOn={weekStartsOn} markers={markers} pinnedLeft={printing ? 0 : gridWidth} />
+          <TimelineHeader scale={scale} level={level} fromX={timelineFromX} toX={timelineToX} weekStartsOn={weekStartsOn} markers={markers} pinnedLeft={printing ? 0 : gridWidth} clipLeft={printing ? 0 : viewport.left} />
         </div>
-        <div className="flex" style={{ height: bodyHeight }}>
+        <div className="flex" style={{ height: bodyHeight + tableScrollerHeight }}>
           <div
             className={`${sticky}left-0 z-20 shrink-0 border-r bg-background`}
-            style={{ width: gridWidth, height: bodyHeight }}
+            style={{ width: gridWidth, height: bodyHeight + tableScrollerHeight }}
             data-gantt-slot="grid"
           >
-            <div className="relative h-full overflow-hidden">
+            <div className="relative overflow-hidden" style={{ height: bodyHeight }}>
+              {/* raw layout: the rows, shifted by the table's own sideways scroll */}
+              <div className="relative h-full" style={{ width: Math.max(tableWidth, gridWidth), transform: `translateX(${-tableOffset}px)` }}>
               <TaskGridRows
                 columns={columns}
                 widths={shownWidths}
@@ -413,14 +426,32 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
                   if (next === null) scrollRef.current?.focus({ preventScroll: true });
                 }}
               />
+              </div>
             </div>
+            {tableScrollerHeight > 0 && (
+              // raw layout: a scroll bar of the table's own, kept at the foot of the visible rows
+              <div
+                className="sticky bottom-0 z-10 overflow-x-auto overflow-y-hidden border-t bg-background"
+                style={{ width: gridWidth, height: TABLE_SCROLLER_HEIGHT }}
+                data-gantt-slot="table-scroller"
+                onScroll={(event) => setTableScroll(event.currentTarget.scrollLeft)}
+              >
+                <div style={{ width: tableWidth, height: 1 }} />
+              </div>
+            )}
             {/* raw layout: absolute drag handle on the table's right edge */}
             <div
               role="separator"
               aria-orientation="vertical"
-              className="absolute -right-1 top-0 z-10 h-full w-2 cursor-col-resize touch-none hover:bg-primary/30"
+              aria-label={t("toolbar.resizeTable")}
+              title={t("toolbar.resizeTable")}
+              className="group/split absolute -right-1.5 top-0 z-10 flex h-full w-3 cursor-col-resize touch-none justify-center"
+              data-gantt-slot="splitter"
               onPointerDown={(event) => beginSplit(gridWidth, event)}
-            />
+            >
+              {/* A grip that stays in view marks the edge that can be dragged. */}
+              <div className="sticky top-1/2 h-8 w-1 rounded-full bg-foreground/25 group-hover/split:bg-primary" />
+            </div>
           </div>
           <TimelineBody
             scale={scale}

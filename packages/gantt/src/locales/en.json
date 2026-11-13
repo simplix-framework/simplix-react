@@ -45,7 +45,8 @@
     "progressLine": "Progress line",
     "insertSubproject": "Insert subproject from XML",
     "editRecurring": "Edit recurring task",
-    "view": "View"
+    "view": "View",
+    "resizeTable": "Drag to resize the table"
   },
   "view": {
     "gantt": "Gantt chart",
@@ -68,7 +69,7 @@
     "wbs": "WBS",
     "startVariance": "Start variance",
     "finishVariance": "Finish variance",
-    "resize": "Resize column",
+    "resize": "Drag to resize the column, double-click for its default width",
     "work": "Work",
     "cost": "Cost",
     "move": "Drag to move the column",
@@ -76,7 +77,8 @@
     "earnedValue": "Earned value (EV)",
     "actualCost": "Actual cost (AC)",
     "scheduleVariance": "Schedule variance (SV)",
-    "costVariance": "Cost variance (CV)"
+    "costVariance": "Cost variance (CV)",
+    "choose": "Choose columns"
   },
   "task": {
     "newName": "New task",

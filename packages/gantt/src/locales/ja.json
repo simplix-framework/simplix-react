@@ -45,7 +45,8 @@
     "progressLine": "進捗線",
     "insertSubproject": "XML からサブプロジェクトを挿入",
     "editRecurring": "定期タスクを編集",
-    "view": "ビュー"
+    "view": "ビュー",
+    "resizeTable": "ドラッグで表の幅を変更"
   },
   "view": {
     "gantt": "ガントチャート",
@@ -68,7 +69,7 @@
     "wbs": "WBS",
     "startVariance": "開始の差異",
     "finishVariance": "終了の差異",
-    "resize": "列幅を変更",
+    "resize": "ドラッグで列幅を変更、ダブルクリックで既定の幅",
     "work": "作業時間",
     "cost": "コスト",
     "move": "ドラッグして列を移動",
@@ -76,7 +77,8 @@
     "earnedValue": "出来高(EV)",
     "actualCost": "実コスト(AC)",
     "scheduleVariance": "スケジュール差異(SV)",
-    "costVariance": "コスト差異(CV)"
+    "costVariance": "コスト差異(CV)",
+    "choose": "表示する列を選択"
   },
   "task": {
     "newName": "新しいタスク",

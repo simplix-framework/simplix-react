@@ -35,6 +35,7 @@ export { DEFAULT_VIEW, isPlainView, viewRows } from "./lib/view-rows";
 export type { GroupHeaderRow, GroupKey, SortKey, TaskFilter, ViewOptions, ViewRow } from "./lib/view-rows";
 export { ResourceUsage } from "./components/resource-usage";
 export { TaskDialog } from "./components/task-dialog";
+export { ColumnChooser } from "./components/column-chooser";
 export { ProjectDialog } from "./components/project-dialog";
 export { BUILT_IN_COLUMNS, DEFAULT_COLUMNS, DEFAULT_COLUMN_WIDTHS, columnWidth } from "./lib/grid-columns";
 export type { BuiltInColumnId, ColumnWidths, GanttColumnId } from "./lib/grid-columns";

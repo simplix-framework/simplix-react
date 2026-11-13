@@ -13,7 +13,7 @@ import {
   updateTask,
 } from "@simplix-react/gantt-core";
 import type { ConflictKind, Id, Schedule } from "@simplix-react/gantt-core";
-import { CalendarClock, ChevronDown, ChevronRight, StickyNote, TriangleAlert } from "lucide-react";
+import { CalendarClock, ChevronDown, ChevronRight, Columns3, StickyNote, TriangleAlert } from "lucide-react";
 import { useMemo, useState } from "react";
 import type { PointerEvent as ReactPointerEvent } from "react";
 
@@ -39,6 +39,7 @@ import type { ViewRow } from "../lib/view-rows";
 import { useDrag } from "../lib/use-drag";
 import { useGanttTranslation } from "../lib/use-gantt-translation";
 import { CellEditor } from "./cell-editor";
+import { ColumnChooser } from "./column-chooser";
 
 export { DEFAULT_COLUMNS, DEFAULT_COLUMN_WIDTHS, INDICATOR_WIDTH, columnWidth, gridContentWidth, isEditableCell };
 export type { BuiltInColumnId, ColumnWidths, GanttColumnId };
@@ -97,7 +98,20 @@ export function TaskGridHeader({ columns, widths, onResize, onMove, indicatorWid
   });
   return (
     <div className="flex h-full items-end text-xs font-medium text-foreground" role="row">
-      <div className="h-full shrink-0 border-r" style={{ width: indicatorWidth }} />
+      {/* The corner over the row numbers holds the list of columns, where a reader looks for it. */}
+      <div className="flex h-full shrink-0 items-center justify-center border-r" style={{ width: indicatorWidth }}>
+        <ColumnChooser>
+          <button
+            type="button"
+            aria-label={t("column.choose")}
+            title={t("column.choose")}
+            className="flex size-6 items-center justify-center rounded-sm text-muted-foreground hover:bg-background hover:text-foreground"
+            data-gantt-slot="column-chooser-button"
+          >
+            <Columns3 className="size-4" />
+          </button>
+        </ColumnChooser>
+      </div>
       {columns.map((column) => (
         <div
           key={column}
@@ -114,10 +128,18 @@ export function TaskGridHeader({ columns, widths, onResize, onMove, indicatorWid
             role="separator"
             aria-orientation="vertical"
             aria-label={t("column.resize")}
-            className="absolute -right-1 top-0 z-10 h-full w-2 cursor-col-resize hover:bg-primary/30"
+            title={t("column.resize")}
+            // A grip line shows where to take hold; it brightens under the pointer.
+            className="group/grip absolute -right-1.5 top-0 z-10 flex h-full w-3 cursor-col-resize touch-none items-center justify-center"
             data-gantt-slot="column-resize"
             onPointerDown={(event) => beginResize({ column, origin: columnWidth(column, widths) }, event)}
-          />
+            onDoubleClick={(event) => {
+              event.stopPropagation();
+              onResize(column, columnWidth(column, {}));
+            }}
+          >
+            <div className="h-4 w-0.5 rounded-full bg-foreground/25 group-hover/grip:h-full group-hover/grip:bg-primary" />
+          </div>
         </div>
       ))}
     </div>

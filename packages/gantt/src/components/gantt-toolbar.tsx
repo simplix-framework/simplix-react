@@ -14,6 +14,7 @@ import type { Project } from "@simplix-react/gantt-core";
 import { Badge, Button, useFlatUIComponents } from "@simplix-react/ui";
 import {
   CalendarCheck,
+  Columns3,
   Download,
   Ellipsis,
   FileDown,
@@ -40,11 +41,10 @@ import type { ChangeEvent, ReactNode } from "react";
 
 import { useGantt, useGanttStore } from "../context/gantt-context";
 import { cn } from "../lib/cn";
-import { BUILT_IN_COLUMNS } from "../lib/grid-columns";
-import type { GanttColumnId } from "../lib/grid-columns";
 import { ZOOM_LEVELS } from "../lib/time-scale";
 import { useGanttTranslation } from "../lib/use-gantt-translation";
 import type { GroupKey, SortKey, TaskFilter } from "../lib/view-rows";
+import { ColumnChooser } from "./column-chooser";
 import type { BarColoring, BarText, GanttView } from "../model/gantt-store";
 
 const VIEWS: readonly GanttView[] = ["gantt", "network", "calendar", "resources", "usage", "taskUsage", "graph"];
@@ -96,7 +96,6 @@ export function GanttToolbar({ xmlExchange = true, trailing }: GanttToolbarProps
   const baselineNumber = useGantt((state) => state.baselineNumber);
   const baselineSlot = useGantt((state) => state.baselineSlot);
   const rejection = useGantt((state) => state.rejection);
-  const columns = useGantt((state) => state.columns);
   const levelingOptions = useGantt((state) => state.levelingOptions);
   const showMarkers = useGantt((state) => state.showMarkers);
   const viewOptions = useGantt((state) => state.viewOptions);
@@ -123,14 +122,6 @@ export function GanttToolbar({ xmlExchange = true, trailing }: GanttToolbarProps
   );
   const fileRef = useRef<HTMLInputElement | null>(null);
   const [loading, setLoading] = useState(false);
-  const columnChoices = useMemo<{ id: GanttColumnId; label: string }[]>(
-    () => [
-      ...BUILT_IN_COLUMNS.map((id) => ({ id, label: t(`column.${id}`) })),
-      ...(project.customFields ?? []).map((field) => ({ id: `custom:${field.id}` as const, label: field.name })),
-    ],
-    [project.customFields, t],
-  );
-
   /** Shows the loading mark while a slow command runs, after letting the mark paint first. */
   const busy = async (work: () => Promise<void> | void): Promise<void> => {
     setLoading(true);
@@ -252,6 +243,12 @@ export function GanttToolbar({ xmlExchange = true, trailing }: GanttToolbarProps
               linksAmongSelection.length === 0,
             )}
             {divider}
+            <ColumnChooser>
+              <Button variant="ghost" size="icon-sm" aria-label={t("column.choose")} title={t("column.choose")}>
+                <Columns3 />
+              </Button>
+            </ColumnChooser>
+            {divider}
             {icon(t("toolbar.zoomOut"), <ZoomOut />, () => state.setZoom(zoom - 1), zoom === 0)}
             {icon(t("toolbar.zoomIn"), <ZoomIn />, () => state.setZoom(zoom + 1), zoom === ZOOM_LEVELS.length - 1)}
             {icon(t("toolbar.scrollToStart"), <LocateFixed />, state.scrollToStart)}
@@ -306,22 +303,6 @@ export function GanttToolbar({ xmlExchange = true, trailing }: GanttToolbarProps
               <Settings2 />
               {t("toolbar.projectInformation")}
             </ui.DropdownMenuItem>
-            <ui.DropdownMenuSub>
-              <ui.DropdownMenuSubTrigger>{t("toolbar.columns")}</ui.DropdownMenuSubTrigger>
-              <ui.DropdownMenuSubContent className="max-h-80 overflow-y-auto">
-                {columnChoices.map((choice) => (
-                  <ui.DropdownMenuCheckboxItem
-                    key={choice.id}
-                    checked={columns.includes(choice.id)}
-                    // The menu stays open, so several columns can be switched in one visit.
-                    onSelect={(event) => event.preventDefault()}
-                    onCheckedChange={() => state.toggleColumn(choice.id)}
-                  >
-                    {choice.label}
-                  </ui.DropdownMenuCheckboxItem>
-                ))}
-              </ui.DropdownMenuSubContent>
-            </ui.DropdownMenuSub>
             <ui.DropdownMenuCheckboxItem checked={showMarkers} onCheckedChange={(checked) => state.setShowMarkers(checked)}>
               {t("toolbar.markers")}
             </ui.DropdownMenuCheckboxItem>

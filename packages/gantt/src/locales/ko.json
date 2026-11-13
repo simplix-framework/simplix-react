@@ -45,7 +45,8 @@
     "progressLine": "진행선",
     "insertSubproject": "XML에서 하위 프로젝트 삽입",
     "editRecurring": "반복 작업 수정",
-    "view": "보기"
+    "view": "보기",
+    "resizeTable": "끌어서 표 너비 조절"
   },
   "view": {
     "gantt": "간트 차트",
@@ -68,7 +69,7 @@
     "wbs": "WBS",
     "startVariance": "시작 차이",
     "finishVariance": "완료 차이",
-    "resize": "열 너비 조절",
+    "resize": "끌어서 열 너비 조절, 두 번 누르면 기본 너비",
     "work": "작업 시간",
     "cost": "비용",
     "move": "끌어서 열 이동",
@@ -76,7 +77,8 @@
     "earnedValue": "획득 가치(EV)",
     "actualCost": "실제 비용(AC)",
     "scheduleVariance": "일정 차이(SV)",
-    "costVariance": "비용 차이(CV)"
+    "costVariance": "비용 차이(CV)",
+    "choose": "표시할 열 선택"
   },
   "task": {
     "newName": "새 작업",
