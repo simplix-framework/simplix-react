@@ -1,4 +1,5 @@
-import { MINUTES_PER_DAY, dayIndexOf, fromCivil, toCivil, weekdayOfDay } from "@simplix-react/gantt-core";
+import { MINUTES_PER_DAY, compileCalendars, dayIndexOf, fromCivil, setTaskStart, toCivil, weekdayOfDay } from "@simplix-react/gantt-core";
+import type { Id } from "@simplix-react/gantt-core";
 import { Button } from "@simplix-react/ui";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useMemo, useState } from "react";
@@ -6,6 +7,7 @@ import { useMemo, useState } from "react";
 import { useGantt, useGanttStore } from "../context/gantt-context";
 import { cn } from "../lib/cn";
 import { nowOnProjectClock } from "../lib/markers";
+import { useDrag } from "../lib/use-drag";
 import { useGanttTranslation } from "../lib/use-gantt-translation";
 import { weekdayName } from "./dialog-fields";
 
@@ -20,7 +22,8 @@ export interface CalendarViewProps {
 
 /**
  * The calendar view: one month as a grid of days, each naming the tasks that
- * work on it. Choosing a task opens its information dialog.
+ * work on it. Choosing a task opens its information dialog, and dragging a
+ * task onto another day moves it by that many days.
  */
 export function CalendarView({ weekStartsOn = 0 }: CalendarViewProps) {
   const { t, language } = useGanttTranslation();
@@ -31,7 +34,27 @@ export function CalendarView({ weekStartsOn = 0 }: CalendarViewProps) {
     const c = toCivil(schedule.start);
     return { year: c.year, month: c.month };
   });
+  const readOnly = useGantt((state) => state.readOnly);
   const today = dayIndexOf(nowOnProjectClock());
+  const projectTime = useMemo(() => compileCalendars(project.calendars).get(project.calendarId), [project.calendars, project.calendarId]);
+  // The day a dragged task is over.
+  const [dropDay, setDropDay] = useState<number | null>(null);
+  const dayAt = (x: number, y: number): number | null => {
+    const box = document.elementFromPoint(x, y)?.closest<HTMLElement>("[data-gantt-day]");
+    return box?.dataset.ganttDay === undefined ? null : Number(box.dataset.ganttDay);
+  };
+  const beginMove = useDrag<{ id: Id; fromDay: number; start: number }>({
+    onMove: (_, position) => setDropDay(dayAt(position.clientX, position.clientY)),
+    onCancel: () => setDropDay(null),
+    onEnd({ id, fromDay, start }, position) {
+      setDropDay(null);
+      const toDay = dayAt(position.clientX, position.clientY);
+      if (toDay === null || toDay === fromDay || !projectTime) return;
+      // The task keeps its time of day and lands on the next working time from there.
+      const moved = projectTime.snapForward(start + (toDay - fromDay) * MINUTES_PER_DAY);
+      store.getState().apply("move-task", (p) => setTaskStart(p, id, moved));
+    },
+  });
   // The day whose tasks a narrow calendar lists under the month.
   const [chosenDay, setChosenDay] = useState<number | null>(null);
 
@@ -40,7 +63,7 @@ export function CalendarView({ weekStartsOn = 0 }: CalendarViewProps) {
     const start = first - ((weekdayOfDay(first) - weekStartsOn + 7) % 7);
     const tasks = project.tasks.flatMap((task) => {
       const at = schedule.tasks.get(task.id);
-      return at && !at.summary ? [{ id: task.id, name: task.name, critical: at.critical, from: dayIndexOf(at.start), to: dayIndexOf(Math.max(at.start, at.finish - 1)) }] : [];
+      return at && !at.summary ? [{ id: task.id, name: task.name, critical: at.critical, start: at.start, from: dayIndexOf(at.start), to: dayIndexOf(Math.max(at.start, at.finish - 1)) }] : [];
     });
     return Array.from({ length: 6 }, (_, week) =>
       Array.from({ length: 7 }, (_, weekday) => {
@@ -83,7 +106,11 @@ export function CalendarView({ weekStartsOn = 0 }: CalendarViewProps) {
         {weeks.map((week) => (
           <div key={week[0].day} className="grid min-h-14 grid-cols-7 border-b @2xl:min-h-24">
             {week.map(({ day, inMonth, tasks }) => (
-              <div key={day} className={cn("flex min-w-0 flex-col gap-0.5 border-r p-1", !inMonth && "bg-muted/50 text-muted-foreground")} data-gantt-day={day}>
+              <div
+                key={day}
+                className={cn("flex min-w-0 flex-col gap-0.5 border-r p-1", !inMonth && "bg-muted/50 text-muted-foreground", dropDay === day && "bg-accent ring-2 ring-inset ring-ring")}
+                data-gantt-day={day}
+              >
                 <span className={cn("self-start rounded-full px-1.5 text-xs tabular-nums", day === today && "bg-sky-500 font-semibold text-white")}>
                   {toCivil(day * MINUTES_PER_DAY).day}
                 </span>
@@ -109,10 +136,13 @@ export function CalendarView({ weekStartsOn = 0 }: CalendarViewProps) {
                     type="button"
                     title={task.name}
                     className={cn(
-                      "hidden truncate rounded-sm px-1 text-left text-xs @2xl:block",
+                      "hidden touch-none truncate rounded-sm px-1 text-left text-xs @2xl:block",
+                      !readOnly && "cursor-grab",
                       task.critical ? "bg-destructive/15 text-destructive" : "bg-primary/15 text-foreground",
                     )}
+                    onPointerDown={(event) => !readOnly && beginMove({ id: task.id, fromDay: day, start: task.start }, event)}
                     onClick={() => store.getState().openTaskDialog(task.id)}
+                    data-gantt-calendar-task={task.id}
                   >
                     {task.name}
                   </button>

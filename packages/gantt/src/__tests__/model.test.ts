@@ -3,7 +3,8 @@ import { describe, expect, it, vi } from "vitest";
 
 import { pathData, routeLink } from "../lib/link-path";
 import { dateMarkers, timelineSpan } from "../lib/markers";
-import { buildPdf, layoutPdf } from "../lib/pdf-export";
+import { barColors } from "../lib/bar-color";
+import { buildPdf, layoutPdf, pdfRows } from "../lib/pdf-export";
 import { visibleRows } from "../lib/rows";
 import { DEFAULT_VIEW, isPlainView, viewRows } from "../lib/view-rows";
 import type { ViewRow } from "../lib/view-rows";
@@ -225,6 +226,37 @@ describe("pdf", () => {
     const entries = [...text.slice(xref).matchAll(/(\d{10}) 00000 n /g)].map((m) => Number(m[1]));
     expect(entries).toHaveLength(8);
     entries.forEach((offset, i) => expect(text.slice(offset, offset + `${i + 1} 0 obj`.length)).toBe(`${i + 1} 0 obj`));
+  });
+
+  it("draws the rows a view names, in its order, and sizes the sheets to them", () => {
+    const plan = project(Array.from({ length: 100 }, (_, i) => task(String(i + 1), 1)));
+    const schedule = computeSchedule(plan);
+    expect(pdfRows(schedule, {}).map((row) => row.id)).toHaveLength(100);
+    // A filtered, re-sorted view: the PDF follows it and skips an id the plan no longer has.
+    const shown = pdfRows(schedule, { rows: ["7", "3", "gone", "50"] });
+    expect(shown.map((row) => row.id)).toEqual(["7", "3", "50"]);
+    expect(layoutPdf(schedule, plan, shown.length).sheetsDown).toBe(1);
+    expect(layoutPdf(schedule, plan).sheetsDown).toBe(3);
+  });
+
+  it("colours a bar by its task or by its first resource, the same on screen and on paper", () => {
+    const plan = {
+      ...project([task("1", 1, { color: "#123456" }), task("2", 1), task("3", 1)]),
+      resources: [
+        { id: "r1", name: "A", type: "work" as const, maxUnits: 1 },
+        { id: "r2", name: "B", type: "work" as const, maxUnits: 1 },
+      ],
+      assignments: [
+        { id: "a1", taskId: "2", resourceId: "r2", units: 1, work: 480 },
+        { id: "a2", taskId: "2", resourceId: "r1", units: 1, work: 480 },
+      ],
+    };
+    const [first, second, third] = plan.tasks;
+    expect(plan.tasks.map(barColors(plan, "none"))).toEqual([undefined, undefined, undefined]);
+    expect(plan.tasks.map(barColors(plan, "task"))).toEqual(["#123456", undefined, undefined]);
+    const byResource = barColors(plan, "resource");
+    // The second resource's colour: the first assignment of the task decides.
+    expect([byResource(first), byResource(second), byResource(third)]).toEqual([undefined, "#059669", undefined]);
   });
 
   it("cuts a plan into sheets down by rows and across by timeline width", () => {

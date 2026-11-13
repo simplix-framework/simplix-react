@@ -1,5 +1,5 @@
 import { compileCalendars, dayIndexOf, formatDuration } from "@simplix-react/gantt-core";
-import type { Project, Schedule, TaskSchedule } from "@simplix-react/gantt-core";
+import type { Id, Project, Schedule, Task, TaskSchedule } from "@simplix-react/gantt-core";
 
 import { formatDate, formatScaleCell } from "./format";
 import { routeLink } from "./link-path";
@@ -111,12 +111,23 @@ export interface PdfLayout {
   timelineWidth: number;
 }
 
+/** What of the screen's view a PDF follows. Left out, the PDF shows the whole plan in the chart's own colours. */
+export interface PdfView {
+  /** Ids of the tasks to draw, in the order to draw them: the rows the screen shows after filtering, sorting and folding. */
+  rows?: readonly Id[];
+  /** The colour of a task's bar, or `undefined` for the chart's own. */
+  colorOf?: (task: Task) => string | undefined;
+  /** Whether critical tasks are drawn in the critical colour. */
+  showCriticalPath?: boolean;
+}
+
 /**
  * Cuts a plan into sheets: the task table repeats on every sheet, rows run
  * down the sheets and the timeline runs across them at the closest zoom step
- * that keeps it within six sheets.
+ * that keeps it within six sheets. `rowCount` is the number of rows drawn,
+ * every task of the plan when it is left out.
  */
-export function layoutPdf(schedule: Schedule, project: Project): PdfLayout {
+export function layoutPdf(schedule: Schedule, project: Project, rowCount: number = project.tasks.length): PdfLayout {
   const timelineWidth = PAGE_WIDTH - 2 * MARGIN - GRID_WIDTH;
   const rowsPerSheet = Math.floor((PAGE_HEIGHT - 2 * MARGIN - FOOTER - HEADER) / ROW);
   const from = Math.min(schedule.start, project.start);
@@ -135,7 +146,7 @@ export function layoutPdf(schedule: Schedule, project: Project): PdfLayout {
     level,
     scale,
     rowsPerSheet,
-    sheetsDown: Math.max(1, Math.ceil(project.tasks.length / rowsPerSheet)),
+    sheetsDown: Math.max(1, Math.ceil(rowCount / rowsPerSheet)),
     sheetsAcross: Math.max(1, Math.ceil(scale.width / timelineWidth)),
     timelineWidth,
   };
@@ -166,8 +177,10 @@ function drawSheet(
   sheet: { down: number; across: number; number: number; total: number },
   language: string,
   label: (key: string) => string,
+  view: PdfView,
 ): void {
   const { scale, level, timelineWidth } = layout;
+  const marksCritical = view.showCriticalPath !== false;
   const firstRow = sheet.down * layout.rowsPerSheet;
   const sheetRows = rows.slice(firstRow, firstRow + layout.rowsPerSheet);
   const offsetX = sheet.across * timelineWidth;
@@ -306,7 +319,9 @@ function drawSheet(
     const y = bodyTop + i * ROW;
     const left = scale.x(at.start);
     const width = Math.max(scale.x(at.finish) - left, 2);
-    const stroke = at.critical ? CRITICAL : BAR;
+    const critical = marksCritical && at.critical;
+    const own = critical ? undefined : view.colorOf?.(project.tasks[at.index]);
+    const stroke = critical ? CRITICAL : (own ?? BAR);
     if (at.summary) {
       ctx.fillStyle = INK;
       ctx.fillRect(left, y + ROW / 2 - 3, width, 4);
@@ -320,7 +335,7 @@ function drawSheet(
       return;
     }
     if (at.milestone) {
-      ctx.fillStyle = at.critical ? CRITICAL : INK;
+      ctx.fillStyle = critical ? CRITICAL : (own ?? INK);
       ctx.beginPath();
       ctx.moveTo(left, y + ROW / 2 - 5);
       ctx.lineTo(left + 5, y + ROW / 2);
@@ -332,8 +347,11 @@ function drawSheet(
     for (const segment of at.segments) {
       const sx = scale.x(segment.start);
       const sw = Math.max(scale.x(segment.finish) - sx, 2);
-      ctx.fillStyle = at.critical ? CRITICAL_FILL : BAR_FILL;
+      // A task's own colour fills its bar lightly, as the chart's colour does.
+      ctx.globalAlpha = own === undefined ? 1 : 0.3;
+      ctx.fillStyle = critical ? CRITICAL_FILL : (own ?? BAR_FILL);
       ctx.fillRect(sx, y + 5, sw, ROW - 10);
+      ctx.globalAlpha = 1;
       ctx.strokeStyle = stroke;
       ctx.lineWidth = 0.75;
       ctx.strokeRect(sx, y + 5, sw, ROW - 10);
@@ -384,16 +402,26 @@ function canvasToJpeg(canvas: HTMLCanvasElement): Promise<Uint8Array> {
   });
 }
 
+/** The rows a PDF draws: the ones a view names, in its order, or every task of the plan. */
+export function pdfRows(schedule: Schedule, view: PdfView): TaskSchedule[] {
+  if (!view.rows) return [...schedule.tasks.values()];
+  return view.rows.flatMap((id) => {
+    const at = schedule.tasks.get(id);
+    return at ? [at] : [];
+  });
+}
+
 /**
  * Draws a plan as an A4 landscape PDF: the task table on every sheet, rows
  * running down the sheets and the timeline running across them. The text is
  * drawn by the browser, so every script the reader's fonts cover is shown.
  *
  * @param label - Translates a `column.*` key for the table headings and a `marker.*` key for the marked dates.
+ * @param view - The rows and colours of the screen for the PDF to follow.
  */
-export async function renderPdf(project: Project, schedule: Schedule, language: string, label: (key: string) => string): Promise<Uint8Array> {
-  const layout = layoutPdf(schedule, project);
-  const rows = [...schedule.tasks.values()];
+export async function renderPdf(project: Project, schedule: Schedule, language: string, label: (key: string) => string, view: PdfView = {}): Promise<Uint8Array> {
+  const rows = pdfRows(schedule, view);
+  const layout = layoutPdf(schedule, project, rows.length);
   const total = layout.sheetsDown * layout.sheetsAcross;
   const canvas = document.createElement("canvas");
   canvas.width = PAGE_WIDTH * DENSITY;
@@ -404,7 +432,7 @@ export async function renderPdf(project: Project, schedule: Schedule, language: 
   for (let down = 0; down < layout.sheetsDown; down++) {
     for (let across = 0; across < layout.sheetsAcross; across++) {
       ctx.setTransform(DENSITY, 0, 0, DENSITY, 0, 0);
-      drawSheet(ctx, project, schedule, layout, rows, { down, across, number: images.length + 1, total }, language, label);
+      drawSheet(ctx, project, schedule, layout, rows, { down, across, number: images.length + 1, total }, language, label, view);
       images.push({ jpeg: await canvasToJpeg(canvas), width: canvas.width, height: canvas.height });
     }
   }
@@ -412,8 +440,8 @@ export async function renderPdf(project: Project, schedule: Schedule, language: 
 }
 
 /** Renders the plan as a PDF and hands it to the browser as a download named after the project. */
-export async function downloadPdf(project: Project, schedule: Schedule, language: string, label: (key: string) => string): Promise<void> {
-  const pdf = await renderPdf(project, schedule, language, label);
+export async function downloadPdf(project: Project, schedule: Schedule, language: string, label: (key: string) => string, view: PdfView = {}): Promise<void> {
+  const pdf = await renderPdf(project, schedule, language, label, view);
   const url = URL.createObjectURL(new Blob([pdf.buffer as ArrayBuffer], { type: "application/pdf" }));
   const anchor = document.createElement("a");
   anchor.href = url;

@@ -2,7 +2,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { box, open } from "./helpers.mjs";
+import { box, drag, open } from "./helpers.mjs";
 
 const scrollOf = (page) =>
   page.evaluate(() => ({
@@ -139,4 +139,53 @@ test("prints every column of the table, from the first, whatever part of it was 
   assert.ok(paper.first >= 0, `the first column prints ${Math.round(paper.first)}px from the table's left edge`);
   assert.equal(paper.cut, 0, `${paper.cut} columns reach past the printed table`);
   await page.context().close();
+});
+
+test("prints the rows the screen shows: a filter and a folded phase are left out on paper too", async () => {
+  const page = await open("default");
+  await page.evaluate(() => (window.print = () => {}));
+  const all = await page.locator("[data-gantt-row]").count();
+  await page.getByRole("button", { name: "More" }).click();
+  await page.getByRole("menuitem", { name: /^Filter:/ }).press("ArrowRight");
+  await page.getByRole("menuitemradio", { name: "Critical", exact: true }).press("Enter");
+  await page.waitForTimeout(300);
+  const filtered = await page.locator("[data-gantt-row]").count();
+  assert.ok(filtered > 0 && filtered < all, `the filter leaves ${filtered} of ${all} rows`);
+  await page.getByRole("button", { name: "More" }).click();
+  await page.getByRole("menuitem", { name: /Print/ }).first().click();
+  await page.waitForFunction(() => !document.querySelector('[data-gantt-slot="table-scroller"]') && !document.querySelector('[data-gantt-slot="splitter"]'));
+  assert.equal(await page.locator("[data-gantt-row]").count(), filtered);
+  assert.equal(await page.locator("[data-gantt-bar]").count(), filtered);
+  await page.context().close();
+});
+
+test("moves a task by dragging it to another day of the calendar", async () => {
+  const page = await open("calendar", { ready: "[data-gantt-calendar-task]" });
+  const title = (await page.locator('[data-gantt-slot="calendar-title"]').textContent()).trim();
+  assert.equal(title, "March 2026");
+  // Task 2 works from 2 to 6 March; taken by its box on the 2nd and dropped on the 9th it starts a week later.
+  const dayOf = (iso) => Math.floor(Date.UTC(...iso) / 86400000);
+  const from = page.locator(`[data-gantt-day="${dayOf([2026, 2, 2])}"] [data-gantt-calendar-task="2"]`);
+  const to = page.locator(`[data-gantt-day="${dayOf([2026, 2, 9])}"]`);
+  const a = await from.boundingBox();
+  const b = await to.boundingBox();
+  await drag(page, { x: a.x + a.width / 2, y: a.y + a.height / 2 }, { x: b.x + b.width / 2, y: b.y + b.height - 8 });
+  await page.waitForTimeout(300);
+  assert.equal(await page.locator(`[data-gantt-day="${dayOf([2026, 2, 2])}"] [data-gantt-calendar-task="2"]`).count(), 0);
+  assert.equal(await page.locator(`[data-gantt-day="${dayOf([2026, 2, 9])}"] [data-gantt-calendar-task="2"]`).count(), 1);
+  assert.equal(await page.locator("[role=dialog]").count(), 0, "a drag does not open the task");
+  // A click still opens it.
+  await page.locator(`[data-gantt-day="${dayOf([2026, 2, 9])}"] [data-gantt-calendar-task="2"]`).click();
+  await page.waitForSelector("[role=dialog]");
+  await page.context().close();
+  // A read-only chart does not move it.
+  const fixed = await open("read-only");
+  await fixed.getByRole("tab").nth(2).click();
+  await fixed.waitForSelector("[data-gantt-calendar-task]");
+  const c = await fixed.locator(`[data-gantt-day="${dayOf([2026, 2, 2])}"] [data-gantt-calendar-task="2"]`).boundingBox();
+  const d = await fixed.locator(`[data-gantt-day="${dayOf([2026, 2, 9])}"]`).boundingBox();
+  await drag(fixed, { x: c.x + c.width / 2, y: c.y + c.height / 2 }, { x: d.x + d.width / 2, y: d.y + d.height - 8 });
+  await fixed.waitForTimeout(300);
+  assert.equal(await fixed.locator(`[data-gantt-day="${dayOf([2026, 2, 2])}"] [data-gantt-calendar-task="2"]`).count(), 1);
+  await fixed.context().close();
 });

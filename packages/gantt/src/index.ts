@@ -55,7 +55,9 @@ export { routeLink } from "./lib/link-path";
 export type { BarBox, LinkPath, PathPoint } from "./lib/link-path";
 
 // ---- PDF ----
-export { buildPdf, downloadPdf, layoutPdf, renderPdf } from "./lib/pdf-export";
+export { buildPdf, downloadPdf, layoutPdf, pdfRows, renderPdf } from "./lib/pdf-export";
+export type { PdfView } from "./lib/pdf-export";
+export { barColors } from "./lib/bar-color";
 export type { PdfImage, PdfLayout } from "./lib/pdf-export";
 export { RecurringDialog } from "./components/recurring-dialog";
 

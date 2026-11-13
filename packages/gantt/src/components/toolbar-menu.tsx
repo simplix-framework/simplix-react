@@ -4,7 +4,9 @@ import { Download, Ellipsis, FileDown, FolderOpen, Printer, Repeat, Save, Settin
 import type { ReactNode } from "react";
 
 import { useGantt, useGanttStore } from "../context/gantt-context";
+import { barColors } from "../lib/bar-color";
 import { useGanttTranslation } from "../lib/use-gantt-translation";
+import { viewRows } from "../lib/view-rows";
 import type { GroupKey, SortKey, TaskFilter } from "../lib/view-rows";
 import type { BarColoring, BarText, GanttPane } from "../model/gantt-store";
 import { useFoldableCommands } from "./toolbar-commands";
@@ -143,7 +145,13 @@ export function ToolbarMenu({ xmlExchange, planFiles, onSavePlan, onOpenPlan, fo
                 // The PDF code loads when it is first asked for, so charts that never export do not carry it.
                 void busy(async () => {
                   const { downloadPdf } = await import("../lib/pdf-export");
-                  await downloadPdf(current.history.present, current.schedule, language, (key) => t(key));
+                  // The PDF shows the rows and colours of the screen: what is filtered out or folded away is left out.
+                  const shown = viewRows(current.history.present, current.schedule, current.collapsed, current.viewOptions);
+                  await downloadPdf(current.history.present, current.schedule, language, (key) => t(key), {
+                    rows: shown.flatMap((row) => (row.kind === "task" ? [row.task.id] : [])),
+                    colorOf: barColors(current.history.present, current.barColoring),
+                    showCriticalPath: current.showCriticalPath,
+                  });
                 });
               }}
             >

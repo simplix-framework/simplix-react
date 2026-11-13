@@ -12,6 +12,7 @@ import type { Id, LinkType, TaskSchedule } from "@simplix-react/gantt-core";
 import { useCallback, useMemo, useRef, useState } from "react";
 
 import { useGantt, useGanttStore } from "../context/gantt-context";
+import { barColors } from "../lib/bar-color";
 import { cn } from "../lib/cn";
 import type { BarBox, PathPoint } from "../lib/link-path";
 import { MARKER_STYLE, startOfDay } from "../lib/markers";
@@ -30,9 +31,6 @@ const MILESTONE_HALF = 7;
 const HOURLY_PX_PER_DAY = 240;
 /** Below this day width single non-working days are too thin to shade. */
 const SHADING_MIN_PX_PER_DAY = 5;
-
-/** Colours bars take when they are coloured by resource, one per resource in turn. */
-const RESOURCE_COLORS = ["#2563eb", "#059669", "#d97706", "#7c3aed", "#db2777", "#0891b2", "#65a30d", "#dc2626"] as const;
 
 /** Props for {@link TimelineBody}. */
 export interface TimelineBodyProps {
@@ -92,11 +90,7 @@ export function TimelineBody({ scale, level, rows, window, rowHeight, fromX, toX
   const barText = useGantt((state) => state.barText);
   const barColoring = useGantt((state) => state.barColoring);
   const showProgressLine = useGantt((state) => state.showProgressLine);
-  const resourceColor = useMemo(() => {
-    const colors = new Map<Id, string>();
-    project.resources.forEach((resource, i) => colors.set(resource.id, RESOURCE_COLORS[i % RESOURCE_COLORS.length]));
-    return colors;
-  }, [project.resources]);
+  const colorOf = useMemo(() => barColors(project, barColoring), [project, barColoring]);
   const height = rows.length * rowHeight;
   const hourly = level.pxPerDay >= HOURLY_PX_PER_DAY;
   const pxPerMinute = scale.pxPerDay / MINUTES_PER_DAY;
@@ -288,9 +282,7 @@ export function TimelineBody({ scale, level, rows, window, rowHeight, fromX, toX
         const at = schedule.tasks.get(row.task.id);
         if (!at) return null;
         const live = preview?.gesture.id === row.task.id ? preview : null;
-        const firstResource = project.assignments.find((assignment) => assignment.taskId === row.task.id)?.resourceId;
-        const color =
-          barColoring === "task" ? row.task.color : barColoring === "resource" && firstResource !== undefined ? resourceColor.get(firstResource) : undefined;
+        const color = colorOf(row.task);
         return (
           <TaskBar
             key={`${index}:${row.task.id}`}
