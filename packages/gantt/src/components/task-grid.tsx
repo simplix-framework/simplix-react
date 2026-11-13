@@ -58,13 +58,15 @@ export interface TaskGridHeaderProps {
   onResize: (column: GanttColumnId, width: number) => void;
   /** Called with the place among the columns a dragged heading was dropped at. */
   onMove: (column: GanttColumnId, toIndex: number) => void;
+  /** Width of the leading row number column; narrower in a narrow table. */
+  indicatorWidth?: number;
 }
 
 /** A column never gets narrower than this. */
 const MIN_COLUMN_WIDTH = 48;
 
 /** The heading row of the task table. The right edge of a heading drags to resize its column. */
-export function TaskGridHeader({ columns, widths, onResize, onMove }: TaskGridHeaderProps) {
+export function TaskGridHeader({ columns, widths, onResize, onMove, indicatorWidth = INDICATOR_WIDTH }: TaskGridHeaderProps) {
   const { t } = useGanttTranslation();
   const customFields = useGantt((state) => state.history.present.customFields);
   const labelOf = (column: GanttColumnId): string =>
@@ -75,7 +77,7 @@ export function TaskGridHeader({ columns, widths, onResize, onMove }: TaskGridHe
   const beginMove = useDrag<{ column: GanttColumnId; row: Element | null }>({
     onMove: () => undefined,
     onEnd({ column, row }, position) {
-      const left = (row?.getBoundingClientRect().left ?? 0) + INDICATOR_WIDTH;
+      const left = (row?.getBoundingClientRect().left ?? 0) + indicatorWidth;
       let edge = left;
       let target = columns.length - 1;
       for (let i = 0; i < columns.length; i++) {
@@ -95,7 +97,7 @@ export function TaskGridHeader({ columns, widths, onResize, onMove }: TaskGridHe
   });
   return (
     <div className="flex h-full items-end text-xs font-medium text-foreground" role="row">
-      <div className="h-full shrink-0 border-r" style={{ width: INDICATOR_WIDTH }} />
+      <div className="h-full shrink-0 border-r" style={{ width: indicatorWidth }} />
       {columns.map((column) => (
         <div
           key={column}
@@ -134,6 +136,8 @@ export interface TaskGridRowsProps {
   movable: boolean;
   /** A table that only shows: no cell opens for editing. */
   readOnly: boolean;
+  /** Width of the leading row number column; narrower in a narrow table. */
+  indicatorWidth?: number;
   /** Rows to draw, as indexes into `rows` with their vertical offset. */
   window: readonly { index: number; start: number }[];
   rowHeight: number;
@@ -149,6 +153,7 @@ export function TaskGridRows({
   onActiveColumnChange,
   movable,
   readOnly,
+  indicatorWidth = INDICATOR_WIDTH,
   rows,
   window,
   rowHeight,
@@ -320,7 +325,7 @@ export function TaskGridRows({
                 "flex shrink-0 touch-none items-center justify-end gap-0.5 border-r px-1.5 text-xs text-muted-foreground tabular-nums",
                 movable && "cursor-grab",
               )}
-              style={{ width: INDICATOR_WIDTH }}
+              style={{ width: indicatorWidth }}
               title={movable ? t("task.moveRow") : undefined}
               data-gantt-slot="row-handle"
               onPointerDown={(event) => {

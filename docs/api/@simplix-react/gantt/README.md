@@ -56,7 +56,8 @@ A guide in Korean is in [docs/guide.ko.md](../../_media/guide.ko.md).
 | Other views | A network diagram, a month calendar, a resource graph of work against capacity, and a task usage table of hours per assignment. |
 | Read-only | `readOnly` shows the plan and refuses every edit. |
 | Layout | Column widths, order and visibility, zoom, folded rows, the view and the bar settings are one `layout` value, reported through `onLayoutChange` and handed back through `layout`. |
-| Date markers | Today, the status date and the two ends of the plan each get a line in their own colour and a name tag on the header; today's day is tinted, and a button scrolls to it. The timeline widens to today when today lies within a year of the plan. The markers can be switched off, and the PDF carries them too. |
+| Narrow screens | The task table opens at no more than 45% of the chart and never takes the whole of it, so the timeline stays in reach; the toolbar stays on one line and scrolls sideways, with the view picked from a list; dialogs lay their fields out in one column. |
+| Date markers | Today, the status date and the two ends of the plan each get a line in their own colour and a name tag on the header; today's day is tinted, and a button scrolls to it. The timeline widens to today when today lies within a month of the plan. The markers can be switched off, and the PDF carries them too. |
 | Bars | Drag a bar to move it, an edge to resize it, the mark under it to set progress. Summary tasks draw as brackets and milestones as diamonds. A deadline draws as an arrow. |
 | Links | Drag from the dot at a bar's end onto another bar: the ends you start from and drop on pick finish-to-start, start-to-start, finish-to-finish or start-to-finish. Click a line to select it and press Delete to remove it. A violated link is dashed. |
 | Critical path | Critical tasks and the links that drive them are drawn in the destructive colour. |
@@ -108,7 +109,7 @@ An edit the engine refuses (a dependency loop, a duration that is not one) leave
 | `readOnly` | `boolean` | `false` | Shows the plan and refuses every edit |
 | `layout` | `Partial<GanttLayout>` | | A stored layout to open with |
 | `onLayoutChange` | `(layout) => void` | | Called with the whole layout when it changes |
-| `defaultGridWidth` | `number` | fits the columns, up to 560 | Width the task table opens at |
+| `defaultGridWidth` | `number` | fits the columns, up to 560 and 45% of the chart | Width the task table opens at |
 | `weekStartsOn` | `number` | `0` | First day of a week column; 0 is Sunday |
 | `zoom` | `number` | `4` | Index into `ZOOM_LEVELS` |
 | `view` | `"gantt" \| "resources" \| "usage"` | `"gantt"` | Screen shown first |

@@ -61,14 +61,15 @@ export function ProjectDialog() {
           <ui.DialogDescription>{project.name}</ui.DialogDescription>
         </ui.DialogHeader>
         <fieldset disabled={readOnly} className="contents">
+        <div className="min-w-0">
         <ui.Tabs defaultValue="settings">
-          <ui.TabsList>
+          <ui.TabsList className="max-w-full justify-start overflow-x-auto">
             <ui.TabsTrigger value="settings">{t("project.settings")}</ui.TabsTrigger>
             <ui.TabsTrigger value="calendars">{t("project.calendars")}</ui.TabsTrigger>
             <ui.TabsTrigger value="fields">{t("project.customFields")}</ui.TabsTrigger>
           </ui.TabsList>
 
-          <ui.TabsContent value="settings" className="grid grid-cols-2 gap-x-4 gap-y-3 pt-2">
+          <ui.TabsContent value="settings" className="grid grid-cols-1 gap-x-4 gap-y-3 pt-2 sm:grid-cols-2">
             <Field label={t("project.name")} wide>
               {(id) => (
                 <ui.Input
@@ -181,8 +182,8 @@ export function ProjectDialog() {
             </Field>
           </ui.TabsContent>
 
-          <ui.TabsContent value="calendars" className="flex max-h-[60vh] flex-col gap-3 overflow-y-auto pt-2">
-            <div className="grid grid-cols-[1fr_1fr_auto_auto] items-center gap-2">
+          <ui.TabsContent value="calendars" className="flex max-h-[60vh] flex-col gap-3 overflow-auto pt-2">
+            <div className="grid min-w-max grid-cols-[1fr_1fr_auto_auto] items-center gap-2">
               <ui.Select value={calendar.id} onValueChange={setCalendarId}>
                 <ui.SelectTrigger aria-label={t("field.calendar")} className="w-full">
                   <ui.SelectValue />
@@ -228,7 +229,7 @@ export function ProjectDialog() {
               <p className="text-sm font-medium">{t("calendar.workingTime")}</p>
               <p className="text-xs text-muted-foreground">{t("calendar.workingTimeHint")}</p>
             </div>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+            <div className="grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-2">
               {WEEKDAYS.map((weekday) => {
                 const ranges = calendar.weekDays[weekday];
                 const text = ranges ? formatWorkingRanges(ranges) : "";
@@ -258,7 +259,7 @@ export function ProjectDialog() {
               return (
                 <div
                   key={`${calendar.id}:${index}:${exception.fromDay}:${exception.toDay}:${exception.name ?? ""}:${hours}`}
-                  className="grid grid-cols-[1fr_9.5rem_9.5rem_1fr_auto] items-center gap-2"
+                  className="grid min-w-max grid-cols-[1fr_9.5rem_9.5rem_1fr_auto] items-center gap-2"
                 >
                   <ui.Input
                     aria-label={t("calendar.exceptionName")}
@@ -329,7 +330,7 @@ export function ProjectDialog() {
           </ui.TabsContent>
           <ui.TabsContent value="fields" className="flex flex-col gap-2 pt-2">
             {(project.customFields ?? []).map((field) => (
-              <div key={field.id} className="grid grid-cols-[1fr_9rem_auto] items-center gap-2" data-gantt-custom-field={field.id}>
+              <div key={field.id} className="grid min-w-max grid-cols-[1fr_9rem_auto] items-center gap-2" data-gantt-custom-field={field.id}>
                 <ui.Input
                   key={field.name}
                   aria-label={t("customField.name")}
@@ -364,6 +365,7 @@ export function ProjectDialog() {
             </div>
           </ui.TabsContent>
         </ui.Tabs>
+        </div>
         </fieldset>
         <ui.DialogFooter>
           <Button variant="outline" onClick={closeProjectDialog}>

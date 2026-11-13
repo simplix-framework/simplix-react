@@ -101,8 +101,9 @@ export function TaskDialog() {
         </ui.DialogHeader>
         {/* A read-only chart shows the dialog with every control switched off. */}
         <fieldset disabled={readOnly} className="contents">
+        <div className="min-w-0">
         <ui.Tabs defaultValue="general">
-          <ui.TabsList>
+          <ui.TabsList className="max-w-full justify-start overflow-x-auto">
             <ui.TabsTrigger value="general">{t("dialog.general")}</ui.TabsTrigger>
             <ui.TabsTrigger value="predecessors">{t("dialog.predecessors")}</ui.TabsTrigger>
             <ui.TabsTrigger value="resources">{t("dialog.resources")}</ui.TabsTrigger>
@@ -111,7 +112,7 @@ export function TaskDialog() {
             <ui.TabsTrigger value="notes">{t("dialog.notes")}</ui.TabsTrigger>
           </ui.TabsList>
 
-          <ui.TabsContent value="general" className="grid grid-cols-2 gap-x-4 gap-y-3 pt-2">
+          <ui.TabsContent value="general" className="grid grid-cols-1 gap-x-4 gap-y-3 pt-2 sm:grid-cols-2">
             <Field label={t("field.name")} wide>
               {(id) => (
                 <ui.Input
@@ -196,9 +197,9 @@ export function TaskDialog() {
             <Toggle label={t("field.inactive")} checked={task.inactive === true} onChange={(checked) => patch("set-inactive", { inactive: checked })} />
           </ui.TabsContent>
 
-          <ui.TabsContent value="predecessors" className="flex flex-col gap-2 pt-2">
+          <ui.TabsContent value="predecessors" className="flex flex-col gap-2 overflow-x-auto pt-2">
             {incoming.map((link) => (
-              <div key={link.id} className="grid grid-cols-[1fr_11rem_6rem_auto] items-center gap-2">
+              <div key={link.id} className="grid min-w-max grid-cols-[1fr_11rem_6rem_auto] items-center gap-2">
                 <span className="truncate text-sm">
                   {rowNumber(link.predecessorId)}. {project.tasks.find((other) => other.id === link.predecessorId)?.name}
                 </span>
@@ -248,9 +249,9 @@ export function TaskDialog() {
             )}
           </ui.TabsContent>
 
-          <ui.TabsContent value="resources" className="flex flex-col gap-2 pt-2">
+          <ui.TabsContent value="resources" className="flex flex-col gap-2 overflow-x-auto pt-2">
             {assignments.map((assignment) => (
-              <div key={assignment.id} className="grid grid-cols-[1fr_5rem_6rem_9rem_auto] items-center gap-2" data-gantt-assignment={assignment.id}>
+              <div key={assignment.id} className="grid min-w-max grid-cols-[1fr_5rem_6rem_9rem_auto] items-center gap-2" data-gantt-assignment={assignment.id}>
                 <span className="truncate text-sm">{project.resources.find((r) => r.id === assignment.resourceId)?.name}</span>
                 <ui.Input
                   key={assignment.units}
@@ -311,7 +312,7 @@ export function TaskDialog() {
             {assignments.length === 0 && assignable.length === 0 && <p className="text-sm text-muted-foreground">{t("resource.emptyHint")}</p>}
           </ui.TabsContent>
 
-          <ui.TabsContent value="advanced" className="grid grid-cols-2 gap-x-4 gap-y-3 pt-2">
+          <ui.TabsContent value="advanced" className="grid grid-cols-1 gap-x-4 gap-y-3 pt-2 sm:grid-cols-2">
             <Field label={t("field.constraintType")}>
               {() =>
                 select(
@@ -414,8 +415,8 @@ export function TaskDialog() {
             {!at.summary && <TaskSplits task={task} start={at.start} />}
           </ui.TabsContent>
 
-          <ui.TabsContent value="custom" className="grid grid-cols-2 gap-x-4 gap-y-3 pt-2">
-            {(project.customFields ?? []).length === 0 && <p className="col-span-2 text-sm text-muted-foreground">{t("customField.empty")}</p>}
+          <ui.TabsContent value="custom" className="grid grid-cols-1 gap-x-4 gap-y-3 pt-2 sm:grid-cols-2">
+            {(project.customFields ?? []).length === 0 && <p className="text-sm sm:col-span-2 text-muted-foreground">{t("customField.empty")}</p>}
             {(project.customFields ?? []).map((field) => {
               const value = task.custom?.[field.id];
               const set = (next: string | number | boolean | undefined): void => {
@@ -456,6 +457,7 @@ export function TaskDialog() {
             />
           </ui.TabsContent>
         </ui.Tabs>
+        </div>
         </fieldset>
         <ui.DialogFooter>
           <Button variant="outline" onClick={closeTaskDialog}>

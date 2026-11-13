@@ -22,7 +22,7 @@ export function TaskSplits({ task, start }: TaskSplitsProps) {
   const project = useGantt((state) => state.history.present);
   const { apply } = store.getState();
   return (
-    <div className="col-span-2 flex flex-col gap-2 border-t pt-3">
+    <div className="flex flex-col gap-2 border-t pt-3 sm:col-span-2">
       <p className="text-sm font-medium">{t("split.title")}</p>
       {(task.splits ?? []).map((split) => (
         <p key={split.offset} className="text-sm text-muted-foreground" data-gantt-slot="split-entry">
@@ -33,7 +33,7 @@ export function TaskSplits({ task, start }: TaskSplitsProps) {
         </p>
       ))}
       <form
-        className="grid grid-cols-[1fr_1fr_auto_auto] items-end gap-2"
+        className="grid min-w-max grid-cols-[1fr_1fr_auto_auto] items-end gap-2"
         onSubmit={(event) => {
           event.preventDefault();
           const form = new FormData(event.currentTarget);

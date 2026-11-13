@@ -44,7 +44,8 @@
     "barColoring": "バーの色",
     "progressLine": "進捗線",
     "insertSubproject": "XML からサブプロジェクトを挿入",
-    "editRecurring": "定期タスクを編集"
+    "editRecurring": "定期タスクを編集",
+    "view": "ビュー"
   },
   "view": {
     "gantt": "ガントチャート",

@@ -67,7 +67,7 @@ function RecurringForm({ editing }: { editing: Task | undefined }) {
           <ui.DialogDescription>{project.name}</ui.DialogDescription>
         </ui.DialogHeader>
         <form
-          className="grid grid-cols-2 gap-x-4 gap-y-3"
+          className="grid grid-cols-1 gap-x-4 gap-y-3 sm:grid-cols-2"
           onSubmit={(event) => {
             event.preventDefault();
             create(new FormData(event.currentTarget));
@@ -102,7 +102,7 @@ function RecurringForm({ editing }: { editing: Task | undefined }) {
             <Field label={t("recurring.monthDay")}>{(id) => <ui.Input id={id} name="monthDay" type="number" min={1} max={31} defaultValue={rule?.monthDay ?? 1} />}</Field>
           )}
           {frequency === "weekly" && (
-            <div className="col-span-2 flex flex-col gap-1.5">
+            <div className="flex flex-col gap-1.5 sm:col-span-2">
               <ui.Label>{t("recurring.weekdays")}</ui.Label>
               <div className="flex flex-wrap gap-3">
                 {WEEKDAYS.map((weekday) => (
@@ -122,7 +122,7 @@ function RecurringForm({ editing }: { editing: Task | undefined }) {
           </Field>
           <Field label={t("recurring.until")}>{(id) => <ui.Input id={id} name="until" type="date" defaultValue={rule?.until === undefined ? "" : toDateInputValue(rule.until)} />}</Field>
           <Field label={t("recurring.count")}>{(id) => <ui.Input id={id} name="count" type="number" min={1} max={500} defaultValue={rule ? (rule.count ?? "") : 4} />}</Field>
-          <ui.DialogFooter className="col-span-2">
+          <ui.DialogFooter className="sm:col-span-2">
             <Button type="button" variant="outline" onClick={closeRecurringDialog}>
               {t("dialog.close")}
             </Button>

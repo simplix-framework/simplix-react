@@ -12,7 +12,7 @@ import type { ZoomLevel } from "../lib/time-scale";
 import { useDrag } from "../lib/use-drag";
 import { useGanttTranslation } from "../lib/use-gantt-translation";
 import { RowMenu } from "./row-menu";
-import { TaskGridHeader, TaskGridRows, gridContentWidth, isEditableCell } from "./task-grid";
+import { INDICATOR_WIDTH, TaskGridHeader, TaskGridRows, columnWidth, gridContentWidth, isEditableCell } from "./task-grid";
 import type { GanttColumnId, GridEditing } from "./task-grid";
 import { TimelineBody } from "./timeline-body";
 import { TimelineHeader } from "./timeline-header";
@@ -20,6 +20,14 @@ import { TimelineHeader } from "./timeline-header";
 const ROW_HEIGHT = 32;
 const HEADER_HEIGHT = 48;
 const MIN_GRID_WIDTH = 120;
+/** The timeline keeps at least this much of the chart's width, however wide the table is asked to be. */
+const MIN_TIMELINE_WIDTH = 160;
+/** Share of the chart's width the table opens at most, before the reader has dragged it. */
+const OPENING_GRID_SHARE = 0.45;
+/** Room left between the table and the start of the plan, enough for the start's name tag. */
+const OPENING_GAP = 48;
+/** A table narrower than this draws its row number column compact. */
+const NARROW_GRID_WIDTH = 260;
 /** Rows drawn beyond the visible ones, so a fast scroll does not show a gap. */
 const OVERSCAN = 8;
 /** Width, in CSS pixels, a landscape A4 page leaves between its margins. */
@@ -81,12 +89,24 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
   const widths = useGantt((state) => state.columnWidths);
   // Opens as wide as its columns need, up to a share of the screen; a dragged width is the reader's and is kept.
   const [openingGridWidth] = useState(() => defaultGridWidth ?? Math.min(gridContentWidth(store.getState().columns), 560));
-  const gridWidth = storedGridWidth ?? openingGridWidth;
+  const [viewport, setViewport] = useState({ left: 0, top: 0, width: 1200, height: 600 });
+  // The table never takes the whole chart: on a narrow screen it gives way so the timeline stays in reach.
+  const widest = Math.max(MIN_GRID_WIDTH, viewport.width - MIN_TIMELINE_WIDTH);
+  const gridWidth = Math.min(widest, storedGridWidth ?? Math.min(openingGridWidth, Math.max(MIN_GRID_WIDTH, Math.round(viewport.width * OPENING_GRID_SHARE))));
   const setGridWidth = store.getState().setGridWidth;
+  // A narrow table gives the row number column only what the number needs, and the name the rest.
+  const indicatorWidth = gridWidth < NARROW_GRID_WIDTH ? 36 : INDICATOR_WIDTH;
+  // A table too narrow for its first column draws that column as wide as the room there is,
+  // so a long name ends in an ellipsis instead of running under the timeline.
+  const firstColumn = columns[0];
+  const shownWidths = useMemo(() => {
+    if (firstColumn === undefined) return widths;
+    const room = gridWidth - indicatorWidth;
+    return columnWidth(firstColumn, widths) > room ? { ...widths, [firstColumn]: Math.max(48, room) } : widths;
+  }, [widths, firstColumn, gridWidth, indicatorWidth]);
   // The column keyboard editing and sideways arrow keys act on.
   const [activeColumn, setActiveColumn] = useState<GanttColumnId>("name");
   const [menu, setMenu] = useState<{ x: number; y: number } | null>(null);
-  const [viewport, setViewport] = useState({ left: 0, top: 0, width: 1200, height: 600 });
   const [editing, setEditing] = useState<GridEditing | null>(null);
   const projectTime = useMemo(() => compileCalendars(project.calendars).get(project.calendarId), [project.calendars, project.calendarId]);
 
@@ -139,6 +159,7 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
       if (frame === 0) frame = requestAnimationFrame(read);
     };
     read();
+    setMeasured(true);
     element.addEventListener("scroll", request, { passive: true });
     const observer = new ResizeObserver(request);
     observer.observe(element);
@@ -151,19 +172,21 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
 
   // Open on the start of the plan, a little to the right of the table.
   const opened = useRef(false);
+  const [measured, setMeasured] = useState(false);
   useEffect(() => {
     const element = scrollRef.current;
-    if (!element || opened.current) return;
+    // Wait for the real size: the table's width and the timeline's padding both follow it.
+    if (!element || opened.current || !measured) return;
     opened.current = true;
-    element.scrollLeft = Math.max(0, scale.x(schedule.start) - 24);
-  }, [scale, schedule.start]);
+    element.scrollLeft = Math.max(0, scale.x(schedule.start) - OPENING_GAP);
+  }, [scale, schedule.start, measured]);
 
   // Bring what the store asked for into view.
   useEffect(() => {
     const element = scrollRef.current;
     if (!element || !scrollRequest) return;
     if (scrollRequest.target === "start") {
-      element.scrollLeft = Math.max(0, scale.x(schedule.start) - 24);
+      element.scrollLeft = Math.max(0, scale.x(schedule.start) - OPENING_GAP);
       return;
     }
     if (scrollRequest.target === "today") {
@@ -357,12 +380,13 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
           <div className={`${sticky}left-0 z-40 shrink-0 overflow-hidden border-r bg-muted`} style={{ width: gridWidth }}>
             <TaskGridHeader
               columns={columns}
-              widths={widths}
+              widths={shownWidths}
               onResize={store.getState().setColumnWidth}
               onMove={store.getState().moveColumn}
+              indicatorWidth={indicatorWidth}
             />
           </div>
-          <TimelineHeader scale={scale} level={level} fromX={timelineFromX} toX={timelineToX} weekStartsOn={weekStartsOn} markers={markers} />
+          <TimelineHeader scale={scale} level={level} fromX={timelineFromX} toX={timelineToX} weekStartsOn={weekStartsOn} markers={markers} pinnedLeft={printing ? 0 : gridWidth} />
         </div>
         <div className="flex" style={{ height: bodyHeight }}>
           <div
@@ -373,7 +397,8 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
             <div className="relative h-full overflow-hidden">
               <TaskGridRows
                 columns={columns}
-                widths={widths}
+                widths={shownWidths}
+                indicatorWidth={indicatorWidth}
                 movable={!readOnly && isPlainView(viewOptions)}
                 readOnly={readOnly}
                 activeColumn={activeColumn}

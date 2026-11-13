@@ -21,7 +21,7 @@ export function Field({ label, wide = false, children }: FieldProps) {
   const ui = useFlatUIComponents();
   const id = useId();
   return (
-    <div className={wide ? "col-span-2 flex flex-col gap-1.5" : "flex flex-col gap-1.5"}>
+    <div className={wide ? "flex flex-col gap-1.5 sm:col-span-2" : "flex flex-col gap-1.5"}>
       <ui.Label htmlFor={id}>{label}</ui.Label>
       {children(id)}
     </div>

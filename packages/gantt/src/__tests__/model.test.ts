@@ -294,10 +294,12 @@ describe("date markers", () => {
     expect(dateMarkers({ ...p, statusDate: undefined }, s, now).map((m) => m.kind)).toEqual(["projectStart", "projectFinish", "today"]);
   });
 
-  it("widens the timeline to today only when today lies within a year of the plan", () => {
-    expect(timelineSpan(p, s, at("2014-12-01T00:00"))).toEqual({ from: at("2014-10-17T08:00"), to: at("2014-12-01T00:00") });
-    expect(timelineSpan(p, s, at("2014-09-01T00:00")).from).toBe(at("2014-09-01T00:00"));
-    expect(timelineSpan(p, s, at("2016-06-01T00:00"))).toEqual({ from: at("2014-10-17T08:00"), to: at("2014-10-20T17:00") });
+  it("widens the timeline to today only when today lies within a month of the plan", () => {
+    expect(timelineSpan(p, s, at("2014-11-05T00:00"))).toEqual({ from: at("2014-10-17T08:00"), to: at("2014-11-05T00:00") });
+    expect(timelineSpan(p, s, at("2014-09-25T00:00")).from).toBe(at("2014-09-25T00:00"));
+    const plan = { from: at("2014-10-17T08:00"), to: at("2014-10-20T17:00") };
+    expect(timelineSpan(p, s, at("2014-12-15T00:00"))).toEqual(plan);
+    expect(timelineSpan(p, s, at("2016-06-01T00:00"))).toEqual(plan);
   });
 });
 

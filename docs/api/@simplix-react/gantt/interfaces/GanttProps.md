@@ -56,7 +56,7 @@ Defined in: [model/gantt-store-types.ts:217](https://github.com/simplix-react/si
 
 > `optional` **defaultGridWidth**: `number`
 
-Defined in: [components/gantt-chart.tsx:44](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L44)
+Defined in: [components/gantt-chart.tsx:52](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L52)
 
 Width the task table opens at. It can be dragged wider or narrower.
 
@@ -255,7 +255,7 @@ Defined in: [model/gantt-store-types.ts:216](https://github.com/simplix-react/si
 
 > `optional` **weekStartsOn**: `number`
 
-Defined in: [components/gantt-chart.tsx:46](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L46)
+Defined in: [components/gantt-chart.tsx:54](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L54)
 
 First day of a week column: 0 is Sunday.
 

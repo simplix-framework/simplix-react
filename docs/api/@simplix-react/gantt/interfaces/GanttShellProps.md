@@ -32,7 +32,7 @@ Defined in: [components/gantt.tsx:24](https://github.com/simplix-react/simplix-r
 
 > `optional` **defaultGridWidth**: `number`
 
-Defined in: [components/gantt-chart.tsx:44](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L44)
+Defined in: [components/gantt-chart.tsx:52](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L52)
 
 Width the task table opens at. It can be dragged wider or narrower.
 
@@ -70,7 +70,7 @@ Extra controls at the end of the bar.
 
 > `optional` **weekStartsOn**: `number`
 
-Defined in: [components/gantt-chart.tsx:46](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L46)
+Defined in: [components/gantt-chart.tsx:54](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L54)
 
 First day of a week column: 0 is Sunday.
 

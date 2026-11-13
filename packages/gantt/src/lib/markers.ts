@@ -40,10 +40,10 @@ export function dateMarkers(project: Project, schedule: Schedule, now: Minutes):
   return markers;
 }
 
-/** Days around a plan within which today still widens the timeline to include it. */
-const TODAY_REACH_DAYS = 366;
+/** Days around a plan within which today still widens the timeline to include it. Further away, the empty stretch would outweigh the plan. */
+const TODAY_REACH_DAYS = 31;
 
-/** The span a timeline covers: the plan, widened to today when today lies within a year of it. */
+/** The span a timeline covers: the plan, widened to today when today lies within a month of it. */
 export function timelineSpan(project: Project, schedule: Schedule, now: Minutes): { from: Minutes; to: Minutes } {
   const from = Math.min(schedule.start, project.start);
   const to = schedule.finish;

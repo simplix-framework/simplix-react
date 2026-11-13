@@ -258,8 +258,10 @@ test("fills a duration down the selected rows and filters from the menu", async 
   await page.keyboard.press("ControlOrMeta+d");
   assert.deepEqual([(await cells(page, "6"))[1], (await cells(page, "7"))[1], (await cells(page, "8"))[1]], ["8d", "8d", "8d"]);
   await page.getByRole("button", { name: "More" }).click();
-  await page.getByRole("menuitem", { name: /^Filter/ }).click();
-  await page.getByRole("menuitemradio", { name: "Milestones" }).click();
+  // The submenu is opened and its item chosen from the keyboard: a pointer that jumps
+  // straight from the trigger to the item leaves the path the submenu stays open along.
+  await page.getByRole("menuitem", { name: /^Filter/ }).press("ArrowRight");
+  await page.getByRole("menuitemradio", { name: "Milestones" }).press("Enter");
   await page.waitForFunction(() => document.querySelectorAll("[data-gantt-row]").length < 22);
   const shown = await page.$$eval("[data-gantt-row]", (rows) => rows.map((row) => row.getAttribute("data-gantt-row")));
   assert.deepEqual(shown, ["1", "4", "19", "22"]);
@@ -282,5 +284,47 @@ test("inserts a plan from a file as a subproject and edits a resource's dated ra
   await page.locator('[data-gantt-resource="1"]').getByRole("button", { name: "Rates by date" }).click();
   await page.getByRole("button", { name: "Add rate" }).click();
   assert.equal(await page.locator('[data-gantt-slot="rate-table"] input[type=date]').count(), 1);
+  await page.context().close();
+});
+
+test("keeps the timeline in reach and the toolbar on one line on narrow screens", async () => {
+  for (const width of [1024, 768, 480, 375]) {
+    const page = await open("default", { viewport: { width, height: 800 } });
+    const layout = await page.evaluate(() => {
+      const rect = (selector) => document.querySelector(selector).getBoundingClientRect();
+      const scroll = document.querySelector('[data-gantt-slot="scroll"]');
+      const grid = rect('[data-gantt-slot="grid"]');
+      const first = rect('[data-gantt-bar="1"]');
+      return {
+        share: grid.width / scroll.clientWidth,
+        timeline: scroll.clientWidth - grid.width,
+        toolbar: rect('[data-gantt-slot="toolbar"]').height,
+        firstBarGap: first.left - grid.right,
+        pageOverflow: document.documentElement.scrollWidth - window.innerWidth,
+      };
+    });
+    assert.ok(layout.share <= 0.5, `at ${width}px the table takes ${Math.round(layout.share * 100)}% of the chart`);
+    assert.ok(layout.timeline >= 160, `at ${width}px the timeline shows ${Math.round(layout.timeline)}px`);
+    assert.ok(layout.toolbar <= 60, `at ${width}px the toolbar is ${Math.round(layout.toolbar)}px tall`);
+    assert.ok(layout.firstBarGap >= 0 && layout.firstBarGap <= 60, `at ${width}px the plan opens ${Math.round(layout.firstBarGap)}px from the table`);
+    assert.ok(layout.pageOverflow <= 0, `at ${width}px the page scrolls sideways by ${layout.pageOverflow}px`);
+    await page.context().close();
+  }
+});
+
+test("fits the task dialog inside a phone screen", async () => {
+  const page = await open("default", { viewport: { width: 375, height: 700 } });
+  // A double click on the row number opens the dialog; on a cell it would start editing the cell.
+  await page.locator('[data-gantt-row="6"] [data-gantt-slot="row-handle"]').dblclick();
+  await page.waitForSelector("[role=dialog]");
+  const spill = await page.evaluate(() => {
+    const dialog = document.querySelector("[role=dialog]");
+    const edge = dialog.getBoundingClientRect();
+    return [...dialog.querySelectorAll("input, label, button")]
+      .filter((element) => !element.closest("[role=tablist]"))
+      .map((element) => element.getBoundingClientRect())
+      .filter((rect) => rect.width > 0 && (rect.right > edge.right + 1 || rect.left < edge.left - 1)).length;
+  });
+  assert.equal(spill, 0, `${spill} controls reach past the dialog`);
   await page.context().close();
 });

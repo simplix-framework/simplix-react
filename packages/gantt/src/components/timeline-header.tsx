@@ -19,6 +19,8 @@ export interface TimelineHeaderProps {
   weekStartsOn: number;
   /** Dates named with a tag on the header's lower edge. */
   markers?: readonly DateMarker[];
+  /** Width of what is pinned over the left of the scroll area; a label that stays in view stays clear of it. */
+  pinnedLeft?: number;
 }
 
 /** Two tags closer than this would overlap, so the later one is set a row lower. */
@@ -26,7 +28,7 @@ const TAG_CLEARANCE = 84;
 const TAG_HEIGHT = 16;
 
 /** The two-tier date header above the bars, with a name tag for every marked date. */
-export function TimelineHeader({ scale, level, fromX, toX, weekStartsOn, markers = [] }: TimelineHeaderProps) {
+export function TimelineHeader({ scale, level, fromX, toX, weekStartsOn, markers = [], pinnedLeft = 0 }: TimelineHeaderProps) {
   const { t, language } = useGanttTranslation();
   // Tags that would collide step down one row each, in the order of their dates.
   const tags = useMemo(() => {
@@ -43,7 +45,7 @@ export function TimelineHeader({ scale, level, fromX, toX, weekStartsOn, markers
   }, [markers, scale]);
   return (
     <div className="relative h-full text-xs text-foreground" style={{ width: scale.width }}>
-      <HeaderTier scale={scale} unit={level.top} fromX={fromX} toX={toX} weekStartsOn={weekStartsOn} top />
+      <HeaderTier scale={scale} unit={level.top} fromX={fromX} toX={toX} weekStartsOn={weekStartsOn} pinnedLeft={pinnedLeft} top />
       <HeaderTier scale={scale} unit={level.bottom} fromX={fromX} toX={toX} weekStartsOn={weekStartsOn} />
       {tags.map(({ marker, x, row }) => (
         <div
@@ -69,7 +71,7 @@ interface HeaderTierProps extends Omit<TimelineHeaderProps, "level"> {
   top?: boolean;
 }
 
-function HeaderTier({ scale, unit, fromX, toX, weekStartsOn, top = false }: HeaderTierProps) {
+function HeaderTier({ scale, unit, fromX, toX, weekStartsOn, pinnedLeft = 0, top = false }: HeaderTierProps) {
   const { language } = useGanttTranslation();
   const cells = useMemo(() => scaleCells(scale, unit, fromX, toX, weekStartsOn), [scale, unit, fromX, toX, weekStartsOn]);
   return (
@@ -86,7 +88,7 @@ function HeaderTier({ scale, unit, fromX, toX, weekStartsOn, top = false }: Head
           data-gantt-slot="scale-cell"
         >
           {/* A top-tier label stays readable while its cell scrolls under the left edge. */}
-          <span className={top ? "sticky left-2 truncate" : "truncate"}>{formatScaleCell(cell.from, unit, language, cell.width)}</span>
+          <span className={top ? "sticky truncate" : "truncate"} style={top ? { left: pinnedLeft + 8 } : undefined}>{formatScaleCell(cell.from, unit, language, cell.width)}</span>
         </div>
       ))}
     </div>

@@ -44,7 +44,8 @@
     "barColoring": "Bar colour",
     "progressLine": "Progress line",
     "insertSubproject": "Insert subproject from XML",
-    "editRecurring": "Edit recurring task"
+    "editRecurring": "Edit recurring task",
+    "view": "View"
   },
   "view": {
     "gantt": "Gantt chart",
