@@ -6,7 +6,7 @@
 
 # Interface: GanttLayout
 
-Defined in: [model/gantt-store-types.ts:35](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L35)
+Defined in: [model/gantt-store-types.ts:43](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L43)
 
 How a chart is laid out and what it shows, apart from the plan itself: the
 part an application stores per reader and hands back when the chart opens.
@@ -17,7 +17,7 @@ part an application stores per reader and hands back when the chart opens.
 
 > **barColoring**: [`BarColoring`](../type-aliases/BarColoring.md)
 
-Defined in: [model/gantt-store-types.ts:49](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L49)
+Defined in: [model/gantt-store-types.ts:57](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L57)
 
 ***
 
@@ -25,7 +25,7 @@ Defined in: [model/gantt-store-types.ts:49](https://github.com/simplix-react/sim
 
 > **barText**: [`BarText`](../type-aliases/BarText.md)
 
-Defined in: [model/gantt-store-types.ts:48](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L48)
+Defined in: [model/gantt-store-types.ts:56](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L56)
 
 ***
 
@@ -33,7 +33,7 @@ Defined in: [model/gantt-store-types.ts:48](https://github.com/simplix-react/sim
 
 > **baselineNumber**: `number` \| `null`
 
-Defined in: [model/gantt-store-types.ts:47](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L47)
+Defined in: [model/gantt-store-types.ts:55](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L55)
 
 ***
 
@@ -41,7 +41,7 @@ Defined in: [model/gantt-store-types.ts:47](https://github.com/simplix-react/sim
 
 > **collapsed**: readonly `string`[]
 
-Defined in: [model/gantt-store-types.ts:42](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L42)
+Defined in: [model/gantt-store-types.ts:50](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L50)
 
 ***
 
@@ -49,7 +49,7 @@ Defined in: [model/gantt-store-types.ts:42](https://github.com/simplix-react/sim
 
 > **columns**: readonly [`GanttColumnId`](../type-aliases/GanttColumnId.md)[]
 
-Defined in: [model/gantt-store-types.ts:37](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L37)
+Defined in: [model/gantt-store-types.ts:45](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L45)
 
 ***
 
@@ -57,7 +57,7 @@ Defined in: [model/gantt-store-types.ts:37](https://github.com/simplix-react/sim
 
 > **columnWidths**: [`ColumnWidths`](../type-aliases/ColumnWidths.md)
 
-Defined in: [model/gantt-store-types.ts:38](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L38)
+Defined in: [model/gantt-store-types.ts:46](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L46)
 
 ***
 
@@ -65,7 +65,7 @@ Defined in: [model/gantt-store-types.ts:38](https://github.com/simplix-react/sim
 
 > **gridWidth**: `number` \| `null`
 
-Defined in: [model/gantt-store-types.ts:40](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L40)
+Defined in: [model/gantt-store-types.ts:48](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L48)
 
 Width of the task table, or `null` to fit its columns.
 
@@ -75,7 +75,7 @@ Width of the task table, or `null` to fit its columns.
 
 > **showCriticalPath**: `boolean`
 
-Defined in: [model/gantt-store-types.ts:43](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L43)
+Defined in: [model/gantt-store-types.ts:51](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L51)
 
 ***
 
@@ -83,7 +83,7 @@ Defined in: [model/gantt-store-types.ts:43](https://github.com/simplix-react/sim
 
 > **showLinks**: `boolean`
 
-Defined in: [model/gantt-store-types.ts:44](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L44)
+Defined in: [model/gantt-store-types.ts:52](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L52)
 
 ***
 
@@ -91,7 +91,7 @@ Defined in: [model/gantt-store-types.ts:44](https://github.com/simplix-react/sim
 
 > **showMarkers**: `boolean`
 
-Defined in: [model/gantt-store-types.ts:45](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L45)
+Defined in: [model/gantt-store-types.ts:53](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L53)
 
 ***
 
@@ -99,7 +99,7 @@ Defined in: [model/gantt-store-types.ts:45](https://github.com/simplix-react/sim
 
 > **showProgressLine**: `boolean`
 
-Defined in: [model/gantt-store-types.ts:46](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L46)
+Defined in: [model/gantt-store-types.ts:54](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L54)
 
 ***
 
@@ -107,7 +107,7 @@ Defined in: [model/gantt-store-types.ts:46](https://github.com/simplix-react/sim
 
 > **view**: [`GanttView`](../type-aliases/GanttView.md)
 
-Defined in: [model/gantt-store-types.ts:36](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L36)
+Defined in: [model/gantt-store-types.ts:44](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L44)
 
 ***
 
@@ -115,7 +115,7 @@ Defined in: [model/gantt-store-types.ts:36](https://github.com/simplix-react/sim
 
 > **viewOptions**: [`ViewOptions`](ViewOptions.md)
 
-Defined in: [model/gantt-store-types.ts:50](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L50)
+Defined in: [model/gantt-store-types.ts:58](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L58)
 
 ***
 
@@ -123,4 +123,4 @@ Defined in: [model/gantt-store-types.ts:50](https://github.com/simplix-react/sim
 
 > **zoom**: `number`
 
-Defined in: [model/gantt-store-types.ts:41](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L41)
+Defined in: [model/gantt-store-types.ts:49](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L49)

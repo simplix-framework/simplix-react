@@ -8,7 +8,7 @@
 
 > **TaskUsage**(): `Element`
 
-Defined in: [components/task-usage.tsx:20](https://github.com/simplix-react/simplix-react/blob/main/components/task-usage.tsx#L20)
+Defined in: [components/task-usage.tsx:16](https://github.com/simplix-react/simplix-react/blob/main/components/task-usage.tsx#L16)
 
 The task usage table: every task that has resources, with a line per
 assignment under it, and the hours each assignment works per day (per week

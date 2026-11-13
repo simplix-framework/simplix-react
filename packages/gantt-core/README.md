@@ -115,7 +115,8 @@ The sample files come from the MPXJ project (LGPL-2.1) and are not part of this 
 | Custom fields | `addCustomField`, `renameCustomField`, `removeCustomField`, `setCustomValue` |
 | Costs | `computeCosts` |
 | Progress | `rescheduleUncompletedWork`, `computeEarnedValue` |
-| Changes | `diffProjects`, `mergeProjects` |
+| Changes | `diffProjects`, `mergeProjects`, `takeTheirs` |
+| Saved plans | `serializeProject`, `parseProject`, `toSavedPlan` |
 | Subprojects | `insertSubproject` |
 | Resource load | `findOverallocations`, `resourceUsage`, `levelResources`, `clearLeveling` |
 | Text entry | `parseDuration`, `formatDuration`, `parsePredecessors`, `formatPredecessors` |
@@ -135,6 +136,10 @@ Assignments follow the task type: on a fixed-units task a change of work moves t
 
 `diffProjects` lists what differs between two versions of a plan record by record (added, updated and removed tasks, links, resources, assignments, calendars and custom fields, the row order, plan settings and baselines), which is what a server needs to store an edit without rewriting the plan.
 
+`mergeProjects(base, mine, theirs)` brings changes made elsewhere into a plan edited here: a record only the other side changed is taken, and a record both changed keeps this side's version and is returned as a conflict. `takeTheirs(project, theirs, conflicts)` settles the listed conflicts the other way.
+
+`serializeProject` writes a plan as JSON that names its form and version (`PLAN_FORMAT_VERSION`), and `parseProject` reads it: a plan saved by a later version raises `unsupported-plan-version`, a value that is not a plan raises `invalid-plan`, and a bare project stored before plans carried a version is read as it is.
+
 A resource can carry an overtime rate and standard rates that take effect from a date; an assignment can carry overtime work, which costs the overtime rate and takes no duration, and a work contour, which weights its daily work toward the start, the end or the middle in `resourceUsage`.
 
 ## Microsoft Project XML
@@ -149,13 +154,24 @@ const xml = writeMspdi(project, computeSchedule(project));
 
 The exchange code is also exported from the package root; importing it from `@simplix-react/gantt-core/mspdi` keeps it out of a bundle that loads it on demand.
 
-`readMspdi` returns the plan and a list of warnings for data it did not carry over. `writeMspdi` writes the plan with the computed dates, slack and outline numbers, in the element order of the files Microsoft Project saves.
+`readMspdi` returns the plan and a list of warnings for data it did not carry over. `writeMspdi` writes the plan with the computed dates, slack and outline numbers, in the element order of the files Microsoft Project saves. `mspdiExportLosses(project)` lists what of a plan the document has no place for.
+
+| Exchanged | How it is stored |
+| --- | --- |
+| Fixed and actual cost of a task, cost per use of a resource, cost of a baseline | Hundredths of the amount, as Microsoft Project stores money |
+| Standard and overtime rate of a resource | The amount per hour, or per unit for a material resource |
+| Dated standard rates of a resource | The resource's first rate table |
+| Overtime work and work contour of an assignment | Flat, back-loaded, front-loaded and bell; another contour is read as flat with a warning |
+| Custom text, number, date and flag fields | Microsoft Project's Text1 to Text30, Number1 to Number20, Date1 to Date10 and Flag1 to Flag20, with the field's name as the alias. A field read from a file takes the id `text1`, `number3` and so on |
+| Leveling delay | Elapsed time before the start, converted from and to working minutes on the task's calendar |
+| Currency code | As it is |
 
 Limits of the exchange:
 
 - Reading every one of the 122 sample files, writing it and reading it back gives the same plan. Whether Microsoft Project opens a written file has not been tried.
-- Costs, custom fields, splits and timephased data are not exchanged: they are dropped on read and not written.
-- A leveling delay is read as zero, with a warning, and written as zero: the published unit of that field is contradictory. A leveled plan is exported with its leveled dates, and Microsoft Project recomputes them without the delays.
+- The pauses of split tasks, the colours of single tasks, the rule of a recurring task and timephased data are not exchanged. Custom fields beyond the number Microsoft Project offers per type are not written.
+- The scale of money and the values of custom fields are checked against files Microsoft Project saved from known entries. No sample file holds a rate, a rate table, a leveling delay or a work contour other than flat, so those follow the published schema and are checked only by writing and reading back.
+- A leveling delay is converted from the task's start in the file, so it reads back exactly when the delayed start lies on a working boundary.
 
 ## License
 

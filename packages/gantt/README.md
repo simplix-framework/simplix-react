@@ -35,7 +35,9 @@ export function PlanPage({ plan, onSave }: { plan: Project; onSave: (plan: Proje
 
 Mount the chart in a box with a height; it fills the box and scrolls inside it. The chart owns its plan from `defaultProject` on and reports every accepted change, undo and redo included, through `onChange(project, schedule, changes)`. `changes` lists the records that differ from the plan before it, which is what a server needs to store the edit.
 
-To take in a plan changed elsewhere, such as an edit another user saved, call `store.getState().merge(base, theirs)`, where `base` is the plan both sides started from: records only the other side changed are taken, a record both changed keeps the version here and is returned as a conflict, and the undo history is kept. `sync(project)` replaces the plan outright.
+To take in a plan changed elsewhere, such as an edit another user saved, call `store.getState().merge(base, theirs)`, where `base` is the plan both sides started from: records only the other side changed are taken, a record both changed keeps the version here and is returned as a conflict, and the undo history is kept. The chart then lists the conflicts in a dialog where the reader picks the records that take the other side's version; `settleMerge(conflicts)` does the same from code, and the choice is one undo step. `sync(project)` replaces the plan outright.
+
+Store a plan with `serializeProject(project)` and read it back with `parseProject(text)`, both from `@simplix-react/gantt-core`: the stored text names its form and version, so a plan saved by a later version is refused instead of being misread, and a bare project stored earlier still opens.
 
 A guide in Korean is in [docs/guide.ko.md](docs/guide.ko.md).
 
@@ -43,14 +45,14 @@ A guide in Korean is in [docs/guide.ko.md](docs/guide.ko.md).
 
 | Area | Behaviour |
 | --- | --- |
-| Task table | Columns resize by dragging the grip on the right edge of a heading (a double click returns the default width), move by dragging the heading and are shown or hidden from the column button in the table corner and in the toolbar; when the columns are wider than the table, the table scrolls sideways by the bar under it, and the splitter between table and timeline resizes the table. Rows move by dragging the row number. A right click on a row or a bar opens the commands for the selected tasks. Durations are written in the reader's language (`3일`, `2주`) and read in both that form and the letter form. Outline with collapsible summary tasks. Double-click, F2, Enter or typing edits a cell: name, duration (`3d`, `2w`, `4h`, `2ed`), start, finish, predecessors (`3`, `4SS+2d`, `5FF-1d`) and percent complete. |
+| Task table | Columns resize by dragging the grip on the right edge of a heading (a double click returns the default width), move by dragging the heading and are shown or hidden from the column button in the table corner and in the toolbar. When the columns are wider than the table, the table scrolls sideways by the bar under it or by a sideways wheel, with the row numbers and the first column staying in place; it scrolls by itself to the active cell and to a column that was just added. The splitter between table and timeline resizes the table. A column grip and the splitter take the keyboard too: the arrow keys resize, Shift makes the step larger, Home returns a column to its default width. Rows move by dragging the row number. A right click on a row or a bar opens the commands for the selected tasks. Durations are written in the reader's language (`3일`, `2주`) and read in both that form and the letter form. Outline with collapsible summary tasks. Double-click, F2, Enter or typing edits a cell: name, duration (`3d`, `2w`, `4h`, `2ed`), start, finish, predecessors (`3`, `4SS+2d`, `5FF-1d`) and percent complete. |
 | Timeline | Two-tier date header with seven zoom steps from quarters to hours, and non-working time shaded from the project calendar. |
 | Filter, sort, group | The toolbar menu narrows the rows to critical, incomplete, completed, late or unassigned tasks, milestones, or one resource's tasks; orders them by a column; or gathers them under a heading per resource, per status or by whether they are critical. A search box narrows by name. |
 | Bars | A bar carries resource names, the task name, its progress, its dates or nothing beside it, and takes the chart's colour, one of its own or one per resource. A progress line joins the progress of every task at the status date. The row number column marks a task that has notes or a dated constraint. |
-| Other views | A network diagram, a month calendar, a resource graph of work against capacity, and a task usage table of hours per assignment. |
+| Other views | A network diagram that zooms in steps and fits itself to the screen, with a line that skips columns routed between the boxes; a month calendar in which a task dragged onto another day moves by that many days; a resource graph of work against capacity; and a task usage table of hours per assignment. The usage tables and the graph draw only the rows and columns on screen. |
 | Read-only | `readOnly` shows the plan and refuses every edit. |
 | Layout | Column widths, order and visibility, zoom, folded rows, the view and the bar settings are one `layout` value, reported through `onLayoutChange` and handed back through `layout`. |
-| Narrow screens | The task table opens at no more than 45% of the chart and never takes the whole of it, so the timeline stays in reach; the views take a line of their own above the commands, as a strip or, where the strip does not fit, a list; the commands stay on one line and scroll sideways; dialogs lay their fields out in one column. |
+| Narrow screens | The task table opens at no more than 45% of the chart and never takes the whole of it, so the timeline stays in reach; the menu shows the table alone or the timeline alone. The views take a line of their own above the commands, as a strip or, where the strip does not fit, a list. A toolbar narrower than 560 px keeps undo, add, delete, the column list and search on the bar and lists the other commands in its menu. The usage views give the names at most two fifths of the width, the resource sheet scrolls sideways with fields wide enough to type in, the calendar marks each day's tasks and lists the chosen day's tasks by name, and dialogs lay their fields out in one column. |
 | Date markers | Today, the status date and the two ends of the plan each get a line in their own colour and a name tag on the header; today's day is tinted, and a button scrolls to it. The timeline widens to today when today lies within a month of the plan. The markers can be switched off, and the PDF carries them too. |
 | Bars | Drag a bar to move it, an edge to resize it, the mark under it to set progress. Summary tasks draw as brackets and milestones as diamonds. A deadline draws as an arrow. |
 | Links | Drag from the dot at a bar's end onto another bar: the ends you start from and drop on pick finish-to-start, start-to-start, finish-to-finish or start-to-finish. Click a line to select it and press Delete to remove it. A violated link is dashed. |
@@ -62,14 +64,16 @@ A guide in Korean is in [docs/guide.ko.md](docs/guide.ko.md).
 | Split tasks | The task information dialog pauses a task from a date for a length of working time; the bar shows the pause as its dashed, empty part. |
 | Recurring tasks | A dialog adds a summary task with one task per occurrence of a daily, weekly or monthly recurrence. |
 | Clipboard | Copy puts the selected tasks on the system clipboard as tab-separated text; paste takes rows from a spreadsheet, one task per line with the name in the first cell and the duration in the second. |
-| PDF | Draws the plan as an A4 landscape PDF file: the task table on every sheet, rows running down the sheets and the timeline across up to six. |
-| Print | Lays the whole plan out for landscape paper: every row, at the zoom step that fits the page width, with the rest of the page left off. |
+| PDF | Draws the plan as an A4 landscape PDF file: the task table on every sheet, rows running down the sheets and the timeline across up to six. It shows the rows of the screen, so what a filter or a folded summary task hides is left out, in the screen's order and bar colours. |
+| Print | Lays the plan out for landscape paper: every row the screen shows and every column of the table, at the zoom step that fits the page width, with the rest of the page left off. |
 | Resources | The resource sheet edits resources; the task information dialog assigns them; the usage screen totals booked hours per day (per week for a long plan) and marks overallocated cells. |
 | Leveling | Delays tasks until no resource is overallocated, optionally only within slack or by splitting tasks, and can clear the leveling again. |
 | Progress | With a status date set, moves uncompleted work to after it, and shows planned value, earned value, actual cost and the schedule and cost variances as columns. |
 | Conflicts | The conflict count opens a list of the tasks in conflict; choosing one selects it and scrolls to it. |
 | Undo | Every edit is one step. Ctrl/Cmd+Z undoes, Ctrl/Cmd+Shift+Z or Ctrl/Cmd+Y redoes. |
-| Exchange | Reads and writes Microsoft Project XML from the toolbar menu. |
+| Exchange | Reads and writes Microsoft Project XML from the toolbar menu. Before an export the chart lists what of the plan the file has no place for, and after an import what was read differently from the file. |
+| Plan files | Saves the plan to a `.gantt.json` file that holds all of it, and opens one. |
+| Empty plan | A plan without tasks shows a button that adds the first one. |
 | Large plans | Only the rows and header cells on screen are drawn. |
 
 An edit the engine refuses (a dependency loop, a duration that is not one) leaves the plan unchanged and shows the reason under the toolbar.
@@ -106,12 +110,13 @@ An edit the engine refuses (a dependency loop, a duration that is not one) leave
 | `defaultGridWidth` | `number` | fits the columns, up to 560 and 45% of the chart | Width the task table opens at |
 | `weekStartsOn` | `number` | `0` | First day of a week column; 0 is Sunday |
 | `zoom` | `number` | `4` | Index into `ZOOM_LEVELS` |
-| `view` | `"gantt" \| "resources" \| "usage"` | `"gantt"` | Screen shown first |
+| `view` | `GanttView` | `"gantt"` | Screen shown first: `gantt`, `network`, `calendar`, `resources`, `usage`, `taskUsage` or `graph` |
 | `showCriticalPath` | `boolean` | `false` | |
 | `showLinks` | `boolean` | `true` | |
 | `showMarkers` | `boolean` | `true` | Marks today, the status date and the ends of the plan |
 | `baselineNumber` | `number \| null` | `null` | Baseline drawn under the bars |
 | `xmlExchange` | `boolean` | `true` | Shows the Microsoft Project XML commands |
+| `planFiles` | `boolean` | `true` | Shows the commands that save and open a plan file |
 | `trailing` | `ReactNode` | | Extra controls at the end of the toolbar |
 | `emptyState` | `ReactNode` | | Replaces the message of a plan without tasks |
 
@@ -119,13 +124,14 @@ An edit the engine refuses (a dependency loop, a duration that is not one) leave
 
 - The PDF file holds each sheet as an image, so its text cannot be selected or searched. Printing through the browser scales a wide plan to one page width; the PDF export is what splits it across sheets.
 - Pasted spreadsheet rows carry a name and a duration. Dates, links and resources in further cells are not read.
-- A recurring task is created once: changing its recurrence afterwards means deleting it and adding it again.
-- Costs, custom fields and splits are not written to Microsoft Project XML.
+- Microsoft Project XML has no place for the pauses of split tasks, the colours of single tasks, the rule of a recurring task or custom fields beyond the number Microsoft Project offers per type. The chart says so before an export.
+- Whether the table or the timeline is shown alone is not part of the stored layout.
+- The PDF leaves out the headings of grouped rows and draws the tasks under them in the screen's order.
 - A subproject is inserted as a copy under a summary task. It is not kept in step with the file it came from, and its calendars, baselines and custom fields are not carried over.
 - Changing a recurring task makes its occurrences again; progress and links on the old occurrences are not kept.
 - Fill down copies names, durations, actual costs and custom fields. Dates and predecessors are not filled.
-- The network diagram places tasks in columns by their depth in the chain and does not avoid lines crossing boxes.
-- The end-to-end tests need Storybook running and Google Chrome installed; they are not part of `pnpm test`.
+- In the network diagram two lines can share a stretch of the gap between two rows or two columns.
+- The end-to-end tests need Storybook running and Google Chrome installed; they are not part of `pnpm test`. They stop when Storybook serves an older copy of a source file than the one on disk, which a slow file watcher causes; restarting Storybook clears it. The `Gantt` workflow runs them on changes to these packages.
 - Lags in a predecessor list are written with unit letters (`4SS+2d`) in every language.
 - Reading and writing Microsoft Project XML runs on the main thread: a plan of 20,000 tasks holds the page for about half a second, with a loading mark shown.
 

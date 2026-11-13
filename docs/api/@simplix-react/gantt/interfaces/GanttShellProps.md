@@ -6,13 +6,13 @@
 
 # Interface: GanttShellProps
 
-Defined in: [components/gantt.tsx:23](https://github.com/simplix-react/simplix-react/blob/main/components/gantt.tsx#L23)
+Defined in: [components/gantt.tsx:26](https://github.com/simplix-react/simplix-react/blob/main/components/gantt.tsx#L26)
 
 Props for [GanttShell](../functions/GanttShell.md).
 
 ## Extends
 
-- [`GanttChartProps`](GanttChartProps.md).`Pick`\<[`GanttToolbarProps`](GanttToolbarProps.md), `"xmlExchange"` \| `"trailing"`\>
+- [`GanttChartProps`](GanttChartProps.md).`Pick`\<[`GanttToolbarProps`](GanttToolbarProps.md), `"xmlExchange"` \| `"planFiles"` \| `"trailing"`\>
 
 ## Extended by
 
@@ -24,7 +24,7 @@ Props for [GanttShell](../functions/GanttShell.md).
 
 > `optional` **className**: `string`
 
-Defined in: [components/gantt.tsx:24](https://github.com/simplix-react/simplix-react/blob/main/components/gantt.tsx#L24)
+Defined in: [components/gantt.tsx:27](https://github.com/simplix-react/simplix-react/blob/main/components/gantt.tsx#L27)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [components/gantt.tsx:24](https://github.com/simplix-react/simplix-r
 
 > `optional` **defaultGridWidth**: `number`
 
-Defined in: [components/gantt-chart.tsx:52](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L52)
+Defined in: [components/gantt-chart.tsx:41](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L41)
 
 Width the task table opens at. It can be dragged wider or narrower.
 
@@ -46,9 +46,23 @@ Width the task table opens at. It can be dragged wider or narrower.
 
 > `optional` **emptyState**: `ReactNode`
 
-Defined in: [components/gantt.tsx:26](https://github.com/simplix-react/simplix-react/blob/main/components/gantt.tsx#L26)
+Defined in: [components/gantt.tsx:29](https://github.com/simplix-react/simplix-react/blob/main/components/gantt.tsx#L29)
 
 Replaces the built-in message of a plan without tasks.
+
+***
+
+### planFiles?
+
+> `optional` **planFiles**: `boolean`
+
+Defined in: [components/gantt-toolbar.tsx:40](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L40)
+
+Shows the commands that save the plan to a file of its own form and open one.
+
+#### Inherited from
+
+[`GanttToolbarProps`](GanttToolbarProps.md).[`planFiles`](GanttToolbarProps.md#planfiles)
 
 ***
 
@@ -56,7 +70,7 @@ Replaces the built-in message of a plan without tasks.
 
 > `optional` **trailing**: `ReactNode`
 
-Defined in: [components/gantt-toolbar.tsx:79](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L79)
+Defined in: [components/gantt-toolbar.tsx:42](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L42)
 
 Extra controls at the end of the bar.
 
@@ -70,7 +84,7 @@ Extra controls at the end of the bar.
 
 > `optional` **weekStartsOn**: `number`
 
-Defined in: [components/gantt-chart.tsx:54](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L54)
+Defined in: [components/gantt-chart.tsx:43](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L43)
 
 First day of a week column: 0 is Sunday.
 
@@ -84,7 +98,7 @@ First day of a week column: 0 is Sunday.
 
 > `optional` **xmlExchange**: `boolean`
 
-Defined in: [components/gantt-toolbar.tsx:77](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L77)
+Defined in: [components/gantt-toolbar.tsx:38](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L38)
 
 Shows the commands that read and write a Microsoft Project XML file.
 

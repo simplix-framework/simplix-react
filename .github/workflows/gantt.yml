@@ -1,0 +1,84 @@
+name: Gantt
+
+# Checks the scheduling engine and the chart: types, lint, unit tests, and the chart driven in a real browser.
+on:
+  pull_request:
+    paths:
+      - 'packages/gantt/**'
+      - 'packages/gantt-core/**'
+      - 'apps/storybook/src/stories/gantt/**'
+      - '.github/workflows/gantt.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'packages/gantt/**'
+      - 'packages/gantt-core/**'
+      - 'apps/storybook/src/stories/gantt/**'
+      - '.github/workflows/gantt.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gantt-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # The engine's tests fetch the Microsoft Project sample files they compare against.
+      - name: Typecheck, lint and unit tests
+        run: pnpm exec turbo run typecheck lint test --filter=@simplix-react/gantt-core --filter=@simplix-react/gantt
+
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build the packages Storybook reads
+        run: pnpm exec turbo run build --filter=@simplix-react/storybook^...
+
+      - name: Start Storybook
+        run: |
+          pnpm --filter @simplix-react/storybook exec storybook dev -p 6006 --no-open --ci > storybook.log 2>&1 &
+          for attempt in $(seq 1 120); do
+            if curl -s -o /dev/null http://localhost:6006/iframe.html; then exit 0; fi
+            sleep 1
+          done
+          cat storybook.log
+          exit 1
+
+      # The checks drive the Google Chrome the runner image ships with.
+      - name: Browser checks
+        run: pnpm --filter @simplix-react/gantt test:e2e
+
+      - name: Storybook log
+        if: failure()
+        run: cat storybook.log

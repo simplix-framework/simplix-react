@@ -6,9 +6,9 @@
 
 # Function: downloadPdf()
 
-> **downloadPdf**(`project`, `schedule`, `language`, `label`): `Promise`\<`void`\>
+> **downloadPdf**(`project`, `schedule`, `language`, `label`, `view?`): `Promise`\<`void`\>
 
-Defined in: [lib/pdf-export.ts:415](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-export.ts#L415)
+Defined in: [lib/pdf-export.ts:443](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-export.ts#L443)
 
 Renders the plan as a PDF and hands it to the browser as a download named after the project.
 
@@ -29,6 +29,10 @@ Renders the plan as a PDF and hands it to the browser as a download named after 
 ### label
 
 (`key`) => `string`
+
+### view?
+
+[`PdfView`](../interfaces/PdfView.md) = `{}`
 
 ## Returns
 

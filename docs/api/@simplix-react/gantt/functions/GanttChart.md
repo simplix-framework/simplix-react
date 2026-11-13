@@ -8,7 +8,7 @@
 
 > **GanttChart**(`__namedParameters`): `Element`
 
-Defined in: [components/gantt-chart.tsx:62](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L62)
+Defined in: [components/gantt-chart.tsx:51](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L51)
 
 The task table and the timeline, side by side in one scrolling area. The
 table stays in place while the timeline scrolls sideways, and only the rows

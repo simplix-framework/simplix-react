@@ -8,7 +8,7 @@
 
 > **readMspdi**(`xml`): [`MspdiReadResult`](../interfaces/MspdiReadResult.md)
 
-Defined in: [packages/gantt-core/src/mspdi/read.ts:95](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/mspdi/read.ts#L95)
+Defined in: [packages/gantt-core/src/mspdi/read.ts:107](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/mspdi/read.ts#L107)
 
 Reads a Microsoft Project XML (MSPDI) document into a project. Data the
 model has no field for is dropped; whatever of it would change the computed

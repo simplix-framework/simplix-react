@@ -6,13 +6,14 @@
 
 # Function: layoutPdf()
 
-> **layoutPdf**(`schedule`, `project`): [`PdfLayout`](../interfaces/PdfLayout.md)
+> **layoutPdf**(`schedule`, `project`, `rowCount?`): [`PdfLayout`](../interfaces/PdfLayout.md)
 
-Defined in: [lib/pdf-export.ts:119](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-export.ts#L119)
+Defined in: [lib/pdf-export.ts:130](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-export.ts#L130)
 
 Cuts a plan into sheets: the task table repeats on every sheet, rows run
 down the sheets and the timeline runs across them at the closest zoom step
-that keeps it within six sheets.
+that keeps it within six sheets. `rowCount` is the number of rows drawn,
+every task of the plan when it is left out.
 
 ## Parameters
 
@@ -23,6 +24,10 @@ that keeps it within six sheets.
 ### project
 
 `Project`
+
+### rowCount?
+
+`number` = `project.tasks.length`
 
 ## Returns
 

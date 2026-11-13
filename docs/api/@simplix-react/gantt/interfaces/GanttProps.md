@@ -6,7 +6,7 @@
 
 # Interface: GanttProps
 
-Defined in: [components/gantt.tsx:93](https://github.com/simplix-react/simplix-react/blob/main/components/gantt.tsx#L93)
+Defined in: [components/gantt.tsx:104](https://github.com/simplix-react/simplix-react/blob/main/components/gantt.tsx#L104)
 
 Props for [Gantt](../functions/Gantt.md).
 
@@ -20,7 +20,7 @@ Props for [Gantt](../functions/Gantt.md).
 
 > `optional` **baselineNumber**: `number` \| `null`
 
-Defined in: [model/gantt-store-types.ts:215](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L215)
+Defined in: [model/gantt-store-types.ts:235](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L235)
 
 #### Inherited from
 
@@ -32,7 +32,7 @@ Defined in: [model/gantt-store-types.ts:215](https://github.com/simplix-react/si
 
 > `optional` **className**: `string`
 
-Defined in: [components/gantt.tsx:24](https://github.com/simplix-react/simplix-react/blob/main/components/gantt.tsx#L24)
+Defined in: [components/gantt.tsx:27](https://github.com/simplix-react/simplix-react/blob/main/components/gantt.tsx#L27)
 
 #### Inherited from
 
@@ -44,7 +44,7 @@ Defined in: [components/gantt.tsx:24](https://github.com/simplix-react/simplix-r
 
 > `optional` **columns**: readonly [`GanttColumnId`](../type-aliases/GanttColumnId.md)[]
 
-Defined in: [model/gantt-store-types.ts:217](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L217)
+Defined in: [model/gantt-store-types.ts:237](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L237)
 
 #### Inherited from
 
@@ -56,7 +56,7 @@ Defined in: [model/gantt-store-types.ts:217](https://github.com/simplix-react/si
 
 > `optional` **defaultGridWidth**: `number`
 
-Defined in: [components/gantt-chart.tsx:52](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L52)
+Defined in: [components/gantt-chart.tsx:41](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L41)
 
 Width the task table opens at. It can be dragged wider or narrower.
 
@@ -84,7 +84,7 @@ The plan the chart opens with. Later changes are made through the store.
 
 > `optional` **emptyState**: `ReactNode`
 
-Defined in: [components/gantt.tsx:26](https://github.com/simplix-react/simplix-react/blob/main/components/gantt.tsx#L26)
+Defined in: [components/gantt.tsx:29](https://github.com/simplix-react/simplix-react/blob/main/components/gantt.tsx#L29)
 
 Replaces the built-in message of a plan without tasks.
 
@@ -98,7 +98,7 @@ Replaces the built-in message of a plan without tasks.
 
 > `optional` **layout**: `Partial`\<[`GanttLayout`](GanttLayout.md)\>
 
-Defined in: [model/gantt-store-types.ts:221](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L221)
+Defined in: [model/gantt-store-types.ts:241](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L241)
 
 A stored layout to open with. It overrides the single options it names.
 
@@ -112,7 +112,7 @@ A stored layout to open with. It overrides the single options it names.
 
 > `optional` **levelingOptions**: `LevelingOptions`
 
-Defined in: [model/gantt-store-types.ts:218](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L218)
+Defined in: [model/gantt-store-types.ts:238](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L238)
 
 #### Inherited from
 
@@ -124,7 +124,7 @@ Defined in: [model/gantt-store-types.ts:218](https://github.com/simplix-react/si
 
 > `optional` **onChange**: (`project`, `schedule`, `changes`) => `void`
 
-Defined in: [model/gantt-store-types.ts:228](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L228)
+Defined in: [model/gantt-store-types.ts:248](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L248)
 
 Called after every accepted change of the plan, undo and redo included,
 with the records that differ from the plan before it.
@@ -157,7 +157,7 @@ readonly `ProjectChange`[]
 
 > `optional` **onLayoutChange**: (`layout`) => `void`
 
-Defined in: [model/gantt-store-types.ts:223](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L223)
+Defined in: [model/gantt-store-types.ts:243](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L243)
 
 Called when the layout changes, with the whole layout to store.
 
@@ -177,11 +177,25 @@ Called when the layout changes, with the whole layout to store.
 
 ***
 
+### planFiles?
+
+> `optional` **planFiles**: `boolean`
+
+Defined in: [components/gantt-toolbar.tsx:40](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L40)
+
+Shows the commands that save the plan to a file of its own form and open one.
+
+#### Inherited from
+
+[`GanttToolbarProps`](GanttToolbarProps.md).[`planFiles`](GanttToolbarProps.md#planfiles)
+
+***
+
 ### readOnly?
 
 > `optional` **readOnly**: `boolean`
 
-Defined in: [model/gantt-store-types.ts:219](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L219)
+Defined in: [model/gantt-store-types.ts:239](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L239)
 
 #### Inherited from
 
@@ -193,7 +207,7 @@ Defined in: [model/gantt-store-types.ts:219](https://github.com/simplix-react/si
 
 > `optional` **showCriticalPath**: `boolean`
 
-Defined in: [model/gantt-store-types.ts:212](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L212)
+Defined in: [model/gantt-store-types.ts:232](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L232)
 
 #### Inherited from
 
@@ -205,7 +219,7 @@ Defined in: [model/gantt-store-types.ts:212](https://github.com/simplix-react/si
 
 > `optional` **showLinks**: `boolean`
 
-Defined in: [model/gantt-store-types.ts:213](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L213)
+Defined in: [model/gantt-store-types.ts:233](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L233)
 
 #### Inherited from
 
@@ -217,7 +231,7 @@ Defined in: [model/gantt-store-types.ts:213](https://github.com/simplix-react/si
 
 > `optional` **showMarkers**: `boolean`
 
-Defined in: [model/gantt-store-types.ts:214](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L214)
+Defined in: [model/gantt-store-types.ts:234](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L234)
 
 #### Inherited from
 
@@ -229,7 +243,7 @@ Defined in: [model/gantt-store-types.ts:214](https://github.com/simplix-react/si
 
 > `optional` **trailing**: `ReactNode`
 
-Defined in: [components/gantt-toolbar.tsx:79](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L79)
+Defined in: [components/gantt-toolbar.tsx:42](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L42)
 
 Extra controls at the end of the bar.
 
@@ -243,7 +257,7 @@ Extra controls at the end of the bar.
 
 > `optional` **view**: [`GanttView`](../type-aliases/GanttView.md)
 
-Defined in: [model/gantt-store-types.ts:216](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L216)
+Defined in: [model/gantt-store-types.ts:236](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L236)
 
 #### Inherited from
 
@@ -255,7 +269,7 @@ Defined in: [model/gantt-store-types.ts:216](https://github.com/simplix-react/si
 
 > `optional` **weekStartsOn**: `number`
 
-Defined in: [components/gantt-chart.tsx:54](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L54)
+Defined in: [components/gantt-chart.tsx:43](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L43)
 
 First day of a week column: 0 is Sunday.
 
@@ -269,7 +283,7 @@ First day of a week column: 0 is Sunday.
 
 > `optional` **xmlExchange**: `boolean`
 
-Defined in: [components/gantt-toolbar.tsx:77](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L77)
+Defined in: [components/gantt-toolbar.tsx:38](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L38)
 
 Shows the commands that read and write a Microsoft Project XML file.
 
@@ -283,7 +297,7 @@ Shows the commands that read and write a Microsoft Project XML file.
 
 > `optional` **zoom**: `number`
 
-Defined in: [model/gantt-store-types.ts:211](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L211)
+Defined in: [model/gantt-store-types.ts:231](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L231)
 
 #### Inherited from
 
