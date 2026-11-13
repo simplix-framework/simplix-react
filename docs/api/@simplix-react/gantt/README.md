@@ -51,13 +51,13 @@ A guide in Korean is in [docs/guide.ko.md](../../_media/guide.ko.md).
 
 | Area | Behaviour |
 | --- | --- |
-| Task table | Columns resize by dragging the grip on the right edge of a heading (a double click returns the default width), move by dragging the heading and are shown or hidden from the column button in the table corner and in the toolbar. When the columns are wider than the table, the table scrolls sideways by the bar under it or by a sideways wheel, with the row numbers and the first column staying in place; it scrolls by itself to the active cell and to a column that was just added. The splitter between table and timeline resizes the table. A column grip and the splitter take the keyboard too: the arrow keys resize, Shift makes the step larger, Home returns a column to its default width. Rows move by dragging the row number. A right click on a row or a bar opens the commands for the selected tasks. Durations are written in the reader's language (`3일`, `2주`) and read in both that form and the letter form. Outline with collapsible summary tasks. Double-click, F2, Enter or typing edits a cell: name, duration (`3d`, `2w`, `4h`, `2ed`), start, finish, predecessors (`3`, `4SS+2d`, `5FF-1d`) and percent complete. |
+| Task table | Columns resize by dragging the grip on the right edge of a heading (a double click returns the default width), move by dragging the heading, which scrolls the columns when it is held at the table's edge, and are shown or hidden from the column button in the table corner and in the toolbar. When the columns are wider than the table, the table scrolls sideways by the bar under it or by a sideways wheel, under a finger, with the row numbers and the first column staying in place; it scrolls by itself to the active cell and to a column that was just added. The splitter between table and timeline resizes the table. A column grip and the splitter take the keyboard too: the arrow keys resize, Shift makes the step larger, Home returns a column to its default width. Rows move by dragging the row number. A right click on a row or a bar opens the commands for the selected tasks. Durations are written in the reader's language (`3일`, `2주`) and read in both that form and the letter form. Outline with collapsible summary tasks. Double-click, F2, Enter or typing edits a cell: name, duration (`3d`, `2w`, `4h`, `2ed`), start, finish, predecessors (`3`, `4SS+2d`, `5FF-1d`) and percent complete. |
 | Timeline | Two-tier date header with seven zoom steps from quarters to hours, and non-working time shaded from the project calendar. |
 | Filter, sort, group | The toolbar menu narrows the rows to critical, incomplete, completed, late or unassigned tasks, milestones, or one resource's tasks; orders them by a column; or gathers them under a heading per resource, per status or by whether they are critical. A search box narrows by name. |
 | Bars | A bar carries resource names, the task name, its progress, its dates or nothing beside it, and takes the chart's colour, one of its own or one per resource. A progress line joins the progress of every task at the status date. The row number column marks a task that has notes or a dated constraint. |
 | Other views | A network diagram that zooms in steps and fits itself to the screen, with a line that skips columns routed between the boxes; a month calendar in which a task dragged onto another day moves by that many days; a resource graph of work against capacity; and a task usage table of hours per assignment. The usage tables and the graph draw only the rows and columns on screen. |
 | Read-only | `readOnly` shows the plan and refuses every edit. |
-| Layout | Column widths, order and visibility, zoom, folded rows, the view and the bar settings are one `layout` value, reported through `onLayoutChange` and handed back through `layout`. |
+| Layout | Column widths, order and visibility, zoom, folded rows, the view, whether the table, the timeline or both are shown, and the bar settings are one `layout` value, reported through `onLayoutChange` and handed back through `layout`. |
 | Narrow screens | The task table opens at no more than 45% of the chart and never takes the whole of it, so the timeline stays in reach; the menu shows the table alone or the timeline alone. The views take a line of their own above the commands, as a strip or, where the strip does not fit, a list. A toolbar narrower than 560 px keeps undo, add, delete, the column list and search on the bar and lists the other commands in its menu. The usage views give the names at most two fifths of the width, the resource sheet scrolls sideways with fields wide enough to type in, the calendar marks each day's tasks and lists the chosen day's tasks by name, and dialogs lay their fields out in one column. |
 | Date markers | Today, the status date and the two ends of the plan each get a line in their own colour and a name tag on the header; today's day is tinted, and a button scrolls to it. The timeline widens to today when today lies within a month of the plan. The markers can be switched off, and the PDF carries them too. |
 | Bars | Drag a bar to move it, an edge to resize it, the mark under it to set progress. Summary tasks draw as brackets and milestones as diamonds. A deadline draws as an arrow. |
@@ -70,7 +70,7 @@ A guide in Korean is in [docs/guide.ko.md](../../_media/guide.ko.md).
 | Split tasks | The task information dialog pauses a task from a date for a length of working time; the bar shows the pause as its dashed, empty part. |
 | Recurring tasks | A dialog adds a summary task with one task per occurrence of a daily, weekly or monthly recurrence. |
 | Clipboard | Copy puts the selected tasks on the system clipboard as tab-separated text; paste takes rows from a spreadsheet, one task per line with the name in the first cell and the duration in the second. |
-| PDF | Draws the plan as an A4 landscape PDF file: the task table on every sheet, rows running down the sheets and the timeline across up to six. It shows the rows of the screen, so what a filter or a folded summary task hides is left out, in the screen's order and bar colours. |
+| PDF | Draws the plan as an A4 landscape PDF file: the task table on every sheet, rows running down the sheets and the timeline across up to six. It shows the rows of the screen, so what a filter or a folded summary task hides is left out, in the screen's order and bar colours, with the heading of each group of rows. The functions that draw it are exported from `@simplix-react/gantt/pdf`, and the chart loads them when a PDF is first asked for. |
 | Print | Lays the plan out for landscape paper: every row the screen shows and every column of the table, at the zoom step that fits the page width, with the rest of the page left off. |
 | Resources | The resource sheet edits resources; the task information dialog assigns them; the usage screen totals booked hours per day (per week for a long plan) and marks overallocated cells. |
 | Leveling | Delays tasks until no resource is overallocated, optionally only within slack or by splitting tasks, and can clear the leveling again. |
@@ -107,7 +107,7 @@ An edit the engine refuses (a dependency loop, a duration that is not one) leave
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
 | `defaultProject` | `Project` | required | The plan the chart opens with |
-| `onChange` | `(project, schedule) => void` | | Called after every accepted change |
+| `onChange` | `(project, schedule, changes) => void` | | Called after every accepted change, with the records that differ from the plan before it |
 | `columns` | `GanttColumnId[]` | `DEFAULT_COLUMNS` | Columns the task table opens with, in order. `BUILT_IN_COLUMNS` lists every built-in one; `custom:<field id>` shows a custom field |
 | `levelingOptions` | `LevelingOptions` | `{}` | What leveling may do: `withinSlack`, `split` |
 | `readOnly` | `boolean` | `false` | Shows the plan and refuses every edit |
@@ -132,13 +132,11 @@ An edit the engine refuses (a dependency loop, a duration that is not one) leave
 - Pasted spreadsheet rows carry a name and a duration. Dates, links and resources in further cells are not read.
 - Microsoft Project XML has no place for the pauses of split tasks, the colours of single tasks, the rule of a recurring task or custom fields beyond the number Microsoft Project offers per type. The chart says so before an export.
 - A custom field read from Microsoft Project XML has the id Microsoft Project gives it (`text1`, `number3`), so a `custom:<id>` column stored before an export and import has to be chosen again.
-- Whether the table or the timeline is shown alone is not part of the stored layout.
-- The PDF leaves out the headings of grouped rows and draws the tasks under them in the screen's order.
 - A subproject is inserted as a copy under a summary task. It is not kept in step with the file it came from, and its calendars, baselines and custom fields are not carried over.
 - Changing a recurring task makes its occurrences again; progress and links on the old occurrences are not kept.
 - Fill down copies names, durations, actual costs and custom fields. Dates and predecessors are not filled.
 - In the network diagram two lines can share a stretch of the gap between two rows or two columns.
-- The end-to-end tests need Storybook running and Google Chrome installed; they are not part of `pnpm test`. They stop when Storybook serves an older copy of a source file than the one on disk, which a slow file watcher causes; restarting Storybook clears it. The `Gantt` workflow runs them on changes to these packages.
+- The end-to-end tests need Storybook running and Google Chrome installed; they are not part of `pnpm test`. They stop when Storybook serves an older copy of a source file than the one on disk, which a slow file watcher causes; restarting Storybook clears it, and starting it with `CHOKIDAR_USEPOLLING=1` keeps it from coming back on a machine where the watcher lags. The `Gantt` workflow runs them on changes to these packages.
 - Lags in a predecessor list are written with unit letters (`4SS+2d`) in every language.
 - Reading and writing Microsoft Project XML runs on the main thread: a plan of 20,000 tasks holds the page for about half a second, with a loading mark shown.
 
@@ -172,98 +170,7 @@ The chart registers English, Korean and Japanese under the `simplix-gantt` names
 
 MIT
 
-## Interfaces
+## Modules
 
-- [BarBox](interfaces/BarBox.md)
-- [CreateGanttStoreOptions](interfaces/CreateGanttStoreOptions.md)
-- [DateMarker](interfaces/DateMarker.md)
-- [DurationWords](interfaces/DurationWords.md)
-- [GanttChartProps](interfaces/GanttChartProps.md)
-- [GanttLayout](interfaces/GanttLayout.md)
-- [GanttProps](interfaces/GanttProps.md)
-- [GanttProviderProps](interfaces/GanttProviderProps.md)
-- [GanttRejection](interfaces/GanttRejection.md)
-- [GanttShellProps](interfaces/GanttShellProps.md)
-- [GanttStoreState](interfaces/GanttStoreState.md)
-- [GanttToolbarProps](interfaces/GanttToolbarProps.md)
-- [GroupHeaderRow](interfaces/GroupHeaderRow.md)
-- [LinkPath](interfaces/LinkPath.md)
-- [PathPoint](interfaces/PathPoint.md)
-- [PdfImage](interfaces/PdfImage.md)
-- [PdfLayout](interfaces/PdfLayout.md)
-- [PdfView](interfaces/PdfView.md)
-- [PendingMerge](interfaces/PendingMerge.md)
-- [ScaleCell](interfaces/ScaleCell.md)
-- [TimeScale](interfaces/TimeScale.md)
-- [ViewOptions](interfaces/ViewOptions.md)
-- [VisibleRow](interfaces/VisibleRow.md)
-- [ZoomLevel](interfaces/ZoomLevel.md)
-
-## Type Aliases
-
-- [BarColoring](type-aliases/BarColoring.md)
-- [BarText](type-aliases/BarText.md)
-- [BuiltInColumnId](type-aliases/BuiltInColumnId.md)
-- [ColumnWidths](type-aliases/ColumnWidths.md)
-- [GanttColumnId](type-aliases/GanttColumnId.md)
-- [GanttEdit](type-aliases/GanttEdit.md)
-- [GanttPane](type-aliases/GanttPane.md)
-- [GanttStore](type-aliases/GanttStore.md)
-- [GanttView](type-aliases/GanttView.md)
-- [GroupKey](type-aliases/GroupKey.md)
-- [MarkerKind](type-aliases/MarkerKind.md)
-- [ScaleUnit](type-aliases/ScaleUnit.md)
-- [SortKey](type-aliases/SortKey.md)
-- [TaskFilter](type-aliases/TaskFilter.md)
-- [ViewRow](type-aliases/ViewRow.md)
-
-## Variables
-
-- [BUILT\_IN\_COLUMNS](variables/BUILT_IN_COLUMNS.md)
-- [DEFAULT\_COLUMN\_WIDTHS](variables/DEFAULT_COLUMN_WIDTHS.md)
-- [DEFAULT\_COLUMNS](variables/DEFAULT_COLUMNS.md)
-- [DEFAULT\_VIEW](variables/DEFAULT_VIEW.md)
-- [DEFAULT\_ZOOM](variables/DEFAULT_ZOOM.md)
-- [MARKER\_STYLE](variables/MARKER_STYLE.md)
-- [PACKAGE\_NAMESPACE](variables/PACKAGE_NAMESPACE.md)
-- [ZOOM\_LEVELS](variables/ZOOM_LEVELS.md)
-
-## Functions
-
-- [barColors](functions/barColors.md)
-- [buildPdf](functions/buildPdf.md)
-- [CalendarView](functions/CalendarView.md)
-- [ColumnChooser](functions/ColumnChooser.md)
-- [columnWidth](functions/columnWidth.md)
-- [createGanttStore](functions/createGanttStore.md)
-- [createTimeScale](functions/createTimeScale.md)
-- [dateMarkers](functions/dateMarkers.md)
-- [downloadPdf](functions/downloadPdf.md)
-- [durationWords](functions/durationWords.md)
-- [formatDurationText](functions/formatDurationText.md)
-- [Gantt](functions/Gantt.md)
-- [GanttChart](functions/GanttChart.md)
-- [GanttProvider](functions/GanttProvider.md)
-- [GanttShell](functions/GanttShell.md)
-- [GanttToolbar](functions/GanttToolbar.md)
-- [isPlainView](functions/isPlainView.md)
-- [layoutPdf](functions/layoutPdf.md)
-- [NetworkDiagram](functions/NetworkDiagram.md)
-- [nowOnProjectClock](functions/nowOnProjectClock.md)
-- [pdfRows](functions/pdfRows.md)
-- [ProjectDialog](functions/ProjectDialog.md)
-- [RecurringDialog](functions/RecurringDialog.md)
-- [renderPdf](functions/renderPdf.md)
-- [ResourceGraph](functions/ResourceGraph.md)
-- [ResourceSheet](functions/ResourceSheet.md)
-- [ResourceUsage](functions/ResourceUsage.md)
-- [routeLink](functions/routeLink.md)
-- [scaleCells](functions/scaleCells.md)
-- [TaskDialog](functions/TaskDialog.md)
-- [TaskUsage](functions/TaskUsage.md)
-- [timelineSpan](functions/timelineSpan.md)
-- [toCanonicalDuration](functions/toCanonicalDuration.md)
-- [useGantt](functions/useGantt.md)
-- [useGanttStore](functions/useGanttStore.md)
-- [viewRows](functions/viewRows.md)
-- [visibleRows](functions/visibleRows.md)
+- [index](index/README.md)
+- [pdf](pdf/README.md)

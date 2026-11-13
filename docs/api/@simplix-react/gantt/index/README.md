@@ -1,0 +1,95 @@
+[**Documentation**](../../../README.md)
+
+***
+
+[Documentation](../../../README.md) / [@simplix-react/gantt](../README.md) / index
+
+# index
+
+## Interfaces
+
+- [BarBox](interfaces/BarBox.md)
+- [CreateGanttStoreOptions](interfaces/CreateGanttStoreOptions.md)
+- [DateMarker](interfaces/DateMarker.md)
+- [DurationWords](interfaces/DurationWords.md)
+- [GanttChartProps](interfaces/GanttChartProps.md)
+- [GanttLayout](interfaces/GanttLayout.md)
+- [GanttProps](interfaces/GanttProps.md)
+- [GanttProviderProps](interfaces/GanttProviderProps.md)
+- [GanttRejection](interfaces/GanttRejection.md)
+- [GanttShellProps](interfaces/GanttShellProps.md)
+- [GanttStoreState](interfaces/GanttStoreState.md)
+- [GanttToolbarProps](interfaces/GanttToolbarProps.md)
+- [GroupHeaderRow](interfaces/GroupHeaderRow.md)
+- [LinkPath](interfaces/LinkPath.md)
+- [PathPoint](interfaces/PathPoint.md)
+- [PendingMerge](interfaces/PendingMerge.md)
+- [ScaleCell](interfaces/ScaleCell.md)
+- [TimeScale](interfaces/TimeScale.md)
+- [ViewOptions](interfaces/ViewOptions.md)
+- [VisibleRow](interfaces/VisibleRow.md)
+- [ZoomLevel](interfaces/ZoomLevel.md)
+
+## Type Aliases
+
+- [BarColoring](type-aliases/BarColoring.md)
+- [BarText](type-aliases/BarText.md)
+- [BuiltInColumnId](type-aliases/BuiltInColumnId.md)
+- [ColumnWidths](type-aliases/ColumnWidths.md)
+- [GanttColumnId](type-aliases/GanttColumnId.md)
+- [GanttEdit](type-aliases/GanttEdit.md)
+- [GanttPane](type-aliases/GanttPane.md)
+- [GanttStore](type-aliases/GanttStore.md)
+- [GanttView](type-aliases/GanttView.md)
+- [GroupKey](type-aliases/GroupKey.md)
+- [MarkerKind](type-aliases/MarkerKind.md)
+- [ScaleUnit](type-aliases/ScaleUnit.md)
+- [SortKey](type-aliases/SortKey.md)
+- [TaskFilter](type-aliases/TaskFilter.md)
+- [ViewRow](type-aliases/ViewRow.md)
+
+## Variables
+
+- [BUILT\_IN\_COLUMNS](variables/BUILT_IN_COLUMNS.md)
+- [DEFAULT\_COLUMN\_WIDTHS](variables/DEFAULT_COLUMN_WIDTHS.md)
+- [DEFAULT\_COLUMNS](variables/DEFAULT_COLUMNS.md)
+- [DEFAULT\_VIEW](variables/DEFAULT_VIEW.md)
+- [DEFAULT\_ZOOM](variables/DEFAULT_ZOOM.md)
+- [MARKER\_STYLE](variables/MARKER_STYLE.md)
+- [PACKAGE\_NAMESPACE](variables/PACKAGE_NAMESPACE.md)
+- [ZOOM\_LEVELS](variables/ZOOM_LEVELS.md)
+
+## Functions
+
+- [barColors](functions/barColors.md)
+- [CalendarView](functions/CalendarView.md)
+- [ColumnChooser](functions/ColumnChooser.md)
+- [columnWidth](functions/columnWidth.md)
+- [createGanttStore](functions/createGanttStore.md)
+- [createTimeScale](functions/createTimeScale.md)
+- [dateMarkers](functions/dateMarkers.md)
+- [durationWords](functions/durationWords.md)
+- [formatDurationText](functions/formatDurationText.md)
+- [Gantt](functions/Gantt.md)
+- [GanttChart](functions/GanttChart.md)
+- [GanttProvider](functions/GanttProvider.md)
+- [GanttShell](functions/GanttShell.md)
+- [GanttToolbar](functions/GanttToolbar.md)
+- [isPlainView](functions/isPlainView.md)
+- [NetworkDiagram](functions/NetworkDiagram.md)
+- [nowOnProjectClock](functions/nowOnProjectClock.md)
+- [ProjectDialog](functions/ProjectDialog.md)
+- [RecurringDialog](functions/RecurringDialog.md)
+- [ResourceGraph](functions/ResourceGraph.md)
+- [ResourceSheet](functions/ResourceSheet.md)
+- [ResourceUsage](functions/ResourceUsage.md)
+- [routeLink](functions/routeLink.md)
+- [scaleCells](functions/scaleCells.md)
+- [TaskDialog](functions/TaskDialog.md)
+- [TaskUsage](functions/TaskUsage.md)
+- [timelineSpan](functions/timelineSpan.md)
+- [toCanonicalDuration](functions/toCanonicalDuration.md)
+- [useGantt](functions/useGantt.md)
+- [useGanttStore](functions/useGanttStore.md)
+- [viewRows](functions/viewRows.md)
+- [visibleRows](functions/visibleRows.md)
