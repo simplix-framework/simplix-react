@@ -1,5 +1,4 @@
-import { MINUTES_PER_DAY, computeSchedule, parseLocalDateTime, standardCalendar } from "@simplix-react/gantt-core";
-import type { Project, Task } from "@simplix-react/gantt-core";
+import { MINUTES_PER_DAY, computeSchedule, parseLocalDateTime } from "@simplix-react/gantt-core";
 import { describe, expect, it, vi } from "vitest";
 
 import { pathData, routeLink } from "../lib/link-path";
@@ -10,46 +9,9 @@ import { DEFAULT_VIEW, isPlainView, viewRows } from "../lib/view-rows";
 import type { ViewRow } from "../lib/view-rows";
 import { createTimeScale, scaleCells } from "../lib/time-scale";
 import { createGanttStore } from "../model/gantt-store";
+import { project, task } from "./fixtures";
 
 const at = parseLocalDateTime;
-
-function task(id: string, days: number, patch: Partial<Task> = {}): Task {
-  return {
-    id,
-    name: id,
-    outlineLevel: 1,
-    mode: "auto",
-    duration: days * 480,
-    durationUnit: "d",
-    constraintType: "asap",
-    type: "fixed-units",
-    percentComplete: 0,
-    priority: 500,
-    ...patch,
-  };
-}
-
-function project(tasks: Task[]): Project {
-  return {
-    name: "test",
-    scheduleFrom: "start",
-    start: at("2014-10-17T08:00"),
-    calendarId: "standard",
-    minutesPerDay: 480,
-    minutesPerWeek: 2400,
-    daysPerMonth: 20,
-    defaultStartTime: 480,
-    defaultFinishTime: 1020,
-    criticalSlackLimit: 0,
-    honorConstraints: true,
-    calendars: [standardCalendar()],
-    tasks,
-    links: [],
-    resources: [],
-    assignments: [],
-    baselines: {},
-  };
-}
 
 describe("time scale", () => {
   const scale = createTimeScale(at("2014-10-17T08:00"), at("2014-11-03T17:00"), 28, 7);

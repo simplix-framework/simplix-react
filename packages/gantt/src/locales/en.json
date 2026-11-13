@@ -355,5 +355,8 @@
     "both": "Table and timeline",
     "table": "Table only",
     "timeline": "Timeline only"
+  },
+  "network": {
+    "fit": "Fit to screen"
   }
 }

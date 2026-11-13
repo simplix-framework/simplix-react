@@ -166,8 +166,12 @@ export function TaskBar({
               selected && "ring-2 ring-ring ring-offset-1 ring-offset-background",
             )}
           />
-          <LinkDot side="start" onPointerDown={(event) => onGesture({ kind: "link", id: task.id, end: "start" }, event)} />
-          <LinkDot side="finish" onPointerDown={(event) => onGesture({ kind: "link", id: task.id, end: "finish" }, event)} />
+          {editable && (
+            <>
+              <LinkDot side="start" onPointerDown={(event) => onGesture({ kind: "link", id: task.id, end: "start" }, event)} />
+              <LinkDot side="finish" onPointerDown={(event) => onGesture({ kind: "link", id: task.id, end: "finish" }, event)} />
+            </>
+          )}
         </div>
         <BarLabel text={label} left={left + MILESTONE_SIZE} top={top} rowHeight={rowHeight} />
       </>

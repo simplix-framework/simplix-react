@@ -49,7 +49,7 @@ export function TimelineHeader({ scale, level, fromX, toX, weekStartsOn, markers
   }, [markers, scale]);
   return (
     <div className="relative h-full text-xs text-foreground" style={{ width: scale.width }}>
-      <HeaderTier scale={scale} unit={level.top} fromX={fromX} toX={toX} weekStartsOn={weekStartsOn} pinnedLeft={pinnedLeft} top />
+      <HeaderTier scale={scale} unit={level.top} fromX={fromX} toX={toX} weekStartsOn={weekStartsOn} pinnedLeft={pinnedLeft} clipLeft={clipLeft} top />
       <HeaderTier scale={scale} unit={level.bottom} fromX={fromX} toX={toX} weekStartsOn={weekStartsOn} />
       {/* raw layout: the tags hang below the header, so they are cut where the pinned table begins */}
       <div
@@ -82,12 +82,18 @@ interface HeaderTierProps extends Omit<TimelineHeaderProps, "level"> {
   top?: boolean;
 }
 
-function HeaderTier({ scale, unit, fromX, toX, weekStartsOn, pinnedLeft = 0, top = false }: HeaderTierProps) {
+/** A top-tier cell showing less than this much of itself beside the table leaves its label out. */
+const MIN_LABEL_ROOM = 36;
+
+function HeaderTier({ scale, unit, fromX, toX, weekStartsOn, pinnedLeft = 0, clipLeft = 0, top = false }: HeaderTierProps) {
   const { language } = useGanttTranslation();
   const cells = useMemo(() => scaleCells(scale, unit, fromX, toX, weekStartsOn), [scale, unit, fromX, toX, weekStartsOn]);
   return (
     <div className={top ? "absolute inset-x-0 top-0 h-1/2 border-b" : "absolute inset-x-0 bottom-0 h-1/2"}>
-      {cells.map((cell) => (
+      {cells.map((cell) => {
+        // What is left of a cell that has scrolled part of the way under the table.
+        const room = cell.x + cell.width - Math.max(cell.x, clipLeft);
+        return (
         <div
           key={cell.from}
           className={
@@ -99,9 +105,14 @@ function HeaderTier({ scale, unit, fromX, toX, weekStartsOn, pinnedLeft = 0, top
           data-gantt-slot="scale-cell"
         >
           {/* A top-tier label stays readable while its cell scrolls under the left edge. */}
-          <span className={top ? "sticky truncate" : "truncate"} style={top ? { left: pinnedLeft + 8 } : undefined}>{formatScaleCell(cell.from, unit, language, cell.width)}</span>
+          {(!top || room >= MIN_LABEL_ROOM) && (
+            <span className={top ? "sticky truncate" : "truncate"} style={top ? { left: pinnedLeft + 8 } : undefined}>
+              {formatScaleCell(cell.from, unit, language, top ? room : cell.width)}
+            </span>
+          )}
         </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

@@ -1,3 +1,5 @@
+import { Button } from "@simplix-react/ui";
+import { Plus } from "lucide-react";
 import { useEffect } from "react";
 import type { ReactNode } from "react";
 
@@ -37,6 +39,7 @@ export function GanttShell({ className, emptyState, xmlExchange, trailing, ...ch
   const view = useGantt((state) => state.view);
   const empty = useGantt((state) => state.history.present.tasks.length === 0);
   const printing = useGantt((state) => state.printing);
+  const readOnly = useGantt((state) => state.readOnly);
   const store = useGanttStore();
 
   useEffect(() => {
@@ -73,6 +76,12 @@ export function GanttShell({ className, emptyState, xmlExchange, trailing, ...ch
               <div className="min-h-0 flex-1 px-4 py-10 text-center">
                 <p className="text-sm font-medium">{t("empty.title")}</p>
                 <p className="mt-1 text-sm text-muted-foreground">{t("empty.hint")}</p>
+                {!readOnly && (
+                  <Button className="mt-4" size="sm" onClick={() => store.getState().addTask(t("task.newName"))} data-gantt-slot="empty-add-task">
+                    <Plus />
+                    {t("toolbar.addTask")}
+                  </Button>
+                )}
               </div>
             ))
           : <GanttChart {...chart} />)}
