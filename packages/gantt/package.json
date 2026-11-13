@@ -32,7 +32,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "oxlint src",
     "test": "vitest run --passWithNoTests",
-    "test:e2e": "node --test e2e/gantt.e2e.mjs",
+    "test:e2e": "node --test --test-concurrency=1 e2e/*.e2e.mjs",
     "clean": "rm -rf dist .turbo"
   },
   "dependencies": {

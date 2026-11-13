@@ -1,0 +1,86 @@
+// Shared setup for the end-to-end checks of the chart in a real browser, against the Storybook stories.
+//
+// Run Storybook first (`pnpm storybook` in the repository root), then
+// `pnpm --filter @simplix-react/gantt test:e2e`. The checks drive the Google
+// Chrome installed on the machine, so no browser is downloaded. Set
+// GANTT_STORYBOOK_URL when Storybook is not on http://localhost:6006.
+import assert from "node:assert/strict";
+import { readdir, readFile } from "node:fs/promises";
+import { dirname, join } from "node:path";
+import { after, before } from "node:test";
+import { fileURLToPath } from "node:url";
+
+import { chromium } from "playwright-core";
+
+export const BASE = process.env.GANTT_STORYBOOK_URL ?? "http://localhost:6006";
+
+const SOURCE_ROOTS = ["../src", "../../gantt-core/src"].map((path) => join(dirname(fileURLToPath(import.meta.url)), path));
+
+async function sourceFiles(directory) {
+  const found = [];
+  for (const entry of await readdir(directory, { withFileTypes: true })) {
+    const path = join(directory, entry.name);
+    if (entry.isDirectory()) {
+      if (entry.name !== "__tests__") found.push(...(await sourceFiles(path)));
+    } else if (/\.tsx?$/.test(entry.name) && !/\.test\.tsx?$/.test(entry.name)) {
+      found.push(path);
+    }
+  }
+  return found;
+}
+
+/**
+ * Fails when the dev server hands out a module that differs from the file on
+ * disk. A dev server whose file watcher lags serves the code from before an
+ * edit, and a check run against it reports on the wrong code.
+ */
+async function assertServedSource() {
+  const stale = [];
+  const files = (await Promise.all(SOURCE_ROOTS.map(sourceFiles))).flat();
+  await Promise.all(
+    files.map(async (file) => {
+      const response = await fetch(`${BASE}/@fs${file}`);
+      if (!response.ok) return;
+      const map = (await response.text()).match(/sourceMappingURL=data:application\/json;base64,([A-Za-z0-9+/=]+)\s*$/);
+      if (!map) return;
+      const served = JSON.parse(Buffer.from(map[1], "base64").toString("utf8")).sourcesContent?.[0];
+      if (served !== undefined && served !== (await readFile(file, "utf8"))) stale.push(file);
+    }),
+  );
+  assert.equal(stale.length, 0, `Storybook serves an older copy of:\n${stale.join("\n")}\nRestart Storybook and run the checks again.`);
+}
+
+/** @type {import("playwright-core").Browser} */
+let browser;
+
+before(async () => {
+  await assertServedSource();
+  browser = await chromium.launch({ channel: "chrome", headless: true });
+});
+after(async () => {
+  await browser?.close();
+});
+
+/** Opens a story in a fresh page and waits for the chart to draw. */
+export async function open(story, options = {}) {
+  const context = await browser.newContext({ viewport: { width: 1400, height: 900 }, ...options });
+  const page = await context.newPage();
+  await page.goto(`${BASE}/iframe.html?id=gantt-gantt--${story}&viewMode=story`, { waitUntil: "domcontentloaded" });
+  await page.waitForSelector("[data-gantt-bar]", { timeout: 90_000 });
+  return page;
+}
+
+export const cells = (page, id) => page.$$eval(`[data-gantt-row="${id}"] [role=gridcell]`, (list) => list.map((cell) => cell.textContent?.trim() ?? ""));
+export const box = async (page, selector) => {
+  const found = await page.locator(selector).first().boundingBox();
+  assert.ok(found, `nothing on screen for ${selector}`);
+  return found;
+};
+export const drag = async (page, from, to) => {
+  await page.mouse.move(from.x, from.y);
+  await page.mouse.down();
+  await page.mouse.move((from.x + to.x) / 2, (from.y + to.y) / 2, { steps: 4 });
+  await page.mouse.move(to.x, to.y, { steps: 4 });
+  await page.mouse.up();
+};
+
