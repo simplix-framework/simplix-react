@@ -358,5 +358,31 @@
   },
   "network": {
     "fit": "画面に合わせる"
+  },
+  "exchange": {
+    "exportTitle": "XML ファイルに保存されない内容",
+    "exportHint": "Microsoft Project XML 形式では、この計画の次の内容を保存できません。",
+    "importTitle": "ファイルと異なる形で読み込んだ内容",
+    "importHint": "次の内容は、ファイルの記録どおりに読み込めませんでした。",
+    "export": "このまま書き出す",
+    "cancel": "キャンセル",
+    "loss": {
+      "splits": "分割タスクの中断区間: タスク {{count}}件",
+      "color": "タスクごとの色: タスク {{count}}件",
+      "recurrence": "繰り返しタスクの繰り返し規則: タスク {{count}}件 (各回は通常のタスクとして保存します)",
+      "custom-fields": "種類ごとの上限を超えるユーザー設定フィールド: {{count}}個"
+    },
+    "warning": {
+      "work-contour-dropped": "対応していない作業の分布は均等分布として読み込みました: {{count}}件",
+      "recurrence-skipped": "展開できない繰り返しのカレンダー例外をスキップしました: {{count}}件",
+      "working-time-overnight": "深夜 0 時をまたぐ稼働時間は 0 時で区切りました: {{count}}件",
+      "working-day-without-hours": "稼働時間のない稼働日は非稼働日として読み込みました: {{count}}件",
+      "baseline-incomplete": "開始日、終了日、期間のいずれかがないベースラインをスキップしました: {{count}}件",
+      "timephased-data-dropped": "時間単位のデータ(作業の分布とタスクの分割)は読み込みませんでした。",
+      "link-skipped": "ファイルにないタスクとのリンクをスキップしました: {{count}}件",
+      "assignment-skipped": "ファイルにないタスクまたはリソースの割り当てをスキップしました: {{count}}件",
+      "null-task-skipped": "空のタスク行をスキップしました: {{count}}件",
+      "unknown-code": "不明なコードは既定値として読み込みました: {{count}}件"
+    }
   }
 }

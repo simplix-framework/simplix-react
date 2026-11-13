@@ -10,6 +10,8 @@ import { useGanttTranslation } from "../lib/use-gantt-translation";
 import { useElementWidth } from "../lib/use-viewport";
 import type { GanttView } from "../model/gantt-store";
 import { ColumnChooser } from "./column-chooser";
+import { ExchangeNotice } from "./exchange-notice";
+import type { ExchangeNoticeContent } from "./exchange-notice";
 import { useFoldableCommands } from "./toolbar-commands";
 import type { ToolbarCommand } from "./toolbar-commands";
 import { ToolbarMenu } from "./toolbar-menu";
@@ -58,6 +60,7 @@ export function GanttToolbar({ xmlExchange = true, trailing }: GanttToolbarProps
   const subprojectRef = useRef<HTMLInputElement | null>(null);
   const fileRef = useRef<HTMLInputElement | null>(null);
   const [loading, setLoading] = useState(false);
+  const [notice, setNotice] = useState<ExchangeNoticeContent | null>(null);
   /** Shows the loading mark while a slow command runs, after letting the mark paint first. */
   const busy = async (work: () => Promise<void> | void): Promise<void> => {
     setLoading(true);
@@ -80,13 +83,24 @@ export function GanttToolbar({ xmlExchange = true, trailing }: GanttToolbarProps
       // The exchange code loads when it is first asked for.
       const { readMspdi } = await import("@simplix-react/gantt-core/mspdi");
       try {
-        store.getState().load(readMspdi(text).project);
+        const read = readMspdi(text);
+        store.getState().load(read.project);
+        if (read.warnings.length > 0) setNotice({ kind: "import", warnings: read.warnings });
       } catch (error) {
         if (!(error instanceof ScheduleError)) throw error;
         store.setState({ rejection: { code: error.code, message: error.message, ids: error.ids } });
       }
     });
   };
+
+  /** Asks first when the file would leave part of the plan out. */
+  const askExportXml = (): Promise<void> =>
+    busy(async () => {
+      const { mspdiExportLosses } = await import("@simplix-react/gantt-core/mspdi");
+      const losses = mspdiExportLosses(store.getState().history.present);
+      if (losses.length > 0) setNotice({ kind: "export", losses });
+      else await exportXml();
+    });
 
   const exportXml = (): Promise<void> =>
     busy(async () => {
@@ -215,7 +229,7 @@ export function GanttToolbar({ xmlExchange = true, trailing }: GanttToolbarProps
           busy={busy}
           onImportXml={() => fileRef.current?.click()}
           onInsertSubproject={() => subprojectRef.current?.click()}
-          onExportXml={() => void exportXml()}
+          onExportXml={() => void askExportXml()}
         />
         {view === "gantt" && (
           <ui.Input
@@ -238,6 +252,7 @@ export function GanttToolbar({ xmlExchange = true, trailing }: GanttToolbarProps
           </>
         )}
       </div>
+      {notice && <ExchangeNotice notice={notice} onClose={() => setNotice(null)} onExport={() => void exportXml()} />}
       {rejection && (
         <div role="alert" className="flex items-center gap-2 border-t bg-destructive/10 px-3 py-1.5 text-sm text-destructive">
           <span className="min-w-0 flex-1 truncate">{t(`rejection.${rejection.code}`)}</span>

@@ -2,6 +2,8 @@ import { ScheduleError } from "../errors";
 import { parseClockTime, parseLocalDateTime } from "../time";
 import type { Assignment, Baseline, BaselineEntry, DurationUnit, Id, Link, Project, Resource, Task } from "../types";
 import { decodeDurationFormat, decodeResourceType, parseFlag, parseMspdiDuration, parseNumber } from "./codes";
+import { compileCalendars } from "../calendar";
+import { decodeWorkContour, readFieldDefinitions, readResourceRates } from "./extras";
 import { readCalendar } from "./read-calendar";
 import { isProjectSummary, readLinks, readTask, readTaskBaselines, uidOf, type TaskReadContext } from "./read-task";
 import type { MspdiReadResult, MspdiWarning } from "./warnings";
@@ -40,6 +42,7 @@ function readResource(el: XmlElement, warnings: MspdiWarning[]): Resource {
     ...(calendarId !== undefined && calendarId !== "-1" ? { calendarId } : {}),
     ...(initials !== undefined ? { initials } : {}),
     ...(group !== undefined ? { group } : {}),
+    ...readResourceRates(el),
   };
 }
 
@@ -75,12 +78,21 @@ function readAssignments(
       continue;
     }
     const work = text(el, "Work");
+    const overtime = text(el, "OvertimeWork");
+    const overtimeWork = overtime === undefined ? 0 : parseMspdiDuration(overtime);
+    const contourCode = num(el, "WorkContour", 0);
+    const contour = decodeWorkContour(contourCode);
+    if (contour === undefined) {
+      warnings.push({ code: "work-contour-dropped", id, message: `Assignment ${id}: WorkContour ${contourCode} is read as flat` });
+    }
     out.push({
       id,
       taskId,
       resourceId,
       units: num(el, "Units", 1),
       work: work === undefined ? 0 : parseMspdiDuration(work),
+      ...(overtimeWork > 0 ? { overtimeWork } : {}),
+      ...(contour !== undefined && contour !== "flat" ? { contour } : {}),
     });
   }
   return out;
@@ -101,9 +113,34 @@ export function readMspdi(xml: string): MspdiReadResult {
 
   const projectFormat = decodeDurationFormat(num(root, "DurationFormat", 7));
   const defaultUnit: DurationUnit = projectFormat?.unit ?? "d";
-  const ctx: TaskReadContext = { defaultUnit, warnings };
-
   const calendars = childElements(childElement(root, "Calendars") ?? root, "Calendar").map((c) => readCalendar(c, warnings));
+  const projectCalendarId = text(root, "CalendarUID") ?? calendars[0]?.id ?? "";
+  // Working time is needed only for a task with a leveling delay, so the calendars are compiled when
+  // one asks, and a document whose calendars cannot be compiled still reads.
+  let compiled: ReturnType<typeof compileCalendars> | null | undefined;
+  const timeOf = (calendarId: Id | undefined): ReturnType<ReturnType<typeof compileCalendars>["get"]> => {
+    if (compiled === undefined) {
+      try {
+        compiled = compileCalendars(calendars);
+      } catch (error) {
+        if (!(error instanceof ScheduleError)) throw error;
+        compiled = null;
+      }
+    }
+    return compiled?.get(calendarId ?? projectCalendarId);
+  };
+  const fields = readFieldDefinitions(root);
+  const named = new Set(
+    childElements(childElement(root, "ExtendedAttributes") ?? root, "ExtendedAttribute")
+      .filter((el) => (childText(el, "Alias") ?? "").trim() !== "")
+      .map((el) => Number((childText(el, "FieldID") ?? "").trim())),
+  );
+  const ctx: TaskReadContext = {
+    defaultUnit,
+    warnings,
+    fields,
+    timeOf,
+  };
 
   const taskEls = childElements(childElement(root, "Tasks") ?? root, "Task");
   const summaryEl = taskEls.find(isProjectSummary);
@@ -143,6 +180,13 @@ export function readMspdi(xml: string): MspdiReadResult {
     });
   }
 
+  // A field Microsoft Project merely lists is left out: only one given a name or a value becomes a custom field.
+  const valued = new Set(tasks.flatMap((task) => Object.keys(task.custom ?? {})));
+  const usedFields = [...fields.entries()]
+    .filter(([fieldId, field]) => valued.has(field.id) || named.has(fieldId))
+    .map(([, field]) => field);
+  const currencyCode = text(root, "CurrencyCode");
+
   const startText = text(root, "StartDate") ?? (summaryEl && text(summaryEl, "Start"));
   if (startText === undefined) {
     throw new ScheduleError("invalid-xml", "Project has no StartDate");
@@ -159,7 +203,7 @@ export function readMspdi(xml: string): MspdiReadResult {
     start: parseLocalDateTime(startText),
     ...(!scheduleFromStart && finishText !== undefined ? { finish: parseLocalDateTime(finishText) } : {}),
     ...(statusText !== undefined ? { statusDate: parseLocalDateTime(statusText) } : {}),
-    calendarId: text(root, "CalendarUID") ?? calendars[0]?.id ?? "",
+    calendarId: projectCalendarId,
     minutesPerDay,
     minutesPerWeek: num(root, "MinutesPerWeek", 2400),
     daysPerMonth: num(root, "DaysPerMonth", 20),
@@ -173,6 +217,8 @@ export function readMspdi(xml: string): MspdiReadResult {
     resources,
     assignments,
     baselines: baselines as Record<number, Baseline>,
+    ...(usedFields.length > 0 ? { customFields: usedFields } : {}),
+    ...(currencyCode !== undefined ? { currencyCode } : {}),
   };
   return { project, warnings };
 }

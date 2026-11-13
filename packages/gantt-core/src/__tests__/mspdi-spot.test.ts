@@ -174,10 +174,13 @@ describe("fields no sample file holds (inline fixtures)", () => {
     ]);
   });
 
-  it("imports a non-zero leveling delay as 0 with a warning", () => {
-    const { project, warnings } = readMspdi(doc(task("1", "<LevelingDelay>4800</LevelingDelay><LevelingDelayFormat>7</LevelingDelayFormat>")));
-    expect(project.tasks[0]?.levelingDelay).toBeUndefined();
-    expect(warnings).toEqual([{ code: "leveling-delay-dropped", id: "1", message: expect.stringContaining("4800") }]);
+  it("reads a leveling delay as the working minutes of its elapsed span before the start", () => {
+    // 24 elapsed hours before Tuesday 08:00 hold one working day of the standard calendar.
+    const body = "<Start>2024-01-02T08:00:00</Start><LevelingDelay>14400</LevelingDelay><LevelingDelayFormat>8</LevelingDelayFormat>";
+    const week = `<WeekDays>${[2, 3, 4, 5, 6].map((day) => `<WeekDay><DayType>${day}</DayType><DayWorking>1</DayWorking><WorkingTimes><WorkingTime><FromTime>08:00:00</FromTime><ToTime>12:00:00</ToTime></WorkingTime><WorkingTime><FromTime>13:00:00</FromTime><ToTime>17:00:00</ToTime></WorkingTime></WorkingTimes></WeekDay>`).join("")}</WeekDays>`;
+    const { project, warnings } = readMspdi(doc(task("1", body), "", week));
+    expect(project.tasks[0]?.levelingDelay).toBe(480);
+    expect(warnings).toEqual([]);
   });
 
   it("reads deadline, actuals, notes, inactive, calendar and milestone flags", () => {

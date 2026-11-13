@@ -358,5 +358,31 @@
   },
   "network": {
     "fit": "Fit to screen"
+  },
+  "exchange": {
+    "exportTitle": "Not everything fits in the XML file",
+    "exportHint": "Microsoft Project XML has no place for the following parts of this plan.",
+    "importTitle": "Read differently from the file",
+    "importHint": "The following could not be carried over as the file has it.",
+    "export": "Export anyway",
+    "cancel": "Cancel",
+    "loss": {
+      "splits": "Pauses inside split tasks: {{count}} tasks",
+      "color": "Colours given to single tasks: {{count}} tasks",
+      "recurrence": "Rules of recurring tasks: {{count}} tasks (each occurrence is saved as an ordinary task)",
+      "custom-fields": "Custom fields beyond the number Microsoft Project offers per type: {{count}}"
+    },
+    "warning": {
+      "work-contour-dropped": "Work spread in a way this chart does not have, read as flat: {{count}}",
+      "recurrence-skipped": "Recurring calendar exceptions that could not be expanded, skipped: {{count}}",
+      "working-time-overnight": "Working times running past midnight, cut at midnight: {{count}}",
+      "working-day-without-hours": "Working days without working times, read as non-working: {{count}}",
+      "baseline-incomplete": "Baselines lacking a start, a finish or a duration, skipped: {{count}}",
+      "timephased-data-dropped": "Timephased data (work contours and task splits) was not imported.",
+      "link-skipped": "Links to tasks that are not in the file, skipped: {{count}}",
+      "assignment-skipped": "Assignments of a task or resource that is not in the file, skipped: {{count}}",
+      "null-task-skipped": "Blank task rows, skipped: {{count}}",
+      "unknown-code": "Unknown codes, read as the default: {{count}}"
+    }
   }
 }

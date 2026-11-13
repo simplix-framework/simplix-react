@@ -13,6 +13,8 @@ import {
   MSPDI_NAMESPACE,
   PERCENT_LAG_FORMAT,
 } from "./codes";
+import { compileCalendars, type WorkingTime } from "../calendar";
+import { assignFieldSlots, encodeWorkContour, formatMoney, writeFieldDefinitions, writeFieldValues, writeRateTable, writeResourceRates, type FieldSlot } from "./extras";
 import { writeCalendar } from "./write-calendar";
 import { XmlWriter } from "./xml";
 
@@ -51,6 +53,7 @@ function writeBaselines(w: XmlWriter, entries: readonly [number, BaselineEntry][
       .leaf("Start", date(entry.start))
       .leaf("Finish", date(entry.finish))
       .leaf("Duration", formatMspdiDuration(entry.duration))
+      .leaf("Cost", entry.cost === undefined ? undefined : formatMoney(entry.cost))
       .end();
   }
 }
@@ -61,6 +64,8 @@ function writeTask(
   s: TaskSchedule,
   links: readonly Link[],
   baselines: readonly [number, BaselineEntry][],
+  slots: readonly FieldSlot[],
+  time: WorkingTime | undefined,
 ): void {
   const manual = task.mode === "manual";
   const hasConstraintDate = task.constraintType !== "asap" && task.constraintType !== "alap";
@@ -93,22 +98,34 @@ function writeTask(
     .leaf("LateFinish", date(s.lateFinish))
     .leaf("FreeSlack", tenths(s.freeSlack))
     .leaf("TotalSlack", tenths(s.totalSlack))
+    .leaf("FixedCost", task.fixedCost === undefined ? undefined : formatMoney(task.fixedCost))
     .leaf("PercentComplete", formatNumber(task.percentComplete))
     .leaf("ActualStart", date(task.actualStart))
     .leaf("ActualFinish", date(task.actualFinish))
+    .leaf("ActualCost", task.actualCost === undefined ? undefined : formatMoney(task.actualCost))
     .leaf("ConstraintType", String(encodeConstraintType(task.constraintType)))
     .leaf("CalendarUID", task.calendarId ?? "-1")
     .leaf("ConstraintDate", hasConstraintDate ? date(task.constraintDate) : undefined)
     .leaf("Deadline", date(task.deadline))
-    .leaf("LevelingDelay", "0")
+    .leaf("LevelingDelay", tenths(elapsedLevelingDelay(task, s, time)))
     .leaf("LevelingDelayFormat", LEVELING_DELAY_FORMAT)
     .leaf("IgnoreResourceCalendar", formatFlag(task.ignoreResourceCalendar))
     .leaf("Notes", task.notes);
   for (const link of links) {
     writeLink(w, link);
   }
+  writeFieldValues(w, slots, task.custom);
   writeBaselines(w, baselines);
   w.end();
+}
+
+/**
+ * A task's leveling delay as Microsoft Project stores it: the elapsed minutes
+ * from where the task would start without the delay to where it starts.
+ */
+function elapsedLevelingDelay(task: Task, s: TaskSchedule, time: WorkingTime | undefined): number {
+  if (!task.levelingDelay || !time) return 0;
+  return Math.max(0, s.start - time.subtract(s.start, task.levelingDelay));
 }
 
 function writeProjectSummary(w: XmlWriter, project: Project, schedule: Schedule): void {
@@ -136,7 +153,8 @@ function writeProjectSummary(w: XmlWriter, project: Project, schedule: Schedule)
  * Writes a project and its computed schedule as a Microsoft Project XML
  * (MSPDI) document. Elements follow the order of the MSPDI schema. The
  * computed dates, slack, flags and outline numbers come from `schedule`;
- * everything else comes from `project`. Raises
+ * everything else comes from `project`. `mspdiExportLosses` lists what of a
+ * plan the document has no place for. Raises
  * `ScheduleError("unknown-reference")` when `schedule` lacks a task.
  */
 export function writeMspdi(project: Project, schedule: Schedule): string {
@@ -148,6 +166,7 @@ export function writeMspdi(project: Project, schedule: Schedule): string {
     .leaf("StartDate", date(project.start))
     .leaf("FinishDate", date(project.scheduleFrom === "finish" ? (project.finish ?? schedule.finish) : schedule.finish))
     .leaf("CriticalSlackLimit", formatNumber(project.criticalSlackLimit / project.minutesPerDay))
+    .leaf("CurrencyCode", project.currencyCode)
     .leaf("CalendarUID", project.calendarId)
     .leaf("DefaultStartTime", formatClockTime(project.defaultStartTime))
     .leaf("DefaultFinishTime", formatClockTime(project.defaultFinishTime))
@@ -157,6 +176,11 @@ export function writeMspdi(project: Project, schedule: Schedule): string {
     .leaf("DurationFormat", PROJECT_DURATION_FORMAT)
     .leaf("HonorConstraints", formatFlag(project.honorConstraints))
     .leaf("StatusDate", date(project.statusDate));
+
+  const { slots } = assignFieldSlots(project.customFields ?? []);
+  writeFieldDefinitions(w, slots);
+  // Working time is needed only to write a leveling delay, so the calendars are compiled when a task has one.
+  const calendars = project.tasks.some((task) => task.levelingDelay) ? compileCalendars(project.calendars) : undefined;
 
   w.start("Calendars");
   for (const calendar of project.calendars) {
@@ -188,7 +212,7 @@ export function writeMspdi(project: Project, schedule: Schedule): string {
         entries.push([number, entry]);
       }
     }
-    writeTask(w, task, s, linksBySuccessor.get(task.id) ?? [], entries);
+    writeTask(w, task, s, linksBySuccessor.get(task.id) ?? [], entries, slots, calendars?.get(task.calendarId ?? project.calendarId));
   }
   w.end();
 
@@ -203,10 +227,11 @@ export function writeMspdi(project: Project, schedule: Schedule): string {
       .leaf("IsNull", "0")
       .leaf("Initials", r.initials)
       .leaf("Group", r.group)
-      .leaf("MaxUnits", formatNumber(r.maxUnits))
-      .leaf("CalendarUID", r.calendarId ?? "-1")
-      .leaf("IsCostResource", formatFlag(code.isCostResource))
-      .end();
+      .leaf("MaxUnits", formatNumber(r.maxUnits));
+    writeResourceRates(w, r);
+    w.leaf("CalendarUID", r.calendarId ?? "-1").leaf("IsCostResource", formatFlag(code.isCostResource));
+    writeRateTable(w, r);
+    w.end();
   });
   w.end();
 
@@ -216,8 +241,10 @@ export function writeMspdi(project: Project, schedule: Schedule): string {
       .leaf("UID", a.id)
       .leaf("TaskUID", a.taskId)
       .leaf("ResourceUID", a.resourceId)
+      .leaf("OvertimeWork", a.overtimeWork ? formatMspdiDuration(a.overtimeWork) : undefined)
       .leaf("Units", formatNumber(a.units))
       .leaf("Work", formatMspdiDuration(a.work))
+      .leaf("WorkContour", a.contour === undefined ? undefined : String(encodeWorkContour(a.contour)))
       .end();
   }
   w.end();

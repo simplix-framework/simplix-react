@@ -358,5 +358,31 @@
   },
   "network": {
     "fit": "화면에 맞춤"
+  },
+  "exchange": {
+    "exportTitle": "XML 파일에 저장되지 않는 내용",
+    "exportHint": "Microsoft Project XML 형식으로는 이 계획의 다음 내용을 저장할 수 없습니다.",
+    "importTitle": "파일과 다르게 읽은 내용",
+    "importHint": "다음 내용은 파일에 기록된 대로 가져오지 못했습니다.",
+    "export": "그대로 내보내기",
+    "cancel": "취소",
+    "loss": {
+      "splits": "분할 작업의 중단 구간: 작업 {{count}}건",
+      "color": "작업별 색상: 작업 {{count}}건",
+      "recurrence": "반복 작업의 반복 규칙: 작업 {{count}}건 (각 회차는 일반 작업으로 저장합니다)",
+      "custom-fields": "종류별 허용 개수를 넘는 사용자 필드: {{count}}개"
+    },
+    "warning": {
+      "work-contour-dropped": "지원하지 않는 작업 분포는 균등 분포로 읽었습니다: {{count}}건",
+      "recurrence-skipped": "펼칠 수 없는 반복 달력 예외를 건너뛰었습니다: {{count}}건",
+      "working-time-overnight": "자정을 넘는 근무 시간은 자정에서 끊었습니다: {{count}}건",
+      "working-day-without-hours": "근무 시간이 없는 근무일은 휴무일로 읽었습니다: {{count}}건",
+      "baseline-incomplete": "시작일, 완료일, 기간 중 빠진 값이 있는 초기 계획을 건너뛰었습니다: {{count}}건",
+      "timephased-data-dropped": "시간대별 자료(작업 분포와 작업 분할)는 가져오지 않았습니다.",
+      "link-skipped": "파일에 없는 작업과의 연결을 건너뛰었습니다: {{count}}건",
+      "assignment-skipped": "파일에 없는 작업이나 자원의 배정을 건너뛰었습니다: {{count}}건",
+      "null-task-skipped": "빈 작업 행을 건너뛰었습니다: {{count}}건",
+      "unknown-code": "알 수 없는 코드는 기본값으로 읽었습니다: {{count}}건"
+    }
   }
 }

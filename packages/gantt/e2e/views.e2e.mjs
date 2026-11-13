@@ -68,3 +68,34 @@ test("leaves the label out of a month that has all but scrolled under the table"
   for (const room of after) assert.ok(room >= 36, `after scrolling a labelled month shows ${room}px of itself`);
   await page.context().close();
 });
+
+test("says what an XML export leaves out and what an import read differently", async () => {
+  const page = await open("default");
+  // The rule of a recurring task is something the XML file has no place for.
+  await page.getByRole("button", { name: "More" }).click();
+  await page.getByRole("menuitem", { name: "Add recurring task" }).click();
+  await page.getByRole("dialog").getByLabel("Name").fill("Weekly sync");
+  await page.getByLabel("Occurrences").fill("3");
+  await page.getByRole("button", { name: "Create" }).click();
+  await page.waitForFunction(() => document.querySelectorAll("[data-gantt-row]").length === 26);
+  await page.getByRole("button", { name: "More" }).click();
+  await page.getByRole("menuitem", { name: "Export MS Project XML" }).click();
+  const notice = page.locator('[data-gantt-slot="exchange-notice"]');
+  await notice.waitFor();
+  assert.match(await notice.textContent(), /Rules of recurring tasks: 1 tasks/);
+  // Going on downloads the file.
+  const download = page.waitForEvent("download");
+  await notice.getByRole("button", { name: "Export anyway" }).click();
+  assert.match((await download).suggestedFilename(), /\.xml$/);
+  assert.equal(await notice.count(), 0);
+  // A file whose link names a task that is not in it is read without the link, and says so.
+  const xml = `<?xml version="1.0"?><Project xmlns="http://schemas.microsoft.com/project"><Name>Small</Name><ScheduleFromStart>1</ScheduleFromStart><StartDate>2024-01-01T08:00:00</StartDate><CalendarUID>1</CalendarUID>
+<Calendars><Calendar><UID>1</UID><Name>Standard</Name><IsBaseCalendar>1</IsBaseCalendar><BaseCalendarUID>-1</BaseCalendarUID><WeekDays>${[2, 3, 4, 5, 6].map((day) => `<WeekDay><DayType>${day}</DayType><DayWorking>1</DayWorking><WorkingTimes><WorkingTime><FromTime>08:00:00</FromTime><ToTime>17:00:00</ToTime></WorkingTime></WorkingTimes></WeekDay>`).join("")}</WeekDays></Calendar></Calendars>
+<Tasks><Task><UID>1</UID><Name>Only task</Name><OutlineLevel>1</OutlineLevel><Duration>PT8H0M0S</Duration><PredecessorLink><PredecessorUID>99</PredecessorUID><Type>1</Type></PredecessorLink></Task></Tasks></Project>`;
+  await page.locator('input[type=file]:not([data-gantt-slot])').setInputFiles({ name: "small.xml", mimeType: "application/xml", buffer: Buffer.from(xml) });
+  await notice.waitFor();
+  assert.match(await notice.textContent(), /Links to tasks that are not in the file, skipped: 1/);
+  await notice.getByRole("button", { name: "Close" }).first().click();
+  assert.equal(await page.locator("[data-gantt-row]").count(), 1);
+  await page.context().close();
+});

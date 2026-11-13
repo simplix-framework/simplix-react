@@ -1,5 +1,6 @@
 import { parseLocalDateTime } from "../time";
-import type { BaselineEntry, DurationUnit, Id, Link, Task } from "../types";
+import type { WorkingTime } from "../calendar";
+import type { BaselineEntry, CustomField, DurationUnit, Id, Link, Task } from "../types";
 import {
   decodeConstraintType,
   decodeDurationFormat,
@@ -9,6 +10,7 @@ import {
   parseMspdiDuration,
   parseNumber,
 } from "./codes";
+import { parseMoney, readFieldValues } from "./extras";
 import type { MspdiWarning } from "./warnings";
 import { childElements, childText, type XmlElement } from "./xml";
 
@@ -16,6 +18,10 @@ import { childElements, childText, type XmlElement } from "./xml";
 export interface TaskReadContext {
   defaultUnit: DurationUnit;
   warnings: MspdiWarning[];
+  /** The custom task fields the document defines, by FieldID. */
+  fields: ReadonlyMap<number, CustomField>;
+  /** The working time a task with the given CalendarUID follows; undefined for the project's. */
+  timeOf: (calendarId: Id | undefined) => WorkingTime | undefined;
 }
 
 function text(el: XmlElement, name: string): string | undefined {
@@ -82,17 +88,15 @@ export function readTask(el: XmlElement, ctx: TaskReadContext): Task | undefined
   if (type === undefined) {
     ctx.warnings.push({ code: "unknown-code", id, message: `Task ${id}: Type ${typeCode} is read as fixed units` });
   }
-  const levelingDelay = num(el, "LevelingDelay") ?? 0;
-  if (levelingDelay !== 0) {
-    ctx.warnings.push({
-      code: "leveling-delay-dropped",
-      id,
-      message: `Task ${id}: LevelingDelay ${levelingDelay} (format ${text(el, "LevelingDelayFormat") ?? "none"}) is imported as 0`,
-    });
-  }
   const constraintDate = constraintType === "asap" || constraintType === "alap" ? undefined : date(el, "ConstraintDate");
   const calendarUid = text(el, "CalendarUID");
   const notes = childText(el, "Notes");
+  const taskCalendarId = calendarUid !== undefined && calendarUid !== "-1" ? calendarUid : undefined;
+  const elapsedDelay = (num(el, "LevelingDelay") ?? 0) / 10;
+  const levelingDelay = elapsedDelay > 0 ? workingLevelingDelay(elapsedDelay, date(el, "Start"), ctx.timeOf(taskCalendarId)) : 0;
+  const fixedCost = parseMoney(text(el, "FixedCost"), "FixedCost");
+  const actualCost = parseMoney(text(el, "ActualCost"), "ActualCost");
+  const custom = readFieldValues(el, ctx.fields);
   const optional: Partial<Task> = {
     ...(format?.elapsed ? { elapsed: true } : {}),
     ...(format?.estimated ? { estimated: true } : {}),
@@ -106,6 +110,10 @@ export function readTask(el: XmlElement, ctx: TaskReadContext): Task | undefined
     ...(date(el, "ActualFinish") !== undefined ? { actualFinish: date(el, "ActualFinish") } : {}),
     ...(flag(el, "Active") === false ? { inactive: true } : {}),
     ...(notes !== undefined && notes !== "" ? { notes } : {}),
+    ...(levelingDelay > 0 ? { levelingDelay } : {}),
+    ...(fixedCost !== undefined ? { fixedCost } : {}),
+    ...(actualCost !== undefined ? { actualCost } : {}),
+    ...(custom !== undefined ? { custom } : {}),
   };
   if (manual) {
     const start = date(el, "ManualStart") ?? date(el, "Start");
@@ -130,6 +138,15 @@ export function readTask(el: XmlElement, ctx: TaskReadContext): Task | undefined
     priority: num(el, "Priority") ?? 500,
     ...optional,
   };
+}
+
+/**
+ * A leveling delay as the model keeps it: the working minutes, on the task's
+ * calendar, of the elapsed minutes Microsoft Project stores before the start.
+ */
+function workingLevelingDelay(elapsed: number, start: number | undefined, time: WorkingTime | undefined): number {
+  if (elapsed <= 0 || start === undefined || !time) return 0;
+  return time.workBetween(start - elapsed, start);
 }
 
 /**
@@ -183,7 +200,7 @@ export function readLinks(el: XmlElement, taskIds: ReadonlySet<Id>, ctx: TaskRea
  */
 export function readTaskBaselines(el: XmlElement, ctx: TaskReadContext): Map<number, BaselineEntry> {
   const id = uidOf(el);
-  const fields = new Map<number, { start?: number; finish?: number; duration?: number }>();
+  const fields = new Map<number, { start?: number; finish?: number; duration?: number; cost?: number }>();
   for (const b of childElements(el, "Baseline")) {
     const number = num(b, "Number");
     if (number === undefined) {
@@ -202,12 +219,16 @@ export function readTaskBaselines(el: XmlElement, ctx: TaskReadContext): Map<num
     if (duration !== undefined) {
       entry.duration = parseMspdiDuration(duration);
     }
+    const cost = parseMoney(text(b, "Cost"), "Cost");
+    if (cost !== undefined) {
+      entry.cost = cost;
+    }
     fields.set(number, entry);
   }
   const out = new Map<number, BaselineEntry>();
   for (const [number, f] of fields) {
     if (f.start !== undefined && f.finish !== undefined && f.duration !== undefined) {
-      out.set(number, { start: f.start, finish: f.finish, duration: f.duration });
+      out.set(number, { start: f.start, finish: f.finish, duration: f.duration, ...(f.cost !== undefined ? { cost: f.cost } : {}) });
     } else if (f.start !== undefined || f.finish !== undefined || f.duration !== undefined) {
       const missing = (["start", "finish", "duration"] as const).filter((k) => f[k] === undefined).join(", ");
       ctx.warnings.push({

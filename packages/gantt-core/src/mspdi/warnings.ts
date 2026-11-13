@@ -4,7 +4,7 @@ import type { Project } from "../types";
  * Reason an MSPDI import left something out or read it differently from the
  * file.
  *
- * - `leveling-delay-dropped`: a task's non-zero LevelingDelay was imported as 0.
+ * - `work-contour-dropped`: an assignment whose work is spread in a way the model has no equal of, read as flat.
  * - `recurrence-skipped`: a recurring calendar exception of a kind that is not expanded.
  * - `working-time-overnight`: a working time ending past midnight, cut at midnight.
  * - `working-day-without-hours`: a day marked working with no working times, read as non-working.
@@ -16,7 +16,7 @@ import type { Project } from "../types";
  * - `unknown-code`: a code outside the published set, read as the documented default.
  */
 export type MspdiWarningCode =
-  | "leveling-delay-dropped"
+  | "work-contour-dropped"
   | "recurrence-skipped"
   | "working-time-overnight"
   | "working-day-without-hours"
