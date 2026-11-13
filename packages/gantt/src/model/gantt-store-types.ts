@@ -20,9 +20,15 @@ export interface GanttRejection {
   ids: readonly string[];
 }
 
-/** The screen a chart shows: the Gantt chart, the resource sheet or the resource usage table. */
+/** Records a merge kept this side's version of, with the other side's plan to take theirs from. */
+export interface PendingMerge {
+  conflicts: readonly MergeConflict[];
+  theirs: Project;
+}
+
 /** Which of the table and the timeline the Gantt view shows. */
 export type GanttPane = "both" | "table" | "timeline";
+/** The screen a chart shows: the Gantt chart, the resource sheet or the resource usage table. */
 export type GanttView = "gantt" | "resources" | "usage" | "taskUsage" | "graph" | "calendar" | "network";
 
 /** The words a bar carries beside it. */
@@ -78,6 +84,8 @@ export interface GanttStoreState {
   baselineSlot: number;
   /** The last refused edit; cleared by the next accepted one. */
   rejection: GanttRejection | null;
+  /** The conflicts of the last merge that the reader has not settled yet, or `null`. */
+  pendingMerge: PendingMerge | null;
   clipboard: TaskClipboard | null;
   /** The copied tasks as tab-separated text, as it was handed to the system clipboard. */
   clipboardText: string | null;
@@ -160,9 +168,16 @@ export interface GanttStoreState {
    * both started from. Records only the other side changed are taken;
    * a record both changed keeps this side's version.
    *
+   * The conflicts stay in `pendingMerge` until the reader settles them.
+   *
    * @returns The records both sides changed.
    */
   merge(base: Project, theirs: Project): readonly MergeConflict[];
+  /**
+   * Settles the conflicts of the last merge: the listed records take the
+   * other side's version, the rest keep this side's. The change can be undone.
+   */
+  settleMerge(takeTheirs: readonly MergeConflict[]): void;
   /** Shows a column at the end of the table, or hides it. */
   toggleColumn(column: GanttColumnId): void;
   /** Moves a column to a place among the columns. */

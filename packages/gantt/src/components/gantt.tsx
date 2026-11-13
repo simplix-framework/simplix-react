@@ -11,6 +11,7 @@ import { GanttChart } from "./gantt-chart";
 import type { GanttChartProps } from "./gantt-chart";
 import { GanttToolbar } from "./gantt-toolbar";
 import { CalendarView } from "./calendar-view";
+import { MergeDialog } from "./merge-dialog";
 import { NetworkDiagram } from "./network-diagram";
 import { ProjectDialog } from "./project-dialog";
 import { ResourceGraph } from "./resource-graph";
@@ -22,7 +23,7 @@ import { ResourceUsage } from "./resource-usage";
 import { TaskDialog } from "./task-dialog";
 
 /** Props for {@link GanttShell}. */
-export interface GanttShellProps extends GanttChartProps, Pick<GanttToolbarProps, "xmlExchange" | "trailing"> {
+export interface GanttShellProps extends GanttChartProps, Pick<GanttToolbarProps, "xmlExchange" | "planFiles" | "trailing"> {
   className?: string;
   /** Replaces the built-in message of a plan without tasks. */
   emptyState?: ReactNode;
@@ -34,7 +35,7 @@ export interface GanttShellProps extends GanttChartProps, Pick<GanttToolbarProps
  * dialog. Mount it in a box with a height; it fills the box and scrolls
  * inside it.
  */
-export function GanttShell({ className, emptyState, xmlExchange, trailing, ...chart }: GanttShellProps) {
+export function GanttShell({ className, emptyState, xmlExchange, planFiles, trailing, ...chart }: GanttShellProps) {
   const { t } = useGanttTranslation();
   const view = useGantt((state) => state.view);
   const empty = useGantt((state) => state.history.present.tasks.length === 0);
@@ -69,7 +70,7 @@ export function GanttShell({ className, emptyState, xmlExchange, trailing, ...ch
       data-gantt-printing={printing ? "" : undefined}
     >
       {printing && <style>{"@page { size: landscape; margin: 10mm; }"}</style>}
-      <GanttToolbar xmlExchange={xmlExchange} trailing={trailing} />
+      <GanttToolbar xmlExchange={xmlExchange} planFiles={planFiles} trailing={trailing} />
       {view === "gantt" &&
         (empty
           ? (emptyState ?? (
@@ -94,6 +95,7 @@ export function GanttShell({ className, emptyState, xmlExchange, trailing, ...ch
       <TaskDialog />
       <ProjectDialog />
       <RecurringDialog />
+      <MergeDialog />
     </div>
   );
 }

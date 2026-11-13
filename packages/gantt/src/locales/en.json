@@ -47,7 +47,9 @@
     "editRecurring": "Edit recurring task",
     "view": "View",
     "resizeTable": "Drag to resize the table",
-    "panes": "Show"
+    "panes": "Show",
+    "savePlan": "Save plan file",
+    "openPlan": "Open plan file"
   },
   "view": {
     "gantt": "Gantt chart",
@@ -199,6 +201,8 @@
     "invalid-calendar": "The calendar's working time is not valid.",
     "no-working-time": "The calendar has no working time.",
     "invalid-xml": "The file is not a Microsoft Project XML file.",
+    "invalid-plan": "This file is not a saved plan.",
+    "unsupported-plan-version": "This plan was saved by a newer version and cannot be opened here.",
     "dismiss": "Dismiss"
   },
   "resourceType": {
@@ -383,6 +387,27 @@
       "assignment-skipped": "Assignments of a task or resource that is not in the file, skipped: {{count}}",
       "null-task-skipped": "Blank task rows, skipped: {{count}}",
       "unknown-code": "Unknown codes, read as the default: {{count}}"
+    }
+  },
+  "merge": {
+    "title": "Changed on both sides",
+    "hint": "This side's version of these records was kept. Choose the ones that should take the other side's version.",
+    "mine": "Keep mine",
+    "theirs": "Take theirs",
+    "allTheirs": "Take all of theirs",
+    "apply": "Apply",
+    "entity": {
+      "task": "Task",
+      "link": "Link",
+      "resource": "Resource",
+      "assignment": "Assignment",
+      "calendar": "Calendar",
+      "customField": "Custom field"
+    },
+    "state": {
+      "changed-both": "Changed here and on the other side",
+      "removed-there": "Changed here, removed on the other side",
+      "left-out": "Added on the other side; left out because it would close a loop"
     }
   }
 }

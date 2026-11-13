@@ -1,4 +1,4 @@
-import { ScheduleError, insertSubproject } from "@simplix-react/gantt-core";
+import { ScheduleError, insertSubproject, parseProject, serializeProject } from "@simplix-react/gantt-core";
 import { Button, useFlatUIComponents } from "@simplix-react/ui";
 import { CalendarCheck, Columns3, IndentDecrease, IndentIncrease, Info, Link2, LocateFixed, Plus, Redo2, Trash2, Undo2, Unlink2, X, ZoomIn, ZoomOut } from "lucide-react";
 import { useRef, useState } from "react";
@@ -36,12 +36,14 @@ const COMMAND_ICONS: Record<ToolbarCommand["id"], ReactNode> = {
 export interface GanttToolbarProps {
   /** Shows the commands that read and write a Microsoft Project XML file. */
   xmlExchange?: boolean;
+  /** Shows the commands that save the plan to a file of its own form and open one. */
+  planFiles?: boolean;
   /** Extra controls at the end of the bar. */
   trailing?: ReactNode;
 }
 
 /** The command bar of a chart: the views on one line, and under it editing, outline, links, undo, zoom and the plan-level tools. */
-export function GanttToolbar({ xmlExchange = true, trailing }: GanttToolbarProps) {
+export function GanttToolbar({ xmlExchange = true, planFiles = true, trailing }: GanttToolbarProps) {
   const { t } = useGanttTranslation();
   const store = useGanttStore();
   const ui = useFlatUIComponents();
@@ -106,14 +108,35 @@ export function GanttToolbar({ xmlExchange = true, trailing }: GanttToolbarProps
     busy(async () => {
       const current = store.getState();
       const { writeMspdi } = await import("@simplix-react/gantt-core/mspdi");
-      const blob = new Blob([writeMspdi(current.history.present, current.schedule)], { type: "application/xml" });
-      const url = URL.createObjectURL(blob);
-      const anchor = document.createElement("a");
-      anchor.href = url;
-      anchor.download = `${current.history.present.name || "project"}.xml`;
-      anchor.click();
-      URL.revokeObjectURL(url);
+      download(writeMspdi(current.history.present, current.schedule), "application/xml", ".xml");
     });
+
+  /** Hands the reader a file named after the plan. */
+  const download = (text: string, type: string, extension: string): void => {
+    const url = URL.createObjectURL(new Blob([text], { type }));
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = `${store.getState().history.present.name || "project"}${extension}`;
+    anchor.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const planRef = useRef<HTMLInputElement | null>(null);
+  const savePlan = (): void => download(serializeProject(store.getState().history.present), "application/json", ".gantt.json");
+  const onPlanFile = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) return;
+    await busy(async () => {
+      const text = await file.text();
+      try {
+        store.getState().load(parseProject(text));
+      } catch (error) {
+        if (!(error instanceof ScheduleError)) throw error;
+        store.setState({ rejection: { code: error.code, message: error.message, ids: error.ids } });
+      }
+    });
+  };
 
   const onSubprojectFile = (event: ChangeEvent<HTMLInputElement>): void => {
     const file = event.target.files?.[0];
@@ -225,6 +248,9 @@ export function GanttToolbar({ xmlExchange = true, trailing }: GanttToolbarProps
         )}
         <ToolbarMenu
           xmlExchange={xmlExchange}
+          planFiles={planFiles}
+          onSavePlan={savePlan}
+          onOpenPlan={() => planRef.current?.click()}
           folded={folded}
           busy={busy}
           onImportXml={() => fileRef.current?.click()}
@@ -245,6 +271,7 @@ export function GanttToolbar({ xmlExchange = true, trailing }: GanttToolbarProps
           />
         )}
         {!folded && status}
+        {planFiles && <input ref={planRef} type="file" accept=".json,application/json" className="hidden" data-gantt-slot="plan-file" onChange={(e) => void onPlanFile(e)} />}
         {xmlExchange && (
           <>
             <input ref={fileRef} type="file" accept=".xml,application/xml,text/xml" className="hidden" onChange={(e) => void onFile(e)} />

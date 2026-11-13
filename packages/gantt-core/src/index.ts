@@ -100,7 +100,7 @@ export {
 export type { Recurrence } from "./edit-extras";
 export { computeEarnedValue, rescheduleUncompletedWork } from "./progress";
 export type { EarnedValue } from "./progress";
-export { diffProjects, mergeProjects } from "./diff";
+export { diffProjects, mergeProjects, takeTheirs } from "./diff";
 export type { ChangeEntity, MergeConflict, ProjectChange } from "./diff";
 export { computeCosts } from "./costs";
 export type { TaskCost } from "./costs";
@@ -110,6 +110,8 @@ export { findOverallocations, resourceUsage } from "./resources";
 export type { Overallocation, ResourceUsage } from "./resources";
 export { clearLeveling, levelResources } from "./leveling";
 export type { LevelingOptions, LevelingResult } from "./leveling";
+export { PLAN_FORMAT, PLAN_FORMAT_VERSION, parseProject, serializeProject, toSavedPlan } from "./plan-format";
+export type { SavedPlan } from "./plan-format";
 export { commit, createHistory, redo, redoLabel, undo, undoLabel } from "./history";
 export type { History, HistoryEntry } from "./history";
 export { formatMspdiDuration, parseMspdiDuration, readMspdi, writeMspdi } from "./mspdi";

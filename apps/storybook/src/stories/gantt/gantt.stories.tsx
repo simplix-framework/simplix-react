@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Gantt } from "@simplix-react/gantt";
+import { Gantt, useGanttStore } from "@simplix-react/gantt";
+import { Button } from "@simplix-react/ui";
 
 import { largePlan, planAroundToday, samplePlan } from "./sample-plan";
 
@@ -76,6 +77,27 @@ export const TaskUsageTable: Story = {
 /** A long plan's assignments: only the lines and days on screen are drawn. */
 export const LargeTaskUsage: Story = {
   render: () => <Gantt defaultProject={largePlan(40, 12, 6)} view="taskUsage" />,
+};
+
+/** Takes in a plan another user saved: two of its tasks were renamed there. */
+function ReceiveChanges() {
+  const store = useGanttStore();
+  const receive = (): void => {
+    const base = samplePlan();
+    const names: Record<string, string> = { "2": "Requirements workshops (remote)", "3": "Current system survey (remote)" };
+    const theirs = { ...base, tasks: base.tasks.map((task) => (names[task.id] ? { ...task, name: names[task.id] } : task)) };
+    store.getState().merge(base, theirs);
+  };
+  return (
+    <Button size="sm" variant="outline" onClick={receive}>
+      Receive changes
+    </Button>
+  );
+}
+
+/** A plan edited here and elsewhere: a record both sides changed is put to the reader. */
+export const MergeConflicts: Story = {
+  render: () => <Gantt defaultProject={samplePlan()} trailing={<ReceiveChanges />} />,
 };
 
 /** A chart that shows its plan and refuses every edit. */

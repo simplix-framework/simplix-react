@@ -47,7 +47,9 @@
     "editRecurring": "定期タスクを編集",
     "view": "ビュー",
     "resizeTable": "ドラッグで表の幅を変更",
-    "panes": "表示領域"
+    "panes": "表示領域",
+    "savePlan": "計画ファイルとして保存",
+    "openPlan": "計画ファイルを開く"
   },
   "view": {
     "gantt": "ガントチャート",
@@ -199,6 +201,8 @@
     "invalid-calendar": "カレンダーの稼働時間が正しくありません。",
     "no-working-time": "カレンダーに稼働時間がありません。",
     "invalid-xml": "Microsoft Project XML ファイルではありません。",
+    "invalid-plan": "保存した計画ファイルではありません。",
+    "unsupported-plan-version": "より新しいバージョンで保存された計画のため、開けません。",
     "dismiss": "閉じる"
   },
   "resourceType": {
@@ -383,6 +387,27 @@
       "assignment-skipped": "ファイルにないタスクまたはリソースの割り当てをスキップしました: {{count}}件",
       "null-task-skipped": "空のタスク行をスキップしました: {{count}}件",
       "unknown-code": "不明なコードは既定値として読み込みました: {{count}}件"
+    }
+  },
+  "merge": {
+    "title": "両側で変更された項目",
+    "hint": "次の項目は、こちら側の変更を保持しました。受け取った変更に置き換える項目を選んでください。",
+    "mine": "こちらを保持",
+    "theirs": "受け取った変更",
+    "allTheirs": "すべて受け取った変更にする",
+    "apply": "適用",
+    "entity": {
+      "task": "タスク",
+      "link": "リンク",
+      "resource": "リソース",
+      "assignment": "割り当て",
+      "calendar": "カレンダー",
+      "customField": "ユーザー設定フィールド"
+    },
+    "state": {
+      "changed-both": "こちら側と受け取った側の両方で変更",
+      "removed-there": "こちら側で変更、受け取った側で削除",
+      "left-out": "受け取った側で追加、循環が生じるため除外"
     }
   }
 }

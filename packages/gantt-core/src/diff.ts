@@ -153,7 +153,18 @@ export function mergeProjects(base: Project, mine: Project, theirs: Project): { 
     }
   }
   for (const [key, list] of lists) result[key] = list;
-  const merged = result as unknown as Project;
+  const settled = settle(result as unknown as Project, new Set(mine.links.map((link) => link.id)));
+  for (const id of settled.droppedLinks) conflicts.push({ entity: "link", id });
+  return { project: settled.project, conflicts };
+}
+
+/**
+ * Makes a plan put together from two sides consistent again: outline levels
+ * the row above allows, no link or assignment pointing at a missing record,
+ * no link inside a summary task, and no loop. When links from both sides
+ * close a loop, the ones not in `ownLinks` give way and are listed.
+ */
+function settle(merged: Project, ownLinks: ReadonlySet<Id>): { project: Project; droppedLinks: Id[] } {
   // Rows that came from two outlines can sit deeper than the row above them allows.
   const rows = [...merged.tasks];
   for (let i = 0; i < rows.length; i++) {
@@ -172,15 +183,37 @@ export function mergeProjects(base: Project, mine: Project, theirs: Project): { 
   });
   const assignments = merged.assignments.filter((a) => outline.indexById.has(a.taskId) && resources.has(a.resourceId));
   let project: Project = { ...merged, tasks: rows, links, assignments };
-  // Links from both sides can close a loop neither side had: theirs give way and are reported.
+  const droppedLinks: Id[] = [];
   try {
     buildNetwork(project);
   } catch (error) {
     if (!(error instanceof ScheduleError) || error.code !== "cycle") throw error;
-    const own = new Set(mine.links.map((link) => link.id));
-    for (const link of links) if (!own.has(link.id)) conflicts.push({ entity: "link", id: link.id });
-    links = links.filter((link) => own.has(link.id));
+    for (const link of links) if (!ownLinks.has(link.id)) droppedLinks.push(link.id);
+    links = links.filter((link) => ownLinks.has(link.id));
     project = { ...project, links };
   }
-  return { project, conflicts };
+  return { project, droppedLinks };
+}
+
+/**
+ * Settles conflicts of a merge the other way: for each listed record the
+ * plan takes the other side's version, and loses the record where the other
+ * side removed it. A link of theirs that would close a loop is left out.
+ */
+export function takeTheirs(project: Project, theirs: Project, conflicts: readonly MergeConflict[]): Project {
+  const result: Record<string, unknown> = { ...project };
+  for (const conflict of conflicts) {
+    const key = RECORD_KEYS[conflict.entity];
+    const list = [...((result[key] as { id: Id }[] | undefined) ?? [])];
+    const other = ((theirs as unknown as Record<string, unknown>)[key] as { id: Id }[] | undefined)?.find((record) => record.id === conflict.id);
+    const at = list.findIndex((record) => record.id === conflict.id);
+    if (other === undefined) {
+      if (at !== -1) list.splice(at, 1);
+    } else if (at !== -1) list[at] = other;
+    else list.push(other);
+    result[key] = list;
+  }
+  const taken = new Set(conflicts.filter((conflict) => conflict.entity === "link").map((conflict) => conflict.id));
+  const own = new Set(project.links.filter((link) => !taken.has(link.id)).map((link) => link.id));
+  return settle(result as unknown as Project, own).project;
 }

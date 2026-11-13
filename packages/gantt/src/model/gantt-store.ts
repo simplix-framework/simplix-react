@@ -12,6 +12,7 @@ import {
   indentTasks,
   insertTask,
   mergeProjects,
+  takeTheirs,
   nextId,
   outdentTasks,
   parseDuration,
@@ -43,6 +44,7 @@ export type {
   GanttRejection,
   GanttStoreState,
   GanttView,
+  PendingMerge,
 } from "./gantt-store-types";
 
 /** A chart's store. */
@@ -120,6 +122,7 @@ export function createGanttStore(initial: Project, options: CreateGanttStoreOpti
       baselineNumber: layout.baselineNumber ?? options.baselineNumber ?? null,
       baselineSlot: layout.baselineNumber ?? options.baselineNumber ?? 0,
       rejection: null,
+      pendingMerge: null,
       clipboard: null,
       clipboardText: null,
       selectedLinkId: null,
@@ -237,11 +240,18 @@ export function createGanttStore(initial: Project, options: CreateGanttStoreOpti
         try {
           const merged = mergeProjects(base, get().history.present, theirs);
           get().sync(merged.project);
+          set({ pendingMerge: merged.conflicts.length > 0 ? { conflicts: merged.conflicts, theirs } : null });
           return merged.conflicts;
         } catch (error) {
           reject(error);
           return [];
         }
+      },
+      settleMerge(chosen) {
+        const pending = get().pendingMerge;
+        set({ pendingMerge: null });
+        if (!pending || chosen.length === 0) return;
+        get().apply("settle-merge", (p) => takeTheirs(p, pending.theirs, chosen));
       },
       toggleColumn(column) {
         const { columns } = get();

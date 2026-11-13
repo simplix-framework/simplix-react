@@ -9,6 +9,8 @@ export type ScheduleErrorCode =
   | "duplicate-id"
   | "cycle"
   | "invalid-xml"
+  | "invalid-plan"
+  | "unsupported-plan-version"
   | "invalid-operation";
 
 /**

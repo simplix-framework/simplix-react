@@ -20,6 +20,7 @@ export type {
   GanttStore,
   GanttStoreState,
   GanttView,
+  PendingMerge,
 } from "./model/gantt-store";
 
 // ---- Screens (compose your own shell if needed) ----

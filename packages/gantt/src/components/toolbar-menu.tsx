@@ -1,6 +1,6 @@
 import { clearBaseline, clearLeveling, levelResources, rescheduleUncompletedWork, setBaseline } from "@simplix-react/gantt-core";
 import { Button, useFlatUIComponents } from "@simplix-react/ui";
-import { Download, Ellipsis, FileDown, Printer, Repeat, Settings2, Upload } from "lucide-react";
+import { Download, Ellipsis, FileDown, FolderOpen, Printer, Repeat, Save, Settings2, Upload } from "lucide-react";
 import type { ReactNode } from "react";
 
 import { useGantt, useGanttStore } from "../context/gantt-context";
@@ -22,6 +22,10 @@ const BASELINE_SLOTS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const;
 export interface ToolbarMenuProps {
   /** Shows the commands that read and write a Microsoft Project XML file. */
   xmlExchange: boolean;
+  /** Shows the commands that save the plan to a file of its own form and open one. */
+  planFiles: boolean;
+  onSavePlan: () => void;
+  onOpenPlan: () => void;
   /** Lists the commands a narrow bar has no room for. */
   folded: boolean;
   /** Runs a slow command with the loading mark shown. */
@@ -32,7 +36,7 @@ export interface ToolbarMenuProps {
 }
 
 /** The menu at the end of the command bar: filters, grouping, bar settings and the plan-level tools. */
-export function ToolbarMenu({ xmlExchange, folded, busy, onImportXml, onInsertSubproject, onExportXml }: ToolbarMenuProps) {
+export function ToolbarMenu({ xmlExchange, planFiles, onSavePlan, onOpenPlan, folded, busy, onImportXml, onInsertSubproject, onExportXml }: ToolbarMenuProps) {
   const { t, language } = useGanttTranslation();
   const store = useGanttStore();
   const ui = useFlatUIComponents();
@@ -201,6 +205,19 @@ export function ToolbarMenu({ xmlExchange, folded, busy, onImportXml, onInsertSu
             <ui.DropdownMenuItem onSelect={() => state.apply("clear-leveling", (p) => clearLeveling(p))}>
               {t("toolbar.clearLeveling")}
             </ui.DropdownMenuItem>
+            {planFiles && (
+              <>
+                <ui.DropdownMenuSeparator />
+                <ui.DropdownMenuItem disabled={readOnly} onSelect={onOpenPlan}>
+                  <FolderOpen />
+                  {t("toolbar.openPlan")}
+                </ui.DropdownMenuItem>
+                <ui.DropdownMenuItem onSelect={onSavePlan}>
+                  <Save />
+                  {t("toolbar.savePlan")}
+                </ui.DropdownMenuItem>
+              </>
+            )}
             {xmlExchange && (
               <>
                 <ui.DropdownMenuSeparator />
