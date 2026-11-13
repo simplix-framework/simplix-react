@@ -13,6 +13,8 @@
 - [@simplix-react/cli](@simplix-react/cli/README.md)
 - [@simplix-react/contract](@simplix-react/contract/README.md)
 - [@simplix-react/form](@simplix-react/form/README.md)
+- [@simplix-react/gantt](@simplix-react/gantt/README.md)
+- [@simplix-react/gantt-core](@simplix-react/gantt-core/README.md)
 - [@simplix-react/headless](@simplix-react/headless/README.md)
 - [@simplix-react/i18n](@simplix-react/i18n/README.md)
 - [@simplix-react/mock](@simplix-react/mock/README.md)

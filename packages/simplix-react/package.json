@@ -15,6 +15,8 @@
     "@simplix-react/cli": "workspace:*",
     "@simplix-react/contract": "workspace:*",
     "@simplix-react/form": "workspace:*",
+    "@simplix-react/gantt": "workspace:*",
+    "@simplix-react/gantt-core": "workspace:*",
     "@simplix-react/i18n": "workspace:*",
     "@simplix-react/mock": "workspace:*",
     "@simplix-react/react": "workspace:*",

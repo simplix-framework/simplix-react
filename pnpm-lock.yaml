@@ -416,6 +416,12 @@ importers:
       '@simplix-react/form':
         specifier: workspace:*
         version: link:../../packages/form
+      '@simplix-react/gantt':
+        specifier: workspace:*
+        version: link:../../packages/gantt
+      '@simplix-react/gantt-core':
+        specifier: workspace:*
+        version: link:../../packages/gantt-core
       '@simplix-react/i18n':
         specifier: workspace:*
         version: link:../../packages/i18n
@@ -1186,6 +1192,70 @@ importers:
         specifier: 'catalog:'
         version: 4.3.6
 
+  packages/gantt:
+    dependencies:
+      '@simplix-react/gantt-core':
+        specifier: workspace:*
+        version: link:../gantt-core
+      '@tanstack/react-virtual':
+        specifier: 'catalog:'
+        version: 3.13.23(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      lucide-react:
+        specifier: 'catalog:'
+        version: 1.12.0(react@19.2.4)
+      zustand:
+        specifier: 'catalog:'
+        version: 5.0.12(@types/react@19.2.14)(immer@10.2.0)(react@19.2.4)(use-sync-external-store@1.6.0(react@19.2.4))
+    devDependencies:
+      '@simplix-react/config-typescript':
+        specifier: workspace:*
+        version: link:../config-typescript
+      '@simplix-react/i18n':
+        specifier: workspace:*
+        version: link:../i18n
+      '@simplix-react/ui':
+        specifier: workspace:*
+        version: link:../ui
+      '@testing-library/react':
+        specifier: 'catalog:'
+        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.2.14
+      jsdom:
+        specifier: 'catalog:'
+        version: 29.0.0
+      react:
+        specifier: 'catalog:'
+        version: 19.2.4
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.2.4(react@19.2.4)
+      tsup:
+        specifier: 'catalog:'
+        version: 8.5.1(jiti@2.6.1)(postcss@8.5.19)(typescript@5.9.3)(yaml@2.8.2)
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vitest:
+        specifier: 'catalog:'
+        version: 4.1.0(@types/node@25.5.0)(jsdom@29.0.0)(msw@2.12.12(@types/node@25.5.0)(typescript@5.9.3))(vite@8.0.0(@types/node@25.5.0)(esbuild@0.27.3)(jiti@2.6.1)(terser@5.49.0)(yaml@2.8.2))
+
+  packages/gantt-core:
+    devDependencies:
+      '@simplix-react/config-typescript':
+        specifier: workspace:*
+        version: link:../config-typescript
+      tsup:
+        specifier: 'catalog:'
+        version: 8.5.1(jiti@2.6.1)(postcss@8.5.19)(typescript@5.9.3)(yaml@2.8.2)
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vitest:
+        specifier: 'catalog:'
+        version: 4.1.0(@types/node@25.5.0)(jsdom@29.0.0)(msw@2.12.12(@types/node@25.5.0)(typescript@5.9.3))(vite@8.0.0(@types/node@25.5.0)(esbuild@0.27.3)(jiti@2.6.1)(terser@5.49.0)(yaml@2.8.2))
+
   packages/headless:
     dependencies:
       zustand:
@@ -1352,6 +1422,12 @@ importers:
       '@simplix-react/form':
         specifier: workspace:*
         version: link:../form
+      '@simplix-react/gantt':
+        specifier: workspace:*
+        version: link:../gantt
+      '@simplix-react/gantt-core':
+        specifier: workspace:*
+        version: link:../gantt-core
       '@simplix-react/i18n':
         specifier: workspace:*
         version: link:../i18n
@@ -11927,9 +12003,9 @@ snapshots:
     dependencies:
       bser: 2.1.1
 
-  fdir@6.5.0(picomatch@4.0.3):
+  fdir@6.5.0(picomatch@4.0.5):
     optionalDependencies:
-      picomatch: 4.0.3
+      picomatch: 4.0.5
 
   fetch-nodeshim@0.4.10: {}
 
@@ -14186,8 +14262,8 @@ snapshots:
 
   tinyglobby@0.2.15:
     dependencies:
-      fdir: 6.5.0(picomatch@4.0.3)
-      picomatch: 4.0.3
+      fdir: 6.5.0(picomatch@4.0.5)
+      picomatch: 4.0.5
 
   tinyqueue@3.0.0: {}
 
@@ -14343,7 +14419,7 @@ snapshots:
     dependencies:
       '@jridgewell/remapping': 2.3.5
       acorn: 8.15.0
-      picomatch: 4.0.3
+      picomatch: 4.0.5
       webpack-virtual-modules: 0.6.2
 
   until-async@3.0.2: {}

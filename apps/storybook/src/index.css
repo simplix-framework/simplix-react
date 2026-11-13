@@ -5,6 +5,9 @@
 
 @source "../../../packages/ui/src/**/*.tsx";
 
+/* Gantt chart: content source registration and the chart's own rules. */
+@import "@simplix-react/gantt/styles.css";
+
 @custom-variant dark (&:is(.dark *));
 
 @layer base {

@@ -11,6 +11,8 @@
   "dependencies": {
     "@simplix-react/api": "workspace:*",
     "@simplix-react/form": "workspace:*",
+    "@simplix-react/gantt": "workspace:*",
+    "@simplix-react/gantt-core": "workspace:*",
     "@simplix-react/i18n": "workspace:*",
     "@simplix-react/react": "workspace:*",
     "@simplix-react/ui": "workspace:*",

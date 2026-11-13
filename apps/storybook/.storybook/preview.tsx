@@ -9,6 +9,7 @@ import { I18nProvider } from "@simplix-react/i18n/react";
 // IMPORTANT: import the JS entry BEFORE createI18nConfig() so that
 // registerModuleTranslations() side-effect populates the registry.
 import "@simplix-react/ui";
+import "@simplix-react/gantt";
 // styles.css + theme tokens + presets all arrive via the theme aggregator
 // imported from src/index.css below.
 import "../src/index.css";
