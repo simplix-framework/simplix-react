@@ -20,10 +20,12 @@ export interface ChartKeysOptions {
   onEditingChange: (editing: GridEditing | null) => void;
   /** Brings the row at an index of `rows` into view. */
   scrollToRow: (index: number) => void;
+  /** Whether the task table is on screen. A cell cannot be edited while it is not. */
+  tableShown: boolean;
 }
 
 /** The chart's keyboard commands: moving the selection and the active cell, editing, nudging, filling down, undo. */
-export function useChartKeys({ rows, columns, activeColumn, onActiveColumnChange, editing, onEditingChange, scrollToRow }: ChartKeysOptions) {
+export function useChartKeys({ rows, columns, activeColumn, onActiveColumnChange, editing, onEditingChange, scrollToRow, tableShown }: ChartKeysOptions) {
   const { t } = useGanttTranslation();
   const store = useGanttStore();
   const project = useGantt((state) => state.history.present);
@@ -91,7 +93,8 @@ export function useChartKeys({ rows, columns, activeColumn, onActiveColumnChange
   const editActive = (id: string, initial?: string): boolean => {
     const row = rows.find((candidate) => candidate.kind === "task" && candidate.task.id === id);
     const column = columns.includes(activeColumn) ? activeColumn : "name";
-    if (readOnly || !row || row.kind !== "task" || !isEditableCell(column, row, project)) return false;
+    // The cell editor lives in the table: with the table off screen an edit could never be finished.
+    if (!tableShown || readOnly || !row || row.kind !== "task" || !isEditableCell(column, row, project)) return false;
     onEditingChange({ id, column, initial });
     return true;
   };

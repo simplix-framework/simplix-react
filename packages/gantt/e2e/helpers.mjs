@@ -9,12 +9,14 @@ import { readdir, readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { after, before } from "node:test";
 import { fileURLToPath } from "node:url";
+import { isDeepStrictEqual } from "node:util";
 
 import { chromium } from "playwright-core";
 
 export const BASE = process.env.GANTT_STORYBOOK_URL ?? "http://localhost:6006";
 
-const SOURCE_ROOTS = ["../src", "../../gantt-core/src"].map((path) => join(dirname(fileURLToPath(import.meta.url)), path));
+/** Everything the stories under test are built from: the two packages and the stories themselves. */
+const SOURCE_ROOTS = ["../src", "../../gantt-core/src", "../../../apps/storybook/src/stories/gantt"].map((path) => join(dirname(fileURLToPath(import.meta.url)), path));
 
 async function sourceFiles(directory) {
   const found = [];
@@ -22,11 +24,31 @@ async function sourceFiles(directory) {
     const path = join(directory, entry.name);
     if (entry.isDirectory()) {
       if (entry.name !== "__tests__") found.push(...(await sourceFiles(path)));
-    } else if (/\.tsx?$/.test(entry.name) && !/\.test\.tsx?$/.test(entry.name)) {
+    } else if (/\.(tsx?|json)$/.test(entry.name) && !/\.test\.tsx?$/.test(entry.name)) {
       found.push(path);
     }
   }
   return found;
+}
+
+/** Whether the module the dev server hands out for a file was made from the file as it is on disk. */
+async function servedFromDisk(file) {
+  const json = file.endsWith(".json");
+  // A JSON file is handed out as itself unless it is asked for as the module the page imports.
+  const response = await fetch(`${BASE}/@fs${file}${json ? "?import" : ""}`);
+  // A file no story reaches is not served, and has no say in what the checks see.
+  if (!response.ok) return true;
+  const served = await response.text();
+  const onDisk = await readFile(file, "utf8");
+  if (json) {
+    // The module carries the file's values, not its text: the values are compared.
+    const module = await import(`data:text/javascript,${encodeURIComponent(served)}`);
+    return isDeepStrictEqual(module.default, JSON.parse(onDisk));
+  }
+  const map = served.match(/sourceMappingURL=data:application\/json;base64,([A-Za-z0-9+/=]+)\s*$/);
+  // A file of types alone is served as an empty module, which runs the same whatever the file says.
+  if (!map) return served.trim() === "export {};";
+  return JSON.parse(Buffer.from(map[1], "base64").toString("utf8")).sourcesContent?.[0] === onDisk;
 }
 
 /**
@@ -35,18 +57,9 @@ async function sourceFiles(directory) {
  * edit, and a check run against it reports on the wrong code.
  */
 async function assertServedSource() {
-  const stale = [];
   const files = (await Promise.all(SOURCE_ROOTS.map(sourceFiles))).flat();
-  await Promise.all(
-    files.map(async (file) => {
-      const response = await fetch(`${BASE}/@fs${file}`);
-      if (!response.ok) return;
-      const map = (await response.text()).match(/sourceMappingURL=data:application\/json;base64,([A-Za-z0-9+/=]+)\s*$/);
-      if (!map) return;
-      const served = JSON.parse(Buffer.from(map[1], "base64").toString("utf8")).sourcesContent?.[0];
-      if (served !== undefined && served !== (await readFile(file, "utf8"))) stale.push(file);
-    }),
-  );
+  const fresh = await Promise.all(files.map(servedFromDisk));
+  const stale = files.filter((_, i) => !fresh[i]);
   assert.equal(stale.length, 0, `Storybook serves an older copy of:\n${stale.join("\n")}\nRestart Storybook and run the checks again.`);
 }
 

@@ -111,6 +111,10 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
   const [activeColumn, setActiveColumn] = useState<GanttColumnId>("name");
   const [menu, setMenu] = useState<{ x: number; y: number } | null>(null);
   const [editing, setEditing] = useState<GridEditing | null>(null);
+  // An edit under way ends when the table that holds its editor leaves the screen.
+  useEffect(() => {
+    if (pane === "timeline") setEditing(null);
+  }, [pane]);
   // The active cell and a column that has just been added are scrolled into the table's view.
   const revealColumn = (column: GanttColumnId): void => {
     const at = columns.indexOf(column);
@@ -223,6 +227,7 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
     editing,
     onEditingChange: setEditing,
     scrollToRow: (index) => virtualizer.scrollToIndex(index, { align: "auto" }),
+    tableShown: pane !== "timeline",
   });
 
   const timelineFromX = printing ? 0 : Math.max(0, viewport.left - gridWidth);

@@ -18,8 +18,10 @@ export interface MspdiLoss {
 }
 
 /**
- * Lists what `writeMspdi` leaves out of the document for this plan. An empty
- * list means that reading the document back gives the same plan.
+ * Lists what `writeMspdi` leaves out of the document for this plan. With an
+ * empty list everything the plan holds is in the document; a custom field
+ * still comes back under Microsoft Project's id for it (`text1`, `number3`),
+ * so a `custom:<id>` column stored with the old id no longer finds it.
  */
 export function mspdiExportLosses(project: Project): MspdiLoss[] {
   const of = (code: MspdiLossCode, ids: Id[]): MspdiLoss[] => (ids.length > 0 ? [{ code, ids }] : []);

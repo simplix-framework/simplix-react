@@ -21,6 +21,10 @@ test("zooms the network diagram in steps and fits it to the screen", async () =>
   await page.waitForTimeout(200);
   const fitted = await page.locator('[data-gantt-slot="network-diagram"]').evaluate((element) => ({ x: element.scrollWidth - element.clientWidth, y: element.scrollHeight - element.clientHeight }));
   assert.ok(fitted.x <= 0 && fitted.y <= 0, `the fitted diagram still scrolls by ${fitted.x}px and ${fitted.y}px`);
+  // The controls stand on a line of their own, clear of the diagram however it is scrolled.
+  const controls = await box(page, '[data-gantt-slot="network-zoom"]');
+  const diagram = await box(page, '[data-gantt-slot="network-diagram"]');
+  assert.ok(controls.y + controls.height <= diagram.y + 0.5, `the controls end at ${controls.y + controls.height}, the diagram starts at ${diagram.y}`);
   // A box still opens its task after scaling.
   await page.locator('[data-gantt-node="2"]').dblclick();
   await page.waitForSelector("[role=dialog]");

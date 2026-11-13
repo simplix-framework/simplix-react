@@ -54,6 +54,15 @@ test("shows the table alone or the timeline alone", async () => {
   assert.equal(await page.locator("[role=columnheader]").count(), 0);
   const bar = await box(page, '[data-gantt-bar="2"]');
   assert.ok(bar.x >= scroll.x && bar.x < scroll.x + scroll.width, `the plan starts ${Math.round(bar.x - scroll.x)}px into the chart`);
+  // With the table off screen a typed key starts no cell edit, so the keys after it still act.
+  await page.locator('[data-gantt-bar="2"]').click();
+  await page.keyboard.press("x");
+  await page.keyboard.press("Delete");
+  await page.waitForTimeout(300);
+  assert.equal(await page.locator('[data-gantt-bar="2"]').count(), 0, "Delete removes the selected task");
+  await page.keyboard.press("ControlOrMeta+z");
+  await page.waitForTimeout(300);
+  assert.equal(await page.locator('[data-gantt-bar="2"]').count(), 1, "and undo brings it back");
   await choose("Table and timeline");
   assert.equal(await page.locator('[data-gantt-slot="grid"]').count(), 1);
   assert.ok((await page.locator("[data-gantt-bar]").count()) > 0);
@@ -121,4 +130,39 @@ test("lists a day's tasks by name under a phone-width calendar", async () => {
   await list.locator("button").first().click();
   await page.waitForSelector("[role=dialog]");
   await page.context().close();
+});
+
+test("fits the merge dialog and the XML notice inside a phone screen", async () => {
+  const inside = (page, slot) =>
+    page.locator(`[data-gantt-slot="${slot}"]`).evaluate((dialog) => {
+      const edge = dialog.getBoundingClientRect();
+      const spill = [...dialog.querySelectorAll("button, li, p, h2")]
+        .map((element) => element.getBoundingClientRect())
+        .filter((box) => box.width > 0 && (box.right > edge.right + 1 || box.left < edge.left - 1)).length;
+      return { spill, left: edge.left, right: window.innerWidth - edge.right, bottom: window.innerHeight - edge.bottom };
+    });
+  const merge = await open("merge-conflicts", PHONE);
+  await merge.locator('[data-gantt-row="2"] [data-gantt-slot="row-handle"]').dblclick();
+  await merge.getByRole("dialog").getByLabel("Name").first().fill("Workshops (local)");
+  await merge.keyboard.press("Tab");
+  await merge.keyboard.press("Escape");
+  await merge.getByRole("button", { name: "Receive changes" }).click();
+  await merge.locator('[data-gantt-slot="merge-dialog"]').waitFor();
+  const first = await inside(merge, "merge-dialog");
+  assert.equal(first.spill, 0, `${first.spill} parts reach past the merge dialog`);
+  assert.ok(first.left >= 0 && first.right >= 0 && first.bottom >= 0, `the merge dialog lies ${JSON.stringify(first)} from the screen's edges`);
+  await merge.context().close();
+  const notice = await open("default", PHONE);
+  await notice.getByRole("button", { name: "More" }).click();
+  await notice.getByRole("menuitem", { name: "Add recurring task" }).click();
+  await notice.getByRole("dialog").getByLabel("Name").fill("Weekly sync");
+  await notice.getByRole("button", { name: "Create" }).click();
+  await notice.waitForFunction(() => !document.querySelector("[role=dialog]"));
+  await notice.getByRole("button", { name: "More" }).click();
+  await notice.getByRole("menuitem", { name: "Export MS Project XML" }).click();
+  await notice.locator('[data-gantt-slot="exchange-notice"]').waitFor();
+  const second = await inside(notice, "exchange-notice");
+  assert.equal(second.spill, 0, `${second.spill} parts reach past the notice`);
+  assert.ok(second.left >= 0 && second.right >= 0 && second.bottom >= 0, `the notice lies ${JSON.stringify(second)} from the screen's edges`);
+  await notice.context().close();
 });

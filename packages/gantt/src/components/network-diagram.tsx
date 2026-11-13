@@ -43,8 +43,9 @@ export function NetworkDiagram() {
   };
 
   return (
-    <div className="relative flex min-h-0 flex-1 flex-col bg-background">
-      <div className="absolute right-3 top-3 z-10 flex items-center gap-0.5 rounded-md border bg-background p-0.5 shadow-sm" data-gantt-slot="network-zoom">
+    <div className="flex min-h-0 flex-1 flex-col bg-background">
+      {/* A line of its own, so the controls never lie over a box of the diagram. */}
+      <div className="flex shrink-0 items-center justify-end gap-0.5 border-b px-2 py-1" data-gantt-slot="network-zoom">
         <Button variant="ghost" size="icon-sm" aria-label={t("toolbar.zoomOut")} title={t("toolbar.zoomOut")} disabled={step === 0} onClick={() => setStep(step - 1)}>
           <ZoomOut />
         </Button>
