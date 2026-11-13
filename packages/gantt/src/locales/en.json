@@ -31,7 +31,9 @@
     "columns": "Columns",
     "reschedule": "Reschedule uncompleted work",
     "levelWithinSlack": "Level within slack only",
-    "levelBySplitting": "Level by splitting tasks"
+    "levelBySplitting": "Level by splitting tasks",
+    "markers": "Date markers",
+    "scrollToToday": "Go to today"
   },
   "view": {
     "gantt": "Gantt chart",
@@ -257,5 +259,11 @@
     "w": "w",
     "mo": "mo",
     "elapsed": "e"
+  },
+  "marker": {
+    "today": "Today",
+    "statusDate": "Status date",
+    "projectStart": "Project start",
+    "projectFinish": "Project finish"
   }
 }

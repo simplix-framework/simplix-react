@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { KeyboardEvent } from "react";
 
 import { useGantt, useGanttStore } from "../context/gantt-context";
+import { dateMarkers, nowOnProjectClock, startOfDay, timelineSpan } from "../lib/markers";
 import { visibleRows } from "../lib/rows";
 import { ZOOM_LEVELS, createTimeScale } from "../lib/time-scale";
 import type { ZoomLevel } from "../lib/time-scale";
@@ -60,6 +61,14 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const columns = useGantt((state) => state.columns);
   const scrollRequest = useGantt((state) => state.scrollRequest);
+  const showMarkers = useGantt((state) => state.showMarkers);
+  // Read once per mount: a chart left open overnight keeps yesterday's line until it is opened again.
+  const today = useMemo(() => startOfDay(nowOnProjectClock()), []);
+  const markers = useMemo(
+    () => (showMarkers ? dateMarkers(project, schedule, nowOnProjectClock()) : []),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [showMarkers, project.start, project.statusDate, schedule.start, schedule.finish],
+  );
   const [gridWidth, setGridWidth] = useState(() => defaultGridWidth ?? Math.min(gridContentWidth(store.getState().columns), 560));
   // The column keyboard editing and sideways arrow keys act on.
   const [activeColumn, setActiveColumn] = useState<GanttColumnId>("name");
@@ -75,8 +84,14 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
   // On paper the plan itself is all that is drawn.
   const paddingDays = printing ? 1 : Math.max(7, Math.ceil(viewport.width / level.pxPerDay / 2));
   const scale = useMemo(
-    () => createTimeScale(Math.min(schedule.start, project.start), schedule.finish, level.pxPerDay, paddingDays),
-    [schedule.start, schedule.finish, project.start, level.pxPerDay, paddingDays],
+    () => {
+      // Today widens the timeline when it lies near the plan, so its marker has somewhere to stand.
+      const span = showMarkers && !printing ? timelineSpan(project, schedule, today) : { from: Math.min(schedule.start, project.start), to: schedule.finish };
+      return createTimeScale(span.from, span.to, level.pxPerDay, paddingDays);
+    },
+    // The whole project is not a dependency: only its start and the schedule's ends move the scale.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [schedule.start, schedule.finish, project.start, level.pxPerDay, paddingDays, showMarkers, printing, today],
   );
 
   const bodyHeight = rows.length * ROW_HEIGHT;
@@ -137,6 +152,13 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
     if (!element || !scrollRequest) return;
     if (scrollRequest.target === "start") {
       element.scrollLeft = Math.max(0, scale.x(schedule.start) - 24);
+      return;
+    }
+    if (scrollRequest.target === "today") {
+      // Today is put a third of the way into the timeline, with the days before it in view.
+      if (today >= scale.start && today <= scale.end) {
+        element.scrollLeft = Math.max(0, scale.x(today) - (element.clientWidth - gridWidth) / 3);
+      }
       return;
     }
     const index = rows.findIndex((row) => row.task.id === scrollRequest.target);
@@ -299,7 +321,7 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
               onMove={store.getState().moveColumn}
             />
           </div>
-          <TimelineHeader scale={scale} level={level} fromX={timelineFromX} toX={timelineToX} weekStartsOn={weekStartsOn} />
+          <TimelineHeader scale={scale} level={level} fromX={timelineFromX} toX={timelineToX} weekStartsOn={weekStartsOn} markers={markers} />
         </div>
         <div className="flex" style={{ height: bodyHeight }}>
           <div
@@ -343,6 +365,7 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
             fromY={fromY}
             toY={toY}
             weekStartsOn={weekStartsOn}
+            markers={markers}
           />
         </div>
       </div>

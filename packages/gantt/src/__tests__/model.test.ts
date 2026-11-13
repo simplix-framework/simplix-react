@@ -3,6 +3,7 @@ import type { Project, Task } from "@simplix-react/gantt-core";
 import { describe, expect, it, vi } from "vitest";
 
 import { pathData, routeLink } from "../lib/link-path";
+import { dateMarkers, timelineSpan } from "../lib/markers";
 import { buildPdf, layoutPdf } from "../lib/pdf-export";
 import { visibleRows } from "../lib/rows";
 import { createTimeScale, scaleCells } from "../lib/time-scale";
@@ -273,5 +274,27 @@ describe("pdf", () => {
     expect(many.sheetsAcross).toBeGreaterThan(1);
     expect(many.sheetsAcross).toBeLessThanOrEqual(6);
     expect(many.scale.width).toBeLessThanOrEqual(many.timelineWidth * 6);
+  });
+});
+
+describe("date markers", () => {
+  const p = { ...project([task("1", 2)]), statusDate: at("2014-10-20T17:00") };
+  const s = computeSchedule(p);
+
+  it("marks the ends of the plan, the status date when there is one, and today last", () => {
+    const now = at("2014-10-21T10:30");
+    expect(dateMarkers(p, s, now)).toEqual([
+      { kind: "projectStart", at: at("2014-10-17T08:00") },
+      { kind: "projectFinish", at: at("2014-10-20T17:00") },
+      { kind: "statusDate", at: at("2014-10-20T17:00") },
+      { kind: "today", at: now },
+    ]);
+    expect(dateMarkers({ ...p, statusDate: undefined }, s, now).map((m) => m.kind)).toEqual(["projectStart", "projectFinish", "today"]);
+  });
+
+  it("widens the timeline to today only when today lies within a year of the plan", () => {
+    expect(timelineSpan(p, s, at("2014-12-01T00:00"))).toEqual({ from: at("2014-10-17T08:00"), to: at("2014-12-01T00:00") });
+    expect(timelineSpan(p, s, at("2014-09-01T00:00")).from).toBe(at("2014-09-01T00:00"));
+    expect(timelineSpan(p, s, at("2016-06-01T00:00"))).toEqual({ from: at("2014-10-17T08:00"), to: at("2014-10-20T17:00") });
   });
 });

@@ -35,6 +35,8 @@ export type { DurationWords } from "./lib/duration-text";
 // ---- Timeline geometry ----
 export { DEFAULT_ZOOM, ZOOM_LEVELS, createTimeScale, scaleCells } from "./lib/time-scale";
 export type { ScaleCell, ScaleUnit, TimeScale, ZoomLevel } from "./lib/time-scale";
+export { MARKER_STYLE, dateMarkers, nowOnProjectClock, timelineSpan } from "./lib/markers";
+export type { DateMarker, MarkerKind } from "./lib/markers";
 export { visibleRows } from "./lib/rows";
 export type { VisibleRow } from "./lib/rows";
 export { routeLink } from "./lib/link-path";

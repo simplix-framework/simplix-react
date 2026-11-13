@@ -83,6 +83,7 @@ export function createGanttStore(initial: Project, options: CreateGanttStoreOpti
       zoom: clampZoom(options.zoom ?? DEFAULT_ZOOM),
       showCriticalPath: options.showCriticalPath ?? false,
       showLinks: options.showLinks ?? true,
+      showMarkers: options.showMarkers ?? true,
       baselineNumber: options.baselineNumber ?? null,
       baselineSlot: options.baselineNumber ?? 0,
       rejection: null,
@@ -161,6 +162,7 @@ export function createGanttStore(initial: Project, options: CreateGanttStoreOpti
       setZoom: (zoom) => set({ zoom: clampZoom(zoom) }),
       setShowCriticalPath: (showCriticalPath) => set({ showCriticalPath }),
       setShowLinks: (showLinks) => set({ showLinks }),
+      setShowMarkers: (showMarkers) => set({ showMarkers }),
       setBaselineNumber: (baselineNumber) => set({ baselineNumber }),
       selectLink: (selectedLinkId) => set(selectedLinkId === null ? { selectedLinkId } : { selectedLinkId, selection: [] }),
       openTaskDialog: (dialogTaskId) => set({ dialogTaskId }),
@@ -208,6 +210,7 @@ export function createGanttStore(initial: Project, options: CreateGanttStoreOpti
         }));
       },
       scrollToStart: () => set((state) => ({ scrollRequest: { target: "start", seq: (state.scrollRequest?.seq ?? 0) + 1 } })),
+      scrollToToday: () => set((state) => ({ scrollRequest: { target: "today", seq: (state.scrollRequest?.seq ?? 0) + 1 } })),
       sync(project) {
         try {
           const schedule = computeSchedule(project);

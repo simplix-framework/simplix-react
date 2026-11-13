@@ -8,7 +8,7 @@
 
 > **downloadPdf**(`project`, `schedule`, `language`, `label`): `Promise`\<`void`\>
 
-Defined in: [lib/pdf-export.ts:394](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-export.ts#L394)
+Defined in: [lib/pdf-export.ts:415](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-export.ts#L415)
 
 Renders the plan as a PDF and hands it to the browser as a download named after the project.
 

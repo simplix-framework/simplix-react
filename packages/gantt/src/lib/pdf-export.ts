@@ -3,6 +3,7 @@ import type { Project, Schedule, TaskSchedule } from "@simplix-react/gantt-core"
 
 import { formatDate, formatScaleCell } from "./format";
 import { routeLink } from "./link-path";
+import { MARKER_STYLE, dateMarkers, nowOnProjectClock } from "./markers";
 import type { BarBox } from "./link-path";
 import { ZOOM_LEVELS, createTimeScale, scaleCells } from "./time-scale";
 import type { TimeScale, ZoomLevel } from "./time-scale";
@@ -253,6 +254,26 @@ function drawSheet(
     }
   }
 
+  // Marked dates: a coloured line through the rows, named at the foot of the header.
+  for (const marker of dateMarkers(project, schedule, nowOnProjectClock())) {
+    if (marker.at < scale.start || marker.at > scale.end) continue;
+    const mx = scale.x(marker.at);
+    if (mx < offsetX || mx > offsetX + timelineWidth) continue;
+    ctx.strokeStyle = MARKER_STYLE[marker.kind].ink;
+    ctx.fillStyle = MARKER_STYLE[marker.kind].ink;
+    ctx.lineWidth = marker.kind === "today" || marker.kind === "statusDate" ? 1.5 : 0.75;
+    ctx.setLineDash(marker.kind === "statusDate" ? [4, 3] : []);
+    ctx.beginPath();
+    ctx.moveTo(mx, bodyTop);
+    ctx.lineTo(mx, bodyTop + bodyHeight);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    font("600", 8);
+    ctx.textAlign = "center";
+    ctx.fillText(label(`marker.${marker.kind}`), mx, bodyTop + 6);
+  }
+  ctx.textAlign = "left";
+
   const rowOf = new Map(sheetRows.map((at, i) => [at.id, i]));
   const boxOf = (id: string): BarBox | null => {
     const i = rowOf.get(id);
@@ -368,7 +389,7 @@ function canvasToJpeg(canvas: HTMLCanvasElement): Promise<Uint8Array> {
  * running down the sheets and the timeline running across them. The text is
  * drawn by the browser, so every script the reader's fonts cover is shown.
  *
- * @param label - Translates a `column.*` key for the table headings.
+ * @param label - Translates a `column.*` key for the table headings and a `marker.*` key for the marked dates.
  */
 export async function renderPdf(project: Project, schedule: Schedule, language: string, label: (key: string) => string): Promise<Uint8Array> {
   const layout = layoutPdf(schedule, project);

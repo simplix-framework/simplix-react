@@ -31,7 +31,9 @@
     "columns": "列",
     "reschedule": "未完了の作業を再スケジュール",
     "levelWithinSlack": "余裕期間内でのみ平準化",
-    "levelBySplitting": "タスクを分割して平準化"
+    "levelBySplitting": "タスクを分割して平準化",
+    "markers": "日付マーカー",
+    "scrollToToday": "今日へ移動"
   },
   "view": {
     "gantt": "ガントチャート",
@@ -257,5 +259,11 @@
     "w": "週",
     "mo": "か月",
     "elapsed": "連続 "
+  },
+  "marker": {
+    "today": "今日",
+    "statusDate": "状況報告日",
+    "projectStart": "プロジェクト開始",
+    "projectFinish": "プロジェクト終了"
   }
 }

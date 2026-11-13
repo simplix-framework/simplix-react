@@ -98,6 +98,7 @@ export function Gantt({
   zoom,
   showCriticalPath,
   showLinks,
+  showMarkers,
   baselineNumber,
   view,
   columns,
@@ -111,6 +112,7 @@ export function Gantt({
       zoom={zoom}
       showCriticalPath={showCriticalPath}
       showLinks={showLinks}
+      showMarkers={showMarkers}
       baselineNumber={baselineNumber}
       view={view}
       columns={columns}

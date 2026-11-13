@@ -48,7 +48,8 @@ To take in a plan changed elsewhere, such as an edit another user saved, call `s
 | Area | Behaviour |
 | --- | --- |
 | Task table | Columns resize from the right edge of a heading, move by dragging the heading and are shown or hidden from the toolbar menu; rows move by dragging the row number. A right click on a row or a bar opens the commands for the selected tasks. Durations are written in the reader's language (`3일`, `2주`) and read in both that form and the letter form. Outline with collapsible summary tasks. Double-click, F2, Enter or typing edits a cell: name, duration (`3d`, `2w`, `4h`, `2ed`), start, finish, predecessors (`3`, `4SS+2d`, `5FF-1d`) and percent complete. |
-| Timeline | Two-tier date header with seven zoom steps from quarters to hours, non-working time shaded from the project calendar, a line at the current time and at the status date. |
+| Timeline | Two-tier date header with seven zoom steps from quarters to hours, and non-working time shaded from the project calendar. |
+| Date markers | Today, the status date and the two ends of the plan each get a line in their own colour and a name tag on the header; today's day is tinted, and a button scrolls to it. The timeline widens to today when today lies within a year of the plan. The markers can be switched off, and the PDF carries them too. |
 | Bars | Drag a bar to move it, an edge to resize it, the mark under it to set progress. Summary tasks draw as brackets and milestones as diamonds. A deadline draws as an arrow. |
 | Links | Drag from the dot at a bar's end onto another bar: the ends you start from and drop on pick finish-to-start, start-to-start, finish-to-finish or start-to-finish. Click a line to select it and press Delete to remove it. A violated link is dashed. |
 | Critical path | Critical tasks and the links that drive them are drawn in the destructive colour. |
@@ -102,6 +103,7 @@ An edit the engine refuses (a dependency loop, a duration that is not one) leave
 | `view` | `"gantt" \| "resources" \| "usage"` | `"gantt"` | Screen shown first |
 | `showCriticalPath` | `boolean` | `false` | |
 | `showLinks` | `boolean` | `true` | |
+| `showMarkers` | `boolean` | `true` | Marks today, the status date and the ends of the plan |
 | `baselineNumber` | `number \| null` | `null` | Baseline drawn under the bars |
 | `xmlExchange` | `boolean` | `true` | Shows the Microsoft Project XML commands |
 | `trailing` | `ReactNode` | | Extra controls at the end of the toolbar |
@@ -152,6 +154,7 @@ MIT
 
 - [BarBox](interfaces/BarBox.md)
 - [CreateGanttStoreOptions](interfaces/CreateGanttStoreOptions.md)
+- [DateMarker](interfaces/DateMarker.md)
 - [DurationWords](interfaces/DurationWords.md)
 - [GanttChartProps](interfaces/GanttChartProps.md)
 - [GanttProps](interfaces/GanttProps.md)
@@ -177,6 +180,7 @@ MIT
 - [GanttEdit](type-aliases/GanttEdit.md)
 - [GanttStore](type-aliases/GanttStore.md)
 - [GanttView](type-aliases/GanttView.md)
+- [MarkerKind](type-aliases/MarkerKind.md)
 - [ScaleUnit](type-aliases/ScaleUnit.md)
 
 ## Variables
@@ -185,6 +189,7 @@ MIT
 - [DEFAULT\_COLUMN\_WIDTHS](variables/DEFAULT_COLUMN_WIDTHS.md)
 - [DEFAULT\_COLUMNS](variables/DEFAULT_COLUMNS.md)
 - [DEFAULT\_ZOOM](variables/DEFAULT_ZOOM.md)
+- [MARKER\_STYLE](variables/MARKER_STYLE.md)
 - [PACKAGE\_NAMESPACE](variables/PACKAGE_NAMESPACE.md)
 - [ZOOM\_LEVELS](variables/ZOOM_LEVELS.md)
 
@@ -194,6 +199,7 @@ MIT
 - [columnWidth](functions/columnWidth.md)
 - [createGanttStore](functions/createGanttStore.md)
 - [createTimeScale](functions/createTimeScale.md)
+- [dateMarkers](functions/dateMarkers.md)
 - [downloadPdf](functions/downloadPdf.md)
 - [durationWords](functions/durationWords.md)
 - [formatDurationText](functions/formatDurationText.md)
@@ -203,6 +209,7 @@ MIT
 - [GanttShell](functions/GanttShell.md)
 - [GanttToolbar](functions/GanttToolbar.md)
 - [layoutPdf](functions/layoutPdf.md)
+- [nowOnProjectClock](functions/nowOnProjectClock.md)
 - [ProjectDialog](functions/ProjectDialog.md)
 - [RecurringDialog](functions/RecurringDialog.md)
 - [renderPdf](functions/renderPdf.md)
@@ -211,6 +218,7 @@ MIT
 - [routeLink](functions/routeLink.md)
 - [scaleCells](functions/scaleCells.md)
 - [TaskDialog](functions/TaskDialog.md)
+- [timelineSpan](functions/timelineSpan.md)
 - [toCanonicalDuration](functions/toCanonicalDuration.md)
 - [useGantt](functions/useGantt.md)
 - [useGanttStore](functions/useGanttStore.md)

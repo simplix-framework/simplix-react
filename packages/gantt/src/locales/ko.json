@@ -31,7 +31,9 @@
     "columns": "열",
     "reschedule": "미완료 작업 재일정",
     "levelWithinSlack": "여유 시간 안에서만 평준화",
-    "levelBySplitting": "작업을 분할해 평준화"
+    "levelBySplitting": "작업을 분할해 평준화",
+    "markers": "날짜 표시선",
+    "scrollToToday": "오늘로 이동"
   },
   "view": {
     "gantt": "간트 차트",
@@ -257,5 +259,11 @@
     "w": "주",
     "mo": "개월",
     "elapsed": "연속 "
+  },
+  "marker": {
+    "today": "오늘",
+    "statusDate": "상태 기준일",
+    "projectStart": "프로젝트 시작",
+    "projectFinish": "프로젝트 완료"
   }
 }

@@ -32,7 +32,7 @@ Defined in: [components/gantt.tsx:20](https://github.com/simplix-react/simplix-r
 
 > `optional` **defaultGridWidth**: `number`
 
-Defined in: [components/gantt-chart.tsx:42](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L42)
+Defined in: [components/gantt-chart.tsx:43](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L43)
 
 Width the task table opens at. It can be dragged wider or narrower.
 
@@ -56,7 +56,7 @@ Replaces the built-in message of a plan without tasks.
 
 > `optional` **trailing**: `ReactNode`
 
-Defined in: [components/gantt-toolbar.tsx:70](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L70)
+Defined in: [components/gantt-toolbar.tsx:71](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L71)
 
 Extra controls at the end of the bar.
 
@@ -70,7 +70,7 @@ Extra controls at the end of the bar.
 
 > `optional` **weekStartsOn**: `number`
 
-Defined in: [components/gantt-chart.tsx:44](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L44)
+Defined in: [components/gantt-chart.tsx:45](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L45)
 
 First day of a week column: 0 is Sunday.
 
@@ -84,7 +84,7 @@ First day of a week column: 0 is Sunday.
 
 > `optional` **xmlExchange**: `boolean`
 
-Defined in: [components/gantt-toolbar.tsx:68](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L68)
+Defined in: [components/gantt-toolbar.tsx:69](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L69)
 
 Shows the commands that read and write a Microsoft Project XML file.
 

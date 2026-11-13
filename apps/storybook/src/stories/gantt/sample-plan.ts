@@ -175,3 +175,32 @@ export function largePlan(phases: number, perPhase: number): Project {
   project = { ...project, links };
   return project;
 }
+
+/**
+ * A short plan laid around the current date: it began eight days ago, its
+ * status date was yesterday, and it ends in about three weeks. Use it to see
+ * the date markers, which a plan in the past or the future does not show.
+ */
+export function planAroundToday(): Project {
+  const now = new Date();
+  const day = (offset: number, time: string): number => {
+    const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() + offset);
+    const pad = (n: number): string => String(n).padStart(2, "0");
+    return parseLocalDateTime(`${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${time}`);
+  };
+  let project = emptyProject("Plan around today", [
+    task(1, "Kick-off", 1, 0),
+    task(2, "Requirements", 1, 4),
+    task(3, "Prototype", 1, 6),
+    task(4, "Review with the customer", 1, 2),
+    task(5, "Build", 1, 8),
+    task(6, "Hand-over", 1, 0),
+  ]);
+  project = { ...project, start: day(-8, "08:00"), statusDate: day(-1, "17:00") };
+  for (const [from, to] of [[1, 2], [2, 3], [3, 4], [4, 5], [5, 6]]) {
+    project = addLink(project, { predecessorId: String(from), successorId: String(to) });
+  }
+  project = setPercentComplete(project, computeSchedule(project), "2", 100);
+  project = setPercentComplete(project, computeSchedule(project), "3", 30);
+  return project;
+}

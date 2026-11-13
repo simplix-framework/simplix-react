@@ -8,7 +8,7 @@
 
 > **GanttToolbar**(`__namedParameters`): `Element`
 
-Defined in: [components/gantt-toolbar.tsx:74](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L74)
+Defined in: [components/gantt-toolbar.tsx:75](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L75)
 
 The command bar of a chart: editing, outline, links, undo, zoom, views and plan-level tools.
 

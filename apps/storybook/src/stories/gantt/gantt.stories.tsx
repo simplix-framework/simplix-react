@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Gantt } from "@simplix-react/gantt";
 
-import { largePlan, samplePlan } from "./sample-plan";
+import { largePlan, planAroundToday, samplePlan } from "./sample-plan";
 
 const meta: Meta<typeof Gantt> = {
   title: "Gantt/Gantt",
@@ -22,6 +22,11 @@ type Story = StoryObj<typeof Gantt>;
 /** A plan with phases, every link type, resources, progress and a baseline. */
 export const Default: Story = {
   render: () => <Gantt defaultProject={samplePlan()} />,
+};
+
+/** Today, the status date and the ends of the plan, each marked with a line and a name tag. */
+export const DateMarkers: Story = {
+  render: () => <Gantt defaultProject={planAroundToday()} />,
 };
 
 /** The critical path and the saved baseline shown from the start. */

@@ -6,7 +6,7 @@
 
 # Interface: GanttToolbarProps
 
-Defined in: [components/gantt-toolbar.tsx:66](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L66)
+Defined in: [components/gantt-toolbar.tsx:67](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L67)
 
 Props for [GanttToolbar](../functions/GanttToolbar.md).
 
@@ -16,7 +16,7 @@ Props for [GanttToolbar](../functions/GanttToolbar.md).
 
 > `optional` **trailing**: `ReactNode`
 
-Defined in: [components/gantt-toolbar.tsx:70](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L70)
+Defined in: [components/gantt-toolbar.tsx:71](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L71)
 
 Extra controls at the end of the bar.
 
@@ -26,6 +26,6 @@ Extra controls at the end of the bar.
 
 > `optional` **xmlExchange**: `boolean`
 
-Defined in: [components/gantt-toolbar.tsx:68](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L68)
+Defined in: [components/gantt-toolbar.tsx:69](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L69)
 
 Shows the commands that read and write a Microsoft Project XML file.

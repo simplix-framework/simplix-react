@@ -3,7 +3,6 @@ import {
   addLink,
   compileCalendars,
   dayIndexOf,
-  fromCivil,
   setPercentComplete,
   setTaskFinish,
   setTaskStart,
@@ -16,6 +15,8 @@ import { useGantt, useGanttStore } from "../context/gantt-context";
 import { cn } from "../lib/cn";
 import type { BarBox, PathPoint } from "../lib/link-path";
 import type { VisibleRow } from "../lib/rows";
+import { MARKER_STYLE, startOfDay } from "../lib/markers";
+import type { DateMarker } from "../lib/markers";
 import { scaleCells } from "../lib/time-scale";
 import type { TimeScale, ZoomLevel } from "../lib/time-scale";
 import { useDrag } from "../lib/use-drag";
@@ -44,6 +45,8 @@ export interface TimelineBodyProps {
   fromY: number;
   toY: number;
   weekStartsOn: number;
+  /** Dates drawn as lines through the chart. */
+  markers: readonly DateMarker[];
 }
 
 /** What a drag in progress has changed so far. */
@@ -57,13 +60,8 @@ interface DragPreview {
   pointer: PathPoint;
 }
 
-function nowOnProjectClock(): number {
-  const now = new Date();
-  return fromCivil(now.getFullYear(), now.getMonth() + 1, now.getDate(), now.getHours(), now.getMinutes());
-}
-
 /** The area under the date header: shading, grid lines, bars and dependency lines. */
-export function TimelineBody({ scale, level, rows, window, rowHeight, fromX, toX, fromY, toY, weekStartsOn }: TimelineBodyProps) {
+export function TimelineBody({ scale, level, rows, window, rowHeight, fromX, toX, fromY, toY, weekStartsOn, markers }: TimelineBodyProps) {
   const store = useGanttStore();
   const project = useGantt((state) => state.history.present);
   const schedule = useGantt((state) => state.schedule);
@@ -199,7 +197,6 @@ export function TimelineBody({ scale, level, rows, window, rowHeight, fromX, toX
     [scale, level.bottom, fromX, toX, weekStartsOn],
   );
 
-  const now = nowOnProjectClock();
   const baseline = baselineNumber === null ? undefined : project.baselines[baselineNumber];
   const draft =
     preview?.gesture.kind === "link"
@@ -232,16 +229,18 @@ export function TimelineBody({ scale, level, rows, window, rowHeight, fromX, toX
           style={{ top: start, height: rowHeight }}
         />
       ))}
-      {now >= scale.start && now <= scale.end && (
-        <div className="absolute top-0 h-full w-px bg-primary/70" style={{ left: scale.x(now) }} data-gantt-slot="today" />
-      )}
-      {project.statusDate !== undefined && (
-        <div
-          className="absolute top-0 h-full border-l border-dashed border-destructive/70"
-          style={{ left: scale.x(project.statusDate) }}
-          data-gantt-slot="status-date"
-        />
-      )}
+      {markers.map((marker) => {
+        if (marker.at < scale.start || marker.at > scale.end) return null;
+        return (
+          <div key={marker.kind} data-gantt-marker={marker.kind}>
+            {/* Today also tints its whole day, wide enough to see at a glance. */}
+            {marker.kind === "today" && scale.pxPerDay >= 5 && (
+              <div className="absolute top-0 h-full bg-sky-500/10" style={{ left: scale.x(startOfDay(marker.at)), width: scale.pxPerDay }} />
+            )}
+            <div className={cn("absolute top-0 h-full", MARKER_STYLE[marker.kind].line)} style={{ left: scale.x(marker.at) }} />
+          </div>
+        );
+      })}
       {showLinks && (
         <TimelineLinks
           project={project}

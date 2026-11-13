@@ -12,6 +12,7 @@ import {
 import type { Project } from "@simplix-react/gantt-core";
 import { Badge, Button, useFlatUIComponents } from "@simplix-react/ui";
 import {
+  CalendarCheck,
   Download,
   Ellipsis,
   FileDown,
@@ -89,6 +90,7 @@ export function GanttToolbar({ xmlExchange = true, trailing }: GanttToolbarProps
   const rejection = useGantt((state) => state.rejection);
   const columns = useGantt((state) => state.columns);
   const levelingOptions = useGantt((state) => state.levelingOptions);
+  const showMarkers = useGantt((state) => state.showMarkers);
   const fileRef = useRef<HTMLInputElement | null>(null);
   const [loading, setLoading] = useState(false);
   const columnChoices = useMemo<{ id: GanttColumnId; label: string }[]>(
@@ -207,6 +209,7 @@ export function GanttToolbar({ xmlExchange = true, trailing }: GanttToolbarProps
             {icon(t("toolbar.zoomOut"), <ZoomOut />, () => state.setZoom(zoom - 1), zoom === 0)}
             {icon(t("toolbar.zoomIn"), <ZoomIn />, () => state.setZoom(zoom + 1), zoom === ZOOM_LEVELS.length - 1)}
             {icon(t("toolbar.scrollToStart"), <LocateFixed />, state.scrollToStart)}
+            {icon(t("toolbar.scrollToToday"), <CalendarCheck />, state.scrollToToday)}
             {divider}
             <Button
               variant={showCriticalPath ? "secondary" : "ghost"}
@@ -245,6 +248,9 @@ export function GanttToolbar({ xmlExchange = true, trailing }: GanttToolbarProps
                 ))}
               </ui.DropdownMenuSubContent>
             </ui.DropdownMenuSub>
+            <ui.DropdownMenuCheckboxItem checked={showMarkers} onCheckedChange={(checked) => state.setShowMarkers(checked)}>
+              {t("toolbar.markers")}
+            </ui.DropdownMenuCheckboxItem>
             <ui.DropdownMenuItem disabled={view !== "gantt"} onSelect={state.openRecurringDialog}>
               <Repeat />
               {t("toolbar.addRecurring")}

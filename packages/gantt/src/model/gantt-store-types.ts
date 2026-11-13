@@ -37,6 +37,8 @@ export interface GanttStoreState {
   zoom: number;
   showCriticalPath: boolean;
   showLinks: boolean;
+  /** Whether today, the status date and the ends of the plan are marked on the timeline. */
+  showMarkers: boolean;
   /** Baseline drawn under the bars, or `null` for none. */
   baselineNumber: number | null;
   /** Baseline the save, show and clear commands work on, 0 to 10. */
@@ -60,7 +62,7 @@ export interface GanttStoreState {
   /** What resource leveling may do. */
   levelingOptions: LevelingOptions;
   /** The latest request to bring something into view; `seq` tells two requests for the same target apart. */
-  scrollRequest: { target: "start" | Id; seq: number } | null;
+  scrollRequest: { target: "start" | "today" | Id; seq: number } | null;
 
   /**
    * Applies an edit as one undo step. A `ScheduleError` from the edit or
@@ -83,6 +85,7 @@ export interface GanttStoreState {
   setZoom(zoom: number): void;
   setShowCriticalPath(show: boolean): void;
   setShowLinks(show: boolean): void;
+  setShowMarkers(show: boolean): void;
   setBaselineNumber(number: number | null): void;
   selectLink(id: Id | null): void;
   openTaskDialog(id: Id): void;
@@ -105,6 +108,8 @@ export interface GanttStoreState {
   reveal(id: Id): void;
   /** Scrolls the timeline to the start of the plan. */
   scrollToStart(): void;
+  /** Scrolls the timeline to today, when today lies on it. */
+  scrollToToday(): void;
   /**
    * Replaces the plan with one changed elsewhere, such as an edit another
    * user saved. The undo history is kept; undoing past this point brings back
@@ -147,6 +152,7 @@ export interface CreateGanttStoreOptions {
   zoom?: number;
   showCriticalPath?: boolean;
   showLinks?: boolean;
+  showMarkers?: boolean;
   baselineNumber?: number | null;
   view?: GanttView;
   columns?: readonly GanttColumnId[];

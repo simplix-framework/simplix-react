@@ -1,6 +1,9 @@
 import { useMemo } from "react";
 
-import { formatScaleCell } from "../lib/format";
+import { cn } from "../lib/cn";
+import { formatDateTime, formatScaleCell } from "../lib/format";
+import { MARKER_STYLE } from "../lib/markers";
+import type { DateMarker } from "../lib/markers";
 import { scaleCells } from "../lib/time-scale";
 import type { ScaleUnit, TimeScale, ZoomLevel } from "../lib/time-scale";
 import { useGanttTranslation } from "../lib/use-gantt-translation";
@@ -14,14 +17,49 @@ export interface TimelineHeaderProps {
   toX: number;
   /** First day of a week column: 0 is Sunday. */
   weekStartsOn: number;
+  /** Dates named with a tag on the header's lower edge. */
+  markers?: readonly DateMarker[];
 }
 
-/** The two-tier date header above the bars. */
-export function TimelineHeader({ scale, level, fromX, toX, weekStartsOn }: TimelineHeaderProps) {
+/** Two tags closer than this would overlap, so the later one is set a row lower. */
+const TAG_CLEARANCE = 84;
+const TAG_HEIGHT = 16;
+
+/** The two-tier date header above the bars, with a name tag for every marked date. */
+export function TimelineHeader({ scale, level, fromX, toX, weekStartsOn, markers = [] }: TimelineHeaderProps) {
+  const { t, language } = useGanttTranslation();
+  // Tags that would collide step down one row each, in the order of their dates.
+  const tags = useMemo(() => {
+    const placed: { marker: DateMarker; x: number; row: number }[] = [];
+    for (const marker of [...markers].sort((a, b) => a.at - b.at)) {
+      if (marker.at < scale.start || marker.at > scale.end) continue;
+      const x = scale.x(marker.at);
+      const taken = new Set(placed.filter((other) => Math.abs(other.x - x) < TAG_CLEARANCE).map((other) => other.row));
+      let row = 0;
+      while (taken.has(row)) row += 1;
+      placed.push({ marker, x, row });
+    }
+    return placed;
+  }, [markers, scale]);
   return (
     <div className="relative h-full text-xs text-muted-foreground" style={{ width: scale.width }}>
       <HeaderTier scale={scale} unit={level.top} fromX={fromX} toX={toX} weekStartsOn={weekStartsOn} top />
       <HeaderTier scale={scale} unit={level.bottom} fromX={fromX} toX={toX} weekStartsOn={weekStartsOn} />
+      {tags.map(({ marker, x, row }) => (
+        <div
+          key={marker.kind}
+          title={formatDateTime(marker.at, language)}
+          className={cn(
+            "absolute z-10 -translate-x-1/2 whitespace-nowrap rounded-full px-1.5 text-[10px] font-medium leading-4 shadow-sm",
+            MARKER_STYLE[marker.kind].tag,
+          )}
+          // Half over the header's lower edge, so the tag sits on top of its line.
+          style={{ left: x, top: `calc(100% - ${TAG_HEIGHT / 2}px + ${row * (TAG_HEIGHT + 2)}px)` }}
+          data-gantt-marker-tag={marker.kind}
+        >
+          {t(`marker.${marker.kind}`)}
+        </div>
+      ))}
     </div>
   );
 }
