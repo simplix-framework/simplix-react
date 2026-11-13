@@ -32,6 +32,9 @@ pnpm lint         # ESLint
 pnpm test         # Run test suites
 ```
 
+The `@simplix-react/gantt-core` tests compare the scheduler with plans saved by Microsoft Project. Their first run fetches those sample files from the MPXJ repository at a pinned commit into `packages/gantt-core/.oracle/` (ignored by git), so it needs network access once.
+
+
 ## Project Structure
 
 ```

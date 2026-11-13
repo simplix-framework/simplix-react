@@ -23,3 +23,5 @@ storybook-static/
 coverage/
 .skill-check/
 .coregraph/
+# MS Project sample files fetched by packages/gantt-core/scripts/fetch-oracle.mjs
+.oracle/
