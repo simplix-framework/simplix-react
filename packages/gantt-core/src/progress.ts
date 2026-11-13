@@ -42,7 +42,9 @@ export function rescheduleUncompletedWork(project: Project, schedule: Schedule, 
     changed = true;
     const splits: TaskSplit[] = [...(task.splits ?? []).filter((split) => split.offset !== done), { offset: done, gap }];
     splits.sort((a, b) => a.offset - b.offset);
-    return { ...task, splits };
+    // The work already done happened where it is scheduled: holding the start there keeps the
+    // pause measured from it, however the tasks before this one move afterwards.
+    return { ...task, splits, actualStart: task.actualStart ?? at.start };
   });
   return changed ? { ...project, tasks } : project;
 }

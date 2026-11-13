@@ -1,3 +1,6 @@
+import { ScheduleError } from "./errors";
+import { buildNetwork } from "./network";
+import { buildOutline, isAncestor } from "./outline";
 import type { Id, Project } from "./types";
 
 /** The collections of a project a change can be in. */
@@ -150,16 +153,34 @@ export function mergeProjects(base: Project, mine: Project, theirs: Project): { 
     }
   }
   for (const [key, list] of lists) result[key] = list;
-  const project = result as unknown as Project;
-  // A task one side removed can leave the other side's link or assignment pointing at nothing.
-  const tasks = new Set(project.tasks.map((task) => task.id));
-  const resources = new Set(project.resources.map((resource) => resource.id));
-  return {
-    project: {
-      ...project,
-      links: project.links.filter((link) => tasks.has(link.predecessorId) && tasks.has(link.successorId)),
-      assignments: project.assignments.filter((a) => tasks.has(a.taskId) && resources.has(a.resourceId)),
-    },
-    conflicts,
-  };
+  const merged = result as unknown as Project;
+  // Rows that came from two outlines can sit deeper than the row above them allows.
+  const rows = [...merged.tasks];
+  for (let i = 0; i < rows.length; i++) {
+    const limit = i === 0 ? 1 : rows[i - 1].outlineLevel + 1;
+    const level = Math.max(1, Math.min(rows[i].outlineLevel, limit));
+    if (level !== rows[i].outlineLevel) rows[i] = { ...rows[i], outlineLevel: level };
+  }
+  // A task one side removed can leave the other side's link or assignment pointing at nothing,
+  // and an outline one side changed can turn the other side's link into one inside a summary task.
+  const outline = buildOutline(rows);
+  const resources = new Set(merged.resources.map((resource) => resource.id));
+  let links = merged.links.filter((link) => {
+    const from = outline.indexById.get(link.predecessorId);
+    const to = outline.indexById.get(link.successorId);
+    return from !== undefined && to !== undefined && !isAncestor(outline, from, to) && !isAncestor(outline, to, from);
+  });
+  const assignments = merged.assignments.filter((a) => outline.indexById.has(a.taskId) && resources.has(a.resourceId));
+  let project: Project = { ...merged, tasks: rows, links, assignments };
+  // Links from both sides can close a loop neither side had: theirs give way and are reported.
+  try {
+    buildNetwork(project);
+  } catch (error) {
+    if (!(error instanceof ScheduleError) || error.code !== "cycle") throw error;
+    const own = new Set(mine.links.map((link) => link.id));
+    for (const link of links) if (!own.has(link.id)) conflicts.push({ entity: "link", id: link.id });
+    links = links.filter((link) => own.has(link.id));
+    project = { ...project, links };
+  }
+  return { project, conflicts };
 }
