@@ -48,6 +48,16 @@ Defined in: [packages/gantt-core/src/types.ts:91](https://github.com/simplix-rea
 
 ***
 
+### color?
+
+> `optional` **color**: `string`
+
+Defined in: [packages/gantt-core/src/types.ts:116](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L116)
+
+Colour the task's bar is drawn in, as a CSS colour. The chart's own colour when not set.
+
+***
+
 ### constraintDate?
 
 > `optional` **constraintDate**: `number`
@@ -253,6 +263,16 @@ Defined in: [packages/gantt-core/src/types.ts:97](https://github.com/simplix-rea
 Defined in: [packages/gantt-core/src/types.ts:101](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L101)
 
 0 to 1000. Leveling never delays a task of priority 1000.
+
+***
+
+### recurrence?
+
+> `optional` **recurrence**: [`TaskRecurrence`](TaskRecurrence.md)
+
+Defined in: [packages/gantt-core/src/types.ts:118](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L118)
+
+On the summary task of a recurring task: the rule its occurrences were made from.
 
 ***
 

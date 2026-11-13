@@ -6,7 +6,7 @@
 
 # Interface: BaselineEntry
 
-Defined in: [packages/gantt-core/src/types.ts:195](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L195)
+Defined in: [packages/gantt-core/src/types.ts:219](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L219)
 
 The dates a task had when a baseline was saved.
 
@@ -16,7 +16,7 @@ The dates a task had when a baseline was saved.
 
 > `optional` **cost**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:200](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L200)
+Defined in: [packages/gantt-core/src/types.ts:224](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L224)
 
 The task's cost when the baseline was saved: its budget.
 
@@ -26,7 +26,7 @@ The task's cost when the baseline was saved: its budget.
 
 > **duration**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:198](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L198)
+Defined in: [packages/gantt-core/src/types.ts:222](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L222)
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: [packages/gantt-core/src/types.ts:198](https://github.com/simplix-re
 
 > **finish**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:197](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L197)
+Defined in: [packages/gantt-core/src/types.ts:221](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L221)
 
 ***
 
@@ -42,4 +42,4 @@ Defined in: [packages/gantt-core/src/types.ts:197](https://github.com/simplix-re
 
 > **start**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:196](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L196)
+Defined in: [packages/gantt-core/src/types.ts:220](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L220)

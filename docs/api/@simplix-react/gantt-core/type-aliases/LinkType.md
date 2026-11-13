@@ -8,4 +8,4 @@
 
 > **LinkType** = `"FS"` \| `"SS"` \| `"FF"` \| `"SF"`
 
-Defined in: [packages/gantt-core/src/types.ts:138](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L138)
+Defined in: [packages/gantt-core/src/types.ts:162](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L162)

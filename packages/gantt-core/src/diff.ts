@@ -73,3 +73,93 @@ export function diffProjects(before: Project, after: Project): ProjectChange[] {
   }
   return changes;
 }
+
+/** A record both sides changed in different ways; the local change was kept. */
+export interface MergeConflict {
+  entity: ChangeEntity;
+  id: Id;
+}
+
+const RECORD_KEYS: Readonly<Record<ChangeEntity, "tasks" | "links" | "resources" | "assignments" | "calendars" | "customFields">> = {
+  task: "tasks",
+  link: "links",
+  resource: "resources",
+  assignment: "assignments",
+  calendar: "calendars",
+  customField: "customFields",
+};
+
+/**
+ * Brings changes made elsewhere into a plan that was also edited here.
+ *
+ * `base` is the version both sides started from, `mine` the plan here and
+ * `theirs` the plan from elsewhere. Every record they changed and this side
+ * did not is taken from them; a record both changed keeps this side's version
+ * and is reported as a conflict. A record this side removed stays removed.
+ * Their row order is taken when this side did not reorder, and their plan
+ * settings and baselines where this side left them alone.
+ */
+export function mergeProjects(base: Project, mine: Project, theirs: Project): { project: Project; conflicts: MergeConflict[] } {
+  const conflicts: MergeConflict[] = [];
+  const local = diffProjects(base, mine);
+  const touched = new Set(local.filter((change) => "id" in change).map((change) => `${change.entity}:${(change as { id: Id }).id}`));
+  const result: Record<string, unknown> = { ...mine };
+  const lists = new Map<string, { id: Id }[]>();
+  const listOf = (key: string): { id: Id }[] => {
+    let list = lists.get(key);
+    if (!list) {
+      list = [...(((mine as unknown as Record<string, unknown>)[key] as { id: Id }[] | undefined) ?? [])];
+      lists.set(key, list);
+    }
+    return list;
+  };
+
+  for (const change of diffProjects(base, theirs)) {
+    if (change.entity === "project") {
+      const mineSettings = local.find((other) => other.entity === "project");
+      const kept = mineSettings && mineSettings.entity === "project" ? mineSettings.value : {};
+      for (const [key, value] of Object.entries(change.value)) if (!(key in kept)) result[key] = value;
+    } else if (change.entity === "baseline") {
+      const reordered = local.some((other) => other.entity === "baseline" && other.number === change.number);
+      if (!reordered) {
+        const baselines = { ...(result.baselines as Record<number, unknown>) };
+        if (change.value === undefined) delete baselines[change.number];
+        else baselines[change.number] = change.value;
+        result.baselines = baselines;
+      }
+    } else if (change.entity === "task-order") {
+      if (!local.some((other) => other.entity === "task-order")) {
+        const list = listOf("tasks");
+        const position = new Map(change.order.map((id, i) => [id, i]));
+        // Rows only this side has keep their place after the rows both know.
+        list.sort((a, b) => (position.get(a.id) ?? Infinity) - (position.get(b.id) ?? Infinity));
+      }
+    } else {
+      const key = RECORD_KEYS[change.entity];
+      const list = listOf(key);
+      const at = list.findIndex((record) => record.id === change.id);
+      if (touched.has(`${change.entity}:${change.id}`)) {
+        conflicts.push({ entity: change.entity, id: change.id });
+      } else if (change.kind === "removed") {
+        if (at !== -1) list.splice(at, 1);
+      } else if (at !== -1) {
+        list[at] = change.value as { id: Id };
+      } else {
+        list.push(change.value as { id: Id });
+      }
+    }
+  }
+  for (const [key, list] of lists) result[key] = list;
+  const project = result as unknown as Project;
+  // A task one side removed can leave the other side's link or assignment pointing at nothing.
+  const tasks = new Set(project.tasks.map((task) => task.id));
+  const resources = new Set(project.resources.map((resource) => resource.id));
+  return {
+    project: {
+      ...project,
+      links: project.links.filter((link) => tasks.has(link.predecessorId) && tasks.has(link.successorId)),
+      assignments: project.assignments.filter((a) => tasks.has(a.taskId) && resources.has(a.resourceId)),
+    },
+    conflicts,
+  };
+}

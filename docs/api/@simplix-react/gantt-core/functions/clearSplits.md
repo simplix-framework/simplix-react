@@ -8,7 +8,7 @@
 
 > **clearSplits**(`project`, `id`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-extras.ts:49](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-extras.ts#L49)
+Defined in: [packages/gantt-core/src/edit-extras.ts:51](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-extras.ts#L51)
 
 Removes every split of a task, so it works in one stretch again.
 

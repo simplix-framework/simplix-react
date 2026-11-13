@@ -38,6 +38,7 @@ export type {
   ScheduleConflict,
   Task,
   TaskMode,
+  TaskRecurrence,
   TaskSchedule,
   TaskSplit,
   TaskType,
@@ -88,17 +89,19 @@ export {
   addCustomField,
   addRecurringTask,
   clearSplits,
+  insertSubproject,
   recurrenceDays,
   removeCustomField,
   renameCustomField,
   setCustomValue,
   splitTask,
+  updateRecurringTask,
 } from "./edit-extras";
 export type { Recurrence } from "./edit-extras";
 export { computeEarnedValue, rescheduleUncompletedWork } from "./progress";
 export type { EarnedValue } from "./progress";
-export { diffProjects } from "./diff";
-export type { ChangeEntity, ProjectChange } from "./diff";
+export { diffProjects, mergeProjects } from "./diff";
+export type { ChangeEntity, MergeConflict, ProjectChange } from "./diff";
 export { computeCosts } from "./costs";
 export type { TaskCost } from "./costs";
 export { baselineVariance, clearBaseline, setBaseline } from "./baseline";

@@ -8,7 +8,7 @@
 
 > **addRecurringTask**(`project`, `options`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-extras.ts:199](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-extras.ts#L199)
+Defined in: [packages/gantt-core/src/edit-extras.ts:187](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-extras.ts#L187)
 
 Adds a recurring task: a summary task named `name` with one task of
 `duration` under it for every occurrence, each held to its day by a
@@ -47,7 +47,7 @@ Unit the occurrences show their duration in.
 
 #### recurrence
 
-[`Recurrence`](../interfaces/Recurrence.md)
+[`Recurrence`](../type-aliases/Recurrence.md)
 
 ## Returns
 

@@ -8,7 +8,7 @@
 
 > **addCustomField**(`project`, `field`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-extras.ts:59](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-extras.ts#L59)
+Defined in: [packages/gantt-core/src/edit-extras.ts:61](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-extras.ts#L61)
 
 Adds a custom field to the plan. Omitted `id` takes the next free one.
 

@@ -3,7 +3,9 @@ import { changeTask, createTask, insertTask, nextId, taskIndex } from "./edit-ta
 import { ScheduleError } from "./errors";
 import { MINUTES_PER_DAY, dayIndexOf, fromCivil, toCivil, weekdayOfDay } from "./time";
 import type { Minutes } from "./time";
-import type { CustomField, CustomValue, DurationUnit, Id, Project, Schedule, Task, TaskSplit } from "./types";
+import { removeTasks } from "./edit-tasks";
+import { subtreeEnd } from "./outline";
+import type { CustomField, CustomValue, DurationUnit, Id, Project, Schedule, Task, TaskRecurrence, TaskSplit } from "./types";
 
 /**
  * Pauses a task at `at` for `gap` working minutes: the work before `at` stays
@@ -107,22 +109,8 @@ export function setCustomValue(project: Project, taskId: Id, fieldId: Id, value:
   });
 }
 
-/** When a recurring task happens. */
-export interface Recurrence {
-  frequency: "daily" | "weekly" | "monthly";
-  /** Every `interval`-th day, week or month. */
-  interval: number;
-  /** Weekdays of a weekly recurrence, 0 for Sunday. */
-  weekdays?: readonly number[];
-  /** Day of the month of a monthly recurrence. A month without that day is skipped. */
-  monthDay?: number;
-  /** First day considered. */
-  from: Minutes;
-  /** Last day considered. One of `until` and `count` is required. */
-  until?: Minutes;
-  /** Number of occurrences. */
-  count?: number;
-}
+/** When a recurring task happens: the rule without the length of an occurrence. */
+export type Recurrence = Omit<TaskRecurrence, "duration" | "durationUnit">;
 
 /** Occurrences a recurring task may have at most. */
 const MAX_OCCURRENCES = 500;
@@ -212,7 +200,8 @@ export function addRecurringTask(
   if (days.length === 0) throw new ScheduleError("invalid-operation", "The recurrence has no occurrence");
   const at = options.beforeIndex ?? project.tasks.length;
   const level = options.outlineLevel ?? 1;
-  let next = insertTask(project, createTask(project, { name: options.name, outlineLevel: level, estimated: false }), at);
+  const rule: TaskRecurrence = { ...options.recurrence, duration: options.duration, durationUnit: options.durationUnit ?? "d" };
+  let next = insertTask(project, createTask(project, { name: options.name, outlineLevel: level, estimated: false, recurrence: rule }), at);
   const parentLevel = next.tasks[Math.min(at, next.tasks.length - 1)].outlineLevel;
   days.forEach((day, i) => {
     const occurrence = createTask(next, {
@@ -227,4 +216,105 @@ export function addRecurringTask(
     next = insertTask(next, occurrence, at + 1 + i);
   });
   return next;
+}
+
+/**
+ * Changes a recurring task: its name, the length of an occurrence or its
+ * rule. The occurrences are made again from the changed rule, in the place
+ * of the old ones; progress and links on the old occurrences are not kept.
+ *
+ * @throws ScheduleError `invalid-operation` when the task is not the summary
+ * task of a recurring task.
+ */
+export function updateRecurringTask(
+  project: Project,
+  id: Id,
+  change: { name?: string; duration?: number; durationUnit?: DurationUnit; recurrence?: Recurrence },
+): Project {
+  const index = taskIndex(project, id);
+  const task = project.tasks[index];
+  if (!task.recurrence) throw new ScheduleError("invalid-operation", `Task "${id}" is not a recurring task`, [id]);
+  const { duration, durationUnit, ...rule } = task.recurrence;
+  // Checked first, so a rule that cannot be used leaves the old occurrences alone.
+  recurrenceDays(project, change.recurrence ?? rule);
+  const removed = removeTasks(project, [id]);
+  return addRecurringTask(removed, {
+    name: change.name ?? task.name,
+    duration: change.duration ?? duration,
+    durationUnit: change.durationUnit ?? durationUnit,
+    recurrence: change.recurrence ?? rule,
+    beforeIndex: index,
+    outlineLevel: task.outlineLevel,
+  });
+}
+
+/**
+ * Inserts another plan as a summary task with its tasks under it, before the
+ * row at `beforeIndex` (the end when omitted). Every inserted record gets a
+ * new id; resources are matched to the plan's own by name and added when
+ * there is none; calendars, baselines and custom fields of the inserted plan
+ * are not carried over. A task that started at the inserted plan's start
+ * keeps that date through a start-no-earlier-than constraint.
+ */
+export function insertSubproject(project: Project, sub: Project, beforeIndex: number = project.tasks.length, name: string = sub.name): Project {
+  const at = Math.max(0, Math.min(beforeIndex, project.tasks.length));
+  const level = at === 0 ? 1 : Math.min(project.tasks[at - 1].outlineLevel, 1);
+  let nextTask = Number(nextId(project.tasks));
+  let nextLink = Number(nextId(project.links));
+  let nextResource = Number(nextId(project.resources));
+  let nextAssignment = Number(nextId(project.assignments));
+  const summaryId = String(nextTask++);
+  const taskIds = new Map<Id, Id>();
+  const tasks: Task[] = sub.tasks.map((task, i) => {
+    const id = String(nextTask++);
+    taskIds.set(task.id, id);
+    const isSummary = subtreeEnd(sub.tasks, i) > i + 1;
+    const copy: Task = { ...task, id, outlineLevel: task.outlineLevel + level };
+    delete copy.calendarId;
+    delete copy.custom;
+    // The inserted plan's own start date holds its unconstrained tasks where they were.
+    if (!isSummary && copy.mode === "auto" && copy.constraintType === "asap" && sub.start > project.start) {
+      copy.constraintType = "start-no-earlier-than";
+      copy.constraintDate = sub.start;
+    }
+    return copy;
+  });
+  const summary = createTask(project, { id: summaryId, name, outlineLevel: level, estimated: false });
+  const resourceIds = new Map<Id, Id>();
+  const resources = [...project.resources];
+  for (const resource of sub.resources) {
+    const existing = resources.find((other) => other.name === resource.name);
+    if (existing) {
+      resourceIds.set(resource.id, existing.id);
+      continue;
+    }
+    const id = String(nextResource++);
+    resourceIds.set(resource.id, id);
+    const copy = { ...resource, id };
+    delete copy.calendarId;
+    resources.push(copy);
+  }
+  return {
+    ...project,
+    tasks: [...project.tasks.slice(0, at), summary, ...tasks, ...project.tasks.slice(at)],
+    links: [
+      ...project.links,
+      ...sub.links.map((link) => ({
+        ...link,
+        id: String(nextLink++),
+        predecessorId: taskIds.get(link.predecessorId) as Id,
+        successorId: taskIds.get(link.successorId) as Id,
+      })),
+    ],
+    resources,
+    assignments: [
+      ...project.assignments,
+      ...sub.assignments.map((assignment) => ({
+        ...assignment,
+        id: String(nextAssignment++),
+        taskId: taskIds.get(assignment.taskId) as Id,
+        resourceId: resourceIds.get(assignment.resourceId) as Id,
+      })),
+    ],
+  };
 }

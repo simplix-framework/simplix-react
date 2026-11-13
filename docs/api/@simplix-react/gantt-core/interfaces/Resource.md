@@ -6,7 +6,7 @@
 
 # Interface: Resource
 
-Defined in: [packages/gantt-core/src/types.ts:158](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L158)
+Defined in: [packages/gantt-core/src/types.ts:182](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L182)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/gantt-core/src/types.ts:158](https://github.com/simplix-re
 
 > `optional` **calendarId**: `string`
 
-Defined in: [packages/gantt-core/src/types.ts:164](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L164)
+Defined in: [packages/gantt-core/src/types.ts:188](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L188)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [packages/gantt-core/src/types.ts:164](https://github.com/simplix-re
 
 > `optional` **costPerUse**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:170](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L170)
+Defined in: [packages/gantt-core/src/types.ts:194](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L194)
 
 Cost added once for every task the resource is assigned to.
 
@@ -32,7 +32,7 @@ Cost added once for every task the resource is assigned to.
 
 > `optional` **group**: `string`
 
-Defined in: [packages/gantt-core/src/types.ts:166](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L166)
+Defined in: [packages/gantt-core/src/types.ts:190](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L190)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [packages/gantt-core/src/types.ts:166](https://github.com/simplix-re
 
 > **id**: `string`
 
-Defined in: [packages/gantt-core/src/types.ts:159](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L159)
+Defined in: [packages/gantt-core/src/types.ts:183](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L183)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [packages/gantt-core/src/types.ts:159](https://github.com/simplix-re
 
 > `optional` **initials**: `string`
 
-Defined in: [packages/gantt-core/src/types.ts:165](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L165)
+Defined in: [packages/gantt-core/src/types.ts:189](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L189)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [packages/gantt-core/src/types.ts:165](https://github.com/simplix-re
 
 > **maxUnits**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:163](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L163)
+Defined in: [packages/gantt-core/src/types.ts:187](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L187)
 
 Capacity of a work resource: 1 is one full-time unit.
 
@@ -66,7 +66,7 @@ Capacity of a work resource: 1 is one full-time unit.
 
 > **name**: `string`
 
-Defined in: [packages/gantt-core/src/types.ts:160](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L160)
+Defined in: [packages/gantt-core/src/types.ts:184](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L184)
 
 ***
 
@@ -74,7 +74,7 @@ Defined in: [packages/gantt-core/src/types.ts:160](https://github.com/simplix-re
 
 > `optional` **overtimeRate**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:172](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L172)
+Defined in: [packages/gantt-core/src/types.ts:196](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L196)
 
 Cost of one hour of overtime. The standard rate applies when it is not set.
 
@@ -84,7 +84,7 @@ Cost of one hour of overtime. The standard rate applies when it is not set.
 
 > `optional` **rates**: readonly `object`[]
 
-Defined in: [packages/gantt-core/src/types.ts:174](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L174)
+Defined in: [packages/gantt-core/src/types.ts:198](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L198)
 
 Standard rates that take effect from a date on, in any order. A task is costed at the rate in effect when it starts.
 
@@ -94,7 +94,7 @@ Standard rates that take effect from a date on, in any order. A task is costed a
 
 > `optional` **standardRate**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:168](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L168)
+Defined in: [packages/gantt-core/src/types.ts:192](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L192)
 
 Cost of one hour of a work resource, or of one unit of a material resource.
 
@@ -104,4 +104,4 @@ Cost of one hour of a work resource, or of one unit of a material resource.
 
 > **type**: [`ResourceType`](../type-aliases/ResourceType.md)
 
-Defined in: [packages/gantt-core/src/types.ts:161](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L161)
+Defined in: [packages/gantt-core/src/types.ts:185](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L185)

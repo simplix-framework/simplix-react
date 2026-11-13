@@ -8,4 +8,4 @@
 
 > **ResourceType** = `"work"` \| `"material"` \| `"cost"`
 
-Defined in: [packages/gantt-core/src/types.ts:156](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L156)
+Defined in: [packages/gantt-core/src/types.ts:180](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L180)

@@ -117,11 +117,12 @@ The sample files come from the MPXJ project (LGPL-2.1) and are not part of this 
 | Calendars | `putCalendar`, `removeCalendar`, `standardCalendar`, `continuousCalendar`, `parseWorkingRanges`, `formatWorkingRanges` |
 | Baselines | `setBaseline`, `clearBaseline`, `baselineVariance` |
 | Splits | `splitTask`, `clearSplits` |
-| Recurring tasks | `addRecurringTask`, `recurrenceDays` |
+| Recurring tasks | `addRecurringTask`, `updateRecurringTask`, `recurrenceDays` |
 | Custom fields | `addCustomField`, `renameCustomField`, `removeCustomField`, `setCustomValue` |
 | Costs | `computeCosts` |
 | Progress | `rescheduleUncompletedWork`, `computeEarnedValue` |
-| Changes | `diffProjects` |
+| Changes | `diffProjects`, `mergeProjects` |
+| Subprojects | `insertSubproject` |
 | Resource load | `findOverallocations`, `resourceUsage`, `levelResources`, `clearLeveling` |
 | Text entry | `parseDuration`, `formatDuration`, `parsePredecessors`, `formatPredecessors` |
 | Undo | `createHistory`, `commit`, `undo`, `redo` |
@@ -187,13 +188,13 @@ MIT
 - [LevelingResult](interfaces/LevelingResult.md)
 - [Link](interfaces/Link.md)
 - [LinkSchedule](interfaces/LinkSchedule.md)
+- [MergeConflict](interfaces/MergeConflict.md)
 - [MspdiReadResult](interfaces/MspdiReadResult.md)
 - [MspdiWarning](interfaces/MspdiWarning.md)
 - [Outline](interfaces/Outline.md)
 - [Overallocation](interfaces/Overallocation.md)
 - [PredecessorRef](interfaces/PredecessorRef.md)
 - [Project](interfaces/Project.md)
-- [Recurrence](interfaces/Recurrence.md)
 - [Resource](interfaces/Resource.md)
 - [ResourceUsage](interfaces/ResourceUsage.md)
 - [Schedule](interfaces/Schedule.md)
@@ -201,6 +202,7 @@ MIT
 - [Task](interfaces/Task.md)
 - [TaskClipboard](interfaces/TaskClipboard.md)
 - [TaskCost](interfaces/TaskCost.md)
+- [TaskRecurrence](interfaces/TaskRecurrence.md)
 - [TaskSchedule](interfaces/TaskSchedule.md)
 - [TaskSplit](interfaces/TaskSplit.md)
 - [WorkCalendar](interfaces/WorkCalendar.md)
@@ -223,6 +225,7 @@ MIT
 - [MspdiWarningCode](type-aliases/MspdiWarningCode.md)
 - [ProjectChange](type-aliases/ProjectChange.md)
 - [ProjectSettings](type-aliases/ProjectSettings.md)
+- [Recurrence](type-aliases/Recurrence.md)
 - [ResourceType](type-aliases/ResourceType.md)
 - [ScheduleErrorCode](type-aliases/ScheduleErrorCode.md)
 - [TaskMode](type-aliases/TaskMode.md)
@@ -271,10 +274,12 @@ MIT
 - [formatWorkingRanges](functions/formatWorkingRanges.md)
 - [fromCivil](functions/fromCivil.md)
 - [indentTasks](functions/indentTasks.md)
+- [insertSubproject](functions/insertSubproject.md)
 - [insertTask](functions/insertTask.md)
 - [intersectWorkingTime](functions/intersectWorkingTime.md)
 - [isAncestor](functions/isAncestor.md)
 - [levelResources](functions/levelResources.md)
+- [mergeProjects](functions/mergeProjects.md)
 - [minutesPerUnit](functions/minutesPerUnit.md)
 - [moveTask](functions/moveTask.md)
 - [nextId](functions/nextId.md)
@@ -317,6 +322,7 @@ MIT
 - [updateAssignment](functions/updateAssignment.md)
 - [updateLink](functions/updateLink.md)
 - [updateProject](functions/updateProject.md)
+- [updateRecurringTask](functions/updateRecurringTask.md)
 - [updateResource](functions/updateResource.md)
 - [updateTask](functions/updateTask.md)
 - [weekdayOfDay](functions/weekdayOfDay.md)

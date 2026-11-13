@@ -8,7 +8,7 @@
 
 > **splitTask**(`project`, `schedule`, `id`, `at`, `gap`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-extras.ts:15](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-extras.ts#L15)
+Defined in: [packages/gantt-core/src/edit-extras.ts:17](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-extras.ts#L17)
 
 Pauses a task at `at` for `gap` working minutes: the work before `at` stays
 where it is and the rest resumes after the pause.

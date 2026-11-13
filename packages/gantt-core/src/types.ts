@@ -112,6 +112,30 @@ export interface Task {
   actualCost?: number;
   /** Values of the plan's custom fields, by field id. */
   custom?: Readonly<Record<Id, CustomValue>>;
+  /** Colour the task's bar is drawn in, as a CSS colour. The chart's own colour when not set. */
+  color?: string;
+  /** On the summary task of a recurring task: the rule its occurrences were made from. */
+  recurrence?: TaskRecurrence;
+}
+
+/** When a recurring task happens, and how long each occurrence takes. */
+export interface TaskRecurrence {
+  frequency: "daily" | "weekly" | "monthly";
+  /** Every `interval`-th day, week or month. */
+  interval: number;
+  /** Weekdays of a weekly recurrence, 0 for Sunday. */
+  weekdays?: readonly number[];
+  /** Day of the month of a monthly recurrence. A month without that day is skipped. */
+  monthDay?: number;
+  /** First day considered. */
+  from: Minutes;
+  /** Last day considered. One of `until` and `count` is required. */
+  until?: Minutes;
+  /** Number of occurrences. */
+  count?: number;
+  /** Working minutes each occurrence takes, and the unit it is shown in. */
+  duration: number;
+  durationUnit: DurationUnit;
 }
 
 /** A pause inside a task: after `offset` working minutes of work, work stops for `gap` working minutes. */

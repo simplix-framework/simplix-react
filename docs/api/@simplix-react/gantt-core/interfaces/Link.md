@@ -6,7 +6,7 @@
 
 # Interface: Link
 
-Defined in: [packages/gantt-core/src/types.ts:144](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L144)
+Defined in: [packages/gantt-core/src/types.ts:168](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L168)
 
 A dependency between two tasks. A negative lag is a lead.
 
@@ -16,7 +16,7 @@ A dependency between two tasks. A negative lag is a lead.
 
 > **id**: `string`
 
-Defined in: [packages/gantt-core/src/types.ts:145](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L145)
+Defined in: [packages/gantt-core/src/types.ts:169](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L169)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/gantt-core/src/types.ts:145](https://github.com/simplix-re
 
 > **lag**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:150](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L150)
+Defined in: [packages/gantt-core/src/types.ts:174](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L174)
 
 Minutes for `working` and `elapsed`; percent of the predecessor's duration for `percent`.
 
@@ -34,7 +34,7 @@ Minutes for `working` and `elapsed`; percent of the predecessor's duration for `
 
 > **lagMode**: [`LagMode`](../type-aliases/LagMode.md)
 
-Defined in: [packages/gantt-core/src/types.ts:151](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L151)
+Defined in: [packages/gantt-core/src/types.ts:175](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L175)
 
 ***
 
@@ -42,7 +42,7 @@ Defined in: [packages/gantt-core/src/types.ts:151](https://github.com/simplix-re
 
 > **lagUnit**: [`DurationUnit`](../type-aliases/DurationUnit.md)
 
-Defined in: [packages/gantt-core/src/types.ts:153](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L153)
+Defined in: [packages/gantt-core/src/types.ts:177](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L177)
 
 Unit a minute lag is shown and edited in.
 
@@ -52,7 +52,7 @@ Unit a minute lag is shown and edited in.
 
 > **predecessorId**: `string`
 
-Defined in: [packages/gantt-core/src/types.ts:146](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L146)
+Defined in: [packages/gantt-core/src/types.ts:170](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L170)
 
 ***
 
@@ -60,7 +60,7 @@ Defined in: [packages/gantt-core/src/types.ts:146](https://github.com/simplix-re
 
 > **successorId**: `string`
 
-Defined in: [packages/gantt-core/src/types.ts:147](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L147)
+Defined in: [packages/gantt-core/src/types.ts:171](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L171)
 
 ***
 
@@ -68,4 +68,4 @@ Defined in: [packages/gantt-core/src/types.ts:147](https://github.com/simplix-re
 
 > **type**: [`LinkType`](../type-aliases/LinkType.md)
 
-Defined in: [packages/gantt-core/src/types.ts:148](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L148)
+Defined in: [packages/gantt-core/src/types.ts:172](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L172)

@@ -6,7 +6,7 @@
 
 # Interface: LinkSchedule
 
-Defined in: [packages/gantt-core/src/types.ts:290](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L290)
+Defined in: [packages/gantt-core/src/types.ts:314](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L314)
 
 Computed state of one link.
 
@@ -16,7 +16,7 @@ Computed state of one link.
 
 > **driving**: `boolean`
 
-Defined in: [packages/gantt-core/src/types.ts:295](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L295)
+Defined in: [packages/gantt-core/src/types.ts:319](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L319)
 
 The link is what holds the successor at its date.
 
@@ -26,7 +26,7 @@ The link is what holds the successor at its date.
 
 > **id**: `string`
 
-Defined in: [packages/gantt-core/src/types.ts:291](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L291)
+Defined in: [packages/gantt-core/src/types.ts:315](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L315)
 
 ***
 
@@ -34,6 +34,6 @@ Defined in: [packages/gantt-core/src/types.ts:291](https://github.com/simplix-re
 
 > **violated**: `boolean`
 
-Defined in: [packages/gantt-core/src/types.ts:293](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L293)
+Defined in: [packages/gantt-core/src/types.ts:317](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L317)
 
 The successor's date is earlier than the link allows.

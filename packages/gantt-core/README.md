@@ -111,11 +111,12 @@ The sample files come from the MPXJ project (LGPL-2.1) and are not part of this 
 | Calendars | `putCalendar`, `removeCalendar`, `standardCalendar`, `continuousCalendar`, `parseWorkingRanges`, `formatWorkingRanges` |
 | Baselines | `setBaseline`, `clearBaseline`, `baselineVariance` |
 | Splits | `splitTask`, `clearSplits` |
-| Recurring tasks | `addRecurringTask`, `recurrenceDays` |
+| Recurring tasks | `addRecurringTask`, `updateRecurringTask`, `recurrenceDays` |
 | Custom fields | `addCustomField`, `renameCustomField`, `removeCustomField`, `setCustomValue` |
 | Costs | `computeCosts` |
 | Progress | `rescheduleUncompletedWork`, `computeEarnedValue` |
-| Changes | `diffProjects` |
+| Changes | `diffProjects`, `mergeProjects` |
+| Subprojects | `insertSubproject` |
 | Resource load | `findOverallocations`, `resourceUsage`, `levelResources`, `clearLeveling` |
 | Text entry | `parseDuration`, `formatDuration`, `parsePredecessors`, `formatPredecessors` |
 | Undo | `createHistory`, `commit`, `undo`, `redo` |

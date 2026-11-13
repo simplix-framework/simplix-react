@@ -2,7 +2,8 @@ import { describe, expect, it } from "vitest";
 
 import { setBaseline } from "../baseline";
 import { computeCosts } from "../costs";
-import { diffProjects } from "../diff";
+import { diffProjects, mergeProjects } from "../diff";
+import { addRecurringTask, insertSubproject, updateRecurringTask } from "../edit-extras";
 import { addLink, addResource, assignResource, updateAssignment } from "../edit-links";
 import { indentTasks } from "../edit-outline";
 import { removeTasks, setPercentComplete, setTaskDuration, updateTask } from "../edit-tasks";
@@ -109,5 +110,63 @@ describe("changes between two versions", () => {
     const saved = setBaseline(base, computeSchedule(base), 2);
     expect(diffProjects(base, saved)).toEqual([{ entity: "baseline", kind: "updated", number: 2, value: saved.baselines[2] }]);
     expect(diffProjects(saved, base)).toEqual([{ entity: "baseline", kind: "updated", number: 2, value: undefined }]);
+  });
+});
+
+describe("merging changes made elsewhere", () => {
+  const base = project([task("a", 1), task("b", 1), task("c", 1)], [link("a", "b")]);
+
+  it("takes their changes, keeps mine, and reports a record both changed", () => {
+    const mine = setTaskDuration(base, "a", 3 * DAY);
+    let theirs = setTaskDuration(base, "b", 5 * DAY);
+    theirs = addLink(theirs, { predecessorId: "b", successorId: "c" });
+    theirs = { ...theirs, name: "renamed there", tasks: [...theirs.tasks, task("d", 2)] };
+    const merged = mergeProjects(base, mine, theirs);
+    expect(merged.conflicts).toEqual([]);
+    expect(merged.project.name).toBe("renamed there");
+    expect(merged.project.tasks.map((t) => `${t.id}:${t.duration / DAY}`)).toEqual(["a:3", "b:5", "c:1", "d:2"]);
+    expect(merged.project.links).toHaveLength(2);
+
+    const clash = mergeProjects(base, mine, setTaskDuration(base, "a", 9 * DAY));
+    expect(clash.conflicts).toEqual([{ entity: "task", id: "a" }]);
+    expect(clash.project.tasks[0].duration).toBe(3 * DAY);
+  });
+
+  it("drops a link to a task the other side removed, and keeps what only this side has", () => {
+    const mine = addLink(base, { predecessorId: "b", successorId: "c" });
+    const merged = mergeProjects(base, mine, removeTasks(base, ["c"]));
+    expect(merged.project.tasks.map((t) => t.id)).toEqual(["a", "b"]);
+    expect(merged.project.links.map((l) => l.id)).toEqual(["a>b"]);
+    expect(mergeProjects(base, mine, base).project).toEqual(mine);
+  });
+});
+
+describe("recurring tasks and subprojects", () => {
+  it("makes the occurrences again when the rule changes", () => {
+    const from = at("2014-10-17T00:00");
+    let p = addRecurringTask(project([task("a", 1)]), { name: "Review", duration: 120, durationUnit: "h", recurrence: { frequency: "weekly", interval: 1, weekdays: [5], from, count: 3 } });
+    const summary = p.tasks[1];
+    expect(summary.recurrence).toMatchObject({ frequency: "weekly", count: 3, duration: 120, durationUnit: "h" });
+    p = updateRecurringTask(p, summary.id, { name: "Sync", recurrence: { frequency: "daily", interval: 1, from, count: 2 } });
+    expect(p.tasks.map((t) => `${t.name}:${t.outlineLevel}`)).toEqual(["a:1", "Sync:1", "Sync 1:2", "Sync 2:2"]);
+    expect(p.tasks[2]).toMatchObject({ duration: 120, durationUnit: "h" });
+    expect(() => updateRecurringTask(p, "a", {})).toThrowError(expect.objectContaining({ code: "invalid-operation" }));
+    expect(() => updateRecurringTask(p, p.tasks[1].id, { recurrence: { frequency: "daily", interval: 0, from, count: 1 } })).toThrowError(expect.objectContaining({ code: "invalid-operation" }));
+  });
+
+  it("inserts another plan under a summary task with new ids and its own dates", () => {
+    let host = project([task("1", 1), task("2", 1)]);
+    host = addResource(host, { id: "1", name: "Kim" });
+    let sub = project([task("1", 2), task("2", 1)], [link("1", "2")], { name: "Sub", start: at("2014-10-27T08:00") });
+    sub = addResource(addResource(sub, { id: "1", name: "Lee" }), { id: "2", name: "Kim" });
+    sub = assignResource(assignResource(sub, "1", "1"), "2", "2");
+    const merged = insertSubproject(host, sub);
+    expect(merged.tasks.map((t) => `${t.id}:${t.name}:${t.outlineLevel}`)).toEqual(["1:1:1", "2:2:1", "3:Sub:1", "4:1:2", "5:2:2"]);
+    expect(merged.links.map((l) => `${l.predecessorId}>${l.successorId}`)).toEqual(["4>5"]);
+    expect(merged.resources.map((r) => `${r.id}:${r.name}`)).toEqual(["1:Kim", "2:Lee"]);
+    expect(merged.assignments.map((a) => `${a.taskId}:${a.resourceId}`)).toEqual(["4:2", "5:1"]);
+    const s = computeSchedule(merged);
+    expect(span(s, "4")).toBe("10-27 08:00 > 10-28 17:00");
+    expect(span(s, "3")).toBe("10-27 08:00 > 10-29 17:00");
   });
 });
