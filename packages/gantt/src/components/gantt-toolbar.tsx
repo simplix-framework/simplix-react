@@ -188,10 +188,9 @@ export function GanttToolbar({ xmlExchange = true, trailing }: GanttToolbarProps
 
   return (
     <div className="@container shrink-0 border-b bg-background" data-gantt-slot="toolbar">
-      {/* One line at every width: what does not fit scrolls sideways, so the chart keeps its height. */}
-      <div className="flex items-center gap-0.5 overflow-x-auto px-2 py-1.5 [scrollbar-width:thin] [&>*]:shrink-0">
-        {/* A narrow chart picks its view from a list; a wide one from the strip beside it. */}
-        <div className="mr-1 @4xl:hidden">
+      {/* The views take a line of their own: a narrow chart picks from a list, a wide one from the strip. */}
+      <div className="flex items-center overflow-x-auto border-b px-2 py-1.5 [scrollbar-width:thin] [&>*]:shrink-0" data-gantt-slot="toolbar-views">
+        <div className="@3xl:hidden">
           <ui.Select value={view} onValueChange={(value) => state.setView(value as GanttView)}>
             <ui.SelectTrigger aria-label={t("toolbar.view")} className="h-8 w-40">
               <ui.SelectValue />
@@ -205,7 +204,7 @@ export function GanttToolbar({ xmlExchange = true, trailing }: GanttToolbarProps
             </ui.SelectContent>
           </ui.Select>
         </div>
-        <div className="mr-1 hidden items-center whitespace-nowrap rounded-md bg-muted p-0.5 @4xl:flex" role="tablist">
+        <div className="hidden items-center whitespace-nowrap rounded-md bg-muted p-0.5 @3xl:flex" role="tablist">
           {VIEWS.map((id) => (
             <button
               key={id}
@@ -222,7 +221,9 @@ export function GanttToolbar({ xmlExchange = true, trailing }: GanttToolbarProps
             </button>
           ))}
         </div>
-        {divider}
+      </div>
+      {/* The commands stay on one line: what does not fit scrolls sideways, so the chart keeps its height. */}
+      <div className="flex items-center gap-0.5 overflow-x-auto px-2 py-1.5 [scrollbar-width:thin] [&>*]:shrink-0" data-gantt-slot="toolbar-tools">
         {icon(t("toolbar.undo"), <Undo2 />, state.undo, !canUndo || readOnly)}
         {icon(t("toolbar.redo"), <Redo2 />, state.redo, !canRedo || readOnly)}
         {view === "gantt" && (

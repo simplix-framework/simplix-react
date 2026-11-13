@@ -287,7 +287,7 @@ test("inserts a plan from a file as a subproject and edits a resource's dated ra
   await page.context().close();
 });
 
-test("keeps the timeline in reach and the toolbar on one line on narrow screens", async () => {
+test("keeps the timeline in reach and the views on a line above the commands on narrow screens", async () => {
   for (const width of [1024, 768, 480, 375]) {
     const page = await open("default", { viewport: { width, height: 800 } });
     const layout = await page.evaluate(() => {
@@ -299,13 +299,25 @@ test("keeps the timeline in reach and the toolbar on one line on narrow screens"
         share: grid.width / scroll.clientWidth,
         timeline: scroll.clientWidth - grid.width,
         toolbar: rect('[data-gantt-slot="toolbar"]').height,
+        viewsBottom: rect('[data-gantt-slot="toolbar-views"]').bottom,
+        toolsTop: rect('[data-gantt-slot="toolbar-tools"]').top,
+        // The view control, strip or list, lies whole inside the chart.
+        viewSpill: Math.max(
+          0,
+          ...[...document.querySelectorAll('[data-gantt-slot="toolbar-views"] > *')]
+            .map((element) => element.getBoundingClientRect())
+            .filter((box) => box.width > 0)
+            .map((box) => box.right - rect('[data-gantt-slot="toolbar"]').right),
+        ),
         firstBarGap: first.left - grid.right,
         pageOverflow: document.documentElement.scrollWidth - window.innerWidth,
       };
     });
     assert.ok(layout.share <= 0.5, `at ${width}px the table takes ${Math.round(layout.share * 100)}% of the chart`);
     assert.ok(layout.timeline >= 160, `at ${width}px the timeline shows ${Math.round(layout.timeline)}px`);
-    assert.ok(layout.toolbar <= 60, `at ${width}px the toolbar is ${Math.round(layout.toolbar)}px tall`);
+    assert.ok(layout.toolbar <= 100, `at ${width}px the toolbar is ${Math.round(layout.toolbar)}px tall`);
+    assert.ok(layout.viewsBottom <= layout.toolsTop, `at ${width}px the views end at ${layout.viewsBottom} and the commands start at ${layout.toolsTop}`);
+    assert.ok(layout.viewSpill <= 0, `at ${width}px the view control reaches ${Math.round(layout.viewSpill)}px past the chart`);
     assert.ok(layout.firstBarGap >= 0 && layout.firstBarGap <= 60, `at ${width}px the plan opens ${Math.round(layout.firstBarGap)}px from the table`);
     assert.ok(layout.pageOverflow <= 0, `at ${width}px the page scrolls sideways by ${layout.pageOverflow}px`);
     await page.context().close();
