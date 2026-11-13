@@ -12,20 +12,6 @@ Props for [GanttToolbar](../functions/GanttToolbar.md).
 
 ## Properties
 
-### onScrollToStart()?
-
-> `optional` **onScrollToStart**: () => `void`
-
-Defined in: [components/gantt-toolbar.tsx:72](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L72)
-
-Scrolls the chart to the start of the plan.
-
-#### Returns
-
-`void`
-
-***
-
 ### trailing?
 
 > `optional` **trailing**: `ReactNode`

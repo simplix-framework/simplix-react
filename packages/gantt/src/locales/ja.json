@@ -27,7 +27,11 @@
     "baselineNumber": "基準計画 {{number}}",
     "selectBaseline": "基準計画の番号",
     "addRecurring": "定期タスクを追加",
-    "exportPdf": "PDF をエクスポート"
+    "exportPdf": "PDF をエクスポート",
+    "columns": "列",
+    "reschedule": "未完了の作業を再スケジュール",
+    "levelWithinSlack": "余裕期間内でのみ平準化",
+    "levelBySplitting": "タスクを分割して平準化"
   },
   "view": {
     "gantt": "ガントチャート",
@@ -49,7 +53,12 @@
     "resize": "列幅を変更",
     "work": "作業時間",
     "cost": "コスト",
-    "move": "ドラッグして列を移動"
+    "move": "ドラッグして列を移動",
+    "plannedValue": "計画価値(PV)",
+    "earnedValue": "出来高(EV)",
+    "actualCost": "実コスト(AC)",
+    "scheduleVariance": "スケジュール差異(SV)",
+    "costVariance": "コスト差異(CV)"
   },
   "task": {
     "newName": "新しいタスク",
@@ -91,7 +100,9 @@
     "units": "単位",
     "work": "作業時間",
     "resource": "リソース",
-    "fixedCost": "固定コスト"
+    "fixedCost": "固定コスト",
+    "overtime": "超過作業(時間)",
+    "contour": "作業の分布"
   },
   "constraint": {
     "asap": "できるだけ早く",
@@ -125,7 +136,8 @@
     "empty": "リソースがありません",
     "emptyHint": "リソースを追加し、タスク情報ダイアログでタスクに割り当ててください。",
     "standardRate": "標準単価(時間あたり)",
-    "costPerUse": "導入コスト"
+    "costPerUse": "導入コスト",
+    "overtimeRate": "超過単価(時間あたり)"
   },
   "usage": {
     "overallocated": "割り当て超過",
@@ -137,7 +149,9 @@
   },
   "status": {
     "conflicts": "競合 {{count}} 件",
-    "overallocations": "割り当て超過 {{count}} 件"
+    "overallocations": "割り当て超過 {{count}} 件",
+    "conflictList": "スケジュールの競合",
+    "loading": "読み込み中"
   },
   "conflict": {
     "link-violated": "先行タスクが許す日より前に開始します",
@@ -175,7 +189,8 @@
     "finish": "終了日",
     "statusDate": "状況報告日",
     "calendar": "プロジェクトカレンダー",
-    "customFields": "ユーザー設定フィールド"
+    "customFields": "ユーザー設定フィールド",
+    "currency": "通貨コード"
   },
   "calendar": {
     "workingTime": "稼働時間",
@@ -228,5 +243,19 @@
     "daily": "毎日",
     "weekly": "毎週",
     "monthly": "毎月"
+  },
+  "contour": {
+    "flat": "均等",
+    "front-loaded": "前倒し",
+    "back-loaded": "後ろ倒し",
+    "bell": "山型"
+  },
+  "unit": {
+    "m": "分",
+    "h": "時間",
+    "d": "日",
+    "w": "週",
+    "mo": "か月",
+    "elapsed": "連続 "
   }
 }

@@ -2,30 +2,26 @@ import {
   ScheduleError,
   baselineVariance,
   computeCosts,
-  formatLocalDate,
-  setCustomValue,
+  computeEarnedValue,
   moveTask,
-  subtreeEnd,
-  formatDuration,
-  formatPredecessors,
   parseLocalDateTime,
+  setCustomValue,
   setPercentComplete,
   setTaskFinish,
   setTaskStart,
+  subtreeEnd,
   updateTask,
 } from "@simplix-react/gantt-core";
-import type { BaselineVariance, ConflictKind, Id, Project, Schedule, TaskCost, TaskSchedule } from "@simplix-react/gantt-core";
+import type { ConflictKind, Id, Schedule } from "@simplix-react/gantt-core";
 import { ChevronDown, ChevronRight, TriangleAlert } from "lucide-react";
 import { useMemo, useState } from "react";
-import type { KeyboardEvent, PointerEvent as ReactPointerEvent } from "react";
+import type { PointerEvent as ReactPointerEvent } from "react";
 
 import { useGantt, useGanttStore } from "../context/gantt-context";
 import { cn } from "../lib/cn";
-import { formatDate, toDateInputValue } from "../lib/format";
-import type { VisibleRow } from "../lib/rows";
-import { useDrag } from "../lib/use-drag";
-import { useGanttTranslation } from "../lib/use-gantt-translation";
-
+import { durationWords, toCanonicalDuration } from "../lib/duration-text";
+import { EARNED_VALUE, cellText, editorValue, isEditableCell } from "../lib/grid-cells";
+import type { CellContext } from "../lib/grid-cells";
 import {
   DEFAULT_COLUMNS,
   DEFAULT_COLUMN_WIDTHS,
@@ -36,15 +32,15 @@ import {
   columnWidth,
   customFieldOf,
   gridContentWidth,
-} from "./grid-columns";
-import type { BuiltInColumnId, ColumnWidths, GanttColumnId } from "./grid-columns";
+} from "../lib/grid-columns";
+import type { BuiltInColumnId, ColumnWidths, GanttColumnId } from "../lib/grid-columns";
+import type { VisibleRow } from "../lib/rows";
+import { useDrag } from "../lib/use-drag";
+import { useGanttTranslation } from "../lib/use-gantt-translation";
+import { CellEditor } from "./cell-editor";
 
-export { DEFAULT_COLUMNS, DEFAULT_COLUMN_WIDTHS, INDICATOR_WIDTH, columnWidth, gridContentWidth };
+export { DEFAULT_COLUMNS, DEFAULT_COLUMN_WIDTHS, INDICATOR_WIDTH, columnWidth, gridContentWidth, isEditableCell };
 export type { BuiltInColumnId, ColumnWidths, GanttColumnId };
-
-const EDITABLE: ReadonlySet<GanttColumnId> = new Set(["name", "duration", "start", "finish", "predecessors", "percentComplete"]);
-/** Columns whose value a summary task takes from the tasks under it. */
-const ROLLED_UP: ReadonlySet<GanttColumnId> = new Set(["duration", "start", "finish"]);
 
 /** The cell being edited. `initial` replaces the current value when editing began by typing. */
 export interface GridEditing {
@@ -53,86 +49,6 @@ export interface GridEditing {
   initial?: string;
 }
 
-function resourceText(project: Project, taskId: Id): string {
-  return project.assignments
-    .filter((assignment) => assignment.taskId === taskId)
-    .map((assignment) => {
-      const name = project.resources.find((resource) => resource.id === assignment.resourceId)?.name ?? assignment.resourceId;
-      return assignment.units === 1 ? name : `${name}[${Math.round(assignment.units * 100)}%]`;
-    })
-    .join(", ");
-}
-
-function cellText(
-  column: GanttColumnId,
-  row: VisibleRow,
-  at: TaskSchedule,
-  project: Project,
-  language: string,
-  variance?: BaselineVariance,
-  cost?: TaskCost,
-): string {
-  const { task } = row;
-  const field = customFieldOf(column, project);
-  if (column.startsWith("custom:")) {
-    const value = field ? task.custom?.[field.id] : undefined;
-    if (!field || value === undefined) return "";
-    if (field.type === "date") return formatDate(value as number, language);
-    if (field.type === "flag") return value === true ? "✔" : "";
-    return String(value);
-  }
-  switch (column as BuiltInColumnId) {
-    case "wbs":
-      return at.wbs;
-    case "name":
-      return task.name;
-    case "duration":
-      return formatDuration(
-        row.summary
-          ? { minutes: at.duration, unit: "d", elapsed: false, estimated: false }
-          : { minutes: task.duration, unit: task.durationUnit, elapsed: task.elapsed === true, estimated: task.estimated === true },
-        project,
-      );
-    case "start":
-      return formatDate(at.start, language);
-    case "finish":
-      return formatDate(at.finish, language);
-    case "predecessors":
-      return formatPredecessors(
-        project.links.filter((link) => link.successorId === task.id),
-        (id) => project.tasks.findIndex((other) => other.id === id) + 1,
-        project,
-      );
-    case "percentComplete":
-      return `${at.percentComplete}%`;
-    case "resources":
-      return resourceText(project, task.id);
-    case "totalSlack":
-      return formatDuration({ minutes: at.totalSlack, unit: "d", elapsed: false, estimated: false }, project);
-    case "startVariance":
-    case "finishVariance": {
-      // A task the baseline does not hold has no variance to show.
-      if (!variance) return "";
-      const minutes = column === "startVariance" ? variance.start : variance.finish;
-      return formatDuration({ minutes, unit: "d", elapsed: false, estimated: false }, project);
-    }
-    case "work":
-      return cost ? formatDuration({ minutes: cost.work, unit: "h", elapsed: false, estimated: false }, project) : "";
-    case "cost":
-      return cost ? new Intl.NumberFormat(language, { maximumFractionDigits: 2 }).format(cost.cost) : "";
-  }
-}
-
-/** The text an editor opens with: the stored value in the form the editor reads back. */
-function editorValue(column: GanttColumnId, row: VisibleRow, at: TaskSchedule, project: Project, language: string): string {
-  if (column === "start") return toDateInputValue(at.start);
-  if (column === "finish") return toDateInputValue(at.finish);
-  if (column === "percentComplete") return String(at.percentComplete);
-  const field = customFieldOf(column, project);
-  const value = field ? row.task.custom?.[field.id] : undefined;
-  if (field?.type === "date") return typeof value === "number" ? formatLocalDate(value) : "";
-  return cellText(column, row, at, project, language);
-}
 
 /** Props for {@link TaskGridHeader}. */
 export interface TaskGridHeaderProps {
@@ -184,7 +100,7 @@ export function TaskGridHeader({ columns, widths, onResize, onMove }: TaskGridHe
           key={column}
           role="columnheader"
           title={t("column.move")}
-          className={cn("relative flex h-full shrink-0 cursor-grab items-center border-r px-2", NUMERIC.has(column) && "justify-end")}
+          className={cn("relative flex h-full shrink-0 cursor-grab touch-none items-center border-r px-2", NUMERIC.has(column) && "justify-end")}
           style={{ width: columnWidth(column, widths) }}
           data-gantt-column={column}
           onPointerDown={(event) => beginMove({ column, row: event.currentTarget.parentElement }, event)}
@@ -209,6 +125,9 @@ export function TaskGridHeader({ columns, widths, onResize, onMove }: TaskGridHe
 export interface TaskGridRowsProps {
   columns: readonly GanttColumnId[];
   widths: ColumnWidths;
+  /** The column the keyboard acts on; its cell in a selected row is outlined. */
+  activeColumn: GanttColumnId;
+  onActiveColumnChange: (column: GanttColumnId) => void;
   rows: readonly VisibleRow[];
   /** Rows to draw, as indexes into `rows` with their vertical offset. */
   window: readonly { index: number; start: number }[];
@@ -218,7 +137,17 @@ export interface TaskGridRowsProps {
 }
 
 /** The body of the task table: one line per visible task, with inline editing. */
-export function TaskGridRows({ columns, widths, rows, window, rowHeight, editing, onEditingChange }: TaskGridRowsProps) {
+export function TaskGridRows({
+  columns,
+  widths,
+  activeColumn,
+  onActiveColumnChange,
+  rows,
+  window,
+  rowHeight,
+  editing,
+  onEditingChange,
+}: TaskGridRowsProps) {
   const { t, language } = useGanttTranslation();
   const store = useGanttStore();
   const project = useGantt((state) => state.history.present);
@@ -228,8 +157,14 @@ export function TaskGridRows({ columns, widths, rows, window, rowHeight, editing
   const conflicts = useMemo(() => conflictsByTask(schedule), [schedule]);
   const baselineNumber = useGantt((state) => state.baselineNumber);
   const showsVariance = columns.includes("startVariance") || columns.includes("finishVariance");
+  const words = useMemo(() => durationWords((key) => t(key)), [t]);
   const showsCost = columns.includes("work") || columns.includes("cost");
-  const costs = useMemo(() => (showsCost ? computeCosts(project) : null), [showsCost, project]);
+  const costs = useMemo(() => (showsCost ? computeCosts(project, schedule) : null), [showsCost, project, schedule]);
+  const showsEarned = columns.some((column) => EARNED_VALUE.has(column));
+  const earned = useMemo(
+    () => (showsEarned && project.statusDate !== undefined ? computeEarnedValue(project, schedule, baselineNumber ?? 0) : null),
+    [showsEarned, project, schedule, baselineNumber],
+  );
   const variance = useMemo(
     () => (showsVariance ? baselineVariance(project, schedule, baselineNumber ?? 0) : null),
     [showsVariance, project, schedule, baselineNumber],
@@ -243,7 +178,10 @@ export function TaskGridRows({ columns, widths, rows, window, rowHeight, editing
         apply("rename", (p) => (p.tasks.find((task) => task.id === id)?.name === value ? p : updateTask(p, id, { name: value })));
         break;
       case "duration":
-        setDurationText(id, value);
+        setDurationText(id, toCanonicalDuration(value, words));
+        break;
+      case "actualCost":
+        apply("set-actual-cost", (p) => updateTask(p, id, { actualCost: value.trim() === "" ? undefined : Number(value) }));
         break;
       case "predecessors":
         setPredecessorText(id, value);
@@ -315,10 +253,19 @@ export function TaskGridRows({ columns, widths, rows, window, rowHeight, editing
         const at = schedule.tasks.get(row.task.id);
         if (!at) return null;
         const rowConflicts = conflicts.get(row.task.id);
+        const context: CellContext = {
+          project,
+          language,
+          words,
+          variance: variance?.get(row.task.id),
+          cost: costs?.get(row.task.id),
+          earned: earned?.get(row.task.id),
+        };
         return (
           <div
             key={row.task.id}
             role="row"
+            aria-rowindex={row.index + 1}
             aria-selected={selected.has(row.task.id)}
             data-gantt-row={row.task.id}
             className={cn(
@@ -331,7 +278,7 @@ export function TaskGridRows({ columns, widths, rows, window, rowHeight, editing
             onDoubleClick={() => store.getState().openTaskDialog(row.task.id)}
           >
             <div
-              className="flex shrink-0 cursor-grab items-center justify-end gap-1 border-r px-1.5 text-xs text-muted-foreground tabular-nums"
+              className="flex shrink-0 cursor-grab touch-none items-center justify-end gap-1 border-r px-1.5 text-xs text-muted-foreground tabular-nums"
               style={{ width: INDICATOR_WIDTH }}
               title={t("task.moveRow")}
               data-gantt-slot="row-handle"
@@ -350,13 +297,18 @@ export function TaskGridRows({ columns, widths, rows, window, rowHeight, editing
             </div>
             {columns.map((column) => {
               const field = customFieldOf(column, project);
-              const editable = field ? field.type !== "flag" : EDITABLE.has(column) && !(row.summary && ROLLED_UP.has(column));
+              const editable = isEditableCell(column, row, project);
+              const active = column === activeColumn && selected.has(row.task.id);
               const isEditing = editing?.id === row.task.id && editing.column === column;
               return (
                 <div
                   key={column}
                   role="gridcell"
+                  aria-colindex={columns.indexOf(column) + 2}
+                  aria-readonly={!editable}
+                  onPointerDown={() => onActiveColumnChange(column)}
                   className={cn(
+                    active && !isEditing && "outline outline-2 -outline-offset-2 outline-ring",
                     "flex shrink-0 items-center overflow-hidden border-r px-2",
                     NUMERIC.has(column) && "justify-end tabular-nums",
                     row.summary && column === "name" && "font-semibold",
@@ -380,12 +332,12 @@ export function TaskGridRows({ columns, widths, rows, window, rowHeight, editing
                       type={
                         column === "start" || column === "finish" || field?.type === "date"
                           ? "date"
-                          : column === "percentComplete" || field?.type === "number"
+                          : column === "percentComplete" || column === "actualCost" || field?.type === "number"
                             ? "number"
                             : "text"
                       }
                       bounded={column === "percentComplete"}
-                      initial={editing.initial ?? editorValue(column, row, at, project, language)}
+                      initial={editing.initial ?? editorValue(column, row, at, context)}
                       label={field ? field.name : t(`column.${column}`)}
                       onCommit={(value) => commit(row.task.id, column, value)}
                       onCancel={() => onEditingChange(null)}
@@ -412,7 +364,7 @@ export function TaskGridRows({ columns, widths, rows, window, rowHeight, editing
                         </span>
                       )}
                       <span className="truncate" title={column === "name" ? row.task.name : undefined}>
-                        {cellText(column, row, at, project, language, variance?.get(row.task.id), costs?.get(row.task.id))}
+                        {cellText(column, row, at, context)}
                       </span>
                     </>
                   )}
@@ -446,50 +398,4 @@ function conflictsByTask(schedule: Schedule): Map<Id, ConflictKind[]> {
     result.set(conflict.taskId, kinds);
   }
   return result;
-}
-
-interface CellEditorProps {
-  type: "text" | "date" | "number";
-  /** Holds a number to 0 to 100. */
-  bounded?: boolean;
-  initial: string;
-  label: string;
-  onCommit: (value: string) => void;
-  onCancel: () => void;
-}
-
-function CellEditor({ type, bounded = false, initial, label, onCommit, onCancel }: CellEditorProps) {
-  const onKeyDown = (event: KeyboardEvent<HTMLInputElement>): void => {
-    // The chart's own shortcuts must not see keys typed into a cell.
-    event.stopPropagation();
-    if (event.key === "Enter") {
-      event.preventDefault();
-      onCommit(event.currentTarget.value);
-    } else if (event.key === "Escape") {
-      event.preventDefault();
-      // Clearing the handler first keeps the blur that follows from committing.
-      event.currentTarget.dataset.cancelled = "true";
-      onCancel();
-    }
-  };
-  return (
-    <input
-      autoFocus
-      type={type}
-      aria-label={label}
-      defaultValue={initial}
-      min={bounded ? 0 : type === "date" ? MIN_DATE : undefined}
-      max={bounded ? 100 : type === "date" ? MAX_DATE : undefined}
-      className="h-full w-full min-w-0 border-2 border-ring bg-background px-1.5 text-sm text-foreground outline-none"
-      onFocus={(event) => {
-        if (type === "text") event.currentTarget.select();
-      }}
-      onPointerDown={(event) => event.stopPropagation()}
-      onDoubleClick={(event) => event.stopPropagation()}
-      onKeyDown={onKeyDown}
-      onBlur={(event) => {
-        if (event.currentTarget.dataset.cancelled !== "true") onCommit(event.currentTarget.value);
-      }}
-    />
-  );
 }

@@ -8,6 +8,6 @@
 
 > **ColumnWidths** = `Readonly`\<`Partial`\<`Record`\<[`GanttColumnId`](GanttColumnId.md), `number`\>\>\>
 
-Defined in: [components/grid-columns.ts:34](https://github.com/simplix-react/simplix-react/blob/main/components/grid-columns.ts#L34)
+Defined in: [lib/grid-columns.ts:61](https://github.com/simplix-react/simplix-react/blob/main/lib/grid-columns.ts#L61)
 
 Widths of the columns that have been given one, by column.

@@ -1,19 +1,15 @@
 import { addRecurringTask, parseDuration, parseLocalDateTime } from "@simplix-react/gantt-core";
 import type { Recurrence } from "@simplix-react/gantt-core";
 import { Button, useFlatUIComponents } from "@simplix-react/ui";
-import { useId, useState } from "react";
-import type { ReactNode } from "react";
+import { useState } from "react";
 
 import { useGantt, useGanttStore } from "../context/gantt-context";
 import { toDateInputValue } from "../lib/format";
 import { useGanttTranslation } from "../lib/use-gantt-translation";
+import { Field, Toggle, weekdayName } from "./dialog-fields";
 
 const WEEKDAYS = [0, 1, 2, 3, 4, 5, 6] as const;
 const FREQUENCIES = ["daily", "weekly", "monthly"] as const;
-
-function weekdayName(weekday: number, language: string): string {
-  return new Intl.DateTimeFormat(language, { weekday: "short", timeZone: "UTC" }).format(new Date((3 + weekday) * 86_400_000));
-}
 
 /**
  * The recurring task dialog: a name, a duration and when it repeats. Creating
@@ -100,9 +96,10 @@ export function RecurringDialog() {
               <ui.Label>{t("recurring.weekdays")}</ui.Label>
               <div className="flex flex-wrap gap-3">
                 {WEEKDAYS.map((weekday) => (
-                  <Weekday
+                  <Toggle
                     key={weekday}
-                    label={weekdayName(weekday, language)}
+                    aligned={false}
+                    label={weekdayName(weekday, language, "short")}
                     checked={weekdays.includes(weekday)}
                     onChange={(checked) => setWeekdays(checked ? [...weekdays, weekday] : weekdays.filter((other) => other !== weekday))}
                   />
@@ -124,27 +121,5 @@ export function RecurringDialog() {
         </form>
       </ui.DialogContent>
     </ui.Dialog>
-  );
-}
-
-function Field({ label, wide = false, children }: { label: string; wide?: boolean; children: (id: string) => ReactNode }) {
-  const ui = useFlatUIComponents();
-  const id = useId();
-  return (
-    <div className={wide ? "col-span-2 flex flex-col gap-1.5" : "flex flex-col gap-1.5"}>
-      <ui.Label htmlFor={id}>{label}</ui.Label>
-      {children(id)}
-    </div>
-  );
-}
-
-function Weekday({ label, checked, onChange }: { label: string; checked: boolean; onChange: (checked: boolean) => void }) {
-  const ui = useFlatUIComponents();
-  const id = useId();
-  return (
-    <div className="flex items-center gap-1.5">
-      <ui.Checkbox id={id} checked={checked} onCheckedChange={(value) => onChange(value === true)} />
-      <ui.Label htmlFor={id}>{label}</ui.Label>
-    </div>
   );
 }

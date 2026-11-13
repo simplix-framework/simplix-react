@@ -1,4 +1,4 @@
-import { MINUTES_PER_DAY } from "@simplix-react/gantt-core";
+import { MINUTES_PER_DAY, compileCalendars, setTaskStart } from "@simplix-react/gantt-core";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { KeyboardEvent } from "react";
@@ -9,7 +9,8 @@ import { ZOOM_LEVELS, createTimeScale } from "../lib/time-scale";
 import type { ZoomLevel } from "../lib/time-scale";
 import { useDrag } from "../lib/use-drag";
 import { useGanttTranslation } from "../lib/use-gantt-translation";
-import { DEFAULT_COLUMNS, TaskGridHeader, TaskGridRows, gridContentWidth } from "./task-grid";
+import { RowMenu } from "./row-menu";
+import { TaskGridHeader, TaskGridRows, gridContentWidth, isEditableCell } from "./task-grid";
 import type { ColumnWidths, GanttColumnId, GridEditing } from "./task-grid";
 import { TimelineBody } from "./timeline-body";
 import { TimelineHeader } from "./timeline-header";
@@ -37,8 +38,6 @@ function printLevel(minutes: number, gridWidth: number): ZoomLevel {
 
 /** Props for {@link GanttChart}. */
 export interface GanttChartProps {
-  /** Columns of the task table, in order. */
-  columns?: readonly GanttColumnId[];
   /** Width the task table opens at. It can be dragged wider or narrower. */
   defaultGridWidth?: number;
   /** First day of a week column: 0 is Sunday. */
@@ -50,7 +49,7 @@ export interface GanttChartProps {
  * table stays in place while the timeline scrolls sideways, and only the rows
  * and header cells on screen are drawn.
  */
-export function GanttChart({ columns: initialColumns = DEFAULT_COLUMNS, defaultGridWidth, weekStartsOn = 0 }: GanttChartProps) {
+export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartProps) {
   const { t } = useGanttTranslation();
   const store = useGanttStore();
   const project = useGantt((state) => state.history.present);
@@ -59,21 +58,16 @@ export function GanttChart({ columns: initialColumns = DEFAULT_COLUMNS, defaultG
   const zoom = useGantt((state) => state.zoom);
   const printing = useGantt((state) => state.printing);
   const scrollRef = useRef<HTMLDivElement | null>(null);
-  const [gridWidth, setGridWidth] = useState(() => defaultGridWidth ?? Math.min(gridContentWidth(initialColumns), 560));
+  const columns = useGantt((state) => state.columns);
+  const scrollRequest = useGantt((state) => state.scrollRequest);
+  const [gridWidth, setGridWidth] = useState(() => defaultGridWidth ?? Math.min(gridContentWidth(store.getState().columns), 560));
+  // The column keyboard editing and sideways arrow keys act on.
+  const [activeColumn, setActiveColumn] = useState<GanttColumnId>("name");
+  const [menu, setMenu] = useState<{ x: number; y: number } | null>(null);
   const [viewport, setViewport] = useState({ left: 0, top: 0, width: 1200, height: 600 });
   const [editing, setEditing] = useState<GridEditing | null>(null);
   const [widths, setWidths] = useState<ColumnWidths>({});
-  // The order the reader has dragged the columns into; the prop gives the order the chart opens with.
-  const [columns, setColumns] = useState<readonly GanttColumnId[]>(initialColumns);
-  const moveColumn = (column: GanttColumnId, toIndex: number): void => {
-    setColumns((current) => {
-      const from = current.indexOf(column);
-      if (from === -1 || from === toIndex) return current;
-      const next = current.filter((other) => other !== column);
-      next.splice(toIndex, 0, column);
-      return next;
-    });
-  };
+  const projectTime = useMemo(() => compileCalendars(project.calendars).get(project.calendarId), [project.calendars, project.calendarId]);
 
   const rows = useMemo(() => visibleRows(project.tasks, collapsed), [project.tasks, collapsed]);
   const level = printing ? printLevel(schedule.finish - Math.min(schedule.start, project.start), gridWidth) : ZOOM_LEVELS[zoom];
@@ -91,6 +85,8 @@ export function GanttChart({ columns: initialColumns = DEFAULT_COLUMNS, defaultG
     getScrollElement: () => scrollRef.current,
     estimateSize: () => ROW_HEIGHT,
     overscan: OVERSCAN,
+    // A size to draw the first rows with before the scroll area has been measured.
+    initialRect: { width: 1200, height: 600 },
     // The rows begin under the sticky header, which also covers the top of the scroll area.
     scrollMargin: HEADER_HEIGHT,
     scrollPaddingStart: HEADER_HEIGHT,
@@ -135,6 +131,41 @@ export function GanttChart({ columns: initialColumns = DEFAULT_COLUMNS, defaultG
     element.scrollLeft = Math.max(0, scale.x(schedule.start) - 24);
   }, [scale, schedule.start]);
 
+  // Bring what the store asked for into view.
+  useEffect(() => {
+    const element = scrollRef.current;
+    if (!element || !scrollRequest) return;
+    if (scrollRequest.target === "start") {
+      element.scrollLeft = Math.max(0, scale.x(schedule.start) - 24);
+      return;
+    }
+    const index = rows.findIndex((row) => row.task.id === scrollRequest.target);
+    const at = schedule.tasks.get(scrollRequest.target);
+    if (index === -1 || !at) return;
+    virtualizer.scrollToIndex(index, { align: "center" });
+    element.scrollLeft = Math.max(0, scale.x(at.start) - 24);
+    // Only a new request scrolls: later renders must not pull the view back.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scrollRequest]);
+
+  // Ctrl or Cmd with the wheel zooms the timeline. The listener is not passive, so it can keep the page from zooming.
+  useEffect(() => {
+    const element = scrollRef.current;
+    if (!element) return;
+    let travelled = 0;
+    const onWheel = (event: WheelEvent): void => {
+      if (!event.ctrlKey && !event.metaKey) return;
+      event.preventDefault();
+      travelled += event.deltaY;
+      if (Math.abs(travelled) < 60) return;
+      const state = store.getState();
+      state.setZoom(state.zoom + (travelled < 0 ? 1 : -1));
+      travelled = 0;
+    };
+    element.addEventListener("wheel", onWheel, { passive: false });
+    return () => element.removeEventListener("wheel", onWheel);
+  }, [store]);
+
   const beginSplit = useDrag<number>({
     onMove: (origin, position) => setGridWidth(Math.max(MIN_GRID_WIDTH, origin + position.dx)),
     onEnd: (origin, position) => setGridWidth(Math.max(MIN_GRID_WIDTH, origin + position.dx)),
@@ -151,6 +182,34 @@ export function GanttChart({ columns: initialColumns = DEFAULT_COLUMNS, defaultG
     virtualizer.scrollToIndex(next, { align: "auto" });
   };
 
+  const moveColumnFocus = (delta: number): void => {
+    const at = Math.max(0, columns.indexOf(activeColumn));
+    setActiveColumn(columns[Math.max(0, Math.min(columns.length - 1, at + delta))] ?? "name");
+  };
+
+  /** Moves the selected tasks one working day earlier or later. */
+  const nudge = (days: number): void => {
+    const state = store.getState();
+    if (!projectTime || state.selection.length === 0) return;
+    state.apply("move-task", (p, s) => {
+      let next = p;
+      for (const id of state.selection) {
+        const at = s.tasks.get(id);
+        if (!at || at.summary) continue;
+        next = setTaskStart(next, id, projectTime.snapForward(projectTime.add(at.start, days * p.minutesPerDay)));
+      }
+      return next;
+    });
+  };
+
+  const editActive = (id: string, initial?: string): boolean => {
+    const row = rows.find((candidate) => candidate.task.id === id);
+    const column = columns.includes(activeColumn) ? activeColumn : "name";
+    if (!row || !isEditableCell(column, row, project)) return false;
+    setEditing({ id, column, initial });
+    return true;
+  };
+
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>): void => {
     if (editing) return;
     const state = store.getState();
@@ -161,16 +220,20 @@ export function GanttChart({ columns: initialColumns = DEFAULT_COLUMNS, defaultG
     else if (event.key === "ArrowUp") moveSelection(-1, event.shiftKey);
     else if (event.altKey && event.shiftKey && event.key === "ArrowRight") state.indentSelected();
     else if (event.altKey && event.shiftKey && event.key === "ArrowLeft") state.outdentSelected();
+    else if (event.altKey && event.key === "ArrowRight") nudge(1);
+    else if (event.altKey && event.key === "ArrowLeft") nudge(-1);
+    else if (event.key === "ArrowRight" || (event.key === "Tab" && !event.shiftKey && last !== undefined)) moveColumnFocus(1);
+    else if (event.key === "ArrowLeft" || (event.key === "Tab" && event.shiftKey && last !== undefined)) moveColumnFocus(-1);
     else if (mod && event.key.toLowerCase() === "z" && event.shiftKey) state.redo();
     else if (mod && event.key.toLowerCase() === "z") state.undo();
     else if (mod && event.key.toLowerCase() === "y") state.redo();
     else if (event.key === "Insert") state.addTask(t("task.newName"));
     else if (event.key === "Delete" || (event.key === "Backspace" && mod)) state.removeSelected();
-    else if ((event.key === "F2" || event.key === "Enter") && last !== undefined) setEditing({ id: last, column: "name" });
+    else if ((event.key === "F2" || event.key === "Enter") && last !== undefined) handled = editActive(last);
     else if (event.key === "Escape") state.select([]);
-    else if (last !== undefined && event.key.length === 1 && !mod && !event.altKey && columns.includes("name")) {
-      // Typing on a selected row starts renaming it with the typed character.
-      setEditing({ id: last, column: "name", initial: event.key });
+    else if (last !== undefined && event.key.length === 1 && !mod && !event.altKey) {
+      // Typing on a selected row starts editing its active cell with the typed character.
+      handled = editActive(last, event.key);
     } else handled = false;
     if (handled) event.preventDefault();
   };
@@ -188,6 +251,7 @@ export function GanttChart({ columns: initialColumns = DEFAULT_COLUMNS, defaultG
       tabIndex={0}
       role="grid"
       aria-rowcount={rows.length}
+      aria-colcount={columns.length + 1}
       className={
         printing
           ? "relative bg-background outline-none"
@@ -195,6 +259,15 @@ export function GanttChart({ columns: initialColumns = DEFAULT_COLUMNS, defaultG
       }
       data-gantt-slot="scroll"
       onKeyDown={onKeyDown}
+      onContextMenu={(event) => {
+        const target = (event.target as Element).closest<HTMLElement>("[data-gantt-row], [data-gantt-bar]");
+        const id = target?.dataset.ganttRow ?? target?.dataset.ganttBar;
+        if (id === undefined) return;
+        event.preventDefault();
+        const state = store.getState();
+        if (!state.selection.includes(id)) state.selectRow(id);
+        setMenu({ x: event.clientX, y: event.clientY });
+      }}
       onCopy={(event) => {
         if (editing) return;
         const text = store.getState().copySelected();
@@ -223,7 +296,7 @@ export function GanttChart({ columns: initialColumns = DEFAULT_COLUMNS, defaultG
               columns={columns}
               widths={widths}
               onResize={(column, width) => setWidths((current) => (current[column] === width ? current : { ...current, [column]: width }))}
-              onMove={moveColumn}
+              onMove={store.getState().moveColumn}
             />
           </div>
           <TimelineHeader scale={scale} level={level} fromX={timelineFromX} toX={timelineToX} weekStartsOn={weekStartsOn} />
@@ -238,6 +311,8 @@ export function GanttChart({ columns: initialColumns = DEFAULT_COLUMNS, defaultG
               <TaskGridRows
                 columns={columns}
                 widths={widths}
+                activeColumn={activeColumn}
+                onActiveColumnChange={setActiveColumn}
                 rows={rows}
                 window={rowWindow}
                 rowHeight={ROW_HEIGHT}
@@ -253,7 +328,7 @@ export function GanttChart({ columns: initialColumns = DEFAULT_COLUMNS, defaultG
             <div
               role="separator"
               aria-orientation="vertical"
-              className="absolute -right-1 top-0 z-10 h-full w-2 cursor-col-resize hover:bg-primary/30"
+              className="absolute -right-1 top-0 z-10 h-full w-2 cursor-col-resize touch-none hover:bg-primary/30"
               onPointerDown={(event) => beginSplit(gridWidth, event)}
             />
           </div>
@@ -271,6 +346,7 @@ export function GanttChart({ columns: initialColumns = DEFAULT_COLUMNS, defaultG
           />
         </div>
       </div>
+      {menu && <RowMenu x={menu.x} y={menu.y} onClose={() => setMenu(null)} />}
     </div>
   );
 }

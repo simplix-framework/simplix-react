@@ -30,6 +30,7 @@ export function ResourceSheet() {
             <th className="w-36 border-b border-r px-2 py-2 text-left font-medium">{t("resource.type")}</th>
             <th className="w-28 border-b border-r px-2 py-2 text-right font-medium">{t("resource.maxUnits")}</th>
             <th className="w-36 border-b border-r px-2 py-2 text-right font-medium">{t("resource.standardRate")}</th>
+            <th className="w-36 border-b border-r px-2 py-2 text-right font-medium">{t("resource.overtimeRate")}</th>
             <th className="w-28 border-b border-r px-2 py-2 text-right font-medium">{t("resource.costPerUse")}</th>
             <th className="w-40 border-b border-r px-2 py-2 text-left font-medium">{t("resource.group")}</th>
             <th className="w-44 border-b border-r px-2 py-2 text-left font-medium">{t("field.calendar")}</th>
@@ -77,7 +78,7 @@ export function ResourceSheet() {
                   }}
                 />
               </td>
-              {(["standardRate", "costPerUse"] as const).map((key) => (
+              {(["standardRate", "overtimeRate", "costPerUse"] as const).map((key) => (
                 <td key={key} className="border-b border-r p-1">
                   <ui.Input
                     key={resource[key] ?? "none"}

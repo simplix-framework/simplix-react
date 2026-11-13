@@ -14,15 +14,16 @@ import {
   updateLink,
   updateTask,
 } from "@simplix-react/gantt-core";
-import type { ConstraintType, Id, Link, LinkType, Project, Task, TaskMode, TaskType } from "@simplix-react/gantt-core";
+import type { ConstraintType, Id, Link, LinkType, Project, Task, TaskMode, TaskType, WorkContour } from "@simplix-react/gantt-core";
 import { Button, useFlatUIComponents } from "@simplix-react/ui";
 import { Trash2 } from "lucide-react";
-import { useId } from "react";
 import type { ReactNode } from "react";
 
 import { useGantt, useGanttStore } from "../context/gantt-context";
+import { durationWords, formatDurationText, toCanonicalDuration } from "../lib/duration-text";
 import { toDateInputValue } from "../lib/format";
 import { useGanttTranslation } from "../lib/use-gantt-translation";
+import { Field, Toggle } from "./dialog-fields";
 
 const NONE = "__none";
 const CONSTRAINTS: readonly ConstraintType[] = [
@@ -37,6 +38,7 @@ const CONSTRAINTS: readonly ConstraintType[] = [
 ];
 const TASK_TYPES: readonly TaskType[] = ["fixed-units", "fixed-duration", "fixed-work"];
 const LINK_TYPES: readonly LinkType[] = ["FS", "SS", "FF", "SF"];
+const CONTOURS: readonly WorkContour[] = ["flat", "front-loaded", "back-loaded", "bell"];
 
 function lagText(link: Link, project: Project): string {
   if (link.lagMode === "percent") return `${link.lag}%`;
@@ -56,6 +58,7 @@ export function TaskDialog() {
   if (!task || !at) return null;
 
   const { apply, setDurationText, closeTaskDialog } = store.getState();
+  const words = durationWords((key) => t(key));
   const patch = (label: string, change: Partial<Omit<Task, "id">>): void => {
     apply(label, (p) => updateTask(p, task.id, change));
   };
@@ -120,10 +123,11 @@ export function TaskDialog() {
             <Field label={t("column.duration")}>
               {(id) => {
                 const text = at.summary
-                  ? formatDuration({ minutes: at.duration, unit: "d", elapsed: false, estimated: false }, project)
-                  : formatDuration(
+                  ? formatDurationText({ minutes: at.duration, unit: "d", elapsed: false, estimated: false }, project, words)
+                  : formatDurationText(
                       { minutes: task.duration, unit: task.durationUnit, elapsed: task.elapsed === true, estimated: task.estimated === true },
                       project,
+                      words,
                     );
                 return (
                   <ui.Input
@@ -131,7 +135,7 @@ export function TaskDialog() {
                     key={text}
                     defaultValue={text}
                     disabled={at.summary}
-                    onBlur={(event) => event.target.value !== text && setDurationText(task.id, event.target.value)}
+                    onBlur={(event) => event.target.value !== text && setDurationText(task.id, toCanonicalDuration(event.target.value, words))}
                   />
                 );
               }}
@@ -244,7 +248,7 @@ export function TaskDialog() {
 
           <ui.TabsContent value="resources" className="flex flex-col gap-2 pt-2">
             {assignments.map((assignment) => (
-              <div key={assignment.id} className="grid grid-cols-[1fr_6rem_auto] items-center gap-2">
+              <div key={assignment.id} className="grid grid-cols-[1fr_5rem_6rem_9rem_auto] items-center gap-2" data-gantt-assignment={assignment.id}>
                 <span className="truncate text-sm">{project.resources.find((r) => r.id === assignment.resourceId)?.name}</span>
                 <ui.Input
                   key={assignment.units}
@@ -257,6 +261,27 @@ export function TaskDialog() {
                     if (units !== assignment.units) apply("set-units", (p) => updateAssignment(p, assignment.id, { units }));
                   }}
                 />
+                <ui.Input
+                  key={`overtime:${assignment.overtimeWork ?? 0}`}
+                  type="number"
+                  min={0}
+                  step="0.5"
+                  aria-label={t("field.overtime")}
+                  title={t("field.overtime")}
+                  defaultValue={(assignment.overtimeWork ?? 0) / 60}
+                  onBlur={(event) => {
+                    const overtimeWork = Math.round(Number(event.target.value) * 60);
+                    if (overtimeWork !== (assignment.overtimeWork ?? 0)) {
+                      apply("set-overtime", (p) => updateAssignment(p, assignment.id, { overtimeWork }));
+                    }
+                  }}
+                />
+                {select(
+                  assignment.contour ?? "flat",
+                  (value) => apply("set-contour", (p) => updateAssignment(p, assignment.id, { contour: value as WorkContour })),
+                  CONTOURS.map((contour) => ({ value: contour, label: t(`contour.${contour}`) })),
+                  t("field.contour"),
+                )}
                 <Button
                   variant="ghost"
                   size="icon-sm"
@@ -457,27 +482,5 @@ export function TaskDialog() {
         </ui.DialogFooter>
       </ui.DialogContent>
     </ui.Dialog>
-  );
-}
-
-function Field({ label, wide = false, children }: { label: string; wide?: boolean; children: (id: string) => ReactNode }) {
-  const ui = useFlatUIComponents();
-  const id = useId();
-  return (
-    <div className={wide ? "col-span-2 flex flex-col gap-1.5" : "flex flex-col gap-1.5"}>
-      <ui.Label htmlFor={id}>{label}</ui.Label>
-      {children(id)}
-    </div>
-  );
-}
-
-function Toggle({ label, checked, onChange }: { label: string; checked: boolean; onChange: (checked: boolean) => void }) {
-  const ui = useFlatUIComponents();
-  const id = useId();
-  return (
-    <div className="flex items-center gap-2 self-end pb-2">
-      <ui.Checkbox id={id} checked={checked} onCheckedChange={(value) => onChange(value === true)} />
-      <ui.Label htmlFor={id}>{label}</ui.Label>
-    </div>
   );
 }

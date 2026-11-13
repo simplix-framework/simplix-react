@@ -100,6 +100,8 @@ export function Gantt({
   showLinks,
   baselineNumber,
   view,
+  columns,
+  levelingOptions,
   onChange,
   ...shell
 }: GanttProps) {
@@ -111,6 +113,8 @@ export function Gantt({
       showLinks={showLinks}
       baselineNumber={baselineNumber}
       view={view}
+      columns={columns}
+      levelingOptions={levelingOptions}
       onChange={onChange}
     >
       <GanttShell {...shell} />

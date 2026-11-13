@@ -6,7 +6,7 @@
 
 # Interface: GanttChartProps
 
-Defined in: [components/gantt-chart.tsx:39](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L39)
+Defined in: [components/gantt-chart.tsx:40](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L40)
 
 Props for [GanttChart](../functions/GanttChart.md).
 
@@ -16,21 +16,11 @@ Props for [GanttChart](../functions/GanttChart.md).
 
 ## Properties
 
-### columns?
-
-> `optional` **columns**: readonly [`GanttColumnId`](../type-aliases/GanttColumnId.md)[]
-
-Defined in: [components/gantt-chart.tsx:41](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L41)
-
-Columns of the task table, in order.
-
-***
-
 ### defaultGridWidth?
 
 > `optional` **defaultGridWidth**: `number`
 
-Defined in: [components/gantt-chart.tsx:43](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L43)
+Defined in: [components/gantt-chart.tsx:42](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L42)
 
 Width the task table opens at. It can be dragged wider or narrower.
 
@@ -40,6 +30,6 @@ Width the task table opens at. It can be dragged wider or narrower.
 
 > `optional` **weekStartsOn**: `number`
 
-Defined in: [components/gantt-chart.tsx:45](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L45)
+Defined in: [components/gantt-chart.tsx:44](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L44)
 
 First day of a week column: 0 is Sunday.

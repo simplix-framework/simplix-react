@@ -5,10 +5,9 @@ import {
   clearLeveling,
   findOverallocations,
   levelResources,
-  readMspdi,
+  rescheduleUncompletedWork,
   removeLinks,
   setBaseline,
-  writeMspdi,
 } from "@simplix-react/gantt-core";
 import type { Project } from "@simplix-react/gantt-core";
 import { Badge, Button, useFlatUIComponents } from "@simplix-react/ui";
@@ -34,12 +33,13 @@ import {
   ZoomIn,
   ZoomOut,
 } from "lucide-react";
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import type { ChangeEvent, ReactNode } from "react";
 
 import { useGantt, useGanttStore } from "../context/gantt-context";
 import { cn } from "../lib/cn";
-import { downloadPdf } from "../lib/pdf-export";
+import { BUILT_IN_COLUMNS } from "../lib/grid-columns";
+import type { GanttColumnId } from "../lib/grid-columns";
 import { ZOOM_LEVELS } from "../lib/time-scale";
 import { useGanttTranslation } from "../lib/use-gantt-translation";
 import type { GanttView } from "../model/gantt-store";
@@ -68,12 +68,10 @@ export interface GanttToolbarProps {
   xmlExchange?: boolean;
   /** Extra controls at the end of the bar. */
   trailing?: ReactNode;
-  /** Scrolls the chart to the start of the plan. */
-  onScrollToStart?: () => void;
 }
 
 /** The command bar of a chart: editing, outline, links, undo, zoom, views and plan-level tools. */
-export function GanttToolbar({ xmlExchange = true, trailing, onScrollToStart }: GanttToolbarProps) {
+export function GanttToolbar({ xmlExchange = true, trailing }: GanttToolbarProps) {
   const { t, language } = useGanttTranslation();
   const store = useGanttStore();
   const ui = useFlatUIComponents();
@@ -89,7 +87,28 @@ export function GanttToolbar({ xmlExchange = true, trailing, onScrollToStart }: 
   const baselineNumber = useGantt((state) => state.baselineNumber);
   const baselineSlot = useGantt((state) => state.baselineSlot);
   const rejection = useGantt((state) => state.rejection);
+  const columns = useGantt((state) => state.columns);
+  const levelingOptions = useGantt((state) => state.levelingOptions);
   const fileRef = useRef<HTMLInputElement | null>(null);
+  const [loading, setLoading] = useState(false);
+  const columnChoices = useMemo<{ id: GanttColumnId; label: string }[]>(
+    () => [
+      ...BUILT_IN_COLUMNS.map((id) => ({ id, label: t(`column.${id}`) })),
+      ...(project.customFields ?? []).map((field) => ({ id: `custom:${field.id}` as const, label: field.name })),
+    ],
+    [project.customFields, t],
+  );
+
+  /** Shows the loading mark while a slow command runs, after letting the mark paint first. */
+  const busy = async (work: () => Promise<void> | void): Promise<void> => {
+    setLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    try {
+      await work();
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const overallocations = useMemo(() => findOverallocations(project, schedule).length, [project, schedule]);
   const conflictCount = useMemo(() => new Set(schedule.conflicts.map((c) => c.taskId)).size, [schedule.conflicts]);
@@ -103,25 +122,31 @@ export function GanttToolbar({ xmlExchange = true, trailing, onScrollToStart }: 
     const file = event.target.files?.[0];
     event.target.value = "";
     if (!file) return;
-    const text = await file.text();
-    try {
-      store.getState().load(readMspdi(text).project);
-    } catch (error) {
-      if (!(error instanceof ScheduleError)) throw error;
-      store.setState({ rejection: { code: error.code, message: error.message, ids: error.ids } });
-    }
+    await busy(async () => {
+      const text = await file.text();
+      // The exchange code loads when it is first asked for.
+      const { readMspdi } = await import("@simplix-react/gantt-core/mspdi");
+      try {
+        store.getState().load(readMspdi(text).project);
+      } catch (error) {
+        if (!(error instanceof ScheduleError)) throw error;
+        store.setState({ rejection: { code: error.code, message: error.message, ids: error.ids } });
+      }
+    });
   };
 
-  const exportXml = (): void => {
-    const current = store.getState();
-    const blob = new Blob([writeMspdi(current.history.present, current.schedule)], { type: "application/xml" });
-    const url = URL.createObjectURL(blob);
-    const anchor = document.createElement("a");
-    anchor.href = url;
-    anchor.download = `${current.history.present.name || "project"}.xml`;
-    anchor.click();
-    URL.revokeObjectURL(url);
-  };
+  const exportXml = (): Promise<void> =>
+    busy(async () => {
+      const current = store.getState();
+      const { writeMspdi } = await import("@simplix-react/gantt-core/mspdi");
+      const blob = new Blob([writeMspdi(current.history.present, current.schedule)], { type: "application/xml" });
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = `${current.history.present.name || "project"}.xml`;
+      anchor.click();
+      URL.revokeObjectURL(url);
+    });
 
   const icon = (label: string, glyph: ReactNode, onClick: () => void, disabled = false, pressed?: boolean): ReactNode => (
     <Button
@@ -181,7 +206,7 @@ export function GanttToolbar({ xmlExchange = true, trailing, onScrollToStart }: 
             {divider}
             {icon(t("toolbar.zoomOut"), <ZoomOut />, () => state.setZoom(zoom - 1), zoom === 0)}
             {icon(t("toolbar.zoomIn"), <ZoomIn />, () => state.setZoom(zoom + 1), zoom === ZOOM_LEVELS.length - 1)}
-            {onScrollToStart && icon(t("toolbar.scrollToStart"), <LocateFixed />, onScrollToStart)}
+            {icon(t("toolbar.scrollToStart"), <LocateFixed />, state.scrollToStart)}
             {divider}
             <Button
               variant={showCriticalPath ? "secondary" : "ghost"}
@@ -204,6 +229,22 @@ export function GanttToolbar({ xmlExchange = true, trailing, onScrollToStart }: 
               <Settings2 />
               {t("toolbar.projectInformation")}
             </ui.DropdownMenuItem>
+            <ui.DropdownMenuSub>
+              <ui.DropdownMenuSubTrigger>{t("toolbar.columns")}</ui.DropdownMenuSubTrigger>
+              <ui.DropdownMenuSubContent className="max-h-80 overflow-y-auto">
+                {columnChoices.map((choice) => (
+                  <ui.DropdownMenuCheckboxItem
+                    key={choice.id}
+                    checked={columns.includes(choice.id)}
+                    // The menu stays open, so several columns can be switched in one visit.
+                    onSelect={(event) => event.preventDefault()}
+                    onCheckedChange={() => state.toggleColumn(choice.id)}
+                  >
+                    {choice.label}
+                  </ui.DropdownMenuCheckboxItem>
+                ))}
+              </ui.DropdownMenuSubContent>
+            </ui.DropdownMenuSub>
             <ui.DropdownMenuItem disabled={view !== "gantt"} onSelect={state.openRecurringDialog}>
               <Repeat />
               {t("toolbar.addRecurring")}
@@ -215,7 +256,11 @@ export function GanttToolbar({ xmlExchange = true, trailing, onScrollToStart }: 
             <ui.DropdownMenuItem
               onSelect={() => {
                 const current = store.getState();
-                void downloadPdf(current.history.present, current.schedule, language, (key) => t(key));
+                // The PDF code loads when it is first asked for, so charts that never export do not carry it.
+                void busy(async () => {
+                  const { downloadPdf } = await import("../lib/pdf-export");
+                  await downloadPdf(current.history.present, current.schedule, language, (key) => t(key));
+                });
               }}
             >
               <FileDown />
@@ -251,7 +296,26 @@ export function GanttToolbar({ xmlExchange = true, trailing, onScrollToStart }: 
               {t("toolbar.clearBaseline")}
             </ui.DropdownMenuItem>
             <ui.DropdownMenuSeparator />
-            <ui.DropdownMenuItem onSelect={() => state.apply("level-resources", (p) => levelResources(p).project)}>
+            <ui.DropdownMenuItem
+              disabled={project.statusDate === undefined}
+              onSelect={() => state.apply("reschedule", (p, s) => rescheduleUncompletedWork(p, s))}
+            >
+              {t("toolbar.reschedule")}
+            </ui.DropdownMenuItem>
+            <ui.DropdownMenuSeparator />
+            <ui.DropdownMenuCheckboxItem
+              checked={levelingOptions.withinSlack === true}
+              onCheckedChange={(checked) => state.setLevelingOptions({ ...levelingOptions, withinSlack: checked })}
+            >
+              {t("toolbar.levelWithinSlack")}
+            </ui.DropdownMenuCheckboxItem>
+            <ui.DropdownMenuCheckboxItem
+              checked={levelingOptions.split === true}
+              onCheckedChange={(checked) => state.setLevelingOptions({ ...levelingOptions, split: checked })}
+            >
+              {t("toolbar.levelBySplitting")}
+            </ui.DropdownMenuCheckboxItem>
+            <ui.DropdownMenuItem onSelect={() => state.apply("level-resources", (p) => levelResources(p, levelingOptions).project)}>
               {t("toolbar.level")}
             </ui.DropdownMenuItem>
             <ui.DropdownMenuItem onSelect={() => state.apply("clear-leveling", (p) => clearLeveling(p))}>
@@ -264,7 +328,7 @@ export function GanttToolbar({ xmlExchange = true, trailing, onScrollToStart }: 
                   <Upload />
                   {t("toolbar.importXml")}
                 </ui.DropdownMenuItem>
-                <ui.DropdownMenuItem onSelect={exportXml}>
+                <ui.DropdownMenuItem onSelect={() => void exportXml()}>
                   <Download />
                   {t("toolbar.exportXml")}
                 </ui.DropdownMenuItem>
@@ -273,7 +337,33 @@ export function GanttToolbar({ xmlExchange = true, trailing, onScrollToStart }: 
           </ui.DropdownMenuContent>
         </ui.DropdownMenu>
         <div className="ml-auto flex min-w-0 items-center gap-1.5">
-          {conflictCount > 0 && <Badge variant="destructive">{t("status.conflicts", { count: conflictCount })}</Badge>}
+          {loading && <Badge variant="outline">{t("status.loading")}</Badge>}
+          {conflictCount > 0 && (
+            <ui.Popover>
+              <ui.PopoverTrigger asChild>
+                <button type="button" className="rounded-md" aria-label={t("status.conflictList")}>
+                  <Badge variant="destructive">{t("status.conflicts", { count: conflictCount })}</Badge>
+                </button>
+              </ui.PopoverTrigger>
+              <ui.PopoverContent align="end" className="max-h-80 w-96 overflow-y-auto p-1" data-gantt-slot="conflict-list">
+                {schedule.conflicts.map((conflict, i) => {
+                  const at = schedule.tasks.get(conflict.taskId);
+                  const task = project.tasks.find((candidate) => candidate.id === conflict.taskId);
+                  return (
+                    <button
+                      key={`${conflict.kind}:${conflict.taskId}:${conflict.linkId ?? i}`}
+                      type="button"
+                      className="flex w-full flex-col items-start rounded-sm px-2 py-1.5 text-left text-sm hover:bg-accent"
+                      onClick={() => state.reveal(conflict.taskId)}
+                    >
+                      <span className="font-medium">{`${(at?.index ?? 0) + 1}. ${task?.name ?? conflict.taskId}`}</span>
+                      <span className="text-xs text-muted-foreground">{t(`conflict.${conflict.kind}`)}</span>
+                    </button>
+                  );
+                })}
+              </ui.PopoverContent>
+            </ui.Popover>
+          )}
           {overallocations > 0 && <Badge variant="outline">{t("status.overallocations", { count: overallocations })}</Badge>}
           {trailing}
         </div>

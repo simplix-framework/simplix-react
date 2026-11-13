@@ -109,7 +109,7 @@ export function TaskBar({ row, at, percent, top, rowHeight, scale, project, base
           data-gantt-bar={task.id}
           title={title}
           className={cn(
-            "group absolute cursor-grab",
+            "group absolute cursor-grab touch-none",
             dragging && "cursor-grabbing",
             task.inactive && "opacity-40",
           )}
@@ -142,7 +142,7 @@ export function TaskBar({ row, at, percent, top, rowHeight, scale, project, base
         data-gantt-bar={task.id}
         title={title}
         className={cn(
-          "group absolute cursor-grab rounded-[3px] border",
+          "group absolute cursor-grab touch-none rounded-[3px] border",
           critical ? "border-destructive" : "border-primary",
           // A split task shows its pauses as the dashed, empty part of the bar.
           split ? "border-dashed bg-transparent" : critical ? "bg-destructive/25" : "bg-primary/25",

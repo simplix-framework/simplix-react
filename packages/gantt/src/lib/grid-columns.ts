@@ -14,7 +14,34 @@ export type BuiltInColumnId =
   | "startVariance"
   | "finishVariance"
   | "work"
-  | "cost";
+  | "cost"
+  | "plannedValue"
+  | "earnedValue"
+  | "actualCost"
+  | "scheduleVariance"
+  | "costVariance";
+
+/** Every built-in column, in the order a column chooser lists them. */
+export const BUILT_IN_COLUMNS: readonly BuiltInColumnId[] = [
+  "wbs",
+  "name",
+  "duration",
+  "start",
+  "finish",
+  "predecessors",
+  "percentComplete",
+  "resources",
+  "totalSlack",
+  "startVariance",
+  "finishVariance",
+  "work",
+  "cost",
+  "plannedValue",
+  "earnedValue",
+  "actualCost",
+  "scheduleVariance",
+  "costVariance",
+];
 
 /** A column of the task table: a built-in one, or `custom:` followed by the id of a custom field of the plan. */
 export type GanttColumnId = BuiltInColumnId | `custom:${string}`;
@@ -48,6 +75,11 @@ export const DEFAULT_COLUMN_WIDTHS: Readonly<Record<BuiltInColumnId, number>> = 
   finishVariance: 96,
   work: 88,
   cost: 104,
+  plannedValue: 124,
+  earnedValue: 124,
+  actualCost: 124,
+  scheduleVariance: 132,
+  costVariance: 124,
 };
 
 const CUSTOM_COLUMN_WIDTH = 120;
@@ -73,6 +105,11 @@ export const NUMERIC: ReadonlySet<GanttColumnId> = new Set([
   "finishVariance",
   "work",
   "cost",
+  "plannedValue",
+  "earnedValue",
+  "actualCost",
+  "scheduleVariance",
+  "costVariance",
 ]);
 
 /** Range of the dates a cell editor takes. */

@@ -6,9 +6,9 @@
 
 # Interface: CreateGanttStoreOptions
 
-Defined in: [model/gantt-store.ts:143](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store.ts#L143)
+Defined in: [model/gantt-store-types.ts:146](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L146)
 
-Options for [createGanttStore](../functions/createGanttStore.md).
+Options for `createGanttStore`.
 
 ## Extended by
 
@@ -20,17 +20,34 @@ Options for [createGanttStore](../functions/createGanttStore.md).
 
 > `optional` **baselineNumber**: `number` \| `null`
 
-Defined in: [model/gantt-store.ts:147](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store.ts#L147)
+Defined in: [model/gantt-store-types.ts:150](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L150)
+
+***
+
+### columns?
+
+> `optional` **columns**: readonly [`GanttColumnId`](../type-aliases/GanttColumnId.md)[]
+
+Defined in: [model/gantt-store-types.ts:152](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L152)
+
+***
+
+### levelingOptions?
+
+> `optional` **levelingOptions**: `LevelingOptions`
+
+Defined in: [model/gantt-store-types.ts:153](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L153)
 
 ***
 
 ### onChange()?
 
-> `optional` **onChange**: (`project`, `schedule`) => `void`
+> `optional` **onChange**: (`project`, `schedule`, `changes`) => `void`
 
-Defined in: [model/gantt-store.ts:150](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store.ts#L150)
+Defined in: [model/gantt-store-types.ts:158](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L158)
 
-Called after every accepted change of the plan, undo and redo included.
+Called after every accepted change of the plan, undo and redo included,
+with the records that differ from the plan before it.
 
 #### Parameters
 
@@ -42,6 +59,10 @@ Called after every accepted change of the plan, undo and redo included.
 
 `Schedule`
 
+##### changes
+
+readonly `ProjectChange`[]
+
 #### Returns
 
 `void`
@@ -52,7 +73,7 @@ Called after every accepted change of the plan, undo and redo included.
 
 > `optional` **showCriticalPath**: `boolean`
 
-Defined in: [model/gantt-store.ts:145](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store.ts#L145)
+Defined in: [model/gantt-store-types.ts:148](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L148)
 
 ***
 
@@ -60,7 +81,7 @@ Defined in: [model/gantt-store.ts:145](https://github.com/simplix-react/simplix-
 
 > `optional` **showLinks**: `boolean`
 
-Defined in: [model/gantt-store.ts:146](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store.ts#L146)
+Defined in: [model/gantt-store-types.ts:149](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L149)
 
 ***
 
@@ -68,7 +89,7 @@ Defined in: [model/gantt-store.ts:146](https://github.com/simplix-react/simplix-
 
 > `optional` **view**: [`GanttView`](../type-aliases/GanttView.md)
 
-Defined in: [model/gantt-store.ts:148](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store.ts#L148)
+Defined in: [model/gantt-store-types.ts:151](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L151)
 
 ***
 
@@ -76,4 +97,4 @@ Defined in: [model/gantt-store.ts:148](https://github.com/simplix-react/simplix-
 
 > `optional` **zoom**: `number`
 
-Defined in: [model/gantt-store.ts:144](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store.ts#L144)
+Defined in: [model/gantt-store-types.ts:147](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L147)

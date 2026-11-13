@@ -29,7 +29,7 @@ export function GanttProvider({ defaultProject, children, ...options }: GanttPro
     storeRef.current = createGanttStore(defaultProject, {
       ...options,
       // Read the latest callback on every change so a re-rendered parent is not left with a stale one.
-      onChange: (project, schedule) => optionsRef.current.onChange?.(project, schedule),
+      onChange: (project, schedule, changes) => optionsRef.current.onChange?.(project, schedule, changes),
     });
   }
   return <GanttStoreContext.Provider value={storeRef.current}>{children}</GanttStoreContext.Provider>;

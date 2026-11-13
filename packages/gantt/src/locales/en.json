@@ -27,7 +27,11 @@
     "baselineNumber": "Baseline {{number}}",
     "selectBaseline": "Baseline number",
     "addRecurring": "Add recurring task",
-    "exportPdf": "Export PDF"
+    "exportPdf": "Export PDF",
+    "columns": "Columns",
+    "reschedule": "Reschedule uncompleted work",
+    "levelWithinSlack": "Level within slack only",
+    "levelBySplitting": "Level by splitting tasks"
   },
   "view": {
     "gantt": "Gantt chart",
@@ -49,7 +53,12 @@
     "resize": "Resize column",
     "work": "Work",
     "cost": "Cost",
-    "move": "Drag to move the column"
+    "move": "Drag to move the column",
+    "plannedValue": "Planned value (PV)",
+    "earnedValue": "Earned value (EV)",
+    "actualCost": "Actual cost (AC)",
+    "scheduleVariance": "Schedule variance (SV)",
+    "costVariance": "Cost variance (CV)"
   },
   "task": {
     "newName": "New task",
@@ -91,7 +100,9 @@
     "units": "Units",
     "work": "Work",
     "resource": "Resource",
-    "fixedCost": "Fixed cost"
+    "fixedCost": "Fixed cost",
+    "overtime": "Overtime (hours)",
+    "contour": "Work contour"
   },
   "constraint": {
     "asap": "As soon as possible",
@@ -125,7 +136,8 @@
     "empty": "No resources",
     "emptyHint": "Add a resource, then assign it to a task in the task information dialog.",
     "standardRate": "Standard rate (per hour)",
-    "costPerUse": "Cost per use"
+    "costPerUse": "Cost per use",
+    "overtimeRate": "Overtime rate (per hour)"
   },
   "usage": {
     "overallocated": "Overallocated",
@@ -137,7 +149,9 @@
   },
   "status": {
     "conflicts": "{{count}} conflicts",
-    "overallocations": "{{count}} overallocations"
+    "overallocations": "{{count}} overallocations",
+    "conflictList": "Schedule conflicts",
+    "loading": "Loading"
   },
   "conflict": {
     "link-violated": "Starts before a predecessor allows",
@@ -175,7 +189,8 @@
     "finish": "Finish date",
     "statusDate": "Status date",
     "calendar": "Project calendar",
-    "customFields": "Custom fields"
+    "customFields": "Custom fields",
+    "currency": "Currency code"
   },
   "calendar": {
     "workingTime": "Working time",
@@ -228,5 +243,19 @@
     "daily": "Daily",
     "weekly": "Weekly",
     "monthly": "Monthly"
+  },
+  "contour": {
+    "flat": "Flat",
+    "front-loaded": "Front loaded",
+    "back-loaded": "Back loaded",
+    "bell": "Bell"
+  },
+  "unit": {
+    "m": "m",
+    "h": "h",
+    "d": "d",
+    "w": "w",
+    "mo": "mo",
+    "elapsed": "e"
   }
 }

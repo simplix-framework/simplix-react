@@ -17,20 +17,15 @@ import {
 import type { CalendarException, CustomFieldType, WorkCalendar } from "@simplix-react/gantt-core";
 import { Button, useFlatUIComponents } from "@simplix-react/ui";
 import { Plus, Trash2 } from "lucide-react";
-import { useId, useState } from "react";
-import type { ReactNode } from "react";
+import { useState } from "react";
 
 import { useGantt, useGanttStore } from "../context/gantt-context";
 import { toDateInputValue } from "../lib/format";
 import { useGanttTranslation } from "../lib/use-gantt-translation";
+import { Field, weekdayName } from "./dialog-fields";
 
 const WEEKDAYS = [0, 1, 2, 3, 4, 5, 6] as const;
 const FIELD_TYPES: readonly CustomFieldType[] = ["text", "number", "date", "flag"];
-
-/** The name of a weekday, Sunday first. 1970-01-04 was a Sunday. */
-function weekdayName(weekday: number, language: string): string {
-  return new Intl.DateTimeFormat(language, { weekday: "long", timeZone: "UTC" }).format(new Date((3 + weekday) * 86_400_000));
-}
 
 /**
  * The project information dialog: the plan's name, dates, status date and
@@ -153,6 +148,21 @@ export function ProjectDialog() {
                 />
               )}
             </Field>
+            <Field label={t("project.currency")}>
+              {(id) => (
+                <ui.Input
+                  id={id}
+                  key={project.currencyCode ?? ""}
+                  maxLength={3}
+                  placeholder="KRW"
+                  defaultValue={project.currencyCode ?? ""}
+                  onBlur={(event) => {
+                    const currencyCode = event.target.value.trim().toUpperCase() || undefined;
+                    if (currencyCode !== project.currencyCode) apply("edit-project", (p) => updateProject(p, { currencyCode }));
+                  }}
+                />
+              )}
+            </Field>
             <Field label={t("project.statusDate")}>
               {(id) => (
                 <ui.Input
@@ -216,12 +226,12 @@ export function ProjectDialog() {
               <p className="text-sm font-medium">{t("calendar.workingTime")}</p>
               <p className="text-xs text-muted-foreground">{t("calendar.workingTimeHint")}</p>
             </div>
-            <div className="grid grid-cols-[7rem_1fr] items-center gap-x-3 gap-y-1.5">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-2">
               {WEEKDAYS.map((weekday) => {
                 const ranges = calendar.weekDays[weekday];
                 const text = ranges ? formatWorkingRanges(ranges) : "";
                 return (
-                  <WeekdayRow key={`${calendar.id}:${weekday}:${text}`} label={weekdayName(weekday, language)}>
+                  <Field key={`${calendar.id}:${weekday}:${text}`} label={weekdayName(weekday, language)}>
                     {(id) => (
                       <ui.Input
                         id={id}
@@ -236,7 +246,7 @@ export function ProjectDialog() {
                         }}
                       />
                     )}
-                  </WeekdayRow>
+                  </Field>
                 );
               })}
             </div>
@@ -359,27 +369,5 @@ export function ProjectDialog() {
         </ui.DialogFooter>
       </ui.DialogContent>
     </ui.Dialog>
-  );
-}
-
-function Field({ label, wide = false, children }: { label: string; wide?: boolean; children: (id: string) => ReactNode }) {
-  const ui = useFlatUIComponents();
-  const id = useId();
-  return (
-    <div className={wide ? "col-span-2 flex flex-col gap-1.5" : "flex flex-col gap-1.5"}>
-      <ui.Label htmlFor={id}>{label}</ui.Label>
-      {children(id)}
-    </div>
-  );
-}
-
-function WeekdayRow({ label, children }: { label: string; children: (id: string) => ReactNode }) {
-  const ui = useFlatUIComponents();
-  const id = useId();
-  return (
-    <>
-      <ui.Label htmlFor={id}>{label}</ui.Label>
-      {children(id)}
-    </>
   );
 }

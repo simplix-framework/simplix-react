@@ -27,8 +27,10 @@ export { ResourceSheet } from "./components/resource-sheet";
 export { ResourceUsage } from "./components/resource-usage";
 export { TaskDialog } from "./components/task-dialog";
 export { ProjectDialog } from "./components/project-dialog";
-export { DEFAULT_COLUMNS, DEFAULT_COLUMN_WIDTHS, columnWidth } from "./components/task-grid";
-export type { BuiltInColumnId, ColumnWidths, GanttColumnId } from "./components/task-grid";
+export { BUILT_IN_COLUMNS, DEFAULT_COLUMNS, DEFAULT_COLUMN_WIDTHS, columnWidth } from "./lib/grid-columns";
+export type { BuiltInColumnId, ColumnWidths, GanttColumnId } from "./lib/grid-columns";
+export { durationWords, formatDurationText, toCanonicalDuration } from "./lib/duration-text";
+export type { DurationWords } from "./lib/duration-text";
 
 // ---- Timeline geometry ----
 export { DEFAULT_ZOOM, ZOOM_LEVELS, createTimeScale, scaleCells } from "./lib/time-scale";

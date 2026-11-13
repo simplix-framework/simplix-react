@@ -33,13 +33,15 @@ export function PlanPage({ plan, onSave }: { plan: Project; onSave: (plan: Proje
 }
 ```
 
-Mount the chart in a box with a height; it fills the box and scrolls inside it. The chart owns its plan from `defaultProject` on and reports every accepted change, undo and redo included, through `onChange(project, schedule)`.
+Mount the chart in a box with a height; it fills the box and scrolls inside it. The chart owns its plan from `defaultProject` on and reports every accepted change, undo and redo included, through `onChange(project, schedule, changes)`. `changes` lists the records that differ from the plan before it, which is what a server needs to store the edit.
+
+To take in a plan changed elsewhere, such as an edit another user saved, call `store.getState().sync(project)`: it replaces the plan, keeps the undo history and does not call `onChange`.
 
 ## What the chart does
 
 | Area | Behaviour |
 | --- | --- |
-| Task table | Columns resize from the right edge of a heading and move by dragging the heading; rows move by dragging the row number. Outline with collapsible summary tasks. Double-click, F2, Enter or typing edits a cell: name, duration (`3d`, `2w`, `4h`, `2ed`), start, finish, predecessors (`3`, `4SS+2d`, `5FF-1d`) and percent complete. |
+| Task table | Columns resize from the right edge of a heading, move by dragging the heading and are shown or hidden from the toolbar menu; rows move by dragging the row number. A right click on a row or a bar opens the commands for the selected tasks. Durations are written in the reader's language (`3일`, `2주`) and read in both that form and the letter form. Outline with collapsible summary tasks. Double-click, F2, Enter or typing edits a cell: name, duration (`3d`, `2w`, `4h`, `2ed`), start, finish, predecessors (`3`, `4SS+2d`, `5FF-1d`) and percent complete. |
 | Timeline | Two-tier date header with seven zoom steps from quarters to hours, non-working time shaded from the project calendar, a line at the current time and at the status date. |
 | Bars | Drag a bar to move it, an edge to resize it, the mark under it to set progress. Summary tasks draw as brackets and milestones as diamonds. A deadline draws as an arrow. |
 | Links | Drag from the dot at a bar's end onto another bar: the ends you start from and drop on pick finish-to-start, start-to-start, finish-to-finish or start-to-finish. Click a line to select it and press Delete to remove it. A violated link is dashed. |
@@ -54,7 +56,9 @@ Mount the chart in a box with a height; it fills the box and scrolls inside it. 
 | PDF | Draws the plan as an A4 landscape PDF file: the task table on every sheet, rows running down the sheets and the timeline across up to six. |
 | Print | Lays the whole plan out for landscape paper: every row, at the zoom step that fits the page width, with the rest of the page left off. |
 | Resources | The resource sheet edits resources; the task information dialog assigns them; the usage screen totals booked hours per day (per week for a long plan) and marks overallocated cells. |
-| Leveling | Delays tasks until no resource is overallocated, and can clear the delays again. |
+| Leveling | Delays tasks until no resource is overallocated, optionally only within slack or by splitting tasks, and can clear the leveling again. |
+| Progress | With a status date set, moves uncompleted work to after it, and shows planned value, earned value, actual cost and the schedule and cost variances as columns. |
+| Conflicts | The conflict count opens a list of the tasks in conflict; choosing one selects it and scrolls to it. |
 | Undo | Every edit is one step. Ctrl/Cmd+Z undoes, Ctrl/Cmd+Shift+Z or Ctrl/Cmd+Y redoes. |
 | Exchange | Reads and writes Microsoft Project XML from the toolbar menu. |
 | Large plans | Only the rows and header cells on screen are drawn. |
@@ -66,9 +70,12 @@ An edit the engine refuses (a dependency loop, a duration that is not one) leave
 | Key | Action |
 | --- | --- |
 | Arrow up, Arrow down | Move the selection; with Shift, extend it |
+| Arrow left, Arrow right, Tab | Move the active cell along the row |
+| Alt+Arrow left, Alt+Arrow right | Move the selected tasks one working day |
+| Ctrl/Cmd+wheel | Zoom the timeline |
 | Insert | Add a task under the selected row |
 | Delete | Remove the selected link, or else the selected tasks |
-| F2, Enter, or any character | Rename the selected task |
+| F2, Enter, or any character | Edit the active cell of the selected task |
 | Alt+Shift+Arrow right, Alt+Shift+Arrow left | Indent, outdent |
 | Ctrl/Cmd+C, Ctrl/Cmd+V | Copy and paste tasks with the links among them |
 | Escape | Clear the selection, or cancel a drag |
@@ -81,7 +88,8 @@ An edit the engine refuses (a dependency loop, a duration that is not one) leave
 | --- | --- | --- | --- |
 | `defaultProject` | `Project` | required | The plan the chart opens with |
 | `onChange` | `(project, schedule) => void` | | Called after every accepted change |
-| `columns` | `GanttColumnId[]` | `DEFAULT_COLUMNS` | Columns the task table opens with, in order. Also available: `wbs`, `totalSlack`, `startVariance`, `finishVariance`, `work`, `cost` and `custom:<field id>` |
+| `columns` | `GanttColumnId[]` | `DEFAULT_COLUMNS` | Columns the task table opens with, in order. `BUILT_IN_COLUMNS` lists every built-in one; `custom:<field id>` shows a custom field |
+| `levelingOptions` | `LevelingOptions` | `{}` | What leveling may do: `withinSlack`, `split` |
 | `defaultGridWidth` | `number` | fits the columns, up to 560 | Width the task table opens at |
 | `weekStartsOn` | `number` | `0` | First day of a week column; 0 is Sunday |
 | `zoom` | `number` | `4` | Index into `ZOOM_LEVELS` |
@@ -99,7 +107,10 @@ An edit the engine refuses (a dependency loop, a duration that is not one) leave
 - Pasted spreadsheet rows carry a name and a duration. Dates, links and resources in further cells are not read.
 - A recurring task is created once: changing its recurrence afterwards means deleting it and adding it again.
 - Costs, custom fields and splits are not written to Microsoft Project XML.
-- Column widths and order live in the chart and are not saved with the plan.
+- Column widths, order and visibility live in the chart and are not saved with the plan.
+- Dates a resource's rate changes on are set through the engine (`Resource.rates`); the resource sheet edits the plain rates only.
+- Lags in a predecessor list are written with unit letters (`4SS+2d`) in every language.
+- Reading and writing Microsoft Project XML runs on the main thread: a plan of 20,000 tasks holds the page for about half a second, with a loading mark shown.
 
 ## Composition
 
@@ -113,9 +124,9 @@ function FinishDate() {
   return <span>{finish}</span>;
 }
 
-<GanttProvider defaultProject={plan}>
+<GanttProvider defaultProject={plan} columns={["wbs", "name", "duration", "totalSlack"]}>
   <GanttToolbar trailing={<FinishDate />} />
-  <GanttChart columns={["wbs", "name", "duration", "totalSlack"]} />
+  <GanttChart />
   <TaskDialog />
   <ProjectDialog />
 </GanttProvider>;

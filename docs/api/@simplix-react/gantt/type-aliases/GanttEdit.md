@@ -8,7 +8,7 @@
 
 > **GanttEdit** = (`project`, `schedule`) => `Project`
 
-Defined in: [model/gantt-store.ts:42](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store.ts#L42)
+Defined in: [model/gantt-store-types.ts:25](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L25)
 
 A change of the plan: receives the current project and its schedule, returns the next project.
 

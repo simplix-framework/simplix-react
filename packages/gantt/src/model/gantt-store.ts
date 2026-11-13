@@ -6,6 +6,7 @@ import {
   copyTasks,
   createHistory,
   createTask,
+  diffProjects,
   formatDuration,
   formatLocalDate,
   indentTasks,
@@ -23,132 +24,17 @@ import {
   taskIndex,
   undo,
 } from "@simplix-react/gantt-core";
-import type { History, Id, Link, Project, Schedule, ScheduleErrorCode, TaskClipboard } from "@simplix-react/gantt-core";
+import type { History, Id, Link, Project, Schedule } from "@simplix-react/gantt-core";
 import { createStore } from "zustand/vanilla";
 
+import { DEFAULT_COLUMNS } from "../lib/grid-columns";
 import { DEFAULT_ZOOM, ZOOM_LEVELS } from "../lib/time-scale";
+import type { CreateGanttStoreOptions, GanttStoreState } from "./gantt-store-types";
 
-/** Why the last edit was refused. */
-export interface GanttRejection {
-  code: ScheduleErrorCode;
-  message: string;
-  ids: readonly string[];
-}
-
-/** The screen a chart shows: the Gantt chart, the resource sheet or the resource usage table. */
-export type GanttView = "gantt" | "resources" | "usage";
-
-/** A change of the plan: receives the current project and its schedule, returns the next project. */
-export type GanttEdit = (project: Project, schedule: Schedule) => Project;
-
-/** Reactive state of one chart, with the edits that change it. */
-export interface GanttStoreState {
-  history: History<Project>;
-  /** Computed dates of `history.present`. */
-  schedule: Schedule;
-  /** Selected task ids, in the order they were selected. */
-  selection: readonly Id[];
-  /** Summary tasks whose rows are folded away. */
-  collapsed: ReadonlySet<Id>;
-  /** Index into the zoom steps. */
-  zoom: number;
-  showCriticalPath: boolean;
-  showLinks: boolean;
-  /** Baseline drawn under the bars, or `null` for none. */
-  baselineNumber: number | null;
-  /** Baseline the save, show and clear commands work on, 0 to 10. */
-  baselineSlot: number;
-  /** The last refused edit; cleared by the next accepted one. */
-  rejection: GanttRejection | null;
-  clipboard: TaskClipboard | null;
-  /** The copied tasks as tab-separated text, as it was handed to the system clipboard. */
-  clipboardText: string | null;
-  /** The selected dependency line, or `null`. Selecting rows clears it. */
-  selectedLinkId: Id | null;
-  /** The task whose information dialog is open, or `null`. */
-  dialogTaskId: Id | null;
-  projectDialogOpen: boolean;
-  recurringDialogOpen: boolean;
-  /** True while the chart is laid out for paper: every row drawn, scaled to the page width. */
-  printing: boolean;
-  view: GanttView;
-
-  /**
-   * Applies an edit as one undo step. A `ScheduleError` from the edit or
-   * from scheduling its result refuses the edit and records the reason.
-   *
-   * @returns Whether the edit was accepted.
-   */
-  apply(label: string, edit: GanttEdit): boolean;
-  /** Replaces the plan and forgets the undo history. */
-  load(project: Project): void;
-  undo(): void;
-  redo(): void;
-  dismissRejection(): void;
-
-  select(ids: readonly Id[]): void;
-  /** Selects one row; with `extend` every row from the last selected one to it, with `toggle` adds or removes it. */
-  selectRow(id: Id, mode?: "replace" | "extend" | "toggle"): void;
-  toggleCollapsed(id: Id): void;
-  setCollapsed(ids: readonly Id[]): void;
-  setZoom(zoom: number): void;
-  setShowCriticalPath(show: boolean): void;
-  setShowLinks(show: boolean): void;
-  setBaselineNumber(number: number | null): void;
-  selectLink(id: Id | null): void;
-  openTaskDialog(id: Id): void;
-  closeTaskDialog(): void;
-  openProjectDialog(): void;
-  closeProjectDialog(): void;
-  openRecurringDialog(): void;
-  closeRecurringDialog(): void;
-  /** Row to insert new rows at, and the outline level to give them: just under the last selected row, or the end. */
-  insertionPoint(): { at: number; level: number };
-  setPrinting(printing: boolean): void;
-  setView(view: GanttView): void;
-
-  /** Inserts a new task under the last selected row, or at the end, and selects it. */
-  addTask(name?: string): Id | null;
-  /** Removes the selected dependency line, or else the selected tasks. */
-  removeSelected(): void;
-  indentSelected(): void;
-  outdentSelected(): void;
-  /**
-   * Copies the selected tasks and returns them as tab-separated text (name,
-   * duration, start, finish, percent complete) for the system clipboard, or
-   * `null` when nothing is selected.
-   */
-  copySelected(): string | null;
-  /**
-   * Pastes text from the system clipboard. Text this chart copied pastes the
-   * copied tasks with their links and assignments. Any other text makes one
-   * task per line, reading the first tab-separated cell as the name and the
-   * second, when it is a duration, as the duration.
-   */
-  pasteText(text: string): void;
-  /** Picks the baseline the commands work on; a baseline that is shown follows it. */
-  setBaselineSlot(slot: number): void;
-  /** Pastes the copied tasks under the last selected row, or at the end. */
-  paste(): void;
-  /** Sets a task's duration from text such as `3d`, `2w` or `4h`. */
-  setDurationText(id: Id, text: string): boolean;
-  /** Replaces a task's predecessors from text such as `3, 4SS+2d`, naming rows by number. */
-  setPredecessorText(id: Id, text: string): boolean;
-}
+export type { CreateGanttStoreOptions, GanttEdit, GanttRejection, GanttStoreState, GanttView } from "./gantt-store-types";
 
 /** A chart's store. */
 export type GanttStore = ReturnType<typeof createGanttStore>;
-
-/** Options for {@link createGanttStore}. */
-export interface CreateGanttStoreOptions {
-  zoom?: number;
-  showCriticalPath?: boolean;
-  showLinks?: boolean;
-  baselineNumber?: number | null;
-  view?: GanttView;
-  /** Called after every accepted change of the plan, undo and redo included. */
-  onChange?: (project: Project, schedule: Schedule) => void;
-}
 
 function clampZoom(zoom: number): number {
   return Math.max(0, Math.min(ZOOM_LEVELS.length - 1, Math.round(zoom)));
@@ -161,7 +47,7 @@ function clampZoom(zoom: number): number {
  */
 export function createGanttStore(initial: Project, options: CreateGanttStoreOptions = {}) {
   return createStore<GanttStoreState>((set, get) => {
-    const replace = (history: History<Project>, schedule: Schedule): void => {
+    const replace = (history: History<Project>, schedule: Schedule, before: Project): void => {
       const known = new Set(history.present.tasks.map((task) => task.id));
       set((state) => ({
         history,
@@ -171,7 +57,7 @@ export function createGanttStore(initial: Project, options: CreateGanttStoreOpti
         selectedLinkId: history.present.links.some((link) => link.id === state.selectedLinkId) ? state.selectedLinkId : null,
         dialogTaskId: state.dialogTaskId !== null && known.has(state.dialogTaskId) ? state.dialogTaskId : null,
       }));
-      options.onChange?.(history.present, schedule);
+      if (options.onChange) options.onChange(history.present, schedule, diffProjects(before, history.present));
     };
 
     const reject = (error: unknown): false => {
@@ -208,13 +94,16 @@ export function createGanttStore(initial: Project, options: CreateGanttStoreOpti
       recurringDialogOpen: false,
       printing: false,
       view: options.view ?? "gantt",
+      columns: options.columns ?? DEFAULT_COLUMNS,
+      levelingOptions: options.levelingOptions ?? {},
+      scrollRequest: null,
 
       apply(label, edit) {
         const { history, schedule } = get();
         try {
           const next = edit(history.present, schedule);
           if (next === history.present) return true;
-          replace(commit(history, next, label), computeSchedule(next));
+          replace(commit(history, next, label), computeSchedule(next), history.present);
           return true;
         } catch (error) {
           return reject(error);
@@ -224,18 +113,18 @@ export function createGanttStore(initial: Project, options: CreateGanttStoreOpti
         try {
           const schedule = computeSchedule(project);
           set({ selection: [], collapsed: new Set<Id>() });
-          replace(createHistory(project), schedule);
+          replace(createHistory(project), schedule, get().history.present);
         } catch (error) {
           reject(error);
         }
       },
       undo() {
         const history = undo(get().history);
-        if (history !== get().history) replace(history, computeSchedule(history.present));
+        if (history !== get().history) replace(history, computeSchedule(history.present), get().history.present);
       },
       redo() {
         const history = redo(get().history);
-        if (history !== get().history) replace(history, computeSchedule(history.present));
+        if (history !== get().history) replace(history, computeSchedule(history.present), get().history.present);
       },
       dismissRejection: () => set({ rejection: null }),
 
@@ -283,6 +172,58 @@ export function createGanttStore(initial: Project, options: CreateGanttStoreOpti
       insertionPoint: () => insertionPoint(get().history.present),
       setPrinting: (printing) => set({ printing }),
       setView: (view) => set({ view }),
+      setColumns: (columns) => set({ columns: [...new Set(columns)] }),
+      toggleColumn(column) {
+        const { columns } = get();
+        set({ columns: columns.includes(column) ? columns.filter((other) => other !== column) : [...columns, column] });
+      },
+      moveColumn(column, toIndex) {
+        const { columns } = get();
+        const from = columns.indexOf(column);
+        if (from === -1 || from === toIndex) return;
+        const next = columns.filter((other) => other !== column);
+        next.splice(Math.max(0, Math.min(toIndex, next.length)), 0, column);
+        set({ columns: next });
+      },
+      setLevelingOptions: (levelingOptions) => set({ levelingOptions }),
+      reveal(id) {
+        // A row folded away under a collapsed summary task has to be unfolded to be shown.
+        const tasks = get().history.present.tasks;
+        const index = tasks.findIndex((task) => task.id === id);
+        if (index === -1) return;
+        const collapsed = new Set(get().collapsed);
+        let level = tasks[index].outlineLevel;
+        for (let i = index - 1; i >= 0 && level > 1; i--) {
+          if (tasks[i].outlineLevel < level) {
+            collapsed.delete(tasks[i].id);
+            level = tasks[i].outlineLevel;
+          }
+        }
+        set((state) => ({
+          collapsed,
+          view: "gantt",
+          selection: [id],
+          selectedLinkId: null,
+          scrollRequest: { target: id, seq: (state.scrollRequest?.seq ?? 0) + 1 },
+        }));
+      },
+      scrollToStart: () => set((state) => ({ scrollRequest: { target: "start", seq: (state.scrollRequest?.seq ?? 0) + 1 } })),
+      sync(project) {
+        try {
+          const schedule = computeSchedule(project);
+          const known = new Set(project.tasks.map((task) => task.id));
+          set((state) => ({
+            history: { ...state.history, present: project },
+            schedule,
+            rejection: null,
+            selection: state.selection.filter((id) => known.has(id)),
+            selectedLinkId: project.links.some((link) => link.id === state.selectedLinkId) ? state.selectedLinkId : null,
+            dialogTaskId: state.dialogTaskId !== null && known.has(state.dialogTaskId) ? state.dialogTaskId : null,
+          }));
+        } catch (error) {
+          reject(error);
+        }
+      },
 
       addTask(name = "") {
         let created: Id | null = null;
