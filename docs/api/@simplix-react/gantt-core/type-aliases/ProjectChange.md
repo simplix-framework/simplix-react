@@ -8,7 +8,7 @@
 
 > **ProjectChange** = \{ `entity`: [`ChangeEntity`](ChangeEntity.md); `id`: [`Id`](Id.md); `kind`: `"added"` \| `"updated"`; `value`: `unknown`; \} \| \{ `entity`: [`ChangeEntity`](ChangeEntity.md); `id`: [`Id`](Id.md); `kind`: `"removed"`; \} \| \{ `entity`: `"task-order"`; `kind`: `"updated"`; `order`: readonly [`Id`](Id.md)[]; \} \| \{ `entity`: `"project"`; `kind`: `"updated"`; `value`: `Readonly`\<`Record`\<`string`, `unknown`\>\>; \} \| \{ `entity`: `"baseline"`; `kind`: `"updated"`; `number`: `number`; `value`: `unknown`; \}
 
-Defined in: [packages/gantt-core/src/diff.ts:7](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/diff.ts#L7)
+Defined in: [packages/gantt-core/src/diff.ts:10](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/diff.ts#L10)
 
 One difference between two versions of a project.
 

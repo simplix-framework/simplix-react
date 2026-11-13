@@ -6,7 +6,7 @@
 
 # Interface: MergeConflict
 
-Defined in: [packages/gantt-core/src/diff.ts:78](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/diff.ts#L78)
+Defined in: [packages/gantt-core/src/diff.ts:81](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/diff.ts#L81)
 
 A record both sides changed in different ways; the local change was kept.
 
@@ -16,7 +16,7 @@ A record both sides changed in different ways; the local change was kept.
 
 > **entity**: [`ChangeEntity`](../type-aliases/ChangeEntity.md)
 
-Defined in: [packages/gantt-core/src/diff.ts:79](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/diff.ts#L79)
+Defined in: [packages/gantt-core/src/diff.ts:82](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/diff.ts#L82)
 
 ***
 
@@ -24,4 +24,4 @@ Defined in: [packages/gantt-core/src/diff.ts:79](https://github.com/simplix-reac
 
 > **id**: `string`
 
-Defined in: [packages/gantt-core/src/diff.ts:80](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/diff.ts#L80)
+Defined in: [packages/gantt-core/src/diff.ts:83](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/diff.ts#L83)
