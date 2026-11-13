@@ -1,0 +1,66 @@
+/*
+ * Register this package as a Tailwind v4 content source: the compiled output and,
+ * where it exists, the source beside it. Consuming apps
+ * `@import "@simplix-react/gantt/styles.css"`; Tailwind resolves @source relative
+ * to this file (shipped as dist/styles.css next to the compiled dist/*.js), so
+ * every utility class the chart emits is detected without a node_modules path.
+ *
+ * The second glob is what a linked checkout needs: with the `source` export
+ * condition a dev server renders this package's TypeScript, and scanning dist
+ * alone would then take the classes from the last build.
+ */
+@source "./**/*.js";
+@source "../src/**/*.{ts,tsx}";
+
+/*
+ * The chart's scroll area is wider and taller than the screen as a rule, so its
+ * scrollbars stay visible. An app-wide `scrollbar-width: thin` would otherwise
+ * opt into overlay scrollbars that hide while idle.
+ */
+[data-gantt-slot="scroll"] {
+  scrollbar-width: auto;
+  scrollbar-color: auto;
+}
+
+/* Text is not selected while a bar or a splitter is dragged across it. */
+[data-gantt-root] {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+[data-gantt-root] input,
+[data-gantt-root] textarea {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/*
+ * Printing. The chart marks the document while it prints, so the rest of the
+ * page is left off the paper and the chart starts at the top of the first sheet.
+ */
+@media print {
+  html[data-gantt-print] body * {
+    visibility: hidden;
+  }
+
+  html[data-gantt-print] [data-gantt-printing],
+  html[data-gantt-print] [data-gantt-printing] * {
+    visibility: visible;
+  }
+
+  html[data-gantt-print] [data-gantt-printing] {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  html[data-gantt-print] [data-gantt-slot="toolbar"] {
+    display: none;
+  }
+
+  /* Bar and shading colours are part of the chart, not decoration to save ink on. */
+  html[data-gantt-print] [data-gantt-printing] * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

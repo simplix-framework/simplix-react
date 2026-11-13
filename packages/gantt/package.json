@@ -1,0 +1,73 @@
+{
+  "name": "@simplix-react/gantt",
+  "version": "0.3.12-SNAPSHOT",
+  "description": "Project Gantt chart for React: task table with inline editing, timeline with drag scheduling and dependency links, critical path, baselines, resource sheet and usage, undo, MS Project XML interchange",
+  "type": "module",
+  "sideEffects": [
+    "./dist/index.js",
+    "./src/index.ts",
+    "**/index.ts",
+    "**/locales/**"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup && cp src/styles.css dist/styles.css",
+    "dev": "tsup --no-clean --no-dts",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint src",
+    "test": "vitest run --passWithNoTests",
+    "clean": "rm -rf dist .turbo"
+  },
+  "dependencies": {
+    "@simplix-react/gantt-core": "workspace:*",
+    "@tanstack/react-virtual": "catalog:",
+    "lucide-react": "catalog:",
+    "zustand": "catalog:"
+  },
+  "peerDependencies": {
+    "@simplix-react/i18n": "workspace:*",
+    "@simplix-react/ui": "workspace:*",
+    "react": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@simplix-react/config-typescript": "workspace:*",
+    "@simplix-react/i18n": "workspace:*",
+    "@simplix-react/ui": "workspace:*",
+    "@testing-library/react": "catalog:",
+    "@types/react": "catalog:",
+    "jsdom": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "keywords": [
+    "simplix-react",
+    "gantt",
+    "project",
+    "scheduling",
+    "timeline"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/simplix-react/simplix-react.git"
+  }
+}

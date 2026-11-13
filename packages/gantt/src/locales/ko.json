@@ -1,0 +1,232 @@
+{
+  "toolbar": {
+    "addTask": "작업 추가",
+    "removeTask": "작업 삭제",
+    "indent": "한 수준 내리기",
+    "outdent": "한 수준 올리기",
+    "link": "작업 연결",
+    "unlink": "작업 연결 해제",
+    "undo": "되돌리기",
+    "redo": "다시 실행",
+    "zoomIn": "확대",
+    "zoomOut": "축소",
+    "scrollToStart": "프로젝트 시작으로 이동",
+    "criticalPath": "중요 경로",
+    "baseline": "초기 계획",
+    "saveBaseline": "초기 계획 저장",
+    "showBaseline": "초기 계획 표시",
+    "clearBaseline": "초기 계획 지우기",
+    "level": "자원 평준화",
+    "clearLeveling": "평준화 지우기",
+    "importXml": "MS Project XML 가져오기",
+    "exportXml": "MS Project XML 내보내기",
+    "more": "더 보기",
+    "taskInformation": "작업 정보",
+    "projectInformation": "프로젝트 정보",
+    "print": "인쇄",
+    "baselineNumber": "초기 계획 {{number}}",
+    "selectBaseline": "초기 계획 번호",
+    "addRecurring": "반복 작업 추가",
+    "exportPdf": "PDF 내보내기"
+  },
+  "view": {
+    "gantt": "간트 차트",
+    "resources": "자원 시트",
+    "usage": "자원 사용 현황"
+  },
+  "column": {
+    "name": "작업 이름",
+    "duration": "기간",
+    "start": "시작",
+    "finish": "완료",
+    "predecessors": "선행 작업",
+    "percentComplete": "완료율",
+    "resources": "자원 이름",
+    "totalSlack": "전체 여유 시간",
+    "wbs": "WBS",
+    "startVariance": "시작 차이",
+    "finishVariance": "완료 차이",
+    "resize": "열 너비 조절",
+    "work": "작업 시간",
+    "cost": "비용",
+    "move": "끌어서 열 이동"
+  },
+  "task": {
+    "newName": "새 작업",
+    "expand": "펼치기",
+    "collapse": "접기",
+    "critical": "중요 작업",
+    "milestone": "마일스톤",
+    "summary": "요약 작업",
+    "manual": "수동 일정",
+    "auto": "자동 일정",
+    "moveRow": "끌어서 행 이동"
+  },
+  "dialog": {
+    "general": "일반",
+    "predecessors": "선행 작업",
+    "resources": "자원",
+    "advanced": "고급",
+    "notes": "메모",
+    "close": "닫기",
+    "add": "추가",
+    "remove": "삭제",
+    "none": "없음",
+    "custom": "사용자 지정 필드"
+  },
+  "field": {
+    "name": "이름",
+    "mode": "일정 모드",
+    "priority": "우선 순위",
+    "constraintType": "제약 조건 종류",
+    "constraintDate": "제약 날짜",
+    "deadline": "기한",
+    "calendar": "달력",
+    "taskType": "작업 방식",
+    "effortDriven": "작업 시간 중심 일정",
+    "markAsMilestone": "마일스톤으로 표시",
+    "inactive": "비활성",
+    "linkType": "종류",
+    "lag": "지연",
+    "units": "단위",
+    "work": "작업 시간",
+    "resource": "자원",
+    "fixedCost": "고정 비용"
+  },
+  "constraint": {
+    "asap": "가능한 한 빨리",
+    "alap": "가능한 한 늦게",
+    "must-start-on": "날짜에 시작해야 함",
+    "must-finish-on": "날짜에 완료해야 함",
+    "start-no-earlier-than": "이후에 시작",
+    "start-no-later-than": "이전에 시작",
+    "finish-no-earlier-than": "이후에 완료",
+    "finish-no-later-than": "이전에 완료"
+  },
+  "taskType": {
+    "fixed-units": "단위 고정",
+    "fixed-duration": "기간 고정",
+    "fixed-work": "작업 시간 고정"
+  },
+  "linkType": {
+    "FS": "완료-시작 (FS)",
+    "SS": "시작-시작 (SS)",
+    "FF": "완료-완료 (FF)",
+    "SF": "시작-완료 (SF)"
+  },
+  "resource": {
+    "name": "자원 이름",
+    "type": "종류",
+    "maxUnits": "최대 단위",
+    "group": "그룹",
+    "add": "자원 추가",
+    "remove": "자원 삭제",
+    "newName": "새 자원",
+    "empty": "등록된 자원이 없습니다",
+    "emptyHint": "자원을 추가한 뒤 작업 정보 대화 상자에서 작업에 배정해 주세요.",
+    "standardRate": "표준 단가(시간당)",
+    "costPerUse": "사용당 비용"
+  },
+  "usage": {
+    "overallocated": "초과 배정",
+    "hours": "{{value}}시간"
+  },
+  "empty": {
+    "title": "등록된 작업이 없습니다",
+    "hint": "작업을 추가해 일정을 시작해 주세요."
+  },
+  "status": {
+    "conflicts": "일정 충돌 {{count}}건",
+    "overallocations": "초과 배정 {{count}}건"
+  },
+  "conflict": {
+    "link-violated": "선행 작업이 허용하는 날짜보다 먼저 시작합니다",
+    "constraint-violated": "제약 날짜를 지키지 못합니다",
+    "deadline-missed": "기한보다 늦게 완료합니다",
+    "before-project-start": "프로젝트 시작일보다 먼저 시작합니다",
+    "after-project-finish": "프로젝트 완료일보다 늦게 완료합니다"
+  },
+  "rejection": {
+    "cycle": "작업끼리 서로 선행 작업이 되어 변경할 수 없습니다.",
+    "invalid-duration": "기간을 3d, 2w, 4h처럼 입력해 주세요.",
+    "invalid-date": "올바른 날짜를 입력해 주세요.",
+    "invalid-operation": "여기에서는 이 변경을 할 수 없습니다.",
+    "unknown-reference": "지정한 행이나 항목이 없습니다.",
+    "duplicate-id": "같은 식별자가 두 번 쓰였습니다.",
+    "invalid-outline": "개요 수준이 올바르지 않습니다.",
+    "invalid-calendar": "달력의 근무 시간이 올바르지 않습니다.",
+    "no-working-time": "달력에 근무 시간이 없습니다.",
+    "invalid-xml": "Microsoft Project XML 파일이 아닙니다.",
+    "dismiss": "닫기"
+  },
+  "resourceType": {
+    "work": "작업",
+    "material": "재료",
+    "cost": "비용"
+  },
+  "project": {
+    "settings": "설정",
+    "calendars": "달력",
+    "name": "프로젝트 이름",
+    "scheduleFrom": "일정 기준",
+    "fromStart": "프로젝트 시작 날짜",
+    "fromFinish": "프로젝트 완료 날짜",
+    "start": "시작 날짜",
+    "finish": "완료 날짜",
+    "statusDate": "상태 기준일",
+    "calendar": "프로젝트 달력",
+    "customFields": "사용자 지정 필드"
+  },
+  "calendar": {
+    "workingTime": "근무 시간",
+    "workingTimeHint": "요일마다 08:00-12:00, 13:00-17:00처럼 입력해 주세요. 비워 두면 휴무일입니다.",
+    "inherited": "기본 달력을 따름",
+    "exceptions": "예외 날짜",
+    "exceptionName": "이름",
+    "firstDay": "첫날",
+    "lastDay": "마지막 날",
+    "addException": "예외 날짜 추가",
+    "newException": "휴일",
+    "add": "달력 추가",
+    "remove": "달력 삭제",
+    "name": "달력 이름",
+    "newName": "새 달력"
+  },
+  "split": {
+    "title": "작업 분할",
+    "at": "중단 시작일",
+    "gap": "중단 기간",
+    "add": "작업 분할",
+    "clear": "분할 지우기",
+    "entry": "{{worked}} 작업 후 {{gap}} 중단"
+  },
+  "customField": {
+    "name": "필드 이름",
+    "type": "종류",
+    "add": "필드 추가",
+    "newName": "새 필드",
+    "empty": "사용자 지정 필드가 없습니다. 프로젝트 정보 대화 상자에서 추가해 주세요."
+  },
+  "customFieldType": {
+    "text": "텍스트",
+    "number": "숫자",
+    "date": "날짜",
+    "flag": "플래그"
+  },
+  "recurring": {
+    "newName": "반복 작업",
+    "frequency": "반복 주기",
+    "interval": "간격",
+    "weekdays": "요일",
+    "monthDay": "날짜(일)",
+    "from": "첫날",
+    "until": "마지막 날",
+    "count": "횟수",
+    "create": "만들기"
+  },
+  "frequency": {
+    "daily": "매일",
+    "weekly": "매주",
+    "monthly": "매월"
+  }
+}

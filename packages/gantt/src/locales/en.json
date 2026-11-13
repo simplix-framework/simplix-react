@@ -1,0 +1,232 @@
+{
+  "toolbar": {
+    "addTask": "Add task",
+    "removeTask": "Delete task",
+    "indent": "Indent",
+    "outdent": "Outdent",
+    "link": "Link tasks",
+    "unlink": "Unlink tasks",
+    "undo": "Undo",
+    "redo": "Redo",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "scrollToStart": "Go to project start",
+    "criticalPath": "Critical path",
+    "baseline": "Baseline",
+    "saveBaseline": "Save baseline",
+    "showBaseline": "Show baseline",
+    "clearBaseline": "Clear baseline",
+    "level": "Level resources",
+    "clearLeveling": "Clear leveling",
+    "importXml": "Import MS Project XML",
+    "exportXml": "Export MS Project XML",
+    "more": "More",
+    "taskInformation": "Task information",
+    "projectInformation": "Project information",
+    "print": "Print",
+    "baselineNumber": "Baseline {{number}}",
+    "selectBaseline": "Baseline number",
+    "addRecurring": "Add recurring task",
+    "exportPdf": "Export PDF"
+  },
+  "view": {
+    "gantt": "Gantt chart",
+    "resources": "Resource sheet",
+    "usage": "Resource usage"
+  },
+  "column": {
+    "name": "Task name",
+    "duration": "Duration",
+    "start": "Start",
+    "finish": "Finish",
+    "predecessors": "Predecessors",
+    "percentComplete": "% complete",
+    "resources": "Resource names",
+    "totalSlack": "Total slack",
+    "wbs": "WBS",
+    "startVariance": "Start variance",
+    "finishVariance": "Finish variance",
+    "resize": "Resize column",
+    "work": "Work",
+    "cost": "Cost",
+    "move": "Drag to move the column"
+  },
+  "task": {
+    "newName": "New task",
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "critical": "Critical",
+    "milestone": "Milestone",
+    "summary": "Summary task",
+    "manual": "Manually scheduled",
+    "auto": "Auto scheduled",
+    "moveRow": "Drag to move the row"
+  },
+  "dialog": {
+    "general": "General",
+    "predecessors": "Predecessors",
+    "resources": "Resources",
+    "advanced": "Advanced",
+    "notes": "Notes",
+    "close": "Close",
+    "add": "Add",
+    "remove": "Remove",
+    "none": "None",
+    "custom": "Custom fields"
+  },
+  "field": {
+    "name": "Name",
+    "mode": "Schedule mode",
+    "priority": "Priority",
+    "constraintType": "Constraint type",
+    "constraintDate": "Constraint date",
+    "deadline": "Deadline",
+    "calendar": "Calendar",
+    "taskType": "Task type",
+    "effortDriven": "Effort driven",
+    "markAsMilestone": "Mark as milestone",
+    "inactive": "Inactive",
+    "linkType": "Type",
+    "lag": "Lag",
+    "units": "Units",
+    "work": "Work",
+    "resource": "Resource",
+    "fixedCost": "Fixed cost"
+  },
+  "constraint": {
+    "asap": "As soon as possible",
+    "alap": "As late as possible",
+    "must-start-on": "Must start on",
+    "must-finish-on": "Must finish on",
+    "start-no-earlier-than": "Start no earlier than",
+    "start-no-later-than": "Start no later than",
+    "finish-no-earlier-than": "Finish no earlier than",
+    "finish-no-later-than": "Finish no later than"
+  },
+  "taskType": {
+    "fixed-units": "Fixed units",
+    "fixed-duration": "Fixed duration",
+    "fixed-work": "Fixed work"
+  },
+  "linkType": {
+    "FS": "Finish-to-start (FS)",
+    "SS": "Start-to-start (SS)",
+    "FF": "Finish-to-finish (FF)",
+    "SF": "Start-to-finish (SF)"
+  },
+  "resource": {
+    "name": "Resource name",
+    "type": "Type",
+    "maxUnits": "Max units",
+    "group": "Group",
+    "add": "Add resource",
+    "remove": "Delete resource",
+    "newName": "New resource",
+    "empty": "No resources",
+    "emptyHint": "Add a resource, then assign it to a task in the task information dialog.",
+    "standardRate": "Standard rate (per hour)",
+    "costPerUse": "Cost per use"
+  },
+  "usage": {
+    "overallocated": "Overallocated",
+    "hours": "{{value}}h"
+  },
+  "empty": {
+    "title": "No tasks",
+    "hint": "Add a task to start the plan."
+  },
+  "status": {
+    "conflicts": "{{count}} conflicts",
+    "overallocations": "{{count}} overallocations"
+  },
+  "conflict": {
+    "link-violated": "Starts before a predecessor allows",
+    "constraint-violated": "Breaks its constraint date",
+    "deadline-missed": "Finishes after its deadline",
+    "before-project-start": "Starts before the project start",
+    "after-project-finish": "Finishes after the project finish"
+  },
+  "rejection": {
+    "cycle": "The change would make tasks depend on each other in a loop.",
+    "invalid-duration": "Enter a duration such as 3d, 2w or 4h.",
+    "invalid-date": "Enter a valid date.",
+    "invalid-operation": "This change is not allowed here.",
+    "unknown-reference": "The row or record it names does not exist.",
+    "duplicate-id": "The same identifier is used twice.",
+    "invalid-outline": "The outline levels are not valid.",
+    "invalid-calendar": "The calendar's working time is not valid.",
+    "no-working-time": "The calendar has no working time.",
+    "invalid-xml": "The file is not a Microsoft Project XML file.",
+    "dismiss": "Dismiss"
+  },
+  "resourceType": {
+    "work": "Work",
+    "material": "Material",
+    "cost": "Cost"
+  },
+  "project": {
+    "settings": "Settings",
+    "calendars": "Calendars",
+    "name": "Project name",
+    "scheduleFrom": "Schedule from",
+    "fromStart": "Project start date",
+    "fromFinish": "Project finish date",
+    "start": "Start date",
+    "finish": "Finish date",
+    "statusDate": "Status date",
+    "calendar": "Project calendar",
+    "customFields": "Custom fields"
+  },
+  "calendar": {
+    "workingTime": "Working time",
+    "workingTimeHint": "Write each day as 08:00-12:00, 13:00-17:00. An empty day is non-working.",
+    "inherited": "From the base calendar",
+    "exceptions": "Exceptions",
+    "exceptionName": "Name",
+    "firstDay": "First day",
+    "lastDay": "Last day",
+    "addException": "Add exception",
+    "newException": "Holiday",
+    "add": "Add calendar",
+    "remove": "Delete calendar",
+    "name": "Calendar name",
+    "newName": "New calendar"
+  },
+  "split": {
+    "title": "Splits",
+    "at": "Pause from",
+    "gap": "Pause length",
+    "add": "Split task",
+    "clear": "Remove splits",
+    "entry": "After {{worked}} of work, pause {{gap}}"
+  },
+  "customField": {
+    "name": "Field name",
+    "type": "Type",
+    "add": "Add field",
+    "newName": "New field",
+    "empty": "No custom fields. Add one in the project information dialog."
+  },
+  "customFieldType": {
+    "text": "Text",
+    "number": "Number",
+    "date": "Date",
+    "flag": "Flag"
+  },
+  "recurring": {
+    "newName": "Recurring task",
+    "frequency": "Repeats",
+    "interval": "Interval",
+    "weekdays": "Weekdays",
+    "monthDay": "Day of the month",
+    "from": "First day",
+    "until": "Last day",
+    "count": "Occurrences",
+    "create": "Create"
+  },
+  "frequency": {
+    "daily": "Daily",
+    "weekly": "Weekly",
+    "monthly": "Monthly"
+  }
+}

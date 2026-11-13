@@ -1,0 +1,232 @@
+{
+  "toolbar": {
+    "addTask": "タスクを追加",
+    "removeTask": "タスクを削除",
+    "indent": "インデント",
+    "outdent": "インデント解除",
+    "link": "タスクをリンク",
+    "unlink": "リンクを解除",
+    "undo": "元に戻す",
+    "redo": "やり直し",
+    "zoomIn": "拡大",
+    "zoomOut": "縮小",
+    "scrollToStart": "プロジェクト開始へ移動",
+    "criticalPath": "クリティカルパス",
+    "baseline": "基準計画",
+    "saveBaseline": "基準計画を保存",
+    "showBaseline": "基準計画を表示",
+    "clearBaseline": "基準計画をクリア",
+    "level": "リソースを平準化",
+    "clearLeveling": "平準化をクリア",
+    "importXml": "MS Project XML をインポート",
+    "exportXml": "MS Project XML をエクスポート",
+    "more": "その他",
+    "taskInformation": "タスク情報",
+    "projectInformation": "プロジェクト情報",
+    "print": "印刷",
+    "baselineNumber": "基準計画 {{number}}",
+    "selectBaseline": "基準計画の番号",
+    "addRecurring": "定期タスクを追加",
+    "exportPdf": "PDF をエクスポート"
+  },
+  "view": {
+    "gantt": "ガントチャート",
+    "resources": "リソースシート",
+    "usage": "リソース使用状況"
+  },
+  "column": {
+    "name": "タスク名",
+    "duration": "期間",
+    "start": "開始",
+    "finish": "終了",
+    "predecessors": "先行タスク",
+    "percentComplete": "達成率",
+    "resources": "リソース名",
+    "totalSlack": "総余裕期間",
+    "wbs": "WBS",
+    "startVariance": "開始の差異",
+    "finishVariance": "終了の差異",
+    "resize": "列幅を変更",
+    "work": "作業時間",
+    "cost": "コスト",
+    "move": "ドラッグして列を移動"
+  },
+  "task": {
+    "newName": "新しいタスク",
+    "expand": "展開",
+    "collapse": "折りたたむ",
+    "critical": "クリティカル",
+    "milestone": "マイルストーン",
+    "summary": "サマリータスク",
+    "manual": "手動スケジュール",
+    "auto": "自動スケジュール",
+    "moveRow": "ドラッグして行を移動"
+  },
+  "dialog": {
+    "general": "全般",
+    "predecessors": "先行タスク",
+    "resources": "リソース",
+    "advanced": "詳細",
+    "notes": "メモ",
+    "close": "閉じる",
+    "add": "追加",
+    "remove": "削除",
+    "none": "なし",
+    "custom": "ユーザー設定フィールド"
+  },
+  "field": {
+    "name": "名前",
+    "mode": "スケジュールモード",
+    "priority": "優先度",
+    "constraintType": "制約タイプ",
+    "constraintDate": "制約日",
+    "deadline": "期限",
+    "calendar": "カレンダー",
+    "taskType": "タスクの種類",
+    "effortDriven": "残存作業時間を優先",
+    "markAsMilestone": "マイルストーンに設定",
+    "inactive": "非アクティブ",
+    "linkType": "種類",
+    "lag": "ラグ",
+    "units": "単位",
+    "work": "作業時間",
+    "resource": "リソース",
+    "fixedCost": "固定コスト"
+  },
+  "constraint": {
+    "asap": "できるだけ早く",
+    "alap": "できるだけ遅く",
+    "must-start-on": "指定日に開始",
+    "must-finish-on": "指定日に終了",
+    "start-no-earlier-than": "指定日以後に開始",
+    "start-no-later-than": "指定日までに開始",
+    "finish-no-earlier-than": "指定日以後に終了",
+    "finish-no-later-than": "指定日までに終了"
+  },
+  "taskType": {
+    "fixed-units": "単位数固定",
+    "fixed-duration": "期間固定",
+    "fixed-work": "作業時間固定"
+  },
+  "linkType": {
+    "FS": "終了-開始 (FS)",
+    "SS": "開始-開始 (SS)",
+    "FF": "終了-終了 (FF)",
+    "SF": "開始-終了 (SF)"
+  },
+  "resource": {
+    "name": "リソース名",
+    "type": "種類",
+    "maxUnits": "最大単位数",
+    "group": "グループ",
+    "add": "リソースを追加",
+    "remove": "リソースを削除",
+    "newName": "新しいリソース",
+    "empty": "リソースがありません",
+    "emptyHint": "リソースを追加し、タスク情報ダイアログでタスクに割り当ててください。",
+    "standardRate": "標準単価(時間あたり)",
+    "costPerUse": "導入コスト"
+  },
+  "usage": {
+    "overallocated": "割り当て超過",
+    "hours": "{{value}}時間"
+  },
+  "empty": {
+    "title": "タスクがありません",
+    "hint": "タスクを追加して計画を始めてください。"
+  },
+  "status": {
+    "conflicts": "競合 {{count}} 件",
+    "overallocations": "割り当て超過 {{count}} 件"
+  },
+  "conflict": {
+    "link-violated": "先行タスクが許す日より前に開始します",
+    "constraint-violated": "制約日を満たしていません",
+    "deadline-missed": "期限より後に終了します",
+    "before-project-start": "プロジェクト開始日より前に開始します",
+    "after-project-finish": "プロジェクト終了日より後に終了します"
+  },
+  "rejection": {
+    "cycle": "タスクが互いに依存する循環になるため変更できません。",
+    "invalid-duration": "期間を 3d、2w、4h のように入力してください。",
+    "invalid-date": "正しい日付を入力してください。",
+    "invalid-operation": "ここではこの変更はできません。",
+    "unknown-reference": "指定した行または項目がありません。",
+    "duplicate-id": "同じ識別子が二度使われています。",
+    "invalid-outline": "アウトラインレベルが正しくありません。",
+    "invalid-calendar": "カレンダーの稼働時間が正しくありません。",
+    "no-working-time": "カレンダーに稼働時間がありません。",
+    "invalid-xml": "Microsoft Project XML ファイルではありません。",
+    "dismiss": "閉じる"
+  },
+  "resourceType": {
+    "work": "時間単価型",
+    "material": "数量単価型",
+    "cost": "コスト型"
+  },
+  "project": {
+    "settings": "設定",
+    "calendars": "カレンダー",
+    "name": "プロジェクト名",
+    "scheduleFrom": "スケジュールの基点",
+    "fromStart": "プロジェクトの開始日",
+    "fromFinish": "プロジェクトの終了日",
+    "start": "開始日",
+    "finish": "終了日",
+    "statusDate": "状況報告日",
+    "calendar": "プロジェクトカレンダー",
+    "customFields": "ユーザー設定フィールド"
+  },
+  "calendar": {
+    "workingTime": "稼働時間",
+    "workingTimeHint": "曜日ごとに 08:00-12:00, 13:00-17:00 のように入力してください。空欄は非稼働日です。",
+    "inherited": "基本カレンダーに従う",
+    "exceptions": "例外日",
+    "exceptionName": "名前",
+    "firstDay": "開始日",
+    "lastDay": "最終日",
+    "addException": "例外日を追加",
+    "newException": "休日",
+    "add": "カレンダーを追加",
+    "remove": "カレンダーを削除",
+    "name": "カレンダー名",
+    "newName": "新しいカレンダー"
+  },
+  "split": {
+    "title": "タスクの分割",
+    "at": "中断開始日",
+    "gap": "中断期間",
+    "add": "タスクを分割",
+    "clear": "分割を解除",
+    "entry": "{{worked}} 作業後に {{gap}} 中断"
+  },
+  "customField": {
+    "name": "フィールド名",
+    "type": "種類",
+    "add": "フィールドを追加",
+    "newName": "新しいフィールド",
+    "empty": "ユーザー設定フィールドがありません。プロジェクト情報ダイアログで追加してください。"
+  },
+  "customFieldType": {
+    "text": "テキスト",
+    "number": "数値",
+    "date": "日付",
+    "flag": "フラグ"
+  },
+  "recurring": {
+    "newName": "定期タスク",
+    "frequency": "繰り返し",
+    "interval": "間隔",
+    "weekdays": "曜日",
+    "monthDay": "日",
+    "from": "開始日",
+    "until": "最終日",
+    "count": "回数",
+    "create": "作成"
+  },
+  "frequency": {
+    "daily": "毎日",
+    "weekly": "毎週",
+    "monthly": "毎月"
+  }
+}
