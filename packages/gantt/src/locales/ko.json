@@ -46,7 +46,8 @@
     "insertSubproject": "XML에서 하위 프로젝트 삽입",
     "editRecurring": "반복 작업 수정",
     "view": "보기",
-    "resizeTable": "끌어서 표 너비 조절"
+    "resizeTable": "끌어서 표 너비 조절",
+    "panes": "표시 영역"
   },
   "view": {
     "gantt": "간트 차트",
@@ -341,9 +342,18 @@
   "calendarView": {
     "previous": "이전 달",
     "next": "다음 달",
-    "more": "외 {{count}}건"
+    "more": "외 {{count}}건",
+    "dayTasks": "{{date}} 작업",
+    "pickDay": "날짜를 선택하면 그날의 작업을 표시합니다.",
+    "noTasks": "이 날짜에는 작업이 없습니다.",
+    "taskCount": "작업 {{count}}건"
   },
   "graph": {
     "capacity": "가용 시간"
+  },
+  "pane": {
+    "both": "표와 타임라인",
+    "table": "표만",
+    "timeline": "타임라인만"
   }
 }

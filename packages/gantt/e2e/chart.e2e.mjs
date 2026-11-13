@@ -118,7 +118,8 @@ test("shows the plan as a network, a calendar, a resource graph and a task usage
   assert.ok((await network.locator("[data-gantt-day] button").count()) > 10, "the first month names the tasks of its days");
   await network.getByRole("tab").nth(5).click();
   await network.waitForSelector("[data-gantt-usage-task]");
-  assert.ok((await network.locator("[data-gantt-usage-task]").count()) >= 15);
+  assert.ok((await network.locator("[data-gantt-usage-task]").count()) >= 8);
+  assert.ok(Number(await network.locator('[data-gantt-slot="task-usage"]').getAttribute("aria-rowcount")) >= 30, "every task with resources has its lines");
   await network.getByRole("tab").nth(6).click();
   await network.waitForSelector('[data-gantt-slot="resource-graph"] svg');
   assert.equal(await network.locator('[data-gantt-slot="resource-graph"] svg').count(), 5);

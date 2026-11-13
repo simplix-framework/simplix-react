@@ -1,12 +1,12 @@
-import { MINUTES_PER_DAY, dayIndexOf, resourceUsage } from "@simplix-react/gantt-core";
-import { useMemo } from "react";
+import { MINUTES_PER_DAY, resourceUsage } from "@simplix-react/gantt-core";
+import { useMemo, useRef } from "react";
 
 import { useGantt } from "../context/gantt-context";
 import { formatScaleCell } from "../lib/format";
+import { usageBuckets } from "../lib/usage-buckets";
 import { useGanttTranslation } from "../lib/use-gantt-translation";
+import { nameColumnWidth, useViewport } from "../lib/use-viewport";
 
-/** Plans longer than this many days are totalled per week instead of per day. */
-const DAILY_LIMIT = 120;
 const BAR_WIDTH = 18;
 const GRAPH_HEIGHT = 88;
 
@@ -20,26 +20,19 @@ export function ResourceGraph() {
   const project = useGantt((state) => state.history.present);
   const schedule = useGantt((state) => state.schedule);
 
+  const ref = useRef<HTMLDivElement | null>(null);
+  const { viewport } = useViewport(ref, { left: 0, top: 0, width: 1200, height: 600 });
   const { starts, unit, rows } = useMemo(() => {
-    const fromDay = dayIndexOf(schedule.start);
-    const toDay = Math.max(fromDay, dayIndexOf(schedule.finish - 1));
-    const size = toDay - fromDay + 1 > DAILY_LIMIT ? 7 : 1;
-    const usage = resourceUsage(project, schedule, fromDay, toDay);
-    const buckets: number[] = [];
-    for (let day = fromDay; day <= toDay; day += size) buckets.push(day);
-    const total = (values: readonly number[], bucket: number): number => {
-      let sum = 0;
-      for (let i = bucket * size; i < Math.min(values.length, (bucket + 1) * size); i++) sum += values[i];
-      return sum;
-    };
+    const dated = usageBuckets(schedule);
+    const usage = resourceUsage(project, schedule, dated.fromDay, dated.toDay);
     return {
-      starts: buckets,
-      unit: size === 7 ? ("week" as const) : ("day" as const),
+      starts: dated.starts,
+      unit: dated.unit,
       rows: project.resources
         .filter((resource) => resource.type === "work")
         .map((resource) => {
           const entry = usage.get(resource.id);
-          const cells = buckets.map((_, bucket) => ({ work: entry ? total(entry.work, bucket) : 0, capacity: entry ? total(entry.capacity, bucket) : 0 }));
+          const cells = dated.starts.map((_, bucket) => ({ work: entry ? dated.total(entry.work, bucket) : 0, capacity: entry ? dated.total(entry.capacity, bucket) : 0 }));
           return { resource, cells, peak: Math.max(1, ...cells.map((cell) => Math.max(cell.work, cell.capacity))) };
         }),
     };
@@ -55,13 +48,20 @@ export function ResourceGraph() {
   }
 
   const width = starts.length * BAR_WIDTH;
+  const names = nameColumnWidth(viewport.width, 208);
+  // Only the columns on screen are drawn, with a few beyond for a fast scroll.
+  const from = Math.max(0, Math.floor(viewport.left / BAR_WIDTH) - 8);
+  const to = Math.min(starts.length, Math.ceil((viewport.left + viewport.width - names) / BAR_WIDTH) + 8);
   return (
-    <div className="min-h-0 flex-1 overflow-auto bg-background" data-gantt-slot="resource-graph">
+    <div ref={ref} className="min-h-0 flex-1 overflow-auto bg-background" data-gantt-slot="resource-graph">
       {rows.map(({ resource, cells, peak }) => (
-        <div key={resource.id} className="flex border-b" data-gantt-resource={resource.id}>
-          <div className="sticky left-0 z-10 w-52 shrink-0 border-r bg-background px-2 py-2 text-sm">{resource.name}</div>
-          <svg width={width} height={GRAPH_HEIGHT + 18} role="img" aria-label={`${resource.name}: ${t("field.work")} / ${t("graph.capacity")}`}>
-            {cells.map((cell, i) => {
+        <div key={resource.id} className="flex border-b" style={{ width: names + width }} data-gantt-resource={resource.id}>
+          <div className="sticky left-0 z-10 shrink-0 break-words border-r bg-background px-2 py-2 text-sm" style={{ width: names }}>
+            {resource.name}
+          </div>
+          <svg className="shrink-0" width={width} height={GRAPH_HEIGHT + 18} role="img" aria-label={`${resource.name}: ${t("field.work")} / ${t("graph.capacity")}`}>
+            {cells.slice(from, to).map((cell, offset) => {
+              const i = from + offset;
               const x = i * BAR_WIDTH;
               const within = Math.min(cell.work, cell.capacity);
               const over = Math.max(0, cell.work - cell.capacity);

@@ -8,6 +8,7 @@ import { isPlainView, viewRows } from "../lib/view-rows";
 import { PRINT_WIDTH, printLevel } from "../lib/print-layout";
 import { ZOOM_LEVELS, createTimeScale } from "../lib/time-scale";
 import { useTableScroll } from "../lib/use-table-scroll";
+import { useViewport } from "../lib/use-viewport";
 import { RowMenu } from "./row-menu";
 import { TableSplitter } from "./table-splitter";
 import { INDICATOR_WIDTH, TaskGridHeader, TaskGridRows, columnWidth, gridContentWidth } from "./task-grid";
@@ -54,6 +55,8 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
   const collapsed = useGantt((state) => state.collapsed);
   const zoom = useGantt((state) => state.zoom);
   const printing = useGantt((state) => state.printing);
+  // On paper both the table and the timeline are printed, whichever is on screen.
+  const pane = useGantt((state) => (state.printing ? "both" : state.pane));
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const columns = useGantt((state) => state.columns);
   const scrollRequest = useGantt((state) => state.scrollRequest);
@@ -76,10 +79,12 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
   const widths = useGantt((state) => state.columnWidths);
   // Opens as wide as its columns need, up to a share of the screen; a dragged width is the reader's and is kept.
   const [openingGridWidth] = useState(() => defaultGridWidth ?? Math.min(gridContentWidth(store.getState().columns), 560));
-  const [viewport, setViewport] = useState({ left: 0, top: 0, width: 1200, height: 600 });
+  const { viewport, measured } = useViewport(scrollRef, { left: 0, top: 0, width: 1200, height: 600 });
   // The table never takes the whole chart: on a narrow screen it gives way so the timeline stays in reach.
   const widest = Math.max(MIN_GRID_WIDTH, viewport.width - MIN_TIMELINE_WIDTH);
-  const screenGridWidth = Math.min(widest, storedGridWidth ?? Math.min(openingGridWidth, Math.max(MIN_GRID_WIDTH, Math.round(viewport.width * OPENING_GRID_SHARE))));
+  const splitGridWidth = Math.min(widest, storedGridWidth ?? Math.min(openingGridWidth, Math.max(MIN_GRID_WIDTH, Math.round(viewport.width * OPENING_GRID_SHARE))));
+  // Shown alone, the table takes the whole chart and the timeline none of it.
+  const screenGridWidth = pane === "table" ? viewport.width : pane === "timeline" ? 0 : splitGridWidth;
   // On paper the table is as wide as its columns, so every column shown on screen is printed.
   const gridWidth = printing ? columns.reduce((sum, column) => sum + columnWidth(column, widths), INDICATOR_WIDTH) : screenGridWidth;
   // A narrow table gives the row number column only what the number needs, and the name the rest.
@@ -158,37 +163,8 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
     ? rows.map((_, index) => ({ index, start: index * ROW_HEIGHT }))
     : virtualizer.getVirtualItems().map((item) => ({ index: item.index, start: item.start - HEADER_HEIGHT }));
 
-  useEffect(() => {
-    const element = scrollRef.current;
-    if (!element) return;
-    let frame = 0;
-    const read = (): void => {
-      frame = 0;
-      setViewport((previous) => {
-        const next = { left: element.scrollLeft, top: element.scrollTop, width: element.clientWidth, height: element.clientHeight };
-        return next.left === previous.left && next.top === previous.top && next.width === previous.width && next.height === previous.height
-          ? previous
-          : next;
-      });
-    };
-    const request = (): void => {
-      if (frame === 0) frame = requestAnimationFrame(read);
-    };
-    read();
-    setMeasured(true);
-    element.addEventListener("scroll", request, { passive: true });
-    const observer = new ResizeObserver(request);
-    observer.observe(element);
-    return () => {
-      element.removeEventListener("scroll", request);
-      observer.disconnect();
-      if (frame !== 0) cancelAnimationFrame(frame);
-    };
-  }, []);
-
   // Open on the start of the plan, a little to the right of the table.
   const opened = useRef(false);
-  const [measured, setMeasured] = useState(false);
   useEffect(() => {
     const element = scrollRef.current;
     // Wait for the real size: the table's width and the timeline's padding both follow it.
@@ -298,14 +274,14 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
       <div
         className="relative"
         style={{
-          width: gridWidth + scale.width,
+          width: pane === "table" ? gridWidth : gridWidth + scale.width,
           height: HEADER_HEIGHT + bodyHeight + tableScrollerHeight,
           // Shrinks a plan wider than the page to the page; a narrower one prints at full size.
           zoom: printing ? Math.min(1, PRINT_WIDTH / (gridWidth + scale.width)) : undefined,
         }}
       >
         <div className={`${sticky}top-0 z-30 flex border-b bg-muted`} style={{ height: HEADER_HEIGHT }}>
-          <div
+          {pane !== "timeline" && <div
             ref={tableScroll.header}
             className={`${sticky}left-0 z-40 shrink-0 overflow-hidden border-r bg-muted`}
             style={{ width: gridWidth }}
@@ -322,11 +298,11 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
                 pinFirstColumn={pinFirstColumn}
               />
             </div>
-          </div>
-          <TimelineHeader scale={scale} level={level} fromX={timelineFromX} toX={timelineToX} weekStartsOn={weekStartsOn} markers={markers} pinnedLeft={printing ? 0 : gridWidth} clipLeft={printing ? 0 : viewport.left} />
+          </div>}
+          {pane !== "table" && <TimelineHeader scale={scale} level={level} fromX={timelineFromX} toX={timelineToX} weekStartsOn={weekStartsOn} markers={markers} pinnedLeft={printing ? 0 : gridWidth} clipLeft={printing ? 0 : viewport.left} />}
         </div>
         <div className="flex" style={{ height: bodyHeight + tableScrollerHeight }}>
-          <div
+          {pane !== "timeline" && <div
             className={`${sticky}left-0 z-20 shrink-0 border-r bg-background`}
             style={{ width: gridWidth, height: bodyHeight + tableScrollerHeight }}
             data-gantt-slot="grid"
@@ -367,11 +343,11 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
                 <div style={{ width: tableWidth, height: 1 }} />
               </div>
             )}
-            {!printing && (
+            {!printing && pane === "both" && (
               <TableSplitter width={gridWidth} min={MIN_GRID_WIDTH} max={widest} gripY={splitGripY} onResize={store.getState().setGridWidth} />
             )}
-          </div>
-          <TimelineBody
+          </div>}
+          {pane !== "table" && <TimelineBody
             scale={scale}
             level={level}
             rows={rows}
@@ -383,7 +359,7 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
             toY={toY}
             weekStartsOn={weekStartsOn}
             markers={markers}
-          />
+          />}
         </div>
       </div>
       {menu && <RowMenu x={menu.x} y={menu.y} onClose={() => setMenu(null)} />}

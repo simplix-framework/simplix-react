@@ -24,11 +24,11 @@ export function ResourceSheet() {
   return (
     <div className="min-h-0 flex-1 overflow-auto bg-background" data-gantt-slot="resource-sheet">
       <fieldset disabled={readOnly} className="contents">
-      <table className="w-full border-collapse text-sm">
+      <table className="w-full min-w-[64rem] border-collapse text-sm">
         <thead className="sticky top-0 z-10 bg-muted text-xs text-muted-foreground">
           <tr>
             <th className="w-12 border-b border-r px-2 py-2 text-right font-medium" />
-            <th className="border-b border-r px-2 py-2 text-left font-medium">{t("resource.name")}</th>
+            <th className="min-w-44 border-b border-r px-2 py-2 text-left font-medium">{t("resource.name")}</th>
             <th className="w-36 border-b border-r px-2 py-2 text-left font-medium">{t("resource.type")}</th>
             <th className="w-28 border-b border-r px-2 py-2 text-right font-medium">{t("resource.maxUnits")}</th>
             <th className="w-36 border-b border-r px-2 py-2 text-right font-medium">{t("resource.standardRate")}</th>

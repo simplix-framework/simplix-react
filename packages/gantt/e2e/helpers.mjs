@@ -61,12 +61,15 @@ after(async () => {
   await browser?.close();
 });
 
-/** Opens a story in a fresh page and waits for the chart to draw. */
-export async function open(story, options = {}) {
+/**
+ * Opens a story in a fresh page and waits for it to draw. `ready` names what
+ * to wait for in a story that opens on another view than the Gantt chart.
+ */
+export async function open(story, { ready = "[data-gantt-bar]", ...options } = {}) {
   const context = await browser.newContext({ viewport: { width: 1400, height: 900 }, ...options });
   const page = await context.newPage();
   await page.goto(`${BASE}/iframe.html?id=gantt-gantt--${story}&viewMode=story`, { waitUntil: "domcontentloaded" });
-  await page.waitForSelector("[data-gantt-bar]", { timeout: 90_000 });
+  await page.waitForSelector(ready, { timeout: 90_000 });
   return page;
 }
 

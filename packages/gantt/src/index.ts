@@ -15,6 +15,7 @@ export type {
   CreateGanttStoreOptions,
   GanttEdit,
   GanttLayout,
+  GanttPane,
   GanttRejection,
   GanttStore,
   GanttStoreState,

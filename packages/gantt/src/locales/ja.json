@@ -46,7 +46,8 @@
     "insertSubproject": "XML からサブプロジェクトを挿入",
     "editRecurring": "定期タスクを編集",
     "view": "ビュー",
-    "resizeTable": "ドラッグで表の幅を変更"
+    "resizeTable": "ドラッグで表の幅を変更",
+    "panes": "表示領域"
   },
   "view": {
     "gantt": "ガントチャート",
@@ -341,9 +342,18 @@
   "calendarView": {
     "previous": "前の月",
     "next": "次の月",
-    "more": "ほか {{count}} 件"
+    "more": "ほか {{count}} 件",
+    "dayTasks": "{{date}} のタスク",
+    "pickDay": "日付を選ぶと、その日のタスクを表示します。",
+    "noTasks": "この日のタスクはありません。",
+    "taskCount": "タスク {{count}}件"
   },
   "graph": {
     "capacity": "稼働可能時間"
+  },
+  "pane": {
+    "both": "表とタイムライン",
+    "table": "表のみ",
+    "timeline": "タイムラインのみ"
   }
 }

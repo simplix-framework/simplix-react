@@ -32,6 +32,8 @@ export function CalendarView({ weekStartsOn = 0 }: CalendarViewProps) {
     return { year: c.year, month: c.month };
   });
   const today = dayIndexOf(nowOnProjectClock());
+  // The day whose tasks a narrow calendar lists under the month.
+  const [chosenDay, setChosenDay] = useState<number | null>(null);
 
   const weeks = useMemo(() => {
     const first = dayIndexOf(fromCivil(month.year, month.month, 1));
@@ -52,10 +54,13 @@ export function CalendarView({ weekStartsOn = 0 }: CalendarViewProps) {
     const index = month.year * 12 + (month.month - 1) + delta;
     setMonth({ year: Math.floor(index / 12), month: (index % 12) + 1 });
   };
+  const dayLabel = (day: number): string =>
+    new Intl.DateTimeFormat(language, { month: "long", day: "numeric", timeZone: "UTC" }).format(new Date(day * MINUTES_PER_DAY * 60000));
+  const chosenTasks = weeks.flat().find((cell) => cell.day === chosenDay)?.tasks ?? [];
   const title = new Intl.DateTimeFormat(language, { year: "numeric", month: "long", timeZone: "UTC" }).format(new Date(fromCivil(month.year, month.month, 1) * 60000));
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col bg-background" data-gantt-slot="calendar-view">
+    <div className="@container flex min-h-0 flex-1 flex-col bg-background" data-gantt-slot="calendar-view">
       <div className="flex shrink-0 items-center gap-2 border-b px-2 py-1.5">
         <Button variant="ghost" size="icon-sm" aria-label={t("calendarView.previous")} onClick={() => step(-1)}>
           <ChevronLeft />
@@ -69,26 +74,42 @@ export function CalendarView({ weekStartsOn = 0 }: CalendarViewProps) {
       </div>
       <div className="grid shrink-0 grid-cols-7 border-b bg-muted text-xs text-muted-foreground">
         {Array.from({ length: 7 }, (_, i) => (
-          <div key={i} className="border-r px-2 py-1 font-medium">
+          <div key={i} className="truncate border-r px-1 py-1 text-center font-medium @2xl:px-2 @2xl:text-left">
             {weekdayName((weekStartsOn + i) % 7, language, "short")}
           </div>
         ))}
       </div>
       <div className="grid min-h-0 flex-1 grid-rows-6 overflow-auto">
         {weeks.map((week) => (
-          <div key={week[0].day} className="grid min-h-24 grid-cols-7 border-b">
+          <div key={week[0].day} className="grid min-h-14 grid-cols-7 border-b @2xl:min-h-24">
             {week.map(({ day, inMonth, tasks }) => (
               <div key={day} className={cn("flex min-w-0 flex-col gap-0.5 border-r p-1", !inMonth && "bg-muted/50 text-muted-foreground")} data-gantt-day={day}>
                 <span className={cn("self-start rounded-full px-1.5 text-xs tabular-nums", day === today && "bg-sky-500 font-semibold text-white")}>
                   {toCivil(day * MINUTES_PER_DAY).day}
                 </span>
+                {/* A box too narrow for names shows a mark per task; choosing the day lists them below. */}
+                {tasks.length > 0 && (
+                  <button
+                    type="button"
+                    aria-label={`${dayLabel(day)}: ${t("calendarView.taskCount", { count: tasks.length })}`}
+                    aria-pressed={chosenDay === day}
+                    className={cn("flex flex-col gap-0.5 rounded-sm p-0.5 @2xl:hidden", chosenDay === day && "ring-2 ring-ring")}
+                    data-gantt-slot="calendar-day-marks"
+                    onClick={() => setChosenDay(day)}
+                  >
+                    {tasks.slice(0, PER_DAY).map((task) => (
+                      <span key={task.id} className={cn("h-1.5 w-full rounded-full", task.critical ? "bg-destructive/60" : "bg-primary/40")} />
+                    ))}
+                    <span className="text-[10px] leading-3 text-muted-foreground tabular-nums">{tasks.length}</span>
+                  </button>
+                )}
                 {tasks.slice(0, PER_DAY).map((task) => (
                   <button
                     key={task.id}
                     type="button"
                     title={task.name}
                     className={cn(
-                      "truncate rounded-sm px-1 text-left text-xs",
+                      "hidden truncate rounded-sm px-1 text-left text-xs @2xl:block",
                       task.critical ? "bg-destructive/15 text-destructive" : "bg-primary/15 text-foreground",
                     )}
                     onClick={() => store.getState().openTaskDialog(task.id)}
@@ -96,11 +117,32 @@ export function CalendarView({ weekStartsOn = 0 }: CalendarViewProps) {
                     {task.name}
                   </button>
                 ))}
-                {tasks.length > PER_DAY && <span className="px-1 text-xs text-muted-foreground">{t("calendarView.more", { count: tasks.length - PER_DAY })}</span>}
+                {tasks.length > PER_DAY && <span className="hidden px-1 text-xs text-muted-foreground @2xl:block">{t("calendarView.more", { count: tasks.length - PER_DAY })}</span>}
               </div>
             ))}
           </div>
         ))}
+      </div>
+      {/* The chosen day's tasks, by name, where the boxes above have no room for names. */}
+      <div className="max-h-44 shrink-0 overflow-y-auto border-t p-2 text-sm @2xl:hidden" data-gantt-slot="calendar-day-list">
+        {chosenDay === null ? (
+          <p className="text-muted-foreground">{t("calendarView.pickDay")}</p>
+        ) : (
+          <>
+            <p className="mb-1 font-medium">{t("calendarView.dayTasks", { date: dayLabel(chosenDay) })}</p>
+            {chosenTasks.length === 0 && <p className="text-muted-foreground">{t("calendarView.noTasks")}</p>}
+            {chosenTasks.map((task) => (
+              <button
+                key={task.id}
+                type="button"
+                className={cn("block w-full truncate rounded-sm px-1.5 py-1 text-left hover:bg-accent", task.critical && "text-destructive")}
+                onClick={() => store.getState().openTaskDialog(task.id)}
+              >
+                {task.name}
+              </button>
+            ))}
+          </>
+        )}
       </div>
     </div>
   );

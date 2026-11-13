@@ -46,7 +46,8 @@
     "insertSubproject": "Insert subproject from XML",
     "editRecurring": "Edit recurring task",
     "view": "View",
-    "resizeTable": "Drag to resize the table"
+    "resizeTable": "Drag to resize the table",
+    "panes": "Show"
   },
   "view": {
     "gantt": "Gantt chart",
@@ -341,9 +342,18 @@
   "calendarView": {
     "previous": "Previous month",
     "next": "Next month",
-    "more": "+{{count}} more"
+    "more": "+{{count}} more",
+    "dayTasks": "Tasks on {{date}}",
+    "pickDay": "Choose a day to list its tasks.",
+    "noTasks": "No tasks on this day.",
+    "taskCount": "{{count}} tasks"
   },
   "graph": {
     "capacity": "Capacity"
+  },
+  "pane": {
+    "both": "Table and timeline",
+    "table": "Table only",
+    "timeline": "Timeline only"
   }
 }

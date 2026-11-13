@@ -21,6 +21,8 @@ export interface GanttRejection {
 }
 
 /** The screen a chart shows: the Gantt chart, the resource sheet or the resource usage table. */
+/** Which of the table and the timeline the Gantt view shows. */
+export type GanttPane = "both" | "table" | "timeline";
 export type GanttView = "gantt" | "resources" | "usage" | "taskUsage" | "graph" | "calendar" | "network";
 
 /** The words a bar carries beside it. */
@@ -68,6 +70,8 @@ export interface GanttStoreState {
   showLinks: boolean;
   /** Whether today, the status date and the ends of the plan are marked on the timeline. */
   showMarkers: boolean;
+  /** Whether the Gantt view shows the table, the timeline or both. Not part of the saved layout. */
+  pane: GanttPane;
   /** Baseline drawn under the bars, or `null` for none. */
   baselineNumber: number | null;
   /** Baseline the save, show and clear commands work on, 0 to 10. */
@@ -127,6 +131,7 @@ export interface GanttStoreState {
   setShowCriticalPath(show: boolean): void;
   setShowLinks(show: boolean): void;
   setShowMarkers(show: boolean): void;
+  setPane(pane: GanttPane): void;
   setBaselineNumber(number: number | null): void;
   selectLink(id: Id | null): void;
   openTaskDialog(id: Id): void;

@@ -147,8 +147,12 @@ export function samplePlan(): Project {
   return project;
 }
 
-/** A long plan for scrolling: `phases` summary tasks with `perPhase` chained tasks each. */
-export function largePlan(phases: number, perPhase: number): Project {
+/**
+ * A long plan for scrolling: `phases` summary tasks with `perPhase` chained
+ * tasks each. With `resourceCount` above zero every task is assigned to one of
+ * that many resources in turn.
+ */
+export function largePlan(phases: number, perPhase: number, resourceCount = 0): Project {
   const tasks: Task[] = [];
   let id = 0;
   for (let phase = 0; phase < phases; phase++) {
@@ -173,6 +177,13 @@ export function largePlan(phases: number, perPhase: number): Project {
     }
   }
   project = { ...project, links };
+  if (resourceCount > 0) {
+    const resources = Array.from({ length: resourceCount }, (_, i) => ({ id: String(i + 1), name: `Team ${i + 1}`, type: "work" as const, maxUnits: 1 }));
+    const assignments = project.tasks
+      .filter((task) => task.outlineLevel > 1)
+      .map((task, i) => ({ id: String(i + 1), taskId: task.id, resourceId: String((i % resourceCount) + 1), units: 1, work: task.duration }));
+    project = { ...project, resources, assignments };
+  }
   return project;
 }
 

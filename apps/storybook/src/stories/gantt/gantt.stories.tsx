@@ -73,6 +73,11 @@ export const TaskUsageTable: Story = {
   render: () => <Gantt defaultProject={samplePlan()} view="taskUsage" />,
 };
 
+/** A long plan's assignments: only the lines and days on screen are drawn. */
+export const LargeTaskUsage: Story = {
+  render: () => <Gantt defaultProject={largePlan(40, 12, 6)} view="taskUsage" />,
+};
+
 /** A chart that shows its plan and refuses every edit. */
 export const ReadOnly: Story = {
   render: () => <Gantt defaultProject={samplePlan()} readOnly />,
