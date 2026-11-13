@@ -8,7 +8,7 @@
 
 > **createGanttStore**(`initial`, `options?`): `StoreApi`\<[`GanttStoreState`](../interfaces/GanttStoreState.md)\>
 
-Defined in: [model/gantt-store.ts:83](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store.ts#L83)
+Defined in: [model/gantt-store.ts:78](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store.ts#L78)
 
 Creates the store of one chart.
 

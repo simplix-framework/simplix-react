@@ -8,7 +8,7 @@
 
 > **layoutPdf**(`schedule`, `project`, `rowCount?`): [`PdfLayout`](../interfaces/PdfLayout.md)
 
-Defined in: [lib/pdf-export.ts:134](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-export.ts#L134)
+Defined in: [lib/pdf-export.ts:68](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-export.ts#L68)
 
 Cuts a plan into sheets: the task table repeats on every sheet, rows run
 down the sheets and the timeline runs across them at the closest zoom step

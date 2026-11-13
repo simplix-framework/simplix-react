@@ -32,7 +32,7 @@ pnpm lint         # ESLint
 pnpm test         # Run test suites
 ```
 
-The `@simplix-react/gantt` end-to-end tests drive the chart in the Google Chrome installed on the machine, against a running Storybook: start it with `pnpm storybook`, then run `pnpm --filter @simplix-react/gantt test:e2e`. They are not part of `pnpm test`.
+The `@simplix-react/gantt` end-to-end tests drive the chart in the Google Chrome installed on the machine, against a running Storybook: build the package with `pnpm --filter @simplix-react/gantt build` (Storybook takes its stylesheet from the build), start Storybook with `pnpm storybook`, then run `pnpm --filter @simplix-react/gantt test:e2e`. They are not part of `pnpm test`.
 
 The `@simplix-react/gantt-core` tests compare the scheduler with plans saved by Microsoft Project. Their first run fetches those sample files from the MPXJ repository at a pinned commit into `packages/gantt-core/.oracle/` (ignored by git), so it needs network access once.
 

@@ -8,7 +8,7 @@
 
 > **buildPdf**(`images`, `pageWidth`, `pageHeight`): `Uint8Array`
 
-Defined in: [lib/pdf-export.ts:48](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-export.ts#L48)
+Defined in: [lib/pdf-file.ts:14](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-file.ts#L14)
 
 Builds a PDF whose pages each show one JPEG image, filling the page.
 

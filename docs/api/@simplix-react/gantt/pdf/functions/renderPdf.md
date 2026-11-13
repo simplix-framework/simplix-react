@@ -8,7 +8,7 @@
 
 > **renderPdf**(`project`, `schedule`, `language`, `label`, `view?`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: [lib/pdf-export.ts:441](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-export.ts#L441)
+Defined in: [lib/pdf-export.ts:375](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-export.ts#L375)
 
 Draws a plan as an A4 landscape PDF: the task table on every sheet, rows
 running down the sheets and the timeline running across them. The text is

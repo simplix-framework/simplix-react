@@ -6,7 +6,7 @@
 
 # Interface: PdfLayout
 
-Defined in: [lib/pdf-export.ts:104](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-export.ts#L104)
+Defined in: [lib/pdf-export.ts:38](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-export.ts#L38)
 
 How a plan is cut into sheets.
 
@@ -16,7 +16,7 @@ How a plan is cut into sheets.
 
 > **level**: [`ZoomLevel`](../../index/interfaces/ZoomLevel.md)
 
-Defined in: [lib/pdf-export.ts:105](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-export.ts#L105)
+Defined in: [lib/pdf-export.ts:39](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-export.ts#L39)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [lib/pdf-export.ts:105](https://github.com/simplix-react/simplix-rea
 
 > **rowsPerSheet**: `number`
 
-Defined in: [lib/pdf-export.ts:107](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-export.ts#L107)
+Defined in: [lib/pdf-export.ts:41](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-export.ts#L41)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [lib/pdf-export.ts:107](https://github.com/simplix-react/simplix-rea
 
 > **scale**: [`TimeScale`](../../index/interfaces/TimeScale.md)
 
-Defined in: [lib/pdf-export.ts:106](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-export.ts#L106)
+Defined in: [lib/pdf-export.ts:40](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-export.ts#L40)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [lib/pdf-export.ts:106](https://github.com/simplix-react/simplix-rea
 
 > **sheetsAcross**: `number`
 
-Defined in: [lib/pdf-export.ts:109](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-export.ts#L109)
+Defined in: [lib/pdf-export.ts:43](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-export.ts#L43)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [lib/pdf-export.ts:109](https://github.com/simplix-react/simplix-rea
 
 > **sheetsDown**: `number`
 
-Defined in: [lib/pdf-export.ts:108](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-export.ts#L108)
+Defined in: [lib/pdf-export.ts:42](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-export.ts#L42)
 
 ***
 
@@ -56,6 +56,6 @@ Defined in: [lib/pdf-export.ts:108](https://github.com/simplix-react/simplix-rea
 
 > **timelineWidth**: `number`
 
-Defined in: [lib/pdf-export.ts:111](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-export.ts#L111)
+Defined in: [lib/pdf-export.ts:45](https://github.com/simplix-react/simplix-react/blob/main/lib/pdf-export.ts#L45)
 
 Timeline width one sheet shows.
