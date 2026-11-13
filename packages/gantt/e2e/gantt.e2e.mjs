@@ -397,3 +397,27 @@ test("shows the last row at full height above the table's scroll bar", async () 
   assert.ok(bottom <= scroller.y + 0.5, `the last row ends at ${bottom}, the scroll bar starts at ${scroller.y}`);
   await page.context().close();
 });
+
+test("keeps the table splitter's grip at the middle of the rows in view", async () => {
+  const offCentre = async (page) => {
+    const grip = await box(page, '[data-gantt-slot="splitter-grip"]');
+    const area = await page.evaluate(() => {
+      const scroll = document.querySelector('[data-gantt-slot="scroll"]').getBoundingClientRect();
+      const body = document.querySelector('[data-gantt-slot="grid"]').getBoundingClientRect();
+      const header = document.querySelector("[role=columnheader]").getBoundingClientRect();
+      const scrollBottom = scroll.top + document.querySelector('[data-gantt-slot="scroll"]').clientHeight;
+      return { top: Math.max(body.top, header.bottom), bottom: Math.min(body.bottom, scrollBottom) };
+    });
+    return Math.abs(grip.y + grip.height / 2 - (area.top + area.bottom) / 2);
+  };
+  // A plan shorter than the chart, then a long one scrolled part of the way down.
+  const short = await open("default");
+  assert.ok((await offCentre(short)) <= 1, "centred on a plan that fits");
+  await short.context().close();
+  const long = await open("large-plan");
+  assert.ok((await offCentre(long)) <= 1, "centred at the top of a long plan");
+  await long.locator('[data-gantt-slot="scroll"]').evaluate((element) => (element.scrollTop = 1234));
+  await long.waitForTimeout(300);
+  assert.ok((await offCentre(long)) <= 1, "centred after scrolling down");
+  await long.context().close();
+});

@@ -338,6 +338,9 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
   const toY = printing ? bodyHeight : viewport.top + viewport.height + OVERSCAN * ROW_HEIGHT;
   // Sticky panes belong to scrolling; on paper everything sits where it is laid out.
   const sticky = printing ? "" : "sticky ";
+  // Middle of the part of the table body on screen, measured from the top of the body.
+  const tableBodyEnd = Math.min(bodyHeight + tableScrollerHeight, viewport.top + viewport.height - HEADER_HEIGHT);
+  const splitGripY = (viewport.top + Math.max(viewport.top, tableBodyEnd)) / 2;
 
   return (
     <div
@@ -449,8 +452,12 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
               data-gantt-slot="splitter"
               onPointerDown={(event) => beginSplit(gridWidth, event)}
             >
-              {/* A grip that stays in view marks the edge that can be dragged. */}
-              <div className="sticky top-1/2 h-8 w-1 rounded-full bg-foreground/25 group-hover/split:bg-primary" />
+              {/* A grip at the middle of the rows in view marks the edge that can be dragged. */}
+              <div
+                className="absolute h-8 w-1 -translate-y-1/2 rounded-full bg-foreground/25 group-hover/split:bg-primary"
+                style={{ top: splitGripY }}
+                data-gantt-slot="splitter-grip"
+              />
             </div>
           </div>
           <TimelineBody
