@@ -41,7 +41,9 @@ export function PlanPage({ plan, onSave }: { plan: Project; onSave: (plan: Proje
 
 Mount the chart in a box with a height; it fills the box and scrolls inside it. The chart owns its plan from `defaultProject` on and reports every accepted change, undo and redo included, through `onChange(project, schedule, changes)`. `changes` lists the records that differ from the plan before it, which is what a server needs to store the edit.
 
-To take in a plan changed elsewhere, such as an edit another user saved, call `store.getState().sync(project)`: it replaces the plan, keeps the undo history and does not call `onChange`.
+To take in a plan changed elsewhere, such as an edit another user saved, call `store.getState().merge(base, theirs)`, where `base` is the plan both sides started from: records only the other side changed are taken, a record both changed keeps the version here and is returned as a conflict, and the undo history is kept. `sync(project)` replaces the plan outright.
+
+A guide in Korean is in [docs/guide.ko.md](../../_media/guide.ko.md).
 
 ## What the chart does
 
@@ -49,6 +51,11 @@ To take in a plan changed elsewhere, such as an edit another user saved, call `s
 | --- | --- |
 | Task table | Columns resize from the right edge of a heading, move by dragging the heading and are shown or hidden from the toolbar menu; rows move by dragging the row number. A right click on a row or a bar opens the commands for the selected tasks. Durations are written in the reader's language (`3일`, `2주`) and read in both that form and the letter form. Outline with collapsible summary tasks. Double-click, F2, Enter or typing edits a cell: name, duration (`3d`, `2w`, `4h`, `2ed`), start, finish, predecessors (`3`, `4SS+2d`, `5FF-1d`) and percent complete. |
 | Timeline | Two-tier date header with seven zoom steps from quarters to hours, and non-working time shaded from the project calendar. |
+| Filter, sort, group | The toolbar menu narrows the rows to critical, incomplete, completed, late or unassigned tasks, milestones, or one resource's tasks; orders them by a column; or gathers them under a heading per resource, per status or by whether they are critical. A search box narrows by name. |
+| Bars | A bar carries resource names, the task name, its progress, its dates or nothing beside it, and takes the chart's colour, one of its own or one per resource. A progress line joins the progress of every task at the status date. The row number column marks a task that has notes or a dated constraint. |
+| Other views | A network diagram, a month calendar, a resource graph of work against capacity, and a task usage table of hours per assignment. |
+| Read-only | `readOnly` shows the plan and refuses every edit. |
+| Layout | Column widths, order and visibility, zoom, folded rows, the view and the bar settings are one `layout` value, reported through `onLayoutChange` and handed back through `layout`. |
 | Date markers | Today, the status date and the two ends of the plan each get a line in their own colour and a name tag on the header; today's day is tinted, and a button scrolls to it. The timeline widens to today when today lies within a year of the plan. The markers can be switched off, and the PDF carries them too. |
 | Bars | Drag a bar to move it, an edge to resize it, the mark under it to set progress. Summary tasks draw as brackets and milestones as diamonds. A deadline draws as an arrow. |
 | Links | Drag from the dot at a bar's end onto another bar: the ends you start from and drop on pick finish-to-start, start-to-start, finish-to-finish or start-to-finish. Click a line to select it and press Delete to remove it. A violated link is dashed. |
@@ -80,6 +87,7 @@ An edit the engine refuses (a dependency loop, a duration that is not one) leave
 | Arrow left, Arrow right, Tab | Move the active cell along the row |
 | Alt+Arrow left, Alt+Arrow right | Move the selected tasks one working day |
 | Ctrl/Cmd+wheel | Zoom the timeline |
+| Ctrl/Cmd+D | Copy the active cell of the first selected row into the other selected rows |
 | Insert | Add a task under the selected row |
 | Delete | Remove the selected link, or else the selected tasks |
 | F2, Enter, or any character | Edit the active cell of the selected task |
@@ -97,6 +105,9 @@ An edit the engine refuses (a dependency loop, a duration that is not one) leave
 | `onChange` | `(project, schedule) => void` | | Called after every accepted change |
 | `columns` | `GanttColumnId[]` | `DEFAULT_COLUMNS` | Columns the task table opens with, in order. `BUILT_IN_COLUMNS` lists every built-in one; `custom:<field id>` shows a custom field |
 | `levelingOptions` | `LevelingOptions` | `{}` | What leveling may do: `withinSlack`, `split` |
+| `readOnly` | `boolean` | `false` | Shows the plan and refuses every edit |
+| `layout` | `Partial<GanttLayout>` | | A stored layout to open with |
+| `onLayoutChange` | `(layout) => void` | | Called with the whole layout when it changes |
 | `defaultGridWidth` | `number` | fits the columns, up to 560 | Width the task table opens at |
 | `weekStartsOn` | `number` | `0` | First day of a week column; 0 is Sunday |
 | `zoom` | `number` | `4` | Index into `ZOOM_LEVELS` |
@@ -115,8 +126,11 @@ An edit the engine refuses (a dependency loop, a duration that is not one) leave
 - Pasted spreadsheet rows carry a name and a duration. Dates, links and resources in further cells are not read.
 - A recurring task is created once: changing its recurrence afterwards means deleting it and adding it again.
 - Costs, custom fields and splits are not written to Microsoft Project XML.
-- Column widths, order and visibility live in the chart and are not saved with the plan.
-- Dates a resource's rate changes on are set through the engine (`Resource.rates`); the resource sheet edits the plain rates only.
+- A subproject is inserted as a copy under a summary task. It is not kept in step with the file it came from, and its calendars, baselines and custom fields are not carried over.
+- Changing a recurring task makes its occurrences again; progress and links on the old occurrences are not kept.
+- Fill down copies names, durations, actual costs and custom fields. Dates and predecessors are not filled.
+- The network diagram places tasks in columns by their depth in the chain and does not avoid lines crossing boxes.
+- The end-to-end tests need Storybook running and Google Chrome installed; they are not part of `pnpm test`.
 - Lags in a predecessor list are written with unit letters (`4SS+2d`) in every language.
 - Reading and writing Microsoft Project XML runs on the main thread: a plan of 20,000 tasks holds the page for about half a second, with a loading mark shown.
 
@@ -157,37 +171,47 @@ MIT
 - [DateMarker](interfaces/DateMarker.md)
 - [DurationWords](interfaces/DurationWords.md)
 - [GanttChartProps](interfaces/GanttChartProps.md)
+- [GanttLayout](interfaces/GanttLayout.md)
 - [GanttProps](interfaces/GanttProps.md)
 - [GanttProviderProps](interfaces/GanttProviderProps.md)
 - [GanttRejection](interfaces/GanttRejection.md)
 - [GanttShellProps](interfaces/GanttShellProps.md)
 - [GanttStoreState](interfaces/GanttStoreState.md)
 - [GanttToolbarProps](interfaces/GanttToolbarProps.md)
+- [GroupHeaderRow](interfaces/GroupHeaderRow.md)
 - [LinkPath](interfaces/LinkPath.md)
 - [PathPoint](interfaces/PathPoint.md)
 - [PdfImage](interfaces/PdfImage.md)
 - [PdfLayout](interfaces/PdfLayout.md)
 - [ScaleCell](interfaces/ScaleCell.md)
 - [TimeScale](interfaces/TimeScale.md)
+- [ViewOptions](interfaces/ViewOptions.md)
 - [VisibleRow](interfaces/VisibleRow.md)
 - [ZoomLevel](interfaces/ZoomLevel.md)
 
 ## Type Aliases
 
+- [BarColoring](type-aliases/BarColoring.md)
+- [BarText](type-aliases/BarText.md)
 - [BuiltInColumnId](type-aliases/BuiltInColumnId.md)
 - [ColumnWidths](type-aliases/ColumnWidths.md)
 - [GanttColumnId](type-aliases/GanttColumnId.md)
 - [GanttEdit](type-aliases/GanttEdit.md)
 - [GanttStore](type-aliases/GanttStore.md)
 - [GanttView](type-aliases/GanttView.md)
+- [GroupKey](type-aliases/GroupKey.md)
 - [MarkerKind](type-aliases/MarkerKind.md)
 - [ScaleUnit](type-aliases/ScaleUnit.md)
+- [SortKey](type-aliases/SortKey.md)
+- [TaskFilter](type-aliases/TaskFilter.md)
+- [ViewRow](type-aliases/ViewRow.md)
 
 ## Variables
 
 - [BUILT\_IN\_COLUMNS](variables/BUILT_IN_COLUMNS.md)
 - [DEFAULT\_COLUMN\_WIDTHS](variables/DEFAULT_COLUMN_WIDTHS.md)
 - [DEFAULT\_COLUMNS](variables/DEFAULT_COLUMNS.md)
+- [DEFAULT\_VIEW](variables/DEFAULT_VIEW.md)
 - [DEFAULT\_ZOOM](variables/DEFAULT_ZOOM.md)
 - [MARKER\_STYLE](variables/MARKER_STYLE.md)
 - [PACKAGE\_NAMESPACE](variables/PACKAGE_NAMESPACE.md)
@@ -196,6 +220,7 @@ MIT
 ## Functions
 
 - [buildPdf](functions/buildPdf.md)
+- [CalendarView](functions/CalendarView.md)
 - [columnWidth](functions/columnWidth.md)
 - [createGanttStore](functions/createGanttStore.md)
 - [createTimeScale](functions/createTimeScale.md)
@@ -208,18 +233,23 @@ MIT
 - [GanttProvider](functions/GanttProvider.md)
 - [GanttShell](functions/GanttShell.md)
 - [GanttToolbar](functions/GanttToolbar.md)
+- [isPlainView](functions/isPlainView.md)
 - [layoutPdf](functions/layoutPdf.md)
+- [NetworkDiagram](functions/NetworkDiagram.md)
 - [nowOnProjectClock](functions/nowOnProjectClock.md)
 - [ProjectDialog](functions/ProjectDialog.md)
 - [RecurringDialog](functions/RecurringDialog.md)
 - [renderPdf](functions/renderPdf.md)
+- [ResourceGraph](functions/ResourceGraph.md)
 - [ResourceSheet](functions/ResourceSheet.md)
 - [ResourceUsage](functions/ResourceUsage.md)
 - [routeLink](functions/routeLink.md)
 - [scaleCells](functions/scaleCells.md)
 - [TaskDialog](functions/TaskDialog.md)
+- [TaskUsage](functions/TaskUsage.md)
 - [timelineSpan](functions/timelineSpan.md)
 - [toCanonicalDuration](functions/toCanonicalDuration.md)
 - [useGantt](functions/useGantt.md)
 - [useGanttStore](functions/useGanttStore.md)
+- [viewRows](functions/viewRows.md)
 - [visibleRows](functions/visibleRows.md)

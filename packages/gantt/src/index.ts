@@ -10,8 +10,11 @@ export { GanttProvider, useGantt, useGanttStore } from "./context/gantt-context"
 export type { GanttProviderProps } from "./context/gantt-context";
 export { createGanttStore } from "./model/gantt-store";
 export type {
+  BarColoring,
+  BarText,
   CreateGanttStoreOptions,
   GanttEdit,
+  GanttLayout,
   GanttRejection,
   GanttStore,
   GanttStoreState,
@@ -24,6 +27,12 @@ export type { GanttChartProps } from "./components/gantt-chart";
 export { GanttToolbar } from "./components/gantt-toolbar";
 export type { GanttToolbarProps } from "./components/gantt-toolbar";
 export { ResourceSheet } from "./components/resource-sheet";
+export { ResourceGraph } from "./components/resource-graph";
+export { TaskUsage } from "./components/task-usage";
+export { CalendarView } from "./components/calendar-view";
+export { NetworkDiagram } from "./components/network-diagram";
+export { DEFAULT_VIEW, isPlainView, viewRows } from "./lib/view-rows";
+export type { GroupHeaderRow, GroupKey, SortKey, TaskFilter, ViewOptions, ViewRow } from "./lib/view-rows";
 export { ResourceUsage } from "./components/resource-usage";
 export { TaskDialog } from "./components/task-dialog";
 export { ProjectDialog } from "./components/project-dialog";

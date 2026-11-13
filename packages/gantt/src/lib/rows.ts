@@ -2,6 +2,7 @@ import type { Id, Task } from "@simplix-react/gantt-core";
 
 /** A task as one visible line of the chart. */
 export interface VisibleRow {
+  kind: "task";
   task: Task;
   /** Position in the project's row list; the row number is one more. */
   index: number;
@@ -20,7 +21,7 @@ export function visibleRows(tasks: readonly Task[], collapsed: ReadonlySet<Id>):
     const summary = index + 1 < tasks.length && tasks[index + 1].outlineLevel > task.outlineLevel;
     const isCollapsed = summary && collapsed.has(task.id);
     if (isCollapsed) hiddenBelow = task.outlineLevel;
-    rows.push({ task, index, summary, collapsed: isCollapsed });
+    rows.push({ kind: "task", task, index, summary, collapsed: isCollapsed });
   });
   return rows;
 }

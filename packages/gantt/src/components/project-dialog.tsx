@@ -37,6 +37,7 @@ export function ProjectDialog() {
   const ui = useFlatUIComponents();
   const store = useGanttStore();
   const open = useGantt((state) => state.projectDialogOpen);
+  const readOnly = useGantt((state) => state.readOnly);
   const project = useGantt((state) => state.history.present);
   const [calendarId, setCalendarId] = useState(project.calendarId);
   if (!open) return null;
@@ -59,6 +60,7 @@ export function ProjectDialog() {
           <ui.DialogTitle>{t("toolbar.projectInformation")}</ui.DialogTitle>
           <ui.DialogDescription>{project.name}</ui.DialogDescription>
         </ui.DialogHeader>
+        <fieldset disabled={readOnly} className="contents">
         <ui.Tabs defaultValue="settings">
           <ui.TabsList>
             <ui.TabsTrigger value="settings">{t("project.settings")}</ui.TabsTrigger>
@@ -362,6 +364,7 @@ export function ProjectDialog() {
             </div>
           </ui.TabsContent>
         </ui.Tabs>
+        </fieldset>
         <ui.DialogFooter>
           <Button variant="outline" onClick={closeProjectDialog}>
             {t("dialog.close")}

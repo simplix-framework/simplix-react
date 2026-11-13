@@ -8,6 +8,6 @@
 
 > **GanttStore** = `ReturnType`\<*typeof* [`createGanttStore`](../functions/createGanttStore.md)\>
 
-Defined in: [model/gantt-store.ts:37](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store.ts#L37)
+Defined in: [model/gantt-store.ts:48](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store.ts#L48)
 
 A chart's store.

@@ -20,7 +20,7 @@ Props for [GanttProvider](../functions/GanttProvider.md).
 
 > `optional` **baselineNumber**: `number` \| `null`
 
-Defined in: [model/gantt-store-types.ts:156](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L156)
+Defined in: [model/gantt-store-types.ts:215](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L215)
 
 #### Inherited from
 
@@ -40,7 +40,7 @@ Defined in: [context/gantt-context.tsx:15](https://github.com/simplix-react/simp
 
 > `optional` **columns**: readonly [`GanttColumnId`](../type-aliases/GanttColumnId.md)[]
 
-Defined in: [model/gantt-store-types.ts:158](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L158)
+Defined in: [model/gantt-store-types.ts:217](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L217)
 
 #### Inherited from
 
@@ -58,11 +58,25 @@ The plan the chart opens with. Later changes are made through the store.
 
 ***
 
+### layout?
+
+> `optional` **layout**: `Partial`\<[`GanttLayout`](GanttLayout.md)\>
+
+Defined in: [model/gantt-store-types.ts:221](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L221)
+
+A stored layout to open with. It overrides the single options it names.
+
+#### Inherited from
+
+[`CreateGanttStoreOptions`](CreateGanttStoreOptions.md).[`layout`](CreateGanttStoreOptions.md#layout)
+
+***
+
 ### levelingOptions?
 
 > `optional` **levelingOptions**: `LevelingOptions`
 
-Defined in: [model/gantt-store-types.ts:159](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L159)
+Defined in: [model/gantt-store-types.ts:218](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L218)
 
 #### Inherited from
 
@@ -74,7 +88,7 @@ Defined in: [model/gantt-store-types.ts:159](https://github.com/simplix-react/si
 
 > `optional` **onChange**: (`project`, `schedule`, `changes`) => `void`
 
-Defined in: [model/gantt-store-types.ts:164](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L164)
+Defined in: [model/gantt-store-types.ts:228](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L228)
 
 Called after every accepted change of the plan, undo and redo included,
 with the records that differ from the plan before it.
@@ -103,11 +117,47 @@ readonly `ProjectChange`[]
 
 ***
 
+### onLayoutChange()?
+
+> `optional` **onLayoutChange**: (`layout`) => `void`
+
+Defined in: [model/gantt-store-types.ts:223](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L223)
+
+Called when the layout changes, with the whole layout to store.
+
+#### Parameters
+
+##### layout
+
+[`GanttLayout`](GanttLayout.md)
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[`CreateGanttStoreOptions`](CreateGanttStoreOptions.md).[`onLayoutChange`](CreateGanttStoreOptions.md#onlayoutchange)
+
+***
+
+### readOnly?
+
+> `optional` **readOnly**: `boolean`
+
+Defined in: [model/gantt-store-types.ts:219](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L219)
+
+#### Inherited from
+
+[`CreateGanttStoreOptions`](CreateGanttStoreOptions.md).[`readOnly`](CreateGanttStoreOptions.md#readonly)
+
+***
+
 ### showCriticalPath?
 
 > `optional` **showCriticalPath**: `boolean`
 
-Defined in: [model/gantt-store-types.ts:153](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L153)
+Defined in: [model/gantt-store-types.ts:212](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L212)
 
 #### Inherited from
 
@@ -119,7 +169,7 @@ Defined in: [model/gantt-store-types.ts:153](https://github.com/simplix-react/si
 
 > `optional` **showLinks**: `boolean`
 
-Defined in: [model/gantt-store-types.ts:154](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L154)
+Defined in: [model/gantt-store-types.ts:213](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L213)
 
 #### Inherited from
 
@@ -131,7 +181,7 @@ Defined in: [model/gantt-store-types.ts:154](https://github.com/simplix-react/si
 
 > `optional` **showMarkers**: `boolean`
 
-Defined in: [model/gantt-store-types.ts:155](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L155)
+Defined in: [model/gantt-store-types.ts:214](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L214)
 
 #### Inherited from
 
@@ -143,7 +193,7 @@ Defined in: [model/gantt-store-types.ts:155](https://github.com/simplix-react/si
 
 > `optional` **view**: [`GanttView`](../type-aliases/GanttView.md)
 
-Defined in: [model/gantt-store-types.ts:157](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L157)
+Defined in: [model/gantt-store-types.ts:216](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L216)
 
 #### Inherited from
 
@@ -155,7 +205,7 @@ Defined in: [model/gantt-store-types.ts:157](https://github.com/simplix-react/si
 
 > `optional` **zoom**: `number`
 
-Defined in: [model/gantt-store-types.ts:152](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L152)
+Defined in: [model/gantt-store-types.ts:211](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L211)
 
 #### Inherited from
 

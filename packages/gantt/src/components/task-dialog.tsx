@@ -1,9 +1,7 @@
 import {
   addLink,
   assignResource,
-  clearSplits,
   setCustomValue,
-  splitTask,
   formatDuration,
   parseDuration,
   parseLocalDateTime,
@@ -24,6 +22,7 @@ import { durationWords, formatDurationText, toCanonicalDuration } from "../lib/d
 import { toDateInputValue } from "../lib/format";
 import { useGanttTranslation } from "../lib/use-gantt-translation";
 import { Field, Toggle } from "./dialog-fields";
+import { TaskSplits } from "./task-splits";
 
 const NONE = "__none";
 const CONSTRAINTS: readonly ConstraintType[] = [
@@ -51,6 +50,7 @@ export function TaskDialog() {
   const ui = useFlatUIComponents();
   const store = useGanttStore();
   const taskId = useGantt((state) => state.dialogTaskId);
+  const readOnly = useGantt((state) => state.readOnly);
   const project = useGantt((state) => state.history.present);
   const schedule = useGantt((state) => state.schedule);
   const task = taskId === null ? undefined : project.tasks.find((candidate) => candidate.id === taskId);
@@ -99,6 +99,8 @@ export function TaskDialog() {
           <ui.DialogTitle>{t("toolbar.taskInformation")}</ui.DialogTitle>
           <ui.DialogDescription>{`${at.wbs} ${task.name}`}</ui.DialogDescription>
         </ui.DialogHeader>
+        {/* A read-only chart shows the dialog with every control switched off. */}
+        <fieldset disabled={readOnly} className="contents">
         <ui.Tabs defaultValue="general">
           <ui.TabsList>
             <ui.TabsTrigger value="general">{t("dialog.general")}</ui.TabsTrigger>
@@ -378,6 +380,22 @@ export function TaskDialog() {
               }
             </Field>
             <Toggle label={t("field.effortDriven")} checked={task.effortDriven === true} onChange={(checked) => patch("set-effort-driven", { effortDriven: checked })} />
+            <Field label={t("field.color")}>
+              {(id) => (
+                <div className="flex items-center gap-2">
+                  <input
+                    id={id}
+                    type="color"
+                    className="h-9 w-14 rounded-md border bg-background p-1"
+                    value={task.color ?? "#2563eb"}
+                    onChange={(event) => patch("set-color", { color: event.target.value })}
+                  />
+                  <Button type="button" variant="ghost" size="sm" disabled={task.color === undefined} onClick={() => patch("set-color", { color: undefined })}>
+                    {t("dialog.remove")}
+                  </Button>
+                </div>
+              )}
+            </Field>
             <Field label={t("field.fixedCost")}>
               {(id) => (
                 <ui.Input
@@ -393,44 +411,7 @@ export function TaskDialog() {
                 />
               )}
             </Field>
-            {!at.summary && (
-              <div className="col-span-2 flex flex-col gap-2 border-t pt-3">
-                <p className="text-sm font-medium">{t("split.title")}</p>
-                {(task.splits ?? []).map((split) => (
-                  <p key={split.offset} className="text-sm text-muted-foreground" data-gantt-slot="split-entry">
-                    {t("split.entry", {
-                      worked: formatDuration({ minutes: split.offset, unit: "d", elapsed: false, estimated: false }, project),
-                      gap: formatDuration({ minutes: split.gap, unit: "d", elapsed: false, estimated: false }, project),
-                    })}
-                  </p>
-                ))}
-                <form
-                  className="grid grid-cols-[1fr_1fr_auto_auto] items-end gap-2"
-                  onSubmit={(event) => {
-                    event.preventDefault();
-                    const form = new FormData(event.currentTarget);
-                    const date = String(form.get("at") ?? "");
-                    const gap = String(form.get("gap") ?? "");
-                    if (date === "") return;
-                    apply("split-task", (p, s) => splitTask(p, s, task.id, parseLocalDateTime(date) + p.defaultStartTime, parseDuration(gap, p).minutes));
-                  }}
-                >
-                  <Field label={t("split.at")}>{(id) => <ui.Input id={id} name="at" type="date" defaultValue={toDateInputValue(at.start)} />}</Field>
-                  <Field label={t("split.gap")}>{(id) => <ui.Input id={id} name="gap" defaultValue="1d" />}</Field>
-                  <Button type="submit" variant="outline">
-                    {t("split.add")}
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    disabled={!task.splits || task.splits.length === 0}
-                    onClick={() => apply("clear-splits", (p) => clearSplits(p, task.id))}
-                  >
-                    {t("split.clear")}
-                  </Button>
-                </form>
-              </div>
-            )}
+            {!at.summary && <TaskSplits task={task} start={at.start} />}
           </ui.TabsContent>
 
           <ui.TabsContent value="custom" className="grid grid-cols-2 gap-x-4 gap-y-3 pt-2">
@@ -475,6 +456,7 @@ export function TaskDialog() {
             />
           </ui.TabsContent>
         </ui.Tabs>
+        </fieldset>
         <ui.DialogFooter>
           <Button variant="outline" onClick={closeTaskDialog}>
             {t("dialog.close")}

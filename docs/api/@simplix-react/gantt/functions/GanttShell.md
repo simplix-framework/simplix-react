@@ -8,7 +8,7 @@
 
 > **GanttShell**(`__namedParameters`): `Element`
 
-Defined in: [components/gantt.tsx:31](https://github.com/simplix-react/simplix-react/blob/main/components/gantt.tsx#L31)
+Defined in: [components/gantt.tsx:35](https://github.com/simplix-react/simplix-react/blob/main/components/gantt.tsx#L35)
 
 The standard chart chrome inside a [GanttProvider](GanttProvider.md): the toolbar above
 the screen the toolbar's view switch selects, and the task information

@@ -33,12 +33,27 @@
     "levelWithinSlack": "Level within slack only",
     "levelBySplitting": "Level by splitting tasks",
     "markers": "Date markers",
-    "scrollToToday": "Go to today"
+    "scrollToToday": "Go to today",
+    "filter": "Filter",
+    "filterResource": "By resource",
+    "sort": "Sort",
+    "sortDescending": "Descending",
+    "group": "Group",
+    "search": "Search tasks",
+    "barText": "Bar text",
+    "barColoring": "Bar colour",
+    "progressLine": "Progress line",
+    "insertSubproject": "Insert subproject from XML",
+    "editRecurring": "Edit recurring task"
   },
   "view": {
     "gantt": "Gantt chart",
     "resources": "Resource sheet",
-    "usage": "Resource usage"
+    "usage": "Resource usage",
+    "taskUsage": "Task usage",
+    "graph": "Resource graph",
+    "calendar": "Calendar",
+    "network": "Network diagram"
   },
   "column": {
     "name": "Task name",
@@ -71,7 +86,10 @@
     "summary": "Summary task",
     "manual": "Manually scheduled",
     "auto": "Auto scheduled",
-    "moveRow": "Drag to move the row"
+    "moveRow": "Drag to move the row",
+    "hasNotes": "Has notes",
+    "hasConstraint": "Date constraint",
+    "barLabel": "{{name}}, {{start}} to {{finish}}, {{percent}}% complete"
   },
   "dialog": {
     "general": "General",
@@ -104,7 +122,8 @@
     "resource": "Resource",
     "fixedCost": "Fixed cost",
     "overtime": "Overtime (hours)",
-    "contour": "Work contour"
+    "contour": "Work contour",
+    "color": "Bar colour"
   },
   "constraint": {
     "asap": "As soon as possible",
@@ -139,7 +158,10 @@
     "emptyHint": "Add a resource, then assign it to a task in the task information dialog.",
     "standardRate": "Standard rate (per hour)",
     "costPerUse": "Cost per use",
-    "overtimeRate": "Overtime rate (per hour)"
+    "overtimeRate": "Overtime rate (per hour)",
+    "rates": "Rates by date",
+    "rateFrom": "In effect from",
+    "addRate": "Add rate"
   },
   "usage": {
     "overallocated": "Overallocated",
@@ -239,7 +261,8 @@
     "from": "First day",
     "until": "Last day",
     "count": "Occurrences",
-    "create": "Create"
+    "create": "Create",
+    "save": "Save"
   },
   "frequency": {
     "daily": "Daily",
@@ -265,5 +288,59 @@
     "statusDate": "Status date",
     "projectStart": "Project start",
     "projectFinish": "Project finish"
+  },
+  "group": {
+    "critical": "Critical",
+    "not-critical": "Not critical",
+    "not-started": "Not started",
+    "in-progress": "In progress",
+    "complete": "Complete",
+    "unassigned": "Unassigned"
+  },
+  "filter": {
+    "all": "All tasks",
+    "critical": "Critical",
+    "incomplete": "Incomplete",
+    "completed": "Completed",
+    "milestones": "Milestones",
+    "late": "Late",
+    "unassigned": "Unassigned",
+    "anyResource": "Any resource"
+  },
+  "sort": {
+    "none": "Plan order",
+    "name": "Task name",
+    "start": "Start",
+    "finish": "Finish",
+    "duration": "Duration",
+    "percentComplete": "% complete",
+    "totalSlack": "Total slack",
+    "priority": "Priority"
+  },
+  "groupBy": {
+    "none": "No group",
+    "resource": "Resource",
+    "critical": "Critical or not",
+    "status": "Status"
+  },
+  "barText": {
+    "resources": "Resource names",
+    "name": "Task name",
+    "percentComplete": "% complete",
+    "dates": "Dates",
+    "none": "None"
+  },
+  "barColoring": {
+    "none": "Default",
+    "task": "By task",
+    "resource": "By resource"
+  },
+  "calendarView": {
+    "previous": "Previous month",
+    "next": "Next month",
+    "more": "+{{count}} more"
+  },
+  "graph": {
+    "capacity": "Capacity"
   }
 }

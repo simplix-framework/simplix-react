@@ -33,12 +33,27 @@
     "levelWithinSlack": "余裕期間内でのみ平準化",
     "levelBySplitting": "タスクを分割して平準化",
     "markers": "日付マーカー",
-    "scrollToToday": "今日へ移動"
+    "scrollToToday": "今日へ移動",
+    "filter": "フィルター",
+    "filterResource": "リソースで絞り込み",
+    "sort": "並べ替え",
+    "sortDescending": "降順",
+    "group": "グループ",
+    "search": "タスクを検索",
+    "barText": "バーの文字",
+    "barColoring": "バーの色",
+    "progressLine": "進捗線",
+    "insertSubproject": "XML からサブプロジェクトを挿入",
+    "editRecurring": "定期タスクを編集"
   },
   "view": {
     "gantt": "ガントチャート",
     "resources": "リソースシート",
-    "usage": "リソース使用状況"
+    "usage": "リソース使用状況",
+    "taskUsage": "タスク配分状況",
+    "graph": "リソースグラフ",
+    "calendar": "カレンダー",
+    "network": "ネットワーク図"
   },
   "column": {
     "name": "タスク名",
@@ -71,7 +86,10 @@
     "summary": "サマリータスク",
     "manual": "手動スケジュール",
     "auto": "自動スケジュール",
-    "moveRow": "ドラッグして行を移動"
+    "moveRow": "ドラッグして行を移動",
+    "hasNotes": "メモあり",
+    "hasConstraint": "日付の制約あり",
+    "barLabel": "{{name}}、{{start}} から {{finish}}、達成率 {{percent}}%"
   },
   "dialog": {
     "general": "全般",
@@ -104,7 +122,8 @@
     "resource": "リソース",
     "fixedCost": "固定コスト",
     "overtime": "超過作業(時間)",
-    "contour": "作業の分布"
+    "contour": "作業の分布",
+    "color": "バーの色"
   },
   "constraint": {
     "asap": "できるだけ早く",
@@ -139,7 +158,10 @@
     "emptyHint": "リソースを追加し、タスク情報ダイアログでタスクに割り当ててください。",
     "standardRate": "標準単価(時間あたり)",
     "costPerUse": "導入コスト",
-    "overtimeRate": "超過単価(時間あたり)"
+    "overtimeRate": "超過単価(時間あたり)",
+    "rates": "日付ごとの単価",
+    "rateFrom": "適用開始日",
+    "addRate": "単価を追加"
   },
   "usage": {
     "overallocated": "割り当て超過",
@@ -239,7 +261,8 @@
     "from": "開始日",
     "until": "最終日",
     "count": "回数",
-    "create": "作成"
+    "create": "作成",
+    "save": "保存"
   },
   "frequency": {
     "daily": "毎日",
@@ -265,5 +288,59 @@
     "statusDate": "状況報告日",
     "projectStart": "プロジェクト開始",
     "projectFinish": "プロジェクト終了"
+  },
+  "group": {
+    "critical": "クリティカル",
+    "not-critical": "非クリティカル",
+    "not-started": "未開始",
+    "in-progress": "進行中",
+    "complete": "完了",
+    "unassigned": "未割り当て"
+  },
+  "filter": {
+    "all": "すべてのタスク",
+    "critical": "クリティカル",
+    "incomplete": "未完了",
+    "completed": "完了済み",
+    "milestones": "マイルストーン",
+    "late": "遅延",
+    "unassigned": "未割り当て",
+    "anyResource": "すべてのリソース"
+  },
+  "sort": {
+    "none": "計画の順序",
+    "name": "タスク名",
+    "start": "開始",
+    "finish": "終了",
+    "duration": "期間",
+    "percentComplete": "達成率",
+    "totalSlack": "総余裕期間",
+    "priority": "優先度"
+  },
+  "groupBy": {
+    "none": "グループなし",
+    "resource": "リソース",
+    "critical": "クリティカルかどうか",
+    "status": "進捗状況"
+  },
+  "barText": {
+    "resources": "リソース名",
+    "name": "タスク名",
+    "percentComplete": "達成率",
+    "dates": "日付",
+    "none": "なし"
+  },
+  "barColoring": {
+    "none": "既定",
+    "task": "タスクごと",
+    "resource": "リソースごと"
+  },
+  "calendarView": {
+    "previous": "前の月",
+    "next": "次の月",
+    "more": "ほか {{count}} 件"
+  },
+  "graph": {
+    "capacity": "稼働可能時間"
   }
 }

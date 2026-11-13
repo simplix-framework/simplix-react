@@ -13,7 +13,7 @@ import {
   updateTask,
 } from "@simplix-react/gantt-core";
 import type { ConflictKind, Id, Schedule } from "@simplix-react/gantt-core";
-import { ChevronDown, ChevronRight, TriangleAlert } from "lucide-react";
+import { CalendarClock, ChevronDown, ChevronRight, StickyNote, TriangleAlert } from "lucide-react";
 import { useMemo, useState } from "react";
 import type { PointerEvent as ReactPointerEvent } from "react";
 
@@ -34,7 +34,8 @@ import {
   gridContentWidth,
 } from "../lib/grid-columns";
 import type { BuiltInColumnId, ColumnWidths, GanttColumnId } from "../lib/grid-columns";
-import type { VisibleRow } from "../lib/rows";
+import { formatDate } from "../lib/format";
+import type { ViewRow } from "../lib/view-rows";
 import { useDrag } from "../lib/use-drag";
 import { useGanttTranslation } from "../lib/use-gantt-translation";
 import { CellEditor } from "./cell-editor";
@@ -93,7 +94,7 @@ export function TaskGridHeader({ columns, widths, onResize, onMove }: TaskGridHe
     onCancel: ({ column, origin }) => onResize(column, origin),
   });
   return (
-    <div className="flex h-full items-end text-xs font-medium text-muted-foreground" role="row">
+    <div className="flex h-full items-end text-xs font-medium text-foreground" role="row">
       <div className="h-full shrink-0 border-r" style={{ width: INDICATOR_WIDTH }} />
       {columns.map((column) => (
         <div
@@ -128,7 +129,11 @@ export interface TaskGridRowsProps {
   /** The column the keyboard acts on; its cell in a selected row is outlined. */
   activeColumn: GanttColumnId;
   onActiveColumnChange: (column: GanttColumnId) => void;
-  rows: readonly VisibleRow[];
+  rows: readonly ViewRow[];
+  /** Whether a row can be dragged to a new place: only while the plan is shown in its own order. */
+  movable: boolean;
+  /** A table that only shows: no cell opens for editing. */
+  readOnly: boolean;
   /** Rows to draw, as indexes into `rows` with their vertical offset. */
   window: readonly { index: number; start: number }[];
   rowHeight: number;
@@ -142,6 +147,8 @@ export function TaskGridRows({
   widths,
   activeColumn,
   onActiveColumnChange,
+  movable,
+  readOnly,
   rows,
   window,
   rowHeight,
@@ -153,6 +160,8 @@ export function TaskGridRows({
   const project = useGantt((state) => state.history.present);
   const schedule = useGantt((state) => state.schedule);
   const selection = useGantt((state) => state.selection);
+  const collapsed = useGantt((state) => state.collapsed);
+  const viewOptions = useGantt((state) => state.viewOptions);
   const selected = useMemo(() => new Set(selection), [selection]);
   const conflicts = useMemo(() => conflictsByTask(schedule), [schedule]);
   const baselineNumber = useGantt((state) => state.baselineNumber);
@@ -223,7 +232,8 @@ export function TaskGridRows({
     onEnd({ id, grid }, position) {
       setDropSlot(null);
       const slot = slotAt(grid, position.clientY);
-      const target = rows[slot];
+      const candidate = rows[slot];
+      const target = candidate?.kind === "task" ? candidate : undefined;
       store.getState().apply("move-row", (p) => {
         const from = p.tasks.findIndex((task) => task.id === id);
         const before = target ? target.index : p.tasks.length;
@@ -250,6 +260,34 @@ export function TaskGridRows({
       )}
       {window.map(({ index, start }) => {
         const row = rows[index];
+        if (row.kind === "group") {
+          const folded = collapsed.has(`group:${row.key}`);
+          const label =
+            viewOptions.group === "resource"
+              ? (project.resources.find((resource) => resource.id === row.key)?.name ?? t("group.unassigned"))
+              : t(`group.${row.key}`);
+          return (
+            <div
+              key={`group:${row.key}`}
+              role="row"
+              className="absolute left-0 flex w-full items-center gap-1 border-b bg-muted px-2 text-sm font-semibold"
+              style={{ top: start, height: rowHeight }}
+              data-gantt-group={row.key}
+            >
+              <button
+                type="button"
+                className="flex size-4 items-center justify-center rounded-sm text-muted-foreground hover:bg-background"
+                aria-label={t(folded ? "task.expand" : "task.collapse")}
+                aria-expanded={!folded}
+                onClick={() => store.getState().toggleCollapsed(`group:${row.key}`)}
+              >
+                {folded ? <ChevronRight className="size-3.5" /> : <ChevronDown className="size-3.5" />}
+              </button>
+              <span className="truncate">{label}</span>
+              <span className="text-xs font-normal text-muted-foreground tabular-nums">{row.count}</span>
+            </div>
+          );
+        }
         const at = schedule.tasks.get(row.task.id);
         if (!at) return null;
         const rowConflicts = conflicts.get(row.task.id);
@@ -278,12 +316,15 @@ export function TaskGridRows({
             onDoubleClick={() => store.getState().openTaskDialog(row.task.id)}
           >
             <div
-              className="flex shrink-0 cursor-grab touch-none items-center justify-end gap-1 border-r px-1.5 text-xs text-muted-foreground tabular-nums"
+              className={cn(
+                "flex shrink-0 touch-none items-center justify-end gap-0.5 border-r px-1.5 text-xs text-muted-foreground tabular-nums",
+                movable && "cursor-grab",
+              )}
               style={{ width: INDICATOR_WIDTH }}
-              title={t("task.moveRow")}
+              title={movable ? t("task.moveRow") : undefined}
               data-gantt-slot="row-handle"
               onPointerDown={(event) => {
-                if (event.button !== 0) return;
+                if (event.button !== 0 || !movable) return;
                 store.getState().selectRow(row.task.id);
                 beginRowDrag({ id: row.task.id, grid: event.currentTarget.closest('[data-gantt-slot="grid"]') }, event);
               }}
@@ -293,11 +334,21 @@ export function TaskGridRows({
                   <TriangleAlert className="size-3.5" aria-label={rowConflicts.map((kind) => t(`conflict.${kind}`)).join(", ")} />
                 </span>
               )}
+              {row.task.notes && (
+                <span title={row.task.notes}>
+                  <StickyNote className="size-3" aria-label={t("task.hasNotes")} />
+                </span>
+              )}
+              {row.task.constraintDate !== undefined && row.task.constraintType !== "asap" && row.task.constraintType !== "alap" && (
+                <span title={`${t(`constraint.${row.task.constraintType}`)}: ${formatDate(row.task.constraintDate, language)}`}>
+                  <CalendarClock className="size-3" aria-label={t("task.hasConstraint")} />
+                </span>
+              )}
               {row.index + 1}
             </div>
             {columns.map((column) => {
               const field = customFieldOf(column, project);
-              const editable = isEditableCell(column, row, project);
+              const editable = !readOnly && isEditableCell(column, row, project);
               const active = column === activeColumn && selected.has(row.task.id);
               const isEditing = editing?.id === row.task.id && editing.column === column;
               return (
@@ -316,7 +367,7 @@ export function TaskGridRows({
                   )}
                   style={{ width: columnWidth(column, widths) }}
                   onDoubleClick={(event) => {
-                    if (field?.type === "flag") {
+                    if (field?.type === "flag" && !readOnly) {
                       // A flag has nothing to type: a double click turns it over.
                       event.stopPropagation();
                       store.getState().apply("set-custom-value", (p) => setCustomValue(p, row.task.id, field.id, row.task.custom?.[field.id] !== true));

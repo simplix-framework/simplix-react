@@ -1,5 +1,5 @@
-import { addRecurringTask, parseDuration, parseLocalDateTime } from "@simplix-react/gantt-core";
-import type { Recurrence } from "@simplix-react/gantt-core";
+import { addRecurringTask, formatDuration, parseDuration, parseLocalDateTime, updateRecurringTask } from "@simplix-react/gantt-core";
+import type { Recurrence, Task } from "@simplix-react/gantt-core";
 import { Button, useFlatUIComponents } from "@simplix-react/ui";
 import { useState } from "react";
 
@@ -16,14 +16,24 @@ const FREQUENCIES = ["daily", "weekly", "monthly"] as const;
  * it adds a summary task with one task per occurrence, as one undo step.
  */
 export function RecurringDialog() {
+  const open = useGantt((state) => state.recurringDialogOpen);
+  const project = useGantt((state) => state.history.present);
+  const selection = useGantt((state) => state.selection);
+  if (!open) return null;
+  // With a recurring task selected the dialog changes that one; otherwise it adds a new one.
+  const selected = project.tasks.find((task) => task.id === selection[selection.length - 1]);
+  const editing = selected?.recurrence ? selected : undefined;
+  return <RecurringForm key={editing?.id ?? "new"} editing={editing} />;
+}
+
+function RecurringForm({ editing }: { editing: Task | undefined }) {
   const { t, language } = useGanttTranslation();
   const ui = useFlatUIComponents();
   const store = useGanttStore();
-  const open = useGantt((state) => state.recurringDialogOpen);
   const project = useGantt((state) => state.history.present);
-  const [frequency, setFrequency] = useState<Recurrence["frequency"]>("weekly");
-  const [weekdays, setWeekdays] = useState<readonly number[]>([1]);
-  if (!open) return null;
+  const rule = editing?.recurrence;
+  const [frequency, setFrequency] = useState<Recurrence["frequency"]>(rule?.frequency ?? "weekly");
+  const [weekdays, setWeekdays] = useState<readonly number[]>(rule?.weekdays ?? [1]);
 
   const { apply, closeRecurringDialog, insertionPoint } = store.getState();
   const create = (form: FormData): void => {
@@ -33,22 +43,18 @@ export function RecurringDialog() {
       const until = text("until");
       const count = text("count");
       const duration = parseDuration(text("duration"), p);
-      return addRecurringTask(p, {
-        name: text("name") || t("recurring.newName"),
-        duration: duration.minutes,
-        durationUnit: duration.unit,
-        beforeIndex: at,
-        outlineLevel: level,
-        recurrence: {
-          frequency,
-          interval: Number(text("interval") || "1"),
-          weekdays,
-          monthDay: Number(text("monthDay") || "1"),
-          from: parseLocalDateTime(text("from")),
-          until: until === "" ? undefined : parseLocalDateTime(until),
-          count: count === "" ? undefined : Number(count),
-        },
-      });
+      const recurrence: Recurrence = {
+        frequency,
+        interval: Number(text("interval") || "1"),
+        weekdays,
+        monthDay: Number(text("monthDay") || "1"),
+        from: parseLocalDateTime(text("from")),
+        until: until === "" ? undefined : parseLocalDateTime(until),
+        count: count === "" ? undefined : Number(count),
+      };
+      const name = text("name") || t("recurring.newName");
+      if (editing) return updateRecurringTask(p, editing.id, { name, duration: duration.minutes, durationUnit: duration.unit, recurrence });
+      return addRecurringTask(p, { name, duration: duration.minutes, durationUnit: duration.unit, beforeIndex: at, outlineLevel: level, recurrence });
     });
     if (accepted) closeRecurringDialog();
   };
@@ -57,7 +63,7 @@ export function RecurringDialog() {
     <ui.Dialog open onOpenChange={(next) => !next && closeRecurringDialog()}>
       <ui.DialogContent className="max-w-lg">
         <ui.DialogHeader>
-          <ui.DialogTitle>{t("toolbar.addRecurring")}</ui.DialogTitle>
+          <ui.DialogTitle>{t(editing ? "toolbar.editRecurring" : "toolbar.addRecurring")}</ui.DialogTitle>
           <ui.DialogDescription>{project.name}</ui.DialogDescription>
         </ui.DialogHeader>
         <form
@@ -68,9 +74,13 @@ export function RecurringDialog() {
           }}
         >
           <Field label={t("field.name")} wide>
-            {(id) => <ui.Input id={id} name="name" defaultValue={t("recurring.newName")} />}
+            {(id) => <ui.Input id={id} name="name" defaultValue={editing?.name ?? t("recurring.newName")} />}
           </Field>
-          <Field label={t("column.duration")}>{(id) => <ui.Input id={id} name="duration" defaultValue="1h" />}</Field>
+          <Field label={t("column.duration")}>{(id) => <ui.Input
+                id={id}
+                name="duration"
+                defaultValue={rule ? formatDuration({ minutes: rule.duration, unit: rule.durationUnit, elapsed: false, estimated: false }, project) : "1h"}
+              />}</Field>
           <Field label={t("recurring.frequency")}>
             {() => (
               <ui.Select value={frequency} onValueChange={(value) => setFrequency(value as Recurrence["frequency"])}>
@@ -87,9 +97,9 @@ export function RecurringDialog() {
               </ui.Select>
             )}
           </Field>
-          <Field label={t("recurring.interval")}>{(id) => <ui.Input id={id} name="interval" type="number" min={1} defaultValue={1} />}</Field>
+          <Field label={t("recurring.interval")}>{(id) => <ui.Input id={id} name="interval" type="number" min={1} defaultValue={rule?.interval ?? 1} />}</Field>
           {frequency === "monthly" && (
-            <Field label={t("recurring.monthDay")}>{(id) => <ui.Input id={id} name="monthDay" type="number" min={1} max={31} defaultValue={1} />}</Field>
+            <Field label={t("recurring.monthDay")}>{(id) => <ui.Input id={id} name="monthDay" type="number" min={1} max={31} defaultValue={rule?.monthDay ?? 1} />}</Field>
           )}
           {frequency === "weekly" && (
             <div className="col-span-2 flex flex-col gap-1.5">
@@ -108,15 +118,15 @@ export function RecurringDialog() {
             </div>
           )}
           <Field label={t("recurring.from")}>
-            {(id) => <ui.Input id={id} name="from" type="date" required defaultValue={toDateInputValue(project.start)} />}
+            {(id) => <ui.Input id={id} name="from" type="date" required defaultValue={toDateInputValue(rule?.from ?? project.start)} />}
           </Field>
-          <Field label={t("recurring.until")}>{(id) => <ui.Input id={id} name="until" type="date" />}</Field>
-          <Field label={t("recurring.count")}>{(id) => <ui.Input id={id} name="count" type="number" min={1} max={500} defaultValue={4} />}</Field>
+          <Field label={t("recurring.until")}>{(id) => <ui.Input id={id} name="until" type="date" defaultValue={rule?.until === undefined ? "" : toDateInputValue(rule.until)} />}</Field>
+          <Field label={t("recurring.count")}>{(id) => <ui.Input id={id} name="count" type="number" min={1} max={500} defaultValue={rule ? (rule.count ?? "") : 4} />}</Field>
           <ui.DialogFooter className="col-span-2">
             <Button type="button" variant="outline" onClick={closeRecurringDialog}>
               {t("dialog.close")}
             </Button>
-            <Button type="submit">{t("recurring.create")}</Button>
+            <Button type="submit">{t(editing ? "recurring.save" : "recurring.create")}</Button>
           </ui.DialogFooter>
         </form>
       </ui.DialogContent>

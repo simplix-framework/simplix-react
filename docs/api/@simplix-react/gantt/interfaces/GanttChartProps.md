@@ -6,7 +6,7 @@
 
 # Interface: GanttChartProps
 
-Defined in: [components/gantt-chart.tsx:41](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L41)
+Defined in: [components/gantt-chart.tsx:42](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L42)
 
 Props for [GanttChart](../functions/GanttChart.md).
 
@@ -20,7 +20,7 @@ Props for [GanttChart](../functions/GanttChart.md).
 
 > `optional` **defaultGridWidth**: `number`
 
-Defined in: [components/gantt-chart.tsx:43](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L43)
+Defined in: [components/gantt-chart.tsx:44](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L44)
 
 Width the task table opens at. It can be dragged wider or narrower.
 
@@ -30,6 +30,6 @@ Width the task table opens at. It can be dragged wider or narrower.
 
 > `optional` **weekStartsOn**: `number`
 
-Defined in: [components/gantt-chart.tsx:45](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L45)
+Defined in: [components/gantt-chart.tsx:46](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-chart.tsx#L46)
 
 First day of a week column: 0 is Sunday.

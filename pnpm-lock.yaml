@@ -291,6 +291,9 @@ catalogs:
     platejs:
       specifier: ^53.0.0
       version: 53.0.0
+    playwright-core:
+      specifier: ^1.65.0
+      version: 1.65.0
     pmtiles:
       specifier: ^4.4.0
       version: 4.4.0
@@ -1225,6 +1228,9 @@ importers:
       jsdom:
         specifier: 'catalog:'
         version: 29.0.0
+      playwright-core:
+        specifier: 'catalog:'
+        version: 1.65.0
       react:
         specifier: 'catalog:'
         version: 19.2.4
@@ -6600,6 +6606,11 @@ packages:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
+  playwright-core@1.65.0:
+    resolution: {integrity: sha512-vNSKgH6YqtN7cdT/L334zo0a+YwkrpicyrHJlWWPIm/Q+Nn2SWInil01oT0mbu96U4GgoRtCYQD9CzJQgju+lA==}
+    engines: {node: '>=20'}
+    hasBin: true
+
   plist@3.1.1:
     resolution: {integrity: sha512-ZIfcLJC+7E7FBFnDxm9MPmt7D+DidyQ26lewieO75AdhA2ayMtsJSES0iWzqJQbcVRSrTufQoy0DR94xHue0oA==}
     engines: {node: '>=10.4.0'}
@@ -10293,9 +10304,7 @@ snapshots:
       metro-runtime: 0.84.4
     transitivePeerDependencies:
       - '@babel/core'
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   '@react-native/normalize-colors@0.81.5': {}
 
@@ -13375,6 +13384,8 @@ snapshots:
       - react-native
       - scheduler
       - use-sync-external-store
+
+  playwright-core@1.65.0: {}
 
   plist@3.1.1:
     dependencies:

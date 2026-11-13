@@ -5,6 +5,7 @@ import {
   clearLeveling,
   findOverallocations,
   levelResources,
+  insertSubproject,
   rescheduleUncompletedWork,
   removeLinks,
   setBaseline,
@@ -43,9 +44,16 @@ import { BUILT_IN_COLUMNS } from "../lib/grid-columns";
 import type { GanttColumnId } from "../lib/grid-columns";
 import { ZOOM_LEVELS } from "../lib/time-scale";
 import { useGanttTranslation } from "../lib/use-gantt-translation";
-import type { GanttView } from "../model/gantt-store";
+import type { GroupKey, SortKey, TaskFilter } from "../lib/view-rows";
+import type { BarColoring, BarText, GanttView } from "../model/gantt-store";
 
-const VIEWS: readonly GanttView[] = ["gantt", "resources", "usage"];
+const VIEWS: readonly GanttView[] = ["gantt", "network", "calendar", "resources", "usage", "taskUsage", "graph"];
+const FILTERS: readonly TaskFilter[] = ["all", "critical", "incomplete", "completed", "milestones", "late", "unassigned"];
+const SORTS: readonly SortKey[] = ["none", "name", "start", "finish", "duration", "percentComplete", "totalSlack", "priority"];
+const GROUPS: readonly GroupKey[] = ["none", "resource", "critical", "status"];
+const BAR_TEXTS: readonly BarText[] = ["resources", "name", "percentComplete", "dates", "none"];
+const BAR_COLORINGS: readonly BarColoring[] = ["none", "task", "resource"];
+const ANY = "__any";
 const BASELINE_SLOTS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const;
 
 /** Links the given tasks into a finish-to-start chain in row order, skipping pairs already linked. */
@@ -91,6 +99,28 @@ export function GanttToolbar({ xmlExchange = true, trailing }: GanttToolbarProps
   const columns = useGantt((state) => state.columns);
   const levelingOptions = useGantt((state) => state.levelingOptions);
   const showMarkers = useGantt((state) => state.showMarkers);
+  const viewOptions = useGantt((state) => state.viewOptions);
+  const barText = useGantt((state) => state.barText);
+  const barColoring = useGantt((state) => state.barColoring);
+  const showProgressLine = useGantt((state) => state.showProgressLine);
+  const readOnly = useGantt((state) => state.readOnly);
+  const subprojectRef = useRef<HTMLInputElement | null>(null);
+
+  /** A submenu that picks one of several values. */
+  const radioMenu = <T extends string>(label: string, value: T, values: readonly T[], labelOf: (value: T) => string, onPick: (value: T) => void): ReactNode => (
+    <ui.DropdownMenuSub>
+      <ui.DropdownMenuSubTrigger>{`${label}: ${labelOf(value)}`}</ui.DropdownMenuSubTrigger>
+      <ui.DropdownMenuSubContent className="max-h-80 overflow-y-auto">
+        <ui.DropdownMenuRadioGroup value={value} onValueChange={(next) => onPick(next as T)}>
+          {values.map((option) => (
+            <ui.DropdownMenuRadioItem key={option} value={option}>
+              {labelOf(option)}
+            </ui.DropdownMenuRadioItem>
+          ))}
+        </ui.DropdownMenuRadioGroup>
+      </ui.DropdownMenuSubContent>
+    </ui.DropdownMenuSub>
+  );
   const fileRef = useRef<HTMLInputElement | null>(null);
   const [loading, setLoading] = useState(false);
   const columnChoices = useMemo<{ id: GanttColumnId; label: string }[]>(
@@ -186,13 +216,13 @@ export function GanttToolbar({ xmlExchange = true, trailing }: GanttToolbarProps
           ))}
         </div>
         {divider}
-        {icon(t("toolbar.undo"), <Undo2 />, state.undo, !canUndo)}
-        {icon(t("toolbar.redo"), <Redo2 />, state.redo, !canRedo)}
+        {icon(t("toolbar.undo"), <Undo2 />, state.undo, !canUndo || readOnly)}
+        {icon(t("toolbar.redo"), <Redo2 />, state.redo, !canRedo || readOnly)}
         {view === "gantt" && (
           <>
             {divider}
-            {icon(t("toolbar.addTask"), <Plus />, () => state.addTask(t("task.newName")))}
-            {icon(t("toolbar.removeTask"), <Trash2 />, state.removeSelected, !hasRows && selectedLinkId === null)}
+            {icon(t("toolbar.addTask"), <Plus />, () => state.addTask(t("task.newName")), readOnly)}
+            {icon(t("toolbar.removeTask"), <Trash2 />, state.removeSelected, readOnly || (!hasRows && selectedLinkId === null))}
             {icon(t("toolbar.taskInformation"), <Info />, () => last !== undefined && state.openTaskDialog(last), !hasRows)}
             {divider}
             {icon(t("toolbar.outdent"), <IndentDecrease />, state.outdentSelected, !hasRows)}
@@ -228,6 +258,34 @@ export function GanttToolbar({ xmlExchange = true, trailing }: GanttToolbarProps
             </Button>
           </ui.DropdownMenuTrigger>
           <ui.DropdownMenuContent align="start">
+            {radioMenu(t("toolbar.filter"), viewOptions.filter, FILTERS, (id) => t(`filter.${id}`), (filter) => state.setViewOptions({ filter }))}
+            {radioMenu(
+              t("toolbar.filterResource"),
+              viewOptions.resourceId ?? ANY,
+              [ANY, ...project.resources.map((resource) => resource.id)],
+              (id) => (id === ANY ? t("filter.anyResource") : (project.resources.find((resource) => resource.id === id)?.name ?? id)),
+              (id) => state.setViewOptions({ resourceId: id === ANY ? null : id }),
+            )}
+            {radioMenu(t("toolbar.sort"), viewOptions.sort, SORTS, (id) => t(`sort.${id}`), (sort) => state.setViewOptions({ sort }))}
+            <ui.DropdownMenuCheckboxItem
+              checked={viewOptions.sortDescending}
+              disabled={viewOptions.sort === "none"}
+              onCheckedChange={(checked) => state.setViewOptions({ sortDescending: checked })}
+            >
+              {t("toolbar.sortDescending")}
+            </ui.DropdownMenuCheckboxItem>
+            {radioMenu(t("toolbar.group"), viewOptions.group, GROUPS, (id) => t(`groupBy.${id}`), (group) => state.setViewOptions({ group }))}
+            <ui.DropdownMenuSeparator />
+            {radioMenu(t("toolbar.barText"), barText, BAR_TEXTS, (id) => t(`barText.${id}`), state.setBarText)}
+            {radioMenu(t("toolbar.barColoring"), barColoring, BAR_COLORINGS, (id) => t(`barColoring.${id}`), state.setBarColoring)}
+            <ui.DropdownMenuCheckboxItem
+              checked={showProgressLine}
+              disabled={project.statusDate === undefined}
+              onCheckedChange={(checked) => state.setShowProgressLine(checked)}
+            >
+              {t("toolbar.progressLine")}
+            </ui.DropdownMenuCheckboxItem>
+            <ui.DropdownMenuSeparator />
             <ui.DropdownMenuItem onSelect={state.openProjectDialog}>
               <Settings2 />
               {t("toolbar.projectInformation")}
@@ -330,7 +388,10 @@ export function GanttToolbar({ xmlExchange = true, trailing }: GanttToolbarProps
             {xmlExchange && (
               <>
                 <ui.DropdownMenuSeparator />
-                <ui.DropdownMenuItem onSelect={() => fileRef.current?.click()}>
+                <ui.DropdownMenuItem disabled={readOnly} onSelect={() => subprojectRef.current?.click()}>
+                  {t("toolbar.insertSubproject")}
+                </ui.DropdownMenuItem>
+                <ui.DropdownMenuItem disabled={readOnly} onSelect={() => fileRef.current?.click()}>
                   <Upload />
                   {t("toolbar.importXml")}
                 </ui.DropdownMenuItem>
@@ -342,6 +403,18 @@ export function GanttToolbar({ xmlExchange = true, trailing }: GanttToolbarProps
             )}
           </ui.DropdownMenuContent>
         </ui.DropdownMenu>
+        {view === "gantt" && (
+          <ui.Input
+            type="search"
+            aria-label={t("toolbar.search")}
+            placeholder={t("toolbar.search")}
+            className="ml-1 h-8 w-40"
+            value={viewOptions.search}
+            onChange={(event) => state.setViewOptions({ search: event.target.value })}
+            // The chart's shortcuts must not take keys typed into the search box.
+            onKeyDown={(event) => event.stopPropagation()}
+          />
+        )}
         <div className="ml-auto flex min-w-0 items-center gap-1.5">
           {loading && <Badge variant="outline">{t("status.loading")}</Badge>}
           {conflictCount > 0 && (
@@ -374,7 +447,27 @@ export function GanttToolbar({ xmlExchange = true, trailing }: GanttToolbarProps
           {trailing}
         </div>
         {xmlExchange && (
-          <input ref={fileRef} type="file" accept=".xml,application/xml,text/xml" className="hidden" onChange={(e) => void onFile(e)} />
+          <>
+            <input ref={fileRef} type="file" accept=".xml,application/xml,text/xml" className="hidden" onChange={(e) => void onFile(e)} />
+            <input
+              ref={subprojectRef}
+              type="file"
+              accept=".xml,application/xml,text/xml"
+              className="hidden"
+              data-gantt-slot="subproject-file"
+              onChange={(event) => {
+                const file = event.target.files?.[0];
+                event.target.value = "";
+                if (!file) return;
+                void busy(async () => {
+                  const text = await file.text();
+                  const { readMspdi } = await import("@simplix-react/gantt-core/mspdi");
+                  // Reading and inserting both refuse through the store, so a bad file shows its reason.
+                  store.getState().apply("insert-subproject", (p) => insertSubproject(p, readMspdi(text).project, store.getState().insertionPoint().at));
+                });
+              }}
+            />
+          </>
         )}
       </div>
       {rejection && (

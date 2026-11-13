@@ -3,13 +3,15 @@ import type {
   Id,
   LevelingOptions,
   Project,
+  MergeConflict,
   ProjectChange,
   Schedule,
   ScheduleErrorCode,
   TaskClipboard,
 } from "@simplix-react/gantt-core";
 
-import type { GanttColumnId } from "../lib/grid-columns";
+import type { ColumnWidths, GanttColumnId } from "../lib/grid-columns";
+import type { ViewOptions } from "../lib/view-rows";
 
 /** Why the last edit was refused. */
 export interface GanttRejection {
@@ -19,7 +21,34 @@ export interface GanttRejection {
 }
 
 /** The screen a chart shows: the Gantt chart, the resource sheet or the resource usage table. */
-export type GanttView = "gantt" | "resources" | "usage";
+export type GanttView = "gantt" | "resources" | "usage" | "taskUsage" | "graph" | "calendar" | "network";
+
+/** The words a bar carries beside it. */
+export type BarText = "resources" | "name" | "percentComplete" | "dates" | "none";
+/** What decides a bar's colour: the chart's own colour, the task's own, or one per resource. */
+export type BarColoring = "none" | "task" | "resource";
+
+/**
+ * How a chart is laid out and what it shows, apart from the plan itself: the
+ * part an application stores per reader and hands back when the chart opens.
+ */
+export interface GanttLayout {
+  view: GanttView;
+  columns: readonly GanttColumnId[];
+  columnWidths: ColumnWidths;
+  /** Width of the task table, or `null` to fit its columns. */
+  gridWidth: number | null;
+  zoom: number;
+  collapsed: readonly Id[];
+  showCriticalPath: boolean;
+  showLinks: boolean;
+  showMarkers: boolean;
+  showProgressLine: boolean;
+  baselineNumber: number | null;
+  barText: BarText;
+  barColoring: BarColoring;
+  viewOptions: ViewOptions;
+}
 
 /** A change of the plan: receives the current project and its schedule, returns the next project. */
 export type GanttEdit = (project: Project, schedule: Schedule) => Project;
@@ -59,6 +88,18 @@ export interface GanttStoreState {
   view: GanttView;
   /** Columns of the task table, in the order they are shown. */
   columns: readonly GanttColumnId[];
+  /** Widths of the columns that have been resized. */
+  columnWidths: ColumnWidths;
+  /** Width of the task table, or `null` to fit its columns. */
+  gridWidth: number | null;
+  /** How the rows are narrowed, ordered and gathered. */
+  viewOptions: ViewOptions;
+  barText: BarText;
+  barColoring: BarColoring;
+  /** Whether a line joins the progress of every task at the status date. */
+  showProgressLine: boolean;
+  /** A chart that only shows its plan: every edit is refused. */
+  readOnly: boolean;
   /** What resource leveling may do. */
   levelingOptions: LevelingOptions;
   /** The latest request to bring something into view; `seq` tells two requests for the same target apart. */
@@ -99,6 +140,24 @@ export interface GanttStoreState {
   setPrinting(printing: boolean): void;
   setView(view: GanttView): void;
   setColumns(columns: readonly GanttColumnId[]): void;
+  setColumnWidth(column: GanttColumnId, width: number): void;
+  setGridWidth(width: number): void;
+  setViewOptions(options: Partial<ViewOptions>): void;
+  setBarText(text: BarText): void;
+  setBarColoring(coloring: BarColoring): void;
+  setShowProgressLine(show: boolean): void;
+  /** The chart's layout as it is now, to be stored. */
+  getLayout(): GanttLayout;
+  /** Puts a stored layout back. Fields a stored layout does not have keep their values. */
+  applyLayout(layout: Partial<GanttLayout>): void;
+  /**
+   * Brings a plan changed elsewhere into this one. `base` is the version
+   * both started from. Records only the other side changed are taken;
+   * a record both changed keeps this side's version.
+   *
+   * @returns The records both sides changed.
+   */
+  merge(base: Project, theirs: Project): readonly MergeConflict[];
   /** Shows a column at the end of the table, or hides it. */
   toggleColumn(column: GanttColumnId): void;
   /** Moves a column to a place among the columns. */
@@ -157,6 +216,11 @@ export interface CreateGanttStoreOptions {
   view?: GanttView;
   columns?: readonly GanttColumnId[];
   levelingOptions?: LevelingOptions;
+  readOnly?: boolean;
+  /** A stored layout to open with. It overrides the single options it names. */
+  layout?: Partial<GanttLayout>;
+  /** Called when the layout changes, with the whole layout to store. */
+  onLayoutChange?: (layout: GanttLayout) => void;
   /**
    * Called after every accepted change of the plan, undo and redo included,
    * with the records that differ from the plan before it.

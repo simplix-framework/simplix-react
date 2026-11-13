@@ -11,6 +11,7 @@ import {
   formatLocalDate,
   indentTasks,
   insertTask,
+  mergeProjects,
   nextId,
   outdentTasks,
   parseDuration,
@@ -29,12 +30,42 @@ import { createStore } from "zustand/vanilla";
 
 import { DEFAULT_COLUMNS } from "../lib/grid-columns";
 import { DEFAULT_ZOOM, ZOOM_LEVELS } from "../lib/time-scale";
-import type { CreateGanttStoreOptions, GanttStoreState } from "./gantt-store-types";
+import { DEFAULT_VIEW } from "../lib/view-rows";
+import type { CreateGanttStoreOptions, GanttLayout, GanttStoreState } from "./gantt-store-types";
 
-export type { CreateGanttStoreOptions, GanttEdit, GanttRejection, GanttStoreState, GanttView } from "./gantt-store-types";
+export type {
+  BarColoring,
+  BarText,
+  CreateGanttStoreOptions,
+  GanttEdit,
+  GanttLayout,
+  GanttRejection,
+  GanttStoreState,
+  GanttView,
+} from "./gantt-store-types";
 
 /** A chart's store. */
 export type GanttStore = ReturnType<typeof createGanttStore>;
+
+/** The stored part of a chart's state. */
+function layoutOf(state: GanttStoreState): GanttLayout {
+  return {
+    view: state.view,
+    columns: state.columns,
+    columnWidths: state.columnWidths,
+    gridWidth: state.gridWidth,
+    zoom: state.zoom,
+    collapsed: [...state.collapsed],
+    showCriticalPath: state.showCriticalPath,
+    showLinks: state.showLinks,
+    showMarkers: state.showMarkers,
+    showProgressLine: state.showProgressLine,
+    baselineNumber: state.baselineNumber,
+    barText: state.barText,
+    barColoring: state.barColoring,
+    viewOptions: state.viewOptions,
+  };
+}
 
 function clampZoom(zoom: number): number {
   return Math.max(0, Math.min(ZOOM_LEVELS.length - 1, Math.round(zoom)));
@@ -46,7 +77,8 @@ function clampZoom(zoom: number): number {
  * @throws ScheduleError when the initial project cannot be scheduled.
  */
 export function createGanttStore(initial: Project, options: CreateGanttStoreOptions = {}) {
-  return createStore<GanttStoreState>((set, get) => {
+  const layout = options.layout ?? {};
+  const store = createStore<GanttStoreState>((set, get) => {
     const replace = (history: History<Project>, schedule: Schedule, before: Project): void => {
       const known = new Set(history.present.tasks.map((task) => task.id));
       set((state) => ({
@@ -79,13 +111,13 @@ export function createGanttStore(initial: Project, options: CreateGanttStoreOpti
       history: createHistory(initial),
       schedule: computeSchedule(initial),
       selection: [],
-      collapsed: new Set<Id>(),
-      zoom: clampZoom(options.zoom ?? DEFAULT_ZOOM),
-      showCriticalPath: options.showCriticalPath ?? false,
-      showLinks: options.showLinks ?? true,
-      showMarkers: options.showMarkers ?? true,
-      baselineNumber: options.baselineNumber ?? null,
-      baselineSlot: options.baselineNumber ?? 0,
+      collapsed: new Set<Id>(layout.collapsed ?? []),
+      zoom: clampZoom(layout.zoom ?? options.zoom ?? DEFAULT_ZOOM),
+      showCriticalPath: layout.showCriticalPath ?? options.showCriticalPath ?? false,
+      showLinks: layout.showLinks ?? options.showLinks ?? true,
+      showMarkers: layout.showMarkers ?? options.showMarkers ?? true,
+      baselineNumber: layout.baselineNumber ?? options.baselineNumber ?? null,
+      baselineSlot: layout.baselineNumber ?? options.baselineNumber ?? 0,
       rejection: null,
       clipboard: null,
       clipboardText: null,
@@ -94,13 +126,21 @@ export function createGanttStore(initial: Project, options: CreateGanttStoreOpti
       projectDialogOpen: false,
       recurringDialogOpen: false,
       printing: false,
-      view: options.view ?? "gantt",
-      columns: options.columns ?? DEFAULT_COLUMNS,
+      view: layout.view ?? options.view ?? "gantt",
+      columns: layout.columns ?? options.columns ?? DEFAULT_COLUMNS,
+      columnWidths: layout.columnWidths ?? {},
+      gridWidth: layout.gridWidth ?? null,
+      viewOptions: { ...DEFAULT_VIEW, ...layout.viewOptions },
+      barText: layout.barText ?? "resources",
+      barColoring: layout.barColoring ?? "none",
+      showProgressLine: layout.showProgressLine ?? false,
+      readOnly: options.readOnly ?? false,
       levelingOptions: options.levelingOptions ?? {},
       scrollRequest: null,
 
       apply(label, edit) {
-        const { history, schedule } = get();
+        const { history, schedule, readOnly } = get();
+        if (readOnly) return false;
         try {
           const next = edit(history.present, schedule);
           if (next === history.present) return true;
@@ -175,6 +215,31 @@ export function createGanttStore(initial: Project, options: CreateGanttStoreOpti
       setPrinting: (printing) => set({ printing }),
       setView: (view) => set({ view }),
       setColumns: (columns) => set({ columns: [...new Set(columns)] }),
+      setColumnWidth: (column, width) => set((state) => ({ columnWidths: { ...state.columnWidths, [column]: Math.round(width) } })),
+      setGridWidth: (gridWidth) => set({ gridWidth: Math.round(gridWidth) }),
+      setViewOptions: (changed) => set((state) => ({ viewOptions: { ...state.viewOptions, ...changed } })),
+      setBarText: (barText) => set({ barText }),
+      setBarColoring: (barColoring) => set({ barColoring }),
+      setShowProgressLine: (showProgressLine) => set({ showProgressLine }),
+      getLayout: () => layoutOf(get()),
+      applyLayout(stored) {
+        set((state) => ({
+          ...stored,
+          collapsed: stored.collapsed ? new Set(stored.collapsed) : state.collapsed,
+          zoom: stored.zoom === undefined ? state.zoom : clampZoom(stored.zoom),
+          viewOptions: { ...state.viewOptions, ...stored.viewOptions },
+        }));
+      },
+      merge(base, theirs) {
+        try {
+          const merged = mergeProjects(base, get().history.present, theirs);
+          get().sync(merged.project);
+          return merged.conflicts;
+        } catch (error) {
+          reject(error);
+          return [];
+        }
+      },
       toggleColumn(column) {
         const { columns } = get();
         set({ columns: columns.includes(column) ? columns.filter((other) => other !== column) : [...columns, column] });
@@ -368,4 +433,16 @@ export function createGanttStore(initial: Project, options: CreateGanttStoreOpti
       },
     };
   });
+  if (options.onLayoutChange) {
+    const notify = options.onLayoutChange;
+    let previous = JSON.stringify(layoutOf(store.getState()));
+    // Compared as text, so a state change that leaves the layout alone tells nobody.
+    store.subscribe((state) => {
+      const next = JSON.stringify(layoutOf(state));
+      if (next === previous) return;
+      previous = next;
+      notify(layoutOf(state));
+    });
+  }
+  return store;
 }

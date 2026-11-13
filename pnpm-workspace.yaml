@@ -83,6 +83,7 @@ catalog:
   storybook: ^10.2.19
   storybook-addon-pseudo-states: ^10.2.19
   '@tailwindcss/vite': ^4.2.1
+  playwright-core: ^1.65.0
   tailwindcss: ^4.2.1
   platejs: ^53.0.0
   '@platejs/basic-nodes': ^53.0.0

@@ -3,7 +3,8 @@ import type { PointerEvent as ReactPointerEvent } from "react";
 
 import { useGanttStore } from "../context/gantt-context";
 import { cn } from "../lib/cn";
-import { formatDateTime } from "../lib/format";
+import { formatDate, formatDateTime } from "../lib/format";
+import type { BarText } from "../model/gantt-store-types";
 import type { VisibleRow } from "../lib/rows";
 import type { TimeScale } from "../lib/time-scale";
 import { useGanttTranslation } from "../lib/use-gantt-translation";
@@ -27,13 +28,35 @@ export interface TaskBarProps {
   critical: boolean;
   selected: boolean;
   dragging: boolean;
+  /** A bar that only shows: it can be selected, not dragged. */
+  readOnly?: boolean;
+  /** What the words beside the bar say. */
+  text?: BarText;
+  /** A colour of the bar's own, overriding the chart's. */
+  color?: string;
   onGesture: (gesture: BarGesture, event: ReactPointerEvent<Element>) => void;
 }
 
 const MILESTONE_SIZE = 12;
 
 /** One task on the timeline: a bar, a summary bracket or a milestone diamond, with its drag handles. */
-export function TaskBar({ row, at, percent, top, rowHeight, scale, project, baseline, critical, selected, dragging, onGesture }: TaskBarProps) {
+export function TaskBar({
+  row,
+  at,
+  percent,
+  top,
+  rowHeight,
+  scale,
+  project,
+  baseline,
+  critical,
+  selected,
+  dragging,
+  readOnly = false,
+  text = "resources",
+  color,
+  onGesture,
+}: TaskBarProps) {
   const { t, language } = useGanttTranslation();
   const store = useGanttStore();
   const { task } = row;
@@ -41,13 +64,28 @@ export function TaskBar({ row, at, percent, top, rowHeight, scale, project, base
   const width = Math.max(scale.x(at.finish) - left, at.milestone ? 0 : 3);
   const barHeight = Math.max(10, rowHeight - 14);
   const barTop = top + (rowHeight - barHeight) / 2;
-  const editable = !row.summary;
+  const editable = !row.summary && !readOnly;
   const title = `${task.name}\n${formatDateTime(at.start, language)} - ${formatDateTime(at.finish, language)}`;
-  const label = project.assignments
+  const resources = project.assignments
     .filter((assignment) => assignment.taskId === task.id)
     .map((assignment) => project.resources.find((resource) => resource.id === assignment.resourceId)?.name ?? "")
     .filter((name) => name !== "")
     .join(", ");
+  const label =
+    text === "none"
+      ? ""
+      : text === "name"
+        ? task.name
+        : text === "percentComplete"
+          ? `${at.percentComplete}%`
+          : text === "dates"
+            ? `${formatDate(at.start, language)} - ${formatDate(at.finish, language)}`
+            : resources;
+  // What a screen reader says for the bar: the picture has no text of its own.
+  const spoken = t("task.barLabel", { name: task.name, start: formatDate(at.start, language), finish: formatDate(at.finish, language), percent: at.percentComplete });
+  // A colour of the bar's own replaces the theme's on the border and the fills; the critical colour still wins.
+  const tint = color && !critical ? { borderColor: color, backgroundColor: `color-mix(in srgb, ${color} 25%, transparent)` } : undefined;
+  const fill = color && !critical ? { backgroundColor: color } : undefined;
 
   const press = (event: ReactPointerEvent<Element>): void => {
     if (event.button !== 0) return;
@@ -83,6 +121,8 @@ export function TaskBar({ row, at, percent, top, rowHeight, scale, project, base
         {baselineBar}
         <div
           data-gantt-bar={task.id}
+          role="img"
+          aria-label={spoken}
           title={title}
           className={cn("absolute bg-foreground/75", selected && "bg-foreground", task.inactive && "opacity-40")}
           style={{
@@ -107,6 +147,8 @@ export function TaskBar({ row, at, percent, top, rowHeight, scale, project, base
         {deadline}
         <div
           data-gantt-bar={task.id}
+          role="img"
+          aria-label={spoken}
           title={title}
           className={cn(
             "group absolute cursor-grab touch-none",
@@ -140,6 +182,8 @@ export function TaskBar({ row, at, percent, top, rowHeight, scale, project, base
       {deadline}
       <div
         data-gantt-bar={task.id}
+        role="img"
+        aria-label={spoken}
         title={title}
         className={cn(
           "group absolute cursor-grab touch-none rounded-[3px] border",
@@ -151,7 +195,7 @@ export function TaskBar({ row, at, percent, top, rowHeight, scale, project, base
           dragging && "cursor-grabbing opacity-80",
           task.inactive && "opacity-40",
         )}
-        style={{ left, width, top: barTop, height: barHeight }}
+        style={{ left, width, top: barTop, height: barHeight, ...tint }}
         onPointerDown={press}
         onDoubleClick={open}
       >
@@ -167,27 +211,31 @@ export function TaskBar({ row, at, percent, top, rowHeight, scale, project, base
         ) : (
           <div
             className={cn("h-full rounded-l-[2px]", critical ? "bg-destructive" : "bg-primary", done === 100 && "rounded-r-[2px]")}
-            style={{ width: `${done}%` }}
+            style={{ width: `${done}%`, ...fill }}
             data-gantt-slot="progress"
           />
         )}
-        {/* raw layout: absolute drag handles on the bar's edges and progress mark */}
-        <div
-          className="absolute inset-y-0 left-0 w-1.5 cursor-ew-resize"
-          onPointerDown={(event) => onGesture({ kind: "resize-start", id: task.id }, event)}
-        />
-        <div
-          className="absolute inset-y-0 right-0 w-1.5 cursor-ew-resize"
-          onPointerDown={(event) => onGesture({ kind: "resize-end", id: task.id }, event)}
-        />
-        <div
-          className="absolute -bottom-1.5 hidden size-2.5 -translate-x-1/2 cursor-ew-resize rounded-full border border-background bg-foreground group-hover:block"
-          style={{ left: `${done}%` }}
-          aria-label={t("column.percentComplete")}
-          onPointerDown={(event) => onGesture({ kind: "progress", id: task.id }, event)}
-        />
-        <LinkDot side="start" onPointerDown={(event) => onGesture({ kind: "link", id: task.id, end: "start" }, event)} />
-        <LinkDot side="finish" onPointerDown={(event) => onGesture({ kind: "link", id: task.id, end: "finish" }, event)} />
+        {editable && (
+          <>
+            {/* raw layout: absolute drag handles on the bar's edges and progress mark */}
+            <div
+              className="absolute inset-y-0 left-0 w-1.5 cursor-ew-resize"
+              onPointerDown={(event) => onGesture({ kind: "resize-start", id: task.id }, event)}
+            />
+            <div
+              className="absolute inset-y-0 right-0 w-1.5 cursor-ew-resize"
+              onPointerDown={(event) => onGesture({ kind: "resize-end", id: task.id }, event)}
+            />
+            <div
+              className="absolute -bottom-1.5 hidden size-2.5 -translate-x-1/2 cursor-ew-resize rounded-full border border-background bg-foreground group-hover:block"
+              style={{ left: `${done}%` }}
+              aria-label={t("column.percentComplete")}
+              onPointerDown={(event) => onGesture({ kind: "progress", id: task.id }, event)}
+            />
+            <LinkDot side="start" onPointerDown={(event) => onGesture({ kind: "link", id: task.id, end: "start" }, event)} />
+            <LinkDot side="finish" onPointerDown={(event) => onGesture({ kind: "link", id: task.id, end: "finish" }, event)} />
+          </>
+        )}
       </div>
       <BarLabel text={label} left={left + width + 14} top={top} rowHeight={rowHeight} />
     </>

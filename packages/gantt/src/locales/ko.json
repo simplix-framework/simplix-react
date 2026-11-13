@@ -33,12 +33,27 @@
     "levelWithinSlack": "여유 시간 안에서만 평준화",
     "levelBySplitting": "작업을 분할해 평준화",
     "markers": "날짜 표시선",
-    "scrollToToday": "오늘로 이동"
+    "scrollToToday": "오늘로 이동",
+    "filter": "필터",
+    "filterResource": "자원별 필터",
+    "sort": "정렬",
+    "sortDescending": "내림차순",
+    "group": "그룹",
+    "search": "작업 검색",
+    "barText": "막대 글자",
+    "barColoring": "막대 색",
+    "progressLine": "진행선",
+    "insertSubproject": "XML에서 하위 프로젝트 삽입",
+    "editRecurring": "반복 작업 수정"
   },
   "view": {
     "gantt": "간트 차트",
     "resources": "자원 시트",
-    "usage": "자원 사용 현황"
+    "usage": "자원 사용 현황",
+    "taskUsage": "작업 배정 현황",
+    "graph": "자원 그래프",
+    "calendar": "달력",
+    "network": "네트워크 다이어그램"
   },
   "column": {
     "name": "작업 이름",
@@ -71,7 +86,10 @@
     "summary": "요약 작업",
     "manual": "수동 일정",
     "auto": "자동 일정",
-    "moveRow": "끌어서 행 이동"
+    "moveRow": "끌어서 행 이동",
+    "hasNotes": "메모 있음",
+    "hasConstraint": "날짜 제약 있음",
+    "barLabel": "{{name}}, {{start}}부터 {{finish}}까지, 완료율 {{percent}}%"
   },
   "dialog": {
     "general": "일반",
@@ -104,7 +122,8 @@
     "resource": "자원",
     "fixedCost": "고정 비용",
     "overtime": "초과 근무(시간)",
-    "contour": "작업 분포"
+    "contour": "작업 분포",
+    "color": "막대 색"
   },
   "constraint": {
     "asap": "가능한 한 빨리",
@@ -139,7 +158,10 @@
     "emptyHint": "자원을 추가한 뒤 작업 정보 대화 상자에서 작업에 배정해 주세요.",
     "standardRate": "표준 단가(시간당)",
     "costPerUse": "사용당 비용",
-    "overtimeRate": "초과 근무 단가(시간당)"
+    "overtimeRate": "초과 근무 단가(시간당)",
+    "rates": "날짜별 단가",
+    "rateFrom": "적용 시작일",
+    "addRate": "단가 추가"
   },
   "usage": {
     "overallocated": "초과 배정",
@@ -239,7 +261,8 @@
     "from": "첫날",
     "until": "마지막 날",
     "count": "횟수",
-    "create": "만들기"
+    "create": "만들기",
+    "save": "저장"
   },
   "frequency": {
     "daily": "매일",
@@ -265,5 +288,59 @@
     "statusDate": "상태 기준일",
     "projectStart": "프로젝트 시작",
     "projectFinish": "프로젝트 완료"
+  },
+  "group": {
+    "critical": "중요 작업",
+    "not-critical": "중요하지 않은 작업",
+    "not-started": "시작 전",
+    "in-progress": "진행 중",
+    "complete": "완료됨",
+    "unassigned": "배정 없음"
+  },
+  "filter": {
+    "all": "모든 작업",
+    "critical": "중요 작업",
+    "incomplete": "미완료 작업",
+    "completed": "완료된 작업",
+    "milestones": "마일스톤",
+    "late": "지연된 작업",
+    "unassigned": "배정 없는 작업",
+    "anyResource": "모든 자원"
+  },
+  "sort": {
+    "none": "계획 순서",
+    "name": "작업 이름",
+    "start": "시작",
+    "finish": "완료",
+    "duration": "기간",
+    "percentComplete": "완료율",
+    "totalSlack": "전체 여유 시간",
+    "priority": "우선 순위"
+  },
+  "groupBy": {
+    "none": "그룹 없음",
+    "resource": "자원",
+    "critical": "중요 여부",
+    "status": "진행 상태"
+  },
+  "barText": {
+    "resources": "자원 이름",
+    "name": "작업 이름",
+    "percentComplete": "완료율",
+    "dates": "날짜",
+    "none": "없음"
+  },
+  "barColoring": {
+    "none": "기본",
+    "task": "작업별",
+    "resource": "자원별"
+  },
+  "calendarView": {
+    "previous": "이전 달",
+    "next": "다음 달",
+    "more": "외 {{count}}건"
+  },
+  "graph": {
+    "capacity": "가용 시간"
   }
 }

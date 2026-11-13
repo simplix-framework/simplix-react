@@ -1,7 +1,7 @@
-import { addResource, removeResources, updateResource } from "@simplix-react/gantt-core";
+import { formatLocalDate, parseLocalDateTime, addResource, removeResources, updateResource } from "@simplix-react/gantt-core";
 import type { Resource, ResourceType } from "@simplix-react/gantt-core";
 import { Button, useFlatUIComponents } from "@simplix-react/ui";
-import { Plus, Trash2 } from "lucide-react";
+import { CalendarRange, Plus, Trash2 } from "lucide-react";
 
 import { useGantt, useGanttStore } from "../context/gantt-context";
 import { useGanttTranslation } from "../lib/use-gantt-translation";
@@ -15,6 +15,7 @@ export function ResourceSheet() {
   const ui = useFlatUIComponents();
   const store = useGanttStore();
   const project = useGantt((state) => state.history.present);
+  const readOnly = useGantt((state) => state.readOnly);
   const { apply } = store.getState();
   const patch = (resource: Resource, change: Partial<Omit<Resource, "id">>): void => {
     apply("edit-resource", (p) => updateResource(p, resource.id, change));
@@ -22,6 +23,7 @@ export function ResourceSheet() {
 
   return (
     <div className="min-h-0 flex-1 overflow-auto bg-background" data-gantt-slot="resource-sheet">
+      <fieldset disabled={readOnly} className="contents">
       <table className="w-full border-collapse text-sm">
         <thead className="sticky top-0 z-10 bg-muted text-xs text-muted-foreground">
           <tr>
@@ -34,7 +36,7 @@ export function ResourceSheet() {
             <th className="w-28 border-b border-r px-2 py-2 text-right font-medium">{t("resource.costPerUse")}</th>
             <th className="w-40 border-b border-r px-2 py-2 text-left font-medium">{t("resource.group")}</th>
             <th className="w-44 border-b border-r px-2 py-2 text-left font-medium">{t("field.calendar")}</th>
-            <th className="w-12 border-b px-2 py-2" />
+            <th className="w-24 border-b px-2 py-2" />
           </tr>
         </thead>
         <tbody>
@@ -121,6 +123,63 @@ export function ResourceSheet() {
                 </ui.Select>
               </td>
               <td className="border-b p-1 text-center">
+                <ui.Popover>
+                  <ui.PopoverTrigger asChild>
+                    <Button variant={resource.rates?.length ? "secondary" : "ghost"} size="icon-sm" aria-label={t("resource.rates")} title={t("resource.rates")}>
+                      <CalendarRange />
+                    </Button>
+                  </ui.PopoverTrigger>
+                  <ui.PopoverContent align="end" className="flex w-80 flex-col gap-2" data-gantt-slot="rate-table">
+                    <p className="text-sm font-medium">{t("resource.rates")}</p>
+                    {(resource.rates ?? []).map((rate, i) => (
+                      <div key={`${rate.from}:${rate.standardRate}:${i}`} className="grid grid-cols-[1fr_6rem_auto] items-center gap-2">
+                        <ui.Input
+                          type="date"
+                          aria-label={t("resource.rateFrom")}
+                          defaultValue={formatLocalDate(rate.from)}
+                          onBlur={(event) => {
+                            if (event.target.value === "") return;
+                            const from = parseLocalDateTime(event.target.value);
+                            if (from !== rate.from) patch(resource, { rates: (resource.rates ?? []).map((other, k) => (k === i ? { ...other, from } : other)) });
+                          }}
+                        />
+                        <ui.Input
+                          type="number"
+                          min={0}
+                          aria-label={t("resource.standardRate")}
+                          className="text-right"
+                          defaultValue={rate.standardRate}
+                          onBlur={(event) => {
+                            const standardRate = Math.max(0, Number(event.target.value));
+                            if (standardRate !== rate.standardRate) {
+                              patch(resource, { rates: (resource.rates ?? []).map((other, k) => (k === i ? { ...other, standardRate } : other)) });
+                            }
+                          }}
+                        />
+                        <Button
+                          variant="ghost"
+                          size="icon-sm"
+                          aria-label={t("dialog.remove")}
+                          onClick={() => patch(resource, { rates: (resource.rates ?? []).filter((_, k) => k !== i) })}
+                        >
+                          <Trash2 />
+                        </Button>
+                      </div>
+                    ))}
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() =>
+                        patch(resource, {
+                          rates: [...(resource.rates ?? []), { from: project.statusDate ?? project.start, standardRate: resource.standardRate ?? 0 }],
+                        })
+                      }
+                    >
+                      <Plus />
+                      {t("resource.addRate")}
+                    </Button>
+                  </ui.PopoverContent>
+                </ui.Popover>
                 <Button
                   variant="ghost"
                   size="icon-sm"
@@ -147,6 +206,7 @@ export function ResourceSheet() {
           {t("resource.add")}
         </Button>
       </div>
+      </fieldset>
     </div>
   );
 }

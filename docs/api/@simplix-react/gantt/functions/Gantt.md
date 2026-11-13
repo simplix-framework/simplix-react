@@ -8,7 +8,7 @@
 
 > **Gantt**(`__namedParameters`): `Element`
 
-Defined in: [components/gantt.tsx:96](https://github.com/simplix-react/simplix-react/blob/main/components/gantt.tsx#L96)
+Defined in: [components/gantt.tsx:104](https://github.com/simplix-react/simplix-react/blob/main/components/gantt.tsx#L104)
 
 A complete project Gantt chart: task table with inline editing, timeline
 with drag scheduling and dependency links, critical path, baselines,

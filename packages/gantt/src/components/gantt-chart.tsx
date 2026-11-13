@@ -1,18 +1,19 @@
-import { MINUTES_PER_DAY, compileCalendars, setTaskStart } from "@simplix-react/gantt-core";
+import { MINUTES_PER_DAY, compileCalendars, setCustomValue, setTaskDuration, setTaskStart, updateTask } from "@simplix-react/gantt-core";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { KeyboardEvent } from "react";
 
 import { useGantt, useGanttStore } from "../context/gantt-context";
 import { dateMarkers, nowOnProjectClock, startOfDay, timelineSpan } from "../lib/markers";
-import { visibleRows } from "../lib/rows";
+import type { VisibleRow } from "../lib/rows";
+import { isPlainView, viewRows } from "../lib/view-rows";
 import { ZOOM_LEVELS, createTimeScale } from "../lib/time-scale";
 import type { ZoomLevel } from "../lib/time-scale";
 import { useDrag } from "../lib/use-drag";
 import { useGanttTranslation } from "../lib/use-gantt-translation";
 import { RowMenu } from "./row-menu";
 import { TaskGridHeader, TaskGridRows, gridContentWidth, isEditableCell } from "./task-grid";
-import type { ColumnWidths, GanttColumnId, GridEditing } from "./task-grid";
+import type { GanttColumnId, GridEditing } from "./task-grid";
 import { TimelineBody } from "./timeline-body";
 import { TimelineHeader } from "./timeline-header";
 
@@ -62,23 +63,34 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
   const columns = useGantt((state) => state.columns);
   const scrollRequest = useGantt((state) => state.scrollRequest);
   const showMarkers = useGantt((state) => state.showMarkers);
-  // Read once per mount: a chart left open overnight keeps yesterday's line until it is opened again.
-  const today = useMemo(() => startOfDay(nowOnProjectClock()), []);
+  // The day turns over at midnight while the chart stays open.
+  const [today, setToday] = useState(() => startOfDay(nowOnProjectClock()));
+  useEffect(() => {
+    const untilMidnight = (today + MINUTES_PER_DAY - nowOnProjectClock()) * 60_000 + 1000;
+    const timer = setTimeout(() => setToday(startOfDay(nowOnProjectClock())), Math.max(1000, untilMidnight));
+    return () => clearTimeout(timer);
+  }, [today]);
   const markers = useMemo(
     () => (showMarkers ? dateMarkers(project, schedule, nowOnProjectClock()) : []),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [showMarkers, project.start, project.statusDate, schedule.start, schedule.finish],
+    [showMarkers, project.start, project.statusDate, schedule.start, schedule.finish, today],
   );
-  const [gridWidth, setGridWidth] = useState(() => defaultGridWidth ?? Math.min(gridContentWidth(store.getState().columns), 560));
+  const storedGridWidth = useGantt((state) => state.gridWidth);
+  const viewOptions = useGantt((state) => state.viewOptions);
+  const readOnly = useGantt((state) => state.readOnly);
+  const widths = useGantt((state) => state.columnWidths);
+  // Opens as wide as its columns need, up to a share of the screen; a dragged width is the reader's and is kept.
+  const [openingGridWidth] = useState(() => defaultGridWidth ?? Math.min(gridContentWidth(store.getState().columns), 560));
+  const gridWidth = storedGridWidth ?? openingGridWidth;
+  const setGridWidth = store.getState().setGridWidth;
   // The column keyboard editing and sideways arrow keys act on.
   const [activeColumn, setActiveColumn] = useState<GanttColumnId>("name");
   const [menu, setMenu] = useState<{ x: number; y: number } | null>(null);
   const [viewport, setViewport] = useState({ left: 0, top: 0, width: 1200, height: 600 });
   const [editing, setEditing] = useState<GridEditing | null>(null);
-  const [widths, setWidths] = useState<ColumnWidths>({});
   const projectTime = useMemo(() => compileCalendars(project.calendars).get(project.calendarId), [project.calendars, project.calendarId]);
 
-  const rows = useMemo(() => visibleRows(project.tasks, collapsed), [project.tasks, collapsed]);
+  const rows = useMemo(() => viewRows(project, schedule, collapsed, viewOptions), [project, schedule, collapsed, viewOptions]);
   const level = printing ? printLevel(schedule.finish - Math.min(schedule.start, project.start), gridWidth) : ZOOM_LEVELS[zoom];
   // Enough days on both sides that the timeline fills the screen however short the plan is.
   // On paper the plan itself is all that is drawn.
@@ -161,7 +173,7 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
       }
       return;
     }
-    const index = rows.findIndex((row) => row.task.id === scrollRequest.target);
+    const index = rows.findIndex((row) => row.kind === "task" && row.task.id === scrollRequest.target);
     const at = schedule.tasks.get(scrollRequest.target);
     if (index === -1 || !at) return;
     virtualizer.scrollToIndex(index, { align: "center" });
@@ -197,10 +209,13 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
   const moveSelection = (delta: number, extend: boolean): void => {
     const { selection, selectRow } = store.getState();
     const last = selection[selection.length - 1];
-    const current = last === undefined ? -1 : rows.findIndex((row) => row.task.id === last);
-    const next = Math.max(0, Math.min(rows.length - 1, current === -1 ? 0 : current + delta));
-    if (!rows[next]) return;
-    selectRow(rows[next].task.id, extend ? "extend" : "replace");
+    const current = last === undefined ? -1 : rows.findIndex((row) => row.kind === "task" && row.task.id === last);
+    // Step over the headings of groups: only tasks are selected.
+    let next = current === -1 ? 0 : current + delta;
+    while (rows[next] && rows[next].kind !== "task") next += delta > 0 ? 1 : -1;
+    const target = rows[next];
+    if (!target || target.kind !== "task") return;
+    selectRow(target.task.id, extend ? "extend" : "replace");
     virtualizer.scrollToIndex(next, { align: "auto" });
   };
 
@@ -224,10 +239,35 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
     });
   };
 
+  /** Copies the active cell of the first selected row, in row order, into the other selected rows. */
+  const fillDown = (): void => {
+    const state = store.getState();
+    const chosen = rows.filter((row): row is VisibleRow => row.kind === "task" && state.selection.includes(row.task.id));
+    if (chosen.length < 2) return;
+    const [source, ...targets] = chosen;
+    state.apply("fill-down", (p) => {
+      let next = p;
+      for (const target of targets) {
+        if (!isEditableCell(activeColumn, target, p)) continue;
+        if (activeColumn === "duration") {
+          next = setTaskDuration(next, target.task.id, source.task.duration, { unit: source.task.durationUnit, elapsed: source.task.elapsed, estimated: source.task.estimated });
+        } else if (activeColumn === "name") {
+          next = updateTask(next, target.task.id, { name: source.task.name });
+        } else if (activeColumn === "actualCost") {
+          next = updateTask(next, target.task.id, { actualCost: source.task.actualCost });
+        } else if (activeColumn.startsWith("custom:")) {
+          const fieldId = activeColumn.slice("custom:".length);
+          next = setCustomValue(next, target.task.id, fieldId, source.task.custom?.[fieldId]);
+        }
+      }
+      return next;
+    });
+  };
+
   const editActive = (id: string, initial?: string): boolean => {
-    const row = rows.find((candidate) => candidate.task.id === id);
+    const row = rows.find((candidate) => candidate.kind === "task" && candidate.task.id === id);
     const column = columns.includes(activeColumn) ? activeColumn : "name";
-    if (!row || !isEditableCell(column, row, project)) return false;
+    if (readOnly || !row || row.kind !== "task" || !isEditableCell(column, row, project)) return false;
     setEditing({ id, column, initial });
     return true;
   };
@@ -249,6 +289,7 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
     else if (mod && event.key.toLowerCase() === "z" && event.shiftKey) state.redo();
     else if (mod && event.key.toLowerCase() === "z") state.undo();
     else if (mod && event.key.toLowerCase() === "y") state.redo();
+    else if (mod && event.key.toLowerCase() === "d") fillDown();
     else if (event.key === "Insert") state.addTask(t("task.newName"));
     else if (event.key === "Delete" || (event.key === "Backspace" && mod)) state.removeSelected();
     else if ((event.key === "F2" || event.key === "Enter") && last !== undefined) handled = editActive(last);
@@ -317,7 +358,7 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
             <TaskGridHeader
               columns={columns}
               widths={widths}
-              onResize={(column, width) => setWidths((current) => (current[column] === width ? current : { ...current, [column]: width }))}
+              onResize={store.getState().setColumnWidth}
               onMove={store.getState().moveColumn}
             />
           </div>
@@ -333,6 +374,8 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
               <TaskGridRows
                 columns={columns}
                 widths={widths}
+                movable={!readOnly && isPlainView(viewOptions)}
+                readOnly={readOnly}
                 activeColumn={activeColumn}
                 onActiveColumnChange={setActiveColumn}
                 rows={rows}

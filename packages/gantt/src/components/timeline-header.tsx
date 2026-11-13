@@ -42,7 +42,7 @@ export function TimelineHeader({ scale, level, fromX, toX, weekStartsOn, markers
     return placed;
   }, [markers, scale]);
   return (
-    <div className="relative h-full text-xs text-muted-foreground" style={{ width: scale.width }}>
+    <div className="relative h-full text-xs text-foreground" style={{ width: scale.width }}>
       <HeaderTier scale={scale} unit={level.top} fromX={fromX} toX={toX} weekStartsOn={weekStartsOn} top />
       <HeaderTier scale={scale} unit={level.bottom} fromX={fromX} toX={toX} weekStartsOn={weekStartsOn} />
       {tags.map(({ marker, x, row }) => (
@@ -83,6 +83,7 @@ function HeaderTier({ scale, unit, fromX, toX, weekStartsOn, top = false }: Head
               : "absolute top-0 flex h-full items-center justify-center border-l"
           }
           style={{ left: cell.x, width: cell.width }}
+          data-gantt-slot="scale-cell"
         >
           {/* A top-tier label stays readable while its cell scrolls under the left edge. */}
           <span className={top ? "sticky left-2 truncate" : "truncate"}>{formatScaleCell(cell.from, unit, language, cell.width)}</span>

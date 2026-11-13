@@ -16,7 +16,7 @@ A task as one visible line of the chart.
 
 > **collapsed**: `boolean`
 
-Defined in: [lib/rows.ts:9](https://github.com/simplix-react/simplix-react/blob/main/lib/rows.ts#L9)
+Defined in: [lib/rows.ts:10](https://github.com/simplix-react/simplix-react/blob/main/lib/rows.ts#L10)
 
 ***
 
@@ -24,9 +24,17 @@ Defined in: [lib/rows.ts:9](https://github.com/simplix-react/simplix-react/blob/
 
 > **index**: `number`
 
-Defined in: [lib/rows.ts:7](https://github.com/simplix-react/simplix-react/blob/main/lib/rows.ts#L7)
+Defined in: [lib/rows.ts:8](https://github.com/simplix-react/simplix-react/blob/main/lib/rows.ts#L8)
 
 Position in the project's row list; the row number is one more.
+
+***
+
+### kind
+
+> **kind**: `"task"`
+
+Defined in: [lib/rows.ts:5](https://github.com/simplix-react/simplix-react/blob/main/lib/rows.ts#L5)
 
 ***
 
@@ -34,7 +42,7 @@ Position in the project's row list; the row number is one more.
 
 > **summary**: `boolean`
 
-Defined in: [lib/rows.ts:8](https://github.com/simplix-react/simplix-react/blob/main/lib/rows.ts#L8)
+Defined in: [lib/rows.ts:9](https://github.com/simplix-react/simplix-react/blob/main/lib/rows.ts#L9)
 
 ***
 
@@ -42,4 +50,4 @@ Defined in: [lib/rows.ts:8](https://github.com/simplix-react/simplix-react/blob/
 
 > **task**: `Task`
 
-Defined in: [lib/rows.ts:5](https://github.com/simplix-react/simplix-react/blob/main/lib/rows.ts#L5)
+Defined in: [lib/rows.ts:6](https://github.com/simplix-react/simplix-react/blob/main/lib/rows.ts#L6)

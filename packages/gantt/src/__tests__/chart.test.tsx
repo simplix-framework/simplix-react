@@ -217,6 +217,40 @@ describe("chart", () => {
     expect(store.getState().history.past).toHaveLength(1);
   });
 
+  it("draws a heading for every group and no bar for it", () => {
+    const { container, store } = mount(plan([task("1", 2, { percentComplete: 100 }), task("2", 1), task("3", 3)]));
+    act(() => store.getState().setViewOptions({ group: "status" }));
+    expect([...container.querySelectorAll("[data-gantt-group]")].map((row) => row.getAttribute("data-gantt-group"))).toEqual(["complete", "not-started"]);
+    expect(container.querySelectorAll("[data-gantt-row]")).toHaveLength(3);
+    expect(container.querySelectorAll("[data-gantt-bar]")).toHaveLength(3);
+    act(() => store.getState().setViewOptions({ group: "none", search: "task 2" }));
+    expect([...container.querySelectorAll("[data-gantt-row]")].map((row) => row.getAttribute("data-gantt-row"))).toEqual(["2"]);
+  });
+
+  it("shows without editing when read-only", () => {
+    let store: GanttStore | null = null;
+    function Capture(): null {
+      store = useGanttStore();
+      return null;
+    }
+    const { container } = render(
+      <GanttProvider defaultProject={plan()} readOnly>
+        <Capture />
+        <GanttChart />
+      </GanttProvider>,
+    );
+    fireEvent.doubleClick(cell(container, "1", 1));
+    expect(container.querySelector("input")).toBeNull();
+    drag(container.querySelector('[data-gantt-bar="1"]') as Element, 56);
+    fireEvent.keyDown(grid(container), { key: "Delete" });
+    const state = (store as unknown as GanttStore).getState();
+    expect(state.history.past).toHaveLength(0);
+    expect(state.schedule.tasks.get("1")?.start).toBe(at("2026-03-02T08:00"));
+    // Without a loaded catalogue the name is the key; what matters here is that the bar carries one.
+    expect(container.querySelector('[data-gantt-bar="1"]')?.getAttribute("role")).toBe("img");
+    expect(container.querySelector('[data-gantt-bar="1"]')?.getAttribute("aria-label")).toBeTruthy();
+  });
+
   it("mounts whole with its toolbar and dialogs", () => {
     const { container } = render(<Gantt defaultProject={plan()} showCriticalPath />);
     expect(container.querySelector('[data-gantt-slot="toolbar"]')).not.toBeNull();

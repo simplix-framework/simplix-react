@@ -6,6 +6,8 @@ import { pathData, routeLink } from "../lib/link-path";
 import { dateMarkers, timelineSpan } from "../lib/markers";
 import { buildPdf, layoutPdf } from "../lib/pdf-export";
 import { visibleRows } from "../lib/rows";
+import { DEFAULT_VIEW, isPlainView, viewRows } from "../lib/view-rows";
+import type { ViewRow } from "../lib/view-rows";
 import { createTimeScale, scaleCells } from "../lib/time-scale";
 import { createGanttStore } from "../model/gantt-store";
 
@@ -296,5 +298,90 @@ describe("date markers", () => {
     expect(timelineSpan(p, s, at("2014-12-01T00:00"))).toEqual({ from: at("2014-10-17T08:00"), to: at("2014-12-01T00:00") });
     expect(timelineSpan(p, s, at("2014-09-01T00:00")).from).toBe(at("2014-09-01T00:00"));
     expect(timelineSpan(p, s, at("2016-06-01T00:00"))).toEqual({ from: at("2014-10-17T08:00"), to: at("2014-10-20T17:00") });
+  });
+});
+
+describe("view rows", () => {
+  const tasks = [
+    task("1", 0, { name: "Phase" }),
+    task("2", 3, { name: "Beta", outlineLevel: 2, percentComplete: 100 }),
+    task("3", 1, { name: "Alpha", outlineLevel: 2 }),
+    task("4", 0, { name: "Gate" }),
+    task("5", 2, { name: "Gamma" }),
+  ];
+  const p = {
+    ...project(tasks),
+    resources: [{ id: "r1", name: "Kim", type: "work" as const, maxUnits: 1 }, { id: "r2", name: "Lee", type: "work" as const, maxUnits: 1 }],
+    assignments: [
+      { id: "1", taskId: "2", resourceId: "r1", units: 1, work: 1440 },
+      { id: "2", taskId: "3", resourceId: "r1", units: 1, work: 480 },
+      { id: "3", taskId: "3", resourceId: "r2", units: 1, work: 480 },
+    ],
+  };
+  const s = computeSchedule(p);
+  const ids = (rows: readonly ViewRow[]): string[] => rows.map((row) => (row.kind === "task" ? row.task.id : `[${row.key}:${row.count}]`));
+  const view = (change: Partial<typeof DEFAULT_VIEW>): string[] => ids(viewRows(p, s, new Set(), { ...DEFAULT_VIEW, ...change }));
+
+  it("keeps the plan as it is under the plain view", () => {
+    expect(isPlainView(DEFAULT_VIEW)).toBe(true);
+    expect(view({})).toEqual(["1", "2", "3", "4", "5"]);
+  });
+
+  it("keeps a match together with the summary tasks above it", () => {
+    expect(view({ search: "alp" })).toEqual(["1", "3"]);
+    expect(view({ filter: "completed" })).toEqual(["1", "2"]);
+    expect(view({ filter: "milestones" })).toEqual(["4"]);
+    expect(view({ filter: "unassigned" })).toEqual(["4", "5"]);
+    expect(view({ resourceId: "r2" })).toEqual(["1", "3"]);
+    expect(view({ search: "nothing like it" })).toEqual([]);
+  });
+
+  it("sorts under each summary task and leaves the outline whole", () => {
+    expect(view({ sort: "name" })).toEqual(["5", "4", "1", "3", "2"]);
+    expect(view({ sort: "name", sortDescending: true })).toEqual(["1", "2", "3", "4", "5"]);
+    expect(view({ sort: "duration" })).toEqual(["4", "5", "1", "3", "2"]);
+  });
+
+  it("gathers tasks under a heading per group, once under each of a task's resources", () => {
+    expect(view({ group: "resource" })).toEqual(["[:2]", "4", "5", "[r1:2]", "2", "3", "[r2:1]", "3"]);
+    expect(view({ group: "status" })).toEqual(["[complete:1]", "2", "[not-started:3]", "3", "4", "5"]);
+    expect(ids(viewRows(p, s, new Set(["group:r1"]), { ...DEFAULT_VIEW, group: "resource" }))).toEqual(["[:2]", "4", "5", "[r1:2]", "[r2:1]", "3"]);
+  });
+});
+
+describe("layout, read-only and merging", () => {
+  it("reports the layout when it changes and opens with a stored one", () => {
+    const seen: unknown[] = [];
+    const store = createGanttStore(project([task("1", 2), task("2", 1)]), { onLayoutChange: (layout) => seen.push(layout) });
+    store.getState().setZoom(2);
+    store.getState().setColumnWidth("name", 300.4);
+    store.getState().toggleCollapsed("1");
+    store.getState().selectRow("1");
+    expect(seen).toHaveLength(3);
+    const stored = store.getState().getLayout();
+    expect(stored).toMatchObject({ zoom: 2, columnWidths: { name: 300 }, collapsed: ["1"] });
+    const reopened = createGanttStore(project([task("1", 2)]), { layout: JSON.parse(JSON.stringify(stored)), zoom: 6 });
+    expect(reopened.getState().zoom).toBe(2);
+    expect(reopened.getState().collapsed.has("1")).toBe(true);
+    reopened.getState().applyLayout({ zoom: 99, viewOptions: { ...DEFAULT_VIEW, filter: "critical" } });
+    expect([reopened.getState().zoom, reopened.getState().viewOptions.filter]).toEqual([6, "critical"]);
+  });
+
+  it("refuses every edit when read-only", () => {
+    const store = createGanttStore(project([task("1", 2)]), { readOnly: true });
+    expect(store.getState().setDurationText("1", "5d")).toBe(false);
+    expect(store.getState().addTask("x")).toBeNull();
+    expect(store.getState().history.present.tasks).toHaveLength(1);
+    expect(store.getState().rejection).toBeNull();
+  });
+
+  it("merges a plan changed elsewhere and names what both sides changed", () => {
+    const base = project([task("1", 2), task("2", 1)]);
+    const store = createGanttStore(base);
+    store.getState().setDurationText("1", "4d");
+    const theirs = { ...base, tasks: [{ ...base.tasks[0], duration: 9 * 480 }, { ...base.tasks[1], name: "renamed there" }] };
+    expect(store.getState().merge(base, theirs)).toEqual([{ entity: "task", id: "1" }]);
+    expect(store.getState().history.present.tasks.map((t) => [t.name, t.duration / 480])).toEqual([["1", 4], ["renamed there", 1]]);
+    expect(store.getState().history.past).toHaveLength(1);
   });
 });

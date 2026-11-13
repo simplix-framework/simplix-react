@@ -6,17 +6,33 @@
 
 # Interface: GanttStoreState
 
-Defined in: [model/gantt-store-types.ts:28](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L28)
+Defined in: [model/gantt-store-types.ts:57](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L57)
 
 Reactive state of one chart, with the edits that change it.
 
 ## Properties
 
+### barColoring
+
+> **barColoring**: [`BarColoring`](../type-aliases/BarColoring.md)
+
+Defined in: [model/gantt-store-types.ts:98](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L98)
+
+***
+
+### barText
+
+> **barText**: [`BarText`](../type-aliases/BarText.md)
+
+Defined in: [model/gantt-store-types.ts:97](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L97)
+
+***
+
 ### baselineNumber
 
 > **baselineNumber**: `number` \| `null`
 
-Defined in: [model/gantt-store-types.ts:43](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L43)
+Defined in: [model/gantt-store-types.ts:72](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L72)
 
 Baseline drawn under the bars, or `null` for none.
 
@@ -26,7 +42,7 @@ Baseline drawn under the bars, or `null` for none.
 
 > **baselineSlot**: `number`
 
-Defined in: [model/gantt-store-types.ts:45](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L45)
+Defined in: [model/gantt-store-types.ts:74](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L74)
 
 Baseline the save, show and clear commands work on, 0 to 10.
 
@@ -36,7 +52,7 @@ Baseline the save, show and clear commands work on, 0 to 10.
 
 > **clipboard**: `TaskClipboard` \| `null`
 
-Defined in: [model/gantt-store-types.ts:48](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L48)
+Defined in: [model/gantt-store-types.ts:77](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L77)
 
 ***
 
@@ -44,7 +60,7 @@ Defined in: [model/gantt-store-types.ts:48](https://github.com/simplix-react/sim
 
 > **clipboardText**: `string` \| `null`
 
-Defined in: [model/gantt-store-types.ts:50](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L50)
+Defined in: [model/gantt-store-types.ts:79](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L79)
 
 The copied tasks as tab-separated text, as it was handed to the system clipboard.
 
@@ -54,7 +70,7 @@ The copied tasks as tab-separated text, as it was handed to the system clipboard
 
 > **collapsed**: `ReadonlySet`\<`string`\>
 
-Defined in: [model/gantt-store-types.ts:35](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L35)
+Defined in: [model/gantt-store-types.ts:64](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L64)
 
 Summary tasks whose rows are folded away.
 
@@ -64,9 +80,19 @@ Summary tasks whose rows are folded away.
 
 > **columns**: readonly [`GanttColumnId`](../type-aliases/GanttColumnId.md)[]
 
-Defined in: [model/gantt-store-types.ts:61](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L61)
+Defined in: [model/gantt-store-types.ts:90](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L90)
 
 Columns of the task table, in the order they are shown.
+
+***
+
+### columnWidths
+
+> **columnWidths**: [`ColumnWidths`](../type-aliases/ColumnWidths.md)
+
+Defined in: [model/gantt-store-types.ts:92](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L92)
+
+Widths of the columns that have been resized.
 
 ***
 
@@ -74,9 +100,19 @@ Columns of the task table, in the order they are shown.
 
 > **dialogTaskId**: `string` \| `null`
 
-Defined in: [model/gantt-store-types.ts:54](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L54)
+Defined in: [model/gantt-store-types.ts:83](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L83)
 
 The task whose information dialog is open, or `null`.
+
+***
+
+### gridWidth
+
+> **gridWidth**: `number` \| `null`
+
+Defined in: [model/gantt-store-types.ts:94](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L94)
+
+Width of the task table, or `null` to fit its columns.
 
 ***
 
@@ -84,7 +120,7 @@ The task whose information dialog is open, or `null`.
 
 > **history**: `History`\<`Project`\>
 
-Defined in: [model/gantt-store-types.ts:29](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L29)
+Defined in: [model/gantt-store-types.ts:58](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L58)
 
 ***
 
@@ -92,7 +128,7 @@ Defined in: [model/gantt-store-types.ts:29](https://github.com/simplix-react/sim
 
 > **levelingOptions**: `LevelingOptions`
 
-Defined in: [model/gantt-store-types.ts:63](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L63)
+Defined in: [model/gantt-store-types.ts:104](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L104)
 
 What resource leveling may do.
 
@@ -102,7 +138,7 @@ What resource leveling may do.
 
 > **printing**: `boolean`
 
-Defined in: [model/gantt-store-types.ts:58](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L58)
+Defined in: [model/gantt-store-types.ts:87](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L87)
 
 True while the chart is laid out for paper: every row drawn, scaled to the page width.
 
@@ -112,7 +148,17 @@ True while the chart is laid out for paper: every row drawn, scaled to the page 
 
 > **projectDialogOpen**: `boolean`
 
-Defined in: [model/gantt-store-types.ts:55](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L55)
+Defined in: [model/gantt-store-types.ts:84](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L84)
+
+***
+
+### readOnly
+
+> **readOnly**: `boolean`
+
+Defined in: [model/gantt-store-types.ts:102](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L102)
+
+A chart that only shows its plan: every edit is refused.
 
 ***
 
@@ -120,7 +166,7 @@ Defined in: [model/gantt-store-types.ts:55](https://github.com/simplix-react/sim
 
 > **recurringDialogOpen**: `boolean`
 
-Defined in: [model/gantt-store-types.ts:56](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L56)
+Defined in: [model/gantt-store-types.ts:85](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L85)
 
 ***
 
@@ -128,7 +174,7 @@ Defined in: [model/gantt-store-types.ts:56](https://github.com/simplix-react/sim
 
 > **rejection**: [`GanttRejection`](GanttRejection.md) \| `null`
 
-Defined in: [model/gantt-store-types.ts:47](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L47)
+Defined in: [model/gantt-store-types.ts:76](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L76)
 
 The last refused edit; cleared by the next accepted one.
 
@@ -138,7 +184,7 @@ The last refused edit; cleared by the next accepted one.
 
 > **schedule**: `Schedule`
 
-Defined in: [model/gantt-store-types.ts:31](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L31)
+Defined in: [model/gantt-store-types.ts:60](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L60)
 
 Computed dates of `history.present`.
 
@@ -148,7 +194,7 @@ Computed dates of `history.present`.
 
 > **scrollRequest**: \{ `seq`: `number`; `target`: `string`; \} \| `null`
 
-Defined in: [model/gantt-store-types.ts:65](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L65)
+Defined in: [model/gantt-store-types.ts:106](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L106)
 
 The latest request to bring something into view; `seq` tells two requests for the same target apart.
 
@@ -158,7 +204,7 @@ The latest request to bring something into view; `seq` tells two requests for th
 
 > **selectedLinkId**: `string` \| `null`
 
-Defined in: [model/gantt-store-types.ts:52](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L52)
+Defined in: [model/gantt-store-types.ts:81](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L81)
 
 The selected dependency line, or `null`. Selecting rows clears it.
 
@@ -168,7 +214,7 @@ The selected dependency line, or `null`. Selecting rows clears it.
 
 > **selection**: readonly `string`[]
 
-Defined in: [model/gantt-store-types.ts:33](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L33)
+Defined in: [model/gantt-store-types.ts:62](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L62)
 
 Selected task ids, in the order they were selected.
 
@@ -178,7 +224,7 @@ Selected task ids, in the order they were selected.
 
 > **showCriticalPath**: `boolean`
 
-Defined in: [model/gantt-store-types.ts:38](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L38)
+Defined in: [model/gantt-store-types.ts:67](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L67)
 
 ***
 
@@ -186,7 +232,7 @@ Defined in: [model/gantt-store-types.ts:38](https://github.com/simplix-react/sim
 
 > **showLinks**: `boolean`
 
-Defined in: [model/gantt-store-types.ts:39](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L39)
+Defined in: [model/gantt-store-types.ts:68](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L68)
 
 ***
 
@@ -194,9 +240,19 @@ Defined in: [model/gantt-store-types.ts:39](https://github.com/simplix-react/sim
 
 > **showMarkers**: `boolean`
 
-Defined in: [model/gantt-store-types.ts:41](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L41)
+Defined in: [model/gantt-store-types.ts:70](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L70)
 
 Whether today, the status date and the ends of the plan are marked on the timeline.
+
+***
+
+### showProgressLine
+
+> **showProgressLine**: `boolean`
+
+Defined in: [model/gantt-store-types.ts:100](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L100)
+
+Whether a line joins the progress of every task at the status date.
 
 ***
 
@@ -204,7 +260,17 @@ Whether today, the status date and the ends of the plan are marked on the timeli
 
 > **view**: [`GanttView`](../type-aliases/GanttView.md)
 
-Defined in: [model/gantt-store-types.ts:59](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L59)
+Defined in: [model/gantt-store-types.ts:88](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L88)
+
+***
+
+### viewOptions
+
+> **viewOptions**: [`ViewOptions`](ViewOptions.md)
+
+Defined in: [model/gantt-store-types.ts:96](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L96)
+
+How the rows are narrowed, ordered and gathered.
 
 ***
 
@@ -212,7 +278,7 @@ Defined in: [model/gantt-store-types.ts:59](https://github.com/simplix-react/sim
 
 > **zoom**: `number`
 
-Defined in: [model/gantt-store-types.ts:37](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L37)
+Defined in: [model/gantt-store-types.ts:66](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L66)
 
 Index into the zoom steps.
 
@@ -222,7 +288,7 @@ Index into the zoom steps.
 
 > **addTask**(`name?`): `string` \| `null`
 
-Defined in: [model/gantt-store-types.ts:122](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L122)
+Defined in: [model/gantt-store-types.ts:181](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L181)
 
 Inserts a new task under the last selected row, or at the end, and selects it.
 
@@ -242,7 +308,7 @@ Inserts a new task under the last selected row, or at the end, and selects it.
 
 > **apply**(`label`, `edit`): `boolean`
 
-Defined in: [model/gantt-store-types.ts:73](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L73)
+Defined in: [model/gantt-store-types.ts:114](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L114)
 
 Applies an edit as one undo step. A `ScheduleError` from the edit or
 from scheduling its result refuses the edit and records the reason.
@@ -265,11 +331,31 @@ Whether the edit was accepted.
 
 ***
 
+### applyLayout()
+
+> **applyLayout**(`layout`): `void`
+
+Defined in: [model/gantt-store-types.ts:152](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L152)
+
+Puts a stored layout back. Fields a stored layout does not have keep their values.
+
+#### Parameters
+
+##### layout
+
+`Partial`\<[`GanttLayout`](GanttLayout.md)\>
+
+#### Returns
+
+`void`
+
+***
+
 ### closeProjectDialog()
 
 > **closeProjectDialog**(): `void`
 
-Defined in: [model/gantt-store-types.ts:94](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L94)
+Defined in: [model/gantt-store-types.ts:135](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L135)
 
 #### Returns
 
@@ -281,7 +367,7 @@ Defined in: [model/gantt-store-types.ts:94](https://github.com/simplix-react/sim
 
 > **closeRecurringDialog**(): `void`
 
-Defined in: [model/gantt-store-types.ts:96](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L96)
+Defined in: [model/gantt-store-types.ts:137](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L137)
 
 #### Returns
 
@@ -293,7 +379,7 @@ Defined in: [model/gantt-store-types.ts:96](https://github.com/simplix-react/sim
 
 > **closeTaskDialog**(): `void`
 
-Defined in: [model/gantt-store-types.ts:92](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L92)
+Defined in: [model/gantt-store-types.ts:133](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L133)
 
 #### Returns
 
@@ -305,7 +391,7 @@ Defined in: [model/gantt-store-types.ts:92](https://github.com/simplix-react/sim
 
 > **copySelected**(): `string` \| `null`
 
-Defined in: [model/gantt-store-types.ts:132](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L132)
+Defined in: [model/gantt-store-types.ts:191](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L191)
 
 Copies the selected tasks and returns them as tab-separated text (name,
 duration, start, finish, percent complete) for the system clipboard, or
@@ -321,7 +407,7 @@ duration, start, finish, percent complete) for the system clipboard, or
 
 > **dismissRejection**(): `void`
 
-Defined in: [model/gantt-store-types.ts:78](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L78)
+Defined in: [model/gantt-store-types.ts:119](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L119)
 
 #### Returns
 
@@ -329,11 +415,25 @@ Defined in: [model/gantt-store-types.ts:78](https://github.com/simplix-react/sim
 
 ***
 
+### getLayout()
+
+> **getLayout**(): [`GanttLayout`](GanttLayout.md)
+
+Defined in: [model/gantt-store-types.ts:150](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L150)
+
+The chart's layout as it is now, to be stored.
+
+#### Returns
+
+[`GanttLayout`](GanttLayout.md)
+
+***
+
 ### indentSelected()
 
 > **indentSelected**(): `void`
 
-Defined in: [model/gantt-store-types.ts:125](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L125)
+Defined in: [model/gantt-store-types.ts:184](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L184)
 
 #### Returns
 
@@ -345,7 +445,7 @@ Defined in: [model/gantt-store-types.ts:125](https://github.com/simplix-react/si
 
 > **insertionPoint**(): `object`
 
-Defined in: [model/gantt-store-types.ts:98](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L98)
+Defined in: [model/gantt-store-types.ts:139](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L139)
 
 Row to insert new rows at, and the outline level to give them: just under the last selected row, or the end.
 
@@ -367,7 +467,7 @@ Row to insert new rows at, and the outline level to give them: just under the la
 
 > **load**(`project`): `void`
 
-Defined in: [model/gantt-store-types.ts:75](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L75)
+Defined in: [model/gantt-store-types.ts:116](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L116)
 
 Replaces the plan and forgets the undo history.
 
@@ -383,11 +483,39 @@ Replaces the plan and forgets the undo history.
 
 ***
 
+### merge()
+
+> **merge**(`base`, `theirs`): readonly `MergeConflict`[]
+
+Defined in: [model/gantt-store-types.ts:160](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L160)
+
+Brings a plan changed elsewhere into this one. `base` is the version
+both started from. Records only the other side changed are taken;
+a record both changed keeps this side's version.
+
+#### Parameters
+
+##### base
+
+`Project`
+
+##### theirs
+
+`Project`
+
+#### Returns
+
+readonly `MergeConflict`[]
+
+The records both sides changed.
+
+***
+
 ### moveColumn()
 
 > **moveColumn**(`column`, `toIndex`): `void`
 
-Defined in: [model/gantt-store-types.ts:105](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L105)
+Defined in: [model/gantt-store-types.ts:164](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L164)
 
 Moves a column to a place among the columns.
 
@@ -411,7 +539,7 @@ Moves a column to a place among the columns.
 
 > **openProjectDialog**(): `void`
 
-Defined in: [model/gantt-store-types.ts:93](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L93)
+Defined in: [model/gantt-store-types.ts:134](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L134)
 
 #### Returns
 
@@ -423,7 +551,7 @@ Defined in: [model/gantt-store-types.ts:93](https://github.com/simplix-react/sim
 
 > **openRecurringDialog**(): `void`
 
-Defined in: [model/gantt-store-types.ts:95](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L95)
+Defined in: [model/gantt-store-types.ts:136](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L136)
 
 #### Returns
 
@@ -435,7 +563,7 @@ Defined in: [model/gantt-store-types.ts:95](https://github.com/simplix-react/sim
 
 > **openTaskDialog**(`id`): `void`
 
-Defined in: [model/gantt-store-types.ts:91](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L91)
+Defined in: [model/gantt-store-types.ts:132](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L132)
 
 #### Parameters
 
@@ -453,7 +581,7 @@ Defined in: [model/gantt-store-types.ts:91](https://github.com/simplix-react/sim
 
 > **outdentSelected**(): `void`
 
-Defined in: [model/gantt-store-types.ts:126](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L126)
+Defined in: [model/gantt-store-types.ts:185](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L185)
 
 #### Returns
 
@@ -465,7 +593,7 @@ Defined in: [model/gantt-store-types.ts:126](https://github.com/simplix-react/si
 
 > **paste**(): `void`
 
-Defined in: [model/gantt-store-types.ts:143](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L143)
+Defined in: [model/gantt-store-types.ts:202](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L202)
 
 Pastes the copied tasks under the last selected row, or at the end.
 
@@ -479,7 +607,7 @@ Pastes the copied tasks under the last selected row, or at the end.
 
 > **pasteText**(`text`): `void`
 
-Defined in: [model/gantt-store-types.ts:139](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L139)
+Defined in: [model/gantt-store-types.ts:198](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L198)
 
 Pastes text from the system clipboard. Text this chart copied pastes the
 copied tasks with their links and assignments. Any other text makes one
@@ -502,7 +630,7 @@ second, when it is a duration, as the duration.
 
 > **redo**(): `void`
 
-Defined in: [model/gantt-store-types.ts:77](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L77)
+Defined in: [model/gantt-store-types.ts:118](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L118)
 
 #### Returns
 
@@ -514,7 +642,7 @@ Defined in: [model/gantt-store-types.ts:77](https://github.com/simplix-react/sim
 
 > **removeSelected**(): `void`
 
-Defined in: [model/gantt-store-types.ts:124](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L124)
+Defined in: [model/gantt-store-types.ts:183](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L183)
 
 Removes the selected dependency line, or else the selected tasks.
 
@@ -528,7 +656,7 @@ Removes the selected dependency line, or else the selected tasks.
 
 > **reveal**(`id`): `void`
 
-Defined in: [model/gantt-store-types.ts:108](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L108)
+Defined in: [model/gantt-store-types.ts:167](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L167)
 
 Selects a task and scrolls its row and its bar into view.
 
@@ -548,7 +676,7 @@ Selects a task and scrolls its row and its bar into view.
 
 > **scrollToStart**(): `void`
 
-Defined in: [model/gantt-store-types.ts:110](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L110)
+Defined in: [model/gantt-store-types.ts:169](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L169)
 
 Scrolls the timeline to the start of the plan.
 
@@ -562,7 +690,7 @@ Scrolls the timeline to the start of the plan.
 
 > **scrollToToday**(): `void`
 
-Defined in: [model/gantt-store-types.ts:112](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L112)
+Defined in: [model/gantt-store-types.ts:171](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L171)
 
 Scrolls the timeline to today, when today lies on it.
 
@@ -576,7 +704,7 @@ Scrolls the timeline to today, when today lies on it.
 
 > **select**(`ids`): `void`
 
-Defined in: [model/gantt-store-types.ts:80](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L80)
+Defined in: [model/gantt-store-types.ts:121](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L121)
 
 #### Parameters
 
@@ -594,7 +722,7 @@ readonly `string`[]
 
 > **selectLink**(`id`): `void`
 
-Defined in: [model/gantt-store-types.ts:90](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L90)
+Defined in: [model/gantt-store-types.ts:131](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L131)
 
 #### Parameters
 
@@ -612,7 +740,7 @@ Defined in: [model/gantt-store-types.ts:90](https://github.com/simplix-react/sim
 
 > **selectRow**(`id`, `mode?`): `void`
 
-Defined in: [model/gantt-store-types.ts:82](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L82)
+Defined in: [model/gantt-store-types.ts:123](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L123)
 
 Selects one row; with `extend` every row from the last selected one to it, with `toggle` adds or removes it.
 
@@ -632,11 +760,47 @@ Selects one row; with `extend` every row from the last selected one to it, with 
 
 ***
 
+### setBarColoring()
+
+> **setBarColoring**(`coloring`): `void`
+
+Defined in: [model/gantt-store-types.ts:147](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L147)
+
+#### Parameters
+
+##### coloring
+
+[`BarColoring`](../type-aliases/BarColoring.md)
+
+#### Returns
+
+`void`
+
+***
+
+### setBarText()
+
+> **setBarText**(`text`): `void`
+
+Defined in: [model/gantt-store-types.ts:146](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L146)
+
+#### Parameters
+
+##### text
+
+[`BarText`](../type-aliases/BarText.md)
+
+#### Returns
+
+`void`
+
+***
+
 ### setBaselineNumber()
 
 > **setBaselineNumber**(`number`): `void`
 
-Defined in: [model/gantt-store-types.ts:89](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L89)
+Defined in: [model/gantt-store-types.ts:130](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L130)
 
 #### Parameters
 
@@ -654,7 +818,7 @@ Defined in: [model/gantt-store-types.ts:89](https://github.com/simplix-react/sim
 
 > **setBaselineSlot**(`slot`): `void`
 
-Defined in: [model/gantt-store-types.ts:141](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L141)
+Defined in: [model/gantt-store-types.ts:200](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L200)
 
 Picks the baseline the commands work on; a baseline that is shown follows it.
 
@@ -674,7 +838,7 @@ Picks the baseline the commands work on; a baseline that is shown follows it.
 
 > **setCollapsed**(`ids`): `void`
 
-Defined in: [model/gantt-store-types.ts:84](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L84)
+Defined in: [model/gantt-store-types.ts:125](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L125)
 
 #### Parameters
 
@@ -692,7 +856,7 @@ readonly `string`[]
 
 > **setColumns**(`columns`): `void`
 
-Defined in: [model/gantt-store-types.ts:101](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L101)
+Defined in: [model/gantt-store-types.ts:142](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L142)
 
 #### Parameters
 
@@ -706,11 +870,33 @@ readonly [`GanttColumnId`](../type-aliases/GanttColumnId.md)[]
 
 ***
 
+### setColumnWidth()
+
+> **setColumnWidth**(`column`, `width`): `void`
+
+Defined in: [model/gantt-store-types.ts:143](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L143)
+
+#### Parameters
+
+##### column
+
+[`GanttColumnId`](../type-aliases/GanttColumnId.md)
+
+##### width
+
+`number`
+
+#### Returns
+
+`void`
+
+***
+
 ### setDurationText()
 
 > **setDurationText**(`id`, `text`): `boolean`
 
-Defined in: [model/gantt-store-types.ts:145](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L145)
+Defined in: [model/gantt-store-types.ts:204](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L204)
 
 Sets a task's duration from text such as `3d`, `2w` or `4h`.
 
@@ -730,11 +916,29 @@ Sets a task's duration from text such as `3d`, `2w` or `4h`.
 
 ***
 
+### setGridWidth()
+
+> **setGridWidth**(`width`): `void`
+
+Defined in: [model/gantt-store-types.ts:144](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L144)
+
+#### Parameters
+
+##### width
+
+`number`
+
+#### Returns
+
+`void`
+
+***
+
 ### setLevelingOptions()
 
 > **setLevelingOptions**(`options`): `void`
 
-Defined in: [model/gantt-store-types.ts:106](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L106)
+Defined in: [model/gantt-store-types.ts:165](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L165)
 
 #### Parameters
 
@@ -752,7 +956,7 @@ Defined in: [model/gantt-store-types.ts:106](https://github.com/simplix-react/si
 
 > **setPredecessorText**(`id`, `text`): `boolean`
 
-Defined in: [model/gantt-store-types.ts:147](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L147)
+Defined in: [model/gantt-store-types.ts:206](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L206)
 
 Replaces a task's predecessors from text such as `3, 4SS+2d`, naming rows by number.
 
@@ -776,7 +980,7 @@ Replaces a task's predecessors from text such as `3, 4SS+2d`, naming rows by num
 
 > **setPrinting**(`printing`): `void`
 
-Defined in: [model/gantt-store-types.ts:99](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L99)
+Defined in: [model/gantt-store-types.ts:140](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L140)
 
 #### Parameters
 
@@ -794,7 +998,7 @@ Defined in: [model/gantt-store-types.ts:99](https://github.com/simplix-react/sim
 
 > **setShowCriticalPath**(`show`): `void`
 
-Defined in: [model/gantt-store-types.ts:86](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L86)
+Defined in: [model/gantt-store-types.ts:127](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L127)
 
 #### Parameters
 
@@ -812,7 +1016,7 @@ Defined in: [model/gantt-store-types.ts:86](https://github.com/simplix-react/sim
 
 > **setShowLinks**(`show`): `void`
 
-Defined in: [model/gantt-store-types.ts:87](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L87)
+Defined in: [model/gantt-store-types.ts:128](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L128)
 
 #### Parameters
 
@@ -830,7 +1034,25 @@ Defined in: [model/gantt-store-types.ts:87](https://github.com/simplix-react/sim
 
 > **setShowMarkers**(`show`): `void`
 
-Defined in: [model/gantt-store-types.ts:88](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L88)
+Defined in: [model/gantt-store-types.ts:129](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L129)
+
+#### Parameters
+
+##### show
+
+`boolean`
+
+#### Returns
+
+`void`
+
+***
+
+### setShowProgressLine()
+
+> **setShowProgressLine**(`show`): `void`
+
+Defined in: [model/gantt-store-types.ts:148](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L148)
 
 #### Parameters
 
@@ -848,7 +1070,7 @@ Defined in: [model/gantt-store-types.ts:88](https://github.com/simplix-react/sim
 
 > **setView**(`view`): `void`
 
-Defined in: [model/gantt-store-types.ts:100](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L100)
+Defined in: [model/gantt-store-types.ts:141](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L141)
 
 #### Parameters
 
@@ -862,11 +1084,29 @@ Defined in: [model/gantt-store-types.ts:100](https://github.com/simplix-react/si
 
 ***
 
+### setViewOptions()
+
+> **setViewOptions**(`options`): `void`
+
+Defined in: [model/gantt-store-types.ts:145](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L145)
+
+#### Parameters
+
+##### options
+
+`Partial`\<[`ViewOptions`](ViewOptions.md)\>
+
+#### Returns
+
+`void`
+
+***
+
 ### setZoom()
 
 > **setZoom**(`zoom`): `void`
 
-Defined in: [model/gantt-store-types.ts:85](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L85)
+Defined in: [model/gantt-store-types.ts:126](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L126)
 
 #### Parameters
 
@@ -884,7 +1124,7 @@ Defined in: [model/gantt-store-types.ts:85](https://github.com/simplix-react/sim
 
 > **sync**(`project`): `void`
 
-Defined in: [model/gantt-store-types.ts:119](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L119)
+Defined in: [model/gantt-store-types.ts:178](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L178)
 
 Replaces the plan with one changed elsewhere, such as an edit another
 user saved. The undo history is kept; undoing past this point brings back
@@ -907,7 +1147,7 @@ called, since the change did not come from this chart.
 
 > **toggleCollapsed**(`id`): `void`
 
-Defined in: [model/gantt-store-types.ts:83](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L83)
+Defined in: [model/gantt-store-types.ts:124](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L124)
 
 #### Parameters
 
@@ -925,7 +1165,7 @@ Defined in: [model/gantt-store-types.ts:83](https://github.com/simplix-react/sim
 
 > **toggleColumn**(`column`): `void`
 
-Defined in: [model/gantt-store-types.ts:103](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L103)
+Defined in: [model/gantt-store-types.ts:162](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L162)
 
 Shows a column at the end of the table, or hides it.
 
@@ -945,7 +1185,7 @@ Shows a column at the end of the table, or hides it.
 
 > **undo**(): `void`
 
-Defined in: [model/gantt-store-types.ts:76](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L76)
+Defined in: [model/gantt-store-types.ts:117](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L117)
 
 #### Returns
 

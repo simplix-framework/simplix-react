@@ -14,8 +14,8 @@ import { useCallback, useMemo, useRef, useState } from "react";
 import { useGantt, useGanttStore } from "../context/gantt-context";
 import { cn } from "../lib/cn";
 import type { BarBox, PathPoint } from "../lib/link-path";
-import type { VisibleRow } from "../lib/rows";
 import { MARKER_STYLE, startOfDay } from "../lib/markers";
+import type { ViewRow } from "../lib/view-rows";
 import type { DateMarker } from "../lib/markers";
 import { scaleCells } from "../lib/time-scale";
 import type { TimeScale, ZoomLevel } from "../lib/time-scale";
@@ -31,11 +31,14 @@ const HOURLY_PX_PER_DAY = 240;
 /** Below this day width single non-working days are too thin to shade. */
 const SHADING_MIN_PX_PER_DAY = 5;
 
+/** Colours bars take when they are coloured by resource, one per resource in turn. */
+const RESOURCE_COLORS = ["#2563eb", "#059669", "#d97706", "#7c3aed", "#db2777", "#0891b2", "#65a30d", "#dc2626"] as const;
+
 /** Props for {@link TimelineBody}. */
 export interface TimelineBodyProps {
   scale: TimeScale;
   level: ZoomLevel;
-  rows: readonly VisibleRow[];
+  rows: readonly ViewRow[];
   /** Rows to draw, as indexes into `rows` with their vertical offset. */
   window: readonly { index: number; start: number }[];
   rowHeight: number;
@@ -77,7 +80,23 @@ export function TimelineBody({ scale, level, rows, window, rowHeight, fromX, toX
     () => compileCalendars(project.calendars).get(project.calendarId),
     [project.calendars, project.calendarId],
   );
-  const rowOf = useMemo(() => new Map(rows.map((row, i) => [row.task.id, i])), [rows]);
+  // A task grouped under several headings has several rows; links attach to the first.
+  const rowOf = useMemo(() => {
+    const map = new Map<Id, number>();
+    rows.forEach((row, i) => {
+      if (row.kind === "task" && !map.has(row.task.id)) map.set(row.task.id, i);
+    });
+    return map;
+  }, [rows]);
+  const readOnly = useGantt((state) => state.readOnly);
+  const barText = useGantt((state) => state.barText);
+  const barColoring = useGantt((state) => state.barColoring);
+  const showProgressLine = useGantt((state) => state.showProgressLine);
+  const resourceColor = useMemo(() => {
+    const colors = new Map<Id, string>();
+    project.resources.forEach((resource, i) => colors.set(resource.id, RESOURCE_COLORS[i % RESOURCE_COLORS.length]));
+    return colors;
+  }, [project.resources]);
   const height = rows.length * rowHeight;
   const hourly = level.pxPerDay >= HOURLY_PX_PER_DAY;
   const pxPerMinute = scale.pxPerDay / MINUTES_PER_DAY;
@@ -222,13 +241,22 @@ export function TimelineBody({ scale, level, rows, window, rowHeight, fromX, toX
       {gridLines.map((cell) => (
         <div key={cell.from} className="absolute top-0 h-full border-l border-border/60" style={{ left: cell.x }} />
       ))}
-      {window.map(({ index, start }) => (
-        <div
-          key={rows[index].task.id}
-          className={cn("absolute left-0 w-full border-b border-border/60", selected.has(rows[index].task.id) && "bg-accent/50")}
-          style={{ top: start, height: rowHeight }}
-        />
-      ))}
+      {window.map(({ index, start }) => {
+        const row = rows[index];
+        return (
+          <div
+            key={row.kind === "task" ? `${index}:${row.task.id}` : `group:${row.key}`}
+            className={cn(
+              "absolute left-0 w-full border-b border-border/60",
+              row.kind === "group" ? "bg-muted" : selected.has(row.task.id) && "bg-accent/50",
+            )}
+            style={{ top: start, height: rowHeight }}
+          />
+        );
+      })}
+      {showProgressLine && project.statusDate !== undefined && (
+        <ProgressLine rows={rows} window={window} rowHeight={rowHeight} scale={scale} statusDate={project.statusDate} height={height} />
+      )}
       {markers.map((marker) => {
         if (marker.at < scale.start || marker.at > scale.end) return null;
         return (
@@ -256,12 +284,19 @@ export function TimelineBody({ scale, level, rows, window, rowHeight, fromX, toX
       )}
       {window.map(({ index, start }) => {
         const row = rows[index];
+        if (row.kind === "group") return null;
         const at = schedule.tasks.get(row.task.id);
         if (!at) return null;
         const live = preview?.gesture.id === row.task.id ? preview : null;
+        const firstResource = project.assignments.find((assignment) => assignment.taskId === row.task.id)?.resourceId;
+        const color =
+          barColoring === "task" ? row.task.color : barColoring === "resource" && firstResource !== undefined ? resourceColor.get(firstResource) : undefined;
         return (
           <TaskBar
-            key={row.task.id}
+            key={`${index}:${row.task.id}`}
+            readOnly={readOnly}
+            text={barText}
+            color={color}
             row={row}
             at={previewed(at, live, pxPerMinute)}
             percent={live?.gesture.kind === "progress" ? live.percent : at.percentComplete}
@@ -295,4 +330,40 @@ function previewed(at: TaskSchedule, live: DragPreview | null, pxPerMinute: numb
     default:
       return at;
   }
+}
+
+interface ProgressLineProps {
+  rows: readonly ViewRow[];
+  window: readonly { index: number; start: number }[];
+  rowHeight: number;
+  scale: TimeScale;
+  statusDate: number;
+  height: number;
+}
+
+/**
+ * The progress line: it runs down the status date and, at every task that is
+ * under way or should be, bends to the point the task's progress has reached.
+ * A bend to the left is work behind the date; a bend to the right is work ahead.
+ */
+function ProgressLine({ rows, window, rowHeight, scale, statusDate, height }: ProgressLineProps) {
+  const schedule = useGantt((state) => state.schedule);
+  const base = scale.x(statusDate);
+  const points: string[] = [`${base},0`];
+  for (const { index, start } of window) {
+    const row = rows[index];
+    if (row.kind !== "task" || row.summary) continue;
+    const at = schedule.tasks.get(row.task.id);
+    if (!at || at.finish === at.start) continue;
+    // Nothing to report for work that is done, or that neither has begun nor was due to.
+    if (at.percentComplete >= 100 || (at.percentComplete === 0 && at.start >= statusDate)) continue;
+    const reached = scale.x(at.start) + ((scale.x(at.finish) - scale.x(at.start)) * at.percentComplete) / 100;
+    points.push(`${base},${start}`, `${reached},${start + rowHeight / 2}`, `${base},${start + rowHeight}`);
+  }
+  points.push(`${base},${height}`);
+  return (
+    <svg className="pointer-events-none absolute left-0 top-0 text-amber-500" width={scale.width} height={height} aria-hidden="true" data-gantt-slot="progress-line">
+      <polyline points={points.join(" ")} fill="none" stroke="currentColor" strokeWidth={1.5} />
+    </svg>
+  );
 }

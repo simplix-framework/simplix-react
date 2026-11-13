@@ -8,7 +8,11 @@ import { useGanttTranslation } from "../lib/use-gantt-translation";
 import { GanttChart } from "./gantt-chart";
 import type { GanttChartProps } from "./gantt-chart";
 import { GanttToolbar } from "./gantt-toolbar";
+import { CalendarView } from "./calendar-view";
+import { NetworkDiagram } from "./network-diagram";
 import { ProjectDialog } from "./project-dialog";
+import { ResourceGraph } from "./resource-graph";
+import { TaskUsage } from "./task-usage";
 import { RecurringDialog } from "./recurring-dialog";
 import type { GanttToolbarProps } from "./gantt-toolbar";
 import { ResourceSheet } from "./resource-sheet";
@@ -74,6 +78,10 @@ export function GanttShell({ className, emptyState, xmlExchange, trailing, ...ch
           : <GanttChart {...chart} />)}
       {view === "resources" && <ResourceSheet />}
       {view === "usage" && <ResourceUsage />}
+      {view === "taskUsage" && <TaskUsage />}
+      {view === "graph" && <ResourceGraph />}
+      {view === "calendar" && <CalendarView weekStartsOn={chart.weekStartsOn} />}
+      {view === "network" && <NetworkDiagram />}
       <TaskDialog />
       <ProjectDialog />
       <RecurringDialog />
@@ -103,6 +111,9 @@ export function Gantt({
   view,
   columns,
   levelingOptions,
+  readOnly,
+  layout,
+  onLayoutChange,
   onChange,
   ...shell
 }: GanttProps) {
@@ -117,6 +128,9 @@ export function Gantt({
       view={view}
       columns={columns}
       levelingOptions={levelingOptions}
+      readOnly={readOnly}
+      layout={layout}
+      onLayoutChange={onLayoutChange}
       onChange={onChange}
     >
       <GanttShell {...shell} />

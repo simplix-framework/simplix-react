@@ -117,7 +117,7 @@ export const MIN_DATE = "1900-01-01";
 export const MAX_DATE = "2199-12-31";
 
 /** Width of the leading column that carries the row number and the conflict mark. */
-export const INDICATOR_WIDTH = 44;
+export const INDICATOR_WIDTH = 64;
 
 /** Width the task table needs to show every one of the given columns. */
 export function gridContentWidth(columns: readonly GanttColumnId[]): number {
