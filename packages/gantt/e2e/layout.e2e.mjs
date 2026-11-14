@@ -96,22 +96,43 @@ test("chooses the columns to show from the table corner and from the toolbar", a
   await page.context().close();
 });
 
-test("keeps a date tag out of the task table while the timeline scrolls under it", async () => {
-  const page = await open("default");
-  const tag = page.locator("[data-gantt-marker-tag]").first();
-  const grid = await box(page, '[data-gantt-slot="grid"]');
-  const tagBox = await tag.boundingBox();
-  // Scroll until the tag's centre lies under the table.
-  const by = Math.round(tagBox.x + tagBox.width / 2 - (grid.x + grid.width / 2));
-  await page.locator('[data-gantt-slot="scroll"]').evaluate((element, delta) => (element.scrollLeft += delta), by);
-  await page.waitForTimeout(300);
-  const moved = await tag.boundingBox();
-  assert.ok(moved.x + moved.width < grid.x + grid.width, "the tag's place is now under the table");
-  const top = await page.evaluate(([x, y]) => {
-    const hit = document.elementFromPoint(x, y);
-    return Boolean(hit?.closest("[data-gantt-marker-tag]"));
-  }, [moved.x + moved.width / 2, moved.y + moved.height - 3]);
-  assert.equal(top, false, "the table covers the tag");
+test("keeps a date tag whole beside the task table until its date scrolls under it, then leaves it out", async () => {
+  const page = await open("date-markers");
+  const scroll = page.locator('[data-gantt-slot="scroll"]');
+  const edge = (await box(page, '[data-gantt-slot="grid"]')).x + (await box(page, '[data-gantt-slot="grid"]')).width;
+  const read = () =>
+    page.evaluate(() => {
+      const left = (element) => element.getBoundingClientRect().left;
+      return Object.fromEntries(
+        [...document.querySelectorAll("[data-gantt-marker]")].map((marker) => {
+          const kind = marker.dataset.ganttMarker;
+          const tag = document.querySelector(`[data-gantt-marker-tag="${kind}"]`)?.getBoundingClientRect();
+          return [kind, { line: left(marker.querySelector('[data-gantt-slot="marker-line"]')), tag: tag ? [tag.left, tag.right] : null }];
+        }),
+      );
+    });
+  const start = await read();
+  const from = await scroll.evaluate((element) => element.scrollLeft);
+  // The status date's line is taken across the table's edge a few pixels at a time.
+  const reach = Math.round(start.statusDate.line - edge);
+  let beside = 0;
+  let gone = 0;
+  for (let over = -60; over <= 30; over += 3) {
+    await scroll.evaluate((element, x) => (element.scrollLeft = x), from + reach + over);
+    await page.waitForTimeout(40);
+    const { statusDate } = await read();
+    if (statusDate.line >= edge) {
+      assert.ok(statusDate.tag, `the tag is shown while its line is ${Math.round(statusDate.line - edge)}px from the table`);
+      assert.ok(statusDate.tag[0] >= edge - 1, `the tag starts ${Math.round(edge - statusDate.tag[0])}px inside the table`);
+      // Beside the table the tag is no longer centred on its line: it has stopped at the edge.
+      if (statusDate.tag[0] < edge + 1) beside += 1;
+    } else {
+      assert.equal(statusDate.tag, null, "the tag goes when its line is under the table");
+      gone += 1;
+    }
+  }
+  assert.ok(beside >= 3, "the tag rested against the table's edge on the way");
+  assert.ok(gone >= 3, "the sweep took the line under the table");
   await page.context().close();
 });
 

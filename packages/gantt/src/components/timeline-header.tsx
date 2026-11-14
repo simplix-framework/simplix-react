@@ -21,7 +21,7 @@ export interface TimelineHeaderProps {
   markers?: readonly DateMarker[];
   /** Width of what is pinned over the left of the scroll area; a label that stays in view stays clear of it. */
   pinnedLeft?: number;
-  /** Timeline position under the right edge of what is pinned; a tag is cut off to the left of it. */
+  /** Timeline position under the right edge of what is pinned; a tag stays to the right of it, and goes when its date passes it. */
   clipLeft?: number;
 }
 
@@ -51,27 +51,36 @@ export function TimelineHeader({ scale, level, fromX, toX, weekStartsOn, markers
     <div className="relative h-full text-xs text-foreground" style={{ width: scale.width }}>
       <HeaderTier scale={scale} unit={level.top} fromX={fromX} toX={toX} weekStartsOn={weekStartsOn} pinnedLeft={pinnedLeft} clipLeft={clipLeft} top />
       <HeaderTier scale={scale} unit={level.bottom} fromX={fromX} toX={toX} weekStartsOn={weekStartsOn} />
-      {/* raw layout: the tags hang below the header, so they are cut where the pinned table begins */}
+      {/* raw layout: the tags hang below the header; nothing of them is drawn left of where the pinned table ends */}
       <div
         className="pointer-events-none absolute inset-0 z-10"
         style={{ clipPath: `inset(0 0 -${TAG_AREA}px ${clipLeft}px)` }}
         data-gantt-slot="marker-tags"
       >
-      {tags.map(({ marker, x, row }) => (
+      {tags.map(({ marker, x, row }) => {
+        // A tag whose date has gone under the table goes with it, whole.
+        if (x < clipLeft) return null;
+        return (
         <div
           key={marker.kind}
           title={formatDateTime(marker.at, language)}
           className={cn(
-            "pointer-events-auto absolute -translate-x-1/2 whitespace-nowrap rounded-full px-1.5 text-[10px] font-medium leading-4 shadow-sm",
+            "pointer-events-auto absolute whitespace-nowrap rounded-full px-1.5 text-[10px] font-medium leading-4 shadow-sm",
             MARKER_STYLE[marker.kind].tag,
           )}
-          // Half over the header's lower edge, so the tag sits on top of its line.
-          style={{ left: x, top: `calc(100% - ${TAG_HEIGHT / 2}px + ${row * (TAG_HEIGHT + 2)}px)` }}
+          // Half over the header's lower edge, so the tag sits on top of its line. It is centred on the line
+          // until that would put part of it under the table; from there it stays whole beside the table's edge.
+          style={{
+            left: x,
+            top: `calc(100% - ${TAG_HEIGHT / 2}px + ${row * (TAG_HEIGHT + 2)}px)`,
+            transform: `translateX(max(-50%, ${clipLeft - x}px))`,
+          }}
           data-gantt-marker-tag={marker.kind}
         >
           {t(`marker.${marker.kind}`)}
         </div>
-      ))}
+        );
+      })}
       </div>
     </div>
   );
