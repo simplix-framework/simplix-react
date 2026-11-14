@@ -1,0 +1,2843 @@
+[
+  {
+    "name": "a definition with nothing wrong",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ]
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [
+                    "b"
+                  ],
+                  "kind": "check",
+                  "label": "X2"
+                }
+              ]
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "to": "t1",
+          "label": "J1"
+        }
+      ]
+    },
+    "problems": []
+  },
+  {
+    "name": "a parallel run of two neighbouring steps in one section",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ],
+              "parallel": "g"
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [
+                    "b"
+                  ],
+                  "kind": "check",
+                  "label": "X2"
+                }
+              ],
+              "parallel": "g"
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "to": "t1",
+          "label": "J1"
+        }
+      ]
+    },
+    "problems": []
+  },
+  {
+    "name": "a repeat ended by a later step",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ],
+              "repeat": {
+                "endedBy": "t3"
+              }
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [
+                    "b"
+                  ],
+                  "kind": "check",
+                  "label": "X2"
+                }
+              ]
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "to": "t1",
+          "label": "J1"
+        }
+      ]
+    },
+    "problems": []
+  },
+  {
+    "name": "an external jump",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ]
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [
+                    "b"
+                  ],
+                  "kind": "check",
+                  "label": "X2"
+                }
+              ]
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "to": "t1",
+          "label": "J1"
+        },
+        {
+          "id": "j2",
+          "from": "t1",
+          "external": "other",
+          "label": "J2"
+        }
+      ]
+    },
+    "problems": []
+  },
+  {
+    "name": "a nested condition",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ]
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [
+                    "b"
+                  ],
+                  "kind": "check",
+                  "label": "X2"
+                }
+              ],
+              "condition": {
+                "all": [
+                  {
+                    "fact": "f"
+                  },
+                  {
+                    "not": {
+                      "any": [
+                        {
+                          "fact": "g"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "to": "t1",
+          "label": "J1"
+        }
+      ]
+    },
+    "problems": []
+  },
+  {
+    "name": "two lanes with one id",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        },
+        {
+          "id": "a",
+          "label": "A2"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ]
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [
+                    "b"
+                  ],
+                  "kind": "check",
+                  "label": "X2"
+                }
+              ]
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "to": "t1",
+          "label": "J1"
+        }
+      ]
+    },
+    "problems": [
+      {
+        "code": "duplicate-lane",
+        "subject": "a"
+      }
+    ]
+  },
+  {
+    "name": "two sections with one id",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ]
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [
+                    "b"
+                  ],
+                  "kind": "check",
+                  "label": "X2"
+                }
+              ]
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "s1",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "to": "t1",
+          "label": "J1"
+        }
+      ]
+    },
+    "problems": [
+      {
+        "code": "duplicate-section",
+        "subject": "s1"
+      }
+    ]
+  },
+  {
+    "name": "two steps with one id",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ]
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [
+                    "b"
+                  ],
+                  "kind": "check",
+                  "label": "X2"
+                }
+              ]
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "to": "t1",
+          "label": "J1"
+        }
+      ]
+    },
+    "problems": [
+      {
+        "code": "duplicate-step",
+        "subject": "t1"
+      }
+    ]
+  },
+  {
+    "name": "two acts with one id",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ]
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [
+                    "b"
+                  ],
+                  "kind": "check",
+                  "label": "X2"
+                }
+              ]
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "to": "t1",
+          "label": "J1"
+        }
+      ]
+    },
+    "problems": [
+      {
+        "code": "duplicate-act",
+        "subject": "x1"
+      }
+    ]
+  },
+  {
+    "name": "two jumps with one id",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ]
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [
+                    "b"
+                  ],
+                  "kind": "check",
+                  "label": "X2"
+                }
+              ]
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "to": "t1",
+          "label": "J1"
+        },
+        {
+          "id": "j1",
+          "from": "t4",
+          "to": "t2",
+          "label": "J"
+        }
+      ]
+    },
+    "problems": [
+      {
+        "code": "duplicate-jump",
+        "subject": "j1"
+      }
+    ]
+  },
+  {
+    "name": "a step with no acts",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ]
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": []
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "to": "t1",
+          "label": "J1"
+        }
+      ]
+    },
+    "problems": [
+      {
+        "code": "step-without-acts",
+        "subject": "t2"
+      }
+    ]
+  },
+  {
+    "name": "an act with no lanes",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ]
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [],
+                  "kind": "check",
+                  "label": "X2"
+                }
+              ]
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "to": "t1",
+          "label": "J1"
+        }
+      ]
+    },
+    "problems": [
+      {
+        "code": "act-without-lanes",
+        "subject": "x2"
+      }
+    ]
+  },
+  {
+    "name": "an act naming one lane twice",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ]
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [
+                    "b",
+                    "b"
+                  ],
+                  "kind": "check",
+                  "label": "X2"
+                }
+              ]
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "to": "t1",
+          "label": "J1"
+        }
+      ]
+    },
+    "problems": [
+      {
+        "code": "act-repeats-lane",
+        "subject": "x2",
+        "other": "b"
+      }
+    ]
+  },
+  {
+    "name": "an act in a lane the definition does not list",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ]
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [
+                    "z"
+                  ],
+                  "kind": "check",
+                  "label": "X2"
+                }
+              ]
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "to": "t1",
+          "label": "J1"
+        }
+      ]
+    },
+    "problems": [
+      {
+        "code": "unknown-lane",
+        "subject": "x2",
+        "other": "z"
+      }
+    ]
+  },
+  {
+    "name": "a step condition with two keys",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ]
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [
+                    "b"
+                  ],
+                  "kind": "check",
+                  "label": "X2"
+                }
+              ],
+              "condition": {
+                "fact": "f",
+                "not": {
+                  "fact": "g"
+                }
+              }
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "to": "t1",
+          "label": "J1"
+        }
+      ]
+    },
+    "problems": [
+      {
+        "code": "invalid-condition",
+        "subject": "t2"
+      }
+    ]
+  },
+  {
+    "name": "an act condition with an empty fact name",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ]
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [
+                    "b"
+                  ],
+                  "kind": "check",
+                  "label": "X2",
+                  "condition": {
+                    "fact": ""
+                  }
+                }
+              ]
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "to": "t1",
+          "label": "J1"
+        }
+      ]
+    },
+    "problems": [
+      {
+        "code": "invalid-condition",
+        "subject": "x2"
+      }
+    ]
+  },
+  {
+    "name": "a jump from a step that does not exist",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ]
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [
+                    "b"
+                  ],
+                  "kind": "check",
+                  "label": "X2"
+                }
+              ]
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t9",
+          "to": "t1",
+          "label": "J1"
+        }
+      ]
+    },
+    "problems": [
+      {
+        "code": "jump-unknown-from",
+        "subject": "j1",
+        "other": "t9"
+      }
+    ]
+  },
+  {
+    "name": "a jump to a step that does not exist",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ]
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [
+                    "b"
+                  ],
+                  "kind": "check",
+                  "label": "X2"
+                }
+              ]
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "to": "t9",
+          "label": "J1"
+        }
+      ]
+    },
+    "problems": [
+      {
+        "code": "jump-unknown-to",
+        "subject": "j1",
+        "other": "t9"
+      }
+    ]
+  },
+  {
+    "name": "a jump to the step it leaves",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ]
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [
+                    "b"
+                  ],
+                  "kind": "check",
+                  "label": "X2"
+                }
+              ]
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "to": "t3",
+          "label": "J1"
+        }
+      ]
+    },
+    "problems": [
+      {
+        "code": "jump-to-self",
+        "subject": "j1",
+        "other": "t3"
+      }
+    ]
+  },
+  {
+    "name": "a jump with neither a step nor a procedure to go to",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ]
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [
+                    "b"
+                  ],
+                  "kind": "check",
+                  "label": "X2"
+                }
+              ]
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "label": "J1"
+        }
+      ]
+    },
+    "problems": [
+      {
+        "code": "jump-target-count",
+        "subject": "j1"
+      }
+    ]
+  },
+  {
+    "name": "a jump with both a step and a procedure to go to",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ]
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [
+                    "b"
+                  ],
+                  "kind": "check",
+                  "label": "X2"
+                }
+              ]
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "to": "t1",
+          "label": "J1",
+          "external": "other"
+        }
+      ]
+    },
+    "problems": [
+      {
+        "code": "jump-target-count",
+        "subject": "j1"
+      }
+    ]
+  },
+  {
+    "name": "a repeat ended by a step that does not exist",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ],
+              "repeat": {
+                "endedBy": "t9"
+              }
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [
+                    "b"
+                  ],
+                  "kind": "check",
+                  "label": "X2"
+                }
+              ]
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "to": "t1",
+          "label": "J1"
+        }
+      ]
+    },
+    "problems": [
+      {
+        "code": "repeat-unknown-end",
+        "subject": "t1",
+        "other": "t9"
+      }
+    ]
+  },
+  {
+    "name": "a repeat ended by an earlier step",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ]
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [
+                    "b"
+                  ],
+                  "kind": "check",
+                  "label": "X2"
+                }
+              ]
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ],
+              "repeat": {
+                "endedBy": "t1"
+              }
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "to": "t1",
+          "label": "J1"
+        }
+      ]
+    },
+    "problems": [
+      {
+        "code": "repeat-end-not-after",
+        "subject": "t3",
+        "other": "t1"
+      }
+    ]
+  },
+  {
+    "name": "a repeat ended by its own step",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ]
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [
+                    "b"
+                  ],
+                  "kind": "check",
+                  "label": "X2"
+                }
+              ]
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ],
+              "repeat": {
+                "endedBy": "t3"
+              }
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "to": "t1",
+          "label": "J1"
+        }
+      ]
+    },
+    "problems": [
+      {
+        "code": "repeat-end-not-after",
+        "subject": "t3",
+        "other": "t3"
+      }
+    ]
+  },
+  {
+    "name": "a parallel key on one step only",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ],
+              "parallel": "g"
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [
+                    "b"
+                  ],
+                  "kind": "check",
+                  "label": "X2"
+                }
+              ]
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "to": "t1",
+          "label": "J1"
+        }
+      ]
+    },
+    "problems": [
+      {
+        "code": "parallel-single",
+        "subject": "g"
+      }
+    ]
+  },
+  {
+    "name": "a parallel key on steps that are not neighbours",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ],
+              "parallel": "g"
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [
+                    "b"
+                  ],
+                  "kind": "check",
+                  "label": "X2"
+                }
+              ]
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ],
+              "parallel": "g"
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "to": "t1",
+          "label": "J1"
+        }
+      ]
+    },
+    "problems": [
+      {
+        "code": "parallel-not-adjacent",
+        "subject": "g"
+      }
+    ]
+  },
+  {
+    "name": "a parallel key across two sections",
+    "definition": {
+      "format": "simplix-process",
+      "version": 1,
+      "id": "p",
+      "name": "p",
+      "lanes": [
+        {
+          "id": "a",
+          "label": "A"
+        },
+        {
+          "id": "b",
+          "label": "B"
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "label": "S1",
+          "steps": [
+            {
+              "id": "t1",
+              "label": "T1",
+              "acts": [
+                {
+                  "id": "x1",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X1"
+                }
+              ]
+            },
+            {
+              "id": "t2",
+              "label": "T2",
+              "acts": [
+                {
+                  "id": "x2",
+                  "lanes": [
+                    "b"
+                  ],
+                  "kind": "check",
+                  "label": "X2"
+                }
+              ]
+            },
+            {
+              "id": "t3",
+              "label": "T3",
+              "acts": [
+                {
+                  "id": "x3",
+                  "lanes": [
+                    "a",
+                    "b"
+                  ],
+                  "kind": "do",
+                  "label": "X3"
+                }
+              ],
+              "parallel": "g"
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "label": "S2",
+          "steps": [
+            {
+              "id": "t4",
+              "label": "T4",
+              "acts": [
+                {
+                  "id": "x4",
+                  "lanes": [
+                    "a"
+                  ],
+                  "kind": "do",
+                  "label": "X4"
+                }
+              ],
+              "parallel": "g"
+            }
+          ]
+        }
+      ],
+      "jumps": [
+        {
+          "id": "j1",
+          "from": "t3",
+          "to": "t1",
+          "label": "J1"
+        }
+      ]
+    },
+    "problems": [
+      {
+        "code": "parallel-spans-sections",
+        "subject": "g"
+      }
+    ]
+  }
+]
