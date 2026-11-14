@@ -117,7 +117,7 @@ export function ProcessLanes({
   const empty = !process.sections.some((section) => section.steps.length > 0);
 
   return (
-    <div ref={root} role="group" aria-label={definition.name} data-process-root data-layout={mode} className={cn("text-foreground", className)} style={style} onKeyDown={moveFocus} onFocus={onFocus}>
+    <div ref={root} role="group" aria-label={definition.name} data-process-root data-layout={mode} data-lanes={geometry.lanes.length} data-tracks={geometry.trackCount} className={cn("text-foreground", className)} style={style} onKeyDown={moveFocus} onFocus={onFocus}>
       {laneFilter && process.lanes.length > 1 && (
         <div role="group" aria-label={t("lanes")} data-process-slot="lane-filter">
           <button type="button" data-process-slot="lane-toggle" aria-pressed={shown.size === process.lanes.length} onClick={() => setLanes(process.lanes.map((lane) => lane.id))}>
