@@ -154,7 +154,10 @@ export function StackList({ view, blocks, lanes, highlight, uid, selected, tabSt
         }
         items.push(
           <li key={`run-${block.key}`} data-process-slot="parallel-run">
-            <span data-process-slot="parallel-title">{`∥ ${t("parallel")}`}</span>
+            <span data-process-slot="parallel-title">
+              <span data-process-slot="parallel-name">{`∥ ${t("parallel")}`}</span>
+              <span data-process-slot="parallel-hint">{t("parallelHint")}</span>
+            </span>
             <ol data-process-slot="steps">{run}</ol>
           </li>,
         );

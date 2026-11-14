@@ -19,8 +19,9 @@ test("lists every act with the lanes that perform it and every jump as a line of
 test("goes to a section from the links at the top", async () => {
   const page = await open("stack", PHONE);
   const heading = page.locator('[data-process-section="order"]');
+  // The page opens on the step in progress, so the second section's heading stands somewhere down the window.
   const before = await heading.evaluate((element) => element.getBoundingClientRect().top);
-  assert.ok(before > PHONE.height, `the second section starts ${before}px down, below the window`);
+  assert.ok(before > 200, `the second section starts ${before}px down the window`);
   await page.getByRole("navigation").getByRole("button", { name: "발주와 검수" }).click();
   // The page scrolls smoothly; the check waits for the heading to arrive, not for a length of time.
   await page.waitForFunction(() => document.querySelector('[data-process-section="order"]').getBoundingClientRect().top < 120);

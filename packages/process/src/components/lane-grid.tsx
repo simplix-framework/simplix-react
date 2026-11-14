@@ -107,7 +107,7 @@ export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, tab
     const mark = view.stepMark(stepId);
     return (
       <li key={stepId} data-process-step={stepId} data-process-slot="step" data-run={mark?.status}>
-        <div data-process-slot="step-title" data-selected={isPicked("step", stepId) || undefined} data-run={mark?.status} style={at(span.firstRow, 0, span.lastRow)}>
+        <div data-process-slot="step-title" data-selected={isPicked("step", stepId) || undefined} data-run={mark?.status} data-parallel={resolved.step.parallel !== undefined || undefined} style={at(span.firstRow, 0, span.lastRow)}>
           <button type="button" {...stop("step", stepId)} data-process-slot="step-button" aria-current={mark?.status === "active" ? "step" : undefined} onClick={() => onPick({ kind: "step", id: stepId })}>
             <span data-process-slot="step-number" aria-label={t("stepNumber", { number: resolved.number })}>
               {stepNo(resolved.number)}

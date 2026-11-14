@@ -40,5 +40,6 @@
     "skip": "ステップ{{number}}へ進む",
     "external": "{{name}}へ移動"
   },
-  "myLane": "自分"
+  "myLane": "自分",
+  "parallelHint": "すべて完了後に次のステップへ進む"
 }

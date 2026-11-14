@@ -227,6 +227,11 @@
     min-height: 24px;
   }
 
+  /* The end stands in a row of its own, ruled off from the last step, as the start is from the first. */
+  [data-process-slot="row"][data-row="end"] {
+    border-top: 1px solid var(--border);
+  }
+
   [data-process-slot="row"][data-row="section"] {
     background: var(--muted);
     border-block: 1px solid var(--border);
@@ -297,6 +302,11 @@
     gap: 8px;
     text-align: start;
     font-weight: var(--fw-medium);
+  }
+
+  /* The titles of a parallel run are set in, to leave room between them and the bracket that holds them. */
+  [data-process-slot="grid"] [data-process-slot="step-title"][data-parallel] {
+    padding-inline-start: 24px;
   }
 
   /* Its title carries a bar down its side, its number as a filled mark and its words in bold. */
@@ -422,9 +432,20 @@
     z-index: 1;
   }
 
-  [data-process-slot="parallel-run"] {
+  /*
+   * A parallel run on the lane grid: a bracket down the side of its titles, in a neutral colour.
+   * Green is kept for what is done and what is in progress.
+   */
+  [data-process-slot="grid"] [data-process-slot="parallel-run"] {
     pointer-events: none;
-    border-inline-start: 3px solid var(--process-done);
+    box-sizing: border-box;
+    width: 7px;
+    /* The bracket stands clear of the grid's edge, of the rules above and below, and of the titles it holds. */
+    margin: 8px 0 8px 6px;
+    border: 2px solid var(--muted-foreground);
+    border-inline-end: 0;
+    border-start-start-radius: 4px;
+    border-end-start-radius: 4px;
     z-index: 2;
   }
 
@@ -600,17 +621,78 @@
   /*
    * A dotted or dashed line is drawn as a pattern of a fixed period, never as a dotted border:
    * a browser fits a border's dots to each box, so pieces of different lengths would differ in
-   * density along one line. Corners are drawn whole, since a pattern cannot follow a curve.
+   * density along one line.
    */
   [data-process-seg]:is([data-style="parallel"], [data-style="repeat"]) { --process-on: 2px; --process-period: 6px; }
   [data-process-seg][data-style="rework"] { --process-on: 5px; --process-period: 9px; }
 
+  [data-process-seg]:is([data-style="parallel"], [data-style="repeat"], [data-style="rework"]) {
+    --process-dots-x: repeating-linear-gradient(to right, var(--process-stroke) 0 var(--process-on), transparent var(--process-on) var(--process-period));
+    --process-dots-y: repeating-linear-gradient(to bottom, var(--process-stroke) 0 var(--process-on), transparent var(--process-on) var(--process-period));
+  }
+
   [data-process-seg]:is([data-style="parallel"], [data-style="repeat"], [data-style="rework"]):is([data-process-seg="bottom_top"], [data-process-seg="center_top"], [data-process-seg="bottom_center"]) {
-    border-image: repeating-linear-gradient(to bottom, var(--process-stroke) 0 var(--process-on), transparent var(--process-on) var(--process-period)) 1;
+    border-image: var(--process-dots-y) 1;
   }
 
   [data-process-seg]:is([data-style="parallel"], [data-style="repeat"], [data-style="rework"]):is([data-process-seg="left_right"], [data-process-seg="center_left"], [data-process-seg="center_right"]) {
-    border-image: repeating-linear-gradient(to right, var(--process-stroke) 0 var(--process-on), transparent var(--process-on) var(--process-period)) 1;
+    border-image: var(--process-dots-x) 1;
+  }
+
+  /*
+   * A corner of such a line: its two straight stretches carry the pattern as far as the turn,
+   * and only the turn itself, a square the size of its radius, is drawn whole and rounded.
+   * `--process-turn` is that radius; the four shapes differ in which corner of the box turns.
+   */
+  [data-process-seg]:is([data-style="parallel"], [data-style="repeat"], [data-style="rework"]):is(
+      [data-process-seg="right_top"], [data-process-seg="left_top"], [data-process-seg="bottom_right"], [data-process-seg="bottom_left"],
+      [data-process-seg="center_side-top"], [data-process-seg="left_side-bottom"], [data-process-seg="center_rside-top"], [data-process-seg="right_rside-bottom"]
+    ) {
+    --process-turn: var(--process-corner);
+    border-width: 0;
+    background-image: var(--process-dots-y), var(--process-dots-x);
+    background-repeat: no-repeat;
+    background-size: var(--process-line) calc(100% - var(--process-turn)), calc(100% - var(--process-turn)) var(--process-line);
+  }
+
+  [data-process-seg]:is([data-style="parallel"], [data-style="repeat"], [data-style="rework"]):is([data-process-seg="center_side-top"], [data-process-seg="center_rside-top"]) {
+    --process-turn: 7px;
+  }
+
+  [data-process-seg]:is([data-style="parallel"], [data-style="repeat"], [data-style="rework"]):is(
+      [data-process-seg="right_top"], [data-process-seg="left_top"], [data-process-seg="bottom_right"], [data-process-seg="bottom_left"],
+      [data-process-seg="center_side-top"], [data-process-seg="left_side-bottom"], [data-process-seg="center_rside-top"], [data-process-seg="right_rside-bottom"]
+    )::before {
+    content: "";
+    position: absolute;
+    box-sizing: border-box;
+    width: var(--process-turn);
+    height: var(--process-turn);
+    border: 0 solid var(--process-stroke);
+  }
+
+  /* The turn at the bottom left: the line comes down the left and leaves along the bottom. */
+  [data-process-seg]:is([data-style="parallel"], [data-style="repeat"], [data-style="rework"]):is([data-process-seg="right_top"], [data-process-seg="center_side-top"]) { background-position: left top, right bottom; }
+  [data-process-seg]:is([data-style="parallel"], [data-style="repeat"], [data-style="rework"]):is([data-process-seg="right_top"], [data-process-seg="center_side-top"])::before {
+    left: 0; bottom: 0; border-left-width: var(--process-line); border-bottom-width: var(--process-line); border-bottom-left-radius: var(--process-turn);
+  }
+
+  /* At the bottom right. */
+  [data-process-seg]:is([data-style="parallel"], [data-style="repeat"], [data-style="rework"]):is([data-process-seg="left_top"], [data-process-seg="center_rside-top"]) { background-position: right top, left bottom; }
+  [data-process-seg]:is([data-style="parallel"], [data-style="repeat"], [data-style="rework"]):is([data-process-seg="left_top"], [data-process-seg="center_rside-top"])::before {
+    right: 0; bottom: 0; border-right-width: var(--process-line); border-bottom-width: var(--process-line); border-bottom-right-radius: var(--process-turn);
+  }
+
+  /* At the top left. */
+  [data-process-seg]:is([data-style="parallel"], [data-style="repeat"], [data-style="rework"]):is([data-process-seg="bottom_right"], [data-process-seg="right_rside-bottom"]) { background-position: left bottom, right top; }
+  [data-process-seg]:is([data-style="parallel"], [data-style="repeat"], [data-style="rework"]):is([data-process-seg="bottom_right"], [data-process-seg="right_rside-bottom"])::before {
+    left: 0; top: 0; border-left-width: var(--process-line); border-top-width: var(--process-line); border-top-left-radius: var(--process-turn);
+  }
+
+  /* At the top right. */
+  [data-process-seg]:is([data-style="parallel"], [data-style="repeat"], [data-style="rework"]):is([data-process-seg="bottom_left"], [data-process-seg="left_side-bottom"]) { background-position: right bottom, left top; }
+  [data-process-seg]:is([data-style="parallel"], [data-style="repeat"], [data-style="rework"]):is([data-process-seg="bottom_left"], [data-process-seg="left_side-bottom"])::before {
+    right: 0; top: 0; border-right-width: var(--process-line); border-top-width: var(--process-line); border-top-right-radius: var(--process-turn);
   }
 
   /* Straight pieces. */
@@ -787,13 +869,31 @@
     min-width: 0;
   }
 
+  /*
+   * A section's heading in one column: a band of its own across the column, as on the lane grid,
+   * so that it stands out from the cards it heads, with a mark on the rail where the section starts.
+   */
   [data-process-slot="stack"] [data-process-slot="section-title"] {
     position: sticky;
     top: 36px;
     z-index: 3;
-    padding: 6px 2px 6px 39px;
-    background: var(--background);
-    border-bottom: 1px solid var(--border);
+    padding: 7px 10px 7px 39px;
+    font-size: var(--fs-body);
+    background: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-control);
+  }
+
+  [data-process-slot="stack"] [data-process-slot="section-title"]::after {
+    content: "";
+    position: absolute;
+    left: calc(var(--process-rail-x) - 4px);
+    top: calc(50% - 4px);
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--foreground);
+    transform: rotate(45deg);
   }
 
   [data-process-slot="stack"] [data-process-slot="steps"] {
@@ -847,7 +947,8 @@
   [data-process-slot="stack"] [data-process-slot="section-title"]::before {
     content: "";
     position: absolute;
-    left: calc(var(--process-rail-x) + 1px - var(--process-line) / 2);
+    /* The heading has a border, as a card has: its rail is measured from inside it, at the card's own offset. */
+    left: calc(var(--process-rail-x) - var(--process-line) / 2);
     top: 0;
     bottom: -1px;
     border-left: var(--process-line) solid var(--process-life);
@@ -972,36 +1073,46 @@
   }
 
   /*
-   * A parallel run keeps its cards on the rail: it is marked by a bar down the edge and a title
-   * beside the rail, never by setting its cards in.
+   * A parallel run keeps its cards on the rail. It is one outlined, tinted box around its steps,
+   * headed by its name and what it means, in a neutral colour: green is kept for what is done
+   * and what is in progress. The box is drawn outside the cards, so they are not set in.
    */
   [data-process-slot="stack"] li[data-process-slot="parallel-run"] {
     position: relative;
     display: flex;
     flex-direction: column;
     gap: var(--process-rail-gap);
-    border-inline-start: 0;
-    pointer-events: auto;
+    margin: 6px 0;
     list-style: none;
   }
 
   [data-process-slot="stack"] li[data-process-slot="parallel-run"]::before {
     content: "";
     position: absolute;
-    inset-block: 0;
-    inset-inline-start: 0;
-    width: 3px;
-    border-radius: 2px;
-    background: var(--process-done);
-    z-index: 2;
+    inset: -5px;
+    border: 1px dashed var(--muted-foreground);
+    border-radius: calc(var(--radius-surface) + 4px);
+    background: color-mix(in srgb, var(--foreground) 4%, transparent);
+    pointer-events: none;
   }
 
   [data-process-slot="parallel-title"] {
     position: relative;
-    padding-inline-start: 39px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 8px;
+    padding: 2px 8px 2px 39px;
     font-size: var(--fs-caption);
-    font-weight: var(--fw-semibold);
-    color: var(--process-done);
+  }
+
+  [data-process-slot="parallel-name"] {
+    font-weight: var(--fw-bold);
+    color: var(--foreground);
+  }
+
+  [data-process-slot="parallel-hint"] {
+    color: var(--muted-foreground);
   }
 
   /* The rail runs on beside the run's title, as it does beside a section's heading. */

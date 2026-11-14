@@ -40,5 +40,6 @@
     "skip": "{{number}}단계로 건너뜀",
     "external": "{{name}} 절차로 이동"
   },
-  "myLane": "나"
+  "myLane": "나",
+  "parallelHint": "아래 단계가 모두 끝나야 다음 단계로 진행"
 }

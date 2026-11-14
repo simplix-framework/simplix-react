@@ -67,6 +67,30 @@ export function measure({ touch, tolerance }) {
   let ends = 0;
   let arrows = 0;
   let nodes = 0;
+  let rail = 0;
+  if (layout === "stack") {
+    // One column is one rail: every piece of it, and every number, node and mark on it, stands at one x.
+    // A piece drawn by a pseudo-element is offset from inside its element's border.
+    const drawn = (element, pseudo) => {
+      const line = getComputedStyle(element, pseudo);
+      if (line.content === "none") return undefined;
+      return rect(element).left + parseFloat(getComputedStyle(element).borderLeftWidth) + parseFloat(line.left) + parseFloat(line.marginLeft) + parseFloat(line.borderLeftWidth) / 2;
+    };
+    const centre = (element) => rect(element).left + rect(element).width / 2;
+    const pieces = [
+      ...all('[data-process-slot="card"]').flatMap((element) => [["a card", drawn(element, "::before")], ["the gap under a card", drawn(element, "::after")]]),
+      ...all('[data-process-slot="section-title"], [data-process-slot="parallel-title"]').map((element) => [`the ${element.dataset.processSlot}`, drawn(element, "::before")]),
+      ...all('[data-process-slot="stack-marker"][data-kind="start"]').map((element) => ["the start mark's line", drawn(element, "::after")]),
+      ...all('[data-process-slot="stack"] [data-process-slot="node"]').map((element) => ["a node", centre(element)]),
+      ...all('[data-process-slot="stack"] [data-process-slot="step-number"]').map((element) => ["a step number", centre(element)]),
+      ...all('[data-process-slot="stack-marker"] [data-process-slot="marker"]').map((element) => ["a mark", centre(element)]),
+    ].filter(([, x]) => x !== undefined);
+    rail = pieces.length;
+    const at = pieces.length === 0 ? 0 : pieces[0][1];
+    for (const [what, x] of pieces) {
+      if (Math.abs(x - at) > 0.6) problems.push(`the rail of ${what} stands at ${x.toFixed(1)}px and the rail above it at ${at.toFixed(1)}px`);
+    }
+  }
   if (layout !== "stack") {
     const edgePoints = [];
     const nodePoints = [];
@@ -75,7 +99,8 @@ export function measure({ touch, tolerance }) {
       for (const segment of cell.querySelectorAll("[data-process-seg]")) {
         const box = rect(segment);
         const style = getComputedStyle(segment);
-        const line = Math.max(parseFloat(style.borderLeftWidth), parseFloat(style.borderTopWidth), parseFloat(style.borderRightWidth), parseFloat(style.borderBottomWidth));
+        // The width the line is drawn at: a corner of a dotted line draws no border of its own, so the width is read from where it is stated.
+        const line = parseFloat(style.getPropertyValue("--process-line"));
         const half = line / 2;
         const xc = box.left + box.width / 2;
         const yc = box.top + box.height / 2;
@@ -110,9 +135,15 @@ export function measure({ touch, tolerance }) {
         if (["dotted", "dashed"].some((kind) => [style.borderLeftStyle, style.borderTopStyle, style.borderRightStyle, style.borderBottomStyle].includes(kind))) {
           problems.push(`a ${segment.dataset.style} ${shape} line is dotted by its border`);
         }
+        // And a dotted line is dotted along its whole length: the only piece drawn whole is the turn of a corner, a square of its radius.
+        if (["parallel", "repeat", "rework"].includes(segment.dataset.style) && style.borderImageSource === "none" && style.backgroundImage === "none") {
+          problems.push(`a ${segment.dataset.style} ${shape} line is drawn whole`);
+        }
         if (found.node !== undefined) nodePoints.push({ x: found.node[0], y: found.node[1], reach: 0 });
         if (found.beside !== undefined) nodePoints.push({ x: found.beside[0], y: found.beside[1], reach: -1 });
-        if (["right_top", "left_top", "bottom_right", "bottom_left"].includes(shape) && ![style.borderTopLeftRadius, style.borderTopRightRadius, style.borderBottomLeftRadius, style.borderBottomRightRadius].includes("9px")) {
+        // A corner is rounded by one radius whatever its cell measures; on a dotted line the turn is a piece of its own.
+        const turn = ["parallel", "repeat", "rework"].includes(segment.dataset.style) ? getComputedStyle(segment, "::before") : style;
+        if (["right_top", "left_top", "bottom_right", "bottom_left"].includes(shape) && ![turn.borderTopLeftRadius, turn.borderTopRightRadius, turn.borderBottomLeftRadius, turn.borderBottomRightRadius].includes("9px")) {
           problems.push(`a ${shape} corner is not rounded by 9px`);
         }
       }
@@ -166,6 +197,6 @@ export function measure({ touch, tolerance }) {
     width: Math.round(rect(root).width),
     lanes: Number(root.dataset.lanes),
     tracks: Number(root.dataset.tracks),
-    counted: { labels: labels.length, pressed: pressed.length, stops, ends, arrows, nodes },
+    counted: { labels: labels.length, pressed: pressed.length, stops, ends, arrows, nodes, rail },
   };
 }

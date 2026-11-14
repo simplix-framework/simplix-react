@@ -38,6 +38,7 @@ for (const story of STORIES) {
       await close(page);
       assert.deepEqual(result.problems, [], `${story} at ${width}px`);
       assert.ok(result.counted.labels > 0 && result.counted.pressed > 0, `${story} at ${width}px measured nothing`);
+      if (result.layout === "stack") assert.ok(result.counted.rail > 4, `${story} at ${width}px drew no rail`);
       if (result.layout !== "stack") assert.ok(result.counted.ends > 0 && result.counted.nodes > 0, `${story} at ${width}px drew no line`);
       assert.equal(result.coarse, width <= PHONE_WIDTH, `${story} at ${width}px has the wrong pointer`);
       const expected = FIXED[story] ?? chooseLayout({ width: result.width, laneCount: result.lanes, trackCount: result.tracks });

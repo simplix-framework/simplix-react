@@ -104,7 +104,7 @@ export function ProcessLanes({
     scrolled.current = true;
     const active = Object.keys(run.steps).find((id) => run.steps[id].status === "active");
     if (active === undefined) return;
-    root.current?.querySelector<HTMLElement>(`[data-process-step="${CSS.escape(active)}"] [data-process-stop]`)?.scrollIntoView({ block: "nearest", inline: "nearest" });
+    root.current?.querySelector<HTMLElement>(`[data-process-step="${CSS.escape(active)}"] [data-process-stop]`)?.scrollIntoView({ block: "center", inline: "nearest" });
   }, [run, scrollToActive, width]);
 
   const groups = [...new Set(process.lanes.map((lane) => lane.group).filter((group): group is string => group !== undefined))];

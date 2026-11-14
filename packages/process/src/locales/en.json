@@ -40,5 +40,6 @@
     "skip": "Ahead to step {{number}}",
     "external": "On to {{name}}"
   },
-  "myLane": "Me"
+  "myLane": "Me",
+  "parallelHint": "Every step here must finish before the next one starts"
 }

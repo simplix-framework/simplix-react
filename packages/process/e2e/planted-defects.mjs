@@ -8,7 +8,7 @@ import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const STORIES = "^(default|long-labels|lane-filter|stack|large): ";
+const STORIES = "^(default|long-labels|lane-filter|stack|stack-parallel|large): ";
 
 /** Each defect, the style sheet that plants it, and words its finding must contain. */
 const DEFECTS = [
@@ -24,6 +24,9 @@ const DEFECTS = [
   ["the gate line comes down 4px off the side", '[data-process-seg="left_side-bottom"], [data-process-seg="right_rside-bottom"] { margin-left: 4px; }', "nothing meets it"],
   ["the head of a gate line stands off the line", '[data-process-arrow="down"]:is([data-at="side"], [data-at="rside"]) { margin-left: 5px; }', "stands on no line down into a node"],
   ["a dashed line is a border again, fitted to each cell", '[data-process-seg][data-style="rework"] { border-image: none; border-style: dashed; }', "is dotted by its border"],
+  ["the corners of a dashed line are drawn whole", '[data-process-seg][data-style="rework"][data-process-seg="right_top"], [data-process-seg][data-style="rework"][data-process-seg="bottom_right"] { background-image: none; border-left-width: 2px; border-bottom-width: 2px; }', "is drawn whole"],
+  ["a parallel run sets its cards in, off the rail", '[data-process-slot="stack"] li[data-process-slot="parallel-run"] { margin-left: 6px; }', "the rail of"],
+  ["a section's heading draws its rail one pixel off", '[data-process-slot="stack"] [data-process-slot="section-title"]::before { margin-left: 1px; }', "the rail of"],
   ["the grid does not scroll inside its own box", '[data-process-slot="scroll"] { overflow: visible; }', "wider than its window"],
 ];
 

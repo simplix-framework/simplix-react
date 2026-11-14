@@ -88,6 +88,7 @@ export function runWords(mark: RunMark, t: Translate): string {
 export function StepNotes({ view, step, inclusion, arrivals, mark, t }: { view: ProcessView; step: ResolvedStep; inclusion: Inclusion; arrivals: readonly string[]; mark: RunMark | undefined; t: Translate }) {
   const left = step.acts.filter((entry) => entry.inclusion === "excluded");
   const end = step.step.repeat === undefined ? undefined : view.steps.get(step.step.repeat.endedBy);
+  // Green says done or in progress and nothing else: what a step is (repeating, part of a parallel run) is marked in a neutral colour.
   const tags: ReactNode[] = [];
   if (inclusion === "conditional") {
     tags.push(
@@ -98,14 +99,14 @@ export function StepNotes({ view, step, inclusion, arrivals, mark, t }: { view: 
   }
   if (end !== undefined) {
     tags.push(
-      <Badge key="repeat" variant="success" size="sm">
+      <Badge key="repeat" variant="secondary" size="sm">
         {t("repeat", { step: stepNo(end.number) })}
       </Badge>,
     );
   }
   if (step.step.parallel !== undefined) {
     tags.push(
-      <Badge key="parallel" variant="success" size="sm">
+      <Badge key="parallel" variant="secondary" size="sm">
         {`∥ ${t("parallel")}`}
       </Badge>,
     );
