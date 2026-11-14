@@ -16,6 +16,9 @@ export function shapeOf(segment: Segment): string {
   return [segment.from, segment.to].sort().join("_");
 }
 
+/** Which way a line runs as it leaves a cell by each edge. */
+const LEAVING: Partial<Record<SegmentEnd, "down" | "up" | "left" | "right">> = { top: "up", bottom: "down", left: "left", right: "right" };
+
 /** Which way an arrowhead at a segment's `to` end points, and where on the cell it stands. */
 function arrowOf(segment: Segment): { direction: "down" | "right" | "left" | "up"; at: string } {
   const from: SegmentEnd = segment.from;
@@ -23,7 +26,6 @@ function arrowOf(segment: Segment): { direction: "down" | "right" | "left" | "up
     if (from === "top") return { direction: "down", at: "node" };
     return { direction: from === "right" ? "left" : "right", at: "node" };
   }
-  if (segment.to === "top") return { direction: "up", at: "edge" };
   if (segment.to === "side-bottom" || segment.to === "rside-bottom") return { direction: "down", at: segment.to === "side-bottom" ? "side" : "rside" };
   return { direction: segment.to === "left" ? "left" : "right", at: "edge" };
 }
@@ -46,6 +48,11 @@ export function Lines({ cell, mid, on, style }: { cell: GridCell; mid: "node" | 
           const arrow = arrowOf(segment);
           return <i key={`arrow-${segment.from}-${segment.to}-${segment.style}`} data-process-arrow={arrow.direction} data-at={arrow.at} data-style={segment.style} data-on={on(segment) || undefined} />;
         })}
+      {cell.segments
+        .filter((segment) => segment.tail === true)
+        .map((segment) => (
+          <i key={`tail-${segment.from}-${segment.to}-${segment.style}`} data-process-arrow={LEAVING[segment.to] ?? "down"} data-at="bend" data-style={segment.style} data-on={on(segment) || undefined} />
+        ))}
     </div>
   );
 }

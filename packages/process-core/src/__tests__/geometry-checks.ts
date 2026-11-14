@@ -165,7 +165,7 @@ export function agreementProblems(process: ResolvedProcess, geometry: LaneGeomet
   if (start >= 0 && end >= 0) {
     const startRow = geometry.rows[start] as { lane: number };
     const endRow = geometry.rows[end] as { lane: number };
-    const flow = reachable(geometry, { row: start, column: laneColumn(geometry, startRow.lane) }, ["flow", "parallel", "repeat", "inner", "joint"]);
+    const flow = reachable(geometry, { row: start, column: laneColumn(geometry, startRow.lane) }, ["flow", "repeat", "inner", "joint"]);
     for (const act of drawn) {
       if (!flow.has(centre(act.index, laneColumn(geometry, act.enter)))) problems.push(`the stated order does not reach act ${act.actId}`);
     }

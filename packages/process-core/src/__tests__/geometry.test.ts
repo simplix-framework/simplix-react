@@ -15,7 +15,7 @@ const rowKinds = (geometry: LaneGeometry): string => geometry.rows.map((row) => 
 
 const cellAt = (geometry: LaneGeometry, row: number, column: number): string =>
   (geometry.cells.find((cell) => cell.row === row && cell.column === column)?.segments ?? [])
-    .map((segment) => `${segment.from}>${segment.to}:${segment.style}${segment.arrow ? "*" : ""}`)
+    .map((segment) => `${segment.from}>${segment.to}:${segment.style}${segment.arrow ? "*" : ""}${segment.tail ? "^" : ""}`)
     .join(" ");
 
 /** The steps, acts and jumps of a case in the order read, as one line. */
@@ -156,8 +156,7 @@ describe("laneGeometry", () => {
     const track = trackColumn(geometry, 0);
     expect(cellAt(geometry, 3, laneColumn(geometry, 1))).toBe("center>left:rework top>bottom:flow");
     expect(cellAt(geometry, 3, laneColumn(geometry, 0))).toBe("right>center:rework* center>left:rework");
-    // The rework row stands right under the first act, so the head is on the corner into the track.
-    expect(cellAt(geometry, 3, track)).toBe("right>top:rework*");
+    expect(cellAt(geometry, 3, track)).toBe("right>top:rework");
     expect(cellAt(geometry, 2, track)).toBe("bottom>right:rework");
     expect(cellAt(geometry, 2, laneColumn(geometry, 0))).toBe("top>center:flow* center>right:inner left>center:rework*");
     expect(geometry.steps[0]).toMatchObject({ firstRow: 2, lastRow: 3 });
@@ -199,9 +198,10 @@ describe("laneGeometry", () => {
     // The jump back and the rework line climb one track and turn into the step's row together.
     expect(cellAt(geometry, 10, left)).toBe("right>top:back");
     expect(cellAt(geometry, 9, left)).toBe("bottom>top:back");
-    expect(cellAt(geometry, 8, left)).toBe("bottom>top:back right>top:rework");
+    // Where the rework line turns into the track the jump back is climbing, each carries a head before they meet.
+    expect(cellAt(geometry, 8, left)).toBe("bottom>top:back right>top:rework^");
     expect(cellAt(geometry, 7, left)).toBe("bottom>top:back bottom>top:rework");
-    expect(cellAt(geometry, 6, left)).toBe("bottom>top:back bottom>top:rework*");
+    expect(cellAt(geometry, 6, left)).toBe("bottom>top:back bottom>top:rework");
     expect(cellAt(geometry, 5, left)).toBe("bottom>right:back bottom>right:rework");
     expect(cellAt(geometry, 2, right)).toBe("left>bottom:skip");
     expect(cellAt(geometry, 3, right)).toBe("top>bottom:skip");
@@ -218,7 +218,7 @@ describe("laneGeometry", () => {
     // The last act stands left of the first, so the turn-back node stands under the last act.
     expect(geometry.rows[4]).toEqual({ kind: "rework", stepId: "t", lane: 0, from: 0 });
     expect(cellAt(geometry, 4, laneColumn(geometry, 0))).toBe("top>bottom:flow center>left:rework");
-    expect(cellAt(geometry, 3, trackColumn(geometry, 0))).toBe("bottom>top:rework*");
+    expect(cellAt(geometry, 3, trackColumn(geometry, 0))).toBe("bottom>top:rework");
     expect(cellAt(geometry, 2, laneColumn(geometry, 1))).toBe("top>bottom:flow left>side-bottom:rework*");
     expect(cellAt(geometry, 3, laneColumn(geometry, 1))).toBe("top>center:flow* center>left:inner side-top>center:rework");
     expect(geometryProblems(geometry)).toEqual([]);
@@ -233,16 +233,89 @@ describe("laneGeometry", () => {
     expect(cellAt(geometry, row, laneColumn(geometry, 2))).toBe("left>center:joint");
   });
 
-  it("gives an excluded step a row the line passes, and draws the lines of a parallel run and a repeat without a head", () => {
+  it("gives an excluded step a row the line passes", () => {
     const excluded = laneGeometry(resolveProcess(purchaseRequest(), { large: false }));
     expect(excluded.rows.filter((row) => row.kind === "excluded")).toEqual([{ kind: "excluded", stepId: "budget" }]);
+    expect(geometryProblems(excluded)).toEqual([]);
+  });
+
+  it("forks into every step of a parallel run from a row above it, and joins their lines on a row below", () => {
+    // operator 0 · inspector 1 · maintenance 2 · safety 3; `lockout` and `tools` run together, `reading` repeats.
     const inspection = laneGeometry(resolveProcess(equipmentInspection(), { defect: true }));
     expect(inspection.groups.map((group) => group.key)).toEqual(["ready"]);
     const rowOf = (actId: string): number => inspection.rows.findIndex((row) => row.kind === "acts" && row.acts.some((entry) => entry.actId === actId));
-    // `tools` is the later member of the run; the step after it repeats.
-    expect(cellAt(inspection, rowOf("stage"), laneColumn(inspection, 2))).toBe("top>center:parallel center>bottom:repeat");
-    expect(cellAt(inspection, rowOf("measure"), laneColumn(inspection, 1)).split(" ")[0]).toBe("top>center:repeat");
-    expect(cellAt(inspection, rowOf("isolate"), laneColumn(inspection, 0))).toBe("top>center:flow* center>right:inner");
+    const cell = (row: number, lane: number): string => cellAt(inspection, row, laneColumn(inspection, lane));
+    // The forking row stands right above the first step of the run: in from the inspector's lane, out to both heads,
+    // each way in joined to each way out by a corner of its own.
+    const fork = rowOf("isolate") - 1;
+    expect(inspection.rows[fork]).toEqual({ kind: "flow" });
+    expect(cell(fork, 0)).toBe("right>bottom:flow");
+    expect(cell(fork, 1)).toBe("top>left:flow top>right:flow");
+    expect(cell(fork, 2)).toBe("left>bottom:flow");
+    // Each step of the run is entered by a line of its own, with a head; neither is entered from the other.
+    expect(cell(rowOf("isolate"), 0)).toBe("top>center:flow* center>right:inner");
+    expect(cell(rowOf("stage"), 2)).toBe("top>center:flow* center>bottom:repeat");
+    // The branch into `tools` drops through the row of `lockout`, crossing its line and touching no node.
+    expect(cell(rowOf("isolate"), 2)).toBe("left>right:inner top>bottom:flow");
+    // Their lines meet under the run and one goes on, as the repeat's, with a head, into the step after.
+    const join = rowOf("measure") - 1;
+    expect(cell(join, 1)).toBe("right>bottom:repeat");
+    // `^` marks a head just past a bend: of two lines that meet, the one that turns in carries it.
+    expect(cell(join, 2)).toBe("right>left:repeat top>left:repeat^");
+    expect(cell(join, 3)).toBe("top>left:repeat");
+    expect(cell(rowOf("stage"), 3)).toBe("top>bottom:repeat");
+    expect(cell(rowOf("measure"), 1).split(" ")[0]).toBe("top>center:repeat*");
+    // The jump ahead out of `reading` is the only line that needs a track.
+    expect([inspection.leftTracks, inspection.rightTracks]).toEqual([0, 1]);
+    expect(geometryProblems(inspection)).toEqual([]);
+  });
+
+  it("takes a branch round by a track on the right where a node of another step of the run stands in its lane", () => {
+    const steps = [
+      step("t0", [act("w", "a")]),
+      step("t1", [act("x1", "a"), act("x2", "b", "check")], { parallel: "g" }),
+      step("t2", [act("y", "b")], { parallel: "g" }),
+      step("t3", [act("z", "a")]),
+    ];
+    const process = resolveProcess(definition([lane("a"), lane("b")], [section("s", steps)]));
+    const geometry = laneGeometry(process);
+    // `t2` is entered in lane b, where `t1` has a node; `t1` is left by lane b, where `t2` has one.
+    expect(rowKinds(geometry)).toBe("section start acts flow acts flow flow acts flow acts end");
+    expect([geometry.leftTracks, geometry.rightTracks]).toEqual([0, 2]);
+    const inner = trackColumn(geometry, 0, "right");
+    const outer = trackColumn(geometry, 1, "right");
+    // The forking row carries on to the right; its branch comes down the inner track and in over a row above `t2`.
+    expect(cellAt(geometry, 3, laneColumn(geometry, 0))).toBe("top>bottom:flow top>right:flow");
+    expect(cellAt(geometry, 3, laneColumn(geometry, 1))).toBe("left>right:flow");
+    expect(cellAt(geometry, 3, inner)).toBe("left>bottom:flow");
+    expect(cellAt(geometry, 4, inner)).toBe("top>bottom:flow");
+    expect(cellAt(geometry, 6, inner)).toBe("top>left:flow");
+    expect(cellAt(geometry, 6, laneColumn(geometry, 1))).toBe("right>bottom:flow");
+    // The line out of `t1` leaves by a row under it, goes down the outer track, and comes into the joining row from the right.
+    expect(cellAt(geometry, 5, laneColumn(geometry, 1))).toBe("top>right:flow");
+    expect(cellAt(geometry, 5, inner)).toBe("top>bottom:flow left>right:flow");
+    expect(cellAt(geometry, 5, outer)).toBe("left>bottom:flow");
+    expect(cellAt(geometry, 8, outer)).toBe("top>left:flow");
+    expect(cellAt(geometry, 8, inner)).toBe("right>left:flow");
+    expect(cellAt(geometry, 8, laneColumn(geometry, 1))).toBe("top>left:flow^ right>left:flow");
+    expect(cellAt(geometry, 8, laneColumn(geometry, 0))).toBe("right>bottom:flow");
+    // No line runs from `t1` straight into `t2`: the only way into `t2` is its own branch.
+    expect(cellAt(geometry, 7, laneColumn(geometry, 1))).toBe("top>center:flow* center>bottom:flow");
+    expect(geometryProblems(geometry)).toEqual([]);
+    expect(agreementProblems(process, geometry)).toEqual([]);
+  });
+
+  it("forks from the start mark and joins into the end mark where the run is all there is", () => {
+    const process = resolveProcess(definition([lane("a"), lane("b")], [section("s", [step("t1", [act("x", "a")], { parallel: "g" }), step("t2", [act("y", "b")], { parallel: "g" })])]));
+    const geometry = laneGeometry(process);
+    expect(rowKinds(geometry)).toBe("section start flow acts acts flow end");
+    expect(cellAt(geometry, 2, laneColumn(geometry, 0))).toBe("top>bottom:flow top>right:flow");
+    expect(cellAt(geometry, 2, laneColumn(geometry, 1))).toBe("left>bottom:flow");
+    expect(cellAt(geometry, 5, laneColumn(geometry, 0))).toBe("top>right:flow");
+    expect(cellAt(geometry, 5, laneColumn(geometry, 1))).toBe("left>bottom:flow^ top>bottom:flow");
+    expect(geometry.rows[6]).toEqual({ kind: "end", lane: 1 });
+    expect(geometryProblems(geometry)).toEqual([]);
+    expect(agreementProblems(process, geometry)).toEqual([]);
   });
 
   it("folds a step none of whose acts stands in the lanes drawn, and drops the jumps that touch it", () => {

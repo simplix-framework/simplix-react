@@ -65,7 +65,7 @@ export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, tab
   };
   /** A line of the stated order is drawn reached once the running case has come to the step it leads into. */
   const onLine = (row: number) => (segment: Segment): boolean => {
-    if (segment.style !== "flow" && segment.style !== "parallel" && segment.style !== "repeat") return false;
+    if (segment.style !== "flow" && segment.style !== "repeat") return false;
     const kind = geometry.rows[row].kind;
     // On a step's own rows the line coming in from above leads into that step; every other piece leads into the next one.
     if (kind === "gate" || (kind === "acts" && segment.from === "top")) return reached(stepOf[row]);

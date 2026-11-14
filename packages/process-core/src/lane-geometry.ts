@@ -18,11 +18,10 @@ export type SegmentEnd = "top" | "bottom" | "left" | "right" | "center" | "side-
 export type TrackSide = "left" | "right";
 
 /**
- * What a line stands for: the stated order between steps, a parallel run, the way into a step
- * that repeats, the order of the acts inside a step, a jump back, a jump ahead, a step sent back
+ * What a line stands for: the stated order between steps, the way into a step that repeats, the order of the acts inside a step, a jump back, a jump ahead, a step sent back
  * to its own first act, or acts performed together.
  */
-export type SegmentStyle = "flow" | "parallel" | "repeat" | "inner" | "back" | "skip" | "rework" | "joint";
+export type SegmentStyle = "flow" | "repeat" | "inner" | "back" | "skip" | "rework" | "joint";
 
 /** One piece of a line inside one cell, from one of the cell's points to another. */
 export interface Segment {
@@ -31,6 +30,8 @@ export interface Segment {
   style: SegmentStyle;
   /** An arrowhead at `to`, pointing the way the piece runs. */
   arrow?: boolean;
+  /** A second arrowhead just past the bend, on a piece that turns into a line already running: it shows the way the two go on. */
+  tail?: boolean;
 }
 
 /** The lines of one cell. Cells without lines are not listed. */
@@ -216,6 +217,12 @@ function subRows(acts: { actId: Id; boxes: number[] }[]): SubRow[] {
  *
  * Every line that arrives at one step on one side travels in one track column, so their vertical
  * parts stand on one line.
+ *
+ * A parallel run forks and joins. The line from the step before it reaches a row above the run
+ * and drops from there into the first act of each of its steps; the lines out of their last acts
+ * meet on a row below the run, and one line goes on from there. A branch drops straight down its
+ * lane where no node of another step of the run stands in the way, and otherwise goes round by a
+ * track on the right.
  */
 export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOptions = {}): LaneGeometry {
   const lanes = options.lanes === undefined ? process.lanes : process.lanes.filter((lane) => options.lanes!.includes(lane.id));
@@ -294,16 +301,17 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
   const groups: GroupSpan[] = [];
   const gateRow = new Map<Id, number>();
 
-  const add = (row: number, place: Place, from: SegmentEnd, to: SegmentEnd, style: SegmentStyle, arrow = false): Segment => {
+  const add = (row: number, place: Place, from: SegmentEnd, to: SegmentEnd, style: SegmentStyle, arrow = false, tail = false): Segment => {
     const segment: Segment = arrow ? { from, to, style, arrow } : { from, to, style };
+    if (tail) segment.tail = true;
     pending.push({ row, place, segment });
     return segment;
   };
   const pass = (row: number, lane: number, style: SegmentStyle): void => {
     add(row, { lane }, "top", "bottom", style);
   };
-  /** Only the stated order and the order inside a step point; a parallel run and a repeat are drawn without a head. */
-  const pointed = (style: SegmentStyle): boolean => style === "flow" || style === "inner";
+  /** Every line of the stated order points at the act it leads into. */
+  const pointed = (style: SegmentStyle): boolean => style === "flow" || style === "inner" || style === "repeat";
   /** A row that carries the line from one lane down into another. */
   const connect = (from: number, to: number, style: SegmentStyle): void => {
     const row = rows.length;
@@ -317,25 +325,171 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
     rows.push({ kind: "flow" });
   };
 
-  // The last act drawn, which the next line leaves from, and the rework row under it where it has one.
-  let tail: { stepId: Id; row: number; boxes: number[]; reworkRow?: number } | undefined;
+  /** The last act of a step, which the next line leaves from, and the rework row under it where it has one. */
+  interface Tail {
+    stepId: Id;
+    row: number;
+    boxes: number[];
+    reworkRow?: number;
+  }
+  /** One step of a parallel run as drawn: the lane its line leaves by, and the row its way round starts on where it has one. */
+  interface Branch {
+    tail: Tail;
+    lane: number;
+    lastRow: number;
+    exitRow?: number;
+  }
+  /** A parallel run: its steps, the lanes they are entered in, the row it forks on, and the branches drawn so far. */
+  interface Run {
+    key: string;
+    members: Id[];
+    heads: number[];
+    forkRow: number;
+    branches: Branch[];
+  }
+  /** A line that goes round by a track on the right: the rows it spans, and how it is drawn once its track is known. */
+  interface Detour extends TrackRange {
+    draw: (track: number) => void;
+  }
+  const detours: Detour[] = [];
+
+  // The steps of each parallel run that the lanes drawn show. A run of one step is no run.
+  const runMembers = new Map<string, Id[]>();
+  for (const [id, step] of steps) {
+    if (step.step.parallel !== undefined && shown.has(id)) runMembers.set(step.step.parallel, [...(runMembers.get(step.step.parallel) ?? []), id]);
+  }
+  /** The lanes a step has a node in: a line cannot drop through them. */
+  const nodeLanes = (id: Id): Set<number> => new Set(shown.get(id)!.flatMap((sub) => sub.acts.flatMap((act) => act.boxes)));
+
+  let tail: Tail | undefined;
+  // The run being drawn, and the run drawn and waiting for the step its branches join into.
+  let run: Run | undefined;
+  let joining: Run | undefined;
   let between: GridRow[] = [];
   let group: { key: string; firstRow: number } | undefined;
-  let groupKey: string | undefined;
 
-  /** Draws the line out of the last act down its lane, through the rework row where the step has one. */
-  const leave = (from: NonNullable<typeof tail>, lane: number, style: SegmentStyle): void => {
+  /** Draws the line out of an act down its lane, through the rework row where the step has one. */
+  const leave = (from: Tail, lane: number, style: SegmentStyle): void => {
     add(from.row, { lane }, "center", "bottom", style);
     if (from.reworkRow !== undefined) pass(from.reworkRow, lane, style);
   };
 
+  /**
+   * A row on which lines meet and part: every lane of `ups` comes in from above, every lane of
+   * `downs` goes on below, and one line joins them all. `fromRight` brings in the branches that
+   * come round by a track on the right, `toRight` sends out the ones that go round.
+   *
+   * In each cell every way in is joined to every way out by a piece of its own, so that a line
+   * turns into another by a rounded corner and never meets it at a right angle. Lines that meet
+   * are told apart by an arrowhead on the one that turns in.
+   */
+  const bus = (row: number, ups: readonly number[], downs: readonly number[], fromRight: boolean, toRight: boolean, style: SegmentStyle): void => {
+    // A line that comes round by the right enters past the last lane, and one that goes round leaves there.
+    const beyond = lanes.length;
+    const sources = fromRight ? [...ups, beyond] : ups;
+    const sinks = toRight ? [...downs, beyond] : downs;
+    // Each line from a way in to a way out, as the pieces it draws in the cells it passes.
+    const pieces = new Map<number, Set<string>>();
+    for (const source of sources) {
+      for (const sink of sinks) {
+        if (source === sink && source === beyond) continue;
+        for (let lane = Math.min(source, sink); lane <= Math.max(source, sink); lane += 1) {
+          if (lane === beyond) continue;
+          const from: SegmentEnd = lane === source ? "top" : source < lane ? "left" : "right";
+          const to: SegmentEnd = lane === sink ? "bottom" : sink < lane ? "left" : "right";
+          pieces.set(lane, (pieces.get(lane) ?? new Set()).add(`${from}>${to}`));
+        }
+      }
+    }
+    for (const [lane, set] of [...pieces].sort((a, b) => a[0] - b[0])) {
+      const list = [...set].map((piece) => piece.split(">") as [SegmentEnd, SegmentEnd]);
+      for (const [from, to] of list) {
+        // Lines that leave a cell by one way run on as one: the one that turns in shows the way, the one that passes needs no mark.
+        const turns = (from === "top") !== (to === "bottom");
+        const meets = list.some(([otherFrom, otherTo]) => otherTo === to && otherFrom !== from);
+        add(row, { lane }, from, to, style, false, turns && meets);
+      }
+    }
+  };
+
+  /** The run a detour crosses on its way between the lanes and its track: the inner tracks of the right. */
+  const acrossTracks = (row: number, track: number, from: SegmentEnd, to: SegmentEnd, style: SegmentStyle): void => {
+    for (let inner = 0; inner < track; inner += 1) add(row, { track: inner, side: "right" }, from, to, style);
+  };
+
+  /**
+   * Brings the line down to the lanes of `downs` from wherever it stands: the start, the last
+   * act drawn, or a run waiting to join. Rows held back (headings, steps left out) are placed on
+   * the way. Returns the row lines meet and part on, where one was needed.
+   */
+  const descend = (downs: readonly number[], style: SegmentStyle, detourDown: boolean): number | undefined => {
+    if (joining !== undefined) {
+      const waiting = joining;
+      joining = undefined;
+      for (const row of between) rows.push(row);
+      const row = rows.length;
+      const straight = waiting.branches.filter((branch) => branch.exitRow === undefined);
+      bus(row, straight.map((branch) => branch.lane), downs, straight.length < waiting.branches.length, detourDown, style);
+      rows.push({ kind: "flow" });
+      for (const branch of waiting.branches) {
+        leave(branch.tail, branch.lane, style);
+        if (branch.exitRow === undefined) {
+          for (let below = branch.lastRow + 1; below < row; below += 1) pass(below, branch.lane, style);
+          continue;
+        }
+        // Round by the right: out of the row under its step, down a track, and into the joining row from the right.
+        const exit = branch.exitRow;
+        add(exit, { lane: branch.lane }, "top", "right", style);
+        for (let lane = branch.lane + 1; lane < lanes.length; lane += 1) add(exit, { lane }, "left", "right", style);
+        detours.push({
+          low: exit,
+          high: row,
+          draw: (track) => {
+            acrossTracks(exit, track, "left", "right", style);
+            add(exit, { track, side: "right" }, "left", "bottom", style);
+            for (let middle = exit + 1; middle < row; middle += 1) add(middle, { track, side: "right" }, "top", "bottom", style);
+            add(row, { track, side: "right" }, "top", "left", style);
+            acrossTracks(row, track, "right", "left", style);
+          },
+        });
+      }
+      return row;
+    }
+    if (tail === undefined) {
+      for (const row of between) rows.push(row);
+      add(rows.length, { lane: downs[0] }, "center", "bottom", style);
+      rows.push({ kind: "start", lane: downs[0] });
+      if (downs.length === 1 && !detourDown) return undefined;
+      bus(rows.length, [downs[0]], downs, false, detourDown, style);
+      rows.push({ kind: "flow" });
+      return rows.length - 1;
+    }
+    const from = nearest(tail.boxes, downs)[0];
+    leave(tail, from, style);
+    if (downs.length === 1 && !detourDown) {
+      connect(from, downs[0], style);
+      for (const row of between) {
+        pass(rows.length, downs[0], style);
+        rows.push(row);
+      }
+      return undefined;
+    }
+    for (const row of between) {
+      pass(rows.length, from, style);
+      rows.push(row);
+    }
+    bus(rows.length, [from], downs, false, detourDown, style);
+    rows.push({ kind: "flow" });
+    return rows.length - 1;
+  };
+
   for (const item of readingOrder(process)) {
     if (item.kind === "section") between.push({ kind: "section", sectionId: item.sectionId });
-    else if (item.kind === "group-start") groupKey = item.key;
     else if (item.kind === "group-end") {
       if (group !== undefined) groups.push({ key: group.key, firstRow: group.firstRow, lastRow: rows.length - 1 });
       group = undefined;
-      groupKey = undefined;
+      if (run !== undefined) joining = run;
+      run = undefined;
     } else if (item.kind === "step") {
       const subs = shown.get(item.stepId);
       if (subs === undefined) {
@@ -343,26 +497,51 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
         continue;
       }
       const plan = plans.get(item.stepId)!;
+      const step = steps.get(item.stepId)!.step;
       const head = subs[0].acts[0];
-      // The line into a later member of a parallel run belongs to the run; the line into a step that repeats is the repeat's.
-      const style: SegmentStyle = groupKey !== undefined && group !== undefined ? "parallel" : steps.get(item.stepId)!.step.repeat !== undefined ? "repeat" : "flow";
-      if (tail === undefined) {
-        for (const row of between) rows.push(row);
-        head.enter = head.boxes[0];
-        add(rows.length, { lane: head.enter }, "center", "bottom", style);
-        rows.push({ kind: "start", lane: head.enter });
+      const members = step.parallel === undefined ? undefined : runMembers.get(step.parallel);
+      const inRun = members !== undefined && members.length > 1;
+      // The line into a step that repeats is drawn as the repeat's; into a step of a parallel run it is plain.
+      const style: SegmentStyle = !inRun && step.repeat !== undefined ? "repeat" : "flow";
+      if (!inRun) {
+        head.enter = tail === undefined || joining !== undefined ? head.boxes[0] : nearest(tail.boxes, head.boxes)[1];
+        descend([head.enter], style, false);
       } else {
-        const [from, to] = nearest(tail.boxes, head.boxes);
-        head.enter = to;
-        leave(tail, from, style);
-        connect(from, to, style);
-        for (const row of between) {
-          pass(rows.length, to, style);
-          rows.push(row);
+        const index = members.indexOf(item.stepId);
+        head.enter = head.boxes[0];
+        if (run === undefined) {
+          const heads = members.map((id) => shown.get(id)![0].acts[0].boxes[0]);
+          // A branch drops straight where no node of an earlier step of the run stands in its lane.
+          const straight = heads.filter((lane, at) => !members.slice(0, at).some((id) => nodeLanes(id).has(lane)));
+          const forkRow = descend(straight, style, straight.length < heads.length)!;
+          run = { key: step.parallel!, members, heads, forkRow, branches: [] };
+        } else {
+          for (const row of between) rows.push(row);
+          const blocked = members.slice(0, index).some((id) => nodeLanes(id).has(head.enter));
+          if (!blocked) for (let above = run.forkRow + 1; above < rows.length; above += 1) pass(above, head.enter, style);
+          else {
+            // Round by the right: from the forking row down a track, and in over a row of its own above the step.
+            const fork = run.forkRow;
+            const row = rows.length;
+            add(row, { lane: head.enter }, "right", "bottom", style);
+            for (let lane = head.enter + 1; lane < lanes.length; lane += 1) add(row, { lane }, "right", "left", style);
+            rows.push({ kind: "flow" });
+            detours.push({
+              low: fork,
+              high: row,
+              draw: (track) => {
+                acrossTracks(fork, track, "left", "right", style);
+                add(fork, { track, side: "right" }, "left", "bottom", style);
+                for (let middle = fork + 1; middle < row; middle += 1) add(middle, { track, side: "right" }, "top", "bottom", style);
+                add(row, { track, side: "right" }, "top", "left", style);
+                acrossTracks(row, track, "right", "left", style);
+              },
+            });
+          }
         }
       }
       between = [];
-      if (groupKey !== undefined && group === undefined) group = { key: groupKey, firstRow: rows.length };
+      if (inRun && group === undefined) group = { key: step.parallel!, firstRow: rows.length };
       const span: StepSpan = { stepId: item.stepId, firstRow: rows.length, lastRow: rows.length, jumps: leaving.get(item.stepId) ?? [], arrivals: arriving.get(item.stepId) ?? [], node: { row: rows.length, lane: plan.left.lane, rightLane: plan.right.lane } };
       spans.set(item.stepId, span);
       if (gated(plan)) {
@@ -371,12 +550,13 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
         rows.push({ kind: "gate", stepId: item.stepId });
       }
       span.node.row = rows.length;
+      let last: Tail | undefined;
       for (const [index, sub] of subs.entries()) {
         const first = sub.acts[0];
-        if (index > 0 && tail !== undefined) {
-          const [from, to] = nearest(tail.boxes, first.boxes);
+        if (index > 0 && last !== undefined) {
+          const [from, to] = nearest(last.boxes, first.boxes);
           first.enter = to;
-          add(tail.row, { lane: from }, "center", "bottom", "inner");
+          add(last.row, { lane: from }, "center", "bottom", "inner");
           connect(from, to, "inner");
         }
         const row = rows.length;
@@ -394,10 +574,10 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
           for (let lane = low; lane <= high && low !== high; lane += 1) add(row, { lane }, lane === low ? "center" : "left", lane === high ? "center" : "right", "joint");
         }
         rows.push({ kind: "acts", stepId: item.stepId, acts: sub.acts });
-        tail = { stepId: item.stepId, row, boxes: sub.acts[sub.acts.length - 1].boxes };
+        last = { stepId: item.stepId, row, boxes: sub.acts[sub.acts.length - 1].boxes };
         span.lastRow = row;
       }
-      if (plan.rework !== undefined && tail !== undefined) {
+      if (plan.rework !== undefined && last !== undefined) {
         const row = rows.length;
         const { from, turn } = plan.rework;
         // From the last act's lane to the turn-back node; the way on from there is drawn with the tracks.
@@ -407,13 +587,31 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
           add(row, { lane: turn }, "right", "center", "rework", true);
         }
         rows.push({ kind: "rework", stepId: item.stepId, lane: turn, from });
-        tail.reworkRow = row;
+        last.reworkRow = row;
         span.lastRow = row;
+      }
+      if (run === undefined) tail = last;
+      else if (last !== undefined) {
+        // A step of a run: its line waits for the others. It drops straight where no node of a later step stands in its lane.
+        const lane = last.boxes[0];
+        const blocked = run.members.slice(run.members.indexOf(item.stepId) + 1).some((id) => nodeLanes(id).has(lane));
+        const branch: Branch = { tail: last, lane, lastRow: rows.length - 1 };
+        if (blocked) {
+          branch.exitRow = rows.length;
+          rows.push({ kind: "flow" });
+        }
+        run.branches.push(branch);
+        tail = undefined;
       }
     }
   }
 
-  if (tail === undefined) for (const row of between) rows.push(row);
+  if (joining !== undefined) {
+    const lane = joining.branches[joining.branches.length - 1].lane;
+    descend([lane], "flow", false);
+    add(rows.length, { lane }, "top", "center", "flow");
+    rows.push({ kind: "end", lane });
+  } else if (tail === undefined) for (const row of between) rows.push(row);
   else {
     const lane = tail.boxes[0];
     leave(tail, lane, "flow");
@@ -460,9 +658,12 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
   rows.forEach((row, index) => {
     if (row.kind === "rework") arrive("left", row.stepId, { style: "rework", row: index, lane: row.lane, nodeRow: index, start: "center" });
   });
-  const trackOf: Record<TrackSide, number[]> = { left: assignTracks(targets.left), right: assignTracks(targets.right) };
+  // The branches of a parallel run that go round share the right with the jumps ahead.
+  const rightAll = assignTracks([...targets.right, ...detours]);
+  const trackOf: Record<TrackSide, number[]> = { left: assignTracks(targets.left), right: rightAll.slice(0, targets.right.length) };
   const leftTracks = trackOf.left.length === 0 ? 0 : Math.max(...trackOf.left) + 1;
-  const rightTracks = trackOf.right.length === 0 ? 0 : Math.max(...trackOf.right) + 1;
+  const rightTracks = rightAll.length === 0 ? 0 : Math.max(...rightAll) + 1;
+  detours.forEach((detour, index) => detour.draw(rightAll[targets.right.length + index]));
 
   for (const side of ["left", "right"] as const) {
     // The edge of a cell that faces the tracks of this side, the edge that faces away, and the points beside the lane's middle.
@@ -490,10 +691,12 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
           add(line.row, { lane: line.lane }, sideBottom, out, line.style);
         } else add(line.row, { lane: line.lane }, "center", out, line.style);
         run(line.row, line.lane, "track", line.style);
-        // A rework line shows which way it climbs with a head on its last piece before the arrival row.
-        add(line.row, { track, side }, back, up ? "top" : "bottom", line.style, line.style === "rework" && line.row === arrival + 1);
+        // Where a line turns into a track that already carries a line from further off, the two run on as
+        // one: the one turning in shows the way just past its bend.
+        const further = target.lines.some((other) => other !== line && (up ? other.row > line.row : other.row < line.row));
+        add(line.row, { track, side }, back, up ? "top" : "bottom", line.style, false, further);
         for (let row = Math.min(line.row, arrival) + 1; row < Math.max(line.row, arrival); row += 1) {
-          add(row, { track, side }, up ? "bottom" : "top", up ? "top" : "bottom", line.style, line.style === "rework" && row === arrival + 1);
+          add(row, { track, side }, up ? "bottom" : "top", up ? "top" : "bottom", line.style);
         }
         // Off the track and along the arrival row into the node.
         add(arrival, { track, side }, up ? "bottom" : "top", back, line.style);
@@ -515,7 +718,10 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
     const cell = cells.get(key) ?? { row, column, segments: [] };
     const same = cell.segments.find((other) => other.from === segment.from && other.to === segment.to && other.style === segment.style);
     if (same === undefined) cell.segments.push(segment);
-    else if (segment.arrow) same.arrow = true;
+    else {
+      if (segment.arrow) same.arrow = true;
+      if (segment.tail) same.tail = true;
+    }
     cells.set(key, cell);
   }
   return {

@@ -774,8 +774,12 @@
   /* A line from a gate row points down as it leaves that row, beside the lane's own line. */
   [data-process-arrow="down"][data-at="side"] { left: calc(50% - var(--process-side) - var(--process-arrow)); bottom: 0; }
   [data-process-arrow="down"][data-at="rside"] { left: calc(50% + var(--process-side) - var(--process-arrow)); bottom: 0; }
-  /* A line climbing a track shows its way with a head near the top of its last piece. */
-  [data-process-arrow="up"][data-at="edge"] { left: calc(50% - var(--process-arrow)); top: 3px; }
+
+  /* On a piece that turns, the head stands on the leg it leaves by, flush with the end of the bend. */
+  [data-process-arrow="left"][data-at="bend"] { left: calc(50% - var(--process-corner) - var(--process-arrow-length)); }
+  [data-process-arrow="right"][data-at="bend"] { left: calc(50% + var(--process-corner)); }
+  [data-process-arrow="up"][data-at="bend"] { left: calc(50% - var(--process-arrow)); top: calc(var(--process-mid) - var(--process-corner) - var(--process-arrow-length)); }
+  [data-process-arrow="down"][data-at="bend"] { left: calc(50% - var(--process-arrow)); top: calc(var(--process-mid) + var(--process-corner)); }
 
   /* The ground of a jump or a rework line, written over the line where it leaves its node. */
   [data-process-slot="line-tag"] {
