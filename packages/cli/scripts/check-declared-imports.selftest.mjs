@@ -1,10 +1,9 @@
 // The self-test of check-declared-imports.mjs: each case is a workspace written to a temporary
-// directory, with the imports the check must report for it.
+// directory, with the imports the check must report for it. The check hands itself in, so this
+// file imports nothing from the script that runs it.
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-
-import { NotInstalled, undeclaredImports } from "./check-declared-imports.mjs";
 
 /**
  * Writes a kit with one package: its manifest, the files given by relative path, the kit's
@@ -196,7 +195,11 @@ const CASES = [
   },
 ];
 
-export function selfTest() {
+/**
+ * @param {{ undeclaredImports: (root: string) => { specifier: string }[], NotInstalled: Function }} check
+ * @returns {number} the exit code: 0 when every case comes out as expected
+ */
+export function selfTest({ undeclaredImports, NotInstalled }) {
   let failed = 0;
   for (const c of CASES) {
     const root = fs.mkdtempSync(path.join(os.tmpdir(), "check-declared-imports-"));

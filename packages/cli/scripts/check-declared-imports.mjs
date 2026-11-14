@@ -189,7 +189,7 @@ export function styleImports(text) {
 }
 
 /** Raised when a package's dependencies are not installed, so a meta package cannot be read. */
-export class NotInstalled extends Error {
+class NotInstalled extends Error {
   constructor(owner) {
     super(`${owner} has no installed dependencies to read`);
     this.owner = owner;
@@ -323,7 +323,7 @@ async function main(argv) {
       return 2;
     }
   }
-  if (selftest) return (await import("./check-declared-imports.selftest.mjs")).selfTest();
+  if (selftest) return (await import("./check-declared-imports.selftest.mjs")).selfTest({ undeclaredImports, NotInstalled });
 
   let hits;
   try {
