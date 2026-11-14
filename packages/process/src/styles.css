@@ -780,6 +780,36 @@
   [data-process-arrow="down"][data-at="side"] { left: calc(50% - var(--process-side) - var(--process-arrow)); }
   [data-process-arrow="down"][data-at="rside"] { left: calc(50% + var(--process-side) - var(--process-arrow)); }
 
+  /*
+   * A line that crosses another without joining it hops over: the straight piece stops short of
+   * the crossing on both sides and a half circle carries it across.
+   */
+  [data-process-seg="left_right"][data-hop] {
+    --process-hop: 5px;
+    z-index: 1;
+    --process-hop-run: linear-gradient(var(--process-stroke), var(--process-stroke));
+    height: var(--process-line);
+    border-width: 0;
+    border-image: none;
+    background-image: var(--process-hop-run), var(--process-hop-run);
+    background-repeat: no-repeat;
+    background-size: calc(50% - var(--process-hop)) 100%;
+    background-position: left top, right top;
+  }
+  [data-process-seg="left_right"][data-hop]:is([data-style="repeat"], [data-style="rework"]) { --process-hop-run: var(--process-dots-x); }
+  [data-process-seg="left_right"][data-hop]::after {
+    content: "";
+    position: absolute;
+    box-sizing: border-box;
+    left: calc(50% - var(--process-hop) - var(--process-line) / 2);
+    bottom: 0;
+    width: calc(var(--process-hop) * 2 + var(--process-line));
+    height: calc(var(--process-hop) + var(--process-line));
+    border: var(--process-line) solid var(--process-stroke);
+    border-bottom-width: 0;
+    border-radius: calc(var(--process-hop) + var(--process-line) / 2) calc(var(--process-hop) + var(--process-line) / 2) 0 0;
+  }
+
   /* On a piece that turns, the head stands on the leg it leaves by, flush with the end of the bend. */
   [data-process-arrow="left"][data-at="bend"] { left: calc(50% - var(--process-corner) - var(--process-arrow-length)); }
   [data-process-arrow="right"][data-at="bend"] { left: calc(50% + var(--process-corner)); }

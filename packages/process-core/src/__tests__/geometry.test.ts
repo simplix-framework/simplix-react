@@ -15,7 +15,7 @@ const rowKinds = (geometry: LaneGeometry): string => geometry.rows.map((row) => 
 
 const cellAt = (geometry: LaneGeometry, row: number, column: number): string =>
   (geometry.cells.find((cell) => cell.row === row && cell.column === column)?.segments ?? [])
-    .map((segment) => `${segment.from}>${segment.to}:${segment.style}${segment.arrow ? "*" : ""}${segment.tail ? "^" : ""}`)
+    .map((segment) => `${segment.from}>${segment.to}:${segment.style}${segment.arrow ? "*" : ""}${segment.tail ? "^" : ""}${segment.hop ? "~" : ""}`)
     .join(" ");
 
 /** The steps, acts and jumps of a case in the order read, as one line. */
@@ -256,7 +256,7 @@ describe("laneGeometry", () => {
     expect(cell(rowOf("isolate"), 0)).toBe("top>center:flow* center>right:inner");
     expect(cell(rowOf("stage"), 2)).toBe("top>center:flow* center>bottom:repeat");
     // The branch into `tools` drops through the row of `lockout`, crossing its line and touching no node.
-    expect(cell(rowOf("isolate"), 2)).toBe("left>right:inner top>bottom:flow");
+    expect(cell(rowOf("isolate"), 2)).toBe("left>right:inner~ top>bottom:flow");
     // Their lines meet under the run and one goes on, as the repeat's, with a head, into the step after.
     const join = rowOf("measure") - 1;
     expect(cell(join, 1)).toBe("right>bottom:repeat");
@@ -293,7 +293,7 @@ describe("laneGeometry", () => {
     expect(cellAt(geometry, 6, laneColumn(geometry, 1))).toBe("right>bottom:flow");
     // The line out of `t1` leaves by a row under it, goes down the outer track, and comes into the joining row from the right.
     expect(cellAt(geometry, 5, laneColumn(geometry, 1))).toBe("top>right:flow");
-    expect(cellAt(geometry, 5, inner)).toBe("top>bottom:flow left>right:flow");
+    expect(cellAt(geometry, 5, inner)).toBe("top>bottom:flow left>right:flow~");
     expect(cellAt(geometry, 5, outer)).toBe("left>bottom:flow");
     expect(cellAt(geometry, 8, outer)).toBe("top>left:flow");
     expect(cellAt(geometry, 8, inner)).toBe("right>left:flow");

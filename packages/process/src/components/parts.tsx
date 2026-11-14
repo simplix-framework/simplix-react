@@ -40,7 +40,7 @@ export function Lines({ cell, mid, on, style }: { cell: GridCell; mid: "node" | 
   return (
     <div aria-hidden data-process-slot="lines" data-process-cell={`${cell.row}:${cell.column}`} data-mid={mid} style={style}>
       {cell.segments.map((segment) => (
-        <i key={`${segment.from}-${segment.to}-${segment.style}`} data-process-seg={shapeOf(segment)} data-style={segment.style} data-on={on(segment) || undefined} />
+        <i key={`${segment.from}-${segment.to}-${segment.style}`} data-process-seg={shapeOf(segment)} data-style={segment.style} data-hop={segment.hop || undefined} data-on={on(segment) || undefined} />
       ))}
       {cell.segments
         .filter((segment) => segment.arrow === true)

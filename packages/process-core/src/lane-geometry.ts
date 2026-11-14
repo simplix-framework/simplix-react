@@ -32,6 +32,8 @@ export interface Segment {
   arrow?: boolean;
   /** A second arrowhead just past the bend, on a piece that turns into a line already running: it shows the way the two go on. */
   tail?: boolean;
+  /** A piece running across that passes over a line running up or down which it does not join: it is drawn with a hop over that line. */
+  hop?: boolean;
 }
 
 /** The lines of one cell. Cells without lines are not listed. */
@@ -723,6 +725,15 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
       if (segment.tail) same.tail = true;
     }
     cells.set(key, cell);
+  }
+  // Two straight lines in one cell with no piece turning from one into the other only cross: the one running across hops over.
+  const upright = (end: SegmentEnd): boolean => end === "top" || end === "bottom";
+  const sideways = (end: SegmentEnd): boolean => end === "left" || end === "right";
+  for (const cell of cells.values()) {
+    const across = cell.segments.filter((segment) => sideways(segment.from) && sideways(segment.to));
+    const along = cell.segments.some((segment) => upright(segment.from) && upright(segment.to));
+    const joined = cell.segments.some((segment) => (upright(segment.from) && sideways(segment.to)) || (sideways(segment.from) && upright(segment.to)));
+    if (along && !joined) for (const segment of across) segment.hop = true;
   }
   return {
     lanes,

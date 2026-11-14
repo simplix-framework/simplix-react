@@ -169,6 +169,14 @@ export function measure({ touch, tolerance }) {
       if (!held) problems.push(`no line reaches the ${circle.element.dataset.processSlot} at ${circle.x.toFixed(1)},${circle.y.toFixed(1)}`);
     }
 
+    // A hop stands over the line it crosses: the half circle is centred on a line running up and down in the same cell.
+    for (const hop of all("[data-process-seg][data-hop]")) {
+      const arc = getComputedStyle(hop, "::after");
+      const centre = rect(hop).left + parseFloat(arc.left) + parseFloat(arc.marginLeft) + parseFloat(arc.width) / 2;
+      const crossed = [...hop.parentElement.querySelectorAll('[data-process-seg="bottom_top"]')].some((line) => Math.abs(rect(line).left + rect(line).width / 2 - centre) <= 1);
+      if (arc.content === "none" || !crossed) problems.push(`a hop at ${centre.toFixed(1)},${rect(hop).top.toFixed(1)} stands over no line`);
+    }
+
     // Arrowheads keep one size whatever the cell measures, and one that points at a node touches it.
     for (const arrow of all("[data-process-arrow]")) {
       const box = rect(arrow);
