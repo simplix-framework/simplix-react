@@ -23,7 +23,9 @@ export function moveFocus(event: KeyboardEvent<HTMLElement>): void {
   else if (event.key === "Home") target = steps[0]?.querySelector<HTMLElement>(STOP);
   else if (event.key === "End") target = steps[steps.length - 1]?.querySelector<HTMLElement>(STOP);
   else if ((event.key === "ArrowRight" || event.key === "ArrowLeft") && step !== null) {
-    const stops = [...step.querySelectorAll<HTMLElement>(STOP)];
+    // The title, then the acts, then the jumps, whatever order the layout writes them in.
+    const rank = (stop: HTMLElement): number => ["step", "act", "jump"].indexOf((stop.dataset.processStop ?? "").split(":")[0]);
+    const stops = [...step.querySelectorAll<HTMLElement>(STOP)].map((stop, order) => ({ stop, order })).sort((a, b) => rank(a.stop) - rank(b.stop) || a.order - b.order).map((entry) => entry.stop);
     target = stops[stops.indexOf(current) + (event.key === "ArrowRight" ? 1 : -1)];
   } else return;
   event.preventDefault();

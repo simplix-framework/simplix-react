@@ -27,7 +27,7 @@ export function measure({ touch, tolerance }) {
   if (page.scrollWidth > page.clientWidth) problems.push(`the page is ${page.scrollWidth - page.clientWidth}px wider than its window`);
 
   // Labels are whole: nothing reaches past the box that holds it.
-  const labels = all('[data-process-slot="step-label"], [data-process-slot="act-label"], [data-process-slot="section-title"], [data-process-slot="lane-name"], [data-process-slot="lane-caption"], [data-process-slot="jump"], [data-process-slot="act"], [data-process-slot="step-button"], [data-process-slot="off-reason"], [data-process-slot="step-title"], [data-process-slot="act-cell"]');
+  const labels = all('[data-process-slot="step-label"], [data-process-slot="act-label"], [data-process-slot="section-title"], [data-process-slot="lane-name"], [data-process-slot="lane-caption"], [data-process-slot="jump"], [data-process-slot="act"], [data-process-slot="step-button"], [data-process-slot="off-reason"], [data-process-slot="step-title"], [data-process-slot="act-cell"], [data-process-slot="act-line"]');
   for (const label of labels) {
     if (label.scrollWidth > label.clientWidth + tolerance || label.scrollHeight > label.clientHeight + tolerance) {
       problems.push(`${name(label)} "${label.textContent.trim().slice(0, 30)}" is cut: ${label.scrollWidth}x${label.scrollHeight} in ${label.clientWidth}x${label.clientHeight}`);
@@ -94,12 +94,8 @@ export function measure({ touch, tolerance }) {
           bottom_left: { edge: [[box.right - half, box.bottom], [box.left, box.top + half]] },
           "center_side-top": { edge: [[box.left + half, box.top]], beside: [box.right, box.bottom - half] },
           "left_side-bottom": { edge: [[box.left, box.top + half], [box.right - half, box.bottom]] },
-          "center_top-left": { edge: [[box.left + half, box.top]], node: [box.right, box.bottom - half] },
-          "bottom-left_top-left": { edge: [[box.left + half, box.top], [box.left + half, box.bottom]] },
-          "bottom-left_center": { edge: [[box.left + half, box.bottom]], node: [box.right, box.top + half] },
-          "center_top-right": { edge: [[box.right - half, box.top]], node: [box.left, box.bottom - half] },
-          "bottom-right_top-right": { edge: [[box.right - half, box.top], [box.right - half, box.bottom]] },
-          "bottom-right_center": { edge: [[box.right - half, box.bottom]], node: [box.left, box.top + half] },
+          "center_rside-top": { edge: [[box.right - half, box.top]], beside: [box.left, box.bottom - half] },
+          "right_rside-bottom": { edge: [[box.right, box.top + half], [box.left + half, box.bottom]] },
         }[shape];
         if (found === undefined) {
           problems.push(`a line of unknown shape ${shape}`);
@@ -109,6 +105,10 @@ export function measure({ touch, tolerance }) {
           const onEdge = Math.abs(x - frame.left) < 1.6 || Math.abs(x - frame.right) < 1.6 || Math.abs(y - frame.top) < 0.6 || Math.abs(y - frame.bottom) < 0.6;
           if (!onEdge) problems.push(`a ${shape} line of cell ${cell.dataset.processCell} ends ${x.toFixed(1)},${y.toFixed(1)} inside its cell`);
           edgePoints.push({ x, y, cell: cell.dataset.processCell, kind: segment.dataset.style, shape });
+        }
+        // A dotted or dashed line is a pattern of a fixed period; a dotted border is fitted to each box and changes density along one line.
+        if (["dotted", "dashed"].some((kind) => [style.borderLeftStyle, style.borderTopStyle, style.borderRightStyle, style.borderBottomStyle].includes(kind))) {
+          problems.push(`a ${segment.dataset.style} ${shape} line is dotted by its border`);
         }
         if (found.node !== undefined) nodePoints.push({ x: found.node[0], y: found.node[1], reach: 0 });
         if (found.beside !== undefined) nodePoints.push({ x: found.beside[0], y: found.beside[1], reach: -1 });
@@ -145,6 +145,13 @@ export function measure({ touch, tolerance }) {
       const upright = direction === "down" || direction === "up";
       arrows += 1;
       if (Math.abs(box.width - (upright ? 10 : 7)) > 0.1 || Math.abs(box.height - (upright ? 7 : 10)) > 0.1) problems.push(`a ${direction} arrowhead measures ${box.width}x${box.height}`);
+      if (arrow.dataset.at === "side" || arrow.dataset.at === "rside") {
+        // A line from a gate row points down where it leaves that row: its tip stands on the end of the piece that carries the line on.
+        const tip = [box.left + box.width / 2, box.bottom];
+        const carried = edgePoints.some((point) => point.shape.startsWith("center_") && Math.abs(point.x - tip[0]) <= 1 && Math.abs(point.y - tip[1]) <= 1);
+        if (direction !== "down" || !carried) problems.push(`the ${direction} arrowhead of a gate row at ${tip[0].toFixed(1)},${tip[1].toFixed(1)} stands on no line down into a node`);
+        continue;
+      }
       if (arrow.dataset.at !== "node") continue;
       const tip = direction === "down" ? [box.left + box.width / 2, box.bottom] : direction === "right" ? [box.right, box.top + box.height / 2] : [box.left, box.top + box.height / 2];
       const touches = circles.some((circle) => Math.abs(Math.hypot(tip[0] - circle.x, tip[1] - circle.y) - circle.radius) <= 1.5);

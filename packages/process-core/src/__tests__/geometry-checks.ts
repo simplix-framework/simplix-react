@@ -12,10 +12,8 @@ const OPPOSITE: Record<EdgeEnd, EdgeEnd> = {
   right: "left",
   "side-top": "side-bottom",
   "side-bottom": "side-top",
-  "top-left": "bottom-left",
-  "bottom-left": "top-left",
-  "top-right": "bottom-right",
-  "bottom-right": "top-right",
+  "rside-top": "rside-bottom",
+  "rside-bottom": "rside-top",
 };
 /** Which neighbour an end touches, as a step in rows and columns. */
 const STEP: Record<EdgeEnd, [number, number]> = {
@@ -25,10 +23,8 @@ const STEP: Record<EdgeEnd, [number, number]> = {
   right: [0, 1],
   "side-top": [-1, 0],
   "side-bottom": [1, 0],
-  "top-left": [-1, 0],
-  "bottom-left": [1, 0],
-  "top-right": [-1, 0],
-  "bottom-right": [1, 0],
+  "rside-top": [-1, 0],
+  "rside-bottom": [1, 0],
 };
 
 const straight = (segment: Segment): boolean =>
@@ -51,12 +47,12 @@ function anchored(geometry: LaneGeometry, row: number, column: number): boolean 
  * - a line that ends on a cell's edge is continued, in the same style, by the neighbouring cell
  * - no line leaves the grid, and none enters the column of titles
  * - a line that ends at a cell's centre ends on a node, on a marker, or on a line passing through
- * - a row that holds no act carries nothing but lines passing straight down
+ * - a row that holds no act carries nothing but lines passing straight up or down
  */
 export function geometryProblems(geometry: LaneGeometry): string[] {
   const problems: string[] = [];
   const cells = new Map(geometry.cells.map((cell) => [`${cell.row}:${cell.column}`, cell]));
-  const columns = 1 + geometry.trackCount + geometry.lanes.length;
+  const columns = 1 + geometry.leftTracks + geometry.lanes.length + geometry.rightTracks;
   for (const cell of geometry.cells) {
     const where = `row ${cell.row} column ${cell.column}`;
     if (cell.column < 1 || cell.column >= columns || cell.row < 0 || cell.row >= geometry.rows.length) problems.push(`${where}: a line outside the grid`);
@@ -75,7 +71,7 @@ export function geometryProblems(geometry: LaneGeometry): string[] {
       }
     }
     const kind = geometry.rows[cell.row]?.kind;
-    if ((kind === "section" || kind === "excluded" || kind === "folded") && cell.segments.some((segment) => !(segment.from === "top" && segment.to === "bottom"))) {
+    if ((kind === "section" || kind === "excluded" || kind === "folded") && cell.segments.some((segment) => !(straight(segment) && (segment.from === "top" || segment.from === "bottom")))) {
       problems.push(`${where}: a ${kind} row holds a line that does more than pass`);
     }
   }
@@ -195,9 +191,18 @@ export function agreementProblems(process: ResolvedProcess, geometry: LaneGeomet
       continue;
     }
     const tag = geometry.tags.find((entry) => entry.jumpId === jump.id);
-    if (tag === undefined || tag.row !== from.node.row || tag.column !== laneColumn(geometry, from.node.lane)) problems.push(`jump ${jump.id} has no label at the node it leaves`);
-    const reached = reachable(geometry, { row: from.node.row, column: laneColumn(geometry, from.node.lane) }, [direction]);
-    if (!reached.has(centre(to.node.row, laneColumn(geometry, to.node.lane)))) problems.push(`jump ${jump.id} cannot be followed from step ${jump.from} to step ${jump.to}`);
+    if (tag === undefined || tag.row !== from.node.row) problems.push(`jump ${jump.id} has no label at the node it leaves`);
+    // A jump back runs on the left and joins the left node of each step, a jump ahead the right.
+    const side = direction === "back" ? "left" : "right";
+    const lane = (span: (typeof geometry.steps)[number]): number => (side === "left" ? span.node.lane : span.node.rightLane);
+    if (tag !== undefined && tag.side !== side) problems.push(`jump ${jump.id} goes ${direction} on the ${tag.side}`);
+    const reached = reachable(geometry, { row: from.node.row, column: laneColumn(geometry, lane(from)) }, [direction]);
+    if (!reached.has(centre(to.node.row, laneColumn(geometry, lane(to))))) problems.push(`jump ${jump.id} cannot be followed from step ${jump.from} to step ${jump.to}`);
+    for (const cell of geometry.cells) {
+      const inLanes = cell.column > geometry.leftTracks && cell.column <= geometry.leftTracks + geometry.lanes.length;
+      const wrongSide = side === "left" ? cell.column > geometry.leftTracks + geometry.lanes.length : cell.column <= geometry.leftTracks;
+      if (!inLanes && wrongSide && cell.segments.some((segment) => segment.style === direction)) problems.push(`a ${direction} line runs in a track on the ${side === "left" ? "right" : "left"}`);
+    }
   }
 
   geometry.rows.forEach((row, index) => {

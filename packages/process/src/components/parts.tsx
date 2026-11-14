@@ -21,9 +21,10 @@ function arrowOf(segment: Segment): { direction: "down" | "right" | "left" | "up
   const from: SegmentEnd = segment.from;
   if (segment.to === "center") {
     if (from === "top") return { direction: "down", at: "node" };
-    return { direction: from === "right" || from === "bottom-right" ? "left" : "right", at: "node" };
+    return { direction: from === "right" ? "left" : "right", at: "node" };
   }
-  if (segment.to === "top-left" || segment.to === "top-right") return { direction: "up", at: segment.to };
+  if (segment.to === "top") return { direction: "up", at: "edge" };
+  if (segment.to === "side-bottom" || segment.to === "rside-bottom") return { direction: "down", at: segment.to === "side-bottom" ? "side" : "rside" };
   return { direction: segment.to === "left" ? "left" : "right", at: "edge" };
 }
 
@@ -33,7 +34,7 @@ function arrowOf(segment: Segment): { direction: "down" | "right" | "left" | "up
  *
  * @param on whether a line of the stated order has been reached by the running case
  */
-export function Lines({ cell, mid, on, style }: { cell: GridCell; mid: "node" | "half"; on: (segment: Segment) => boolean; style: CSSProperties }) {
+export function Lines({ cell, mid, on, style }: { cell: GridCell; mid: "node" | "half" | "gate"; on: (segment: Segment) => boolean; style: CSSProperties }) {
   return (
     <div aria-hidden data-process-slot="lines" data-process-cell={`${cell.row}:${cell.column}`} data-mid={mid} style={style}>
       {cell.segments.map((segment) => (

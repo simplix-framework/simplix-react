@@ -69,8 +69,8 @@ describe("laneGeometry", () => {
       ],
     });
     expect(geometry.steps).toEqual([
-      { stepId: "t1", firstRow: 2, lastRow: 2, jumps: [], arrivals: [], node: { row: 2, lane: 0 } },
-      { stepId: "t2", firstRow: 4, lastRow: 4, jumps: [], arrivals: [], node: { row: 4, lane: 1 } },
+      { stepId: "t1", firstRow: 2, lastRow: 2, jumps: [], arrivals: [], node: { row: 2, lane: 0, rightLane: 0 } },
+      { stepId: "t2", firstRow: 4, lastRow: 4, jumps: [], arrivals: [], node: { row: 4, lane: 1, rightLane: 1 } },
     ]);
     expect(cellAt(geometry, 2, laneColumn(geometry, 0))).toBe("top>center:flow* center>right:inner");
     expect(cellAt(geometry, 2, laneColumn(geometry, 1))).toBe("left>center:inner* center>bottom:flow");
@@ -91,7 +91,7 @@ describe("laneGeometry", () => {
     expect(geometryProblems(geometry)).toEqual([]);
   });
 
-  it("runs a jump on the rows of the first acts it joins where nothing stands to their left", () => {
+  it("runs a jump back up the left, on the rows of the first acts it joins where nothing stands to their left", () => {
     const geometry = laneGeometry(resolveProcess(definition([lane("a"), lane("b")], [section("s", [step("t1", [act("x1", "b")]), step("t2", [act("x2", "a")]), step("t3", [act("x3", "b")])])], [jump("j", "t3", "t1")])));
     expect(rowKinds(geometry)).toBe("section start acts flow acts flow acts end");
     expect(geometry.trackCount).toBe(1);
@@ -100,11 +100,12 @@ describe("laneGeometry", () => {
     expect(cellAt(geometry, 6, laneColumn(geometry, 1))).toBe("top>center:flow* center>bottom:flow center>left:back");
     expect(cellAt(geometry, 6, laneColumn(geometry, 0))).toBe("right>left:back");
     expect(cellAt(geometry, 6, track)).toBe("right>top:back");
-    for (const row of [3, 4, 5]) expect(cellAt(geometry, row, track)).toBe("top>bottom:back");
+    for (const row of [3, 4, 5]) expect(cellAt(geometry, row, track)).toBe("bottom>top:back");
     expect(cellAt(geometry, 2, track)).toBe("bottom>right:back");
     expect(cellAt(geometry, 2, laneColumn(geometry, 0))).toBe("left>right:back");
     expect(cellAt(geometry, 2, laneColumn(geometry, 1))).toBe("top>center:flow* center>bottom:flow left>center:back*");
-    expect(geometry.tags).toEqual([{ jumpId: "j", row: 6, column: laneColumn(geometry, 1), gate: false }]);
+    expect(geometry.tags).toEqual([{ jumpId: "j", row: 6, column: laneColumn(geometry, 1), side: "left", gate: false }]);
+    expect([geometry.leftTracks, geometry.rightTracks]).toEqual([1, 0]);
     expect(geometry.steps.map((span) => `${span.stepId}:${span.jumps.join()}:${span.arrivals.join()}`)).toEqual(["t1::j", "t2::", "t3:j:"]);
   });
 
@@ -115,10 +116,10 @@ describe("laneGeometry", () => {
     const track = trackColumn(geometry, 0);
     expect(cellAt(geometry, 2, track)).toBe("bottom>right:back");
     expect(cellAt(geometry, 2, laneColumn(geometry, 0))).toBe("left>right:back");
-    expect(cellAt(geometry, 2, laneColumn(geometry, 1))).toBe("top>bottom:flow left>side-bottom:back");
-    expect(cellAt(geometry, 3, laneColumn(geometry, 1))).toBe("top>center:flow* center>left:inner side-top>center:back*");
+    expect(cellAt(geometry, 2, laneColumn(geometry, 1))).toBe("top>bottom:flow left>side-bottom:back*");
+    expect(cellAt(geometry, 3, laneColumn(geometry, 1))).toBe("top>center:flow* center>left:inner side-top>center:back");
     expect(cellAt(geometry, 3, laneColumn(geometry, 0))).toBe("right>center:inner* center>bottom:flow");
-    expect(cellAt(geometry, 3, track)).toBe("top>bottom:back");
+    expect(cellAt(geometry, 3, track)).toBe("bottom>top:back");
     expect(geometry.steps[0]).toMatchObject({ firstRow: 2, lastRow: 3, node: { row: 3, lane: 1 } });
     expect(geometryProblems(geometry)).toEqual([]);
   });
@@ -131,8 +132,8 @@ describe("laneGeometry", () => {
     expect(cellAt(geometry, 5, column)).toBe("top>center:flow* center>bottom:flow left>center:back* center>side-top:back");
     expect(cellAt(geometry, 4, column)).toBe("top>bottom:flow side-bottom>left:back");
     expect(geometry.tags).toEqual([
-      { jumpId: "in", row: 7, column, gate: false },
-      { jumpId: "out", row: 5, column, gate: true },
+      { jumpId: "in", row: 7, column, side: "left", gate: false },
+      { jumpId: "out", row: 5, column, side: "left", gate: true },
     ]);
     expect(geometryProblems(geometry)).toEqual([]);
   });
@@ -147,13 +148,18 @@ describe("laneGeometry", () => {
     expect(geometryProblems(apart)).toEqual([]);
   });
 
-  it("brings a rework line from the last act back up the side of the first act's lane", () => {
+  it("brings a rework line from the last act to a turn-back node and up a track into the first act", () => {
     const geometry = laneGeometry(resolveProcess(definition([lane("a"), lane("b")], [section("s", [step("t", [act("x1", "a"), act("x2", "b", "check")], { rework: { label: "again" } })])])));
     expect(rowKinds(geometry)).toBe("section start acts rework end");
     expect(geometry.rows[3]).toEqual({ kind: "rework", stepId: "t", lane: 0, from: 1 });
+    expect(geometry.trackCount).toBe(1);
+    const track = trackColumn(geometry, 0);
     expect(cellAt(geometry, 3, laneColumn(geometry, 1))).toBe("center>left:rework top>bottom:flow");
-    expect(cellAt(geometry, 3, laneColumn(geometry, 0))).toBe("right>center:rework* center>top-left:rework");
-    expect(cellAt(geometry, 2, laneColumn(geometry, 0))).toBe("top>center:flow* center>right:inner bottom-left>center:rework*");
+    expect(cellAt(geometry, 3, laneColumn(geometry, 0))).toBe("right>center:rework* center>left:rework");
+    // The rework row stands right under the first act, so the head is on the corner into the track.
+    expect(cellAt(geometry, 3, track)).toBe("right>top:rework*");
+    expect(cellAt(geometry, 2, track)).toBe("bottom>right:rework");
+    expect(cellAt(geometry, 2, laneColumn(geometry, 0))).toBe("top>center:flow* center>right:inner left>center:rework*");
     expect(geometry.steps[0]).toMatchObject({ firstRow: 2, lastRow: 3 });
     expect(geometryProblems(geometry)).toEqual([]);
     // A step of one act has nothing to come back from.
@@ -161,14 +167,60 @@ describe("laneGeometry", () => {
     expect(rowKinds(single)).toBe("section start acts end");
   });
 
-  it("gives the rework line and a jump arriving on the same row a head each before they meet", () => {
-    const geometry = laneGeometry(
-      resolveProcess(definition([lane("a"), lane("b")], [section("s", [step("t1", [act("x1", "a"), act("x2", "b", "check")], { rework: { label: "again" } }), step("t2", [act("x3", "a")])])], [jump("j", "t2", "t1")])),
-    );
-    expect(rowKinds(geometry)).toBe("section start acts rework flow acts end");
-    expect(cellAt(geometry, 3, laneColumn(geometry, 0))).toBe("right>center:rework* center>top-left:rework*");
-    expect(cellAt(geometry, 2, trackColumn(geometry, 0))).toBe("bottom>right:back*");
-    expect(cellAt(geometry, 2, laneColumn(geometry, 0))).toBe("top>center:flow* center>right:inner bottom-left>center:rework* left>center:back*");
+  it("runs a jump ahead down the right, joining its nodes from the right", () => {
+    const geometry = laneGeometry(resolveProcess(definition([lane("a"), lane("b")], [section("s", [step("t1", [act("x1", "a")]), step("t2", [act("x2", "b")]), step("t3", [act("x3", "a")])])], [jump("j", "t1", "t3")])));
+    expect(rowKinds(geometry)).toBe("section start acts flow acts flow acts end");
+    expect([geometry.leftTracks, geometry.rightTracks, geometry.trackCount]).toEqual([0, 1, 1]);
+    const track = trackColumn(geometry, 0, "right");
+    expect(track).toBe(3);
+    expect(cellAt(geometry, 2, laneColumn(geometry, 0))).toBe("top>center:flow* center>bottom:flow center>right:skip");
+    expect(cellAt(geometry, 2, laneColumn(geometry, 1))).toBe("left>right:skip");
+    expect(cellAt(geometry, 2, track)).toBe("left>bottom:skip");
+    for (const row of [3, 4, 5]) expect(cellAt(geometry, row, track)).toBe("top>bottom:skip");
+    expect(cellAt(geometry, 6, track)).toBe("top>left:skip");
+    expect(cellAt(geometry, 6, laneColumn(geometry, 1))).toBe("right>left:skip");
+    expect(cellAt(geometry, 6, laneColumn(geometry, 0))).toBe("top>center:flow* center>bottom:flow right>center:skip*");
+    expect(geometry.tags).toEqual([{ jumpId: "j", row: 2, column: laneColumn(geometry, 0), side: "right", gate: false }]);
+    expect(geometryProblems(geometry)).toEqual([]);
+  });
+
+  it("stands the lines that come up into one step on one track on the left, and the line that comes down on the right", () => {
+    const steps = [
+      step("t1", [act("x1", "a")]),
+      step("t2", [act("x2", "a"), act("x3", "b", "check"), act("x4", "a")], { rework: { label: "again" } }),
+      step("t3", [act("x5", "a")]),
+    ];
+    const geometry = laneGeometry(resolveProcess(definition([lane("a"), lane("b")], [section("s", steps)], [jump("ahead", "t1", "t2"), jump("back", "t3", "t2")])));
+    // The step's first row runs right to its second act, so the jump ahead comes in over a gate row.
+    expect(rowKinds(geometry)).toBe("section start acts flow gate acts flow acts rework flow acts end");
+    expect([geometry.leftTracks, geometry.rightTracks]).toEqual([1, 1]);
+    const left = trackColumn(geometry, 0);
+    const right = trackColumn(geometry, 0, "right");
+    // The jump back and the rework line climb one track and turn into the step's row together.
+    expect(cellAt(geometry, 10, left)).toBe("right>top:back");
+    expect(cellAt(geometry, 9, left)).toBe("bottom>top:back");
+    expect(cellAt(geometry, 8, left)).toBe("bottom>top:back right>top:rework");
+    expect(cellAt(geometry, 7, left)).toBe("bottom>top:back bottom>top:rework");
+    expect(cellAt(geometry, 6, left)).toBe("bottom>top:back bottom>top:rework*");
+    expect(cellAt(geometry, 5, left)).toBe("bottom>right:back bottom>right:rework");
+    expect(cellAt(geometry, 2, right)).toBe("left>bottom:skip");
+    expect(cellAt(geometry, 3, right)).toBe("top>bottom:skip");
+    expect(cellAt(geometry, 4, right)).toBe("top>left:skip");
+    expect(cellAt(geometry, 4, laneColumn(geometry, 1))).toBe("right>left:skip");
+    expect(cellAt(geometry, 4, laneColumn(geometry, 0))).toBe("top>bottom:flow right>rside-bottom:skip*");
+    expect(cellAt(geometry, 5, laneColumn(geometry, 0))).toBe("top>center:flow* center>right:inner left>center:back* left>center:rework* rside-top>center:skip");
+    expect(geometryProblems(geometry)).toEqual([]);
+  });
+
+  it("sends the rework line over the gate row where the first act has something to its left", () => {
+    const geometry = laneGeometry(resolveProcess(definition([lane("a"), lane("b")], [section("s", [step("t", [act("x1", "b"), act("x2", "a", "check")], { rework: { label: "again" } })])])));
+    expect(rowKinds(geometry)).toBe("section start gate acts rework end");
+    // The last act stands left of the first, so the turn-back node stands under the last act.
+    expect(geometry.rows[4]).toEqual({ kind: "rework", stepId: "t", lane: 0, from: 0 });
+    expect(cellAt(geometry, 4, laneColumn(geometry, 0))).toBe("top>bottom:flow center>left:rework");
+    expect(cellAt(geometry, 3, trackColumn(geometry, 0))).toBe("bottom>top:rework*");
+    expect(cellAt(geometry, 2, laneColumn(geometry, 1))).toBe("top>bottom:flow left>side-bottom:rework*");
+    expect(cellAt(geometry, 3, laneColumn(geometry, 1))).toBe("top>center:flow* center>left:inner side-top>center:rework");
     expect(geometryProblems(geometry)).toEqual([]);
   });
 

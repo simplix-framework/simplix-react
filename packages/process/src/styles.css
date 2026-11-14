@@ -18,11 +18,14 @@
     /* The drawing: line width, node, arrowhead, corner, and where on a row a node stands. */
     --process-line: 2px;
     --process-node: 18px;
-    --process-node-y: 20px;
+    --process-node-y: 16px;
     --process-arrow: 5px;
     --process-arrow-length: 7px;
     --process-corner: 9px;
-    --process-side: 18px;
+    --process-side: 16px;
+    /* Where beside the middle of its node a line from a gate row lands: off to the side and above. */
+    --process-land-x: 7px;
+    --process-land-y: 4px;
     /* What each line and node is drawn in. */
     --process-ink: var(--color-foreground);
     --process-flow: var(--color-muted-foreground);
@@ -205,21 +208,21 @@
   }
 
   [data-process-slot="row"] {
-    min-height: 18px;
+    min-height: 14px;
     pointer-events: none;
   }
 
-  [data-process-slot="row"][data-row="gate"] {
-    min-height: 22px;
+  [data-process-slot="row"][data-row="flow"] {
+    min-height: 20px;
   }
 
-  [data-process-slot="row"][data-row="flow"] {
-    min-height: 24px;
+  [data-process-slot="row"][data-row="gate"] {
+    min-height: 32px;
   }
 
   [data-process-slot="row"][data-row="start"],
   [data-process-slot="row"][data-row="end"] {
-    min-height: 30px;
+    min-height: 24px;
   }
 
   [data-process-slot="row"][data-row="section"] {
@@ -257,7 +260,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 3px;
-    padding: 9px 10px 10px;
+    padding: 6px 10px;
     min-width: 0;
     position: relative;
     z-index: 1;
@@ -375,7 +378,7 @@
     flex-direction: column;
     align-items: center;
     min-width: 0;
-    padding: calc(var(--process-node-y) - var(--process-node) / 2) 2px 8px;
+    padding: calc(var(--process-node-y) - var(--process-node) / 2) 2px 4px;
     position: relative;
     z-index: 3;
     pointer-events: none;
@@ -386,10 +389,20 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3px;
+    gap: 2px;
     max-width: 100%;
     text-align: center;
     pointer-events: auto;
+  }
+
+  /* An act's words stand on one line where the lane has room for them: its label, its marks, who holds it. */
+  [data-process-slot="act-line"] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0 4px;
+    max-width: 100%;
   }
 
   [data-process-slot="node"] {
@@ -479,11 +492,18 @@
     --process-mid: 50%;
   }
 
+  /*
+   * A gate row carries its lines near its top, so that a line turning down toward a node runs
+   * straight for a stretch after its corner; its arrowhead stands at the foot of that stretch.
+   */
+  [data-process-slot="lines"][data-mid="gate"] {
+    --process-mid: 7px;
+  }
+
   [data-process-seg],
   [data-process-arrow] {
     position: absolute;
     box-sizing: border-box;
-    border: 0 solid var(--process-flow);
   }
 
   /*
@@ -491,14 +511,31 @@
    * line is the ink. A parallel run and a repeat are dotted and carry no head. A jump back is the
    * warning colour, a jump ahead purple, and a step sent back to its own first act is dashed.
    */
-  [data-process-seg][data-on] { border-color: var(--process-ink); }
-  [data-style="inner"],
-  [data-style="joint"] { border-color: var(--process-ink); }
-  [data-style="parallel"],
-  [data-style="repeat"] { border-style: dotted; }
-  [data-style="back"] { border-color: var(--process-back); }
-  [data-style="skip"] { border-color: var(--process-skip); }
-  [data-style="rework"] { border-color: var(--process-back); border-style: dashed; }
+  [data-process-seg] {
+    --process-stroke: var(--process-flow);
+    border: 0 solid var(--process-stroke);
+  }
+
+  [data-process-seg][data-on],
+  [data-process-seg]:is([data-style="inner"], [data-style="joint"]) { --process-stroke: var(--process-ink); }
+  [data-process-seg]:is([data-style="back"], [data-style="rework"]) { --process-stroke: var(--process-back); }
+  [data-process-seg][data-style="skip"] { --process-stroke: var(--process-skip); }
+
+  /*
+   * A dotted or dashed line is drawn as a pattern of a fixed period, never as a dotted border:
+   * a browser fits a border's dots to each box, so pieces of different lengths would differ in
+   * density along one line. Corners are drawn whole, since a pattern cannot follow a curve.
+   */
+  [data-process-seg]:is([data-style="parallel"], [data-style="repeat"]) { --process-on: 2px; --process-period: 6px; }
+  [data-process-seg][data-style="rework"] { --process-on: 5px; --process-period: 9px; }
+
+  [data-process-seg]:is([data-style="parallel"], [data-style="repeat"], [data-style="rework"]):is([data-process-seg="bottom_top"], [data-process-seg="center_top"], [data-process-seg="bottom_center"]) {
+    border-image: repeating-linear-gradient(to bottom, var(--process-stroke) 0 var(--process-on), transparent var(--process-on) var(--process-period)) 1;
+  }
+
+  [data-process-seg]:is([data-style="parallel"], [data-style="repeat"], [data-style="rework"]):is([data-process-seg="left_right"], [data-process-seg="center_left"], [data-process-seg="center_right"]) {
+    border-image: repeating-linear-gradient(to right, var(--process-stroke) 0 var(--process-on), transparent var(--process-on) var(--process-period)) 1;
+  }
 
   /* Straight pieces. */
   [data-process-seg="bottom_top"] { left: calc(50% - var(--process-line) / 2); top: 0; bottom: 0; border-left-width: var(--process-line); }
@@ -526,9 +563,13 @@
     border-right-width: var(--process-line); border-top-width: var(--process-line); border-top-right-radius: var(--process-corner);
   }
 
-  /* A jump beside the lane's own line: down the side into the node, and from the gate row round to the side. */
+  /*
+   * A jump beside the lane's own line: from the gate row round to the side, then down the side and
+   * in a curve into the upper left of the node, above the line that reaches the node's left.
+   */
   [data-process-seg="center_side-top"] {
-    left: calc(50% - var(--process-side) - var(--process-line) / 2); width: calc(var(--process-side) + var(--process-line) / 2); top: 0; height: calc(var(--process-mid) + var(--process-line) / 2);
+    left: calc(50% - var(--process-side) - var(--process-line) / 2); width: calc(var(--process-side) - var(--process-land-x) + var(--process-line) / 2);
+    top: 0; height: calc(var(--process-mid) - var(--process-land-y) + var(--process-line) / 2);
     border-left-width: var(--process-line); border-bottom-width: var(--process-line); border-bottom-left-radius: 7px;
   }
   [data-process-seg="left_side-bottom"] {
@@ -536,24 +577,15 @@
     border-right-width: var(--process-line); border-top-width: var(--process-line); border-top-right-radius: var(--process-corner);
   }
 
-  /* A rework line along the side of the first act's lane. */
-  [data-process-seg="center_top-left"] {
-    left: 0; width: 50%; top: 0; height: calc(var(--process-mid) + var(--process-line) / 2);
-    border-left-width: var(--process-line); border-bottom-width: var(--process-line); border-bottom-left-radius: var(--process-corner);
+  /* The same on the right of the lane's own line, for lines that go down. */
+  [data-process-seg="center_rside-top"] {
+    left: calc(50% + var(--process-land-x)); width: calc(var(--process-side) - var(--process-land-x) + var(--process-line) / 2);
+    top: 0; height: calc(var(--process-mid) - var(--process-land-y) + var(--process-line) / 2);
+    border-right-width: var(--process-line); border-bottom-width: var(--process-line); border-bottom-right-radius: 7px;
   }
-  [data-process-seg="bottom-left_top-left"] { left: 0; top: 0; bottom: 0; border-left-width: var(--process-line); }
-  [data-process-seg="bottom-left_center"] {
-    left: 0; width: 50%; top: calc(var(--process-mid) - var(--process-line) / 2); bottom: 0;
+  [data-process-seg="right_rside-bottom"] {
+    left: calc(50% + var(--process-side) - var(--process-line) / 2); right: 0; top: calc(var(--process-mid) - var(--process-line) / 2); bottom: 0;
     border-left-width: var(--process-line); border-top-width: var(--process-line); border-top-left-radius: var(--process-corner);
-  }
-  [data-process-seg="center_top-right"] {
-    left: 50%; right: 0; top: 0; height: calc(var(--process-mid) + var(--process-line) / 2);
-    border-right-width: var(--process-line); border-bottom-width: var(--process-line); border-bottom-right-radius: var(--process-corner);
-  }
-  [data-process-seg="bottom-right_top-right"] { right: 0; top: 0; bottom: 0; border-right-width: var(--process-line); }
-  [data-process-seg="bottom-right_center"] {
-    left: 50%; right: 0; top: calc(var(--process-mid) - var(--process-line) / 2); bottom: 0;
-    border-right-width: var(--process-line); border-top-width: var(--process-line); border-top-right-radius: var(--process-corner);
   }
 
   /* Arrowheads keep one size whatever the cell measures, and touch the node they point at. */
@@ -581,8 +613,11 @@
   [data-process-arrow="left"][data-at="node"] { left: calc(50% + var(--process-node) / 2); }
   [data-process-arrow="right"][data-at="edge"] { right: 3px; }
   [data-process-arrow="left"][data-at="edge"] { left: 3px; }
-  [data-process-arrow="up"][data-at="top-left"] { left: calc(var(--process-line) / 2 - var(--process-arrow)); top: 3px; }
-  [data-process-arrow="up"][data-at="top-right"] { right: calc(var(--process-line) / 2 - var(--process-arrow)); top: 3px; }
+  /* A line from a gate row points down as it leaves that row, beside the lane's own line. */
+  [data-process-arrow="down"][data-at="side"] { left: calc(50% - var(--process-side) - var(--process-arrow)); bottom: 0; }
+  [data-process-arrow="down"][data-at="rside"] { left: calc(50% + var(--process-side) - var(--process-arrow)); bottom: 0; }
+  /* A line climbing a track shows its way with a head near the top of its last piece. */
+  [data-process-arrow="up"][data-at="edge"] { left: calc(50% - var(--process-arrow)); top: 3px; }
 
   /* The ground of a jump or a rework line, written over the line where it leaves its node. */
   [data-process-slot="line-tag"] {
@@ -604,16 +639,19 @@
 
   [data-process-slot="line-tag"][data-direction="skip"] { color: var(--process-skip); }
 
-  /* Over a gate row the line leaves by the top of the cell, and its ground stands there. */
-  [data-process-slot="tag-cell"][data-gate] [data-process-slot="line-tag"] {
-    right: calc(50% + var(--process-side) + 4px);
-    bottom: calc(100% - 4px);
+  /* A line that leaves by the right has its ground on the right of its node. */
+  [data-process-slot="tag-cell"][data-side="right"] [data-process-slot="line-tag"] {
+    right: auto;
+    left: calc(50% + var(--process-node) / 2 + 6px);
   }
 
-  [data-process-slot="via-cell"][data-side="right"] [data-process-slot="line-tag"] {
-    right: auto;
-    left: calc(50% + 10px);
+  /* Over a gate row the line leaves by the top of the cell, and its ground stands there. */
+  [data-process-slot="tag-cell"][data-gate] [data-process-slot="line-tag"] {
+    bottom: calc(100% + 3px);
   }
+
+  [data-process-slot="tag-cell"][data-gate][data-side="left"] [data-process-slot="line-tag"] { right: calc(50% + var(--process-side) + 4px); }
+  [data-process-slot="tag-cell"][data-gate][data-side="right"] [data-process-slot="line-tag"] { left: calc(50% + var(--process-side) + 4px); }
 
   [data-process-slot="via"] {
     position: absolute;

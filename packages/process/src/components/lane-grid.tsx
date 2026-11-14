@@ -37,7 +37,9 @@ const stopKey = (kind: string, id: string): string => `${kind}:${id}`;
 export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, tabStop, onPick, onFollow, t }: LaneGridProps) {
   const grouped = geometry.lanes.some((lane) => lane.group !== undefined);
   const head = grouped ? 2 : 1;
-  const columns = 1 + geometry.trackCount + geometry.lanes.length;
+  const columns = 1 + geometry.leftTracks + geometry.lanes.length + geometry.rightTracks;
+  // Titles and headings may reach over the tracks on the left, which hold lines and no words.
+  const titleColumns = `1 / ${geometry.leftTracks + 2}`;
   const at = (row: number, column: number, rowEnd = row): CSSProperties => ({ gridRow: `${row + head + 1} / ${rowEnd + head + 2}`, gridColumn: column + 1 });
   const across = (row: number): CSSProperties => ({ gridRow: row + head + 1, gridColumn: `1 / ${columns + 1}` });
   const isPicked = (kind: ProcessTarget["kind"], id: string): boolean => selected !== null && selected.kind === kind && selected.id === id;
@@ -147,9 +149,11 @@ export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, tab
                       onClick={() => onPick(act.ref === undefined ? { kind: "act", id: act.id } : { kind: "act", id: act.id, ref: act.ref })}
                     >
                       <Node order={entry.order} first={entry.order === 1} mark={actMark} />
-                      <span data-process-slot="act-label">{act.label}</span>
-                      <ActTags act={act} />
-                      {actMark?.assignee !== undefined && <span data-process-slot="act-holder">{actMark.assignee}</span>}
+                      <span data-process-slot="act-line">
+                        <span data-process-slot="act-label">{act.label}</span>
+                        <ActTags act={act} />
+                        {actMark?.assignee !== undefined && <span data-process-slot="act-holder">{actMark.assignee}</span>}
+                      </span>
                     </button>
                   ) : (
                     <span aria-hidden data-process-slot="act" data-shadow>
@@ -170,7 +174,7 @@ export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, tab
     const reason = row.kind === "folded" ? t("folded") : resolved.step.conditionLabel === undefined ? t("notApplicable") : `${t("notApplicable")}: ${resolved.step.conditionLabel}`;
     return (
       <li key={row.stepId} data-process-step={row.stepId} data-process-slot="step" data-inclusion={row.kind}>
-        <div data-process-slot="step-off" style={{ gridRow: index + head + 1, gridColumn: `1 / ${geometry.trackCount + 2}` }}>
+        <div data-process-slot="step-off" style={{ gridRow: index + head + 1, gridColumn: titleColumns }}>
           <span data-process-slot="step-number" aria-label={t("stepNumber", { number: resolved.number })}>
             {stepNo(resolved.number)}
           </span>
@@ -197,8 +201,9 @@ export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, tab
   // `repeat(0, ...)` is not a track list, so a part with nothing to repeat is left out.
   const template = [
     "var(--process-title-width)",
-    geometry.trackCount > 0 ? `repeat(${geometry.trackCount}, var(--process-track-width))` : "",
+    geometry.leftTracks > 0 ? `repeat(${geometry.leftTracks}, var(--process-track-width))` : "",
     geometry.lanes.length > 0 ? `repeat(${geometry.lanes.length}, minmax(var(--process-lane-min-width), 1fr))` : "",
+    geometry.rightTracks > 0 ? `repeat(${geometry.rightTracks}, var(--process-track-width))` : "",
   ]
     .filter((part) => part.length > 0)
     .join(" ");
@@ -231,7 +236,7 @@ export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, tab
       ))}
       {geometry.cells.map((cell) => {
         const kind = geometry.rows[cell.row].kind;
-        return <Lines key={`${cell.row}:${cell.column}`} cell={cell} mid={kind === "acts" || kind === "rework" ? "node" : "half"} on={onLine(cell.row)} style={at(cell.row, cell.column)} />;
+        return <Lines key={`${cell.row}:${cell.column}`} cell={cell} mid={kind === "acts" || kind === "rework" ? "node" : kind === "gate" ? "gate" : "half"} on={onLine(cell.row)} style={at(cell.row, cell.column)} />;
       })}
       {geometry.rows.map((row, index) => {
         if (row.kind === "start" || row.kind === "end") {
@@ -251,7 +256,7 @@ export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, tab
             </span>
             <span data-process-slot="act-label">{t("reworkAgain")}</span>
           </div>,
-          <div key={`via-${row.stepId}`} aria-hidden data-process-slot="via-cell" data-side={row.from > row.lane ? "left" : "right"} style={at(index, laneColumn(geometry, row.from))}>
+          <div key={`via-${row.stepId}`} aria-hidden data-process-slot="via-cell" style={at(index, laneColumn(geometry, row.from))}>
             {row.from !== row.lane && <span data-process-slot="via" />}
             <span data-process-slot="line-tag" data-direction="back">
               {label}
@@ -260,7 +265,7 @@ export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, tab
         ];
       })}
       {geometry.tags.map((tag) => (
-        <div key={`tag-${tag.jumpId}`} aria-hidden data-process-slot="tag-cell" data-gate={tag.gate || undefined} style={at(tag.row, tag.column)}>
+        <div key={`tag-${tag.jumpId}`} aria-hidden data-process-slot="tag-cell" data-side={tag.side} data-gate={tag.gate || undefined} style={at(tag.row, tag.column)}>
           <span data-process-slot="line-tag" data-direction={view.jumps.get(tag.jumpId)!.direction}>
             {view.jumps.get(tag.jumpId)!.jump.label}
           </span>
@@ -268,7 +273,7 @@ export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, tab
       ))}
       {sections.map((section) => (
         <section key={section.id} data-process-slot="section" aria-labelledby={`${uid}-section-${section.id}`}>
-          <h3 id={`${uid}-section-${section.id}`} data-process-slot="section-title" data-process-section={section.id} style={{ gridRow: section.row + head + 1, gridColumn: `1 / ${geometry.trackCount + 2}` }}>
+          <h3 id={`${uid}-section-${section.id}`} data-process-slot="section-title" data-process-section={section.id} style={{ gridRow: section.row + head + 1, gridColumn: titleColumns }}>
             {view.sections.get(section.id)!.label}
           </h3>
           <ol data-process-slot="steps">{section.steps}</ol>

@@ -21,7 +21,9 @@ const DEFECTS = [
   ["the arrowhead is wider", "[data-process-root] { --process-arrow: 7px; }", "arrowhead measures"],
   ["the arrowhead stands off its node", '[data-process-arrow="down"][data-at="node"] { margin-top: -5px; }', "touches no node"],
   ["a node stands 5px under its row's line", '[data-process-slot="act-cell"] { padding-top: 16px; }', "no line reaches"],
-  ["the gate line comes down 4px off the side", '[data-process-seg="left_side-bottom"] { margin-left: 4px; }', "nothing meets it"],
+  ["the gate line comes down 4px off the side", '[data-process-seg="left_side-bottom"], [data-process-seg="right_rside-bottom"] { margin-left: 4px; }', "nothing meets it"],
+  ["the head of a gate line stands off the line", '[data-process-arrow="down"]:is([data-at="side"], [data-at="rside"]) { margin-left: 5px; }', "stands on no line down into a node"],
+  ["a dashed line is a border again, fitted to each cell", '[data-process-seg][data-style="rework"] { border-image: none; border-style: dashed; }', "is dotted by its border"],
   ["the grid does not scroll inside its own box", '[data-process-slot="scroll"] { overflow: visible; }', "wider than its window"],
 ];
 
