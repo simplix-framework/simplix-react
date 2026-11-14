@@ -1,5 +1,5 @@
 import { Columns3 } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useGantt } from "../context/gantt-context";
 import { cn } from "../lib/cn";
@@ -18,6 +18,8 @@ export interface TaskGridHeaderProps {
   onMove: (column: GanttColumnId, toIndex: number) => void;
   /** Width of the leading row number column; narrower in a narrow table. */
   indicatorWidth?: number;
+  /** Told where a dragged heading would drop, as a distance from the table's left edge, and `null` when no heading is dragged. */
+  onDropPreview?: (x: number | null) => void;
   /** Whether the first column stays in place beside the row numbers while the others scroll sideways. */
   pinFirstColumn?: boolean;
 }
@@ -29,9 +31,11 @@ const EDGE_ZONE = 28;
 const EDGE_STEP = 8;
 /** Pixels one arrow key press on a column's grip changes its width; with Shift, four times as far. */
 const KEY_STEP = 8;
+/** The name of a dragged heading, carried beside the pointer. */
+const GHOST = "pointer-events-none fixed z-50 max-w-48 truncate rounded-md border bg-background px-2 py-1 text-xs font-medium text-foreground shadow-md";
 
 /** The heading row of the task table. The right edge of a heading drags to resize its column, and takes the arrow keys. */
-export function TaskGridHeader({ columns, widths, onResize, onMove, indicatorWidth = INDICATOR_WIDTH, pinFirstColumn = false }: TaskGridHeaderProps) {
+export function TaskGridHeader({ columns, widths, onResize, onMove, indicatorWidth = INDICATOR_WIDTH, pinFirstColumn = false, onDropPreview }: TaskGridHeaderProps) {
   const { t } = useGanttTranslation();
   const customFields = useGantt((state) => state.history.present.customFields);
   const labelOf = (column: GanttColumnId): string =>
@@ -40,19 +44,67 @@ export function TaskGridHeader({ columns, widths, onResize, onMove, indicatorWid
       : t(`column.${column}`);
   // The columns keep scrolling while a dragged heading rests near an edge, without the pointer having to move.
   const scrolling = useRef(0);
+  /** Works out again where the heading in hand would drop. */
+  const held = useRef<(() => void) | null>(null);
   const edgeScroll = (box: HTMLElement | null, direction: -1 | 0 | 1): void => {
     cancelAnimationFrame(scrolling.current);
     if (!box || direction === 0) return;
     const step = (): void => {
       box.scrollLeft += direction * EDGE_STEP;
+      // The columns have moved under a pointer at rest, so the place it is over has changed.
+      held.current?.();
       scrolling.current = requestAnimationFrame(step);
     };
     scrolling.current = requestAnimationFrame(step);
   };
   useEffect(() => () => cancelAnimationFrame(scrolling.current), []);
+  // The heading being dragged: where the pointer has it, and the place it would take if dropped there.
+  const [moving, setMoving] = useState<{ column: GanttColumnId; target: number } | null>(null);
+  // The dragged heading's name goes with the pointer. It hangs on the page itself, so the table's edge does not cut it off.
+  const ghost = useRef<HTMLDivElement | null>(null);
+  const carry = (label: string | null, x = 0, y = 0): void => {
+    if (label === null) {
+      ghost.current?.remove();
+      ghost.current = null;
+      return;
+    }
+    if (!ghost.current) {
+      ghost.current = document.createElement("div");
+      ghost.current.className = GHOST;
+      ghost.current.dataset.ganttSlot = "column-drag-ghost";
+      ghost.current.textContent = label;
+      document.body.append(ghost.current);
+    }
+    ghost.current.style.left = `${x + 12}px`;
+    ghost.current.style.top = `${y + 12}px`;
+  };
+  useEffect(() => () => carry(null), []);
+  /** The place among the columns that the pointer is over. */
+  const placeAt = (row: Element | null, clientX: number): number => {
+    let edge = (row?.getBoundingClientRect().left ?? 0) + indicatorWidth;
+    for (let i = 0; i < columns.length; i++) {
+      edge += columnWidth(columns[i], widths);
+      if (clientX < edge) return i;
+    }
+    return columns.length - 1;
+  };
+  /** Where the dragged column's edge would be once it has taken a place: before the column there, or after it when it comes from the left. */
+  const dropLine = (column: GanttColumnId, target: number): number | null => {
+    const from = columns.indexOf(column);
+    if (from === -1 || from === target) return null;
+    const upTo = target > from ? target + 1 : target;
+    return columns.slice(0, upTo).reduce((sum, other) => sum + columnWidth(other, widths), indicatorWidth);
+  };
+  const preview = (next: typeof moving): void => {
+    setMoving(next);
+    onDropPreview?.(next ? dropLine(next.column, next.target) : null);
+  };
   // Dragging a heading sideways drops its column where the pointer is.
   const beginMove = useDrag<{ column: GanttColumnId; row: Element | null }>({
-    onMove({ row }, position) {
+    onMove({ column, row }, position) {
+      held.current = () => preview({ column, target: placeAt(row, position.clientX) });
+      held.current();
+      carry(labelOf(column), position.clientX, position.clientY);
       // Near an edge of the table the columns scroll under the pointer, so a heading can be dropped on one out of view.
       const box = row?.closest<HTMLElement>('[data-gantt-slot="table-header"]');
       if (!box) return;
@@ -62,20 +114,18 @@ export function TaskGridHeader({ columns, widths, onResize, onMove, indicatorWid
       const direction = position.clientX > edge.right - EDGE_ZONE ? 1 : position.clientX < edge.left + pinned + EDGE_ZONE ? -1 : 0;
       edgeScroll(box, direction);
     },
-    onCancel: () => edgeScroll(null, 0),
+    onCancel() {
+      edgeScroll(null, 0);
+      held.current = null;
+      preview(null);
+      carry(null);
+    },
     onEnd({ column, row }, position) {
       edgeScroll(null, 0);
-      const left = (row?.getBoundingClientRect().left ?? 0) + indicatorWidth;
-      let edge = left;
-      let target = columns.length - 1;
-      for (let i = 0; i < columns.length; i++) {
-        edge += columnWidth(columns[i], widths);
-        if (position.clientX < edge) {
-          target = i;
-          break;
-        }
-      }
-      onMove(column, target);
+      held.current = null;
+      preview(null);
+      carry(null);
+      onMove(column, placeAt(row, position.clientX));
     },
   }, { touchHold: TOUCH_HOLD });
   const beginResize = useDrag<{ column: GanttColumnId; origin: number }>({
@@ -84,7 +134,7 @@ export function TaskGridHeader({ columns, widths, onResize, onMove, indicatorWid
     onCancel: ({ column, origin }) => onResize(column, origin),
   });
   return (
-    <div className="flex h-full items-end text-xs font-medium text-foreground" role="row" aria-rowindex={1}>
+    <div className="relative flex h-full items-end text-xs font-medium text-foreground" role="row" aria-rowindex={1}>
       {/* The corner over the row numbers holds the list of columns, where a reader looks for it. */}
       <div className="sticky left-0 z-30 flex h-full shrink-0 items-center justify-center border-r bg-muted" style={{ width: indicatorWidth }}>
         <ColumnChooser>
@@ -111,6 +161,8 @@ export function TaskGridHeader({ columns, widths, onResize, onMove, indicatorWid
             "flex h-full shrink-0 cursor-grab items-center border-r px-2",
             pinned ? "sticky z-20 bg-muted" : "relative",
             NUMERIC.has(column) && "justify-end",
+            // The heading that is being dragged fades where it still stands.
+            moving?.column === column && "opacity-40",
           )}
           style={{ width, left: pinned ? indicatorWidth : undefined }}
           data-gantt-column={column}
@@ -151,6 +203,14 @@ export function TaskGridHeader({ columns, widths, onResize, onMove, indicatorWid
         </div>
         );
       })}
+      {moving && dropLine(moving.column, moving.target) !== null && (
+        // raw layout: a line at the edge the dragged column would take
+        <div
+          className="pointer-events-none absolute top-0 z-[15] h-full w-0.5 -translate-x-1/2 bg-primary"
+          style={{ left: dropLine(moving.column, moving.target) ?? 0 }}
+          data-gantt-slot="column-drop-line"
+        />
+      )}
     </div>
   );
 }

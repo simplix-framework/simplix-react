@@ -1,4 +1,4 @@
-import type { CustomField, Project } from "@simplix-react/gantt-core";
+import type { CustomField, Project, Schedule } from "@simplix-react/gantt-core";
 
 /** A built-in column of the task table. */
 export type BuiltInColumnId =
@@ -116,10 +116,32 @@ export const NUMERIC: ReadonlySet<GanttColumnId> = new Set([
 export const MIN_DATE = "1900-01-01";
 export const MAX_DATE = "2199-12-31";
 
-/** Width of the leading column that carries the row number and the conflict mark. */
+/** Width of the leading column that carries the row number and the marks of a row, when nothing is known of the plan. */
 export const INDICATOR_WIDTH = 64;
 
-/** Width the task table needs to show every one of the given columns. */
-export function gridContentWidth(columns: readonly GanttColumnId[]): number {
-  return columns.reduce((sum, column) => sum + columnWidth(column, {}), INDICATOR_WIDTH);
+/** The row number column is never narrower than the button in its heading needs. */
+const MIN_ROW_NUMBER_WIDTH = 36;
+/** Room one digit of a row number takes, and one mark beside the number with its gap. */
+const DIGIT_WIDTH = 8;
+const MARK_WIDTH = 16;
+const ROW_NUMBER_PADDING = 12;
+
+/**
+ * Width of the row number column for a plan: the longest row number, the most
+ * marks any one row carries (a conflict, a note, a dated constraint), and the
+ * padding around them.
+ */
+export function rowNumberWidth(project: Project, schedule: Schedule): number {
+  const inConflict = new Set(schedule.conflicts.map((conflict) => conflict.taskId));
+  const marks = project.tasks.reduce((most, task) => {
+    const dated = task.constraintDate !== undefined && task.constraintType !== "asap" && task.constraintType !== "alap";
+    return Math.max(most, (inConflict.has(task.id) ? 1 : 0) + (task.notes ? 1 : 0) + (dated ? 1 : 0));
+  }, 0);
+  const digits = String(Math.max(1, project.tasks.length)).length;
+  return Math.max(MIN_ROW_NUMBER_WIDTH, ROW_NUMBER_PADDING + digits * DIGIT_WIDTH + marks * MARK_WIDTH);
+}
+
+/** Width the task table needs to show every one of the given columns beside a row number column of the given width. */
+export function gridContentWidth(columns: readonly GanttColumnId[], indicatorWidth: number = INDICATOR_WIDTH): number {
+  return columns.reduce((sum, column) => sum + columnWidth(column, {}), indicatorWidth);
 }

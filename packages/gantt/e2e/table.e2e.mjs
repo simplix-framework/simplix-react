@@ -252,3 +252,91 @@ test("scrolls the columns under a dragged heading at the table's edge, so it can
   assert.ok(after.indexOf("duration") >= 4, `the heading was dropped at place ${after.indexOf("duration")}: ${after.join(", ")}`);
   await page.context().close();
 });
+
+test("gives the row numbers the width their digits and marks need, and no more", async () => {
+  const fit = (page) =>
+    page.evaluate(() => {
+      const handles = [...document.querySelectorAll('[data-gantt-slot="row-handle"]')];
+      const corner = document.querySelector('[data-gantt-slot="column-chooser-button"]').parentElement;
+      return {
+        width: handles[0].getBoundingClientRect().width,
+        corner: corner.getBoundingClientRect().width,
+        spill: Math.max(...handles.map((handle) => handle.scrollWidth - handle.clientWidth)),
+        // Room left of the widest content: what the column could still give up.
+        spare: Math.min(
+          ...handles.map((handle) => {
+            const range = document.createRange();
+            range.selectNodeContents(handle);
+            return range.getBoundingClientRect().left - handle.getBoundingClientRect().left;
+          }),
+        ),
+      };
+    });
+  const small = await open("default");
+  const two = await fit(small);
+  assert.equal(two.width, 36, "two digits fit in the width the corner button needs");
+  assert.equal(two.corner, two.width, "the corner is as wide as the numbers under it");
+  assert.equal(two.spill, 0, "no number is cut");
+  await small.context().close();
+  const marked = await open("costs-and-custom-fields");
+  const withMarks = await fit(marked);
+  await marked.context().close();
+  const large = await open("large-plan");
+  await large.locator('[data-gantt-slot="scroll"]').evaluate((element) => (element.scrollTop = element.scrollHeight));
+  await large.waitForTimeout(300);
+  const four = await fit(large);
+  assert.ok(four.width > two.width, `four digits take ${four.width}px`);
+  assert.equal(four.spill, 0, "no number is cut");
+  assert.ok(four.spare >= 4 && four.spare <= 10, `the longest number has ${four.spare}px to its left`);
+  assert.equal(withMarks.spill, 0, "a number with marks beside it is not cut");
+  await large.context().close();
+});
+
+test("shows where a dragged column would drop, and carries its name with the pointer", async () => {
+  const page = await open("default");
+  const order = () => page.$$eval("[role=columnheader]", (cells) => cells.map((cell) => cell.dataset.ganttColumn));
+  const lines = () => page.$$eval('[data-gantt-slot="column-drop-line"]', (list) => list.map((line) => Math.round(line.getBoundingClientRect().left + line.getBoundingClientRect().width / 2)));
+  const edges = async (column) => {
+    const at = await box(page, `[role=columnheader][data-gantt-column="${column}"]`);
+    return { left: Math.round(at.x), right: Math.round(at.x + at.width) };
+  };
+  assert.deepEqual(await lines(), [], "no line before a drag");
+  const duration = await box(page, '[role=columnheader][data-gantt-column="duration"]');
+  const y = duration.y + 20;
+  await page.mouse.move(duration.x + duration.width / 2, y);
+  await page.mouse.down();
+  // Over the middle of Finish, two places to the right.
+  const finish = await edges("finish");
+  await page.mouse.move((finish.left + finish.right) / 2, y, { steps: 6 });
+  assert.deepEqual(await lines(), [finish.right, finish.right], "the heading row and the rows both mark the far edge of Finish");
+  const ghost = page.locator('[data-gantt-slot="column-drag-ghost"]');
+  assert.equal(await ghost.textContent(), "Duration");
+  const carried = await ghost.boundingBox();
+  assert.ok(Math.abs(carried.x - ((finish.left + finish.right) / 2 + 12)) <= 2, "the name is beside the pointer");
+  assert.ok(Number(await page.locator('[role=columnheader][data-gantt-column="duration"]').evaluate((cell) => getComputedStyle(cell).opacity)) < 1, "the heading fades where it stands");
+  // Back over its own place there is nowhere new to mark.
+  await page.mouse.move(duration.x + duration.width / 2, y, { steps: 6 });
+  assert.deepEqual(await lines(), []);
+  // To the left, the line is on the near edge of the column it would go before.
+  const name = await edges("name");
+  await page.mouse.move(name.left + 30, y, { steps: 6 });
+  assert.deepEqual(await lines(), [name.left, name.left]);
+  await page.mouse.move((finish.left + finish.right) / 2, y, { steps: 6 });
+  await page.mouse.up();
+  await page.waitForTimeout(200);
+  assert.deepEqual((await order()).slice(0, 4), ["name", "start", "finish", "duration"]);
+  assert.equal((await edges("duration")).right, finish.right, "the column's far edge is where the line was");
+  assert.deepEqual(await lines(), []);
+  assert.equal(await ghost.count(), 0, "the carried name is gone");
+  // A drag given up leaves nothing behind either.
+  const start = await box(page, '[role=columnheader][data-gantt-column="start"]');
+  await page.mouse.move(start.x + 20, y);
+  await page.mouse.down();
+  await page.mouse.move(start.x + 200, y, { steps: 4 });
+  assert.equal(await ghost.count(), 1);
+  await page.keyboard.press("Escape");
+  assert.equal(await ghost.count(), 0);
+  assert.deepEqual(await lines(), []);
+  await page.mouse.up();
+  await page.context().close();
+});

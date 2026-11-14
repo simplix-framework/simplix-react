@@ -32,6 +32,7 @@ import {
   columnWidth,
   customFieldOf,
   gridContentWidth,
+  rowNumberWidth,
 } from "../lib/grid-columns";
 import type { BuiltInColumnId, ColumnWidths, GanttColumnId } from "../lib/grid-columns";
 import { formatDate } from "../lib/format";
@@ -43,7 +44,7 @@ import { CellEditor } from "./cell-editor";
 
 export { TaskGridHeader } from "./task-grid-header";
 export type { TaskGridHeaderProps } from "./task-grid-header";
-export { DEFAULT_COLUMNS, DEFAULT_COLUMN_WIDTHS, INDICATOR_WIDTH, columnWidth, gridContentWidth, isEditableCell };
+export { DEFAULT_COLUMNS, DEFAULT_COLUMN_WIDTHS, INDICATOR_WIDTH, columnWidth, gridContentWidth, isEditableCell, rowNumberWidth };
 export type { BuiltInColumnId, ColumnWidths, GanttColumnId };
 
 /** The cell being edited. `initial` replaces the current value when editing began by typing. */

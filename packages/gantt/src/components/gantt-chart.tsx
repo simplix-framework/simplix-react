@@ -11,7 +11,7 @@ import { useTableScroll } from "../lib/use-table-scroll";
 import { useViewport } from "../lib/use-viewport";
 import { RowMenu } from "./row-menu";
 import { TableSplitter } from "./table-splitter";
-import { INDICATOR_WIDTH, TaskGridHeader, TaskGridRows, columnWidth, gridContentWidth } from "./task-grid";
+import { TaskGridHeader, TaskGridRows, columnWidth, gridContentWidth, rowNumberWidth } from "./task-grid";
 import type { GanttColumnId, GridEditing } from "./task-grid";
 import { TimelineBody } from "./timeline-body";
 import { TimelineHeader } from "./timeline-header";
@@ -26,8 +26,6 @@ const MIN_TIMELINE_WIDTH = 160;
 const OPENING_GRID_SHARE = 0.45;
 /** Room left between the table and the start of the plan, enough for the start's name tag. */
 const OPENING_GAP = 48;
-/** A table narrower than this draws its row number column compact. */
-const NARROW_GRID_WIDTH = 260;
 /** Rows drawn beyond the visible ones, so a fast scroll does not show a gap. */
 const OVERSCAN = 8;
 /** Height of the scroll bar under a table whose columns are wider than it. */
@@ -75,12 +73,14 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [showMarkers, project.start, project.statusDate, schedule.start, schedule.finish, today],
   );
+  // Where a column heading being dragged would drop, as a distance from the table's left edge.
+  const [columnDrop, setColumnDrop] = useState<number | null>(null);
   const storedGridWidth = useGantt((state) => state.gridWidth);
   const viewOptions = useGantt((state) => state.viewOptions);
   const readOnly = useGantt((state) => state.readOnly);
   const widths = useGantt((state) => state.columnWidths);
   // Opens as wide as its columns need, up to a share of the screen; a dragged width is the reader's and is kept.
-  const [openingGridWidth] = useState(() => defaultGridWidth ?? Math.min(gridContentWidth(store.getState().columns), 560));
+  const [openingGridWidth] = useState(() => defaultGridWidth ?? Math.min(gridContentWidth(store.getState().columns, rowNumberWidth(store.getState().history.present, store.getState().schedule)), 560));
   const { viewport, measured } = useViewport(scrollRef, { left: 0, top: 0, width: 1200, height: 600 });
   // The table never takes the whole chart: on a narrow screen it gives way so the timeline stays in reach.
   const widest = Math.max(MIN_GRID_WIDTH, viewport.width - MIN_TIMELINE_WIDTH);
@@ -88,9 +88,9 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
   // Shown alone, the table takes the whole chart and the timeline none of it.
   const screenGridWidth = pane === "table" ? viewport.width : pane === "timeline" ? 0 : splitGridWidth;
   // On paper the table is as wide as its columns, so every column shown on screen is printed.
-  const gridWidth = printing ? columns.reduce((sum, column) => sum + columnWidth(column, widths), INDICATOR_WIDTH) : screenGridWidth;
-  // A narrow table gives the row number column only what the number needs, and the name the rest.
-  const indicatorWidth = gridWidth < NARROW_GRID_WIDTH ? 36 : INDICATOR_WIDTH;
+  const gridWidth = printing ? columns.reduce((sum, column) => sum + columnWidth(column, widths), rowNumberWidth(project, schedule)) : screenGridWidth;
+  // The row number column is as wide as the longest number and the marks beside it need, and no wider.
+  const indicatorWidth = useMemo(() => rowNumberWidth(project, schedule), [project, schedule]);
   // A table too narrow for its first column draws that column as wide as the room there is,
   // so a long name ends in an ellipsis instead of running under the timeline.
   const firstColumn = columns[0];
@@ -304,6 +304,7 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
                 onMove={store.getState().moveColumn}
                 indicatorWidth={indicatorWidth}
                 pinFirstColumn={pinFirstColumn}
+                onDropPreview={setColumnDrop}
               />
             </div>
           </div>}
@@ -318,6 +319,10 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
             <div ref={tableScroll.body} className={`relative ${printing ? "overflow-hidden" : TABLE_SCROLLS}`} style={{ height: bodyHeight }} onScroll={tableScroll.onScroll} data-gantt-slot="table-body">
               {/* raw layout: the rows at their full width, scrolled sideways inside the table */}
               <div className="relative h-full" style={{ width: Math.max(tableWidth, gridWidth) }}>
+              {columnDrop !== null && (
+                // raw layout: the heading row's drop line carried down through the rows
+                <div className="pointer-events-none absolute top-0 z-[1] h-full w-0.5 -translate-x-1/2 bg-primary" style={{ left: columnDrop }} data-gantt-slot="column-drop-line" />
+              )}
               <TaskGridRows
                 columns={columns}
                 widths={shownWidths}
