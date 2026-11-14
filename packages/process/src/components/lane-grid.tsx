@@ -212,7 +212,9 @@ export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, tab
   const template = [
     "var(--process-title-width)",
     geometry.leftTracks > 0 ? `repeat(${geometry.leftTracks}, var(--process-track-width))` : "",
-    geometry.lanes.length > 0 ? `repeat(${geometry.lanes.length}, minmax(var(--process-lane-min-width), 1fr))` : "",
+    // A grid that scrolls gives each lane its least width: a share of a width measured from the
+    // lanes' own unbroken names would draw every lane wider than that and scroll further.
+    geometry.lanes.length > 0 ? `repeat(${geometry.lanes.length}, ${scroll ? "var(--process-lane-min-width)" : "minmax(var(--process-lane-min-width), 1fr)"})` : "",
     geometry.rightTracks > 0 ? `repeat(${geometry.rightTracks}, var(--process-track-width))` : "",
   ]
     .filter((part) => part.length > 0)
@@ -220,9 +222,9 @@ export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, tab
   const bodyRows = `${head + 1} / ${geometry.rows.length + head + 1}`;
 
   return (
-    <div data-process-slot="grid" data-scroll={scroll || undefined} style={{ gridTemplateColumns: template }}>
+    <div data-process-slot="grid" data-scroll={scroll || undefined} data-grouped={grouped || undefined} style={{ gridTemplateColumns: template }}>
       {Array.from({ length: head }, (_, row) => (
-        <div key={`head-${row}`} aria-hidden data-process-slot="head-band" style={{ gridRow: row + 1, gridColumn: `1 / ${columns + 1}` }} />
+        <div key={`head-${row}`} aria-hidden data-process-slot="head-band" data-head-row={row + 1} style={{ gridRow: row + 1, gridColumn: `1 / ${columns + 1}` }} />
       ))}
       <div aria-hidden data-process-slot="corner" style={{ gridRow: `1 / ${head + 1}`, gridColumn: 1 }} />
       {groupCells}

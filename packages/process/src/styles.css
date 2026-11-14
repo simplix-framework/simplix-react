@@ -146,6 +146,24 @@
     border-bottom: 1px solid var(--border);
   }
 
+  /*
+   * With lane groups the head is two rows, and both stay in sight: the row of group names keeps a
+   * fixed height, and the row of lane names stands right under it instead of over it.
+   */
+  [data-process-slot="grid"][data-grouped] {
+    --process-group-row: 28px;
+  }
+
+  [data-process-slot="grid"][data-grouped] [data-process-slot="lane-group"] {
+    box-sizing: border-box;
+    height: var(--process-group-row);
+    overflow: hidden;
+  }
+
+  [data-process-slot="grid"][data-grouped] :is([data-process-slot="lane-head"], [data-process-slot="head-band"][data-head-row="2"]) {
+    top: var(--process-group-row);
+  }
+
   [data-process-slot="corner"] {
     left: 0;
     z-index: 7;
