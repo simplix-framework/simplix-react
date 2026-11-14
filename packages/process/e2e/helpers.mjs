@@ -13,6 +13,12 @@ export const BASE = process.env.PROCESS_STORYBOOK_URL ?? "http://localhost:6006"
 /** The widths every layout check is run at, in CSS pixels: three phones, two tablets, two desktops. */
 export const WIDTHS = [320, 375, 414, 600, 768, 1024, 1440];
 
+/**
+ * A style sheet added to every page before it is measured. `planted-defects.mjs` sets it to break
+ * one thing at a time and prove that the checks notice; it is empty in an ordinary run.
+ */
+const PLANTED = process.env.PROCESS_E2E_PLANTED_CSS ?? "";
+
 /** The widest viewport opened as a phone, with a finger for a pointer. */
 export const PHONE_WIDTH = 414;
 
@@ -46,6 +52,7 @@ export async function open(story, { width = 1440, height = 900, locale = "en", r
   } catch {
     throw new Error(`story ${story} at ${width}px never showed ${ready}: is Storybook running at ${BASE}?`);
   }
+  if (PLANTED.length > 0) await page.addStyleTag({ content: PLANTED });
   // The layout is chosen after the box has been measured; wait for the measured choice to settle.
   await page.waitForFunction(() => document.querySelector("[data-process-root]")?.getAttribute("data-layout") !== null);
   await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
