@@ -13,6 +13,9 @@ export const BASE = process.env.PROCESS_STORYBOOK_URL ?? "http://localhost:6006"
 /** The widths every layout check is run at, in CSS pixels: three phones, two tablets, two desktops. */
 export const WIDTHS = [320, 375, 414, 600, 768, 1024, 1440];
 
+/** The widest viewport opened as a phone, with a finger for a pointer. */
+export const PHONE_WIDTH = 414;
+
 /** How long a page may take to show the lanes. A hang guard for a busy machine, not a pace. */
 const READY_TIMEOUT = 90_000;
 
@@ -33,7 +36,9 @@ after(async () => {
  * @param options `width` and `height` of the viewport, `locale` of the wording, `ready` selector
  */
 export async function open(story, { width = 1440, height = 900, locale = "en", ready = "[data-process-root]" } = {}) {
-  const context = await browser.newContext({ viewport: { width, height } });
+  // A phone is held in a hand: at a phone's width the page is given a finger for a pointer.
+  const phone = width <= PHONE_WIDTH;
+  const context = await browser.newContext({ viewport: { width, height }, hasTouch: phone, isMobile: phone });
   const page = await context.newPage();
   await page.goto(`${BASE}/iframe.html?id=process-processlanes--${story}&viewMode=story&globals=locale:${locale}`, { waitUntil: "domcontentloaded" });
   try {

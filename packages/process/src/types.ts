@@ -31,6 +31,8 @@ export interface ProcessLanesProps {
   visibleLanes?: readonly Id[];
   /** Called with the lanes to draw when the reader changes them. */
   onVisibleLanesChange?: (lanes: Id[]) => void;
+  /** The lanes the reader holds, by id: drawn with a tint of their own and named as the reader's. */
+  highlightLanes?: readonly Id[];
   /** Draws the row of lane toggles above the procedure. @defaultValue false */
   laneFilter?: boolean;
   /** What is picked now. */

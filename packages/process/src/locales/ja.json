@@ -5,20 +5,40 @@
   "notApplicable": "該当なし",
   "conditional": "条件付き",
   "parallel": "並行",
-  "repeat": "{{step}}まで繰り返し",
+  "repeat": "繰り返し · {{step}}まで",
   "together": "共同で実施",
   "folded": "表示中のレーンに作業なし",
   "empty": "ステップなし",
-  "kind": { "do": "実施", "check": "確認" },
-  "jump": {
-    "back": "ステップ{{number}}へ戻る",
-    "skip": "ステップ{{number}}へ進む",
-    "external": "{{name}}へ移動"
+  "kind": {
+    "do": "実施",
+    "check": "確認"
   },
-  "status": { "done": "完了", "active": "進行中", "pending": "待機", "skipped": "スキップ" },
+  "jump": {
+    "back": "↩ {{label}} → {{number}}",
+    "skip": "⤵ {{label}} → {{number}}",
+    "external": "↗ {{label}} → {{name}}"
+  },
+  "status": {
+    "done": "完了",
+    "active": "進行中",
+    "pending": "待機",
+    "skipped": "スキップ"
+  },
   "count": "{{count}}回記録",
   "lanes": "レーン",
   "allLanes": "すべて",
   "sections": "区間",
-  "detail": "詳細"
+  "detail": "詳細",
+  "condition": "条件",
+  "reworkAgain": "修正後に再実施",
+  "from": {
+    "back": "↩ {{number}}から戻る",
+    "skip": "⤵ {{number}}から進む"
+  },
+  "jumpSpoken": {
+    "back": "ステップ{{number}}へ戻る",
+    "skip": "ステップ{{number}}へ進む",
+    "external": "{{name}}へ移動"
+  },
+  "myLane": "自分"
 }

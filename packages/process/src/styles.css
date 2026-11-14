@@ -9,35 +9,49 @@
 @source "../src/**/*.{ts,tsx}";
 
 /*
- * Every rule sits in the components layer, so a consumer's utility classes keep winning, and
- * reads the framework's theme tokens only: one markup under every design and colour theme.
+ * Every rule sits in the components layer, so a consumer's utility classes keep winning. Colours,
+ * type sizes and radii are the framework's theme tokens: one markup under every design, colour
+ * theme and mode. The lengths below are the geometry of the drawing itself.
  */
 @layer components {
   [data-process-root] {
+    /* The drawing: line width, node, arrowhead, corner, and where on a row a node stands. */
     --process-line: 2px;
-    --process-corner: 8px;
+    --process-node: 18px;
+    --process-node-y: 20px;
     --process-arrow: 5px;
-    --process-pad: 10px;
-    --process-flow: var(--color-border-strong);
+    --process-arrow-length: 7px;
+    --process-corner: 9px;
+    --process-side: 18px;
+    /* What each line and node is drawn in. */
+    --process-ink: var(--color-foreground);
+    --process-flow: var(--color-muted-foreground);
     --process-back: var(--color-warn);
-    --process-skip: var(--color-info);
-    --process-accent: var(--color-primary);
+    --process-skip: var(--color-purple);
+    --process-done: var(--color-success);
+    --process-done-soft: var(--color-success-soft);
+    --process-life: var(--color-border-strong);
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
     min-width: 0;
-    font-size: var(--fs-body-sm, 0.875rem);
+    font-size: var(--fs-body-sm);
     line-height: 1.4;
   }
 
-  [data-process-root] button {
+  [data-process-slot="step-button"],
+  [data-process-slot="act"],
+  [data-process-slot="jump"] {
     font: inherit;
     color: inherit;
-    text-align: start;
     cursor: pointer;
+    background: none;
+    border: 0;
+    padding: 0;
+    border-radius: var(--radius-control);
   }
 
-  [data-process-root] button:focus-visible {
+  [data-process-root] :is([data-process-slot="step-button"], [data-process-slot="act"], [data-process-slot="jump"]):focus-visible {
     outline: 2px solid var(--color-ring);
     outline-offset: 2px;
   }
@@ -46,13 +60,14 @@
   [data-process-slot="step-label"],
   [data-process-slot="act-label"],
   [data-process-slot="section-title"],
-  [data-process-slot="lane-head"],
+  [data-process-slot="lane-name"],
+  [data-process-slot="lane-caption"],
   [data-process-slot="lane-group"],
-  [data-process-slot="jump"] > span,
-  [data-process-slot="chip"],
+  [data-process-slot="jump"],
   [data-process-slot="note"],
   [data-process-slot="left-out"],
-  [data-process-slot="off-reason"] {
+  [data-process-slot="off-reason"],
+  [data-process-slot="act-lanes"] {
     min-width: 0;
     overflow-wrap: anywhere;
     word-break: keep-all;
@@ -63,39 +78,16 @@
   [data-process-slot="lane-filter"],
   [data-process-slot="section-nav"] {
     display: flex;
+    flex-wrap: wrap;
     gap: 6px;
-    overflow-x: auto;
-    padding-block: 2px;
-    scrollbar-width: thin;
   }
 
   [data-process-slot="section-nav"] {
     position: sticky;
     top: 0;
     z-index: 4;
+    padding-block: 4px;
     background: var(--color-background);
-  }
-
-  [data-process-slot="lane-toggle"],
-  [data-process-slot="section-link"] {
-    flex: none;
-    min-height: 44px;
-    min-width: 44px;
-    padding: 0 14px;
-    border: 1px solid var(--color-border);
-    border-radius: 999px;
-    background: var(--color-card);
-    white-space: nowrap;
-  }
-
-  [data-process-slot="lane-toggle"][aria-pressed="true"] {
-    border-color: var(--process-accent);
-    background: var(--color-primary-soft);
-    color: var(--color-primary-strong, var(--color-primary));
-  }
-
-  [data-process-slot="lane-toggle"][data-group] {
-    font-weight: var(--fw-semibold, 600);
   }
 
   /* ── The lane grid ──────────────────────────────────────────────────────── */
@@ -105,7 +97,7 @@
     max-height: 100%;
     overflow: auto;
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg, 10px);
+    border-radius: var(--radius-surface);
     background: var(--color-card);
   }
 
@@ -140,40 +132,94 @@
   [data-process-slot="lane-group"] {
     position: sticky;
     top: 0;
-    z-index: 3;
+    z-index: 6;
     background: var(--color-muted);
   }
 
-  [data-process-slot="head-band"] {
+  [data-process-slot="head-band"]:last-of-type,
+  [data-process-slot="corner"] {
     border-bottom: 1px solid var(--color-border);
   }
 
   [data-process-slot="corner"] {
     left: 0;
-    z-index: 5;
-    border-bottom: 1px solid var(--color-border);
+    z-index: 7;
   }
 
   [data-process-slot="lane-head"],
   [data-process-slot="lane-group"] {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 8px 6px;
+    gap: 1px;
+    padding: 6px 4px;
     text-align: center;
-    font-weight: var(--fw-semibold, 600);
     border-inline-start: 1px solid var(--color-border);
   }
 
-  [data-process-slot="lane-group"] {
-    font-size: var(--fs-caption, 0.75rem);
-    color: var(--color-muted-foreground);
+  [data-process-slot="lane-head"] {
     border-bottom: 1px solid var(--color-border);
   }
 
-  [data-process-slot="row"] {
-    min-height: 22px;
+  [data-process-slot="lane-name"] {
+    font-weight: var(--fw-semibold);
+  }
+
+  [data-process-slot="lane-caption"],
+  [data-process-slot="lane-group"] {
+    font-size: var(--fs-caption);
+    color: var(--color-muted-foreground);
+  }
+
+  [data-process-slot="lane-group"] {
+    font-weight: var(--fw-semibold);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  [data-process-slot="lane-head"][data-highlight] {
+    background: var(--process-done-soft);
+  }
+
+  /* A lane: a shade for every other group, a tint for the reader's own, and a dashed line down its middle. */
+  [data-process-slot="lane"] {
+    position: relative;
     pointer-events: none;
+  }
+
+  [data-process-slot="lane"][data-band] {
+    background: color-mix(in srgb, var(--color-foreground) 3%, transparent);
+  }
+
+  [data-process-slot="lane"][data-highlight] {
+    background: color-mix(in srgb, var(--process-done) 10%, transparent);
+  }
+
+  [data-process-slot="lane"]::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    border-left: 1px dashed var(--process-life);
+  }
+
+  [data-process-slot="row"] {
+    min-height: 18px;
+    pointer-events: none;
+  }
+
+  [data-process-slot="row"][data-row="gate"] {
+    min-height: 22px;
+  }
+
+  [data-process-slot="row"][data-row="flow"] {
+    min-height: 24px;
+  }
+
+  [data-process-slot="row"][data-row="start"],
+  [data-process-slot="row"][data-row="end"] {
+    min-height: 30px;
   }
 
   [data-process-slot="row"][data-row="section"] {
@@ -181,84 +227,67 @@
     border-block: 1px solid var(--color-border);
   }
 
-  [data-process-slot="row"][data-row="excluded"],
-  [data-process-slot="row"][data-row="folded"] {
-    background: color-mix(in srgb, var(--color-muted) 55%, transparent);
+  [data-process-slot="row"][data-step-start] {
+    border-top: 1px solid var(--color-border);
   }
 
-  [data-process-slot="row"][data-row="start"],
-  [data-process-slot="row"][data-row="end"] {
-    min-height: 36px;
+  [data-process-slot="row"][data-run="active"] {
+    background: color-mix(in srgb, var(--process-done) 7%, transparent);
   }
 
   /* Titles stay in view while the lanes scroll sideways. */
-  [data-process-slot="grid"][data-scroll] [data-process-slot="step-title"],
-  [data-process-slot="grid"][data-scroll] [data-process-slot="jumps"] {
+  [data-process-slot="grid"][data-scroll] :is([data-process-slot="step-title"], [data-process-slot="section-title"], [data-process-slot="step-off"]) {
     position: sticky;
     left: 0;
-    z-index: 2;
+    z-index: 5;
+  }
+
+  [data-process-slot="grid"][data-scroll] [data-process-slot="step-title"] {
     background: var(--color-card);
     box-shadow: 1px 0 0 var(--color-border);
+  }
+
+  [data-process-slot="grid"][data-scroll] :is([data-process-slot="section-title"], [data-process-slot="step-off"]) {
+    width: max-content;
+    max-width: var(--process-title-width);
   }
 
   [data-process-slot="grid"] [data-process-slot="step-title"] {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 4px;
-    padding: var(--process-pad) 8px;
+    gap: 3px;
+    padding: 9px 10px 10px;
     min-width: 0;
-  }
-
-  [data-process-slot="step-title"][data-run="active"],
-  [data-process-slot="card"][data-run="active"] {
-    box-shadow: inset 3px 0 0 var(--process-accent);
+    position: relative;
+    z-index: 1;
   }
 
   [data-process-slot="step-button"] {
     display: flex;
-    align-items: flex-start;
+    align-items: baseline;
     gap: 8px;
-    min-height: 44px;
-    width: 100%;
-    padding: 6px 4px;
-    border: 0;
-    border-radius: var(--radius-md, 8px);
-    background: none;
-    font-weight: var(--fw-semibold, 600);
+    text-align: start;
+    font-weight: var(--fw-medium);
+  }
+
+  [data-run="active"] > [data-process-slot="step-button"] {
+    font-weight: var(--fw-bold);
   }
 
   [data-selected] > [data-process-slot="step-button"],
   [data-process-slot="act"][data-selected],
   [data-process-slot="jump"][data-selected] {
-    outline: 2px solid var(--process-accent);
-    outline-offset: 1px;
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
   }
 
   [data-process-slot="step-number"] {
     flex: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 22px;
-    height: 22px;
-    padding: 0 6px;
-    border-radius: 999px;
-    background: var(--color-foreground);
-    color: var(--color-background);
-    font-size: var(--fs-caption, 0.75rem);
+    font-family: var(--font-mono);
+    font-size: var(--fs-caption);
     font-variant-numeric: tabular-nums;
-  }
-
-  [data-run="done"] > [data-process-slot="step-button"] [data-process-slot="step-number"],
-  [data-run="done"] > [data-process-slot="card-head"] [data-process-slot="step-number"] {
-    background: var(--color-success);
-  }
-
-  [data-run="active"] > [data-process-slot="step-button"] [data-process-slot="step-number"],
-  [data-run="active"] > [data-process-slot="card-head"] [data-process-slot="step-number"] {
-    background: var(--process-accent);
-    color: var(--color-primary-foreground);
+    color: var(--color-muted-foreground);
   }
 
   [data-process-slot="chips"] {
@@ -267,181 +296,187 @@
     gap: 4px;
   }
 
-  [data-process-slot="chip"] {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 1px 8px;
-    border-radius: 999px;
-    border: 1px solid var(--color-border);
-    background: var(--color-muted);
-    font-size: var(--fs-caption, 0.75rem);
-  }
-
-  [data-process-slot="chip"][data-tone="accent"] {
-    border-color: transparent;
-    background: var(--color-primary-soft);
-    color: var(--color-primary-strong, var(--color-primary));
-  }
-
-  [data-process-slot="chip"][data-tone="warn"] {
-    border-color: transparent;
+  [data-process-slot="chips"] [data-direction="back"] {
+    color: var(--process-back);
+    border-color: color-mix(in srgb, var(--process-back) 45%, transparent);
     background: var(--color-warn-soft);
+  }
+
+  [data-process-slot="chips"] [data-direction="skip"] {
+    color: var(--process-skip);
+    border-color: color-mix(in srgb, var(--process-skip) 45%, transparent);
   }
 
   [data-process-slot="note"],
   [data-process-slot="left-out"],
   [data-process-slot="off-reason"],
-  [data-process-slot="marker-label"] {
-    font-size: var(--fs-caption, 0.75rem);
+  [data-process-slot="run"],
+  [data-process-slot="act-holder"],
+  [data-process-slot="act-lanes"] {
+    font-size: var(--fs-caption);
     color: var(--color-muted-foreground);
   }
 
-  [data-process-slot="run"] {
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 4px;
-    font-size: var(--fs-caption, 0.75rem);
-    color: var(--color-muted-foreground);
-  }
-
-  [data-process-slot="run"][data-status="done"] {
-    color: var(--color-success);
-  }
-
+  [data-process-slot="run"][data-status="done"],
   [data-process-slot="run"][data-status="active"] {
-    color: var(--process-accent);
-    font-weight: var(--fw-semibold, 600);
+    color: var(--process-done);
+    font-weight: var(--fw-semibold);
+  }
+
+  /* A jump as its step lists it: its ground, an arrow and the step it goes to, in the colour of its line. */
+  [data-process-slot="jump"] {
+    text-align: start;
+    font-size: var(--fs-caption);
+    font-weight: var(--fw-bold);
+    color: var(--process-back);
+  }
+
+  [data-process-slot="jump"][data-direction="skip"] {
+    color: var(--process-skip);
+  }
+
+  [data-process-slot="jump"][data-direction="external"] {
+    color: var(--color-muted-foreground);
   }
 
   [data-process-slot="section-title"] {
     margin: 0;
-    padding: 8px 12px;
-    font-size: var(--fs-body-sm, 0.875rem);
-    font-weight: var(--fw-bold, 700);
+    padding: 6px 10px;
+    font-size: var(--fs-body-sm);
+    font-weight: var(--fw-bold);
     position: relative;
     z-index: 1;
-  }
-
-  [data-process-slot="grid"][data-scroll] [data-process-slot="section-title"],
-  [data-process-slot="grid"][data-scroll] [data-process-slot="step-off"] {
-    position: sticky;
-    left: 0;
-    width: max-content;
-    max-width: var(--process-title-width);
   }
 
   [data-process-slot="step-off"] {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: baseline;
     gap: 6px;
-    padding: 6px 12px;
+    padding: 4px 10px;
+    font-size: var(--fs-caption);
     color: var(--color-muted-foreground);
     position: relative;
     z-index: 1;
-  }
-
-  [data-process-slot="step-off"] [data-process-slot="step-number"] {
-    background: var(--color-muted-foreground);
-  }
-
-  [data-process-slot="step-off"] [data-process-slot="step-label"] {
-    text-decoration: line-through;
   }
 
   [data-process-slot="parallel-run"] {
     pointer-events: none;
-    border-inline-start: 3px solid var(--process-accent);
-    z-index: 3;
+    border-inline-start: 3px solid var(--process-done);
+    z-index: 2;
   }
 
-  [data-process-slot="grid"] [data-process-slot="jumps"] {
+  /* ── Nodes ──────────────────────────────────────────────────────────────── */
+
+  /* A cell's content starts so that the middle of its node stands on the row's line. */
+  [data-process-slot="act-cell"],
+  [data-process-slot="rework-cell"] {
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    padding: 4px 8px;
+    align-items: center;
     min-width: 0;
-  }
-
-  [data-process-slot="jump"] {
-    display: flex;
-    align-items: flex-start;
-    gap: 6px;
-    min-height: 44px;
-    padding: 6px 8px;
-    border: 1px dashed var(--process-back);
-    border-radius: var(--radius-md, 8px);
-    background: none;
-    font-size: var(--fs-caption, 0.75rem);
-  }
-
-  [data-process-slot="jump"][data-direction="skip"] {
-    border-color: var(--process-skip);
-  }
-
-  [data-process-slot="jump"][data-direction="external"] {
-    border-color: var(--color-border-strong);
-  }
-
-  /* ── Acts ───────────────────────────────────────────────────────────────── */
-
-  [data-process-slot="act-cell"] {
-    display: flex;
-    align-items: stretch;
-    padding: var(--process-pad) 6px;
-    min-width: 0;
+    padding: calc(var(--process-node-y) - var(--process-node) / 2) 2px 8px;
     position: relative;
-    z-index: 1;
+    z-index: 3;
     pointer-events: none;
   }
 
-  [data-process-slot="act"] {
+  [data-process-slot="grid"] [data-process-slot="act"],
+  [data-process-slot="rework-cell"] {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     align-items: center;
-    gap: 6px;
-    width: 100%;
-    min-height: 44px;
-    min-width: 44px;
-    padding: 8px 10px;
-    border: 1px solid var(--color-border-strong);
-    border-radius: var(--radius-md, 8px);
-    background: var(--color-background);
+    gap: 3px;
+    max-width: 100%;
+    text-align: center;
     pointer-events: auto;
   }
 
-  [data-process-slot="act"][data-kind="check"] {
-    border-style: double;
-    border-width: 3px;
+  [data-process-slot="node"] {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: var(--process-node);
+    height: var(--process-node);
+    border-radius: 50%;
+    border: 2px solid var(--process-ink);
+    background: var(--color-card);
+    color: var(--process-ink);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-bold);
+    line-height: 1;
   }
 
-  [data-process-slot="act"][data-run="done"] {
-    border-color: var(--color-success);
+  /* The first act of a step is filled; the acts that take over from it are outlined. */
+  [data-process-slot="node"][data-first] {
+    background: var(--process-ink);
+    color: var(--color-background);
   }
 
-  [data-process-slot="act"][data-run="active"] {
-    border-color: var(--process-accent);
-    background: var(--color-primary-soft);
+  [data-process-slot="node"][data-run="done"] {
+    border-color: var(--process-done);
+    background: var(--process-done);
+    color: var(--color-background);
   }
 
-  [data-process-slot="act"][data-run="skipped"] {
+  [data-process-slot="node"][data-run="active"] {
+    border-color: var(--process-done);
+    background: var(--process-done);
+    color: var(--color-background);
+    box-shadow: 0 0 0 4px var(--process-done-soft);
+  }
+
+  [data-process-slot="node"][data-run="skipped"] {
     border-style: dashed;
+    border-color: var(--color-border-strong);
+    background: var(--color-muted);
     color: var(--color-muted-foreground);
+  }
+
+  [data-process-slot="node"][data-rework] {
+    border-color: var(--process-back);
+    background: var(--color-card);
+    color: var(--process-back);
+    font-family: inherit;
+    font-size: var(--fs-label);
+  }
+
+  /* A label covers the lane's line behind it so that it stays readable. */
+  [data-process-slot="grid"] [data-process-slot="act-label"] {
+    padding: 1px 3px;
+    font-size: var(--fs-label);
+    line-height: 1.3;
+    background: color-mix(in srgb, var(--color-card) 88%, transparent);
+  }
+
+  [data-process-slot="act-holder"] {
+    background: color-mix(in srgb, var(--color-card) 88%, transparent);
+    padding-inline: 3px;
   }
 
   /* ── Lines ──────────────────────────────────────────────────────────────── */
 
-  [data-process-slot="lines"] {
+  [data-process-slot="lines"],
+  [data-process-slot="tag-cell"],
+  [data-process-slot="via-cell"] {
     position: relative;
     min-width: 0;
     pointer-events: none;
+    z-index: 2;
   }
 
-  [data-process-slot="grid"] [data-process-lane],
-  [data-process-slot="lines"] {
-    box-sizing: border-box;
+  /* Where the lines of a row run: through its nodes, or through its middle where it has none. */
+  [data-process-slot="lines"],
+  [data-process-slot="tag-cell"]:not([data-gate]),
+  [data-process-slot="via-cell"] {
+    --process-mid: var(--process-node-y);
+  }
+
+  [data-process-slot="lines"][data-mid="half"] {
+    --process-mid: 50%;
   }
 
   [data-process-seg],
@@ -451,89 +486,174 @@
     border: 0 solid var(--process-flow);
   }
 
-  [data-style="parallel"] { border-style: dashed; }
+  /*
+   * The stated order between steps is grey until the running case reaches it. Inside a step the
+   * line is the ink. A parallel run and a repeat are dotted and carry no head. A jump back is the
+   * warning colour, a jump ahead purple, and a step sent back to its own first act is dashed.
+   */
+  [data-process-seg][data-on] { border-color: var(--process-ink); }
+  [data-style="inner"],
+  [data-style="joint"] { border-color: var(--process-ink); }
+  [data-style="parallel"],
+  [data-style="repeat"] { border-style: dotted; }
   [data-style="back"] { border-color: var(--process-back); }
   [data-style="skip"] { border-color: var(--process-skip); }
-  [data-style="joint"] { border-style: dotted; }
+  [data-style="rework"] { border-color: var(--process-back); border-style: dashed; }
 
-  /* Straight pieces: the line is centred on the middle of the cell. */
-  [data-process-seg="tb"] { left: calc(50% - var(--process-line) / 2); top: 0; bottom: 0; border-left-width: var(--process-line); }
-  [data-process-seg="tc"] { left: calc(50% - var(--process-line) / 2); top: 0; height: 50%; border-left-width: var(--process-line); }
-  [data-process-seg="bc"] { left: calc(50% - var(--process-line) / 2); top: 50%; bottom: 0; border-left-width: var(--process-line); }
-  [data-process-seg="lr"] { top: calc(50% - var(--process-line) / 2); left: 0; right: 0; border-top-width: var(--process-line); }
-  [data-process-seg="lc"] { top: calc(50% - var(--process-line) / 2); left: 0; width: 50%; border-top-width: var(--process-line); }
-  [data-process-seg="rc"] { top: calc(50% - var(--process-line) / 2); left: 50%; right: 0; border-top-width: var(--process-line); }
+  /* Straight pieces. */
+  [data-process-seg="bottom_top"] { left: calc(50% - var(--process-line) / 2); top: 0; bottom: 0; border-left-width: var(--process-line); }
+  [data-process-seg="center_top"] { left: calc(50% - var(--process-line) / 2); top: 0; height: var(--process-mid); border-left-width: var(--process-line); }
+  [data-process-seg="bottom_center"] { left: calc(50% - var(--process-line) / 2); top: var(--process-mid); bottom: 0; border-left-width: var(--process-line); }
+  [data-process-seg="left_right"] { top: calc(var(--process-mid) - var(--process-line) / 2); left: 0; right: 0; border-top-width: var(--process-line); }
+  [data-process-seg="center_left"] { top: calc(var(--process-mid) - var(--process-line) / 2); left: 0; width: 50%; border-top-width: var(--process-line); }
+  [data-process-seg="center_right"] { top: calc(var(--process-mid) - var(--process-line) / 2); left: 50%; right: 0; border-top-width: var(--process-line); }
 
-  /* Corners: a quarter of the cell with two sides drawn and the corner between them rounded. */
-  [data-process-seg="tr"] {
-    left: calc(50% - var(--process-line) / 2); right: 0; top: 0; height: calc(50% + var(--process-line) / 2);
+  /* Corners between the middles of two edges: a quarter of the cell with two sides drawn. */
+  [data-process-seg="right_top"] {
+    left: calc(50% - var(--process-line) / 2); right: 0; top: 0; height: calc(var(--process-mid) + var(--process-line) / 2);
     border-left-width: var(--process-line); border-bottom-width: var(--process-line); border-bottom-left-radius: var(--process-corner);
   }
-  [data-process-seg="tl"] {
-    left: 0; width: calc(50% + var(--process-line) / 2); top: 0; height: calc(50% + var(--process-line) / 2);
+  [data-process-seg="left_top"] {
+    left: 0; width: calc(50% + var(--process-line) / 2); top: 0; height: calc(var(--process-mid) + var(--process-line) / 2);
     border-right-width: var(--process-line); border-bottom-width: var(--process-line); border-bottom-right-radius: var(--process-corner);
   }
-  [data-process-seg="br"] {
-    left: calc(50% - var(--process-line) / 2); right: 0; top: calc(50% - var(--process-line) / 2); bottom: 0;
+  [data-process-seg="bottom_right"] {
+    left: calc(50% - var(--process-line) / 2); right: 0; top: calc(var(--process-mid) - var(--process-line) / 2); bottom: 0;
     border-left-width: var(--process-line); border-top-width: var(--process-line); border-top-left-radius: var(--process-corner);
   }
-  [data-process-seg="bl"] {
-    left: 0; width: calc(50% + var(--process-line) / 2); top: calc(50% - var(--process-line) / 2); bottom: 0;
+  [data-process-seg="bottom_left"] {
+    left: 0; width: calc(50% + var(--process-line) / 2); top: calc(var(--process-mid) - var(--process-line) / 2); bottom: 0;
     border-right-width: var(--process-line); border-top-width: var(--process-line); border-top-right-radius: var(--process-corner);
   }
 
-  /* Arrowheads keep one size whatever the cell measures. */
+  /* A jump beside the lane's own line: down the side into the node, and from the gate row round to the side. */
+  [data-process-seg="center_side-top"] {
+    left: calc(50% - var(--process-side) - var(--process-line) / 2); width: calc(var(--process-side) + var(--process-line) / 2); top: 0; height: calc(var(--process-mid) + var(--process-line) / 2);
+    border-left-width: var(--process-line); border-bottom-width: var(--process-line); border-bottom-left-radius: 7px;
+  }
+  [data-process-seg="left_side-bottom"] {
+    left: 0; width: calc(50% - var(--process-side) + var(--process-line) / 2); top: calc(var(--process-mid) - var(--process-line) / 2); bottom: 0;
+    border-right-width: var(--process-line); border-top-width: var(--process-line); border-top-right-radius: var(--process-corner);
+  }
+
+  /* A rework line along the side of the first act's lane. */
+  [data-process-seg="center_top-left"] {
+    left: 0; width: 50%; top: 0; height: calc(var(--process-mid) + var(--process-line) / 2);
+    border-left-width: var(--process-line); border-bottom-width: var(--process-line); border-bottom-left-radius: var(--process-corner);
+  }
+  [data-process-seg="bottom-left_top-left"] { left: 0; top: 0; bottom: 0; border-left-width: var(--process-line); }
+  [data-process-seg="bottom-left_center"] {
+    left: 0; width: 50%; top: calc(var(--process-mid) - var(--process-line) / 2); bottom: 0;
+    border-left-width: var(--process-line); border-top-width: var(--process-line); border-top-left-radius: var(--process-corner);
+  }
+  [data-process-seg="center_top-right"] {
+    left: 50%; right: 0; top: 0; height: calc(var(--process-mid) + var(--process-line) / 2);
+    border-right-width: var(--process-line); border-bottom-width: var(--process-line); border-bottom-right-radius: var(--process-corner);
+  }
+  [data-process-seg="bottom-right_top-right"] { right: 0; top: 0; bottom: 0; border-right-width: var(--process-line); }
+  [data-process-seg="bottom-right_center"] {
+    left: 50%; right: 0; top: calc(var(--process-mid) - var(--process-line) / 2); bottom: 0;
+    border-right-width: var(--process-line); border-top-width: var(--process-line); border-top-right-radius: var(--process-corner);
+  }
+
+  /* Arrowheads keep one size whatever the cell measures, and touch the node they point at. */
   [data-process-arrow] {
     width: 0;
     height: 0;
-    border-width: var(--process-arrow);
-    border-color: transparent;
+    border: var(--process-arrow) solid transparent;
+    color: var(--process-flow);
+    z-index: 1;
   }
 
-  [data-process-arrow="down"] {
-    left: calc(50% - var(--process-arrow));
-    top: calc(var(--process-pad) - var(--process-arrow) - 1px);
-    border-bottom-width: 0;
-    border-top-color: var(--process-flow);
+  [data-process-arrow][data-on],
+  [data-process-arrow][data-style="inner"] { color: var(--process-ink); }
+  [data-process-arrow][data-style="back"],
+  [data-process-arrow][data-style="rework"] { color: var(--process-back); }
+  [data-process-arrow][data-style="skip"] { color: var(--process-skip); }
+
+  [data-process-arrow="down"] { border-bottom-width: 0; border-top: var(--process-arrow-length) solid currentColor; left: calc(50% - var(--process-arrow)); }
+  [data-process-arrow="up"] { border-top-width: 0; border-bottom: var(--process-arrow-length) solid currentColor; }
+  [data-process-arrow="right"] { border-right-width: 0; border-left: var(--process-arrow-length) solid currentColor; top: calc(var(--process-mid) - var(--process-arrow)); }
+  [data-process-arrow="left"] { border-left-width: 0; border-right: var(--process-arrow-length) solid currentColor; top: calc(var(--process-mid) - var(--process-arrow)); }
+
+  [data-process-arrow="down"][data-at="node"] { top: calc(var(--process-mid) - var(--process-node) / 2 - var(--process-arrow-length)); }
+  [data-process-arrow="right"][data-at="node"] { left: calc(50% - var(--process-node) / 2 - var(--process-arrow-length)); }
+  [data-process-arrow="left"][data-at="node"] { left: calc(50% + var(--process-node) / 2); }
+  [data-process-arrow="right"][data-at="edge"] { right: 3px; }
+  [data-process-arrow="left"][data-at="edge"] { left: 3px; }
+  [data-process-arrow="up"][data-at="top-left"] { left: calc(var(--process-line) / 2 - var(--process-arrow)); top: 3px; }
+  [data-process-arrow="up"][data-at="top-right"] { right: calc(var(--process-line) / 2 - var(--process-arrow)); top: 3px; }
+
+  /* The ground of a jump or a rework line, written over the line where it leaves its node. */
+  [data-process-slot="line-tag"] {
+    position: absolute;
+    right: calc(50% + var(--process-node) / 2 + 6px);
+    bottom: calc(100% - var(--process-mid) + 2px);
+    max-width: calc(50% - var(--process-node));
+    padding: 0 3px;
+    font-size: var(--fs-label);
+    font-weight: var(--fw-bold);
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--process-back);
+    background: var(--color-card);
+    z-index: 4;
   }
 
-  [data-process-arrow="right"] {
-    left: calc(50% - var(--process-arrow) - 1px);
-    top: calc(50% - var(--process-arrow));
-    border-right-width: 0;
-    border-left-color: var(--process-flow);
+  [data-process-slot="line-tag"][data-direction="skip"] { color: var(--process-skip); }
+
+  /* Over a gate row the line leaves by the top of the cell, and its ground stands there. */
+  [data-process-slot="tag-cell"][data-gate] [data-process-slot="line-tag"] {
+    right: calc(50% + var(--process-side) + 4px);
+    bottom: calc(100% - 4px);
   }
 
-  [data-process-arrow="down"][data-style="back"] { border-top-color: var(--process-back); }
-  [data-process-arrow="down"][data-style="skip"] { border-top-color: var(--process-skip); }
-  [data-process-arrow="right"][data-style="back"] { border-left-color: var(--process-back); }
-  [data-process-arrow="right"][data-style="skip"] { border-left-color: var(--process-skip); }
+  [data-process-slot="via-cell"][data-side="right"] [data-process-slot="line-tag"] {
+    right: auto;
+    left: calc(50% + 10px);
+  }
+
+  [data-process-slot="via"] {
+    position: absolute;
+    left: calc(50% - 3px);
+    top: calc(var(--process-mid) - 3px);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--process-back);
+  }
 
   [data-process-slot="marker-cell"] {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     position: relative;
-    z-index: 1;
+    z-index: 3;
     pointer-events: none;
   }
 
   [data-process-slot="marker"] {
+    position: absolute;
+    left: calc(50% - 6px);
+    top: calc(50% - 6px);
     width: 12px;
     height: 12px;
-    border-radius: 999px;
-    background: var(--process-flow);
+    border-radius: 50%;
+    background: var(--color-fg-soft, var(--process-ink));
   }
 
   [data-process-slot="marker"][data-kind="end"] {
     background: var(--color-card);
-    border: 3px solid var(--process-flow);
+    border: 2px solid var(--color-fg-soft, var(--process-ink));
+    box-shadow: inset 0 0 0 2px var(--color-card), inset 0 0 0 6px var(--color-fg-soft, var(--process-ink));
   }
 
   [data-process-slot="marker-label"] {
     position: absolute;
     left: calc(50% + 12px);
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: var(--fs-label);
+    font-weight: var(--fw-bold);
     white-space: nowrap;
   }
 
@@ -542,22 +662,22 @@
   [data-process-slot="stack"] {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
     min-width: 0;
   }
 
   [data-process-slot="stack"] [data-process-slot="section"] {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
     min-width: 0;
   }
 
   [data-process-slot="stack"] [data-process-slot="section-title"] {
     position: sticky;
-    top: 48px;
+    top: 36px;
     z-index: 3;
-    padding: 8px 4px;
+    padding: 6px 2px;
     background: var(--color-background);
     border-bottom: 1px solid var(--color-border);
   }
@@ -565,24 +685,29 @@
   [data-process-slot="stack"] [data-process-slot="steps"] {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
     min-width: 0;
   }
 
   [data-process-slot="card"] {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
     min-width: 0;
-    padding: 10px;
+    padding: 10px 12px;
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg, 10px);
+    border-radius: var(--radius-surface);
     background: var(--color-card);
+  }
+
+  [data-process-slot="card"][data-run="active"] {
+    border-color: var(--process-done);
+    background: color-mix(in srgb, var(--process-done) 7%, var(--color-card));
   }
 
   [data-process-slot="card"][data-inclusion="excluded"],
   [data-process-slot="card"][data-inclusion="folded"] {
-    padding: 2px;
+    padding: 2px 4px;
     border-style: dashed;
     background: none;
   }
@@ -591,35 +716,39 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 4px;
+    gap: 3px;
     min-width: 0;
   }
 
   [data-process-slot="card-acts"] {
     display: flex;
     flex-direction: column;
-    gap: 6px;
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  [data-process-slot="act-lanes"] {
+  [data-process-slot="card-acts"] [data-process-slot="act"] {
     display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    margin-inline-start: auto;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 5px 2px;
+    text-align: start;
+  }
+
+  [data-process-slot="act-text"] {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
   }
 
   [data-process-slot="stack"] [data-process-slot="jumps"] {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-  }
-
-  [data-process-slot="stack"] [data-process-slot="jump"] {
-    font-size: inherit;
-    align-items: center;
+    align-items: flex-start;
+    gap: 4px;
   }
 
   [data-process-slot="stack"] li[data-process-slot="parallel-run"] {
@@ -632,16 +761,16 @@
   }
 
   [data-process-slot="parallel-title"] {
-    font-size: var(--fs-caption, 0.75rem);
-    font-weight: var(--fw-semibold, 600);
-    color: var(--process-accent);
+    font-size: var(--fs-caption);
+    font-weight: var(--fw-semibold);
+    color: var(--process-done);
   }
 
   [data-process-slot="detail"] {
     min-width: 0;
-    padding: 12px;
+    padding: 10px 12px;
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg, 10px);
+    border-radius: var(--radius-surface);
     background: var(--color-card);
   }
 
@@ -656,13 +785,37 @@
     color: var(--color-muted-foreground);
   }
 
+  /* Under a finger everything pressed is at least a fingertip; under a mouse it keeps the framework's sizes. */
+  @media (pointer: coarse) {
+    [data-process-slot="step-button"],
+    [data-process-slot="jump"],
+    [data-process-slot="act"]:not([data-shadow]),
+    [data-process-root] [data-process-slot="lane-toggle"],
+    [data-process-root] [data-process-slot="section-link"] {
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    [data-process-slot="step-button"],
+    [data-process-slot="jump"] {
+      align-items: center;
+      display: inline-flex;
+    }
+
+    [data-process-slot="stack"] [data-process-slot="section-title"] {
+      top: 52px;
+    }
+  }
+
   /* Borders and lines are drawn in system colours when the reader forces a palette. */
   @media (forced-colors: active) {
     [data-process-root] {
+      --process-ink: CanvasText;
       --process-flow: CanvasText;
       --process-back: CanvasText;
       --process-skip: CanvasText;
-      --process-accent: Highlight;
+      --process-done: Highlight;
+      --process-life: GrayText;
     }
   }
 

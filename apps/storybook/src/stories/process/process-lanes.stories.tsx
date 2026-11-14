@@ -83,6 +83,11 @@ export const Running: Story = {
   render: () => <ProcessLanes definition={purchaseRequest()} facts={{ large: true }} run={purchaseRunning()} />,
 };
 
+/** The reader's own lane tinted and named, on a running case. */
+export const MyLane: Story = {
+  render: () => <ProcessLanes definition={purchaseRequest()} facts={{ large: true }} run={purchaseRunning()} highlightLanes={["manager"]} />,
+};
+
 /** A finished case with a skipped step and a count on the repeating one. */
 export const Finished: Story = {
   render: () => <ProcessLanes definition={equipmentInspection()} facts={{ defect: false }} run={inspectionFinished()} />,

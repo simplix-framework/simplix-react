@@ -3,6 +3,8 @@ import type { Id, LayoutMode } from "@simplix-react/process-core";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import type { CSSProperties, FocusEvent } from "react";
 
+import { Button } from "@simplix-react/ui";
+
 import { cn } from "../lib/cn";
 import { focusStep, moveFocus } from "../lib/keyboard";
 import { useContainerWidth } from "../lib/use-container-width";
@@ -36,6 +38,7 @@ export function ProcessLanes({
   metrics,
   visibleLanes,
   onVisibleLanesChange,
+  highlightLanes,
   laneFilter = false,
   selected = null,
   onSelect,
@@ -56,6 +59,7 @@ export function ProcessLanes({
   const chosen = visibleLanes ?? ownLanes;
   const shownIds = useMemo(() => (chosen === undefined ? process.lanes.map((lane) => lane.id) : process.lanes.filter((lane) => chosen.includes(lane.id)).map((lane) => lane.id)), [chosen, process]);
   const shown = useMemo(() => new Set(shownIds), [shownIds]);
+  const highlight = useMemo(() => new Set(highlightLanes ?? []), [highlightLanes]);
   const setLanes = (lanes: Id[]): void => {
     if (visibleLanes === undefined) setOwnLanes(lanes);
     onVisibleLanesChange?.(lanes);
@@ -120,21 +124,22 @@ export function ProcessLanes({
     <div ref={root} role="group" aria-label={definition.name} data-process-root data-layout={mode} data-lanes={geometry.lanes.length} data-tracks={geometry.trackCount} className={cn("text-foreground", className)} style={style} onKeyDown={moveFocus} onFocus={onFocus}>
       {laneFilter && process.lanes.length > 1 && (
         <div role="group" aria-label={t("lanes")} data-process-slot="lane-filter">
-          <button type="button" data-process-slot="lane-toggle" aria-pressed={shown.size === process.lanes.length} onClick={() => setLanes(process.lanes.map((lane) => lane.id))}>
+          <Button type="button" size="xs" variant={shown.size === process.lanes.length ? "secondary" : "outline"} data-process-slot="lane-toggle" aria-pressed={shown.size === process.lanes.length} onClick={() => setLanes(process.lanes.map((lane) => lane.id))}>
             {t("allLanes")}
-          </button>
+          </Button>
           {groups.map((group) => {
             const ids = process.lanes.filter((lane) => lane.group === group).map((lane) => lane.id);
+            const pressed = ids.every((id) => shown.has(id));
             return (
-              <button key={`group-${group}`} type="button" data-process-slot="lane-toggle" data-group aria-pressed={ids.every((id) => shown.has(id))} onClick={() => toggle(ids)}>
+              <Button key={`group-${group}`} type="button" size="xs" variant={pressed ? "secondary" : "outline"} data-process-slot="lane-toggle" data-group aria-pressed={pressed} onClick={() => toggle(ids)}>
                 {group}
-              </button>
+              </Button>
             );
           })}
           {process.lanes.map((lane) => (
-            <button key={lane.id} type="button" data-process-slot="lane-toggle" data-process-lane-toggle={lane.id} aria-pressed={shown.has(lane.id)} onClick={() => toggle([lane.id])}>
+            <Button key={lane.id} type="button" size="xs" variant={shown.has(lane.id) ? "secondary" : "outline"} data-process-slot="lane-toggle" data-process-lane-toggle={lane.id} aria-pressed={shown.has(lane.id)} onClick={() => toggle([lane.id])}>
               {lane.label}
-            </button>
+            </Button>
           ))}
         </div>
       )}
@@ -145,18 +150,18 @@ export function ProcessLanes({
           {process.sections.length > 1 && (
             <nav aria-label={t("sections")} data-process-slot="section-nav">
               {process.sections.map(({ section }) => (
-                <button key={section.id} type="button" data-process-slot="section-link" onClick={() => root.current?.querySelector(`[data-process-section="${CSS.escape(section.id)}"]`)?.scrollIntoView({ block: "start", behavior: reducedMotion() ? "auto" : "smooth" })}>
+                <Button key={section.id} type="button" size="xs" variant="outline" data-process-slot="section-link" onClick={() => root.current?.querySelector(`[data-process-section="${CSS.escape(section.id)}"]`)?.scrollIntoView({ block: "start", behavior: reducedMotion() ? "auto" : "smooth" })}>
                   {section.label}
-                </button>
+                </Button>
               ))}
             </nav>
           )}
-          <StackList view={view} blocks={blocks} lanes={shown} uid={uid} selected={selected} tabStop={tabStop} onPick={pick} onFollow={follow} renderDetail={renderDetail} t={t} />
+          <StackList view={view} blocks={blocks} lanes={shown} highlight={highlight} uid={uid} selected={selected} tabStop={tabStop} onPick={pick} onFollow={follow} renderDetail={renderDetail} t={t} />
         </>
       ) : (
         <>
           <div data-process-slot="scroll">
-            <LaneGrid view={view} geometry={geometry} uid={uid} scroll={mode === "lanes-scroll"} selected={selected} tabStop={tabStop} onPick={pick} onFollow={follow} t={t} />
+            <LaneGrid view={view} geometry={geometry} uid={uid} highlight={highlight} scroll={mode === "lanes-scroll"} selected={selected} tabStop={tabStop} onPick={pick} onFollow={follow} t={t} />
           </div>
           {selected !== null && renderDetail !== undefined && (
             <aside aria-label={t("detail")} data-process-slot="detail">

@@ -9,16 +9,36 @@
   "together": "Together",
   "folded": "No act in the lanes shown",
   "empty": "No steps",
-  "kind": { "do": "Do", "check": "Check" },
-  "jump": {
-    "back": "Back to step {{number}}",
-    "skip": "Ahead to step {{number}}",
-    "external": "On to {{name}}"
+  "kind": {
+    "do": "Do",
+    "check": "Check"
   },
-  "status": { "done": "Done", "active": "In progress", "pending": "Waiting", "skipped": "Skipped" },
+  "jump": {
+    "back": "↩ {{label}} → {{number}}",
+    "skip": "⤵ {{label}} → {{number}}",
+    "external": "↗ {{label}} → {{name}}"
+  },
+  "status": {
+    "done": "Done",
+    "active": "In progress",
+    "pending": "Waiting",
+    "skipped": "Skipped"
+  },
   "count": "Recorded {{count}} times",
   "lanes": "Lanes",
   "allLanes": "All",
   "sections": "Sections",
-  "detail": "Details"
+  "detail": "Details",
+  "condition": "If",
+  "reworkAgain": "Again after rework",
+  "from": {
+    "back": "↩ Back from {{number}}",
+    "skip": "⤵ Ahead from {{number}}"
+  },
+  "jumpSpoken": {
+    "back": "Back to step {{number}}",
+    "skip": "Ahead to step {{number}}",
+    "external": "On to {{name}}"
+  },
+  "myLane": "Me"
 }

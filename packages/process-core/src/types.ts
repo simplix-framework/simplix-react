@@ -7,6 +7,8 @@ export interface Lane {
   label: string;
   /** Name of the group the lane is drawn under. Lanes sharing a name stand side by side. */
   group?: string;
+  /** A second line under the label: who holds the lane in the case shown. */
+  caption?: string;
 }
 
 /**
@@ -32,6 +34,8 @@ export interface Act {
   conditionLabel?: string;
   /** Opaque to this package. Handed back when the act is selected. */
   ref?: string;
+  /** Short marks drawn beside the label: what the act asks for (a signature, a measured value). */
+  tags?: string[];
 }
 
 /** One step of the procedure: an ordered run of acts. */
@@ -47,6 +51,8 @@ export interface Step {
   parallel?: string;
   /** The step is performed again and again until the step named here is performed. */
   repeat?: { endedBy: Id };
+  /** The last act may send the step back to its first act; the label says on what ground. */
+  rework?: { label: string };
   note?: string;
 }
 

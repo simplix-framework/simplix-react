@@ -4,7 +4,7 @@ import { test } from "node:test";
 
 import { chooseLayout } from "@simplix-react/process-core";
 
-import { close, open, WIDTHS } from "./helpers.mjs";
+import { close, open, PHONE_WIDTH, WIDTHS } from "./helpers.mjs";
 import { measure, TOLERANCE, TOUCH_TARGET } from "./measure.mjs";
 
 const STORIES = [
@@ -15,6 +15,7 @@ const STORIES = [
   "jumps-into-one-step",
   "running",
   "finished",
+  "my-lane",
   "lane-filter",
   "two-lanes",
   "single-lane",
@@ -37,7 +38,8 @@ for (const story of STORIES) {
       await close(page);
       assert.deepEqual(result.problems, [], `${story} at ${width}px`);
       assert.ok(result.counted.labels > 0 && result.counted.pressed > 0, `${story} at ${width}px measured nothing`);
-      if (result.layout !== "stack") assert.ok(result.counted.ends > 0 && result.counted.arrows > 0, `${story} at ${width}px drew no line`);
+      if (result.layout !== "stack") assert.ok(result.counted.ends > 0 && result.counted.nodes > 0, `${story} at ${width}px drew no line`);
+      assert.equal(result.coarse, width <= PHONE_WIDTH, `${story} at ${width}px has the wrong pointer`);
       const expected = FIXED[story] ?? chooseLayout({ width: result.width, laneCount: result.lanes, trackCount: result.tracks });
       assert.equal(result.layout, expected, `${story} at ${width}px in a box of ${result.width}px with ${result.lanes} lanes and ${result.tracks} tracks`);
     }

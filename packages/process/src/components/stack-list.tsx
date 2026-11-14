@@ -1,11 +1,10 @@
 import type { Id, StackBlock } from "@simplix-react/process-core";
-import { CornerDownRightIcon, CornerUpLeftIcon, ExternalLinkIcon } from "lucide-react";
 import type { ReactNode } from "react";
 
-import { jumpWords } from "../lib/view-model";
+import { jumpSpoken, jumpWords } from "../lib/view-model";
 import type { ProcessView } from "../lib/view-model";
 import type { ProcessTarget } from "../types";
-import { Chip, KindIcon, RunBadge, StepNotes } from "./parts";
+import { ActTags, Node, runWords, stepNo, StepNotes } from "./parts";
 import type { Translate } from "./parts";
 
 /** Props of {@link StackList}. */
@@ -14,6 +13,8 @@ export interface StackListProps {
   blocks: StackBlock[];
   /** The lanes shown, by id. An act none of whose lanes is among them is left off its card. */
   lanes: ReadonlySet<Id>;
+  /** The lanes the reader holds, by id. */
+  highlight: ReadonlySet<Id>;
   /** Prefix of the element ids this instance writes, unique on the page. */
   uid: string;
   selected: ProcessTarget | null;
@@ -27,12 +28,17 @@ export interface StackListProps {
 type StepBlock = Extract<StackBlock, { kind: "step" }>;
 
 /**
- * A case as one column: a card a step, its acts listed with the lanes that perform them, and
- * under them the jumps that leave it, each a line that goes to the step it names.
+ * A case as one column: a card a step, its acts listed as the nodes they are on the lane grid
+ * with the lanes that perform them, and under them the jumps that leave it, each a line that
+ * goes to the step it names.
  */
-export function StackList({ view, blocks, lanes, uid, selected, tabStop, onPick, onFollow, renderDetail, t }: StackListProps) {
+export function StackList({ view, blocks, lanes, highlight, uid, selected, tabStop, onPick, onFollow, renderDetail, t }: StackListProps) {
   const isPicked = (kind: ProcessTarget["kind"], id: string): boolean => selected !== null && selected.kind === kind && selected.id === id;
   const stop = (kind: string, id: string) => ({ "data-process-stop": `${kind}:${id}`, tabIndex: tabStop === `${kind}:${id}` ? 0 : -1 });
+  const arrivals = new Map<Id, Id[]>();
+  for (const jump of view.process.jumps) {
+    if (jump.drawn && jump.jump.to !== undefined) arrivals.set(jump.jump.to, [...(arrivals.get(jump.jump.to) ?? []), jump.jump.id]);
+  }
 
   const card = (block: StepBlock): ReactNode => {
     const resolved = view.steps.get(block.stepId)!;
@@ -46,7 +52,7 @@ export function StackList({ view, blocks, lanes, uid, selected, tabStop, onPick,
         {off ? (
           <div data-process-slot="step-off">
             <span data-process-slot="step-number" aria-label={t("stepNumber", { number: block.number })}>
-              {block.number}
+              {stepNo(block.number)}
             </span>
             <span data-process-slot="step-label">{resolved.step.label}</span>
             <span data-process-slot="off-reason">{reason}</span>
@@ -56,17 +62,16 @@ export function StackList({ view, blocks, lanes, uid, selected, tabStop, onPick,
             <div data-process-slot="card-head" data-selected={isPicked("step", block.stepId) || undefined}>
               <button type="button" {...stop("step", block.stepId)} data-process-slot="step-button" aria-current={mark?.status === "active" ? "step" : undefined} onClick={() => onPick({ kind: "step", id: block.stepId })}>
                 <span data-process-slot="step-number" aria-label={t("stepNumber", { number: block.number })}>
-                  {block.number}
+                  {stepNo(block.number)}
                 </span>
                 <span data-process-slot="step-label">{resolved.step.label}</span>
               </button>
-              {mark !== undefined && <RunBadge mark={mark} t={t} />}
-              <StepNotes view={view} stepId={block.stepId} inclusion={block.inclusion} t={t} />
+              <StepNotes view={view} step={resolved} inclusion={block.inclusion} arrivals={arrivals.get(block.stepId) ?? []} mark={mark} t={t} />
             </div>
             <ol data-process-slot="card-acts">
-              {acts.map((entry) => {
+              {acts.map((entry, index) => {
                 const act = view.acts.get(entry.actId)!;
-                const actMark = view.actMark(act.id);
+                const actMark = view.actMark(act.id) ?? (mark?.status === "done" || mark?.status === "skipped" ? { status: mark.status } : undefined);
                 return (
                   <li key={act.id}>
                     <button
@@ -75,19 +80,19 @@ export function StackList({ view, blocks, lanes, uid, selected, tabStop, onPick,
                       data-process-slot="act"
                       data-process-act={act.id}
                       data-kind={act.kind}
-                      data-run={actMark?.status}
                       data-selected={isPicked("act", act.id) || undefined}
                       onClick={() => onPick(act.ref === undefined ? { kind: "act", id: act.id } : { kind: "act", id: act.id, ref: act.ref })}
                     >
-                      <KindIcon kind={act.kind} />
-                      <span className="sr-only">{`${t(`kind.${act.kind}`)}: `}</span>
-                      <span data-process-slot="act-label">{act.label}</span>
-                      <span data-process-slot="act-lanes">
-                        {entry.lanes.map((lane) => (
-                          <Chip key={lane}>{view.lanes.get(lane)?.label ?? lane}</Chip>
-                        ))}
+                      <Node order={index + 1} first={index === 0} mark={actMark} />
+                      <span data-process-slot="act-text">
+                        <span className="sr-only">{`${t(`kind.${act.kind}`)}: `}</span>
+                        <span data-process-slot="act-label">{act.label}</span>
+                        <span data-process-slot="act-lanes">
+                          {entry.lanes.map((lane) => (highlight.has(lane) ? `${t("myLane")} · ${view.lanes.get(lane)?.label ?? lane}` : (view.lanes.get(lane)?.label ?? lane))).join(" · ")}
+                          {actMark === undefined ? "" : ` · ${runWords(actMark, t)}`}
+                        </span>
                       </span>
-                      {actMark !== undefined && <RunBadge mark={actMark} t={t} />}
+                      <ActTags act={act} />
                     </button>
                   </li>
                 );
@@ -97,7 +102,6 @@ export function StackList({ view, blocks, lanes, uid, selected, tabStop, onPick,
               <div data-process-slot="jumps">
                 {block.jumps.map((entry) => {
                   const jump = view.jumps.get(entry.jumpId)!;
-                  const Icon = jump.direction === "back" ? CornerUpLeftIcon : jump.direction === "skip" ? CornerDownRightIcon : ExternalLinkIcon;
                   return (
                     <button
                       key={entry.jumpId}
@@ -107,13 +111,13 @@ export function StackList({ view, blocks, lanes, uid, selected, tabStop, onPick,
                       data-process-jump={entry.jumpId}
                       data-direction={jump.direction}
                       data-selected={isPicked("jump", entry.jumpId) || undefined}
+                      aria-label={jumpSpoken(jump, t)}
                       onClick={() => {
                         onPick({ kind: "jump", id: entry.jumpId });
                         if (jump.jump.to !== undefined) onFollow(jump.jump.to);
                       }}
                     >
-                      <Icon aria-hidden className="size-4 shrink-0" />
-                      <span>{jumpWords(jump, t)}</span>
+                      {jumpWords(jump, t)}
                     </button>
                   );
                 })}
@@ -149,7 +153,7 @@ export function StackList({ view, blocks, lanes, uid, selected, tabStop, onPick,
         }
         items.push(
           <li key={`run-${block.key}`} data-process-slot="parallel-run">
-            <span data-process-slot="parallel-title">{t("parallel")}</span>
+            <span data-process-slot="parallel-title">{`∥ ${t("parallel")}`}</span>
             <ol data-process-slot="steps">{run}</ol>
           </li>,
         );

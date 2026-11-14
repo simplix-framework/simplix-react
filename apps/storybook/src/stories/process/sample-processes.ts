@@ -27,19 +27,19 @@ export function purchaseRequest(): ProcessDefinition {
     "purchase-request",
     "구매 요청",
     [
-      { id: "requester", label: "요청자", group: "요청 부서" },
-      { id: "manager", label: "부서장", group: "요청 부서" },
-      { id: "finance", label: "재무 담당", group: "지원 부서" },
-      { id: "buyer", label: "구매 담당", group: "지원 부서" },
+      { id: "requester", label: "요청자", group: "요청 부서", caption: "김하늘" },
+      { id: "manager", label: "부서장", group: "요청 부서", caption: "이도윤" },
+      { id: "finance", label: "재무 담당", group: "지원 부서", caption: "박서준" },
+      { id: "buyer", label: "구매 담당", group: "지원 부서", caption: "최지우" },
     ],
     [
       {
         id: "request",
         label: "요청과 승인",
         steps: [
-          step("draft", "구매 요청서 작성", [act("write", "requester", "do", "요청서 작성", { ref: "screen:request-form" }), act("review", "manager", "check", "필요성 검토")]),
-          step("budget", "예산 확인", [act("budget-check", "finance", "check", "예산 잔액 확인")], { condition: { fact: "large" }, conditionLabel: "100만 원 이상 구매" }),
-          step("approve", "구매 승인", [act("sign", "manager", "check", "승인 서명")]),
+          step("draft", "구매 요청서 작성", [act("write", "requester", "do", "요청서 작성", { ref: "screen:request-form" }), act("review", "manager", "check", "필요성 검토", { tags: ["서명"] })], { rework: { label: "내용 보완" }, note: "구매 요청서" }),
+          step("budget", "예산 확인", [act("budget-check", "finance", "check", "예산 잔액 확인", { tags: ["기준값"] })], { condition: { fact: "large" }, conditionLabel: "100만 원 이상 구매" }),
+          step("approve", "구매 승인", [act("sign", "manager", "check", "승인 서명", { tags: ["서명"] })]),
         ],
       },
       {
@@ -48,7 +48,7 @@ export function purchaseRequest(): ProcessDefinition {
         steps: [
           step("quote", "견적 비교", [act("collect", "buyer", "do", "견적서 수집"), act("compare", ["buyer", "requester"], "do", "견적 비교 회의")]),
           step("place", "발주", [act("order", "buyer", "do", "발주서 발행")]),
-          step("receive", "검수와 지급", [act("inspect", "requester", "check", "납품 검수"), act("pay", "finance", "do", "대금 지급")]),
+          step("receive", "검수와 지급", [act("inspect", "requester", "check", "납품 검수", { tags: ["서명", "사진"] }), act("pay", "finance", "do", "대금 지급")]),
         ],
       },
     ],
@@ -87,7 +87,7 @@ export function equipmentInspection(): ProcessDefinition {
         steps: [
           step("reading", "측정값 기록", [act("measure", "inspector", "do", "항목별 측정")], { repeat: { endedBy: "close" }, note: "항목마다 한 번씩 기록" }),
           step("repair", "결함 조치", [act("fix", "maintenance", "do", "부품 교체"), act("retest", "inspector", "check", "재측정")], { condition: { fact: "defect" }, conditionLabel: "결함이 있을 때" }),
-          step("close", "점검 종료", [act("release", "operator", "do", "장비 재가동"), act("sign-off", "safety", "check", "종료 확인")]),
+          step("close", "점검 종료", [act("release", "operator", "do", "장비 재가동"), act("sign-off", "safety", "check", "종료 확인", { tags: ["서명"] })], { rework: { label: "추가 조치 요구" } }),
         ],
       },
     ],

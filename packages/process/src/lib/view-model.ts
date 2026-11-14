@@ -42,8 +42,16 @@ export function laneLabels(view: ProcessView, act: Act): string[] {
   return act.lanes.map((id) => view.lanes.get(id)?.label ?? id);
 }
 
-/** The words a jump is announced and labelled with, given the translate function of this package. */
-export function jumpWords(jump: ResolvedJump, t: (key: string, values?: Record<string, string | number | boolean>) => string): string {
-  const where = jump.direction === "external" ? t("jump.external", { name: jump.jump.external ?? "" }) : t(`jump.${jump.direction}`, { number: jump.toNumber ?? 0 });
+type Words = (key: string, values?: Record<string, string | number | boolean>) => string;
+
+/** A jump as the grid writes it beside its step: its ground, an arrow, and the step it goes to. */
+export function jumpWords(jump: ResolvedJump, t: Words): string {
+  const number = jump.toNumber === undefined ? "" : String(jump.toNumber).padStart(2, "0");
+  return t(`jump.${jump.direction}`, { label: jump.jump.label, number, name: jump.jump.external ?? "" });
+}
+
+/** A jump as a screen reader speaks it: where it goes, then on what ground. */
+export function jumpSpoken(jump: ResolvedJump, t: Words): string {
+  const where = t(`jumpSpoken.${jump.direction}`, { number: jump.toNumber ?? 0, name: jump.jump.external ?? "" });
   return jump.jump.label.length > 0 ? `${where}: ${jump.jump.label}` : where;
 }

@@ -61,6 +61,7 @@ export function randomDefinition(next: () => number): ProcessDefinition {
       stepIds.push(id);
       const made: Step = { id, label: `step ${id}`, acts };
       if (next() < 0.25) made.condition = randomCondition(next);
+      if (next() < 0.2) made.rework = { label: `rework ${id}` };
       steps.push(made);
     }
     // One parallel run in some sections: two or three neighbouring steps.
