@@ -14,7 +14,7 @@ import { TableSplitter } from "./table-splitter";
 import { TaskGridHeader, TaskGridRows, columnWidth, gridContentWidth, rowNumberWidth } from "./task-grid";
 import type { GanttColumnId, GridEditing } from "./task-grid";
 import { TimelineBody } from "./timeline-body";
-import { TimelineHeader } from "./timeline-header";
+import { SCROLL_LEFT, TimelineHeader } from "./timeline-header";
 import { useChartKeys } from "./use-chart-keys";
 
 const ROW_HEIGHT = 32;
@@ -73,6 +73,16 @@ export function GanttChart({ defaultGridWidth, weekStartsOn = 0 }: GanttChartPro
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [showMarkers, project.start, project.statusDate, schedule.start, schedule.finish, today],
   );
+  // The sideways scroll position is also written on the box as it changes, for what has to follow it
+  // within the frame: a value kept in state is drawn one frame late.
+  useEffect(() => {
+    const element = scrollRef.current;
+    if (!element) return;
+    const write = (): void => element.style.setProperty(SCROLL_LEFT, printing ? "0" : String(element.scrollLeft));
+    write();
+    element.addEventListener("scroll", write, { passive: true });
+    return () => element.removeEventListener("scroll", write);
+  }, [printing]);
   // Where a column heading being dragged would drop, as a distance from the table's left edge.
   const [columnDrop, setColumnDrop] = useState<number | null>(null);
   const storedGridWidth = useGantt((state) => state.gridWidth);

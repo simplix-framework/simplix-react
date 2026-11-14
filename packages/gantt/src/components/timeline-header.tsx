@@ -25,6 +25,9 @@ export interface TimelineHeaderProps {
   clipLeft?: number;
 }
 
+/** The custom property a chart keeps on its scrolling box: how far it is scrolled sideways, as a plain number. */
+export const SCROLL_LEFT = "--gantt-scroll-left";
+
 /** Two tags closer than this would overlap, so the later one is set a row lower. */
 const TAG_CLEARANCE = 84;
 const TAG_HEIGHT = 16;
@@ -34,6 +37,8 @@ const TAG_AREA = 200;
 /** The two-tier date header above the bars, with a name tag for every marked date. */
 export function TimelineHeader({ scale, level, fromX, toX, weekStartsOn, markers = [], pinnedLeft = 0, clipLeft = 0 }: TimelineHeaderProps) {
   const { t, language } = useGanttTranslation();
+  // The timeline position at the table's edge, as a number: the one the chart keeps up to date while it scrolls, or the one handed in.
+  const edge = `var(${SCROLL_LEFT}, ${clipLeft})`;
   // Tags that would collide step down one row each, in the order of their dates.
   const tags = useMemo(() => {
     const placed: { marker: DateMarker; x: number; row: number }[] = [];
@@ -54,12 +59,10 @@ export function TimelineHeader({ scale, level, fromX, toX, weekStartsOn, markers
       {/* raw layout: the tags hang below the header; nothing of them is drawn left of where the pinned table ends */}
       <div
         className="pointer-events-none absolute inset-0 z-10"
-        style={{ clipPath: `inset(0 0 -${TAG_AREA}px ${clipLeft}px)` }}
+        style={{ clipPath: `inset(0 0 -${TAG_AREA}px calc(${edge} * 1px))` }}
         data-gantt-slot="marker-tags"
       >
       {tags.map(({ marker, x, row }) => {
-        // A tag whose date has gone under the table goes with it, whole.
-        if (x < clipLeft) return null;
         return (
         <div
           key={marker.kind}
@@ -70,10 +73,14 @@ export function TimelineHeader({ scale, level, fromX, toX, weekStartsOn, markers
           )}
           // Half over the header's lower edge, so the tag sits on top of its line. It is centred on the line
           // until that would put part of it under the table; from there it stays whole beside the table's edge.
+          // A tag whose date has gone under the table goes with it, whole. All of this follows the scroll
+          // position the chart writes on its scrolling box, which is never a frame behind what is drawn.
           style={{
             left: x,
             top: `calc(100% - ${TAG_HEIGHT / 2}px + ${row * (TAG_HEIGHT + 2)}px)`,
-            transform: `translateX(max(-50%, ${clipLeft - x}px))`,
+            transform: `translateX(max(-50%, calc((${edge} - ${x}) * 1px)))`,
+            // Shown or not, with nothing in between: the tag does not fade as its line nears the edge.
+            opacity: `clamp(0, calc((${x} - ${edge}) * 100 + 1), 1)`,
           }}
           data-gantt-marker-tag={marker.kind}
         >
