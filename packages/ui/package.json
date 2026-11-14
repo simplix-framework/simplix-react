@@ -45,7 +45,9 @@
     "src",
     "scripts/build-design-css.mjs",
     "scripts/check-design-classes.mjs",
-    "scripts/check-design-coverage.mjs"
+    "scripts/check-design-coverage.mjs",
+    "scripts/check-design-literals.mjs",
+    "scripts/check-slot-spread.mjs"
   ],
   "publishConfig": {
     "access": "public"
@@ -58,7 +60,7 @@
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
     "lint": "oxlint src",
-    "test": "vitest run --passWithNoTests",
+    "test": "node scripts/check-design-literals.mjs --test && vitest run --passWithNoTests",
     "clean": "rm -rf dist .turbo"
   },
   "peerDependencies": {
@@ -153,6 +155,7 @@
     "simplix-design-css": "./scripts/build-design-css.mjs",
     "simplix-design-classes": "./scripts/check-design-classes.mjs",
     "simplix-design-coverage": "./scripts/check-design-coverage.mjs",
-    "simplix-slot-spread": "./scripts/check-slot-spread.mjs"
+    "simplix-slot-spread": "./scripts/check-slot-spread.mjs",
+    "simplix-design-literals": "./scripts/check-design-literals.mjs"
   }
 }

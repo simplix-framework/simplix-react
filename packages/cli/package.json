@@ -7,7 +7,9 @@
     "dist/bin.js"
   ],
   "bin": {
-    "simplix": "./dist/bin.js"
+    "simplix": "./dist/bin.js",
+    "simplix-em-dash": "./scripts/check-em-dash.mjs",
+    "simplix-declared-imports": "./scripts/check-declared-imports.mjs"
   },
   "exports": {
     ".": {
@@ -16,7 +18,8 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "scripts"
   ],
   "publishConfig": {
     "access": "public"
@@ -25,8 +28,8 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
-    "lint": "oxlint src && node scripts/check-em-dash.mjs",
-    "test": "vitest run --passWithNoTests",
+    "lint": "oxlint src && node scripts/check-em-dash.mjs --skip __tests__ --skip __fixtures__ src",
+    "test": "node scripts/check-em-dash.mjs --test && node scripts/check-declared-imports.mjs --selftest && vitest run --passWithNoTests",
     "clean": "rm -rf dist .turbo"
   },
   "dependencies": {
