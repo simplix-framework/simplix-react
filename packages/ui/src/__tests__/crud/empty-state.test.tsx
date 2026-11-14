@@ -5,8 +5,20 @@ import { afterEach, describe, it, expect } from "vitest";
 afterEach(cleanup);
 
 import { EmptyState } from "../../crud/shared/empty-state";
+import { TableCardFrame } from "../../crud/shared/table-card-frame";
 
 describe("EmptyState", () => {
+  it("keeps the standalone frame", () => {
+    const { container } = render(<EmptyState title="Empty" />);
+    expect(container.querySelector('[data-slot="empty-state"]')?.getAttribute("data-bordered")).toBe("true");
+  });
+
+  it.each(["default", "sm"] as const)("uses the surrounding table frame at %s size", (size) => {
+    const { container } = render(<TableCardFrame><EmptyState size={size} title="Empty" /></TableCardFrame>);
+    expect(container.querySelectorAll('[data-slot="table-card-frame"]')).toHaveLength(1);
+    expect(container.querySelector('[data-slot="empty-state"]')?.getAttribute("data-bordered")).toBe("false");
+  });
+
   it("renders title", () => {
     render(<EmptyState title="No items found" />);
     expect(screen.getByText("No items found")).toBeTruthy();

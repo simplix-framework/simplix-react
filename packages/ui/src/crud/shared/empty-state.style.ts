@@ -3,9 +3,12 @@ import { defineSlotStyle } from "../../design/slot-style";
 /** The empty-state placeholder; `sm` is the panel-section weight. */
 export const emptyStateStyle = defineSlotStyle({
   slot: "empty-state",
-  base: "rounded-lg border px-6 text-center",
-  variants: { size: { sm: "py-5", default: "py-16" } },
-  defaultVariants: { size: "default" },
+  base: "px-6 text-center",
+  variants: {
+    size: { sm: "py-5", default: "py-16" },
+    bordered: { true: "rounded-lg border", false: "rounded-none border-0" },
+  },
+  defaultVariants: { size: "default", bordered: true },
 });
 
 /** The round badge around the icon. */

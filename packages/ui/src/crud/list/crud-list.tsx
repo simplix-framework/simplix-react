@@ -149,9 +149,10 @@ const emptyReasonConfig = {
 
 function EmptyReasonCard({ reason, bordered = true }: { reason: Exclude<EmptyReason, "no-data">; bordered?: boolean }) {
   const { t } = useTranslation("simplix/ui");
+  const frame = useTableCardFrame();
   const config = emptyReasonConfig[reason];
   return (
-    <div className="flex min-h-70 flex-col items-center justify-center" {...slotAttributes(crudListReasonStyle, { bordered })}>
+    <div className="flex min-h-70 flex-col items-center justify-center" {...slotAttributes(crudListReasonStyle, { bordered: bordered && !frame?.framed })}>
       <div className="[&_svg]:size-8" {...slotAttributes(crudListReasonIconStyle, { tone: config.tone })}>
         {config.icon}
       </div>

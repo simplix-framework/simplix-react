@@ -84,3 +84,11 @@ export const comboboxCheckStyle = defineSlotStyle({
   variants: {},
   defaultVariants: {},
 });
+
+/** Menu entries expose their full label so records with the same prefix stay distinguishable. */
+export const comboboxOptionTextStyle = defineSlotStyle({
+  slot: "field-combobox-option-text",
+  base: "min-w-0 whitespace-normal break-keep [overflow-wrap:anywhere]",
+  variants: {},
+  defaultVariants: {},
+});

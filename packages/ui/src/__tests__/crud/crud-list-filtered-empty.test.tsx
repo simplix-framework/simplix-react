@@ -42,6 +42,19 @@ const page = {
 };
 
 describe("CrudList.Table empty states by reason", () => {
+  it("keeps the surrounding frame for a card-mode search result with no rows", () => {
+    const { container } = render(
+      <CrudList>
+        <CrudList.TableCard>
+          <CrudList.Table<Row> data={[]} emptyReason="no-search" cardBreakpoint={1600}>
+            <CrudList.Column<Row> field="name" header="Name" />
+          </CrudList.Table>
+        </CrudList.TableCard>
+      </CrudList>,
+    );
+    expect(container.querySelector('[data-slot="crud-list-reason"]')?.getAttribute("data-bordered")).toBe("false");
+  });
+
   it("draws the page's no-data state for no-data", () => {
     renderEmpty({ emptyReason: "no-data", ...page });
     expect(screen.getByText("No accounts yet")).toBeTruthy();

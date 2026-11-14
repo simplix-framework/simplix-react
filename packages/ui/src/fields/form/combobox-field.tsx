@@ -10,6 +10,7 @@ import {
   comboboxCheckStyle,
   comboboxLabelStyle,
   comboboxOptionStyle,
+  comboboxOptionTextStyle,
   comboboxPanelStyle,
   comboboxSearchStyle,
   comboboxSpinnerArcStyle,
@@ -331,11 +332,11 @@ export function ComboboxField<T extends string = string>({
                       }}
                     >
                       <span
-                        className="flex flex-1 items-center truncate"
+                        className="flex min-w-0 flex-1 items-center"
                         {...slotAttributes(comboboxLabelStyle, {})}
                       >
                         {opt.icon}
-                        {opt.label}
+                        <span {...slotAttributes(comboboxOptionTextStyle, {})}>{opt.label}</span>
                       </span>
                       {/* Trailing check keeps every row's icon/label aligned to the same left edge. */}
                       {opt.value === value && (

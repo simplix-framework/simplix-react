@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { cn } from "../../utils/cn";
 import { slotAttributes } from "../../design/slot-style";
+import { useTableCardFrame } from "./table-card-frame";
 import {
   emptyStateActionStyle,
   emptyStateDescriptionStyle,
@@ -55,10 +56,12 @@ export function EmptyState({
   className,
 }: EmptyStateProps) {
   const compact = size === "sm";
+  // The table card owns its frame, including when a custom list empty slot draws this state.
+  const bordered = !useTableCardFrame()?.framed;
   return (
     <div
       className={cn("flex flex-col items-center justify-center", className)}
-      {...slotAttributes(emptyStateStyle, { size })}
+      {...slotAttributes(emptyStateStyle, { size, bordered })}
     >
       {icon && (
         <div
