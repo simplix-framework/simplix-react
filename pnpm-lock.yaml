@@ -1507,6 +1507,12 @@ importers:
       '@simplix-react/mock':
         specifier: workspace:*
         version: link:../mock
+      '@simplix-react/process':
+        specifier: workspace:*
+        version: link:../process
+      '@simplix-react/process-core':
+        specifier: workspace:*
+        version: link:../process-core
       '@simplix-react/react':
         specifier: workspace:*
         version: link:../react
