@@ -30,7 +30,8 @@ type StepBlock = Extract<StackBlock, { kind: "step" }>;
 /**
  * A case as one column: a card a step, its acts listed as the nodes they are on the lane grid
  * with the lanes that perform them, and under them the jumps that leave it, each a line that
- * goes to the step it names.
+ * goes to the step it names. One rail runs down the column through every step's number and
+ * nodes, from a start mark to an end mark, drawn as done as far as the running case has come.
  */
 export function StackList({ view, blocks, lanes, highlight, uid, selected, tabStop, onPick, onFollow, renderDetail, t }: StackListProps) {
   const isPicked = (kind: ProcessTarget["kind"], id: string): boolean => selected !== null && selected.kind === kind && selected.id === id;
@@ -171,5 +172,18 @@ export function StackList({ view, blocks, lanes, highlight, uid, selected, tabSt
       </section>,
     );
   }
-  return <div data-process-slot="stack">{sections}</div>;
+  // The column reads as one line of history: a start mark, the steps on a rail, an end mark.
+  return (
+    <div data-process-slot="stack">
+      <div aria-hidden data-process-slot="stack-marker" data-kind="start">
+        <span data-process-slot="marker" data-kind="start" />
+        <span data-process-slot="marker-label">{t("start")}</span>
+      </div>
+      {sections}
+      <div aria-hidden data-process-slot="stack-marker" data-kind="end">
+        <span data-process-slot="marker" data-kind="end" />
+        <span data-process-slot="marker-label">{t("end")}</span>
+      </div>
+    </div>
+  );
 }

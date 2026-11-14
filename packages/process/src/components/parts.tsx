@@ -129,11 +129,19 @@ export function StepNotes({ view, step, inclusion, arrivals, mark, t }: { view: 
   return (
     <>
       {step.step.note !== undefined && <span data-process-slot="note">{step.step.note}</span>}
-      {mark !== undefined && (
-        <span data-process-slot="run" data-status={mark.status}>
-          {runWords(mark, t)}
-        </span>
-      )}
+      {mark !== undefined &&
+        (mark.status === "active" ? (
+          <span data-process-slot="run" data-status="active">
+            <Badge variant="success" size="sm">
+              {t("status.active")}
+            </Badge>
+            {[mark.assignee, mark.count === undefined ? undefined : t("count", { count: mark.count })].filter((part) => part !== undefined).join(" · ")}
+          </span>
+        ) : (
+          <span data-process-slot="run" data-status={mark.status}>
+            {runWords(mark, t)}
+          </span>
+        ))}
       {tags.length > 0 && <span data-process-slot="chips">{tags}</span>}
       {left.map(({ act }) => (
         <span key={act.id} data-process-slot="left-out">

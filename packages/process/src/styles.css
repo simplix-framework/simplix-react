@@ -11,7 +11,9 @@
 /*
  * Every rule sits in the components layer, so a consumer's utility classes keep winning. Colours,
  * type sizes and radii are the framework's theme tokens: one markup under every design, colour
- * theme and mode. The lengths below are the geometry of the drawing itself.
+ * theme and mode. They are read by their own names (`--card`, `--foreground`) and never through
+ * the `--color-*` aliases, which are resolved once at the root and so keep their light values
+ * inside a dark scope. The lengths below are the geometry of the drawing itself.
  */
 @layer components {
   [data-process-root] {
@@ -27,13 +29,13 @@
     --process-land-x: 7px;
     --process-land-y: 4px;
     /* What each line and node is drawn in. */
-    --process-ink: var(--color-foreground);
-    --process-flow: var(--color-muted-foreground);
-    --process-back: var(--color-warn);
-    --process-skip: var(--color-purple);
-    --process-done: var(--color-success);
-    --process-done-soft: var(--color-success-soft);
-    --process-life: var(--color-border-strong);
+    --process-ink: var(--foreground);
+    --process-flow: var(--muted-foreground);
+    --process-back: var(--warning);
+    --process-skip: var(--purple);
+    --process-done: var(--success);
+    --process-done-soft: var(--success-soft);
+    --process-life: var(--border-strong);
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -55,7 +57,7 @@
   }
 
   [data-process-root] :is([data-process-slot="step-button"], [data-process-slot="act"], [data-process-slot="jump"]):focus-visible {
-    outline: 2px solid var(--color-ring);
+    outline: 2px solid var(--ring);
     outline-offset: 2px;
   }
 
@@ -90,7 +92,7 @@
     top: 0;
     z-index: 4;
     padding-block: 4px;
-    background: var(--color-background);
+    background: var(--background);
   }
 
   /* ── The lane grid ──────────────────────────────────────────────────────── */
@@ -99,9 +101,9 @@
     min-width: 0;
     max-height: 100%;
     overflow: auto;
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--border);
     border-radius: var(--radius-surface);
-    background: var(--color-card);
+    background: var(--card);
   }
 
   [data-process-slot="grid"] {
@@ -136,12 +138,12 @@
     position: sticky;
     top: 0;
     z-index: 6;
-    background: var(--color-muted);
+    background: var(--muted);
   }
 
   [data-process-slot="head-band"]:last-of-type,
   [data-process-slot="corner"] {
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--border);
   }
 
   [data-process-slot="corner"] {
@@ -158,11 +160,11 @@
     gap: 1px;
     padding: 6px 4px;
     text-align: center;
-    border-inline-start: 1px solid var(--color-border);
+    border-inline-start: 1px solid var(--border);
   }
 
   [data-process-slot="lane-head"] {
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--border);
   }
 
   [data-process-slot="lane-name"] {
@@ -172,12 +174,12 @@
   [data-process-slot="lane-caption"],
   [data-process-slot="lane-group"] {
     font-size: var(--fs-caption);
-    color: var(--color-muted-foreground);
+    color: var(--muted-foreground);
   }
 
   [data-process-slot="lane-group"] {
     font-weight: var(--fw-semibold);
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--border);
   }
 
   [data-process-slot="lane-head"][data-highlight] {
@@ -191,7 +193,7 @@
   }
 
   [data-process-slot="lane"][data-band] {
-    background: color-mix(in srgb, var(--color-foreground) 3%, transparent);
+    background: color-mix(in srgb, var(--foreground) 3%, transparent);
   }
 
   [data-process-slot="lane"][data-highlight] {
@@ -226,33 +228,56 @@
   }
 
   [data-process-slot="row"][data-row="section"] {
-    background: var(--color-muted);
-    border-block: 1px solid var(--color-border);
+    background: var(--muted);
+    border-block: 1px solid var(--border);
   }
 
   [data-process-slot="row"][data-step-start] {
-    border-top: 1px solid var(--color-border);
+    border-top: 1px solid var(--border);
   }
 
+  /* The step in progress: a band across every lane, edged above and below. */
   [data-process-slot="row"][data-run="active"] {
-    background: color-mix(in srgb, var(--process-done) 7%, transparent);
+    background: color-mix(in srgb, var(--process-done) 12%, transparent);
   }
 
-  /* Titles stay in view while the lanes scroll sideways. */
+  [data-process-slot="row"][data-run="active"][data-step-start] {
+    border-top-color: color-mix(in srgb, var(--process-done) 55%, transparent);
+  }
+
+  [data-process-slot="row"][data-run="active"][data-step-end] {
+    border-bottom: 1px solid color-mix(in srgb, var(--process-done) 55%, transparent);
+  }
+
+  /*
+   * Titles stay in view while the lanes scroll sideways. One backdrop covers the whole column of
+   * titles from the first row to the last, so that a line scrolled under it never shows through
+   * the gaps between one step's title and the next.
+   */
+  [data-process-slot="title-backdrop"] {
+    pointer-events: none;
+  }
+
+  [data-process-slot="grid"][data-scroll] [data-process-slot="title-backdrop"] {
+    position: sticky;
+    left: 0;
+    z-index: 4;
+    background: var(--card);
+    /* The second shadow covers the sliver a fraction of a pixel leaves at the box's own edge. */
+    box-shadow: 1px 0 0 var(--border), -2px 0 0 var(--card);
+  }
+
   [data-process-slot="grid"][data-scroll] :is([data-process-slot="step-title"], [data-process-slot="section-title"], [data-process-slot="step-off"]) {
     position: sticky;
     left: 0;
     z-index: 5;
+    width: var(--process-title-width);
+    box-sizing: border-box;
   }
 
-  [data-process-slot="grid"][data-scroll] [data-process-slot="step-title"] {
-    background: var(--color-card);
-    box-shadow: 1px 0 0 var(--color-border);
-  }
-
-  [data-process-slot="grid"][data-scroll] :is([data-process-slot="section-title"], [data-process-slot="step-off"]) {
-    width: max-content;
-    max-width: var(--process-title-width);
+  [data-process-slot="grid"][data-scroll] [data-process-slot="section-title"] {
+    background: var(--muted);
+    box-shadow: 1px 0 0 var(--border);
   }
 
   [data-process-slot="grid"] [data-process-slot="step-title"] {
@@ -274,14 +299,41 @@
     font-weight: var(--fw-medium);
   }
 
+  /* Its title carries a bar down its side, its number as a filled mark and its words in bold. */
+  [data-process-slot="step-title"][data-run="active"] {
+    box-shadow: inset 4px 0 0 var(--process-done);
+  }
+
+  [data-process-slot="grid"][data-scroll] [data-process-slot="step-title"][data-run="active"] {
+    background: color-mix(in srgb, var(--process-done) 12%, var(--card));
+  }
+
   [data-run="active"] > [data-process-slot="step-button"] {
     font-weight: var(--fw-bold);
+  }
+
+  [data-run="active"] > [data-process-slot="step-button"] > [data-process-slot="step-number"] {
+    padding: 0 6px;
+    border-radius: var(--radius-badge);
+    background: var(--process-done);
+    color: var(--background);
+    font-weight: var(--fw-bold);
+  }
+
+  /* The lane that holds the act in progress is marked in its heading. */
+  [data-process-slot="lane-head"][data-current] {
+    box-shadow: inset 0 -3px 0 var(--process-done);
+  }
+
+  [data-process-slot="lane-head"][data-current] [data-process-slot="lane-caption"] {
+    color: var(--process-done);
+    font-weight: var(--fw-semibold);
   }
 
   [data-selected] > [data-process-slot="step-button"],
   [data-process-slot="act"][data-selected],
   [data-process-slot="jump"][data-selected] {
-    outline: 2px solid var(--color-ring);
+    outline: 2px solid var(--ring);
     outline-offset: 2px;
   }
 
@@ -290,7 +342,7 @@
     font-family: var(--font-mono);
     font-size: var(--fs-caption);
     font-variant-numeric: tabular-nums;
-    color: var(--color-muted-foreground);
+    color: var(--muted-foreground);
   }
 
   [data-process-slot="chips"] {
@@ -302,7 +354,7 @@
   [data-process-slot="chips"] [data-direction="back"] {
     color: var(--process-back);
     border-color: color-mix(in srgb, var(--process-back) 45%, transparent);
-    background: var(--color-warn-soft);
+    background: var(--warn-soft);
   }
 
   [data-process-slot="chips"] [data-direction="skip"] {
@@ -317,7 +369,14 @@
   [data-process-slot="act-holder"],
   [data-process-slot="act-lanes"] {
     font-size: var(--fs-caption);
-    color: var(--color-muted-foreground);
+    color: var(--muted-foreground);
+  }
+
+  [data-process-slot="run"][data-status="active"] {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
   }
 
   [data-process-slot="run"][data-status="done"],
@@ -339,7 +398,7 @@
   }
 
   [data-process-slot="jump"][data-direction="external"] {
-    color: var(--color-muted-foreground);
+    color: var(--muted-foreground);
   }
 
   [data-process-slot="section-title"] {
@@ -358,7 +417,7 @@
     gap: 6px;
     padding: 4px 10px;
     font-size: var(--fs-caption);
-    color: var(--color-muted-foreground);
+    color: var(--muted-foreground);
     position: relative;
     z-index: 1;
   }
@@ -415,7 +474,7 @@
     height: var(--process-node);
     border-radius: 50%;
     border: 2px solid var(--process-ink);
-    background: var(--color-card);
+    background: var(--card);
     color: var(--process-ink);
     font-family: var(--font-mono);
     font-size: var(--fs-xs);
@@ -426,32 +485,49 @@
   /* The first act of a step is filled; the acts that take over from it are outlined. */
   [data-process-slot="node"][data-first] {
     background: var(--process-ink);
-    color: var(--color-background);
+    color: var(--background);
   }
 
   [data-process-slot="node"][data-run="done"] {
     border-color: var(--process-done);
     background: var(--process-done);
-    color: var(--color-background);
+    color: var(--background);
   }
 
+  /* The act in progress: a ring that breathes, so the eye finds it on a full page. */
   [data-process-slot="node"][data-run="active"] {
     border-color: var(--process-done);
     background: var(--process-done);
-    color: var(--color-background);
-    box-shadow: 0 0 0 4px var(--process-done-soft);
+    color: var(--background);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--process-done) 30%, transparent);
+    animation: process-node-current 1.8s ease-in-out infinite;
+  }
+
+  @keyframes process-node-current {
+    0%, 100% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--process-done) 35%, transparent); }
+    50% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--process-done) 12%, transparent); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-process-slot="node"][data-run="active"] {
+      animation: none;
+    }
+  }
+
+  [data-process-slot="act"][data-run="active"] [data-process-slot="act-label"] {
+    font-weight: var(--fw-bold);
   }
 
   [data-process-slot="node"][data-run="skipped"] {
     border-style: dashed;
-    border-color: var(--color-border-strong);
-    background: var(--color-muted);
-    color: var(--color-muted-foreground);
+    border-color: var(--border-strong);
+    background: var(--muted);
+    color: var(--muted-foreground);
   }
 
   [data-process-slot="node"][data-rework] {
     border-color: var(--process-back);
-    background: var(--color-card);
+    background: var(--card);
     color: var(--process-back);
     font-family: inherit;
     font-size: var(--fs-label);
@@ -462,11 +538,11 @@
     padding: 1px 3px;
     font-size: var(--fs-label);
     line-height: 1.3;
-    background: color-mix(in srgb, var(--color-card) 88%, transparent);
+    background: color-mix(in srgb, var(--card) 88%, transparent);
   }
 
   [data-process-slot="act-holder"] {
-    background: color-mix(in srgb, var(--color-card) 88%, transparent);
+    background: color-mix(in srgb, var(--card) 88%, transparent);
     padding-inline: 3px;
   }
 
@@ -633,7 +709,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     color: var(--process-back);
-    background: var(--color-card);
+    background: var(--card);
     z-index: 4;
   }
 
@@ -676,13 +752,13 @@
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: var(--color-fg-soft, var(--process-ink));
+    background: var(--secondary-foreground, var(--process-ink));
   }
 
   [data-process-slot="marker"][data-kind="end"] {
-    background: var(--color-card);
-    border: 2px solid var(--color-fg-soft, var(--process-ink));
-    box-shadow: inset 0 0 0 2px var(--color-card), inset 0 0 0 6px var(--color-fg-soft, var(--process-ink));
+    background: var(--card);
+    border: 2px solid var(--secondary-foreground, var(--process-ink));
+    box-shadow: inset 0 0 0 2px var(--card), inset 0 0 0 6px var(--secondary-foreground, var(--process-ink));
   }
 
   [data-process-slot="marker-label"] {
@@ -715,15 +791,15 @@
     position: sticky;
     top: 36px;
     z-index: 3;
-    padding: 6px 2px;
-    background: var(--color-background);
-    border-bottom: 1px solid var(--color-border);
+    padding: 6px 2px 6px 39px;
+    background: var(--background);
+    border-bottom: 1px solid var(--border);
   }
 
   [data-process-slot="stack"] [data-process-slot="steps"] {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: var(--process-rail-gap);
     min-width: 0;
   }
 
@@ -733,19 +809,125 @@
     gap: 6px;
     min-width: 0;
     padding: 10px 12px;
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--border);
     border-radius: var(--radius-surface);
-    background: var(--color-card);
+    background: var(--card);
+  }
+
+  /*
+   * The rail: one line down the column through every step's number and every act's node, carried
+   * across the gap between one card and the next, so that the cards read as one history and not
+   * as a list. It is drawn as done down to the step in progress and as still to come below it.
+   */
+  [data-process-slot="stack"] {
+    --process-rail-x: 21px;
+    --process-rail-gap: 6px;
+  }
+
+  [data-process-slot="card"],
+  [data-process-slot="stack-marker"] {
+    position: relative;
+    --process-rail-color: var(--process-life);
+  }
+
+  [data-process-slot="card"]::before,
+  [data-process-slot="card"]::after,
+  [data-process-slot="stack-marker"][data-kind="start"]::after {
+    content: "";
+    position: absolute;
+    left: calc(var(--process-rail-x) - var(--process-line) / 2);
+    border-left: var(--process-line) solid var(--process-rail-color);
+    pointer-events: none;
+  }
+
+  [data-process-slot="card"]::before { top: 0; bottom: 0; }
+  [data-process-slot="card"]::after { top: 100%; height: calc(var(--process-rail-gap) + 8px); }
+
+  /* A section's heading stands beside the rail, which runs on behind it. */
+  [data-process-slot="stack"] [data-process-slot="section-title"]::before {
+    content: "";
+    position: absolute;
+    left: calc(var(--process-rail-x) + 1px - var(--process-line) / 2);
+    top: 0;
+    bottom: -1px;
+    border-left: var(--process-line) solid var(--process-life);
+  }
+
+  /* The rail is done from the start as far as the first step that is not. */
+  [data-process-slot="stack"]:has([data-process-slot="card"]:is([data-run="done"], [data-run="active"])) > [data-process-slot="stack-marker"][data-kind="start"],
+  [data-process-slot="stack"] [data-process-slot="section"]:has([data-process-slot="card"]:is([data-run="done"], [data-run="active"])) > [data-process-slot="section-title"]::before {
+    --process-rail-color: var(--process-done);
+    border-left-color: var(--process-done);
+  }
+  /* A card's rail is measured from inside its border; a marker has none, so its rail stands one pixel further in. */
+  [data-process-slot="stack-marker"][data-kind="start"]::after { left: calc(var(--process-rail-x) + 1px - var(--process-line) / 2); top: 50%; height: calc(50% + 12px + var(--process-rail-gap)); }
+
+  [data-process-slot="card"]:is([data-run="done"], [data-run="skipped"]) { --process-rail-color: var(--process-done); }
+
+  /* The step in progress: done down to its own number, still to come from there on. */
+  [data-process-slot="card"][data-run="active"]::before {
+    border-image: linear-gradient(to bottom, var(--process-done) 0 22px, var(--process-life) 22px) 1;
+  }
+
+  [data-process-slot="stack-marker"] {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 20px;
+    padding-inline-start: calc(var(--process-rail-x) + 1px - 6px);
+  }
+
+  [data-process-slot="stack-marker"] [data-process-slot="marker"],
+  [data-process-slot="stack-marker"] [data-process-slot="marker-label"] {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    z-index: 1;
+  }
+
+  /* Numbers and nodes stand on the rail and cover it; words stand clear of it to its right. */
+  [data-process-slot="stack"] [data-process-slot="step-number"] {
+    position: relative;
+    z-index: 1;
+    min-width: 18px;
+    padding: 0 1px;
+    box-sizing: border-box;
+    text-align: center;
+    background: var(--card);
+  }
+
+  [data-process-slot="stack"] [data-process-slot="card"][data-run="active"] [data-process-slot="step-number"] {
+    padding: 0 1px;
+  }
+
+  [data-process-slot="stack"] [data-process-slot="node"] {
+    position: relative;
+    z-index: 1;
+  }
+
+  [data-process-slot="card-head"] > :not([data-process-slot="step-button"]),
+  [data-process-slot="stack"] [data-process-slot="jumps"],
+  [data-process-slot="card"] > [data-process-slot="detail"] {
+    margin-inline-start: 26px;
   }
 
   [data-process-slot="card"][data-run="active"] {
     border-color: var(--process-done);
-    background: color-mix(in srgb, var(--process-done) 7%, var(--color-card));
+    background: color-mix(in srgb, var(--process-done) 10%, var(--card));
+    box-shadow: 0 0 0 1px var(--process-done);
+  }
+
+  [data-process-slot="stack"] [data-process-slot="card"][data-run="active"] [data-process-slot="step-number"] {
+    border-radius: var(--radius-badge);
+    background: var(--process-done);
+    color: var(--background);
+    font-weight: var(--fw-bold);
   }
 
   [data-process-slot="card"][data-inclusion="excluded"],
   [data-process-slot="card"][data-inclusion="folded"] {
-    padding: 2px 4px;
+    padding: 2px 12px;
     border-style: dashed;
     background: none;
   }
@@ -771,7 +953,7 @@
     align-items: center;
     gap: 8px;
     width: 100%;
-    padding: 5px 2px;
+    padding: 5px 0;
     text-align: start;
   }
 
@@ -789,38 +971,71 @@
     gap: 4px;
   }
 
+  /*
+   * A parallel run keeps its cards on the rail: it is marked by a bar down the edge and a title
+   * beside the rail, never by setting its cards in.
+   */
   [data-process-slot="stack"] li[data-process-slot="parallel-run"] {
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    padding-inline-start: 10px;
+    gap: var(--process-rail-gap);
+    border-inline-start: 0;
     pointer-events: auto;
     list-style: none;
   }
 
+  [data-process-slot="stack"] li[data-process-slot="parallel-run"]::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: 3px;
+    border-radius: 2px;
+    background: var(--process-done);
+    z-index: 2;
+  }
+
   [data-process-slot="parallel-title"] {
+    position: relative;
+    padding-inline-start: 39px;
     font-size: var(--fs-caption);
     font-weight: var(--fw-semibold);
     color: var(--process-done);
   }
 
+  /* The rail runs on beside the run's title, as it does beside a section's heading. */
+  [data-process-slot="parallel-title"]::before {
+    content: "";
+    position: absolute;
+    left: calc(var(--process-rail-x) + 1px - var(--process-line) / 2);
+    top: -2px;
+    bottom: calc(-2px - var(--process-rail-gap));
+    border-left: var(--process-line) solid var(--process-life);
+  }
+
+  /* A step left out of the case stands on the rail like any other, in small. */
+  [data-process-slot="stack"] [data-process-slot="step-off"] {
+    padding-inline: 0;
+  }
+
   [data-process-slot="detail"] {
     min-width: 0;
     padding: 10px 12px;
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--border);
     border-radius: var(--radius-surface);
-    background: var(--color-card);
+    background: var(--card);
   }
 
   [data-process-slot="card"] > [data-process-slot="detail"] {
-    background: var(--color-muted);
+    background: var(--muted);
   }
 
   [data-process-slot="empty"] {
     margin: 0;
     padding: 24px;
     text-align: center;
-    color: var(--color-muted-foreground);
+    color: var(--muted-foreground);
   }
 
   /* Under a finger everything pressed is at least a fingertip; under a mouse it keeps the framework's sizes. */

@@ -72,6 +72,15 @@ export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, tab
     return reached(nextStep[row]);
   };
 
+  // The lanes that hold the act in progress: of the step in progress, the acts marked so, or all of its acts where none is.
+  const currentLanes = new Set<Id>();
+  for (const span of geometry.steps) {
+    if (view.stepMark(span.stepId)?.status !== "active") continue;
+    const acts = view.steps.get(span.stepId)!.acts.filter((entry) => entry.inclusion !== "excluded").map((entry) => entry.act);
+    const marked = acts.filter((act) => view.actMark(act.id)?.status === "active");
+    for (const act of marked.length > 0 ? marked : acts) act.lanes.forEach((lane) => currentLanes.add(lane));
+  }
+
   // Lane group headings: one cell over each run of neighbouring lanes that share a group, shaded in turn.
   const groupCells: ReactNode[] = [];
   const band: boolean[] = [];
@@ -144,6 +153,7 @@ export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, tab
                       data-process-slot="act"
                       data-process-act={act.id}
                       data-kind={act.kind}
+                      data-run={actMark?.status}
                       data-selected={isPicked("act", act.id) || undefined}
                       aria-label={[`${t(`kind.${act.kind}`)}: ${act.label}`, laneLabels(view, act).join(", "), actMark === undefined ? "" : runWords(actMark, t)].filter((part) => part.length > 0).join(", ")}
                       onClick={() => onPick(act.ref === undefined ? { kind: "act", id: act.id } : { kind: "act", id: act.id, ref: act.ref })}
@@ -217,7 +227,7 @@ export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, tab
       <div aria-hidden data-process-slot="corner" style={{ gridRow: `1 / ${head + 1}`, gridColumn: 1 }} />
       {groupCells}
       {geometry.lanes.map((lane, index) => (
-        <div key={lane.id} aria-hidden data-process-slot="lane-head" data-process-lane={lane.id} data-highlight={highlight.has(lane.id) || undefined} style={{ gridRow: head, gridColumn: laneColumn(geometry, index) + 1 }}>
+        <div key={lane.id} aria-hidden data-process-slot="lane-head" data-process-lane={lane.id} data-highlight={highlight.has(lane.id) || undefined} data-current={currentLanes.has(lane.id) || undefined} style={{ gridRow: head, gridColumn: laneColumn(geometry, index) + 1 }}>
           <span data-process-slot="lane-name">{highlight.has(lane.id) ? `${t("myLane")} · ${lane.label}` : lane.label}</span>
           {lane.caption !== undefined && <span data-process-slot="lane-caption">{lane.caption}</span>}
         </div>
@@ -229,8 +239,10 @@ export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, tab
       {geometry.rows.map((row, index) => {
         const owner = stepOf[index];
         const first = owner !== undefined && spans.get(owner)?.firstRow === index;
-        return <div key={`row-${index}`} aria-hidden data-process-slot="row" data-row={row.kind} data-step-start={first || undefined} data-run={owner === undefined ? undefined : view.stepMark(owner)?.status} style={across(index)} />;
+        const last = owner !== undefined && spans.get(owner)?.lastRow === index;
+        return <div key={`row-${index}`} aria-hidden data-process-slot="row" data-row={row.kind} data-step-start={first || undefined} data-step-end={last || undefined} data-run={owner === undefined ? undefined : view.stepMark(owner)?.status} style={across(index)} />;
       })}
+      {geometry.rows.length > 0 && <div aria-hidden data-process-slot="title-backdrop" style={{ gridRow: bodyRows, gridColumn: 1 }} />}
       {geometry.groups.map((group) => (
         <div key={`run-${group.key}`} aria-hidden data-process-slot="parallel-run" style={at(group.firstRow, 0, group.lastRow)} />
       ))}

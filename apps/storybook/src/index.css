@@ -8,8 +8,11 @@
 /* Gantt chart: content source registration and the chart's own rules. */
 @import "@simplix-react/gantt/styles.css";
 
-/* Procedure lanes: content source registration and the lanes' own rules. */
-@import "@simplix-react/process/styles.css";
+/*
+ * Procedure lanes: content source registration and the lanes' own rules. Read from the package's
+ * source, as its TypeScript is, so that an edit to the stylesheet shows without building the package.
+ */
+@import "../../../packages/process/src/styles.css";
 
 @custom-variant dark (&:is(.dark *));
 
