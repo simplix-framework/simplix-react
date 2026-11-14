@@ -8,6 +8,9 @@
 /* Gantt chart: content source registration and the chart's own rules. */
 @import "@simplix-react/gantt/styles.css";
 
+/* Procedure lanes: content source registration and the lanes' own rules. */
+@import "@simplix-react/process/styles.css";
+
 @custom-variant dark (&:is(.dark *));
 
 @layer base {

@@ -1,0 +1,24 @@
+{
+  "start": "Start",
+  "end": "End",
+  "stepNumber": "Step {{number}}",
+  "notApplicable": "Not applicable",
+  "conditional": "Conditional",
+  "parallel": "In parallel",
+  "repeat": "Repeats until {{step}}",
+  "together": "Together",
+  "folded": "No act in the lanes shown",
+  "empty": "No steps",
+  "kind": { "do": "Do", "check": "Check" },
+  "jump": {
+    "back": "Back to step {{number}}",
+    "skip": "Ahead to step {{number}}",
+    "external": "On to {{name}}"
+  },
+  "status": { "done": "Done", "active": "In progress", "pending": "Waiting", "skipped": "Skipped" },
+  "count": "Recorded {{count}} times",
+  "lanes": "Lanes",
+  "allLanes": "All",
+  "sections": "Sections",
+  "detail": "Details"
+}

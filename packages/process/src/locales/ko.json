@@ -1,0 +1,24 @@
+{
+  "start": "시작",
+  "end": "종료",
+  "stepNumber": "{{number}}단계",
+  "notApplicable": "해당 없음",
+  "conditional": "조건부",
+  "parallel": "동시 진행",
+  "repeat": "{{step}} 단계까지 반복",
+  "together": "함께 수행",
+  "folded": "표시한 레인의 행위 없음",
+  "empty": "단계 없음",
+  "kind": { "do": "수행", "check": "확인" },
+  "jump": {
+    "back": "{{number}}단계로 되돌림",
+    "skip": "{{number}}단계로 건너뜀",
+    "external": "{{name}} 절차로 이동"
+  },
+  "status": { "done": "완료", "active": "진행 중", "pending": "대기", "skipped": "건너뜀" },
+  "count": "{{count}}회 기록",
+  "lanes": "레인",
+  "allLanes": "전체",
+  "sections": "구간",
+  "detail": "상세"
+}

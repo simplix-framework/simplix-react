@@ -1,0 +1,73 @@
+{
+  "name": "@simplix-react/process",
+  "version": "0.3.12-SNAPSHOT",
+  "description": "Procedure lanes for React: steps and acts on a grid of lanes with jumps, parallel runs and conditions, laid out as one column on a narrow container",
+  "type": "module",
+  "sideEffects": [
+    "./dist/index.js",
+    "./src/index.ts",
+    "**/index.ts",
+    "**/locales/**"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup && cp src/styles.css dist/styles.css",
+    "dev": "tsup --no-clean --no-dts",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint src && node ../cli/scripts/check-em-dash.mjs --skip __tests__ src",
+    "test": "vitest run --passWithNoTests",
+    "test:e2e": "node --test --test-concurrency=1 e2e/*.e2e.mjs",
+    "clean": "rm -rf dist .turbo"
+  },
+  "dependencies": {
+    "@simplix-react/process-core": "workspace:*",
+    "lucide-react": "catalog:"
+  },
+  "peerDependencies": {
+    "@simplix-react/i18n": "workspace:*",
+    "@simplix-react/ui": "workspace:*",
+    "react": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@simplix-react/config-typescript": "workspace:*",
+    "@simplix-react/i18n": "workspace:*",
+    "@simplix-react/ui": "workspace:*",
+    "@testing-library/react": "catalog:",
+    "@types/react": "catalog:",
+    "jsdom": "catalog:",
+    "playwright-core": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "keywords": [
+    "simplix-react",
+    "process",
+    "procedure",
+    "swimlane",
+    "workflow"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/simplix-react/simplix-react.git"
+  }
+}

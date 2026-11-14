@@ -10,6 +10,7 @@ import { I18nProvider } from "@simplix-react/i18n/react";
 // registerModuleTranslations() side-effect populates the registry.
 import "@simplix-react/ui";
 import "@simplix-react/gantt";
+import "@simplix-react/process";
 // styles.css + theme tokens + presets all arrive via the theme aggregator
 // imported from src/index.css below.
 import "../src/index.css";

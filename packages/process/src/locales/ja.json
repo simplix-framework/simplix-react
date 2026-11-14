@@ -1,0 +1,24 @@
+{
+  "start": "開始",
+  "end": "終了",
+  "stepNumber": "ステップ{{number}}",
+  "notApplicable": "該当なし",
+  "conditional": "条件付き",
+  "parallel": "並行",
+  "repeat": "{{step}}まで繰り返し",
+  "together": "共同で実施",
+  "folded": "表示中のレーンに作業なし",
+  "empty": "ステップなし",
+  "kind": { "do": "実施", "check": "確認" },
+  "jump": {
+    "back": "ステップ{{number}}へ戻る",
+    "skip": "ステップ{{number}}へ進む",
+    "external": "{{name}}へ移動"
+  },
+  "status": { "done": "完了", "active": "進行中", "pending": "待機", "skipped": "スキップ" },
+  "count": "{{count}}回記録",
+  "lanes": "レーン",
+  "allLanes": "すべて",
+  "sections": "区間",
+  "detail": "詳細"
+}

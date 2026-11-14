@@ -428,6 +428,12 @@ importers:
       '@simplix-react/i18n':
         specifier: workspace:*
         version: link:../../packages/i18n
+      '@simplix-react/process':
+        specifier: workspace:*
+        version: link:../../packages/process
+      '@simplix-react/process-core':
+        specifier: workspace:*
+        version: link:../../packages/process-core
       '@simplix-react/react':
         specifier: workspace:*
         version: link:../../packages/react
@@ -1359,6 +1365,52 @@ importers:
       zod:
         specifier: 'catalog:'
         version: 4.3.6
+
+  packages/process:
+    dependencies:
+      '@simplix-react/process-core':
+        specifier: workspace:*
+        version: link:../process-core
+      lucide-react:
+        specifier: 'catalog:'
+        version: 1.12.0(react@19.2.4)
+    devDependencies:
+      '@simplix-react/config-typescript':
+        specifier: workspace:*
+        version: link:../config-typescript
+      '@simplix-react/i18n':
+        specifier: workspace:*
+        version: link:../i18n
+      '@simplix-react/ui':
+        specifier: workspace:*
+        version: link:../ui
+      '@testing-library/react':
+        specifier: 'catalog:'
+        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.2.14
+      jsdom:
+        specifier: 'catalog:'
+        version: 29.0.0
+      playwright-core:
+        specifier: 'catalog:'
+        version: 1.65.0
+      react:
+        specifier: 'catalog:'
+        version: 19.2.4
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.2.4(react@19.2.4)
+      tsup:
+        specifier: 'catalog:'
+        version: 8.5.1(jiti@2.6.1)(postcss@8.5.19)(typescript@5.9.3)(yaml@2.8.2)
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vitest:
+        specifier: 'catalog:'
+        version: 4.1.0(@types/node@25.5.0)(jsdom@29.0.0)(msw@2.12.12(@types/node@25.5.0)(typescript@5.9.3))(vite@8.0.0(@types/node@25.5.0)(esbuild@0.27.3)(jiti@2.6.1)(terser@5.49.0)(yaml@2.8.2))
 
   packages/process-core:
     devDependencies:

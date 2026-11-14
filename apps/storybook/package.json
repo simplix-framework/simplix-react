@@ -14,6 +14,8 @@
     "@simplix-react/gantt": "workspace:*",
     "@simplix-react/gantt-core": "workspace:*",
     "@simplix-react/i18n": "workspace:*",
+    "@simplix-react/process": "workspace:*",
+    "@simplix-react/process-core": "workspace:*",
     "@simplix-react/react": "workspace:*",
     "@simplix-react/ui": "workspace:*",
     "@storybook/react": "catalog:",
