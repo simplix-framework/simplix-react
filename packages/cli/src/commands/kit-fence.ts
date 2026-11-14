@@ -6,7 +6,7 @@ import { loadConfig } from "../config/config-loader.js";
 import { reportConfigError } from "../config/report-config-error.js";
 import { requireProjectRoot } from "../utils/fs.js";
 import { log } from "../utils/logger.js";
-import { resolveKitPackageDir } from "../utils/project-templates.js";
+import { resolveKitChain, writeKitValues } from "../utils/project-templates.js";
 
 /** One restricted import, in the shape oxlint's and ESLint's `no-restricted-imports` take. */
 export interface FencedImport {
@@ -20,13 +20,42 @@ export const KIT_FENCE_FIELD = "fence";
 
 const RULE = "no-restricted-imports";
 
-/** The fence a kit declares under `simplix.fence` in its package.json. */
+/**
+ * The fence a project's kit puts around its screens: the `simplix.fence` of every kit in its chain,
+ * the core kit's first, with the kit's own values written in place of `{{@kit.*}}`.
+ *
+ * <p>A core kit declares the fence its design kits share once and names the design kit through
+ * `{{@kit.package}}`, so a screen is refused the same imports whichever design draws it; a design
+ * kit's own entries follow the core's.
+ */
 export async function readKitFence(rootDir: string, kit: string): Promise<FencedImport[]> {
-  const dir = await resolveKitPackageDir(rootDir, kit);
-  if (!dir) throw new Error(`templates.from names "${kit}", which is not installed at ${rootDir}`);
-  const manifest = JSON.parse(await readFile(join(dir, "package.json"), "utf-8")) as { simplix?: { fence?: FencedImport[] } };
-  const fence = manifest.simplix?.[KIT_FENCE_FIELD];
-  if (!Array.isArray(fence)) throw new Error(`${kit} declares no simplix.${KIT_FENCE_FIELD} in its package.json`);
+  const fence = await kitFenceOf(rootDir, kit);
+  if (fence === undefined) throw new Error(`neither ${kit} nor a kit it extends declares simplix.${KIT_FENCE_FIELD} in its package.json`);
+  return fence;
+}
+
+/**
+ * The fence of {@link readKitFence}, or undefined where no kit of the chain declares one.
+ */
+export async function kitFenceOf(rootDir: string, kit: string): Promise<FencedImport[] | undefined> {
+  const chain = await resolveKitChain(rootDir, kit);
+  if (!chain.kit) throw new Error(`templates.from names "${kit}", which is no UI kit`);
+  let fence: FencedImport[] | undefined;
+  for (const layer of chain.layers) {
+    const manifest = JSON.parse(await readFile(join(layer.dir, "package.json"), "utf-8")) as { simplix?: { fence?: FencedImport[] } };
+    const own = manifest.simplix?.[KIT_FENCE_FIELD];
+    if (own === undefined) continue;
+    if (!Array.isArray(own)) throw new Error(`simplix.${KIT_FENCE_FIELD} of ${layer.name} is not a list`);
+    const where = `simplix.${KIT_FENCE_FIELD} of ${layer.name}`;
+    fence = [
+      ...(fence ?? []),
+      ...own.map((entry) => ({
+        ...entry,
+        name: writeKitValues(entry.name, chain.kit, where),
+        ...(entry.message === undefined ? {} : { message: writeKitValues(entry.message, chain.kit, where) }),
+      })),
+    ];
+  }
   return fence;
 }
 

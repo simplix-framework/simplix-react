@@ -244,24 +244,31 @@ function kitValues(kit: KitLayer): Record<string, string | undefined> {
 }
 
 /**
- * Writes the kit's values into every template that names one.
+ * `text` with the kit's values written in place of every `{{@kit.*}}` it names.
  *
- * <p>Done once, where the templates are read, so every render receives the same text whatever
- * context it builds. A token with no value is refused: the engine would render it as nothing, and
- * an import from `"/page"` compiles nowhere and says nothing about why.
+ * <p>A token with no value is refused: left in, it would be read as nothing, and an import from
+ * `"/page"` compiles nowhere and says nothing about why.
+ *
+ * @param where what holds the text, for the error (a template file, a manifest field)
+ */
+export function writeKitValues(text: string, kit: KitLayer | undefined, where: string): string {
+  if (!text.includes("{{@kit.")) return text;
+  const values = kit ? kitValues(kit) : {};
+  return text.replace(KIT_TOKEN, (token, key: string) => {
+    const value = values[key];
+    if (value !== undefined) return value;
+    if (!kit) throw new Error(`${where} names ${token}, and the project draws with no UI kit`);
+    if (key === "id") throw new Error(`${where} names ${token}, and ${kit.name} declares no simplix.id`);
+    throw new Error(`${where} names ${token}; a kit value is one of {{@kit.package}}, {{@kit.label}}, {{@kit.id}}`);
+  });
+}
+
+/**
+ * Writes the kit's values into every template that names one, once, where the templates are read,
+ * so every render receives the same text whatever context it builds.
  */
 function bindKit(templates: Map<string, string>, kit: KitLayer | undefined): Map<string, string> {
-  const values = kit ? kitValues(kit) : {};
-  for (const [name, source] of templates) {
-    if (!source.includes("{{@kit.")) continue;
-    templates.set(name, source.replace(KIT_TOKEN, (token, key: string) => {
-      const value = values[key];
-      if (value !== undefined) return value;
-      if (!kit) throw new Error(`${name}.hbs names ${token}, and the project draws with no UI kit`);
-      if (key === "id") throw new Error(`${name}.hbs names ${token}, and ${kit.name} declares no simplix.id`);
-      throw new Error(`${name}.hbs names ${token}; a kit value is one of {{@kit.package}}, {{@kit.label}}, {{@kit.id}}`);
-    }));
-  }
+  for (const [name, source] of templates) templates.set(name, writeKitValues(source, kit, `${name}.hbs`));
   return templates;
 }
 

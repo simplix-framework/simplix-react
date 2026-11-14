@@ -53,4 +53,6 @@ export {
 // kit's own tests to render and check every template it ships.
 export type { KitChain, KitLayer, ProjectTemplates } from "./utils/project-templates.js";
 export { loadProjectTemplates, resolveKitChain } from "./utils/project-templates.js";
+export type { FencedImport } from "./commands/kit-fence.js";
+export { kitFenceOf, readKitFence } from "./commands/kit-fence.js";
 export { renderTemplate } from "./utils/template.js";

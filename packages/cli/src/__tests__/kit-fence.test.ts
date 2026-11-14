@@ -1,6 +1,9 @@
-import { describe, expect, it } from "vitest";
+import { mkdtemp, mkdir, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { afterAll, describe, expect, it } from "vitest";
 
-import { compareFence, compareFenceOverrides, writeFence } from "../commands/kit-fence.js";
+import { compareFence, compareFenceOverrides, kitFenceOf, readKitFence, writeFence } from "../commands/kit-fence.js";
 
 const kit = [{ name: "@scope/ui", importNames: ["CrudList", "ListDetail"], message: "use the kit" }];
 
@@ -53,5 +56,73 @@ describe("a lint config that narrows imports per group", () => {
     const lint = config();
     writeFence(lint, wider);
     expect(compareFenceOverrides(lint, wider)).toEqual([]);
+  });
+});
+
+describe("the fence of a kit chain", () => {
+  const made: string[] = [];
+  afterAll(async () => {
+    for (const dir of made) await rm(dir, { recursive: true, force: true });
+  });
+
+  /** A project with each package installed under node_modules, named by its manifest. */
+  async function project(manifests: readonly Record<string, unknown>[]): Promise<string> {
+    const root = await mkdtemp(join(tmpdir(), "simplix-fence-"));
+    made.push(root);
+    for (const manifest of manifests) {
+      const dir = join(root, "node_modules", manifest.name as string);
+      await mkdir(dir, { recursive: true });
+      await writeFile(join(dir, "package.json"), JSON.stringify(manifest), "utf-8");
+    }
+    return root;
+  }
+
+  const core = {
+    name: "@scope/area-core",
+    simplix: {
+      templates: "templates",
+      fence: [
+        { name: "@scope/ui", importNames: ["CrudList"], message: "compose the parts of {{@kit.package}}" },
+        { name: "{{@kit.package}}/layout", importNames: ["Tiles"], message: "the page draws it" },
+      ],
+    },
+  };
+
+  it("reads the core kit's fence for a design kit, with the design kit's name written in", async () => {
+    const root = await project([core, { name: "@scope/area-plain", simplix: { extends: "@scope/area-core", id: "plain" } }]);
+    expect(await readKitFence(root, "@scope/area-plain")).toEqual([
+      { name: "@scope/ui", importNames: ["CrudList"], message: "compose the parts of @scope/area-plain" },
+      { name: "@scope/area-plain/layout", importNames: ["Tiles"], message: "the page draws it" },
+    ]);
+  });
+
+  it("puts a design kit's own entries after the core kit's", async () => {
+    const own = { name: "@scope/ui", importNames: ["Chart"] };
+    const root = await project([core, { name: "@scope/area-plain", simplix: { extends: "@scope/area-core", id: "plain", fence: [own] } }]);
+    const fence = await readKitFence(root, "@scope/area-plain");
+    expect(fence).toHaveLength(3);
+    expect(fence[2]).toEqual(own);
+  });
+
+  it("reads a kit that extends nothing as it is written", async () => {
+    const root = await project([{ name: "@scope/alone", simplix: { templates: "templates", fence: [{ name: "@scope/ui", importNames: ["CrudList"] }] } }]);
+    expect(await readKitFence(root, "@scope/alone")).toEqual([{ name: "@scope/ui", importNames: ["CrudList"] }]);
+  });
+
+  it("refuses a chain in which no kit declares a fence", async () => {
+    const root = await project([
+      { name: "@scope/bare-core", simplix: { templates: "templates" } },
+      { name: "@scope/bare", simplix: { extends: "@scope/bare-core" } },
+    ]);
+    await expect(readKitFence(root, "@scope/bare")).rejects.toThrow("neither @scope/bare nor a kit it extends declares simplix.fence");
+    expect(await kitFenceOf(root, "@scope/bare")).toBeUndefined();
+  });
+
+  it("refuses a kit value the fence names and the kit lacks", async () => {
+    const root = await project([
+      { name: "@scope/id-core", simplix: { templates: "templates", fence: [{ name: "@scope/{{@kit.id}}" }] } },
+      { name: "@scope/no-id", simplix: { extends: "@scope/id-core" } },
+    ]);
+    await expect(readKitFence(root, "@scope/no-id")).rejects.toThrow("simplix.fence of @scope/id-core names {{@kit.id}}, and @scope/no-id declares no simplix.id");
   });
 });
