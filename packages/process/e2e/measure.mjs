@@ -177,10 +177,12 @@ export function measure({ touch, tolerance }) {
       arrows += 1;
       if (Math.abs(box.width - (upright ? 10 : 7)) > 0.1 || Math.abs(box.height - (upright ? 7 : 10)) > 0.1) problems.push(`a ${direction} arrowhead measures ${box.width}x${box.height}`);
       if (arrow.dataset.at === "side" || arrow.dataset.at === "rside") {
-        // A line from a gate row points down where it leaves that row: its tip stands on the end of the piece that carries the line on.
+        // A line from a gate row points down on the piece that carries it into the node: its head stands
+        // on that piece, just past the foot of the gate row, with its tip level with the top of the node.
         const tip = [box.left + box.width / 2, box.bottom];
-        const carried = edgePoints.some((point) => point.shape.startsWith("center_") && Math.abs(point.x - tip[0]) <= 1 && Math.abs(point.y - tip[1]) <= 1);
-        if (direction !== "down" || !carried) problems.push(`the ${direction} arrowhead of a gate row at ${tip[0].toFixed(1)},${tip[1].toFixed(1)} stands on no line down into a node`);
+        const carried = edgePoints.some((point) => point.shape.startsWith("center_") && Math.abs(point.x - tip[0]) <= 1 && tip[1] - point.y >= -1 && tip[1] - point.y <= box.height + 1);
+        const level = circles.some((circle) => Math.abs(tip[1] - (circle.y - circle.radius)) <= 1 && Math.abs(tip[0] - circle.x) <= circle.radius * 2 + 1);
+        if (direction !== "down" || !carried || !level) problems.push(`the ${direction} arrowhead of a gate row at ${tip[0].toFixed(1)},${tip[1].toFixed(1)} stands on no line down into a node`);
         continue;
       }
       if (arrow.dataset.at !== "node") continue;
