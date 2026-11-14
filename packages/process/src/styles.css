@@ -771,9 +771,14 @@
   [data-process-arrow="left"][data-at="node"] { left: calc(50% + var(--process-node) / 2); }
   [data-process-arrow="right"][data-at="edge"] { right: 3px; }
   [data-process-arrow="left"][data-at="edge"] { left: 3px; }
-  /* A line from a gate row points down as it leaves that row, beside the lane's own line. */
-  [data-process-arrow="down"][data-at="side"] { left: calc(50% - var(--process-side) - var(--process-arrow)); bottom: 0; }
-  [data-process-arrow="down"][data-at="rside"] { left: calc(50% + var(--process-side) - var(--process-arrow)); bottom: 0; }
+  /*
+   * A line from a gate row points down beside the lane's own line. Its head stands past the foot of
+   * the gate row, level with the head of the line that comes straight down into the node.
+   */
+  [data-process-arrow="down"][data-at="side"],
+  [data-process-arrow="down"][data-at="rside"] { bottom: calc(var(--process-node) / 2 - var(--process-node-y)); z-index: 1; }
+  [data-process-arrow="down"][data-at="side"] { left: calc(50% - var(--process-side) - var(--process-arrow)); }
+  [data-process-arrow="down"][data-at="rside"] { left: calc(50% + var(--process-side) - var(--process-arrow)); }
 
   /* On a piece that turns, the head stands on the leg it leaves by, flush with the end of the bend. */
   [data-process-arrow="left"][data-at="bend"] { left: calc(50% - var(--process-corner) - var(--process-arrow-length)); }
