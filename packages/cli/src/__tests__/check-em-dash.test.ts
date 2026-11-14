@@ -7,13 +7,16 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 /** The check lives beside the package's lint, outside `src`, so it is loaded by path. */
 const scriptPath = fileURLToPath(new URL("../../scripts/check-em-dash.mjs", import.meta.url));
 const { findEmDashes } = (await import(scriptPath)) as {
-  findEmDashes: (roots: string[]) => { file: string; line: number; text: string }[];
+  findEmDashes: (roots: string[], skip?: string[]) => { file: string; line: number; text: string }[];
 };
 
 /** The refused character, spelled so this file holds it in no form a reader sees as the dash. */
 const EM_DASH = String.fromCodePoint(0x2014);
 /** The same character as a script escape: a backslash, then `u2014`. */
 const ESCAPED = `${"\\"}u2014`;
+
+/** The directories the CLI's own lint leaves unread: tests spell the character and fixtures are input documents. */
+const SKIPPED = ["__tests__", "__fixtures__"];
 
 describe("the em dash check reads what the CLI writes into a generated project", () => {
   let root: string;
@@ -45,7 +48,7 @@ describe("the em dash check reads what the CLI writes into a generated project",
   });
 
   it("finds the character, its escape and its entity in templates and generator literals, and nothing else", () => {
-    const hits = findEmDashes([root]).map((hit) => `${relative(root, hit.file)}:${hit.line}`).sort();
+    const hits = findEmDashes([root], SKIPPED).map((hit) => `${relative(root, hit.file)}:${hit.line}`).sort();
     expect(hits).toEqual([
       "generation/emit.ts:1",
       "templates/detail.hbs:1",
@@ -56,6 +59,6 @@ describe("the em dash check reads what the CLI writes into a generated project",
 
   it("finds nothing in the CLI's own templates and generators", () => {
     const source = fileURLToPath(new URL("..", import.meta.url));
-    expect(findEmDashes([source])).toEqual([]);
+    expect(findEmDashes([source], SKIPPED)).toEqual([]);
   });
 });
