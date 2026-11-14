@@ -1,0 +1,87 @@
+name: Process
+
+# Checks the procedure model and the lanes: types, lint, unit tests, and the lanes measured in a real browser.
+on:
+  pull_request:
+    paths:
+      - 'packages/process/**'
+      - 'packages/process-core/**'
+      - 'apps/storybook/src/stories/process/**'
+      - '.github/workflows/process.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'packages/process/**'
+      - 'packages/process-core/**'
+      - 'apps/storybook/src/stories/process/**'
+      - '.github/workflows/process.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: process-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck, lint and unit tests
+        run: pnpm exec turbo run typecheck lint test --filter=@simplix-react/process-core --filter=@simplix-react/process
+
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build the packages Storybook reads
+        run: pnpm exec turbo run build --filter=@simplix-react/storybook^...
+
+      - name: Start Storybook
+        run: |
+          pnpm --filter @simplix-react/storybook exec storybook dev -p 6006 --no-open --ci > storybook.log 2>&1 &
+          for attempt in $(seq 1 120); do
+            if curl -s -o /dev/null http://localhost:6006/iframe.html; then exit 0; fi
+            sleep 1
+          done
+          cat storybook.log
+          exit 1
+
+      # The checks drive the Google Chrome the runner image ships with.
+      - name: Browser checks
+        run: pnpm --filter @simplix-react/process test:e2e
+
+      # Each defect planted on the page must fail the layout checks; one that passes guards nothing.
+      - name: Planted defects
+        run: node packages/process/e2e/planted-defects.mjs
+
+      - name: Storybook log
+        if: failure()
+        run: cat storybook.log

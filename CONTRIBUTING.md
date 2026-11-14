@@ -34,6 +34,8 @@ pnpm test         # Run test suites
 
 The `@simplix-react/gantt` end-to-end tests drive the chart in the Google Chrome installed on the machine, against a running Storybook: build the package with `pnpm --filter @simplix-react/gantt build` (Storybook takes its stylesheet from the build), start Storybook with `pnpm storybook`, then run `pnpm --filter @simplix-react/gantt test:e2e`. They are not part of `pnpm test`.
 
+The `@simplix-react/process` end-to-end tests measure the lanes the same way, against the same Storybook: `PROCESS_STORYBOOK_URL` names it when it is not on `http://localhost:6006`, and `node packages/process/e2e/planted-defects.mjs` proves the layout checks by breaking one thing at a time.
+
 The `@simplix-react/gantt-core` tests compare the scheduler with plans saved by Microsoft Project. Their first run fetches those sample files from the MPXJ repository at a pinned commit into `packages/gantt-core/.oracle/` (ignored by git), so it needs network access once.
 
 
