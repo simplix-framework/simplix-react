@@ -45,3 +45,12 @@ export type { StackAct, StackBlock, StackJump } from "./stack-geometry";
 
 export { chooseLayout, DEFAULT_LAYOUT_METRICS, requiredWidth } from "./layout-mode";
 export type { LayoutInput, LayoutMetrics, LayoutMode } from "./layout-mode";
+
+export { applyEdit, freshId } from "./edit";
+export type { EditConsequence, EditOperation, EditRefusal, EditResult, Patch, RefusalCode } from "./edit";
+
+export { commitEdit, createHistory, redoEdit, undoEdit } from "./history";
+export type { EditHistory, HistoryEntry } from "./history";
+
+export { diffDefinitions } from "./diff";
+export type { DefinitionChange, DiffSubject } from "./diff";
