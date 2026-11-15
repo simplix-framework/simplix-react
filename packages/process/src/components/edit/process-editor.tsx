@@ -1,4 +1,4 @@
-import { freshId, validateDefinition } from "@simplix-react/process-core";
+import { freshId } from "@simplix-react/process-core";
 import type { Facts, Id, ProcessDefinition, Step } from "@simplix-react/process-core";
 import { useMemo, useState } from "react";
 import type { ReactNode } from "react";
@@ -11,16 +11,11 @@ import { useProcessEditTranslation } from "../../lib/use-process-edit-translatio
 import type { ProcessTarget } from "../../types";
 import { ProcessLanes } from "../process-lanes";
 import { ActPanel, JumpPanel, ProcedurePanel, StepPanel } from "./panels";
+import { ProcessProblems, useProcessProblems } from "./process-problems";
+import type { EditorProblem } from "./process-problems";
 
 /** What the editor's panel is showing: the procedure as a whole, or one of its steps, acts or jumps. */
 export type EditorTarget = { kind: "process" } | { kind: "step" | "act" | "jump"; id: Id };
-
-/** A problem the caller found by rules of its own, shown beside the ones the definition format has. */
-export interface EditorProblem {
-  /** The lane, section, step, act or jump it is about; picking the problem shows that part. */
-  subject: Id;
-  message: string;
-}
 
 /** Props of {@link ProcessEditor}. */
 export interface ProcessEditorProps {
@@ -80,8 +75,7 @@ export function ProcessEditor({ editing, facts, problems = [], renderFields, cla
     return there ? picked : { kind: "process" };
   }, [picked, definition]);
 
-  const own = useMemo(() => validateDefinition(definition), [definition]);
-  const listed = useMemo(() => [...own.map((problem) => ({ subject: problem.subject, message: t(`refusal.${problem.code}`) })), ...problems], [own, problems, t]);
+  const listed = useProcessProblems(definition, problems);
 
   const show = (subject: Id): void => {
     const steps = definition.sections.flatMap((section) => section.steps);
@@ -157,20 +151,7 @@ export function ProcessEditor({ editing, facts, problems = [], renderFields, cla
           {renderFields !== undefined && <div data-process-slot="editor-own">{renderFields(target, editing)}</div>}
         </aside>
       </div>
-      {listed.length > 0 && (
-        <section aria-label={t("problems")} data-process-slot="editor-problems">
-          <h3 data-process-slot="editor-heading">{t("problems")}</h3>
-          <ul>
-            {listed.map((problem, index) => (
-              <li key={`${problem.subject}-${index}`}>
-                <Button type="button" size="sm" variant="ghost" data-process-problem={problem.subject} onClick={() => show(problem.subject)}>
-                  {problem.message}
-                </Button>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+      {listed.length > 0 && <ProcessProblems definition={definition} problems={problems} onShow={show} />}
     </div>
   );
 }

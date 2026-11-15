@@ -6,7 +6,7 @@ import { afterEach, describe, expect, it } from "vitest";
 
 import { ProcessDiff } from "../components/edit/process-diff";
 import { ProcessEditor } from "../components/edit/process-editor";
-import type { EditorProblem } from "../components/edit/process-editor";
+import type { EditorProblem } from "../components/edit/process-problems";
 import { useProcessEditing } from "../lib/use-process-editing";
 import type { ProcessEditing } from "../lib/use-process-editing";
 
