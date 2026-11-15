@@ -72,7 +72,8 @@
     "repeat-end-not-after": "반복을 끝내는 단계는 반복 단계보다 뒤에 있어야 합니다",
     "parallel-not-adjacent": "동시에 진행하는 단계는 서로 이웃해야 합니다",
     "parallel-single": "동시 진행은 단계가 둘 이상이어야 합니다",
-    "parallel-spans-sections": "동시에 진행하는 단계는 같은 구간에 있어야 합니다"
+    "parallel-spans-sections": "동시에 진행하는 단계는 같은 구간에 있어야 합니다",
+    "flow-changed": "절차의 흐름은 이 화면에서 바꿀 수 없습니다"
   },
   "consequence": {
     "jump-removed": "단계와 연결된 이동을 함께 삭제했습니다",

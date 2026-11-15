@@ -72,7 +72,8 @@
     "repeat-end-not-after": "繰り返しを終了する段階は繰り返す段階より後に置いてください",
     "parallel-not-adjacent": "同時に進行する段階は隣り合っている必要があります",
     "parallel-single": "同時進行には段階が二つ以上必要です",
-    "parallel-spans-sections": "同時に進行する段階は同じ区間に置いてください"
+    "parallel-spans-sections": "同時に進行する段階は同じ区間に置いてください",
+    "flow-changed": "手続きの流れはこの画面では変更できません"
   },
   "consequence": {
     "jump-removed": "段階につながる移動も削除しました",

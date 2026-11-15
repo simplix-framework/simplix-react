@@ -1,5 +1,5 @@
 import { freshId } from "@simplix-react/process-core";
-import type { Facts, Id, ProcessDefinition, Step } from "@simplix-react/process-core";
+import type { Act, Facts, Id, ProcessDefinition, Step } from "@simplix-react/process-core";
 import { useMemo, useState } from "react";
 import type { ReactNode } from "react";
 
@@ -30,8 +30,20 @@ export interface ProcessEditorProps {
    * caller reads its members off `editing.definition` and writes them with `editing.apply`.
    */
   renderFields?: (target: EditorTarget, editing: ProcessEditing) => ReactNode;
+  /**
+   * What the panel lets the reader change. `all`: everything. `wording`: names, notes, the wording
+   * of conditions, sections' and lanes' names and who is named for an act; nothing that makes,
+   * removes, moves or connects a step. Pair `wording` with a session that keeps the flow.
+   * @defaultValue "all"
+   */
+  scope?: EditorScope;
+  /** The lanes an act may be given to, by id, where not every lane may take it. Left out, any lane may. */
+  lanesFor?: (act: Act) => readonly Id[];
   className?: string;
 }
+
+/** What an editor lets its reader change. */
+export type EditorScope = "all" | "wording";
 
 interface Located {
   section: number;
@@ -62,7 +74,7 @@ function locate(definition: ProcessDefinition, id: Id): Located | undefined {
  * return <ProcessEditor editing={editing} problems={ownRules(editing.definition)} />;
  * ```
  */
-export function ProcessEditor({ editing, facts, problems = [], renderFields, className }: ProcessEditorProps) {
+export function ProcessEditor({ editing, facts, problems = [], renderFields, scope = "all", lanesFor, className }: ProcessEditorProps) {
   const t = useProcessEditTranslation();
   const { definition } = editing;
   const [picked, setPicked] = useState<EditorTarget>({ kind: "process" });
@@ -99,7 +111,7 @@ export function ProcessEditor({ editing, facts, problems = [], renderFields, cla
   const jump = target.kind === "jump" ? definition.jumps.find((one) => one.id === target.id) : undefined;
 
   return (
-    <div data-process-editor className={cn("text-foreground", className)}>
+    <div data-process-editor data-scope={scope} className={cn("text-foreground", className)}>
       <div role="toolbar" aria-label={t("edit")} data-process-slot="editor-bar">
         <Button type="button" size="sm" variant="outline" disabled={!editing.canUndo} onClick={editing.undo}>
           {t("undo")}
@@ -132,10 +144,10 @@ export function ProcessEditor({ editing, facts, problems = [], renderFields, cla
               ← {t("backToProcedure")}
             </Button>
           )}
-          {target.kind === "process" && <ProcedurePanel editing={editing} onAddStep={addStep} onShow={show} />}
-          {at !== undefined && <StepPanel editing={editing} section={at.section} index={at.index} step={at.step} onAddStep={addStep} onShow={show} />}
-          {actOwner !== undefined && target.kind === "act" && <ActPanel editing={editing} step={actOwner} actId={target.id} onShow={show} />}
-          {jump !== undefined && <JumpPanel editing={editing} jump={jump} />}
+          {target.kind === "process" && <ProcedurePanel editing={editing} scope={scope} onAddStep={addStep} onShow={show} />}
+          {at !== undefined && <StepPanel editing={editing} scope={scope} section={at.section} index={at.index} step={at.step} onAddStep={addStep} onShow={show} />}
+          {actOwner !== undefined && target.kind === "act" && <ActPanel editing={editing} scope={scope} lanesFor={lanesFor} step={actOwner} actId={target.id} onShow={show} />}
+          {jump !== undefined && <JumpPanel editing={editing} scope={scope} jump={jump} />}
           {renderFields !== undefined && <div data-process-slot="editor-own">{renderFields(target, editing)}</div>}
         </aside>
       </div>

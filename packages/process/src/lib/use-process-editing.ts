@@ -1,5 +1,5 @@
 import { applyEdit, commitEdit, createHistory, redoEdit, undoEdit } from "@simplix-react/process-core";
-import type { EditConsequence, EditHistory, EditOperation, EditRefusal, EditResult, ProcessDefinition } from "@simplix-react/process-core";
+import type { EditConsequence, EditHistory, EditOperation, EditOptions, EditRefusal, EditResult, ProcessDefinition } from "@simplix-react/process-core";
 import { useCallback, useMemo, useRef, useState } from "react";
 
 /** A definition being edited: what it is now, how to change it, and what the last change did. */
@@ -33,13 +33,17 @@ interface State {
  * Keeps a definition through an editing session: every applied operation is a step undo can
  * take back, and a refused one is kept with its reason for the editor to show.
  *
+ * With `keepFlow` the session refuses every operation that changes what the procedure does, for a
+ * product whose flow is fixed elsewhere: only wording, sections, lanes and who is named for an act change.
+ *
  * @example
  * ```tsx
  * const editing = useProcessEditing(stored);
  * return <ProcessEditor editing={editing} />;
  * ```
  */
-export function useProcessEditing(initial: ProcessDefinition): ProcessEditing {
+export function useProcessEditing(initial: ProcessDefinition, options: EditOptions = {}): ProcessEditing {
+  const keepFlow = options.keepFlow === true;
   const [state, setState] = useState<State>(() => ({ history: createHistory(initial), initial, refusal: null, consequences: [] }));
   // Read by `apply`, so two operations applied in one handler build on one another.
   const latest = useRef(state);
@@ -51,12 +55,12 @@ export function useProcessEditing(initial: ProcessDefinition): ProcessEditing {
   const apply = useCallback(
     (operation: EditOperation): EditResult => {
       const now = latest.current;
-      const result = applyEdit(now.history.present, operation);
+      const result = applyEdit(now.history.present, operation, { keepFlow });
       if (result.ok) put({ ...now, history: commitEdit(now.history, result.definition, operation.type), refusal: null, consequences: result.consequences });
       else put({ ...now, refusal: result.refusal, consequences: [] });
       return result;
     },
-    [put],
+    [put, keepFlow],
   );
   const undo = useCallback((): void => put({ ...latest.current, history: undoEdit(latest.current.history), refusal: null, consequences: [] }), [put]);
   const redo = useCallback((): void => put({ ...latest.current, history: redoEdit(latest.current.history), refusal: null, consequences: [] }), [put]);

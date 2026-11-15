@@ -41,6 +41,7 @@ function Settings({ stored }: { stored: ProcessDefinition }) {
 - The editor draws the procedure and, beside it, a panel that edits the part picked on the drawing. In a narrow box the panel stands under the drawing.
 - Every change is one operation of `process-core`, so it can be undone. An operation that would leave a problem is refused, and its reason is shown above the drawing.
 - `problems` lists what the caller's own rules find beside the problems of the format, and `renderFields` draws the caller's own fields for the part picked.
+- `scope="wording"` with `useProcessEditing(stored, { keepFlow: true })` is for a product whose flow is fixed elsewhere: names, notes, the wording of conditions and who is named for an act can be changed, and `lanesFor` says which lanes an act may be given to.
 - `ProcessProblems` is the list of problems on its own, for a check before publishing.
 
 ## Comparing two versions

@@ -97,6 +97,42 @@ describe("ProcessEditor", () => {
   });
 });
 
+describe("ProcessEditor with the wording scope", () => {
+  function Worded() {
+    editing = useProcessEditing(start, { keepFlow: true });
+    return <ProcessEditor editing={editing} scope="wording" lanesFor={() => ["reviewer"]} />;
+  }
+
+  it("offers no control that makes, removes or moves a step, an act or a jump", () => {
+    const { container } = render(<Worded />);
+    const controls = (): string[] => [...container.querySelectorAll("[data-process-do]")].map((element) => element.getAttribute("data-process-do") ?? "");
+    // On the procedure: the lanes keep their order buttons, and nothing is added or removed.
+    expect(new Set(controls())).toEqual(new Set(["up", "down"]));
+    press(container, '[data-process-open="draft"]');
+    expect(controls()).toEqual(["show"]);
+    press(container, '[data-process-list="acts"] [data-process-do="show"]');
+    expect(controls()).toEqual([]);
+    expect(container.querySelector('[data-process-field="act-kind"]')).toBeNull();
+  });
+
+  it("changes a name and who is named for an act, and refuses a change of the flow", () => {
+    const { container } = render(<Worded />);
+    press(container, '[data-process-open="draft"]');
+    const label = container.querySelector<HTMLInputElement>('[data-process-field="step-label"]');
+    if (label === null) throw new Error("no step label field");
+    fireEvent.change(label, { target: { value: "Write" } });
+    fireEvent.blur(label);
+    expect(editing.definition.sections[0].steps[0].label).toBe("Write");
+    press(container, '[data-process-list="acts"] [data-process-do="show"]');
+    // Only the lanes the caller allows, and the one the act stands in, are offered.
+    expect([...container.querySelectorAll('[data-process-list="act-lanes"] [data-process-field]')].map((element) => element.getAttribute("data-process-field"))).toEqual(["act-lane-author", "act-lane-reviewer"]);
+    press(container, '[data-process-field="act-lane-reviewer"]');
+    expect(editing.definition.sections[0].steps[0].acts[0].lanes).toEqual(["reviewer"]);
+    const refused = editing.apply({ type: "remove-step", id: "check" });
+    expect(refused.ok ? "applied" : refused.refusal.code).toBe("flow-changed");
+  });
+});
+
 describe("ProcessDiff", () => {
   it("marks what was added and changed on the drawing and lists every difference", () => {
     const after: ProcessDefinition = {

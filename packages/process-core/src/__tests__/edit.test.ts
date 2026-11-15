@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { diffDefinitions } from "../diff";
 import { applyEdit, freshId } from "../edit";
+import { flowOf, sameFlow } from "../flow";
 import type { EditOperation } from "../edit";
 import { commitEdit, createHistory, redoEdit, undoEdit } from "../history";
 import type { ProcessDefinition, Step } from "../types";
@@ -211,5 +212,59 @@ describe("diffDefinitions", () => {
       { kind: "removed", subject: "jump", id: "j1" },
     ]);
     expect(diffDefinitions(before, after({ type: "update-jump", id: "j1", patch: { to: "s2" } }))).toEqual([{ kind: "changed", subject: "jump", id: "j1", fields: ["to"] }]);
+  });
+});
+
+describe("keepFlow", () => {
+  /** What a random definition does, spelled out apart from flowOf: an operation that is let through may not change any of it. */
+  const doing = (definition: ProcessDefinition): unknown => {
+    const steps = definition.sections.flatMap((section) => section.steps);
+    const runs = steps.map((step) => (step.parallel === undefined ? -1 : steps.findIndex((other) => other.parallel === step.parallel)));
+    return {
+      order: steps.map((step) => step.id),
+      acts: steps.map((step) => step.acts.map((act) => [act.id, act.kind, act.lanes.length, act.condition ?? null])),
+      conditions: steps.map((step) => step.condition ?? null),
+      runs,
+      repeats: steps.map((step) => step.repeat?.endedBy ?? null),
+      reworks: steps.map((step) => step.rework !== undefined),
+      jumps: [...definition.jumps].sort((x, y) => (x.id < y.id ? -1 : 1)).map((jump) => [jump.id, jump.from, jump.to ?? null, jump.external ?? null]),
+    };
+  };
+
+  it("lets through only operations that leave what the procedure does as it was", () => {
+    let applied = 0;
+    let refused = 0;
+    const kinds = new Set<string>();
+    for (let seed = 1; seed <= 300; seed += 1) {
+      const next = generator(seed);
+      let definition = randomDefinition(next);
+      for (let turn = 0; turn < 25; turn += 1) {
+        const operation = randomOperation(definition, next);
+        const free = applyEdit(definition, operation);
+        const held = applyEdit(definition, operation, { keepFlow: true });
+        if (held.ok) {
+          applied += 1;
+          kinds.add(operation.type);
+          expect(doing(held.definition), `seed ${seed} turn ${turn} ${JSON.stringify(operation)}`).toEqual(doing(definition));
+          definition = held.definition;
+        } else if (free.ok) {
+          refused += 1;
+          expect(held.refusal.code).toBe("flow-changed");
+          expect(doing(free.definition), `seed ${seed} turn ${turn} ${JSON.stringify(operation)}`).not.toEqual(doing(definition));
+        }
+      }
+    }
+    expect(applied).toBeGreaterThan(1000);
+    expect(refused).toBeGreaterThan(500);
+    // Wording, lanes and who is named for an act go through; what makes or unmakes a step, an act or a jump never does.
+    for (const kind of ["rename", "update-lane", "move-lane", "add-lane", "update-section", "update-act", "update-step"]) expect(kinds, kind).toContain(kind);
+    for (const kind of ["add-step", "remove-step", "add-act", "remove-act", "add-jump", "remove-jump", "move-act"]) expect(kinds, kind).not.toContain(kind);
+  });
+
+  it("tells a parallel run by its steps, not by its key", () => {
+    const one = randomDefinition(generator(7));
+    const renamed: ProcessDefinition = { ...one, sections: one.sections.map((section) => ({ ...section, steps: section.steps.map((step) => (step.parallel === undefined ? step : { ...step, parallel: `renamed-${step.parallel}` })) })) };
+    expect(sameFlow(one, renamed)).toBe(true);
+    expect(flowOf(one)).toBe(flowOf(renamed));
   });
 });

@@ -47,7 +47,9 @@ export { chooseLayout, DEFAULT_LAYOUT_METRICS, requiredWidth } from "./layout-mo
 export type { LayoutInput, LayoutMetrics, LayoutMode } from "./layout-mode";
 
 export { applyEdit, freshId } from "./edit";
-export type { EditConsequence, EditOperation, EditRefusal, EditResult, Patch, RefusalCode } from "./edit";
+export type { EditConsequence, EditOperation, EditOptions, EditRefusal, EditResult, Patch, RefusalCode } from "./edit";
+
+export { flowOf, sameFlow } from "./flow";
 
 export { commitEdit, createHistory, redoEdit, undoEdit } from "./history";
 export type { EditHistory, HistoryEntry } from "./history";

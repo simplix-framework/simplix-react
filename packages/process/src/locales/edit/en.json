@@ -72,7 +72,8 @@
     "repeat-end-not-after": "The step that ends a repeat must come after the repeating step",
     "parallel-not-adjacent": "Steps that proceed together must be neighbours",
     "parallel-single": "Proceeding together takes two or more steps",
-    "parallel-spans-sections": "Steps that proceed together must be in one section"
+    "parallel-spans-sections": "Steps that proceed together must be in one section",
+    "flow-changed": "The flow of the procedure cannot be changed here"
   },
   "consequence": {
     "jump-removed": "Jumps connected to the step were removed with it",

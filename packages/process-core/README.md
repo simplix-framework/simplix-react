@@ -52,6 +52,8 @@ if (result.ok) {
 - **A refusal carries its reason**: the code of the problem it would have left, or `unknown-subject`, `lane-in-use`, `nothing-to-change`.
 - **A patch member given as `undefined` is taken off the part**, and a member of the caller's own is set like any other.
 
+- **With `keepFlow` an operation that changes what the procedure does is refused as `flow-changed`.** `sameFlow` and `flowOf` tell what a procedure does apart from its wording, its sections, its lanes and who is named for an act.
+
 `createHistory`, `commitEdit`, `undoEdit` and `redoEdit` keep the definitions an editing session went through. `freshId` gives an id nothing in the definition carries.
 
 ## Comparing versions

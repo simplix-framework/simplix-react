@@ -1,4 +1,5 @@
 import type { Act, Id, Jump, Lane, ProcessDefinition, Section, Step } from "./types";
+import { sameFlow } from "./flow";
 import { validateDefinition } from "./validate";
 import type { Problem, ProblemCode } from "./validate";
 
@@ -34,7 +35,16 @@ export type EditOperation =
   | { type: "remove-jump"; id: Id };
 
 /** Why an operation was not applied: the part it names is missing, or applying it would leave a problem. */
-export type RefusalCode = ProblemCode | "unknown-subject" | "lane-in-use" | "nothing-to-change";
+export type RefusalCode = ProblemCode | "unknown-subject" | "lane-in-use" | "nothing-to-change" | "flow-changed";
+
+/** How {@link applyEdit} is held. */
+export interface EditOptions {
+  /**
+   * Applies an operation only when the procedure still does the same thing afterwards ({@link sameFlow}):
+   * wording, sections, lanes and who is named for an act may change, the steps and what connects them may not.
+   */
+  keepFlow?: boolean;
+}
 
 /** An operation that was not applied, with what it is about. */
 export interface EditRefusal {
@@ -266,6 +276,9 @@ function change(definition: ProcessDefinition, operation: EditOperation): Raw {
  * run left with one step loses its key (also when `set-parallel` takes steps out of it), a repeat whose ending step is gone is cleared and a jump
  * from or to a removed step is removed. Each of those is listed in `consequences`.
  *
+ * With `keepFlow` an operation that changes what the procedure does is refused as `flow-changed`,
+ * for a product whose flow is fixed elsewhere and whose procedures are only worded and assigned here.
+ *
  * @example
  * ```ts
  * const result = applyEdit(definition, { type: "remove-step", id: "review" });
@@ -273,7 +286,7 @@ function change(definition: ProcessDefinition, operation: EditOperation): Raw {
  * else explain(result.refusal);
  * ```
  */
-export function applyEdit(definition: ProcessDefinition, operation: EditOperation): EditResult {
+export function applyEdit(definition: ProcessDefinition, operation: EditOperation, options: EditOptions = {}): EditResult {
   const raw = change(definition, operation);
   if ("code" in raw) return { ok: false, refusal: raw };
   const consequences: EditConsequence[] = [];
@@ -284,6 +297,7 @@ export function applyEdit(definition: ProcessDefinition, operation: EditOperatio
   const next = raw.settle === undefined ? raw.definition : settle(raw.definition, consequences, raw.settle === "join");
   const fresh = validateDefinition(next).find((problem) => !known.has(keyOf(problem)));
   if (fresh !== undefined) return { ok: false, refusal: fresh.other === undefined ? { code: fresh.code, subject: fresh.subject } : { code: fresh.code, subject: fresh.subject, other: fresh.other } };
+  if (options.keepFlow === true && !sameFlow(definition, next)) return { ok: false, refusal: { code: "flow-changed", subject: "id" in operation ? operation.id : definition.id } };
   if (JSON.stringify(next) === JSON.stringify(definition)) return { ok: false, refusal: { code: "nothing-to-change", subject: "id" in operation ? operation.id : definition.id } };
   return { ok: true, definition: next, consequences };
 }
