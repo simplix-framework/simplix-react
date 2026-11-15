@@ -6,6 +6,9 @@ import { buildModuleTranslations, registerModuleTranslations } from "@simplix-re
  */
 export const PACKAGE_NAMESPACE = "simplix-process/lanes";
 
+/** The bundle the editing components read; its texts are loaded when one of them is first drawn. */
+export const EDIT_NAMESPACE = "simplix-process/edit";
+
 const translations = buildModuleTranslations({
   namespace: "simplix-process",
   locales: ["en", "ko", "ja"],
@@ -14,6 +17,11 @@ const translations = buildModuleTranslations({
       en: () => import("./en.json"),
       ko: () => import("./ko.json"),
       ja: () => import("./ja.json"),
+    },
+    edit: {
+      en: () => import("./edit/en.json"),
+      ko: () => import("./edit/ko.json"),
+      ja: () => import("./edit/ja.json"),
     },
   },
 });

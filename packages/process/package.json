@@ -17,6 +17,11 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./edit": {
+      "source": "./src/edit.ts",
+      "types": "./dist/edit.d.ts",
+      "import": "./dist/edit.js"
+    },
     "./styles.css": "./dist/styles.css"
   },
   "files": [

@@ -35,6 +35,11 @@ export interface ProcessLanesProps {
   highlightLanes?: readonly Id[];
   /** Draws the row of lane toggles above the procedure. @defaultValue false */
   laneFilter?: boolean;
+  /**
+   * A word on a step, an act or a jump, by id, set on its element as `data-mark`. The marks `added`,
+   * `changed` and `moved` are drawn by this package's styles; any other is the caller's to style.
+   */
+  marks?: Readonly<Record<Id, string>>;
   /** What is picked now. */
   selected?: ProcessTarget | null;
   /** Called when the reader picks a step, an act or a jump. */

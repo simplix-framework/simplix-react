@@ -1,7 +1,7 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig((options) => ({
-  entry: { index: "src/index.ts" },
+  entry: { index: "src/index.ts", edit: "src/edit.ts" },
   format: ["esm"],
   dts: !options.watch,
   splitting: true,

@@ -19,6 +19,7 @@ export interface LaneGridProps {
   /** The lanes drawn with the reader's own tint, by id. */
   highlight: ReadonlySet<Id>;
   selected: ProcessTarget | null;
+  marks?: Readonly<Record<string, string>>;
   /** The stop that takes the Tab key: the one last focused, or the first. */
   tabStop: string | undefined;
   onPick: (target: ProcessTarget) => void;
@@ -34,7 +35,7 @@ const stopKey = (kind: string, id: string): string => `${kind}:${id}`;
  * under it; the acts of a step stand on one row and the lines between them are drawn from the
  * geometry, piece by piece inside each cell, so nothing is measured.
  */
-export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, tabStop, onPick, onFollow, t }: LaneGridProps) {
+export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, marks, tabStop, onPick, onFollow, t }: LaneGridProps) {
   const grouped = geometry.lanes.some((lane) => lane.group !== undefined);
   const head = grouped ? 2 : 1;
   const columns = 1 + geometry.leftTracks + geometry.lanes.length + geometry.rightTracks;
@@ -107,7 +108,7 @@ export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, tab
     const mark = view.stepMark(stepId);
     return (
       <li key={stepId} data-process-step={stepId} data-process-slot="step" data-run={mark?.status}>
-        <div data-process-slot="step-title" data-selected={isPicked("step", stepId) || undefined} data-run={mark?.status} data-parallel={resolved.step.parallel !== undefined || undefined} style={at(span.firstRow, 0, span.lastRow)}>
+        <div data-process-slot="step-title" data-selected={isPicked("step", stepId) || undefined} data-mark={marks?.[stepId]} data-run={mark?.status} data-parallel={resolved.step.parallel !== undefined || undefined} style={at(span.firstRow, 0, span.lastRow)}>
           <button type="button" {...stop("step", stepId)} data-process-slot="step-button" aria-current={mark?.status === "active" ? "step" : undefined} onClick={() => onPick({ kind: "step", id: stepId })}>
             <span data-process-slot="step-number" aria-label={t("stepNumber", { number: resolved.number })}>
               {stepNo(resolved.number)}
@@ -125,7 +126,7 @@ export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, tab
                 data-process-slot="jump"
                 data-process-jump={id}
                 data-direction={jump.direction}
-                data-selected={isPicked("jump", id) || undefined}
+                data-selected={isPicked("jump", id) || undefined} data-mark={marks?.[id]}
                 aria-label={jumpSpoken(jump, t)}
                 onClick={() => {
                   onPick({ kind: "jump", id });
@@ -154,7 +155,7 @@ export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, tab
                       data-process-act={act.id}
                       data-kind={act.kind}
                       data-run={actMark?.status}
-                      data-selected={isPicked("act", act.id) || undefined}
+                      data-selected={isPicked("act", act.id) || undefined} data-mark={marks?.[act.id]}
                       aria-label={[`${t(`kind.${act.kind}`)}: ${act.label}`, laneLabels(view, act).join(", "), actMark === undefined ? "" : runWords(actMark, t)].filter((part) => part.length > 0).join(", ")}
                       onClick={() => onPick(act.ref === undefined ? { kind: "act", id: act.id } : { kind: "act", id: act.id, ref: act.ref })}
                     >

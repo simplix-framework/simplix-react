@@ -18,6 +18,7 @@ export interface StackListProps {
   /** Prefix of the element ids this instance writes, unique on the page. */
   uid: string;
   selected: ProcessTarget | null;
+  marks?: Readonly<Record<string, string>>;
   tabStop: string | undefined;
   onPick: (target: ProcessTarget) => void;
   onFollow: (stepId: Id) => void;
@@ -33,7 +34,7 @@ type StepBlock = Extract<StackBlock, { kind: "step" }>;
  * goes to the step it names. One rail runs down the column through every step's number and
  * nodes, from a start mark to an end mark, drawn as done as far as the running case has come.
  */
-export function StackList({ view, blocks, lanes, highlight, uid, selected, tabStop, onPick, onFollow, renderDetail, t }: StackListProps) {
+export function StackList({ view, blocks, lanes, highlight, uid, selected, marks, tabStop, onPick, onFollow, renderDetail, t }: StackListProps) {
   const isPicked = (kind: ProcessTarget["kind"], id: string): boolean => selected !== null && selected.kind === kind && selected.id === id;
   const stop = (kind: string, id: string) => ({ "data-process-stop": `${kind}:${id}`, tabIndex: tabStop === `${kind}:${id}` ? 0 : -1 });
   const arrivals = new Map<Id, Id[]>();
@@ -60,7 +61,7 @@ export function StackList({ view, blocks, lanes, highlight, uid, selected, tabSt
           </div>
         ) : (
           <>
-            <div data-process-slot="card-head" data-selected={isPicked("step", block.stepId) || undefined}>
+            <div data-process-slot="card-head" data-selected={isPicked("step", block.stepId) || undefined} data-mark={marks?.[block.stepId]}>
               <button type="button" {...stop("step", block.stepId)} data-process-slot="step-button" aria-current={mark?.status === "active" ? "step" : undefined} onClick={() => onPick({ kind: "step", id: block.stepId })}>
                 <span data-process-slot="step-number" aria-label={t("stepNumber", { number: block.number })}>
                   {stepNo(block.number)}
@@ -81,7 +82,7 @@ export function StackList({ view, blocks, lanes, highlight, uid, selected, tabSt
                       data-process-slot="act"
                       data-process-act={act.id}
                       data-kind={act.kind}
-                      data-selected={isPicked("act", act.id) || undefined}
+                      data-selected={isPicked("act", act.id) || undefined} data-mark={marks?.[act.id]}
                       onClick={() => onPick(act.ref === undefined ? { kind: "act", id: act.id } : { kind: "act", id: act.id, ref: act.ref })}
                     >
                       <Node order={index + 1} first={index === 0} mark={actMark} />
@@ -111,7 +112,7 @@ export function StackList({ view, blocks, lanes, highlight, uid, selected, tabSt
                       data-process-slot="jump"
                       data-process-jump={entry.jumpId}
                       data-direction={jump.direction}
-                      data-selected={isPicked("jump", entry.jumpId) || undefined}
+                      data-selected={isPicked("jump", entry.jumpId) || undefined} data-mark={marks?.[entry.jumpId]}
                       aria-label={jumpSpoken(jump, t)}
                       onClick={() => {
                         onPick({ kind: "jump", id: entry.jumpId });

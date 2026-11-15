@@ -93,6 +93,8 @@
     z-index: 4;
     padding-block: 4px;
     background: var(--background);
+    /* Covers the gap down to a section heading stuck under this row, so no card shows through it. */
+    box-shadow: 0 6px 0 var(--background);
   }
 
   /* ── The lane grid ──────────────────────────────────────────────────────── */
@@ -533,18 +535,33 @@
     color: var(--background);
   }
 
-  /* The act in progress: a ring that breathes, so the eye finds it on a full page. */
+  /* The act in progress: a steady ring and a second ring that spreads out from it and fades, so the eye finds it on a full page. */
   [data-process-slot="node"][data-run="active"] {
     border-color: var(--process-done);
     background: var(--process-done);
     color: var(--background);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--process-done) 30%, transparent);
-    animation: process-node-current 1.8s ease-in-out infinite;
+    box-shadow:
+      0 0 0 3px color-mix(in srgb, var(--process-done) 45%, transparent),
+      0 0 0 3px color-mix(in srgb, var(--process-done) 0%, transparent);
+    animation: process-node-current 1.4s cubic-bezier(0.2, 0.6, 0.35, 1) infinite;
   }
 
   @keyframes process-node-current {
-    0%, 100% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--process-done) 35%, transparent); }
-    50% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--process-done) 12%, transparent); }
+    0% {
+      box-shadow:
+        0 0 0 3px color-mix(in srgb, var(--process-done) 45%, transparent),
+        0 0 0 3px color-mix(in srgb, var(--process-done) 60%, transparent);
+    }
+    70%, 100% {
+      box-shadow:
+        0 0 0 3px color-mix(in srgb, var(--process-done) 45%, transparent),
+        0 0 0 16px color-mix(in srgb, var(--process-done) 0%, transparent);
+    }
+  }
+
+  /* The act in progress is marked by its ring: picked, it takes no outline on top of it. */
+  [data-process-slot="act"][data-selected]:is([data-run="active"], :has([data-process-slot="node"][data-run="active"])) {
+    outline: none;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -1250,5 +1267,176 @@
     [data-process-slot="section-nav"] {
       display: none;
     }
+  }
+
+  /* ── Marks: what a comparison of two versions found on a step, an act or a jump ── */
+
+  [data-process-root] [data-mark="added"] {
+    box-shadow: inset 0 0 0 2px var(--success);
+    background: var(--success-soft);
+  }
+
+  [data-process-root] [data-mark="changed"] {
+    box-shadow: inset 0 0 0 2px var(--warning);
+  }
+
+  [data-process-root] [data-mark="moved"] {
+    box-shadow: inset 0 0 0 2px var(--border-strong);
+  }
+
+  /* ── The editor: a bar, the drawing with the panel beside it, the problems under them ── */
+
+  [data-process-editor],
+  [data-process-diff] {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+    font-size: var(--fs-body-sm);
+  }
+
+  [data-process-slot="editor-bar"],
+  [data-process-slot="editor-actions"] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+  }
+
+  [data-process-slot="editor-gap"] {
+    flex: 1 1 0;
+  }
+
+  [data-process-slot="editor-refusal"],
+  [data-process-slot="editor-consequence"] {
+    margin: 0;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-control);
+  }
+
+  [data-process-slot="editor-refusal"] {
+    border-color: var(--destructive);
+    color: var(--destructive);
+  }
+
+  /* The panel stands beside the drawing while both fit, and under it where they do not. */
+  [data-process-slot="editor-body"] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 16px;
+    min-width: 0;
+  }
+
+  [data-process-slot="editor-canvas"] {
+    flex: 1 1 480px;
+    min-width: 0;
+  }
+
+  [data-process-slot="editor-panel"] {
+    flex: 1 1 300px;
+    max-width: 420px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card, var(--radius-control));
+    background: var(--card);
+  }
+
+  [data-process-slot="editor-panel"] > button {
+    align-self: flex-start;
+  }
+
+  [data-process-slot="editor-heading"] {
+    margin: 6px 0 0;
+    font-size: var(--fs-body-sm);
+    font-weight: var(--fw-semibold);
+    color: var(--muted-foreground);
+  }
+
+  [data-process-slot="editor-field"] {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  [data-process-slot="editor-tick"] {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  [data-process-slot="editor-ticks"] {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  [data-process-slot="editor-list"],
+  [data-process-slot="editor-sublist"],
+  [data-process-slot="editor-problems"] ul,
+  [data-process-slot="diff-list"] {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  [data-process-slot="editor-row"] {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-control);
+  }
+
+  [data-process-slot="editor-row-main"] {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  [data-process-slot="editor-row-actions"] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  [data-process-slot="editor-name"] {
+    overflow-wrap: anywhere;
+  }
+
+  [data-process-slot="editor-hint"],
+  [data-process-slot="diff-none"] {
+    margin: 0;
+    color: var(--muted-foreground);
+  }
+
+  [data-process-slot="editor-problems"] {
+    padding: 12px;
+    border: 1px solid var(--destructive);
+    border-radius: var(--radius-control);
+  }
+
+  [data-process-slot="diff-row"] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 8px;
+  }
+
+  [data-process-slot="diff-subject"],
+  [data-process-slot="diff-fields"] {
+    color: var(--muted-foreground);
   }
 }

@@ -41,6 +41,7 @@ export function ProcessLanes({
   highlightLanes,
   laneFilter = false,
   selected = null,
+  marks,
   onSelect,
   renderDetail,
   scrollToActive = true,
@@ -156,12 +157,12 @@ export function ProcessLanes({
               ))}
             </nav>
           )}
-          <StackList view={view} blocks={blocks} lanes={shown} highlight={highlight} uid={uid} selected={selected} tabStop={tabStop} onPick={pick} onFollow={follow} renderDetail={renderDetail} t={t} />
+          <StackList view={view} blocks={blocks} lanes={shown} highlight={highlight} uid={uid} selected={selected} marks={marks} tabStop={tabStop} onPick={pick} onFollow={follow} renderDetail={renderDetail} t={t} />
         </>
       ) : (
         <>
           <div data-process-slot="scroll">
-            <LaneGrid view={view} geometry={geometry} uid={uid} highlight={highlight} scroll={mode === "lanes-scroll"} selected={selected} tabStop={tabStop} onPick={pick} onFollow={follow} t={t} />
+            <LaneGrid view={view} geometry={geometry} uid={uid} highlight={highlight} scroll={mode === "lanes-scroll"} selected={selected} marks={marks} tabStop={tabStop} onPick={pick} onFollow={follow} t={t} />
           </div>
           {selected !== null && renderDetail !== undefined && (
             <aside aria-label={t("detail")} data-process-slot="detail">
