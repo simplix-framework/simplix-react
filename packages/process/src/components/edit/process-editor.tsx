@@ -85,12 +85,6 @@ export function ProcessEditor({ editing, facts, problems = [], renderFields, cla
     else setPicked({ kind: "process" });
   };
 
-  const addSection = (): void => {
-    editing.apply({ type: "add-section", section: { id: freshId(definition, "section-"), label: t("newSection") } });
-  };
-  const addLane = (): void => {
-    editing.apply({ type: "add-lane", lane: { id: freshId(definition, "lane-"), label: t("newLane") } });
-  };
   const addStep = (section: Id, at?: number): void => {
     const lane = definition.lanes[0];
     if (lane === undefined) return;
@@ -114,12 +108,6 @@ export function ProcessEditor({ editing, facts, problems = [], renderFields, cla
           {t("redo")}
         </Button>
         <span data-process-slot="editor-gap" />
-        <Button type="button" size="sm" variant="outline" onClick={addLane}>
-          {t("addLane")}
-        </Button>
-        <Button type="button" size="sm" variant="outline" onClick={addSection}>
-          {t("addSection")}
-        </Button>
         <Badge variant={listed.length === 0 ? "secondary" : "destructive"} data-process-slot="editor-count" data-problems={listed.length}>
           {listed.length === 0 ? t("noProblems") : t("problemCount", { count: listed.length })}
         </Badge>
