@@ -5,7 +5,7 @@
 # SimpliX React
 
 [![npm version](https://img.shields.io/npm/v/simplix-react.svg)](https://www.npmjs.com/package/simplix-react)
-[![license](https://img.shields.io/npm/l/simplix-react.svg)](https://github.com/simplix-react/simplix-react/blob/main/LICENSE)
+[![license](https://img.shields.io/npm/l/simplix-react.svg)](https://github.com/simplix-framework/simplix-react/blob/main/LICENSE)
 
 Package-first React framework that auto-generates reusable domain packages from OpenAPI specs.
 
