@@ -22,7 +22,7 @@
   "hideGenerator": true,
   "packageOptions": {
     "disableGit": true,
-    "sourceLinkTemplate": "https://github.com/simplix-react/simplix-react/blob/main/{path}#L{line}"
+    "sourceLinkTemplate": "https://github.com/simplix-framework/simplix-react/blob/main/{path}#L{line}"
   },
   "categoryOrder": ["Functions", "Types", "Classes", "Interfaces", "*"],
   "kindSortOrder": [
