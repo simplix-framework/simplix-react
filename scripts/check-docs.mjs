@@ -8,14 +8,15 @@
 // document is read. The exit code is 1 when a check reports a problem.
 import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync, statSync } from "node:fs";
-import { dirname, join, posix, relative, resolve } from "node:path";
+import { dirname, join, posix, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { githubIds } from "./build-docs.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const [mode = "all", ...prefixes] = process.argv.slice(2);
 
-/** Documents that are generated, internal, or instructions for agents: not part of the reader's set. */
-const EXCLUDED = [/^docs\/api\//, /^docs\/design\//, /^docs\/superpowers\//, /^docs\/figures\//, /^skills\//, /^\.claude\//, /(^|\/)CHANGELOG\.md$/, /(^|\/)node_modules\//, /(^|\/)templates\//, /(^|\/)__fixtures__\//];
+/** Documents that are generated, internal, instructions for agents, or the site's own navigation: not part of the reader's set. */
+const EXCLUDED = [/^docs\/api\//, /^docs\/figures\//, /(^|\/)_[^/]*\.md$/, /^build-docs\//, /^skills\//, /^\.claude\//, /(^|\/)CHANGELOG\.md$/, /(^|\/)node_modules\//, /(^|\/)templates\//, /(^|\/)__fixtures__\//];
 
 const tracked = execFileSync("git", ["ls-files", "-co", "--exclude-standard", "*.md"], { cwd: ROOT, encoding: "utf8" }).split("\n").filter(Boolean);
 const documents = tracked.filter((file) => !EXCLUDED.some((pattern) => pattern.test(file)) && existsSync(join(ROOT, file)));
@@ -59,15 +60,10 @@ const read = (file) => parsed.get(file) ?? parsed.set(file, parse(file)).get(fil
 
 /** The anchors GitHub gives the headings of a document. */
 function anchorsOf(file) {
-  const seen = new Map();
-  const anchors = new Set();
-  for (const { text } of read(file).headings) {
+  const texts = read(file).headings.map(({ text }) => text);
+  const anchors = new Set(githubIds(texts.map((text) => text.replace(/\{#[^}]+\}\s*$/, ""))));
+  for (const text of texts) {
     const explicit = /\{#([^}]+)\}\s*$/.exec(text);
-    const plain = text.replace(/\{#[^}]+\}\s*$/, "").replace(/!?\[([^\]]*)\]\([^)]*\)/g, "$1").replace(/[`*_~]/g, "");
-    const slug = plain.trim().toLowerCase().replace(/[^\p{L}\p{N}\p{M}\s_-]/gu, "").replace(/\s/g, "-");
-    const count = seen.get(slug) ?? 0;
-    seen.set(slug, count + 1);
-    anchors.add(count === 0 ? slug : slug + "-" + count);
     if (explicit) anchors.add(explicit[1]);
   }
   return anchors;

@@ -25,3 +25,5 @@ coverage/
 .coregraph/
 # MS Project sample files fetched by packages/gantt-core/scripts/fetch-oracle.mjs
 .oracle/
+# Documentation site assembled by scripts/build-docs.mjs
+build-docs/

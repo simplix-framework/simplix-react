@@ -1,0 +1,27 @@
+{
+  "name": "simplix-react",
+  "description": "simplix-react - a package-first React framework that derives the API client, hooks, forms and mocks from one contract",
+  "keywords": "simplix-react, React, TypeScript, Zod, TanStack Query, OpenAPI, MSW",
+  "repository": "https://github.com/simplix-framework/simplix-react",
+  "branch": "main",
+  "languages": [
+    "en",
+    "ko"
+  ],
+  "homes": [
+    "README.md"
+  ],
+  "documents": [
+    "CONTRIBUTING.md",
+    "packages/*/README.md",
+    "packages/gantt/docs/guide.md",
+    "extensions/README.md",
+    "extensions/*/README.md",
+    "extensions/*/packages/*/README.md"
+  ],
+  "theme": {
+    "color": "#1c6ea4",
+    "strong": "#12496d",
+    "cover": "#cfe6f5"
+  }
+}
