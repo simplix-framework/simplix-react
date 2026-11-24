@@ -1,0 +1,59 @@
+{
+  // Document-figure settings for the simplix-react documentation.
+  // Read by the svg-diagrams skill's scripts/docfigures library through
+  // --config. This file is not under .claude/, so the library takes its own
+  // directory (docs/figures/) as the root and resolves every relative path
+  // below against it.
+  "out": "../assets/figures",
+  "modules": ["*.py"],
+  "helpers": [],
+
+  // GitHub renders a repository Markdown file in a column about 830 px wide.
+  // One 1200-unit board placed across it: scale 830 / 1200 = 0.6917 px/unit.
+  "boards": { "1200": 830 },
+  "boardNames": { "FULL": 1200 },
+  "placeScale": 1.0,
+  "margin": 28,
+  "sideMargin": 28,
+
+  // Body prints at about 14 px: 14 / 0.6917 = 20.2 -> BODY 20 (13.8 px).
+  // Tag rung 16 prints 11.1 px = 8.3 pt, above the 6.4 pt floor.
+  // Rungs in px as placed: 16=11.1 18=12.5 20=13.8 22=15.2 24=16.6 26=18.0 28=19.4
+  "ladder": [16, 18, 20, 22, 24, 26, 28],
+  "names": { "MICRO": 16, "CHIP": 16, "BODY": 20, "LEAD": 22, "CARD": 22,
+             "SECTION": 24, "EMPH": 26, "DISPLAY": 28 },
+  "steps": { "STEP": 26, "CHIP_STEP": 21 },
+  "subBodyShareMax": 0.5,
+  "maxRung": null,
+
+  // Printed px: 1.4 -> 0.97, 1.9 -> 1.31, 2.8 -> 1.94.
+  "strokes": { "HAIRLINE": 1.4, "STROKE": 1.9, "THICK": 2.8 },
+  "dashes": {
+    "DASH_PENDING": { "pattern": "6 5", "words": ["not yet decided"] },
+    "DASH_OUTSIDE": { "pattern": "5 4", "words": ["outside scope"] },
+    "DASH_ALT":     { "pattern": "4 4", "words": ["alternative"] },
+    "DASH_BLOCK":   { "pattern": "3 3", "words": ["prohibited"] }
+  },
+
+  "theme": "paper",
+  // System faces only: GitHub serves the SVG as an image, so no web font loads.
+  // Latin faces first, then the Korean system faces of macOS, Windows, Linux.
+  "fontStack": "-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans','Helvetica Neue',Arial,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR','Noto Sans CJK KR',sans-serif",
+  "icon": { "size": 24, "sw": 1.8 },
+  "accents": {},
+  "badges": {},
+  "verdict": null,
+  "bullets": true,
+  "noBreak": ["([A-Za-z][A-Za-z.]*) ([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)"],
+
+  "heightReview": { "1200": 840 },
+  "deadMargin": null,
+  "stripRatio": 0.28,
+  "footLegend": null,
+  "labelForm": {},
+  "register": null,
+  "sectionNumbers": true,
+  "logos": null,
+  "references": null,
+  "plans": null
+}
