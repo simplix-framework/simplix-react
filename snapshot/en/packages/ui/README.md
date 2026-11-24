@@ -1,0 +1,988 @@
+# @simplix-react/ui
+
+**English** | [한국어](/ko/packages/ui/README.md)
+
+CRUD scaffolding UI components with explicit field components and compound patterns.
+
+## Overview
+
+`@simplix-react/ui` provides a headless-friendly, Tailwind CSS-based component library for building CRUD interfaces. Every component follows the **No Magic** principle: explicit `value`/`onChange` props, no hidden state, and full control at every level.
+
+## Quick Start
+
+```tsx
+import {
+  UIProvider,
+  CrudForm,
+  FormFields,
+  CrudDetail,
+  DetailFields,
+  CrudList,
+  useCrudList,
+} from "@simplix-react/ui";
+
+function App() {
+  return (
+    <UIProvider>
+      {/* Your CRUD pages */}
+    </UIProvider>
+  );
+}
+```
+
+## Styles & Theme
+
+Component CSS ships values only as `var(--*)` references. Import the
+stylesheet plus the official token theme from your app's CSS entry:
+
+```css
+@import "tailwindcss";
+@import "@simplix-react/ui/styles.css";   /* component styles */
+@import "@simplix-react/ui/theme.css";    /* official design tokens (opt-in) */
+
+@source "../node_modules/@simplix-react/ui/dist/**/*.js";
+```
+
+`theme.css` defines the design tokens (light/dark, color variants, radius,
+typography, status indicator animations) consumed by the components. Apps may override any token by
+redefining it after the import. Projects scaffolded via `simplix init`
+wire this up automatically.
+
+Every component draws its look from slot declarations, so one app can switch between designs
+(`classic`, `clarity`) at run time while behaviour stays the same. See
+[Choose and add a design](/en/guides/designs.md).
+
+## App Architecture (FSD)
+
+simplix-react apps follow **Feature-Sliced Design (FSD)** - UI code lives in **modules**, not in domain packages:
+
+```text
+my-app/
+├── packages/                     Domain packages (generated) - NO UI code
+│   ├── user/
+│   │   ├── schemas.ts                Zod schemas
+│   │   ├── contract.ts               API contracts
+│   │   ├── hooks.ts                  React Query hooks
+│   │   └── form-hooks.ts             TanStack Form hooks
+│   └── product/
+│       └── ...
+│
+├── modules/                      FSD modules - compose domain packages + @simplix-react/ui
+│   └── myapp-admin/
+│       └── src/
+│           ├── manifest.ts           Module manifest (navigation, capabilities)
+│           ├── index.ts              Root exports
+│           ├── features/             Feature layer - CRUD screens
+│           │   ├── user/                 uses @myapp/user hooks
+│           │   │   ├── user-list.tsx
+│           │   │   ├── user-form.tsx
+│           │   │   ├── user-detail.tsx
+│           │   │   └── index.ts
+│           │   └── product/              uses @myapp/product hooks
+│           │       └── ...
+│           ├── widgets/              Widget layer - compose multiple features
+│           │   └── dashboard/
+│           ├── shared/               Shared layer
+│           │   ├── ui/
+│           │   ├── lib/
+│           │   └── config/
+│           └── locales/              i18n (optional)
+│
+└── app/                          Final app - composes modules only
+    └── src/
+        ├── features/
+        ├── widgets/
+        └── shared/
+```
+
+### FSD Layer Rules
+
+| Layer | Can import from | Cannot import from |
+| --- | --- | --- |
+| `shared/` | external packages only | `features/`, `widgets/` |
+| `features/` | `shared/`, domain packages | `widgets/` |
+| `widgets/` | `shared/`, `features/`, domain packages | - |
+
+### Module can compose multiple domain packages
+
+A single module can contain CRUD features from **different** domain packages:
+
+```tsx
+// modules/myapp-admin/src/features/user/user-list.tsx
+import { useUserHooks } from "@myapp/user";   // domain package A
+
+// modules/myapp-admin/src/features/product/product-list.tsx
+import { useProductHooks } from "@myapp/product"; // domain package B
+```
+
+### CLI Scaffold
+
+```bash
+# Generate CRUD feature into a module's features/ layer
+simplix scaffold user --module myapp-admin
+
+# Output: modules/myapp-admin/src/features/user/
+#   user-list.tsx, user-form.tsx, user-detail.tsx, index.ts
+```
+
+## Design Principles
+
+### No Magic
+
+Every field component requires explicit `value` and `onChange` props. There is no hidden form state, no automatic binding, and no implicit context dependencies.
+
+```tsx
+// Explicit value/onChange - always
+<FormFields.TextField
+  label="Name"
+  value={name}
+  onChange={setName}
+  required
+/>
+```
+
+### Compound Components
+
+CRUD layouts (CrudList, CrudForm, CrudDetail) use the compound component pattern. Assemble only what you need:
+
+```tsx
+<CrudList>
+  <CrudList.Toolbar>
+    <CrudList.Search value={search} onChange={setSearch} />
+  </CrudList.Toolbar>
+  <CrudList.Table data={items} sort={sort} onSortChange={setSort}>
+    <CrudList.Column field="name" header="Name" sortable />
+    <CrudList.Column field="status" header="Status" display="badge" />
+  </CrudList.Table>
+  <CrudList.Pagination page={1} pageSize={10} total={100} totalPages={10} onPageChange={setPage} />
+</CrudList>
+```
+
+### Component Override Strategy
+
+Levels of customization, from least to most effort:
+
+| Level | Method | Scope |
+| --- | --- | --- |
+| 1 | `className` prop | Single instance |
+| 2 | CVA variants (`variant`, `size`) | Variant-level |
+| 3 | `FieldVariantContext` | Section/page-wide field styling |
+| 4 | `UIProvider` overrides | App-wide component replacement |
+| 5 | Custom component | Full replacement |
+
+```tsx
+// Level 4: Replace Input globally via UIProvider
+import { MyCustomInput } from "./my-input";
+
+<UIProvider overrides={{ Input: MyCustomInput }}>
+  {/* All TextField components now use MyCustomInput */}
+</UIProvider>
+```
+
+## API Reference
+
+### Layout Primitives
+
+Semantic layout components built with CVA variants.
+
+| Component | Description | Key Props |
+| --- | --- | --- |
+| `Stack` | Vertical/horizontal flex layout | `direction`, `gap`, `align`, `justify`, `wrap` |
+| `Flex` | Horizontal flex (alias for `Stack direction="row"`) | Same as Stack |
+| `Grid` | CSS Grid layout | `columns` (1-6), `gap`, `gapX`/`gapY` (per-axis overrides), `divider` (vertical line between columns), `template` (arbitrary `grid-template-columns`) |
+| `Container` | Centered max-width wrapper | `size` (sm/md/lg/xl/full) |
+| `Section` | Content section with title/description | `title`, `description` |
+| `Card` | Card container with border and shadow | `padding` (none/sm/md/lg), `interactive` |
+| `Heading` | Semantic heading (h1-h6) | `level` (1-6), `tone`, `font` (sans/display/mono) |
+| `Text` | Body text with typography scale | `size` (lg/base/sm/caption), `tone`, `font` (sans/display/mono) |
+
+```tsx
+<Stack gap="lg">
+  <Section title="User Info" description="Basic information">
+    <Grid columns={2} gap="md">
+      <FormFields.TextField label="First Name" value={first} onChange={setFirst} />
+      <FormFields.TextField label="Last Name" value={last} onChange={setLast} />
+    </Grid>
+  </Section>
+</Stack>
+```
+
+### Base Components
+
+Unstyled Radix UI primitives with Tailwind CSS styling. Used internally by field components and available for direct use.
+
+- `Button` (with CVA variants: `variant`, `size`)
+- `Input`, `Textarea`, `Label`, `Badge`, `Switch`, `Checkbox`
+- `CodeInput` (a one-time code entered one digit per cell: typing moves on, Backspace steps back, a paste or an autofill fills every cell; `codeType`, `codeBackspace` and `codePaste` are its editing rules)
+- `Select` (Root, Trigger, Value, Content, Item, Group, Label, Separator)
+- `RadioGroup` (Root, Item)
+- `Calendar` (date picker grid)
+- `TimePicker` (time-of-day input with AM/PM toggle and drop-open hour/minute lists)
+- `Popover` (Root, Trigger, Content, Anchor)
+- `Dialog` (Root, Trigger, Content, Header, Footer, Title, Description, Close)
+- `DropdownMenu` (Root, Trigger, Content, Item, CheckboxItem, RadioItem, RadioGroup, Label, Separator, Sub, SubTrigger, SubContent, Group)
+- `Sheet` (Root, Trigger, Content, Header, Footer, Title, Description, Close)
+- `Table` (Root, Header, Body, Footer, Head, Row, Cell, Caption)
+- `Tabs` (Root, List, Trigger, Content)
+- `Tooltip` (Provider, Root, Trigger, Content)
+- `NavigationMenu` (Root, List, Item, Trigger, Content, Link, Viewport, Indicator)
+- `Separator`
+- `Skeleton`
+
+### Status & Display
+
+Tone-driven components sharing a single semantic color vocabulary. Each `StatusTone` (`success`, `warning`, `danger`, `info`, `neutral`, `pending`, `processing`) bundles every Tailwind class - badge, dot, ring, icon, surface - with its `dark:` variant, so adopting them keeps colors consistent across light/dark.
+
+- `StatusBadge` - compact status pill (tone + label, optional leading dot/icon, `filled`/`outline` appearance)
+- `StatusDot` - small indicator dot with an optional `ping`/`flash` ring animation
+- `AlertBanner` - tinted status banner with icon, title/subtitle (or free-form children), trailing slot, and `default`/`sm`/`hint` density
+- `DetailList` / `DetailListRow` - bordered key-value rows, optionally interactive (`onClick` upgrades a row to button semantics)
+- `LabeledField` - label + description row paired with an arbitrary trailing control
+- `SettingSwitch` - labeled toggle row built on `LabeledField` + `Switch`
+
+Tone tokens are exported directly for custom rendering: `STATUS_TONES`, `STATUS_TONE_NAMES`, `statusToneClass(tone, slot)`, plus the `StatusTone` / `StatusToneToken` / `IconComponent` types.
+
+```tsx
+<StatusBadge tone="success" label="Active" showDot />
+<AlertBanner tone="danger" icon={AlertTriangleIcon} title="Connection lost" subtitle="Reconnecting…" />
+```
+
+### Form Field Components
+
+All form fields follow the same pattern: `value` + `onChange` + common field props (label, error, description, required, disabled, className).
+
+Every field also accepts `prefixControl` / `suffixControl` - a control rendered on the same row as the input (e.g. an add button, IconPicker, ColorPicker). Use these instead of composing a button next to the field: the control stays aligned with the input while description and error render below at full width.
+
+```tsx
+<FormFields.TextField
+  label="Training key"
+  value={draft}
+  onChange={setDraft}
+  description="Added on submit."
+  suffixControl={<Button onClick={add}>Add</Button>}
+/>
+```
+
+```tsx
+import { FormFields } from "@simplix-react/ui";
+```
+
+| Component | Value Type | Key Props |
+| --- | --- | --- |
+| `FormFields.TextField` | `string` | `type` (text/email/url/password/tel), `placeholder`, `maxLength` |
+| `FormFields.TextareaField` | `string` | `rows`, `maxLength`, `resize` (none/vertical/both) |
+| `FormFields.NumberField` | `number \| null` | `min`, `max`, `step`, `placeholder` |
+| `FormFields.SelectField` | `string` | `options` (label/value pairs), `placeholder` |
+| `FormFields.SwitchField` | `boolean` | `switchProps` |
+| `FormFields.CheckboxField` | `boolean` | `checkboxProps` |
+| `FormFields.RadioGroupField` | `string` | `options` (label/value/description), `direction` |
+| `FormFields.DateField` | `Date \| null` | `minDate`, `maxDate`, `format`, `placeholder` |
+| `FormFields.DateTimeField` | `Date \| string \| number \| null` | `minDate`, `maxDate`, `hideTime`, `hour12`, `minuteStep` |
+| `FormFields.TimeField` | `TimeValue \| null` (`{ hours, minutes }`) | `minTime`, `maxTime`, `hour12`, `minuteStep` |
+| `FormFields.ComboboxField` | `string \| null` | `options`, `onSearch`, `loading`, `emptyMessage` |
+| `FormFields.PasswordField` | `string` | `placeholder`, `maxLength` (with visibility toggle) |
+| `FormFields.ColorField` | `string` (hex) | Native color picker + hex text input |
+| `FormFields.SliderField` | `number` | `min`, `max`, `step`, `showValue` |
+| `FormFields.MultiSelectField` | `string[]` | `options`, `placeholder`, `maxCount` |
+| `FormFields.Field` | `ReactNode` (children) | Generic wrapper for custom content |
+
+```tsx
+<FormFields.SelectField
+  label="Status"
+  value={status}
+  onChange={setStatus}
+  options={[
+    { label: "Active", value: "active" },
+    { label: "Inactive", value: "inactive" },
+  ]}
+  required
+  error={errors.status}
+/>
+```
+
+### Detail Field Components
+
+Read-only display fields with formatting capabilities.
+
+```tsx
+import { DetailFields } from "@simplix-react/ui";
+```
+
+| Component | Value Type | Key Props |
+| --- | --- | --- |
+| `DetailFields.DetailTextField` | `string \| null` | `fallback`, `copyable` |
+| `DetailFields.DetailNumberField` | `number \| null` | `format` (decimal/currency/percent), `locale`, `currency` |
+| `DetailFields.DetailDateField` | `Date \| string \| null` | `format` (date/datetime/relative), `fallback` |
+| `DetailFields.DetailBadgeField` | `string` | `variants` (value-to-variant mapping) |
+| `DetailFields.DetailLinkField` | `string` | `href`, `external` |
+| `DetailFields.DetailBooleanField` | `boolean \| null` | `mode` (text/icon), `labels` |
+| `DetailFields.DetailImageField` | `string \| null` (URL) | `alt`, `width`, `height`, `imageClassName` |
+| `DetailFields.DetailListField` | `string[] \| null` | `mode` (badges/comma/bullet) |
+| `DetailFields.DetailField` | `ReactNode` (children) | Generic wrapper for custom content |
+
+```tsx
+<DetailFields.DetailDateField
+  label="Created At"
+  value={user.createdAt}
+  format="relative"
+/>
+
+<DetailFields.DetailBadgeField
+  label="Status"
+  value={user.status}
+  variants={{ active: "success", inactive: "secondary", banned: "destructive" }}
+/>
+```
+
+### Field Wrappers
+
+Low-level wrappers used internally by `FormFields` and `DetailFields`. Export them to build custom field components.
+
+| Component | Purpose | Key Props |
+| --- | --- | --- |
+| `FieldWrapper` | Wraps editable inputs with label, error, description | `label`, `error`, `description`, `required`, `disabled`, `layout`, `size` |
+| `DetailFieldWrapper` | Wraps read-only display values with label | `label`, `layout`, `size` |
+
+```tsx
+import { FieldWrapper } from "@simplix-react/ui";
+
+// Pass a render function to receive { id, labelId }. Put `id` on a labelable
+// control so the label names it; use `labelId` with `aria-labelledby` for a
+// composite control (radio group, date picker) with no single labelable element.
+// A plain-element child is instead named by the wrapping fieldset.
+<FieldWrapper label="Custom Field" error={errors.custom} required>
+  {({ id }) => <MyCustomInput id={id} value={value} onChange={onChange} />}
+</FieldWrapper>
+```
+
+### Field Variant System
+
+Control field label position and size across a section or page using context:
+
+```tsx
+import { FieldVariantContext } from "@simplix-react/ui";
+
+// All fields inside will use left-aligned labels at small size
+<FieldVariantContext.Provider value={{ layout: "left", size: "sm" }}>
+  <FormFields.TextField label="Name" value={name} onChange={setName} />
+  <FormFields.TextField label="Email" value={email} onChange={setEmail} />
+</FieldVariantContext.Provider>
+```
+
+Options:
+- `layout`: `"top"` (default) | `"left"` | `"inline"` | `"trailing"` (control right-aligned with a dashed leader line from the label - the `SwitchField` default) | `"hidden"` (sr-only for accessibility)
+- `size`: `"sm"` | `"md"` (default) | `"lg"`
+
+### CRUD Layout Components
+
+#### CrudList (Compound)
+
+Full-featured data table with sorting, filtering, pagination, selection, and bulk actions.
+
+```tsx
+const { data, filters, sort, pagination, selection, emptyReason } = useCrudList(useUserList);
+
+<CrudList>
+  <CrudList.Toolbar>
+    <CrudList.Search value={filters.search} onChange={filters.setSearch} />
+  </CrudList.Toolbar>
+
+  <CrudList.BulkActions selectedCount={selection.selected.size} onClear={selection.clear}>
+    <CrudList.BulkAction label="Delete Selected" onClick={handleBulkDelete} variant="destructive" />
+  </CrudList.BulkActions>
+
+  {emptyReason ? (
+    <CrudList.Empty reason={emptyReason} />
+  ) : (
+    <CrudList.Table
+      data={data}
+      sort={{ field: sort.field!, direction: sort.direction }}
+      onSortChange={(s) => sort.setSort(s.field, s.direction)}
+      selectable
+      selectedIndices={selection.selected}
+      onSelectionChange={selection.toggle}
+      onSelectAll={() => selection.toggleAll(data)}
+      onRowClick={handleRowClick}
+    >
+      <CrudList.Column field="name" header="Name" sortable />
+      <CrudList.Column field="email" header="Email" sortable />
+      <CrudList.Column field="status" header="Status" display="badge"
+        variants={{ active: "success", inactive: "secondary" }} />
+      <CrudList.Column field="createdAt" header="Created" format="date" sortable />
+    </CrudList.Table>
+  )}
+
+  <CrudList.Pagination
+    page={pagination.page}
+    pageSize={pagination.pageSize}
+    total={pagination.total}
+    totalPages={pagination.totalPages}
+    onPageChange={pagination.setPage}
+    onPageSizeChange={pagination.setPageSize}
+  />
+</CrudList>
+```
+
+Sub-components: `CrudList.Toolbar`, `CrudList.Search`, `CrudList.Table`, `CrudList.TableCard`, `CrudList.Column`, `CrudList.Pagination`, `CrudList.BulkActions`, `CrudList.BulkAction`, `CrudList.Empty`, `CrudList.ViewToggle`, and the filter components `CrudList.FilterBar`, `CrudList.FilterActions`, `CrudList.TextFilter`, `CrudList.MultiTextFilter`, `CrudList.AdvancedTextFilter`, `CrudList.UnifiedTextFilter`, `CrudList.NumberFilter`, `CrudList.DateFilter`, `CrudList.DateRangeFilter`, `CrudList.FacetedFilter`, `CrudList.AdvancedSelectFilter`, `CrudList.ToggleFilter`, `CrudList.ChipFilter`.
+
+Row actions are passed to `CrudList.Table` as its `actions` prop (`RowActionDef[]`), not as child components.
+
+`CrudList.Table` and `CrudTree.Table` render a sticky header by default - once scrolling an outer container (a page, dialog, or detail-pane body) would hide the header row, it sticks to the top of the nearest scrollable ancestor. Wide tables keep their own horizontal scrollbar, and the floating header scrolls with its columns. Pass `stickyHeader={false}` to disable. Inside a `CrudList.TableCard` the table owns its scroll region and the header is always sticky.
+
+#### CardList
+
+Mobile-friendly card-based layout alternative to table.
+
+```tsx
+<CardList
+  data={items}
+  columns={2}
+  renderCard={(item, index) => (
+    <div key={index} className="rounded-lg border p-4">
+      <h3>{item.name}</h3>
+    </div>
+  )}
+/>
+```
+
+#### CrudForm (Compound)
+
+Form layout with sections and actions.
+
+```tsx
+<CrudForm
+  onSubmit={handleSubmit}
+  fieldVariant={{ layout: "top", size: "md" }}
+  warnOnUnsavedChanges
+>
+  <CrudForm.Section title="Basic Info" layout="two-column">
+    <FormFields.TextField label="Name" value={name} onChange={setName} required />
+    <FormFields.TextField label="Email" value={email} onChange={setEmail} type="email" />
+  </CrudForm.Section>
+
+  <CrudForm.Section title="Details" layout="single-column">
+    <FormFields.TextareaField label="Bio" value={bio} onChange={setBio} />
+  </CrudForm.Section>
+
+  <CrudForm.Actions>
+    <button type="button" onClick={onCancel}>Cancel</button>
+    <button type="submit">Save</button>
+  </CrudForm.Actions>
+</CrudForm>
+```
+
+Sub-components: `CrudForm.Section` (with `layout`: single-column/two-column/three-column), `CrudForm.Actions`
+
+#### CrudDetail (Compound)
+
+Read-only detail view layout.
+
+```tsx
+<CrudDetail fieldVariant={{ layout: "left" }}>
+  <CrudDetail.Section title="User Info">
+    <DetailFields.DetailTextField label="Name" value={user.name} copyable />
+    <DetailFields.DetailDateField label="Joined" value={user.createdAt} format="relative" />
+    <DetailFields.DetailBadgeField
+      label="Status"
+      value={user.status}
+      variants={{ active: "success", inactive: "secondary" }}
+    />
+  </CrudDetail.Section>
+  <CrudDetail.Actions>
+    <button onClick={onEdit}>Edit</button>
+    <button onClick={onDelete}>Delete</button>
+  </CrudDetail.Actions>
+</CrudDetail>
+```
+
+Sub-components: `CrudDetail.Section`, `CrudDetail.Actions`, `CrudDetail.DefaultActions`, `CrudDetail.ActionFooter`, `CrudDetail.AuditFooter`, `CrudDetail.List`, `CrudDetail.Table`
+
+#### CrudDelete
+
+Confirmation dialog for delete operations using Radix AlertDialog.
+
+```tsx
+import { CrudDelete } from "@simplix-react/ui";
+
+<CrudDelete
+  open={showDelete}
+  onOpenChange={setShowDelete}
+  onConfirm={handleDelete}
+  entityName="user"
+  loading={isDeleting}
+/>
+```
+
+Props: `open`, `onOpenChange`, `onConfirm`, `title`, `description`, `loading`, `entityName`, `cancelLabel`, `deleteLabel`, `deletingLabel`
+
+#### CrudErrorBoundary
+
+Error boundary for catching render errors in CRUD components.
+
+```tsx
+import { CrudErrorBoundary } from "@simplix-react/ui";
+
+<CrudErrorBoundary
+  fallback={(error, reset) => (
+    <div>
+      <p>Error: {error.message}</p>
+      <button onClick={reset}>Retry</button>
+    </div>
+  )}
+  onError={(error) => logError(error)}
+>
+  <UserList />
+</CrudErrorBoundary>
+```
+
+Props: `children`, `fallback` (ReactNode or render function), `onError`
+
+#### Wizard (Compound)
+
+Multi-step form wizard with step indicator and validation.
+
+```tsx
+import { Wizard } from "@simplix-react/ui";
+
+<Wizard onComplete={handleSubmit}>
+  <Wizard.Step title="Basic Info" validate={validateStep1}>
+    <FormFields.TextField label="Name" value={name} onChange={setName} />
+  </Wizard.Step>
+  <Wizard.Step title="Details">
+    <FormFields.TextareaField label="Bio" value={bio} onChange={setBio} />
+  </Wizard.Step>
+  <Wizard.Step title="Review">
+    <p>Confirm your details before submitting.</p>
+  </Wizard.Step>
+</Wizard>
+```
+
+Sub-components: `Wizard.Step` (with `title`, `description`, and optional async `validate` function)
+
+
+### QueryFallback
+
+Loading and not-found fallback guard for single-entity views.
+
+```tsx
+import { QueryFallback } from "@simplix-react/ui";
+
+const { data, isLoading } = useGet(id);
+if (isLoading || !data) return <QueryFallback isLoading={isLoading} notFoundMessage="Pet not found." />;
+```
+
+Props: `isLoading`, `notFoundMessage`, `onNotFound`
+
+### CRUD Hooks
+
+#### useCrudFormSubmit
+
+Handles create/update mutation dispatch for CRUD forms. Determines whether to create or update based on `entityId` presence.
+
+```tsx
+const { isEdit, handleSubmit, isPending } = useCrudFormSubmit<FormValues>({
+  entityId,
+  create: entityHooks.useCreate(),
+  update: entityHooks.useUpdate(),
+  onSuccess: () => navigate(-1),
+});
+```
+
+Returns: `{ isEdit, handleSubmit, isPending, fieldErrors }`
+
+##### Client-side validation (optional)
+
+Pass a `validator` to run a sync check on the raw form values **before** the
+server mutation. Returning a non-empty `Record<field, message>` stops the
+submit and exposes the errors via `fieldErrors`; the create/update mutation
+is **not** called. Returning `null` (or `{}`) passes through to the server.
+
+Client and server errors are temporally mutually exclusive on the same
+submit, so `fieldErrors` always reflects exactly one source per attempt
+(client → server → success replaces).
+
+```tsx
+// Zod (use `zodToFieldErrors` from @simplix-react/form):
+import { zodToFieldErrors } from "@simplix-react/form";
+import { createUserSchema, updateUserSchema } from "@my-app/domain-user";
+
+const { handleSubmit, fieldErrors } = useCrudFormSubmit<FormValues>({
+  entityId,
+  create: adaptOrvalCreate(_create),
+  update: adaptOrvalUpdate(_update, "userId"),
+  validator: (v) => zodToFieldErrors(isEdit ? updateUserSchema : createUserSchema, v),
+  onSuccess,
+});
+
+// Custom imperative rules:
+validator: (v) => v.email?.includes("@") ? null : { email: "Invalid email" }
+```
+
+Wrap inline validator functions with `useCallback` / `useMemo` to keep
+`handleSubmit` identity stable across renders.
+
+#### useCrudDeleteList
+
+Manages delete-confirmation state for **list** views.
+
+```tsx
+const del = useCrudDeleteList();
+
+// Trigger: del.requestDelete({ id: row.id, name: row.name })
+<CrudDelete
+  open={del.open}
+  onOpenChange={(o) => { if (!o) del.cancel(); }}
+  onConfirm={() => deleteMutation.mutate(del.target!.id)}
+  entityName={del.target?.name}
+/>
+```
+
+Returns: `{ open, target, requestDelete, cancel }`
+
+#### useCrudDeleteDetail
+
+Manages delete-confirmation state for **detail** views (single item).
+
+```tsx
+const del = useCrudDeleteDetail();
+
+<button onClick={del.requestDelete}>Delete</button>
+<CrudDelete open={del.open} onOpenChange={del.onOpenChange} onConfirm={handleDelete} />
+```
+
+Returns: `{ open, requestDelete, cancel, onOpenChange }`
+
+#### usePreviousData
+
+Retains previous query data during refetch to prevent layout flicker.
+
+```tsx
+const { data, isLoading } = useGet(id);
+const stableData = usePreviousData(data);
+```
+
+#### useFadeTransition
+
+CSS fade transition hook for view transitions (e.g., list-to-detail).
+
+```tsx
+const { displayedId, fading, style } = useFadeTransition({
+  active: true,
+  targetId: selectedId,
+  duration: 200,
+});
+```
+
+Returns: `{ displayedId, fading, style }`
+
+#### useListDetailState
+
+State management for the ListDetail pattern - tracks the selected item and the open view.
+
+```tsx
+const { selectedId, view, showList, showDetail, showNew, showEdit } = useListDetailState({
+  initialView: "list",
+});
+```
+
+Returns: `{ selectedId, view, showList, showDetail, showNew, showEdit }`
+
+#### useCrudList
+
+State management hook for list views with filtering, sorting, pagination, and selection.
+
+```tsx
+const result = useCrudList(useUserList, {
+  stateMode: "server",      // "server" (API-driven) or "client" (local)
+  defaultSort: { field: "name", direction: "asc" },
+  defaultPageSize: 20,
+});
+```
+
+Returns: `{ data, isLoading, error, isPaused, failureCount, filters, sort, pagination, selection, emptyReason }`
+
+`emptyReason` is `"no-data"`, `"no-filter"`, `"no-search"`, `"error"`,
+`"unavailable"`, or `null`. `"unavailable"` covers a query that is neither
+settled successfully nor settled with an error - paused (React Query
+`fetchStatus === "paused"`, which happens while the document is hidden or the
+browser reports offline) or waiting to retry after a failed attempt. Such a
+query reports `isLoading: false` and `error: null`, so it is reported as "the
+list could not be loaded" rather than as an empty result.
+
+#### useUrlSync
+
+Syncs list state (filters, sort, pagination) with URL query parameters.
+
+```tsx
+useUrlSync({
+  filters: { search, values: filterValues },
+  sort: sortState,
+  pagination: { page, pageSize, total },
+  setFilters,
+  setSort,
+  setPage,
+});
+```
+
+#### useVirtualList
+
+Virtual scrolling for large lists via `@tanstack/react-virtual`.
+
+```tsx
+const { virtualizer, virtualRows, totalHeight } = useVirtualList({
+  count: data.length,
+  estimateSize: () => 48,
+  parentRef: scrollRef,
+  overscan: 5,
+});
+```
+
+#### useKeyboardNav
+
+Keyboard navigation for list components (ArrowUp/Down, Enter, Space, Ctrl+K, Escape).
+
+```tsx
+const { containerRef } = useKeyboardNav({
+  onNavigate: (dir) => { /* move focus up/down */ },
+  onSelect: () => { /* select current item */ },
+  onToggle: () => { /* toggle checkbox */ },
+  onSearch: () => { /* focus search input */ },
+  onEscape: () => { /* dismiss */ },
+});
+```
+
+#### useMediaQuery
+
+Responsive breakpoint detection via `matchMedia` API.
+
+```tsx
+const isMobile = useMediaQuery("(max-width: 768px)");
+```
+
+#### useAutosave
+
+Debounced autosave hook that watches form values for changes.
+
+```tsx
+const { status, lastSavedAt, isSaving } = useAutosave({
+  values: formValues,
+  onSave: async (values) => await api.saveDraft(values),
+  debounceMs: 2000,
+  hasErrors: form.hasErrors,
+});
+```
+
+Returns: `{ status, lastSavedAt, isSaving }`
+
+Status values: `"idle"` | `"saving"` | `"saved"` | `"error"`
+
+
+### CRUD Patterns
+
+#### ListDetail
+
+Rendering variants for list + detail layouts: `panel`, `dialog` and `drawer`.
+
+**Panel variant** (default): Side-by-side layout with draggable divider.
+
+```tsx
+<ListDetail variant="panel" listWidth={360}>
+  <ListDetail.List>
+    {/* List content */}
+  </ListDetail.List>
+  <ListDetail.Detail>
+    {/* Detail content */}
+  </ListDetail.Detail>
+</ListDetail>
+```
+
+**Dialog variant**: Full-width list with detail in a modal dialog.
+
+```tsx
+<ListDetail variant="dialog" onClose={() => setSelected(null)}>
+  <ListDetail.List>
+    {/* List takes full width */}
+  </ListDetail.List>
+  <ListDetail.Detail>
+    {/* Opens in a modal dialog */}
+  </ListDetail.Detail>
+</ListDetail>
+```
+
+Props:
+
+- `variant`: `"panel"` (default) | `"dialog"` | `"drawer"`
+- `detailWidth`: fixed detail panel width in px; the list fills the rest (defaults to `DETAIL_PANEL_WIDTH`)
+- `listWidth`: fixed list panel width in px; the detail fills the rest (use either `detailWidth` or `listWidth`, not both)
+- `minDetailWidth`, `maxDetailWidth`, `minListWidth`: drag limits in px
+- `onDetailWidthChange`, `onDetailWidthReset`: called when the reader drags the divider or resets it with a double press
+- `dialogHeight`: height of the dialog variant
+- `activePanel`: `"list"` | `"detail"` (controlled mode)
+- `onClose`: Callback when dialog is dismissed (dialog variant only)
+
+Panel variant features:
+- Responsive: collapses to single-panel on mobile
+- Draggable divider with keyboard support (ArrowLeft/Right)
+
+Sub-components: `ListDetail.List`, `ListDetail.Detail`, `ListDetail.ViewSwitch`.
+
+`ListDetailRoot` is the same component as `ListDetail` - exported as an alias for compound pattern composition.
+
+#### CRUD search params
+
+`CrudSearch` is the address of a CRUD page. `validateCrudSearch` reads it from a router's raw search
+object and drops anything that is not one of its members, never throwing.
+
+| Member | Type | Meaning |
+|---|---|---|
+| `id` | `string` | The open record. |
+| `mode` | `"new" \| "edit"` | Whether the open view is a form. |
+| `tab` | `string` | The open tab. |
+| `filters` | `Record<string, string \| string[]>` | The list filters, keyed by filter key (`field.operator`, such as `status.in`). |
+
+`id`, `mode` and `tab` are reserved and are dropped from inside `filters`. A value that is a number,
+a boolean, a nested object or an array holding one, and any empty value, is dropped as well; a
+one-element array stays an array. `buildCrudSearch(view, id, tab, filters)` carries `tab` and
+`filters` through every view, so a record opened from a filtered list and closed again returns to the
+same filtered list.
+
+The framework knows no entity's filter keys. A page narrows `search.filters` to the keys its list
+declares before applying them, so a stale link never sends a parameter the server refuses, and it
+leaves out a filter over a field a tab already forces.
+
+![A filter the reader commits is written to the address with replace, and an address that changes under the list is adopted by it](../../../assets/figures/pkg-ui-addressed-filters.en.svg)
+
+**Applying and writing back.** `useCrudList` takes `addressedFilters` to keep its committed filters
+in the address:
+
+```tsx
+const nav = useCrudNavigation(search, onNavigate);
+const list = useCrudList(useListJobs, {
+  filterMode: "immediate",
+  addressedFilters: {
+    value: nav.filters,          // what the address carries now
+    onChange: nav.setFilters,    // writes the reader's change with `replace: true`
+    controls: filterDefs,        // so a toggle's "true" reads back as a boolean
+    forced: tabParams,           // filters over a field the tab pins are not applied
+  },
+});
+```
+
+A list opened with filters starts on them, draws them as badges in `CrudList.FilterBar` and sends
+its first request with them. A change the reader commits is handed to `onChange`; an address that
+changes under the list (a followed link, Back) is adopted and returns the list to its first page.
+`defaultFilters` apply only where the address names none. A filter over a field a tab pins is left
+out of the list but stays in the address until the reader's next filter change writes it out, and
+it applies again if the reader moves to a tab that no longer pins that field. A list without
+`addressedFilters` is unchanged. `onNavigate` is called as `onNavigate(search, { replace: true })` for a filter change, so
+the route's handler passes `replace` on:
+
+```tsx
+onNavigate={(next, options) => navigate({ to: "/jobs", search: next, replace: options?.replace })}
+```
+
+**One request for a count and its list.** `filtersToRequestParams(filters, { controls, forced,
+transformFilters, searchKey })` returns the request parameters the list sends for a set of filters,
+without its page window. A tile that counts what its link opens calls it for both (`useListCount`
+stands for the application's own count hook; the framework does not export one):
+
+```tsx
+const failed = { "status.in": ["FAILED"] };
+const count = useListCount(useListJobs, filtersToRequestParams(failed));
+const href = { to: "/jobs", search: { filters: failed } };
+```
+
+**Wire form.** With `flatSearch` (the search serializer of `createRouter`), each filter is one
+bracketed parameter, an array repeated once per member:
+`/jobs?filters[status.in]=FAILED&filters[status.in]=PAUSED`. A filter written once reads back as a
+string; `decodeAddressedFilters` reads the set operators (`in`, `notIn`) as arrays either way. With
+a router's default serializer the object travels as JSON. `useUrlSync` is a separate, flat
+query-string mechanism; it writes `filters[key]` for the same keys but replaces the whole search, so
+a page that carries `id` or `tab` uses `addressedFilters` instead.
+
+### Router Adapters
+
+The package is router-agnostic. Use `CrudProvider` to inject a router adapter.
+
+```tsx
+import { CrudProvider, createReactRouterAdapter } from "@simplix-react/ui";
+import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
+
+function AppShell() {
+  const adapter = createReactRouterAdapter({ useNavigate, useSearchParams, useLocation });
+
+  return (
+    <CrudProvider router={adapter}>
+      {/* CRUD pages can now use useRouter(), useUrlSync(), etc. */}
+    </CrudProvider>
+  );
+}
+```
+
+### UIProvider
+
+Override base components globally. Supports nesting for scoped overrides.
+
+```tsx
+import { UIProvider } from "@simplix-react/ui";
+import { MyInput, MySelect } from "./custom-components";
+
+<UIProvider overrides={{
+  Input: MyInput,
+  Select: {
+    Root: MySelect.Root,
+    Trigger: MySelect.Trigger,
+    Value: MySelect.Value,
+    Content: MySelect.Content,
+    Item: MySelect.Item,
+  },
+}}>
+  {/* All fields now use custom input/select */}
+</UIProvider>
+```
+
+Overridable components (`UIComponents`): `Input`, `Textarea`, `Label`, `Switch`, `Checkbox`, `Badge`, `Calendar`, `Button`, `Skeleton`; the compounds `Select`, `RadioGroup`, `Dialog`, `Sheet`, `Popover`, `Tooltip`, `DropdownMenu`, `Tabs`, `Command`, `Table`; the primitives `Stack`, `Flex`, `Grid`, `Heading`, `Text`, `Card`; and `SectionShell`, `QueryFallback`, `CrudDelete`, `FieldWrapper`, `DetailFieldWrapper`. `Container` and `Section` are exported but not overridable.
+
+### Utilities
+
+| Function | Description |
+| --- | --- |
+| `cn(...inputs)` | Merges class names with `clsx` + `tailwind-merge` |
+| `toTestId(label)` | Converts a label string to a kebab-case `data-testid` value |
+| `sanitizeHtml(dirty)` | Sanitizes HTML via DOMPurify |
+
+## Accessibility
+
+- `FieldWrapper` generates the field's ids and hands `{ id, labelId }` to a render-function child, so every control gets an accessible name: `id` plus the label's `htmlFor` for a labelable control, or `aria-labelledby={labelId}` for a composite one. A plain-element child is named by the wrapping fieldset instead.
+- Icon-only controls (row actions, toolbar buttons) carry their own `aria-label`; a tooltip describes a control but does not name one.
+- Hidden labels use `sr-only` class for screen reader accessibility
+- Error messages use `role="alert"` for live announcements
+- `aria-invalid` set on inputs when errors are present
+- `aria-label` provided when `layout="hidden"`
+- Keyboard navigation support via `useKeyboardNav` hook
+- Sort buttons and pagination controls have descriptive `aria-label`
+- Selection checkboxes have row-specific `aria-label`
+
+## Peer Dependencies
+
+```json
+{
+  "@simplix-react/api": "workspace:*",
+  "@simplix-react/form": "workspace:*",
+  "@simplix-react/i18n": "workspace:*",
+  "@simplix-react/react": "workspace:*",
+  "@tanstack/react-query": ">=5.0.0",
+  "react": ">=18.0.0",
+  "react-router-dom": ">=6.0.0"
+}
+```
+
+`react-router-dom` is an optional peer, required only when using `createReactRouterAdapter`. `createTanstackRouterAdapter` adapts TanStack Router, and any other `RouterAdapter` can be provided via `CrudProvider`.
+
+## License
+
+See root LICENSE file.
+
+---
+
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/README.md" target="_blank" rel="noopener noreferrer">View source</a></p>
