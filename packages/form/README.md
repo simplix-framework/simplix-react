@@ -4,9 +4,11 @@
 
 # @simplix-react/form
 
-TanStack Form hooks derived automatically from `@simplix-react/contract` schemas and `@simplix-react/react` hooks.
+**English** | [한국어](./README.ko.md)
 
-> **Prerequisites:** Requires a contract defined with `@simplix-react/contract` and hooks derived with `@simplix-react/react`.
+TanStack Form hooks derived automatically from `@simplix-react/contract` contracts and `@simplix-react/react` hooks.
+
+> **Prerequisites:** Requires a contract defined with `@simplix-react/contract` and hooks derived with `@simplix-react/react`. See [`@simplix-react/react`](../react/README.md) first.
 
 ## Installation
 
@@ -18,6 +20,7 @@ pnpm add @simplix-react/form @tanstack/react-form
 
 | Package | Version |
 | --- | --- |
+| `@simplix-react/api` | workspace |
 | `@simplix-react/contract` | workspace |
 | `@simplix-react/react` | workspace |
 | `@tanstack/react-form` | >= 1.0.0 |
@@ -27,7 +30,7 @@ pnpm add @simplix-react/form @tanstack/react-form
 
 ## Quick Example
 
-```ts
+```tsx
 import { defineApi, simpleQueryBuilder } from "@simplix-react/contract";
 import { deriveEntityHooks } from "@simplix-react/react";
 import { deriveEntityFormHooks } from "@simplix-react/form";
@@ -39,10 +42,21 @@ const projectContract = defineApi({
   basePath: "/api",
   entities: {
     task: {
-      path: "/tasks",
       schema: z.object({ id: z.string(), title: z.string(), status: z.string() }),
-      createSchema: z.object({ title: z.string(), status: z.string() }),
-      updateSchema: z.object({ title: z.string().optional(), status: z.string().optional() }),
+      parent: { param: "projectId", path: "/projects" },
+      operations: {
+        get: { method: "GET", path: "/tasks/:id" },
+        create: {
+          method: "POST",
+          path: "/tasks",
+          input: z.object({ title: z.string(), status: z.string() }),
+        },
+        update: {
+          method: "PATCH",
+          path: "/tasks/:id",
+          input: z.object({ title: z.string().optional(), status: z.string().optional() }),
+        },
+      },
     },
   },
   queryBuilder: simpleQueryBuilder,
@@ -51,12 +65,12 @@ const projectContract = defineApi({
 // 2. Derive React Query hooks
 const hooks = deriveEntityHooks(projectContract);
 
-// 3. Derive form hooks — one call generates everything
+// 3. Derive form hooks: one call covers every entity
 const formHooks = deriveEntityFormHooks(projectContract, hooks);
 
 // 4. Use in components
 function CreateTaskForm({ projectId }: { projectId: string }) {
-  const { form, isSubmitting, submitError, reset } = formHooks.task.useCreateForm(projectId);
+  const { form, isSubmitting, submitError, reset } = formHooks.task.useCreateForm!(projectId);
 
   return (
     <form onSubmit={(e) => { e.preventDefault(); form.handleSubmit(); }}>
@@ -76,7 +90,9 @@ function CreateTaskForm({ projectId }: { projectId: string }) {
 | --- | --- | --- |
 | `deriveEntityFormHooks` | Function | Derives entity form hooks from contract + hooks |
 | `extractDirtyFields` | Function | Extracts only changed fields (for PATCH requests) |
-| `mapServerErrorsToForm` | Function | Maps 422 server errors to form field errors |
+| `mapServerErrorsToForm` | Function | Maps server validation errors to form field errors |
+| `zodToFieldErrors` | Function | Validates values with a Zod schema and returns one message per field path |
+| `DerivedEntityFormHooksResult` | Type | Return type of `deriveEntityFormHooks` |
 | `CreateFormOptions` | Type | Options interface for `useCreateForm` |
 | `UpdateFormOptions` | Type | Options interface for `useUpdateForm` |
 | `CreateFormReturn` | Type | Return type interface for `useCreateForm` |
@@ -89,21 +105,23 @@ function CreateTaskForm({ projectId }: { projectId: string }) {
 
 ### Hook Derivation
 
-`deriveEntityFormHooks()` reads the entity definitions from the API contract and generates `useCreateForm` and `useUpdateForm` hooks for each entity. Internally, it connects the mutation hooks from `@simplix-react/react` to TanStack Form.
+`deriveEntityFormHooks(contract, hooks)` reads the entity definitions from the contract and derives form hooks from the entity's hooks. An entity gets `useCreateForm` when it has an operation with the `create` role, and `useUpdateForm` when it has operations with the `update` and `get` roles. Both hooks are optional on `EntityFormHooks`, so call them with `!` or check them first.
 
 ```ts
 const formHooks = deriveEntityFormHooks(projectContract, projectHooks);
 // formHooks.task.useCreateForm  → create mutation + TanStack Form
-// formHooks.task.useUpdateForm  → update mutation + TanStack Form + dirty tracking
+// formHooks.task.useUpdateForm  → get query + update mutation + TanStack Form + dirty tracking
 ```
 
 ### Auto Dirty-Field Extraction
 
-`useUpdateForm` sends only changed fields to the server by default (`dirtyOnly: true`). It compares the original entity data with the current form values and extracts only the differences, automatically producing PATCH-friendly requests.
+`useUpdateForm` sends only changed fields to the server by default (`dirtyOnly: true`). It compares the loaded entity with the current form values and extracts only the differences, automatically producing PATCH-friendly requests. In this mode a submit before the entity has loaded does nothing.
+
+![The update form loads the entity, sends only the changed fields, and writes server validation errors back to the fields](../../docs/assets/figures/pkg-form-update-flow.en.svg)
 
 ### Server Error Mapping
 
-When the server returns a 422 Validation Error, `mapServerErrorsToForm` automatically sets per-field error messages on the form. Both Rails format and JSON:API format are supported.
+When a submit fails, the hooks call `mapServerErrorsToForm`, which writes the server's validation messages onto the matching fields. It reads the formats `getValidationErrors` from `@simplix-react/api` understands, with any status code.
 
 ## Hook Reference
 
@@ -112,7 +130,7 @@ When the server returns a 422 Validation Error, `mapServerErrorsToForm` automati
 A form hook for creating new entities. Connects a TanStack Form instance with the create mutation.
 
 ```ts
-const { form, isSubmitting, submitError, reset } = formHooks.task.useCreateForm(parentId?, options?);
+const { form, isSubmitting, submitError, reset } = formHooks.task.useCreateForm!(parentId, options);
 ```
 
 **Parameters:**
@@ -136,10 +154,10 @@ const { form, isSubmitting, submitError, reset } = formHooks.task.useCreateForm(
 
 ### `useUpdateForm`
 
-A form hook for updating existing entities. Automatically loads entity data and resets the form on refetch.
+A form hook for updating existing entities. Loads the entity with the `get` hook and resets the form each time the entity is refetched.
 
 ```ts
-const { form, isLoading, isSubmitting, submitError, entity } = formHooks.task.useUpdateForm(entityId, options?);
+const { form, isLoading, isSubmitting, submitError, entity } = formHooks.task.useUpdateForm!(entityId, options);
 ```
 
 **Parameters:**
@@ -179,12 +197,13 @@ const dirty = extractDirtyFields(
 
 ### `mapServerErrorsToForm(error, form)`
 
-Parses the response body of a 422 `ApiError` and maps it to TanStack Form field errors.
+Reads field errors from an error with `getValidationErrors` from `@simplix-react/api` and sets them as `onSubmit` errors of the TanStack Form fields; messages for one field are joined with `, `. Returns `true` when it set any error.
 
-Supported error formats:
+Supported error formats, read from the error itself, from `error.data`, or from `error.body` parsed as JSON:
 
+- **Spring Boot:** `{ errorDetail: [{ field, message }] }`
+- **Field array:** `{ errors: [{ field, message }] }`
 - **Rails:** `{ errors: { [field]: string[] } }`
-- **JSON:API:** `{ errors: [{ field, message }] }`
 
 ```ts
 import { mapServerErrorsToForm } from "@simplix-react/form";
@@ -197,13 +216,15 @@ try {
 }
 ```
 
-## CLI Integration
+### `zodToFieldErrors(schema, values)`
 
-When generating code from OpenAPI specs with `@simplix-react/cli`, form hook files are automatically generated.
+Validates `values` against a Zod schema. Returns `null` when they are valid, otherwise an object from each dotted field path to its first message:
 
-```bash
-simplix openapi <spec-path>              # Generates including form-hooks.ts
-simplix openapi <spec-path> --no-forms   # Skips form hook generation
+```ts
+import { zodToFieldErrors } from "@simplix-react/form";
+
+const errors = zodToFieldErrors(createTaskSchema, { title: "" });
+// → { title: "<first Zod message for title>" } when invalid, null when valid
 ```
 
 ## Related Packages
@@ -212,8 +233,9 @@ simplix openapi <spec-path> --no-forms   # Skips form hook generation
 | --- | --- |
 | `@simplix-react/contract` | Zod-based type-safe API contract definitions |
 | `@simplix-react/react` | React Query hooks derived from contracts |
-| `@simplix-react/mock` | Auto-generated MSW handlers with in-memory stores |
+| `@simplix-react/api` | Error utilities that `mapServerErrorsToForm` reads validation errors with |
+| `@simplix-react/mock` | MSW mock handlers with in-memory stores derived from contracts |
 
 ---
 
-Next Step → `@simplix-react/mock`
+**Next Step** → [`@simplix-react/mock`](../mock/README.md): derive mock handlers from the contract.

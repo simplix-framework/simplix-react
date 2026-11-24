@@ -1,5 +1,7 @@
 # @simplix-react-ext/simplix-boot-auth
 
+**English** | [한국어](README.ko.md)
+
 Spring Security authentication for `simplix-boot`. Wires token issue/refresh/revoke, proactive auto-refresh, cross-tab sync, and the SimpliX Boot response envelope into ready-to-use fetch functions and auth clients.
 
 ## Installation
@@ -40,11 +42,13 @@ auth.set(tokens);
 const token = getToken();
 ```
 
-By default the client schedules background token refresh (`autoSchedule`), enables cross-tab logout/token sync (`crossTabSync`), and redirects to `/login` when a refresh fails. Override any of these through `BootAuthOptions`.
+By default the client schedules background token refresh (`autoSchedule`) only while the user is active on the page (`activityAware`), enables cross-tab logout/token sync with one shared refresh across tabs (`crossTabSync`), and redirects to `/login` when a refresh fails. Override any of these through `BootAuthOptions`.
 
 ### Wire the Boot Mutator into Domain Packages
 
 `bootMutator` is an auth-wrapped fetch that also unwraps the SimpliX Boot envelope, so generated Boot domain packages receive the plain `body`:
+
+![bootMutator wraps the auth fetch, which wraps baseFetch, so a request gets the bearer token and refresh, Boot error conversion and envelope unwrapping in that order](../../../../docs/assets/figures/pkg-simplix-boot-auth-fetch-layers.en.svg)
 
 ```ts
 import { createBootAuth } from "@simplix-react-ext/simplix-boot-auth";
@@ -54,6 +58,37 @@ const { bootMutator } = createBootAuth();
 // Pass bootMutator as the fetch function to a Boot domain contract.
 // Each response is unwrapped from { type, message, body, ... } to its body.
 const pets = await bootMutator<Pet[]>("/api/v1/pets", { method: "GET" });
+```
+
+### Use Tokens from an External Issuer
+
+When tokens come from an external issuer such as an OpenID Connect provider, pass a `tokenClient`. Refreshing and revoking go through it, and `authClient.loginFn` throws, since signing in happens at the issuer:
+
+```ts
+import { createBootAuth } from "@simplix-react-ext/simplix-boot-auth";
+
+const { auth } = createBootAuth({
+  tokenClient: {
+    refresh: (refreshToken) => oidc.refresh(refreshToken),
+    revoke: (refreshToken) => oidc.revoke(refreshToken),
+  },
+  onExternalLogout: () => {
+    window.location.href = "/login";
+  },
+});
+```
+
+### Upload and Download Attachments
+
+`uploadWithProgress()` posts a `FormData` with XHR so it can report upload progress, and `fetchAttachmentBlob()` downloads a file as a `Blob`. Both send the auth headers and retry once after refreshing on a `401`:
+
+```ts
+const { uploadWithProgress, fetchAttachmentBlob } = createBootAuth();
+
+const saved = await uploadWithProgress<{ id: string }>("/api/v1/attachments", formData, {
+  onProgress: (percent) => setProgress(percent),
+});
+const blob = await fetchAttachmentBlob(`/api/v1/attachments/${saved.id}`);
 ```
 
 ### Wrap and Unwrap Envelopes
@@ -136,14 +171,18 @@ Creates a SimpliX Boot auth setup: a bearer-scheme `AuthInstance`, a token store
 | `maxRetries` | `number` | - | Max retries forwarded to the auth config |
 | `rawFetchOptions` | `{ baseUrl?: string }` | - | When set, builds `rawAuthFetch` for non-Boot specs (401 retry, no Boot error handling) |
 | `autoSchedule` | `boolean` | `true` | Background token auto-refresh |
-| `crossTabSync` | `boolean` | `true` | Cross-tab logout/token sync |
+| `crossTabSync` | `boolean` | `true` | Cross-tab logout/token sync and one shared refresh across tabs |
+| `activityAware` | `boolean` | `true` in a browser | Background refresh runs only while the user is active on the page |
+| `onExternalLogout` | `() => void` | - | Called after another tab signed out and this tab's tokens were cleared |
+| `tokenClient` | `ExternalTokenClient` | - | Refreshes and revokes tokens issued by an external issuer; `loginFn` then throws |
 
 **Behavior:**
 
 - The refresh flow POSTs to `${basePath}/auth/token/refresh` with an `X-Refresh-Token` header, using `baseFetch` directly (it does not pass through the auth wrapper).
 - `onRefreshFailure` is wrapped so that stale tokens are cleared before the user callback runs, preventing an infinite refresh loop on page reload.
 - When `rawFetchOptions` is omitted, `rawAuthFetch` falls back to `baseFetch`.
-- When `crossTabSync` is enabled, an external logout in another tab clears this instance's tokens.
+- When `crossTabSync` is enabled, an external logout in another tab clears this instance's tokens and then calls `onExternalLogout`.
+- When `tokenClient` is set, `refreshFn` calls `tokenClient.refresh(refreshToken)` and `revokeFn` calls `tokenClient.revoke(refreshToken)` instead of the Boot endpoints.
 
 **Returns (`BootAuthResult`):**
 
@@ -156,6 +195,8 @@ Creates a SimpliX Boot auth setup: a bearer-scheme `AuthInstance`, a token store
 | `rawAuthFetch` | `FetchFn` | Auth-wrapped fetch without Boot error handling (401 retry + proactive refresh) |
 | `bootMutator` | `FetchFn` | Auth-wrapped fetch with Boot envelope unwrapping (for Boot domain packages) |
 | `getToken` | `() => string \| null` | Reads the current access token from the store |
+| `uploadWithProgress` | `<T>(url: string, formData: FormData, opts?: { onProgress?: (percent: number) => void; signal?: AbortSignal }) => Promise<T>` | XHR multipart upload with progress, auth headers, 401 refresh-retry and envelope unwrapping |
+| `fetchAttachmentBlob` | `(url: string) => Promise<Blob>` | Authenticated blob download with 401 refresh-retry |
 
 ### `createBootHttpFetch(options?)`
 
@@ -205,7 +246,7 @@ Extracts the `body` from a `BootEnvelope`.
 
 **Behavior:**
 
-- If `wire` is a Boot envelope (an object with `type` and `body`) and its `type` is not `"SUCCESS"`, an `ApiResponseError` is thrown with status `400`.
+- If `wire` is a Boot envelope (an object with `type` and either `body` or both `message` and `timestamp`) and its `type` is not `"SUCCESS"`, an `ApiResponseError` is thrown with status `400`.
 - If `wire` is a `"SUCCESS"` envelope, its `body` is returned.
 - If `wire` is not an envelope, it is returned unchanged.
 
@@ -280,7 +321,16 @@ interface BootAuthClient {
 }
 ```
 
-`loginFn` POSTs Basic-auth credentials to `${basePath}/auth/token/issue` and returns the parsed `TokenPair`. It does not persist tokens — call `auth.set(...)` to store them. `userInfoFn` fetches `${basePath}/user/me` and returns the unwrapped envelope body.
+`loginFn` POSTs Basic-auth credentials (with the current request locale as `Accept-Language`) to `${basePath}/auth/token/issue` and returns the parsed `TokenPair`. It does not persist tokens: call `auth.set(...)` to store them. `revokeFn` POSTs to `${basePath}/auth/token/revoke` with the refresh token in `X-Refresh-Token`. `userInfoFn` fetches `${basePath}/user/me` and returns the unwrapped envelope body.
+
+### `ExternalTokenClient`
+
+```ts
+interface ExternalTokenClient {
+  refresh(refreshToken: string): Promise<TokenPair>;
+  revoke?(refreshToken: string | null): Promise<void>;
+}
+```
 
 ### `BootAuthResult`
 

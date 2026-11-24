@@ -4,7 +4,9 @@
 
 # @simplix-react/api
 
-Orval mutator singleton for simplix-react domain packages. Provides a centralized HTTP client registry, a typed `HttpError` class, and error classification utilities for consistent error handling across generated domain packages.
+**English** | [한국어](./README.ko.md)
+
+Orval mutator singleton for simplix-react domain packages. Provides a centralized HTTP client registry, a typed `HttpError` class, error classification utilities for consistent error handling across generated domain packages, and the `StatusTone` vocabulary those packages declare.
 
 ## Installation
 
@@ -22,13 +24,18 @@ pnpm add @simplix-react/api
 | `getMutator` | Function | Retrieve a registered mutator by strategy name |
 | `setRequestLocale` | Function | Set locale for automatic `Accept-Language` header injection |
 | `getRequestLocale` | Function | Get the currently configured request locale |
+| `getRequestTimezone` | Function | Return the browser's IANA time zone (`Intl.DateTimeFormat().resolvedOptions().timeZone`) |
 | `HttpError` | Class | Typed HTTP error with `status`, `message`, and optional `data` |
 | `getValidationErrors` | Function | Extract validation field errors from any error shape |
 | `getErrorMessage` | Function | Extract a human-readable message from any error |
+| `serverMessage` | Function | Return the sentence the server sent with an error, or `undefined` |
+| `statusOnlyMessage` | Function | Return `HTTP <status>`, the message of an error whose response stated none |
 | `getErrorCode` | Function | Extract an application error code from any error |
 | `getHttpStatus` | Function | Extract HTTP status code from any error |
 | `classifyError` | Function | Classify an error into a category (`ServerErrorEvent`) |
 | `createMutationErrorHandler` | Function | Create a React Query `onError` handler with per-category callbacks |
+| `recordIsAbsent` | Function | Whether a read failed with 404 (the record is not there) |
+| `recordIsOutOfScope` | Function | Whether a read failed with 403 (the record is outside the reader's range) |
 
 ### Type Exports
 
@@ -37,9 +44,10 @@ pnpm add @simplix-react/api
 | `OrvalMutator` | Mutator function signature: `(url: string, options?: RequestInit) => Promise<T>` |
 | `ErrorType` | Orval error type alias: `Error & { data?: T }` |
 | `BodyType` | Orval body type alias: `T` |
-| `ValidationFieldError` | Field-level validation error (`field`, `message`) |
+| `ValidationFieldError` | Field-level validation error (`field`, `message`, optional `label`) |
 | `ErrorCategory` | Error category union: `"validation" \| "auth" \| "client" \| "server" \| "network" \| "unknown"` |
-| `ServerErrorEvent` | Classified error event with category, status, errorCode, message, and validationErrors |
+| `ServerErrorEvent` | Classified error event with category, status, errorCode, message, validationErrors, and raw |
+| `StatusTone` | Tone of a status value: `"success" \| "warning" \| "danger" \| "info" \| "neutral" \| "pending" \| "processing"` |
 
 ## Key Concepts
 
@@ -62,10 +70,12 @@ async function fetchJson<T>(url: string, options?: RequestInit): Promise<T> {
 
 ### configureMutator / getMutator
 
-A global registry for Orval mutator functions. Domain packages call `getMutator()` in their generated client code. The application configures the mutator once at startup.
+A global registry for Orval mutator functions. Domain packages call `getMutator()` in their generated client code. The application configures the mutator once at startup. `getMutator` throws when no mutator is registered under the requested strategy.
+
+![Generated domain packages ask the registry for a mutator by strategy, and the registry hands back the configured fetch function with the request locale added](../../docs/assets/figures/pkg-api-mutator-registry.en.svg)
 
 ```ts
-import { configureMutator, getMutator } from "@simplix-react/api";
+import { configureMutator, getMutator, HttpError } from "@simplix-react/api";
 
 // Register the default mutator
 configureMutator(async (url, options) => {
@@ -91,7 +101,7 @@ const adminMutator = getMutator("admin-api"); // named strategy
 When a locale is configured via `setRequestLocale`, `getMutator` automatically injects an `Accept-Language` header into every outgoing request. This ensures the server receives the application's selected language rather than the browser's OS-level language preference.
 
 ```ts
-import { setRequestLocale, getRequestLocale } from "@simplix-react/api";
+import { setRequestLocale, getRequestLocale, getMutator } from "@simplix-react/api";
 
 // Set the locale (typically wired to i18n adapter)
 setRequestLocale("en");
@@ -107,7 +117,7 @@ getRequestLocale(); // "en"
 #### How It Works
 
 1. `setRequestLocale(locale)` stores the locale in a module-scoped variable (tab-local, not shared across tabs)
-2. `getMutator()` returns a wrapper that merges `Accept-Language` into the request headers as a plain object
+2. `getMutator()` returns a wrapper that merges `Accept-Language` into the request headers as a plain object (a `Headers` instance passed as `options.headers` is not read)
 3. If the caller already sets an explicit `Accept-Language` header, it is **not** overwritten
 4. If no locale is configured, `getMutator()` returns the raw mutator without modification
 
@@ -134,9 +144,19 @@ After this setup, every API request automatically includes `Accept-Language` mat
 
 > **Note:** `@simplix-react/api` and `@simplix-react/i18n` have no direct dependency on each other. The wiring happens at the application level, keeping both packages decoupled.
 
+### Status Tones
+
+`StatusTone` is the vocabulary a generated domain package declares the tone of each enum value in (`<Enum>Tones`), and the one the status badges of `@simplix-react/ui` draw. It lives in this package because a domain package depends on `@simplix-react/api` and never on the UI.
+
+```ts
+import type { StatusTone } from "@simplix-react/api";
+
+const tone: StatusTone = EmailStatusTones[status] ?? "neutral";
+```
+
 ### Error Utilities
 
-A set of duck-typing utilities that extract structured information from any error shape. They work with `HttpError`, Orval's `ApiError`, Spring Boot error responses, Rails-style errors, and plain objects.
+A set of duck-typing utilities that extract structured information from any error shape. They work with `HttpError`, the `ApiError` of `@simplix-react/contract`, Spring Boot error responses, Rails-style errors, and plain objects.
 
 #### getValidationErrors
 
@@ -145,8 +165,8 @@ Extracts field-level validation errors from any error. Supports multiple shapes:
 - `{ errorDetail: [{ field, message }] }` (Spring Boot / ApiResponseError)
 - `{ errors: [{ field, message }] }` (plain array)
 - `{ errors: { [field]: string[] } }` (Rails-style)
-- `HttpError.data` containing any of the above
-- `JSON.parse(error.body)` fallback
+- `error.data` (as on `HttpError`) containing any of the above
+- `JSON.parse(error.body)` fallback (as on the `ApiError` of `@simplix-react/contract`)
 
 ```ts
 import { getValidationErrors } from "@simplix-react/api";
@@ -165,8 +185,32 @@ if (errors) {
 import { getErrorMessage, getErrorCode, getHttpStatus } from "@simplix-react/api";
 
 const message = getErrorMessage(error);  // "Not Found" or "An unknown error occurred"
-const code = getErrorCode(error);        // "USER_NOT_FOUND" or null
+const code = getErrorCode(error);        // "USER_NOT_FOUND" (from errorCode or data.errorCode) or null
 const status = getHttpStatus(error);     // 404 or null
+```
+
+#### serverMessage / statusOnlyMessage
+
+`serverMessage` returns the error's `message` only when a response stated it: the error has a numeric `status` (or is an envelope with a `type`) and the message is not the `statusOnlyMessage(status)` stand-in. Otherwise it returns `undefined`, so the caller can use its own words:
+
+```ts
+import { HttpError, serverMessage, statusOnlyMessage } from "@simplix-react/api";
+
+const text = serverMessage(error) ?? t("common.loadFailed");
+
+// A client that turns a body-less response into an error writes the stand-in:
+throw new HttpError(res.status, statusOnlyMessage(res.status));
+```
+
+#### recordIsAbsent / recordIsOutOfScope
+
+Tell the reasons a read failed apart by status: 404 means the record is not there, 403 that it is outside the reader's granted range, anything else that the read failed:
+
+```ts
+import { recordIsAbsent, recordIsOutOfScope } from "@simplix-react/api";
+
+if (recordIsAbsent(query.error)) return <NotFound />;
+if (recordIsOutOfScope(query.error)) return <OutOfScope />;
 ```
 
 #### classifyError
@@ -182,6 +226,8 @@ Classifies any error into a `ServerErrorEvent` with a category:
 | `client` | Status 400-499 without validation errors |
 | `unknown` | Everything else |
 
+`validationErrors` is set on the `validation` and `unknown` events.
+
 ```ts
 import { classifyError } from "@simplix-react/api";
 
@@ -194,7 +240,7 @@ const event = classifyError(error);
 
 #### createMutationErrorHandler
 
-Creates a React Query `onError` callback with per-category handlers. Useful with `useMutation`'s `onError` option.
+Creates a React Query `onError` callback with per-category handlers (`onValidationError`, `onAuthError`, `onClientError`, `onServerError`, `onNetworkError`, `onUnknownError`). Useful with `useMutation`'s `onError` option.
 
 ```ts
 import { createMutationErrorHandler } from "@simplix-react/api";
@@ -233,7 +279,8 @@ useMutation({
 | `@simplix-react/contract` | Zod-based type-safe API contract definitions |
 | `@simplix-react/react` | React Query hooks derived from contracts |
 | `@simplix-react/auth` | Authentication middleware (Bearer, API Key, OAuth2) |
+| `@simplix-react/form` | Maps the validation errors read by `getValidationErrors` onto form fields |
 
 ---
 
-Next Step -> [`@simplix-react/auth`](../auth/README.md)
+**Next Step** → [`@simplix-react/auth`](../auth/README.md): attach authentication to requests.

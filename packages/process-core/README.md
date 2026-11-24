@@ -1,5 +1,7 @@
 # @simplix-react/process-core
 
+**English** | [한국어](README.ko.md)
+
 A procedure as data, with no runtime dependency and no UI: the definition format, its validation, conditions over the facts of a case, the reading order, the layout of lanes and of one column, editing operations with undo, and the comparison of two versions.
 
 `@simplix-react/process` draws a procedure on top of it. Use this package alone to validate, edit or compare definitions on a server, in a CLI or in a test.
@@ -14,6 +16,8 @@ pnpm add @simplix-react/process-core
 
 A procedure is a list of sections, and a section is a list of steps. The steps have one order, the order they are written in. What departs from that order is stated on the steps and beside them.
 
+![A procedure holds lanes, sections and jumps; a section holds steps, and a step holds acts that name the lanes performing them](../../docs/assets/figures/pkg-process-core-definition.en.svg)
+
 | Part | Meaning |
 | --- | --- |
 | `lanes` | Who performs acts: a role, a department, a system. |
@@ -21,10 +25,15 @@ A procedure is a list of sections, and a section is a list of steps. The steps h
 | `acts[]` | One thing one lane, or several lanes together, does. `do` performs, `check` confirms. |
 | `condition` | A step or an act applies only where the condition holds for the facts of the case. |
 | `parallel` | Neighbouring steps that share a key proceed together. |
-| `repeat` | The step is performed again until the step it names is performed. |
+| `repeat` | The step is performed again until the step it names (`endedBy`) is performed. |
+| `rework` | The last act may send the step back to its first act; `label` says on what ground. |
 | `jumps[]` | A move back to an earlier step, ahead to a later one, or out to another procedure. |
 
 A member this package does not know is kept as it stands by every function, so a product stores its own fields on the same definition.
+
+A definition names its form and version in `format` (`PROCESS_FORMAT`) and `version` (`PROCESS_VERSION`). `parseDefinition` reads a stored definition from text or from a parsed value and raises `ProcessFormatError` with a `reason` of `not-json`, `not-a-definition`, `newer-version` or `shape`; `serializeDefinition` writes it. `validateDefinition` returns the problems of a definition, each with its `code`.
+
+A condition is `{ fact }`, `{ not }`, `{ all }` or `{ any }`. `evaluateCondition(condition, facts)` answers `true`, `false` or `unknown` (a fact not given), `conditionFacts` lists the facts a condition reads, and `isCondition` tells a condition from another value.
 
 ## Quick start
 
@@ -45,14 +54,13 @@ if (result.ok) {
 
 ## Editing
 
-`applyEdit(definition, operation)` returns a new definition and leaves the one given as it is.
+`applyEdit(definition, operation, options?)` returns a new definition and leaves the one given as it is.
 
 - **An operation is applied only when it leaves no problem `validateDefinition` did not already report.** A definition without problems stays without them; a draft that has problems can still be edited, and no edit adds one.
 - **What depends on a step follows it.** Removing a step removes the jumps from and to it and clears a repeat it ended. A step put between two steps of a parallel run joins the run, and a run left with one step loses its key. Each is listed in `consequences`.
-- **A refusal carries its reason**: the code of the problem it would have left, or `unknown-subject`, `lane-in-use`, `nothing-to-change`.
+- **A refusal carries its reason**: the code of the problem it would have left, or `unknown-subject`, `lane-in-use`, `nothing-to-change`, `flow-changed`.
 - **A patch member given as `undefined` is taken off the part**, and a member of the caller's own is set like any other.
-
-- **With `keepFlow` an operation that changes what the procedure does is refused as `flow-changed`.** `sameFlow` and `flowOf` tell what a procedure does apart from its wording, its sections, its lanes and who is named for an act.
+- **With the option `keepFlow` an operation that changes what the procedure does is refused as `flow-changed`.** `sameFlow` and `flowOf` tell what a procedure does apart from its wording, its sections, its lanes and who is named for an act.
 
 `createHistory`, `commitEdit`, `undoEdit` and `redoEdit` keep the definitions an editing session went through. `freshId` gives an id nothing in the definition carries.
 
@@ -68,4 +76,6 @@ if (result.ok) {
 | `readingOrder` | Sections, steps, acts and jumps in the one order every view follows. |
 | `laneGeometry` | The procedure on a grid of lanes: rows, columns and the pieces of every line. Under `drawn` the grid is the same whatever the facts, and the acts, lines and jumps of what the case leaves out carry `off`. |
 | `stackGeometry` | The procedure as one column of step cards. |
-| `chooseLayout` | Which of the two a box of a given width takes. |
+| `chooseLayout` | Which of the two a box of a given width takes, from `DEFAULT_LAYOUT_METRICS` or metrics of the caller's own. `requiredWidth` is the width the lanes need. |
+| `showsInclusion`, `showsJump` | Whether a resolved part or jump is drawn under the `leftOut` choice. |
+| `assignTracks`, `laneColumn`, `trackColumn` | The tracks jump lines run in, and the grid column of a lane or a track. |

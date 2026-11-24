@@ -4,6 +4,8 @@
 
 # @simplix-react/auth
 
+**English** | [한국어](README.ko.md)
+
 Authentication middleware for `@simplix-react/contract` with a strategy pattern. Plug in one or more auth schemes, pick a token store, and get an authenticated `fetchFn` you can pass straight to `defineApi`.
 
 ## Installation
@@ -60,10 +62,11 @@ const api = defineApi(
     basePath: "/api/v1",
     entities: {
       task: {
-        path: "/tasks",
         schema: z.object({ id: z.string(), title: z.string() }),
-        createSchema: z.object({ title: z.string() }),
-        updateSchema: z.object({ title: z.string().optional() }),
+        operations: {
+          list: { method: "GET", path: "/tasks" },
+          create: { method: "POST", path: "/tasks", input: z.object({ title: z.string() }) },
+        },
       },
     },
   },
@@ -89,6 +92,12 @@ const tasks = await api.client.task.list();
 | `localStorageStore` | Function | `localStorage`-backed token store |
 | `sessionStorageStore` | Function | `sessionStorage`-backed token store |
 | `AuthError` | Class | Typed error for auth failures |
+| `AutoRefreshScheduler` | Class | Timer-based background token refresh before expiry, with a minimum interval guard |
+| `createActivityTracker` | Function | Tracks the user's last interaction for an activity-aware token refresh |
+| `createCrossTabSync` | Function | Synchronizes auth state across browser tabs via the `storage` event |
+| `openOAuth2Popup` | Function | Runs an OAuth2 authorization flow in a popup window and waits for the result via `postMessage` |
+| `createOidcClient` | Function | OIDC sign-in with the authorization code flow and PKCE (S256) |
+| `createRememberMe` | Function | A stay-signed-in preference per app and the token store that follows it |
 
 ### Type Exports
 
@@ -104,6 +113,11 @@ const tasks = await api.client.task.list();
 | `OAuth2SchemeOptions` | Options for `oauth2Scheme` |
 | `CustomSchemeOptions` | Options for `customScheme` |
 | `AuthErrorCode` | Discriminated union of auth error codes |
+| `SignInFailure` | Reason of a `SIGN_IN_FAILED` error |
+| `ActivitySource`, `RefreshLock` | Activity source and cross-tab lock for the bearer refresh |
+| `AutoRefreshSchedulerOptions`, `ActivityTrackerOptions`, `CrossTabSyncOptions`, `OAuth2PopupOptions`, `OAuth2PopupResult` | Options and results of the helpers |
+| `OidcClient`, `OidcClientOptions`, `OidcDiscovery`, `OidcPendingStorage`, `OidcTokens` | Types of `createOidcClient` |
+| `RememberMe` | Return type of `createRememberMe` |
 
 ## Key Concepts
 
@@ -132,9 +146,11 @@ const unsub = auth.subscribe(() => {
 });
 ```
 
+`AuthConfig` also accepts `is401` (custom 401 detection, default `error.status === 401`), `onRehydrate` (validates a stored access token on rehydration), `globalHeaders` (headers merged into every request) and `fetchFn` (the base fetch function to wrap). Besides the methods above, an `AuthInstance` has `rehydrate()`, which restores auth state from the store, and `getUser()` / `setUser()`, which hold the current user object.
+
 ### createAuthFetch
 
-Creates an authenticated `FetchFn` without the full reactive wrapper. Useful when you only need request interception without React integration.
+Creates an authenticated `FetchFn` without the full reactive wrapper. Useful when you only need request interception without React integration. The optional second argument is the base fetch function to wrap.
 
 ```ts
 import { createAuthFetch, bearerScheme, memoryStore } from "@simplix-react/auth";
@@ -155,6 +171,8 @@ The fetch wrapper:
 2. On 401 response, triggers single-flight token refresh (deduplicates concurrent refresh calls)
 3. Retries the original request with fresh credentials
 4. Calls `onRefreshFailure` if all refresh attempts fail
+
+![On a 401 response the wrapper runs one shared token refresh, retries the request with the new credentials and calls onRefreshFailure only when the refresh fails](../../docs/assets/figures/pkg-auth-fetch-retry.en.svg)
 
 ## Schemes
 
@@ -181,6 +199,8 @@ const scheme = bearerScheme({
   },
 });
 ```
+
+`refresh` also accepts `autoSchedule` (background timer refresh, default `false`), `minIntervalSeconds` (minimum interval between scheduled refreshes, default `30`), `onScheduledRefreshFailed`, `activity` (runs a scheduled refresh only after user activity, see `createActivityTracker`), `lock` (serializes refreshes across tabs, default the Web Locks API where present) and `lockName` (unique per token store; without it refreshes are serialized within the tab only).
 
 ### apiKeyScheme
 
@@ -395,7 +415,7 @@ function FileUploader() {
 
 | Export | Description |
 | --- | --- |
-| `AuthProviderProps` | Props for `AuthProvider` (`auth`, `children`, `userLoader?`) |
+| `AuthProviderProps` | Props for `AuthProvider` (`auth`, `children`, `userLoader?`). With `userLoader`, the provider rehydrates the tokens, loads the user with the access token and sets `isLoading` until it finishes |
 | `UseAuthReturn` | Return type of `useAuth` (`isAuthenticated`, `isLoading`, `user`, `login`, `logout`, `getAccessToken`) |
 
 ## Advanced Examples
@@ -532,6 +552,9 @@ try {
       case "SCHEME_ERROR":
         // Scheme-level failure
         break;
+      case "SIGN_IN_FAILED":
+        // OIDC sign-in failed; error.signInFailure tells why
+        break;
     }
   }
 }
@@ -545,6 +568,7 @@ try {
 | `REFRESH_FAILED` | All token refresh attempts failed |
 | `UNAUTHENTICATED` | No valid credentials available |
 | `SCHEME_ERROR` | Scheme-level failure |
+| `SIGN_IN_FAILED` | Sign-in failed; `signInFailure` is `issuer-error`, `not-pending`, `malformed-response` or `token-refused`, and `issuerError` carries the issuer's error |
 
 ## Related Packages
 

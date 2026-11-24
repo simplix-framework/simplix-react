@@ -1,5 +1,7 @@
 # simplix-react-ext
 
+**English** | [한국어](README.ko.md)
+
 Meta package that installs all `@simplix-react-ext/*` extension packages in one dependency.
 
 These extensions adapt simplix-react to the **simplix-boot** backend (Boot response
@@ -39,7 +41,7 @@ Import directly from individual packages:
 
 ```ts
 import { resolveBootEnum } from "@simplix-react-ext/simplix-boot-utils";
-import { useStreamEvents } from "@simplix-react-ext/simplix-boot-stream";
+import { useStreamSubscription } from "@simplix-react-ext/simplix-boot-stream";
 ```
 
 ## Selective Installation

@@ -1,12 +1,14 @@
 # Extensions
 
+**English** | [한국어](README.ko.md)
+
 Extensions provide environment-specific implementations that the core `simplix-react` framework cannot cover generically. While core packages (`packages/`) are designed to be universally applicable, extensions address the needs of particular platforms, server frameworks, or infrastructure setups.
 
-Each extension lives in its own workspace under `extensions/` and implements the abstract interfaces defined in core packages for a specific environment.
+Each extension lives in its own workspace under `extensions/` and serves one environment: simplix-boot implements core interfaces for Spring Boot (its CLI plugin registers with the CLI instead), and native reuses the core packages for React Native without implementing core interfaces.
 
 ## Architecture
 
-```
+```text
 simplix-react/
   packages/           # Core packages (universal, environment-agnostic)
     auth/             #   Abstract auth interfaces
@@ -16,14 +18,16 @@ simplix-react/
     simplix-boot/     #   Spring Boot / Spring Security adapters
 ```
 
-Core packages define abstract contracts (e.g., `AccessAdapter`, `TokenPair`). Extensions implement these contracts for specific environments, keeping consumer code portable.
+![Core packages define the interfaces and simplix-boot implements them for Spring Boot, so components and hooks depend only on the interfaces while the bootstrap file imports the extension](../docs/assets/figures/pkg-extensions-architecture.en.svg)
+
+Core packages define abstract contracts (e.g., `AccessAdapter`, `TokenPair`). simplix-boot implements these contracts for Spring Boot, so components and hooks stay portable and only the bootstrap file imports the extension.
 
 ## Available Extensions
 
-| Extension                       | Target Environment     | Packages                                     | Description                                              |
-| ------------------------------- | ---------------------- | -------------------------------------------- | -------------------------------------------------------- |
-| [simplix-boot](./simplix-boot/) | SimpliX (Spring Boot)  | `@simplix-react-ext/simplix-boot-access`, `@simplix-react-ext/simplix-boot-auth` | SimpliX Spring Security authentication and authorization adapters |
-| [native](./native/)             | React Native (Expo)    | `@simplix-react-native/ui`, `@simplix-react-native/runtime`, `@simplix-react-native-ext/*`, `simplix-react-native` | Mobile UI kit, Expo runtime glue, and device-layer packages |
+| Extension | Target Environment | Packages | Description |
+| --- | --- | --- | --- |
+| [simplix-boot](./simplix-boot/README.md) | SimpliX (Spring Boot) | `@simplix-react-ext/simplix-boot-access`, `@simplix-react-ext/simplix-boot-auth`, `@simplix-react-ext/simplix-boot-cli-plugin`, `@simplix-react-ext/simplix-boot-stream`, `@simplix-react-ext/simplix-boot-utils` | SimpliX Spring Security authentication and authorization adapters, the CLI spec profile, SSE streaming and Boot utilities |
+| [native](./native/README.md) | React Native (Expo) | `@simplix-react-native/ui`, `@simplix-react-native/runtime`, `@simplix-react-native-ext/*`, `simplix-react-native` | Mobile UI kit, Expo runtime glue, and device-layer packages |
 
 ## Creating a New Extension
 
@@ -36,7 +40,7 @@ An extension is a standalone pnpm workspace nested inside `extensions/`. Each ex
 
 ### Directory Structure
 
-```
+```text
 extensions/
   <extension-name>/
     package.json            # Workspace root (private: true)
@@ -61,6 +65,7 @@ Add the extension's packages to the root `pnpm-workspace.yaml`:
 ```yaml
 packages:
   - "packages/*"
+  - "apps/*"
   - "extensions/<extension-name>/packages/*"
 ```
 

@@ -1,5 +1,7 @@
 # @simplix-react/gantt-core
 
+**English** | [한국어](README.ko.md)
+
 Project scheduling engine with no runtime dependency and no UI: working calendars, dependency and constraint scheduling, critical path, baselines, resources and leveling, editing operations with undo, and Microsoft Project XML exchange.
 
 `@simplix-react/gantt` draws a chart on top of it. Use this package alone to schedule on a server, in a worker or in a test.
@@ -48,7 +50,9 @@ console.log(build?.critical); // true
 
 ## Model
 
-A `Project` is plain immutable data. Every operation takes a project and returns a new one, and the dates are never stored: `computeSchedule(project)` derives them.
+A `Project` is plain immutable data. Every operation takes a project and returns a new one, and the computed dates are never stored: `computeSchedule(project)` derives them. A project and a task do store their start, manual, constraint and actual dates.
+
+![Edits turn one project into the next, and computeSchedule derives the dates from a project without storing them](../../docs/assets/figures/pkg-gantt-core-model-flow.en.svg)
 
 | Record | Holds |
 | --- | --- |
@@ -59,7 +63,7 @@ A `Project` is plain immutable data. Every operation takes a project and returns
 | `Baseline` | The dates every task had when the baseline was saved, by number 0 to 10. |
 | `CustomField` | A text, number, date or flag field the plan adds to its tasks. |
 
-Instants are whole minutes on the project's own wall clock (`Minutes`). No time zone is applied anywhere; `parseLocalDateTime` and `formatLocalDateTime` convert to and from `YYYY-MM-DDTHH:MM`.
+Instants are whole minutes on the project's own wall clock (`Minutes`). No time zone is applied anywhere; `parseLocalDateTime` reads `YYYY-MM-DD` or `YYYY-MM-DDTHH:MM[:SS]` and drops the seconds, and `formatLocalDateTime` writes `YYYY-MM-DDTHH:MM:00`. `formatLocalDate`, `formatClockTime`, `parseClockTime`, `toCivil`, `fromCivil`, `daysFromCivil`, `dayIndexOf`, `weekdayOfDay` and `MINUTES_PER_DAY` work on the same clock.
 
 ## Scheduling
 
@@ -88,7 +92,7 @@ What the plans exercise is narrow, and the comparison proves no more than that:
 
 | Covered by the saved plans | Not covered by them |
 | --- | --- |
-| The four link types with a lag in days or weeks, on 64 linked tasks | Leads, elapsed and percent lags, links on summary tasks |
+| `FS`, `SS`, `FF` and `SF` links with a lag in days or weeks, on 64 linked tasks | Leads, elapsed and percent lags, links on summary tasks |
 | As-soon-as-possible and start-no-earlier-than tasks, including a date ahead of the project start | The other six constraint types, deadlines |
 | The standard calendar | Calendar exceptions, work weeks, task and resource calendars |
 | Projects scheduled from their start | Projects scheduled from their finish |
@@ -103,12 +107,13 @@ The sample files come from the MPXJ project (LGPL-2.1) and are not part of this 
 
 | Area | Functions |
 | --- | --- |
-| Rows | `createTask`, `insertTask`, `removeTasks`, `updateTask`, `indentTasks`, `outdentTasks`, `moveTask`, `copyTasks`, `pasteTasks` |
+| Rows | `createTask`, `insertTask`, `removeTasks`, `updateTask`, `changeTask`, `taskIndex`, `nextId`, `indentTasks`, `outdentTasks`, `moveTask`, `copyTasks`, `pasteTasks` |
 | Dates and progress | `setTaskStart`, `setTaskFinish`, `setTaskStartKeepingFinish`, `setTaskDuration`, `setPercentComplete` |
 | Links | `addLink`, `updateLink`, `removeLinks` |
 | Resources | `addResource`, `updateResource`, `removeResources`, `assignResource`, `updateAssignment`, `removeAssignments` |
 | Project | `updateProject` |
-| Calendars | `putCalendar`, `removeCalendar`, `standardCalendar`, `continuousCalendar`, `parseWorkingRanges`, `formatWorkingRanges` |
+| Calendars | `putCalendar`, `removeCalendar`, `standardCalendar`, `continuousCalendar`, `parseWorkingRanges`, `formatWorkingRanges`, `compileCalendars`, `intersectWorkingTime`, `ELAPSED_TIME` |
+| Outline | `buildOutline`, `isAncestor`, `subtreeEnd` |
 | Baselines | `setBaseline`, `clearBaseline`, `baselineVariance` |
 | Splits | `splitTask`, `clearSplits` |
 | Recurring tasks | `addRecurringTask`, `updateRecurringTask`, `recurrenceDays` |
@@ -116,11 +121,11 @@ The sample files come from the MPXJ project (LGPL-2.1) and are not part of this 
 | Costs | `computeCosts` |
 | Progress | `rescheduleUncompletedWork`, `computeEarnedValue` |
 | Changes | `diffProjects`, `mergeProjects`, `takeTheirs` |
-| Saved plans | `serializeProject`, `parseProject`, `toSavedPlan` |
+| Saved plans | `serializeProject`, `parseProject`, `toSavedPlan`, `PLAN_FORMAT`, `PLAN_FORMAT_VERSION` |
 | Subprojects | `insertSubproject` |
 | Resource load | `findOverallocations`, `resourceUsage`, `levelResources`, `clearLeveling` |
-| Text entry | `parseDuration`, `formatDuration`, `parsePredecessors`, `formatPredecessors` |
-| Undo | `createHistory`, `commit`, `undo`, `redo` |
+| Text entry | `parseDuration`, `formatDuration`, `parsePredecessors`, `formatPredecessors`, `minutesPerUnit` |
+| Undo | `createHistory`, `commit`, `undo`, `redo`, `undoLabel`, `redoLabel` |
 
 Assignments follow the task type: on a fixed-units task a change of work moves the duration, on a fixed-duration task it moves the units, and an effort-driven task shares its work among the resources assigned to it.
 
@@ -132,7 +137,7 @@ Assignments follow the task type: on a fixed-units task a change of work moves t
 
 `rescheduleUncompletedWork` moves work that has not been done to after the status date: a task that has not started gets a start-no-earlier-than constraint there, and a task in progress pauses where its completed work ends.
 
-`computeEarnedValue` measures a plan against a baseline as of the status date: planned value, earned value, actual cost, the schedule and cost variances and the two performance indexes, per task, per summary task and for the project. A baseline saves each task's cost as its budget.
+`computeEarnedValue` measures a plan against a baseline as of the status date: planned value, earned value, actual cost, the schedule and cost variances and the schedule and cost performance indexes, per task, per summary task and for the project. A baseline saves each task's cost as its budget.
 
 `diffProjects` lists what differs between two versions of a plan record by record (added, updated and removed tasks, links, resources, assignments, calendars and custom fields, the row order, plan settings and baselines), which is what a server needs to store an edit without rewriting the plan.
 
@@ -154,7 +159,7 @@ const xml = writeMspdi(project, computeSchedule(project));
 
 The exchange code is exported from `@simplix-react/gantt-core/mspdi` alone, so an application that loads it on demand keeps it out of what it loads first.
 
-`readMspdi` returns the plan and a list of warnings for data it did not carry over. `writeMspdi` writes the plan with the computed dates, slack and outline numbers, in the element order of the files Microsoft Project saves. `mspdiExportLosses(project)` lists what of a plan the document has no place for.
+`readMspdi` returns the plan and a list of warnings for data it did not carry over. `writeMspdi` writes the plan with the computed dates, slack and outline numbers, in the element order of the files Microsoft Project saves. `mspdiExportLosses(project)` lists what of a plan the document has no place for. `parseMspdiDuration` and `formatMspdiDuration` convert the document's duration text, and `parseXml` and `XmlWriter` are the XML reader and writer the exchange uses.
 
 | Exchanged | How it is stored |
 | --- | --- |

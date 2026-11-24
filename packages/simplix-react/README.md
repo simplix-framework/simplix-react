@@ -4,6 +4,8 @@
 
 # SimpliX React
 
+**English** | [한국어](README.ko.md)
+
 [![npm version](https://img.shields.io/npm/v/simplix-react.svg)](https://www.npmjs.com/package/simplix-react)
 [![license](https://img.shields.io/npm/l/simplix-react.svg)](https://github.com/simplix-framework/simplix-react/blob/main/LICENSE)
 
@@ -38,6 +40,11 @@ This single install provides:
 | `@simplix-react/access` | CASL-based authorization and access control |
 | `@simplix-react/mock` | MSW handlers + in-memory stores |
 | `@simplix-react/i18n` | i18next-based internationalization |
+| `@simplix-react/calendar` | Calendar components (month, week, day, year, agenda, gantt, timeline and heatmap views) |
+| `@simplix-react/gantt-core` | Framework-free project scheduling engine |
+| `@simplix-react/gantt` | Project Gantt chart for React on the scheduling engine |
+| `@simplix-react/process-core` | Framework-free procedure model |
+| `@simplix-react/process` | Procedure lanes for React on the procedure model |
 | `@simplix-react/cli` | Project scaffolding and validation CLI |
 | `@simplix-react/testing` | Test utilities (mock clients, query wrappers) |
 
@@ -64,7 +71,7 @@ pnpm add @simplix-react/contract @simplix-react/react
 
 ## Documentation
 
-- [Getting Started](https://github.com/simplix-framework/simplix-react/blob/main/docs/getting-started/overview.md)
+- [Getting Started](https://github.com/simplix-framework/simplix-react/blob/main/docs/en/getting-started/overview.md)
 - [API Reference](https://github.com/simplix-framework/simplix-react/tree/main/docs/api)
 
 ## License

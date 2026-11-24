@@ -1,18 +1,20 @@
 # @simplix-react/access
 
+**English** | [한국어](README.ko.md)
+
 Opt-in authorization and access control powered by [CASL](https://casl.js.org/).
 
 Define who can do what. Derive everything else.
 
 ## Features
 
-- **Adapter-based** — JWT, REST API, or static rules. Bring your own auth source.
-- **Framework-agnostic core** — Works without React. Add `/react` for bindings.
-- **Opt-in** — No `AccessProvider`? Permission checks default to `true`.
-- **Super-admin bypass** — Flag or custom checker grants `manage:all`.
-- **Persistence** — Persist and rehydrate access state across page reloads.
-- **Auth auto-sync** — Subscribes to `@simplix-react/auth` state changes automatically.
-- **Type-safe** — Generic `TActions` and `TSubjects` parameters narrow permissions.
+- **Adapter-based**: JWT, REST API, or static rules. Bring your own auth source.
+- **Framework-agnostic core**: Works without React. Add `/react` for bindings.
+- **Opt-in**: No `AccessProvider`? Permission checks default to `true`.
+- **Super-admin bypass**: Flag or custom checker grants `manage:all`.
+- **Persistence**: Persist and rehydrate access state across page reloads.
+- **Auth auto-sync**: Subscribes to `@simplix-react/auth` state changes automatically.
+- **Type-safe**: Generic `TActions` and `TSubjects` parameters narrow permissions.
 
 ## Installation
 
@@ -111,7 +113,9 @@ The package provides two entry points:
 | --- | --- | --- |
 | `AccessProvider` | Component | Provides policy to the tree, syncs with auth |
 | `useCan` | Hook | Returns `boolean` for a permission check |
+| `useCanWith` | Hook | Combines several `can` answers into one value with a pure `decide` function |
 | `useAccess` | Hook | Returns the full `AccessPolicy` object |
+| `useAccessContext` | Hook | Returns the policy from the nearest `AccessProvider`; throws outside one |
 | `Can` | Component | Declarative permission guard |
 | `requireAccess` | Function | Route guard for TanStack Router `beforeLoad` |
 | `useMenuFilter` | Hook | Recursively filters menu trees by permission |
@@ -128,10 +132,16 @@ The package provides two entry points:
 | `AccessUser` | User info (userId, username, roles, isSuperAdmin) |
 | `AccessSnapshot` | Serializable state snapshot |
 | `PermissionMap` | `{ [resource]: string[] }` map |
-| `DefaultActions` | `"list" \| "view" \| "create" \| "edit" \| "delete" \| ...` |
+| `DefaultActions` | `"list" \| "view" \| "create" \| "edit" \| "delete" \| "export" \| "import" \| "approve" \| "manage"` |
+| `AccessProviderProps` | Props for `AccessProvider` (`policy`, `auth?`, `children`) |
+| `AccessPersistConfig` | Persistence options (`storage`, `key`) |
+| `DefaultSubjects` | Default subject type (`string`) |
+| `AccessAbility` | CASL `MongoAbility` over the actions and subjects |
+| `JwtAdapterOptions`, `ApiAdapterOptions`, `FetchFn` | Options of the built-in adapters |
 | `AuthLike` | Minimal auth interface for auto-sync |
 | `CanProps` | Props for `Can` component |
 | `RouteGuardOptions` | Options for `requireAccess` |
+| `FilterableMenuItem`, `MenuPermission` | Menu item shape for `useMenuFilter` |
 
 ## Key Concepts
 
@@ -141,10 +151,10 @@ The central object managing CASL ability, user info, and roles.
 
 ```ts
 const policy = createAccessPolicy({
-  adapter,            // Required — how to extract rules
-  publicAccess,       // Optional — rules for unauthenticated users
-  isSuperAdmin,       // Optional — custom super-admin checker
-  persist,            // Optional — localStorage persistence
+  adapter,            // Required: how to extract rules
+  publicAccess,       // Optional: rules for unauthenticated users
+  isSuperAdmin,       // Optional: custom super-admin checker
+  persist,            // Optional: localStorage persistence
 });
 ```
 
@@ -199,6 +209,8 @@ const adapter = createJwtAdapter({
 });
 ```
 
+Every option is optional; the values above are the defaults. `flatSeparator` (default `":"`) sets the separator of the `flat` and `scopes` formats, `decode` replaces the base64url payload parsing, and `transform` replaces the extraction logic entirely.
+
 Permission formats:
 
 | Format | JWT claim shape | Example |
@@ -222,7 +234,7 @@ const adapter = createApiAdapter({
 });
 ```
 
-The default response format is `{ permissions: PermissionMap }`. Use `transformResponse` to handle custom server responses.
+`endpoint` defaults to `"/api/me/permissions"`. The default response format is `{ permissions: PermissionMap }`. Use `transformResponse` to handle custom server responses.
 
 #### `createStaticAdapter`
 
@@ -319,6 +331,10 @@ function App() {
 | Logout (unauthenticated) | `policy.clear()` then `policy.loadPublicAccess()` |
 | Mount | `policy.rehydrate()` then initial sync |
 
+Without the `auth` prop the provider only supplies the policy: it neither rehydrates nor syncs.
+
+![AccessProvider follows the auth state: a new access token updates the policy, and signing out clears it and loads the public access rules](../../docs/assets/figures/pkg-access-auth-sync.en.svg)
+
 The `auth` prop accepts any object implementing the `AuthLike` interface:
 
 ```ts
@@ -343,7 +359,7 @@ function EditButton() {
 }
 ```
 
-**Opt-in behavior:** When there is no `AccessProvider` in the tree, `useCan` returns `true`. This allows gradual adoption — access control is applied only where you wire it up.
+**Opt-in behavior:** When there is no `AccessProvider` in the tree, `useCan` returns `true`. This allows gradual adoption: access control is applied only where you wire it up.
 
 ### useAccess
 
@@ -534,12 +550,15 @@ await policy.loadPublicAccess();
 ### Full Provider Setup with Auth Sync
 
 ```tsx
-import { createAuth, bearerScheme } from "@simplix-react/auth";
+import { createAuth, bearerScheme, localStorageStore } from "@simplix-react/auth";
+import { AuthProvider } from "@simplix-react/auth/react";
 import { createAccessPolicy, createApiAdapter } from "@simplix-react/access";
 import { AccessProvider } from "@simplix-react/access/react";
 
+const store = localStorageStore("myapp:");
 const auth = createAuth({
-  scheme: bearerScheme({ loginPath: "/api/auth/login" }),
+  schemes: [bearerScheme({ store, token: () => store.get("access_token") })],
+  store,
 });
 
 const policy = createAccessPolicy({
@@ -674,6 +693,6 @@ render(<MyComponent />, { wrapper });
 
 | Package | Relationship |
 | --- | --- |
-| `@simplix-react/auth` | Optional. Provides `AuthLike` for auto-sync. |
+| `@simplix-react/auth` | Optional peer. Its `AuthInstance` satisfies `AuthLike` for auto-sync. |
 | `@simplix-react/testing` | Provides `createMockPolicy` and `createAccessTestWrapper`. |
-| `@casl/ability` | Required peer. Powers permission evaluation engine. |
+| `@casl/ability` | Required peer (`>= 6.0.0`). Powers permission evaluation engine. |

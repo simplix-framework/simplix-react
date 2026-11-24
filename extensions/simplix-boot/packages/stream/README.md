@@ -1,5 +1,7 @@
 # @simplix-react-ext/simplix-boot-stream
 
+**English** | [한국어](README.ko.md)
+
 SimpliX Boot SSE streaming infrastructure with EventSource management, subscriptions, and staleness detection. Wrap your app in a `StreamProvider`, then consume live resource updates via React hooks.
 
 ## Installation
@@ -8,13 +10,15 @@ SimpliX Boot SSE streaming infrastructure with EventSource management, subscript
 pnpm add @simplix-react-ext/simplix-boot-stream
 ```
 
-> **Prerequisites:** Requires `react` (>=18) as a peer dependency. By default the provider connects to a SimpliX Boot (Spring Boot) SSE backend and parses the SimpliX-stream envelope format — that is why this package lives in the `simplix-boot` extension rather than core. To target a different backend, override the `protocol`, `url`, and `subscriptionSync` props on `StreamProvider`.
+> **Prerequisites:** Requires `react` (>=18) as a peer dependency. By default the provider connects to a SimpliX Boot (Spring Boot) SSE backend and parses the SimpliX-stream envelope format, which is why this package lives in the `simplix-boot` extension rather than core. To target a different backend, override the `protocol`, `url`, and `subscriptionSync` props on `StreamProvider`.
 
 ## Usage
 
 ### Wrap Your App
 
 Mount `StreamProvider` near the root of your app. It opens a single `EventSource` connection, manages reconnection with exponential backoff, and exposes the connection to descendant hooks via context.
+
+![StreamProvider opens one EventSource, receives a session ID, syncs the active subscriptions to the server with one PUT, and dispatches each data event to the hooks subscribed to its resource](../../../../docs/assets/figures/pkg-simplix-boot-stream-connection.en.svg)
 
 ```tsx
 import { StreamProvider } from "@simplix-react-ext/simplix-boot-stream";
@@ -28,10 +32,31 @@ function App() {
 }
 ```
 
-Gate the connection on auth readiness with the `disabled` prop — keep it `true` while auth is rehydrating, then flip to `false` once authentication is verified so the `EventSource` never fires with a stale session cookie.
+Gate the connection on auth readiness with the `disabled` prop: keep it `true` while auth is rehydrating, then flip to `false` once authentication is verified so the `EventSource` never fires with a stale session cookie.
 
 ```tsx
 <StreamProvider url="/api/stream/connect" disabled={!isAuthReady}>
+  <Dashboard />
+</StreamProvider>
+```
+
+### Authenticate Without a Cookie
+
+`EventSource` cannot send request headers. When the session travels in a header (a bearer token) rather than a cookie, set `ticketUrl`: the provider first asks that endpoint for a single-use connect ticket over an ordinary request, then appends it to the connect URL as `ticket`. Pass `requestTicket` when that request needs the app's own auth header, and `subscriptionSync.headers` so the subscription sync is authenticated too:
+
+```tsx
+<StreamProvider
+  url="/api/stream/connect"
+  ticketUrl="/api/stream/ticket"
+  requestTicket={async (url) => {
+    const res = await fetch(url, { method: "POST", headers: { Authorization: `Bearer ${getToken()}` } });
+    return res.ok ? ((await res.json()) as { ticket?: string }).ticket ?? null : null;
+  }}
+  subscriptionSync={{
+    url: (sessionId) => `/api/stream/sessions/${sessionId}/subscriptions`,
+    headers: () => ({ Authorization: `Bearer ${getToken()}` }),
+  }}
+>
   <Dashboard />
 </StreamProvider>
 ```
@@ -107,7 +132,7 @@ function RowAge({ updatedAt }: { updatedAt: number }) {
 
 ### Inspect Stream Logs
 
-Logging is off by default. Toggle it at runtime and render the captured entries — useful for a developer/debug panel:
+Logging is off by default. Toggle it at runtime and render the captured entries, which is useful for a developer/debug panel:
 
 ```tsx
 import {
@@ -155,6 +180,8 @@ Provides the SSE connection to descendant hooks. Opens a single `EventSource`, d
 | `eventNames` | `StreamEventNames` | `connected` / `reconnected` / `data` / `heartbeat` / `gap` / `error` | Override SSE event type names if the server uses non-default names |
 | `heartbeatTimeoutMs` | `number` | `10000` | Heartbeat watchdog timeout; if no activity arrives within this window, the provider forces a reconnect |
 | `disabled` | `boolean` | `false` | When `true`, mounts the context but skips the SSE connection (gate on auth readiness) |
+| `ticketUrl` | `string` | - | Endpoint that mints a single-use connect ticket for apps whose session does not travel in a cookie; the ticket is appended to the connect URL |
+| `requestTicket` | `(url: string) => Promise<string \| null>` | same-origin `POST` reading `{ ticket }` | How to ask for a connect ticket, for a request that needs the app's own auth header |
 | `maxConsecutiveRetries` | `number` | `20` | Cap on consecutive failed reconnect attempts before the provider gives up and stops the watchdog (~3 minutes with the built-in backoff); a reload or remount is required to retry |
 
 ### `useStreamContext()`
@@ -207,7 +234,7 @@ Subscribes to a SSE resource and returns the latest payload received. Registers 
 | `options.params` | `Record<string, string>` | - | Optional parameters sent with the subscription |
 | `options.subscribe` | `boolean` | `true` | Whether to register a server-side subscription; set to `false` for broadcast push resources |
 
-**Returns:** `T | null` — the latest received payload, or `null` until the first event arrives.
+**Returns:** `T | null`: the latest received payload, or `null` until the first event arrives.
 
 ### `useStaleDetection(thresholds?)`
 
@@ -303,6 +330,8 @@ interface SubscriptionSyncConfig {
   method?: string;
   /** Build the request body. Default: `{ subscriptions }` */
   body?: (subscriptions: SubscriptionRequest[]) => unknown;
+  /** Extra request headers, resolved per sync. */
+  headers?: () => Record<string, string>;
 }
 ```
 
@@ -381,5 +410,3 @@ interface SubscriptionRequest {
 ## Related
 
 - [SimpliX Boot extension](../../README.md)
-</content>
-</invoke>

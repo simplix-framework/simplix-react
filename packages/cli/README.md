@@ -4,6 +4,8 @@
 
 # @simplix-react/cli
 
+**English** | [한국어](README.ko.md)
+
 CLI for scaffolding and validating simplix-react projects.
 
 ## Installation
@@ -69,7 +71,11 @@ simplix init <project-name> [options]
 | `-s, --scope <scope>` | npm scope for packages | `@<project-name>` |
 | `--no-demo` | Skip demo app creation | - |
 | `--no-i18n` | Skip i18n setup | - |
+| `--no-auth` | Skip auth setup | - |
+| `--no-access` | Skip access control setup | - |
 | `-y, --yes` | Accept all defaults (non-interactive) | - |
+
+A scope given without a leading `@` gets one.
 
 **Example:**
 
@@ -86,25 +92,26 @@ simplix init my-app --no-demo --no-i18n -y
 
 **Generated structure:**
 
-```
+```text
 my-app/
-  apps/my-app-demo/       # Demo app (if --no-demo not set)
-  packages/my-app-core/   # Core package (API, mock, react, types)
+  apps/my-app-demo/       # Demo app (unless --no-demo)
   modules/                # FSD modules directory
-  config/typescript/       # Shared TypeScript configs
+  config/typescript/      # Shared TypeScript configs (base.json, react.json)
   package.json
   pnpm-workspace.yaml
   turbo.json
   tsconfig.json
+  simplix.config.ts
+  .npmrc
   .gitignore
-  .claude/CLAUDE.md
+  .oxlintrc.json
 ```
 
-When i18n is enabled, the demo app includes locale files for `en`, `ko`, and `ja`.
+The demo app holds `src/app/auth/` unless `--no-auth` and `src/app/access/` unless `--no-access`. When i18n is enabled, it includes locale files for the selected locales (`en`, `ko` and `ja` by default).
 
 ### simplix add-domain
 
-Add a new domain package under `packages/`. Domain packages encapsulate API client, schemas, mock handlers, and repository logic for a specific domain.
+Add a new domain package under `packages/`, named `<prefix>-domain-<name>`. When an `openapi` entry of `simplix.config.ts` claims the domain, the package is a skeleton whose code `simplix openapi` (or `simplix meta`, when the entry has a `meta` block) generates; otherwise it is written from templates: schemas, a contract, hooks and mock handlers.
 
 ```bash
 simplix add-domain <name> [options]
@@ -120,7 +127,7 @@ simplix add-domain <name> [options]
 
 | Option | Description | Default |
 | --- | --- | --- |
-| `-e, --entities <entities>` | Comma-separated entity names | domain name |
+| `--no-i18n` | Skip i18n translations setup | - |
 | `-y, --yes` | Accept all defaults (non-interactive) | - |
 
 **Example:**
@@ -129,40 +136,34 @@ simplix add-domain <name> [options]
 # Interactive mode
 simplix add-domain inventory
 
-# With explicit entities
-simplix add-domain inventory --entities product,category,warehouse -y
+# Without i18n
+simplix add-domain inventory --no-i18n -y
 ```
 
-**Generated structure:**
+**Generated structure (without an `openapi` entry):**
 
-```
-packages/<project>-domain-<name>/
+```text
+packages/<prefix>-domain-<name>/
   src/
-    api/
-      client.ts           # API client functions
-      hooks.ts            # React Query hooks
-      query-keys.ts       # Query key factory
-      types.ts            # API types
-      index.ts
-    schemas/
-      index.ts            # Zod schemas
-    interfaces/
-      index.ts
+    schemas.ts            # Zod schemas
+    contract.ts           # API contract
+    hooks.ts              # Hooks derived from the contract
     mock/
-      handlers.ts         # MSW request handlers
+      handlers.ts         # MSW mock handlers
       seed.ts             # Mock seed data
-      repositories/
-        <entity>.ts       # Per-entity repository
       index.ts
+    translations.ts       # Only if i18n enabled
+    locales/<locale>.json # Only if i18n enabled
     index.ts
   package.json
   tsup.config.ts
+  vitest.config.ts
   tsconfig.json
 ```
 
 ### simplix add-module
 
-Add a new FSD (Feature-Sliced Design) module under `modules/`. Modules organize UI features using the FSD architecture with `features/`, `widgets/`, and `shared/` layers.
+Add a new FSD (Feature-Sliced Design) module under `modules/`. Modules organize UI features using the FSD architecture with `features/`, `widgets/`, and `shared/` layers. A name of the form `<group>/<name>` writes the module into a group directory that `modules.groups` lists, and every package in `modules.dependencies` becomes a dependency of the new module.
 
 ```bash
 simplix add-module <name> [options]
@@ -193,8 +194,8 @@ simplix add-module editor --no-i18n -y
 
 **Generated structure:**
 
-```
-modules/<project>-<name>/
+```text
+modules/<prefix>-<name>/
   src/
     features/
       index.ts
@@ -205,13 +206,9 @@ modules/<project>-<name>/
       ui/
       config/
     locales/              # Only if i18n enabled
-      en.json
-      ko.json
-      ja.json
       index.ts
-      widgets/
-      features/
-    manifest.ts
+      features/<locale>.json
+      widgets/<locale>.json
     index.ts
   package.json
   tsup.config.ts
@@ -252,8 +249,8 @@ The validator applies different rule sets to packages and modules:
 | Rule Set | Target | Checks |
 | --- | --- | --- |
 | **Package** | packages/, modules/ | `exports` field, `tsup.config`, React `peerDependencies`, `"type": "module"` |
-| **Contract** | packages/ | Entity schemas completeness (`schema`, `createSchema`, `updateSchema`), operation `input`/`output`, mock handler config |
-| **FSD** | modules/ | `manifest.ts` exists, `features/` does not import from `widgets/`, `shared/` does not import from `features/` or `widgets/` |
+| **Contract** | packages/ | Every entity has `schema` and `operations`, every custom operation has `input` and `output`, mock handler config |
+| **FSD** | modules/ | `features/` does not import from `widgets/`, `shared/` does not import from `features/` or `widgets/` |
 | **Import** | modules/ | No cross-module direct imports (must use package exports) |
 | **i18n** | modules/ | Missing keys across locales, extra keys, empty values, interpolation variable (`{{var}}`) consistency |
 
@@ -263,11 +260,12 @@ Auto-fixable issues, by the check `--fix` names:
 - `dependencies`: missing `"type": "module"`, React not declared as a peer
 - `tsup`: `dts` in `tsup.config.ts`
 - `i18n`: missing keys (copied from the reference locale) and extra keys (removed). Plural keys follow each locale's CLDR categories, so a Korean catalogue holds only `_other`
+- `fsd`: missing layer folders
 - `root`, `tsconfig`, `expo`: turbo.json, root scripts and the TypeScript catalog pin; `baseUrl`; an Expo app's TypeScript version
 
 **Output format:**
 
-```
+```text
 simplix validate
 
   packages/myapp-core
@@ -276,7 +274,6 @@ simplix validate
     ✔ "type": "module"
 
   modules/myapp-editor
-    ✔ Manifest exists
     ✔ FSD: features/ has no widgets/ imports
     ✖ i18n: Missing key "title" in ko.json (src/locales)
 
@@ -322,7 +319,7 @@ export type LocalesKeys =
 
 ### simplix openapi
 
-Generate a complete domain package from an OpenAPI specification. Supports both file paths and URLs as input. On subsequent runs, it performs incremental updates by comparing against a snapshot, regenerating only the `src/generated/` directory while preserving user-modified files.
+Generate domain packages from an OpenAPI specification with Orval. Supports both file paths and URLs as input. The `openapi` entry of `simplix.config.ts` whose `spec` matches the input supplies the profile, the domains and the CRUD patterns. On subsequent runs, it compares the spec against a snapshot and skips a domain whose spec has not changed unless `--force` is given; it regenerates the generated directories while preserving user-modified files.
 
 ```bash
 simplix openapi <spec> [options]
@@ -338,16 +335,12 @@ simplix openapi <spec> [options]
 
 | Option | Description | Default |
 | --- | --- | --- |
-| `-d, --domain <name>` | Domain name | Derived from OpenAPI `info.title` |
+| `-d, --domain <name>` | Domain to generate | Every configured domain |
 | `-e, --entities <names>` | Entity names to generate (comma-separated) | All entities |
 | `-o, --output <dir>` | Output directory | `packages/` |
-| `--dry-run` | Preview files without writing | `false` |
 | `-f, --force` | Force regeneration even if no changes | `false` |
 | `--no-http` | Skip `.http` file generation | - |
 | `--offline` | Read SimpliX Meta from `meta.snapshot` instead of the server | `false` |
-| `--no-mock` | Skip mock layer generation | - |
-| `--header` | Add auto-generated header comment | `true` |
-| `--no-header` | Skip auto-generated header comment | - |
 | `-y, --yes` | Auto-confirm without prompts | - |
 
 **Example:**
@@ -362,72 +355,68 @@ simplix openapi https://api.example.com/openapi.json --domain inventory
 # Generate specific entities only
 simplix openapi ./spec.yaml --entities product,category
 
-# Preview without writing files
-simplix openapi ./spec.yaml --dry-run
-
-# Force regeneration, skip mocks
-simplix openapi ./spec.yaml --force --no-mock -y
+# Force regeneration without prompts
+simplix openapi ./spec.yaml --force -y
 ```
 
-**Generated structure (first run):**
+**Generated structure:**
 
-```
+```text
 packages/<prefix>-domain-<name>/
   src/
-    generated/              # Auto-generated (regenerated on updates)
-      schemas.ts            # Zod schemas from OpenAPI
-      client.ts             # API client functions
-      hooks.ts              # React Query hooks
-      query-keys.ts         # Query key factory
-      interfaces.ts         # TypeScript interfaces
-      index.ts
-    mock/
-      generated/            # Auto-generated mock layer
-        handlers.ts         # MSW request handlers
-      seed.ts               # User-editable seed data
-      index.ts              # User-editable mock entry
-    index.ts                # User-editable package entry
-  http/                     # HTTP client files
+    generated/              # Orval output (regenerated)
+      endpoints/            # Request functions and React Query hooks
+      model/                # TypeScript types
+    generated-meta/         # SimpliX Meta output, when the entry has a meta block (regenerated)
+    hooks/                  # Hooks over the generated endpoints (regenerated)
+    mock/                   # Mock layer
+    schemas.ts              # Zod schemas
+    mutator.ts              # Request mutator chosen by the spec profile
+    index.ts                # Package entry
+  crud.config.ts            # CRUD role mapping (see defineCrudMap)
+  http/                     # HTTP client files (unless --no-http)
     http-client.env.json
     <entity>.http
   .openapi-snapshot.json    # Snapshot for incremental updates
   package.json
   tsup.config.ts
   tsconfig.json
-  eslint.config.js
 ```
 
-On subsequent runs, only `src/generated/` and `src/mock/generated/` are regenerated. User-modified files (`src/index.ts`, `src/mock/index.ts`, `src/mock/seed.ts`, `package.json`, etc.) are preserved.
+On a regeneration, `src/generated/`, `src/hooks/` and `src/generated-meta/` are removed and written again. `src/index.ts` is merged rather than overwritten, and an existing `crud.config.ts` is kept.
 
 #### Multi-Domain Mode (Tag-Based Splitting)
 
-When your OpenAPI spec covers multiple domains, you can split entities into separate packages based on operation tags. Configure `openapi.domains` in `simplix.config.ts` to map domain names to tag patterns:
+When your OpenAPI spec covers multiple domains, you can split entities into separate packages based on operation tags. Configure `domains` on the spec's entry in `openapi` of `simplix.config.ts` to map domain names to tag patterns:
 
 ```ts
 // simplix.config.ts
-export default {
-  openapi: {
-    domains: {
-      pet: ["pet"],
-      store: ["store"],
-      user: ["user"],
+import { defineConfig } from "@simplix-react/cli";
+
+export default defineConfig({
+  openapi: [
+    {
+      spec: "https://petstore.swagger.io/v2/swagger.json",
+      domains: {
+        pet: ["pet"],
+        store: ["store"],
+        user: ["user"],
+      },
     },
-  },
-} satisfies SimplixConfig;
+  ],
+});
 ```
 
 Each value is an array of tag patterns. Patterns can be exact strings or regular expressions enclosed in `/`:
 
 ```ts
-openapi: {
-  domains: {
-    iam: ["IAM", "Authentication", "/^Auth.*/"],  // exact + regex
-    billing: ["Billing", "/^Payment.*/"],
-  },
+domains: {
+  iam: ["IAM", "Authentication", "/^Auth.*/"],  // exact + regex
+  billing: ["Billing", "/^Payment.*/"],
 }
 ```
 
-When `openapi.domains` is configured, running `simplix openapi` generates one package per domain:
+When the entry has domains, running `simplix openapi` generates one package per domain:
 
 ```bash
 simplix openapi https://petstore.swagger.io/v2/swagger.json -y
@@ -443,31 +432,19 @@ simplix openapi https://petstore.swagger.io/v2/swagger.json -y
 | Rule | Behavior |
 | --- | --- |
 | First-match-wins | Each entity is assigned to the first matching domain in config order |
-| Fallback domain | Entities with no matching tags go to a fallback domain (from `--domain` flag or spec title) |
+| Fallback domain | Entities with no matching tags go to a fallback domain named after the spec title; `--domain` only selects which groups are generated, and a group without a package is skipped with a notice |
 | Empty domain skip | Domains with zero matched entities are not generated |
 | Entity filter first | `--entities` filter is applied before domain grouping |
 | Independent snapshots | Each domain package maintains its own `.openapi-snapshot.json` |
 
-When `openapi.domains` is not configured or is an empty object, the command falls back to single-domain behavior.
+The run prints how the entities were grouped, for example `Multi-domain mode: pet(3), store(2), user(1)`.
 
-Dry-run mode shows file lists grouped by domain:
-
-```bash
-simplix openapi ./spec.yaml --dry-run
-
-# Multi-domain mode: pet(3), store(2), user(1)
-# Dry run — myapp-domain-pet/
-#   src/generated/index.ts
-#   src/generated/schemas.ts
-#   ...
-# Dry run — myapp-domain-store/
-#   ...
-```
+![simplix openapi assigns each entity to the first domain whose tag pattern matches, and the rest to the fallback domain](../../docs/assets/figures/pkg-cli-readme-domain-splitting.en.svg)
 
 ### simplix meta-diff
 
-Compare a domain package's two generated outputs — `src/generated/` from orval and
-`src/generated-meta/` from SimpliX Meta — and report where their public names, fields and
+Compare a domain package's two generated outputs (`src/generated/` from orval and
+`src/generated-meta/` from SimpliX Meta) and report where their public names, fields and
 query keys disagree. A domain is switched to the meta output only once this command is quiet.
 
 ```bash
@@ -506,8 +483,8 @@ Findings come at two levels, and the command exits non-zero when there is an err
 | A zod constant present in only one output | note |
 | A name difference, required-ness difference or one-sided name declared in `--expect` | note |
 
-Orval's per-operation plumbing — a type per HTTP status, the query-options and mutation-options
-builders, the result and error aliases — has no counterpart in the meta output and is excluded
+Orval's per-operation plumbing (a type per HTTP status, the query-options and mutation-options
+builders, the result and error aliases) has no counterpart in the meta output and is excluded
 rather than reported. How many declarations were excluded is printed with each tree.
 
 **Expectation file:**
@@ -575,6 +552,16 @@ simplix scaffold <entity> [options]
 | --- | --- |
 | `--module <dir>` | Target FSD module directory (relative to `modules/`) |
 | `--output <dir>` | Custom output directory (overrides `--module`, relative to cwd) |
+| `--native` | Generate the mobile entity screen set (list, push detail, full-screen form and expo-router routes) |
+| `--app <dir>` | Target Expo app under `apps/` for the route files (with `--native`) |
+| `--blocks` | Also write a `page.blocks.tsx` file beside the page, once, for the author to write |
+| `--menu-group <key>` | The menu group the screen's entry joins (its key in the menu file); default: before the menu marker |
+| `--menu-icon <name>` | The icon the screen's menu entry draws, imported into the menu file when it is not yet |
+| `--list-presentation <kind>` | How the list draws its rows: `table` (default) or `cards` |
+| `--view-toggle` | Give a table list a switch to the cards (a cards list always has one and refuses the flag) |
+| `--card-title <column>` | The key of the column that titles a card; default the first column |
+| `--status-badge <field>` | The enum or boolean field the detail header draws as the record's badge; default the field named `status`, `state` or `standing` |
+| `--text-filter <fields>` | Comma separated text fields that each get a filter the reader types part of (otherwise text fields are left to the keyword search) |
 
 **Example:**
 
@@ -583,10 +570,12 @@ simplix scaffold <entity> [options]
 simplix scaffold product --module store
 ```
 
+After writing, `scaffold` runs the commands `generated.after` lists in `simplix.config.ts`.
+
 ### Extending a scaffolded form
 
 The generated form template stays minimal on purpose. Each `FormFields.*`
-component already accepts the props below directly — extend the generated
+component already accepts the props below directly: extend the generated
 file by adding them on the relevant fields. The `useCrudFormSubmit` hook
 accepts an optional `validator` for client-side checks.
 
@@ -666,15 +655,145 @@ Placeholders, hints, and section titles can live in the same JSON tree
 (`{entity}.placeholders.*`, `{entity}.form.sections.*`, etc.) and be read with
 `useTranslation("{moduleNamespace}/widgets").t("...")`.
 
+### simplix add-app
+
+Add an Expo (React Native) app with expo-router under `apps/`. The command generates native apps only and refuses to run without `--native`; the web app shell comes from `simplix init`.
+
+```bash
+simplix add-app <name> --native [-y]
+```
+
+| Option | Description |
+| --- | --- |
+| `--native` | Generate an Expo (React Native) app with expo-router |
+| `-y, --yes` | Accept all defaults (non-interactive) |
+
+### simplix add-page
+
+Generate a page of one kind from the templates of the app that owns it, in the order the [template table](#apps-drawn-by-different-kits) gives.
+
+```bash
+simplix add-page <kind> <name> [options]
+```
+
+| Argument | Description |
+| --- | --- |
+| `<kind>` | Page kind: `record-page`, `dashboard-page`, `static-page`, `error-page`, `auth-page` or `app-shell` (the CLI bundles `record-page`, `dashboard-page`, `static-page` and `error-page`; `auth-page` and `app-shell` come from a UI kit) |
+| `<name>` | Page name (e.g. `my-profile`, `home`, `not-found`) |
+
+| Option | Description |
+| --- | --- |
+| `--module <name>` | Module that owns the page (`modules/<name>/src/pages/<page>`); a grouped module is `<group>/<name>` |
+| `--app <name>` | App that owns the page (`apps/<name>/src/pages/<page>`), drawn from that app's templates and written to its `storiesDir` |
+| `--variant <name>` | Another shape of the kind, drawn from `<kind>.<variant>.hbs` |
+| `--blocks` | Also write a `page.blocks.tsx` file beside the page, once, for the author to write |
+| `--dry-run` | Print every file the page would write, with its content, and write nothing (the `generated.after` commands do not run) |
+
+### simplix generated
+
+Report every generated file as untouched, edited or stale against the current templates, and what a regeneration merges into each edited one. The merge bases are kept under `.simplix/generated`.
+
+```bash
+simplix generated [paths...] [options]
+```
+
+| Option | Description |
+| --- | --- |
+| `[paths...]` | Report only the generated files at these paths or under these directories; with `--all`, regenerate only them |
+| `--all` | Regenerate every scaffolded screen and page first: untouched files are rewritten, edited ones merged three-way, and a deleted one stays deleted |
+| `--write-conflicts` | With `--all`, write conflict markers into a file whose merge conflicts instead of leaving it alone |
+| `--check` | Also exit non-zero on a stale file, a conflict, a file with no base or origin, and an edited file a clean merge would still move |
+| `--json` | Print the report as JSON |
+| `--share` | Report, per screen, the lines in blocks and edited files against the generated lines, and the customisations two screens repeat |
+| `--adopt <path...>` | Record the current render of an edited file as its merge base, after printing the diff between the two |
+| `-y, --yes` | With `--adopt`, record without asking once the diffs are printed |
+| `--origin <command>` | Record `<command>` (the arguments after `simplix`) as the origin of the generated files at the given paths |
+| `--rebase` | With `--adopt`, also take a file that already has a base |
+
+### simplix meta
+
+Generate domain packages from SimpliX Meta, without Orval. Each `openapi` entry with a `meta` block names where SimpliX Meta is read from.
+
+```bash
+simplix meta [options]
+```
+
+| Option | Description |
+| --- | --- |
+| `-d, --domain <name>` | Domain to generate (default: every configured domain) |
+| `--offline` | Read SimpliX Meta from `meta.snapshot` instead of the server |
+| `-f, --force` | Rewrite `crud.config.ts` even where one already exists |
+| `--strict` | Exit non-zero, generating nothing, when a tag in SimpliX Meta is claimed by no domain (tags in `meta.ignoreTags` excepted) |
+
+### simplix meta-info
+
+Print what the backend offers a screen over an entity, read from the committed SimpliX Meta: the list and its access, the default sort, keyword search, status counts, aggregates, time range counts, export, actions, filters, and fields drawn masked.
+
+```bash
+simplix meta-info <entity> [--json]
+```
+
+The entity name is accepted in any case (`EmailLog`, `email-log`, `emailLog`). `--json` prints the answer as JSON.
+
+### simplix meta-removals
+
+Fail when the SimpliX Meta snapshot loses a type, field, operation or enum value that code under the roots still names, unless the acknowledged file lists it. The roots default to `checks.metaRemovals.roots`.
+
+```bash
+simplix meta-removals [roots...] [--base <ref>]
+```
+
+| Option | Description | Default |
+| --- | --- | --- |
+| `--base <ref>` | Git revision whose snapshot is the before side | `HEAD` |
+
+### simplix check-screen
+
+Check the generated screens' files against the committed SimpliX Meta: the form carries and marks what the create body requires, long text follows its length, a figure is drawn by the kind its format declares, a reference is drawn by the name field its entity declares, and a frame's sample rows nest it. Exits 1 on an error. Without an entity, every screen read from Meta is checked, and every routed screen of an app that declares `apps.<app>.design` must have its entry or row in that design source.
+
+```bash
+simplix check-screen [entity...]
+```
+
+### simplix cycles
+
+Report every import cycle among the source files under the given roots, with the edges the bundler keeps (a cycle makes Vite's hot update reload the whole page), and every dependency cycle between the workspace packages' `package.json` files. The roots default to `checks.cycles.roots`.
+
+```bash
+simplix cycles [roots...]
+```
+
+### simplix kit-fence
+
+Check that the lint config refuses exactly the framework imports the UI kit fences (`simplix.fence` in the kit's `package.json`).
+
+```bash
+simplix kit-fence [--lint <file>] [--write]
+```
+
+| Option | Description | Default |
+| --- | --- | --- |
+| `--lint <file>` | The lint config holding the fence | `.oxlintrc.json` |
+| `--write` | Write the kit's fence into the lint config instead of checking it | - |
+
+### Global option
+
+| Option | Description |
+| --- | --- |
+| `--root <dir>` | The project root for every command (default: the nearest directory at or above the working directory holding `simplix.config.ts`). `meta-diff`, `meta-info`, `meta-removals`, `check-screen` and `cycles` also take it as their own option |
+
+
 ## Configuration
 
 The CLI reads an optional `simplix.config.ts` file from the project root. If the file does not exist, default values are used.
 
 ```ts
 // simplix.config.ts
-import type { SimplixConfig } from "@simplix-react/cli";
+import { defineConfig } from "@simplix-react/cli";
 
-export default {
+export default defineConfig({
+  plugins: ["@simplix-react-ext/simplix-boot-cli-plugin"],
+  api: { baseUrl: "/api/v1" },
   packages: {
     prefix: "myapp",             // Package name prefix (default: derived from root package.json)
   },
@@ -684,33 +803,55 @@ export default {
       staging: { baseUrl: "https://staging.example.com" },
     },
   },
-  mock: {
-    defaultLimit: 50,            // Default pagination limit
-    maxLimit: 100,               // Maximum pagination limit
-  },
   codegen: {
     header: true,                // Add auto-generated header to generated files
   },
-  openapi: {
-    domains: {                   // Tag-based domain splitting (optional)
-      iam: ["IAM", "/^Auth.*/"],
-      billing: ["Billing"],
+  openapi: [
+    {
+      spec: "openapi.json",
+      profile: "simplix-boot",
+      domains: {                 // Tag-based domain splitting
+        iam: ["IAM", "/^Auth.*/"],
+        billing: ["Billing"],
+      },
     },
-  },
-} satisfies SimplixConfig;
+  ],
+});
 ```
 
 | Field | Description | Default |
 | --- | --- | --- |
+| `plugins` | CLI extension plugin modules loaded before any command runs | `[]` |
+| `api.baseUrl` | API base path used in code generation | `"/api"` |
 | `packages.prefix` | Short prefix for generated package names | Derived from root `package.json` name |
 | `http.environments` | Named environments for `.http` files | `{ development: { baseUrl: "http://localhost:3000" } }` |
-| `mock.defaultLimit` | Default pagination limit for mock handlers | `50` |
-| `mock.maxLimit` | Maximum pagination limit for mock handlers | `100` |
 | `codegen.header` | Prepend auto-generated header comment to generated files | `true` |
-| `openapi.domains` | Tag-based domain splitting map: domain name → tag patterns (exact or `/regex/`) | `undefined` (single domain) |
-| `openapi.meta.source` | SimpliX Meta endpoint URL or snapshot path | The spec's origin plus the profile's `metaEndpoint` |
-| `openapi.meta.snapshot` | Where the fetched SimpliX Meta is committed, for `--offline` and for the change gate | `undefined` (the meta half runs every time) |
-| `openapi.meta.export` | Domains whose barrel exports `src/generated-meta/` instead of the Orval output | `[]` |
+| `i18n.locales` | Supported locale codes | `["en", "ko", "ja"]` |
+| `i18n.defaultLocale` | Default locale code | `"en"` |
+| `i18n.localeOnlyKeys` | Keys a locale may hold that the reference locale does not, by locale code; `validate` neither reports nor removes them | `undefined` |
+| `openapi` | One entry per spec (`OpenAPISpecConfig`) | `undefined` (no OpenAPI generation) |
+| `openapi[].spec` | OpenAPI document path (relative to the project root) or URL; `simplix meta` needs none | `undefined` |
+| `openapi[].profile` | Spec profile name a plugin registered | `undefined` |
+| `openapi[].naming` | Naming strategy, over the profile's | The profile's |
+| `openapi[].responseAdapter` | Response adapter, over the profile's | The profile's |
+| `openapi[].domains` | Tag-based domain splitting map: domain name → tag patterns (exact or `/regex/`); required | - |
+| `openapi[].crud` | CRUD role detection patterns (`CrudEndpointPattern` per role) | `undefined` (no CRUD roles) |
+| `openapi[].meta.source` | SimpliX Meta endpoint URL or snapshot path | The spec's origin plus the profile's `metaEndpoint` |
+| `openapi[].meta.snapshot` | Where the fetched SimpliX Meta is committed, for `--offline` and for the change gate | `undefined` (the meta half runs every time) |
+| `openapi[].meta.export` | Domains whose barrel exports `src/generated-meta/` instead of the Orval output | `[]` |
+| `openapi[].meta.ignoreTags` | Tags no domain claims on purpose, as glob patterns; not warned about and not refused by `--strict` | `[]` |
+| `modules.groups` | Directories under `modules/` that hold modules rather than being one | `[]` |
+| `modules.dependencies` | Packages every module `add-module` writes declares as a dependency (name → version range) | `{}` |
+| `routes` | The route file a list screen is reached through, by module group (`dir`, `template`, `paths`, `except`, `menu`) | `undefined` (no route written) |
+| `scaffold.defaultSortFields` | Fields a generated list may open sorted by, where SimpliX Meta declares no `defaultSort` | `[]` |
+| `scaffold.maskedSuffix` | Suffix of a field's masked form; a record with both forms is drawn with the masked one | `undefined` |
+| `scaffold.referencePickers` | Per referenced entity, the hook (and `facet` or `facetFor`) a form picker or list filter searches it with | `{}` |
+| `scaffold.holders` | Per scaffolded entity, the holders its detail leaves out (`exclude`) | `{}` |
+| `references.peeks` | The peek kind a reference opens, by reference stem or entity name | `{}` |
+| `generated.format` | The project's formatter, run over every render before it is written or compared | `undefined` (renders used as produced) |
+| `generated.after` | Commands run after `scaffold`, `add-page` and `generated --all` have written their files | `[]` |
+| `checks.cycles.roots` | Default roots of `simplix cycles` | `undefined` |
+| `checks.metaRemovals` | Default `roots`, `snapshot` and `acknowledged` file of `simplix meta-removals` | `undefined` |
 | `templates.from` | UI kit package or template directory pages and widgets are drawn from | The one root dependency that is a UI kit (a kit and the base it extends count as one) |
 | `templates.storiesDir` | Directory generated design-reference stories are written to | `undefined` (no stories) |
 | `templates.story` | Story id and title patterns, and the story file per scaffold key | Storybook's title-derived id under `Generated/{Entity}` |
@@ -774,7 +915,7 @@ shared ones extends the base kit that holds them, and keeps only the templates o
 | `simplix.extends` | The kit whose templates are read beneath this kit's, resolved from this kit's own directory |
 | `simplix.id` | The short name of the kit that `{{@kit.id}}` stands for |
 
-A base kit's template names the kit the project draws with through three values, written into the
+A base kit's template names the kit the project draws with through the values below, written into the
 template before it is rendered. A value with nothing to stand for is refused rather than rendered
 as an empty string:
 
@@ -947,6 +1088,30 @@ registerPlugin({
 | `SchemaAdapter` | Schema adapter interface for `registerSchemaAdapter` |
 | `I18nEntityInfo` | Entity info for i18n key mapping |
 | `I18nDownloader` | Callback for downloading i18n data from a server |
+| `OpenAPIMetaConfig` | The `meta` block of an `OpenAPISpecConfig` |
+| `SimplixHttpEnvironment` | One environment of `http.environments` |
+| `SimplixChecksConfig` | The `checks` block |
+| `SimplixTemplatesConfig` | The `templates` block |
+| `SimplixAppConfig` | One app's settings under `apps` |
+| `SimplixDesignSource` | The `design` setting of an app |
+| `ContainerMapping` | A backend container type and the TypeScript type and zod factory it becomes |
+| `MetaExtensionOutput` | Files a spec profile's `metaExtensions` produces |
+
+### UI Kit Template Exports
+
+A UI kit's own tests read and render its templates the way the generator does with these exports.
+
+| Export | Kind | Description |
+| --- | --- | --- |
+| `loadProjectTemplates` | Function | Load the templates in force for a project |
+| `resolveKitChain` | Function | The kit a project draws with and every kit it extends, base first |
+| `renderTemplate` | Function | Render a Handlebars template with a context |
+| `readKitFence` | Function | The imports a kit and the kits it extends fence (`simplix.fence`), with the kit's values written in place of `{{@kit.*}}` |
+| `kitFenceOf` | Function | The fence of `readKitFence`, or `undefined` where no kit of the chain declares one |
+| `ProjectTemplates` | Type | Template name → template source |
+| `KitChain` | Type | The result of `resolveKitChain` |
+| `KitLayer` | Type | One kit of a chain |
+| `FencedImport` | Type | One restricted import, in the shape `no-restricted-imports` takes |
 
 ## Related Packages
 

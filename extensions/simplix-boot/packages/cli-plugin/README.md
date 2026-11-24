@@ -1,5 +1,7 @@
 # @simplix-react-ext/simplix-boot-cli-plugin
 
+**English** | [한국어](README.ko.md)
+
 CLI plugin that registers the `simplix-boot` spec profile, the `boot` response adapter, and a Boot envelope schema adapter into the `@simplix-react/cli` global registry.
 
 ## Installation
@@ -66,23 +68,29 @@ simplix openapi my-api-spec.json
 | Response adapter | `boot` | Configures Boot envelope handling for generated code: `bootResponseAdapter` for error conversion and `wrapEnvelope` for mock responses, both imported from `@simplix-react-ext/simplix-boot-auth`. |
 | Schema adapter | `bootSchemaAdapter` | Strips the Boot envelope (`type`, `message`, `body`, `timestamp`, `errorCode`, `errorDetail`) so generated types reflect the inner `body` payload instead of the envelope. |
 | i18n downloader | `/api/v1/dev/i18n/messages` | Downloads entity field and enum message translations from the running server and transforms them into per-locale domain data. |
+| SimpliX Meta endpoint | `/api/v1/dev/meta/dto` | Endpoint the CLI reads the backend's DTO metadata from. |
+| Container types | `bootContainerTypes` | Maps Java containers to generated TypeScript: `SimpliXApiResponse` is unwrapped, `Page` becomes `SpringPage` / `pageOf` from `@simplix-react-ext/simplix-boot-auth`, `List` becomes `Array` / `z.array`, `Map` becomes `Record` / `z.record` with string keys. |
+| Labeled enum | `LabeledEnumValue` | A response field holding a Boot `LabeledEnum` is typed as `LabeledEnumValue` from `@simplix-react-ext/simplix-boot-utils` (`{ value, label }`) instead of the bare value union. |
 
-The `simplix-boot` profile also sets a `mutatorStrategy` of `"boot"` and declares a dependency on `@simplix-react-ext/simplix-boot-auth`, which the generated project pulls in for envelope handling.
+The `simplix-boot` profile also sets a `mutatorStrategy` of `"boot"`, a `mutatorHint` that imports `bootResponseAdapter` as the generated mutator's error adapter, and declares a dependency on `@simplix-react-ext/simplix-boot-auth`, which the generated project pulls in for envelope handling.
 
 ### Naming strategy
 
-`simplixBootNaming` reads the OpenAPI tag in the form `scope.crud.EntityName` and uses the last dot-separated segment as the entity name, converting its leading character to lowercase. Operations are resolved from the HTTP method and path pattern:
+`simplixBootNaming` reads the OpenAPI tag in the form `scope.crud.EntityName` (or `scope.EntityName`) and uses the last dot-separated segment as the entity name, removing a trailing `RestController` or `Controller` and converting its leading character to lowercase. Operations are resolved from the HTTP method and path pattern:
 
 - `GET /entity/search` → list
+- `GET /entity` → getAll
 - `GET /entity/{id}` → get
 - `GET /entity/{id}/edit` → getForEdit
 - `GET /entity/tree` and `GET /entity/tree/{id}` → tree and subtree
+- `GET /entity/<sub-path>` → a custom query named after the sub-path (for example `GET /event/statistics/summary` → summary); a trailing path parameter adds `By<Param>`
 - `POST /entity/create` → create
-- `PUT /entity/{id}` → update
-- `PATCH /entity/batch` → batchUpdate
-- `DELETE /entity/batch` → batchDelete
+- `POST /entity/search` → search
+- `PUT /entity/{id}` → update; `PUT /entity/{id}/<action>` → update<Action>
+- `PATCH /entity/batch` → batchUpdate; `PATCH /entity` → multiUpdate; `PATCH /entity/{id}` → update
+- `DELETE /entity/{id}` → delete; `DELETE /entity/batch` → batchDelete; `DELETE /entity/{id}/<resource>/...` → delete<Resource>
 
-Custom sub-path and sub-resource segments are turned into camelCase action names (for example `POST /entity/{id}/unpair` → unpair).
+Other custom sub-path segments are turned into camelCase action names (for example `POST /entity/{id}/unpair` → unpair, `PATCH /entity/{id}/password` → password).
 
 ### Schema adapter
 
@@ -90,16 +98,18 @@ Custom sub-path and sub-resource segments are turned into camelCase action names
 
 ### i18n downloader
 
-The downloader fetches translations from `<serverOrigin>/api/v1/dev/i18n/messages` (with a 5-second timeout). It maps server entity keys (PascalCase) to domain entity keys (camelCase) and produces per-locale data for the requested locales. If the request fails or returns no usable data, it returns nothing and code generation proceeds without downloaded translations.
+The downloader fetches translations from `<serverOrigin>/api/v1/dev/i18n/messages` (with a 30-second timeout) and unwraps the Boot envelope when the response has one. It maps server entity keys (PascalCase) to domain entity keys (camelCase); one server entity can feed several domain entities and produces per-locale data for the requested locales. If the request fails or returns no usable data, it returns nothing and code generation proceeds without downloaded translations.
 
 ## How Loading Works
 
 Loading is config-driven. The CLI reads `config.plugins` from `simplix.config.ts` and imports each listed package; there is no hardcoded extension name and no auto-loading. Importing this package triggers its registration side effects, after which the `simplix-boot` profile can be referenced by `openapi[].profile`.
+
+![simplix openapi loads each package in config.plugins, whose import registers the simplix-boot profile, before it resolves openapi[].profile](../../../../docs/assets/figures/pkg-simplix-boot-cli-plugin-loading.en.svg)
 
 If an `openapi` entry references a profile whose plugin is not listed in `plugins` (or not installed), `simplix openapi` reports the missing profile as an error and exits.
 
 ## Related
 
 - [simplix-boot extension overview](../../README.md)
-- [CLI usage guide](../../../../docs/guides/cli-usage.md)
-- [Extensions guide](../../../../docs/guides/extensions.md)
+- [CLI usage guide](../../../../docs/en/guides/cli-usage.md)
+- [Extensions guide](../../../../docs/en/guides/extensions.md)
