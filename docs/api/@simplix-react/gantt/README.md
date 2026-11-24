@@ -6,6 +6,8 @@
 
 # @simplix-react/gantt
 
+**English** | [한국어](../../_media/README.ko-7.md)
+
 Project Gantt chart for React: a task table with inline editing beside a timeline with drag scheduling and dependency links, with critical path, baselines, a resource sheet, resource usage, undo and redo, and Microsoft Project XML exchange.
 
 The chart is built from `@simplix-react/ui` components and theme tokens, and schedules with `@simplix-react/gantt-core`.
@@ -45,14 +47,14 @@ To take in a plan changed elsewhere, such as an edit another user saved, call `s
 
 Store a plan with `serializeProject(project)` and read it back with `parseProject(text)`, both from `@simplix-react/gantt-core`: the stored text names its form and version, so a plan saved by a later version is refused instead of being misread, and a bare project stored earlier still opens.
 
-A guide in Korean is in [docs/guide.ko.md](../../_media/guide.ko.md).
+A guide to building a plan screen, storing plans and keeping each reader's layout is in [docs/guide.md](../../_media/guide.md).
 
 ## What the chart does
 
 | Area | Behaviour |
 | --- | --- |
 | Task table | Columns resize by dragging the grip on the right edge of a heading (a double click returns the default width), move by dragging the heading, which carries its name beside the pointer, marks the edge it would drop at with a line down the table and scrolls the columns when it is held at the table's edge, and are shown or hidden from the column button in the table corner and in the toolbar. When the columns are wider than the table, the table scrolls sideways by the bar under it or by a sideways wheel, under a finger, with the row numbers and the first column staying in place; it scrolls by itself to the active cell and to a column that was just added. The splitter between table and timeline resizes the table. A column grip and the splitter take the keyboard too: the arrow keys resize, Shift makes the step larger, Home returns a column to its default width. Rows move by dragging the row number, whose column is as wide as the longest number and the marks beside it need. A right click on a row or a bar opens the commands for the selected tasks. Durations are written in the reader's language (`3일`, `2주`) and read in both that form and the letter form. Outline with collapsible summary tasks. Double-click, F2, Enter or typing edits a cell: name, duration (`3d`, `2w`, `4h`, `2ed`), start, finish, predecessors (`3`, `4SS+2d`, `5FF-1d`) and percent complete. |
-| Timeline | Two-tier date header with seven zoom steps from quarters to hours, and non-working time shaded from the project calendar. |
+| Timeline | Two-tier date header with zoom steps from quarters to hours (`ZOOM_LEVELS`), and non-working time shaded from the project calendar. |
 | Filter, sort, group | The toolbar menu narrows the rows to critical, incomplete, completed, late or unassigned tasks, milestones, or one resource's tasks; orders them by a column; or gathers them under a heading per resource, per status or by whether they are critical. A search box narrows by name. |
 | Bars | A bar carries resource names, the task name, its progress, its dates or nothing beside it, and takes the chart's colour, one of its own or one per resource. A progress line joins the progress of every task at the status date. The row number column marks a task that has notes or a dated constraint. |
 | Other views | A network diagram that zooms in steps and fits itself to the screen, with a line that skips columns routed between the boxes; a month calendar in which a task dragged onto another day moves by that many days; a resource graph of work against capacity; and a task usage table of hours per assignment. The usage tables and the graph draw only the rows and columns on screen. |
@@ -128,6 +130,7 @@ An edit the engine refuses (a dependency loop, a duration that is not one) leave
 | `planFiles` | `boolean` | `true` | Shows the commands that save and open a plan file |
 | `trailing` | `ReactNode` | | Extra controls at the end of the toolbar |
 | `emptyState` | `ReactNode` | | Replaces the message of a plan without tasks |
+| `className` | `string` | | Class names added to the chart's outer element |
 
 ## Not included
 
@@ -164,7 +167,9 @@ function FinishDate() {
 </GanttProvider>;
 ```
 
-`useGanttStore()` returns the chart's store. `store.getState().apply(label, edit)` runs any `@simplix-react/gantt-core` operation as one undo step, and `load(project)` replaces the plan.
+`useGanttStore()` returns the chart's store. `store.getState().apply(label, edit)` runs any `@simplix-react/gantt-core` operation as one undo step, and `load(project)` replaces the plan and forgets the undo history. `createGanttStore(project, options)` makes a store outside React.
+
+The other screens are exported on their own too: `ResourceSheet`, `ResourceUsage`, `ResourceGraph`, `TaskUsage`, `CalendarView`, `NetworkDiagram`, `ColumnChooser` and `RecurringDialog`. `GanttShell` is the standard toolbar, screen and dialogs without the provider. The PDF functions `downloadPdf`, `layoutPdf`, `pdfRows`, `renderPdf` and `buildPdf` come from `@simplix-react/gantt/pdf`.
 
 ## Translations
 

@@ -1,72 +1,26 @@
-<p align="center">
-  <img src="../../docs/assets/simplix-logo.png" alt="simplix-react" width="200" />
-</p>
+**Documentation**
 
-# SimpliX React
+***
 
-[![npm version](https://img.shields.io/npm/v/simplix-react.svg)](https://www.npmjs.com/package/simplix-react)
-[![license](https://img.shields.io/npm/l/simplix-react.svg)](https://github.com/simplix-framework/simplix-react/blob/main/LICENSE)
+# Documentation
 
-Meta package that installs all `@simplix-react/*` packages in one dependency.
+## Packages
 
-## Installation
-
-```bash
-pnpm add simplix-react
-```
-
-### pnpm Configuration
-
-pnpm uses strict dependency resolution. To import from `@simplix-react/*` sub-packages, add this to your `.npmrc`:
-
-```ini
-public-hoist-pattern[]=@simplix-react/*
-```
-
-> Projects created with `simplix init` include this configuration automatically.
-
-This single install provides:
-
-| Package | Description |
-| --- | --- |
-| `@simplix-react/contract` | Zod-based type-safe API contract definitions |
-| `@simplix-react/api` | Orval mutator singleton for domain packages |
-| `@simplix-react/react` | React Query hooks derived from contracts |
-| `@simplix-react/form` | TanStack Form hooks derived from contracts |
-| `@simplix-react/ui` | CRUD scaffolding UI components and compound patterns |
-| `@simplix-react/auth` | Authentication middleware (Bearer, API Key, OAuth2) |
-| `@simplix-react/access` | CASL-based authorization and access control |
-| `@simplix-react/mock` | MSW handlers + in-memory stores |
-| `@simplix-react/i18n` | i18next-based internationalization |
-| `@simplix-react/cli` | Project scaffolding and validation CLI |
-| `@simplix-react/testing` | Test utilities (mock clients, query wrappers) |
-
-## Usage
-
-Import directly from individual packages:
-
-```ts
-import { defineApi, simpleQueryBuilder } from "@simplix-react/contract";
-import { deriveEntityHooks } from "@simplix-react/react";
-import { deriveEntityFormHooks } from "@simplix-react/form";
-import { createAuth, bearerScheme } from "@simplix-react/auth";
-import { deriveMockHandlers } from "@simplix-react/mock";
-import { I18nextAdapter } from "@simplix-react/i18n";
-```
-
-## Selective Installation
-
-If you only need specific packages, install them individually:
-
-```bash
-pnpm add @simplix-react/contract @simplix-react/react
-```
-
-## Documentation
-
-- [Getting Started](https://github.com/simplix-framework/simplix-react/blob/main/docs/getting-started/overview.md)
-- [API Reference](https://github.com/simplix-framework/simplix-react/tree/main/docs/api)
-
-## License
-
-MIT
+- [@simplix-react/access](@simplix-react/access/README.md)
+- [@simplix-react/api](@simplix-react/api/README.md)
+- [@simplix-react/auth](@simplix-react/auth/README.md)
+- [@simplix-react/calendar](@simplix-react/calendar/README.md)
+- [@simplix-react/cli](@simplix-react/cli/README.md)
+- [@simplix-react/contract](@simplix-react/contract/README.md)
+- [@simplix-react/form](@simplix-react/form/README.md)
+- [@simplix-react/gantt](@simplix-react/gantt/README.md)
+- [@simplix-react/gantt-core](@simplix-react/gantt-core/README.md)
+- [@simplix-react/headless](@simplix-react/headless/README.md)
+- [@simplix-react/i18n](@simplix-react/i18n/README.md)
+- [@simplix-react/mock](@simplix-react/mock/README.md)
+- [@simplix-react/process](@simplix-react/process/README.md)
+- [@simplix-react/process-core](@simplix-react/process-core/README.md)
+- [@simplix-react/react](@simplix-react/react/README.md)
+- [@simplix-react/testing](@simplix-react/testing/README.md)
+- [@simplix-react/ui](@simplix-react/ui/README.md)
+- [simplix-react-ext](simplix-react-ext/README.md)

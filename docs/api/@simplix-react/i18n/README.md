@@ -10,6 +10,8 @@
 
 # @simplix-react/i18n
 
+**English** | [한국어](../../_media/README.ko-10.md)
+
 Internationalization framework with an adapter pattern and built-in i18next integration.
 
 ## Installation
@@ -57,6 +59,8 @@ adapter.formatDate(new Date());        // "2025. 1. 15."
 
 ## API Overview
 
+![Module and domain translations are registered first, createI18nConfig loads them into one adapter, and I18nProvider hands that adapter to the React hooks](../../_media/pkg-i18n-loading.en.svg)
+
 ### Core (`@simplix-react/i18n`)
 
 | Export | Kind | Description |
@@ -65,6 +69,7 @@ adapter.formatDate(new Date());        // "2025. 1. 15."
 | `I18nextAdapter` | Class | i18next-based adapter implementation |
 | `createI18nConfig` | Function | Factory that creates and initializes an adapter |
 | `buildModuleTranslations` | Function | Builds lazy-loadable module translation descriptors |
+| `registerModuleTranslations` | Function | Registers module translation descriptors for every adapter `createI18nConfig` creates |
 | `registerDomainTranslations` | Function | Registers domain-specific translation resources |
 | `DEFAULT_LOCALES` | Constant | Built-in locale configs for 84 languages |
 | `SUPPORTED_LOCALES` | Constant | Locale codes from `DEFAULT_LOCALES` |
@@ -72,6 +77,12 @@ adapter.formatDate(new Date());        // "2025. 1. 15."
 | `NUMBER_FORMAT_STYLES` | Constant | Number formatting style values |
 | `TEXT_DIRECTIONS` | Constant | Text direction values (ltr, rtl) |
 | `TRANSLATION_LOAD_STATES` | Constant | Translation loading state values |
+| `formatDate`, `formatTime`, `formatDateTime`, `formatRelative` | Function | Locale- and time-zone-aware `Intl` formatters that need no adapter |
+| `toBCP47Locale`, `clearFormatterCaches` | Function | Locale tag conversion and formatter cache reset |
+| `configureFallbackLocale`, `getFallbackLocale`, `useFallbackLocale`, `DEFAULT_FALLBACK_LOCALE` | Function, Hook, Constant | The language a multilingual value falls back to (default `"en"`) |
+| `seedI18nDefaults`, `i18nBaseValue`, `i18nFallbackText`, `someLanguageFilled` | Function | Helpers for multilingual field values |
+| `koreanParticle`, `formatKoreanParticle`, `localeParticle`, `KOREAN_PARTICLES` | Function, Constant | Korean particle selection after a word or number |
+| `byteSize`, `messageLength`, `unitAmount` | Function | Byte sizes, message length and amounts with a unit as display text |
 
 ### React Bindings (`@simplix-react/i18n/react`)
 
@@ -82,6 +93,14 @@ adapter.formatDate(new Date());        // "2025. 1. 15."
 | `useLocale` | Hook | Returns the active locale with auto re-render |
 | `useI18n` | Hook | Returns the raw adapter from context |
 | `useI18nAdapter` | Hook | Returns the adapter or `null` from context |
+| `useEntityTranslation` | Hook | Translated labels for entity fields (`entity/{entityName}` namespace) and enum values (`enums` namespace) |
+| `useLocalePicker` | Hook | Current locale, available locales with display names and a setter, for a locale picker |
+| `useOptionalTranslation` | Hook | Translation for keys built from a server value that the catalogue may not carry |
+| `DateTimeProvider`, `useDateTime` | Component, Hook | Binds the active locale and an injected time zone to the `Intl` formatters |
+| `useFormattedDate`, `useFormattedTime`, `useFormattedDateTime`, `useFormattedRelative` | Hook | Formatted values from `DateTimeProvider` |
+| `useI18nEditLanguage`, `useContentEditLanguage` | Hook | The language the multilingual fields on a screen edit |
+
+The remaining exports of both entry points are listed in the [API reference](../../_media/README-2.md).
 
 ## Key Concepts
 
@@ -110,7 +129,7 @@ adapter.tp("items", 3);                          // plural form
 
 ### Module Translations
 
-Use `buildModuleTranslations` to define lazy-loaded, per-component translations. This enables code splitting -- translations are only loaded when their module is used.
+Use `buildModuleTranslations` to define lazy-loaded, per-component translations. This enables code splitting: translations are only loaded when their module is used.
 
 ```ts
 import { buildModuleTranslations } from "@simplix-react/i18n";
@@ -160,7 +179,7 @@ Call this as a side-effect import in your domain package's entry point so transl
 
 ### Locale Configuration
 
-The package includes built-in locale configs for Korean, English, and Japanese via `DEFAULT_LOCALES`. Provide custom configs to support additional locales:
+`DEFAULT_LOCALES` holds built-in locale configs for 84 languages, and `createI18nConfig` supports all of them unless `supportedLocales` is given. An `I18nextAdapter` created without `locales` supports Korean, English and Japanese. Pass `supportedLocales` (locale codes or `LocaleConfig` objects) to limit or extend the set:
 
 ```ts
 import type { LocaleConfig } from "@simplix-react/i18n";
@@ -230,9 +249,9 @@ function LocaleBadge() {
 
 ## Related Packages
 
-- `@simplix-react/contract` -- Type-safe API contract definitions
-- `@simplix-react/react` -- React Query hooks derived from contracts
-- `@simplix-react/mock` -- MSW handlers with in-memory stores
+- `@simplix-react/contract`: Type-safe API contract definitions
+- `@simplix-react/react`: React Query hooks derived from contracts
+- `@simplix-react/mock`: MSW handlers with in-memory stores
 
 ## Classes
 

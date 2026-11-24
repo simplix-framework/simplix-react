@@ -10,7 +10,9 @@
 
 # @simplix-react/testing
 
-Testing utilities for simplix-react applications — pre-configured QueryClient, wrapper components, query helpers, and in-memory mock clients.
+**English** | [한국어](../../_media/README.ko-15.md)
+
+Testing utilities for simplix-react applications: a pre-configured QueryClient, wrapper components, query helpers, in-memory mock clients, and access-policy helpers.
 
 ## Installation
 
@@ -25,6 +27,7 @@ pnpm add -D @simplix-react/testing
 | `@simplix-react/contract` | `workspace:*` |
 | `@tanstack/react-query` | `>= 5.0.0` |
 | `react` | `>= 18.0.0` |
+| `@simplix-react/access` | `workspace:*` (optional, for `createMockPolicy` and `createAccessTestWrapper`) |
 
 ## Quick Example
 
@@ -59,6 +62,10 @@ describe("useUsers", () => {
 | `createTestWrapper(options?)` | Creates a React wrapper component with all required providers |
 | `waitForQuery(queryClient, queryKey, options?)` | Polls until a query resolves to a non-pending status |
 | `createMockClient(config, data)` | Creates an in-memory CRUD client without MSW or network |
+| `createMockPolicy(options?)` | Creates an `AccessPolicy` from static rules; allows everything by default |
+| `createAccessTestWrapper(options?)` | Creates a wrapper with `QueryClientProvider` and `AccessProvider` |
+| `MockPolicyOptions` | Options of `createMockPolicy` (`rules`, `user`, `allowAll`) |
+| `AccessTestWrapperOptions` | Options of `createAccessTestWrapper` (`queryClient`, `policy`) |
 
 ## Key Concepts
 
@@ -66,9 +73,9 @@ describe("useUsers", () => {
 
 `createTestQueryClient` returns a `QueryClient` tuned for test environments:
 
-- **No retries** — queries and mutations fail immediately on error
-- **Zero gcTime** — prevents stale cache from leaking between tests
-- **Zero staleTime** — ensures data is always re-fetched
+- **No retries**: queries and mutations fail immediately on error
+- **Zero gcTime**: prevents stale cache from leaking between tests
+- **Zero staleTime**: ensures data is always re-fetched
 
 ```ts
 import { createTestQueryClient } from "@simplix-react/testing";
@@ -82,7 +89,7 @@ afterEach(() => {
 
 ### Test Wrapper
 
-`createTestWrapper` produces a React component that wraps children with `QueryClientProvider`. Pass it as the `wrapper` option to `renderHook` or `render`.
+`createTestWrapper` produces a React component that wraps children with `QueryClientProvider`, using a client from `createTestQueryClient` unless you pass one. Pass it as the `wrapper` option to `renderHook` or `render`.
 
 ```tsx
 import { renderHook } from "@testing-library/react";
@@ -104,7 +111,19 @@ const wrapper = createTestWrapper({ queryClient });
 
 ### Mock Client
 
-`createMockClient` builds an in-memory API client that matches the shape of a real `ApiContract.client`. Each entity exposes `list`, `get`, `create`, `update`, and `delete` methods backed by plain arrays — no MSW, no network.
+`createMockClient` builds an in-memory API client with one method per entity operation, like a real `ApiContract.client`. The data is keyed by entity name and backed by plain arrays, with no MSW and no network. The operation's role decides the method:
+
+| Role | Mock behaviour |
+| --- | --- |
+| `list` | Resolves the entity's array |
+| `get` | Resolves the item whose `id` equals the argument; rejects with `Not found` otherwise |
+| `create` | Appends the DTO with an `id` from `crypto.randomUUID()`; accepts `(dto)` or `(parentId, dto)` |
+| `update` | Merges the DTO into the item with that `id` |
+| `delete` | Removes the item with that `id` |
+| `tree` | Resolves `[]` |
+| any other operation | Resolves `null` |
+
+Top-level operations get no mock method.
 
 ```ts
 import { createMockClient } from "@simplix-react/testing";
@@ -134,7 +153,7 @@ expect(remaining).toHaveLength(1);
 
 ### waitForQuery
 
-`waitForQuery` polls a `QueryClient` until a given query key leaves the `"pending"` status. It is useful when you need to wait for server state to settle outside of a rendering context.
+`waitForQuery` polls a `QueryClient` every 10 ms until a given query key leaves the `"pending"` status, and throws after `timeout` (default 5000 ms). It is useful when you need to wait for server state to settle outside of a rendering context.
 
 ```ts
 import { createTestQueryClient, waitForQuery } from "@simplix-react/testing";
@@ -146,6 +165,22 @@ const queryClient = createTestQueryClient();
 await waitForQuery(queryClient, ["users"], { timeout: 3000 });
 const data = queryClient.getQueryData(["users"]);
 expect(data).toBeDefined();
+```
+
+### Access Policy
+
+`createMockPolicy` builds an `AccessPolicy` from `@simplix-react/access` with a static adapter. Without options it grants `manage` on `all` to a user `test-user`; pass `rules` to test a restricted user, or `allowAll: false` to grant nothing. `createAccessTestWrapper` puts that policy (or yours) in an `AccessProvider` inside `QueryClientProvider`:
+
+```tsx
+import { render } from "@testing-library/react";
+import { createAccessTestWrapper, createMockPolicy } from "@simplix-react/testing";
+
+const policy = createMockPolicy({
+  rules: [{ action: "view", subject: "Task" }],
+});
+const wrapper = createAccessTestWrapper({ policy });
+
+render(<TaskToolbar />, { wrapper });
 ```
 
 ## Usage with Vitest
@@ -197,6 +232,11 @@ describe("my hook", () => {
 | `@simplix-react/contract` | Zod-based type-safe API contract definitions |
 | `@simplix-react/react` | React Query hooks derived from contracts |
 | `@simplix-react/mock` | MSW handlers + in-memory mock stores for integration testing |
+| `@simplix-react/access` | Access policies that `createMockPolicy` builds |
+
+---
+
+**Next Step** → [`@simplix-react/mock`](../mock/README.md): serve the same contract from MSW mock handlers.
 
 ## Interfaces
 

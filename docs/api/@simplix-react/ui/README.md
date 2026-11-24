@@ -6,6 +6,8 @@
 
 # @simplix-react/ui
 
+**English** | [한국어](../../_media/README.ko-16.md)
+
 CRUD scaffolding UI components with explicit field components and compound patterns.
 
 ## Overview
@@ -21,7 +23,7 @@ import {
   FormFields,
   CrudDetail,
   DetailFields,
-  List,
+  CrudList,
   useCrudList,
 } from "@simplix-react/ui";
 
@@ -60,7 +62,7 @@ Every component draws its look from slot declarations, so one app can switch bet
 
 simplix-react apps follow **Feature-Sliced Design (FSD)** - UI code lives in **modules**, not in domain packages:
 
-```
+```text
 my-app/
 ├── packages/                     Domain packages (generated) - NO UI code
 │   ├── user/
@@ -147,24 +149,24 @@ Every field component requires explicit `value` and `onChange` props. There is n
 
 ### Compound Components
 
-CRUD layouts (List, CrudForm, CrudDetail) use the compound component pattern. Assemble only what you need:
+CRUD layouts (CrudList, CrudForm, CrudDetail) use the compound component pattern. Assemble only what you need:
 
 ```tsx
-<List>
-  <List.Toolbar>
-    <List.Search value={search} onChange={setSearch} />
-  </List.Toolbar>
-  <List.Table data={items} sort={sort} onSortChange={setSort}>
-    <List.Column field="name" header="Name" sortable />
-    <List.Column field="status" header="Status" display="badge" />
-  </List.Table>
-  <List.Pagination page={1} pageSize={10} total={100} totalPages={10} onPageChange={setPage} />
-</List>
+<CrudList>
+  <CrudList.Toolbar>
+    <CrudList.Search value={search} onChange={setSearch} />
+  </CrudList.Toolbar>
+  <CrudList.Table data={items} sort={sort} onSortChange={setSort}>
+    <CrudList.Column field="name" header="Name" sortable />
+    <CrudList.Column field="status" header="Status" display="badge" />
+  </CrudList.Table>
+  <CrudList.Pagination page={1} pageSize={10} total={100} totalPages={10} onPageChange={setPage} />
+</CrudList>
 ```
 
 ### Component Override Strategy
 
-5 levels of customization, from least to most effort:
+Levels of customization, from least to most effort:
 
 | Level | Method | Scope |
 | --- | --- | --- |
@@ -379,32 +381,26 @@ Options:
 
 ### CRUD Layout Components
 
-#### List (Compound)
+#### CrudList (Compound)
 
 Full-featured data table with sorting, filtering, pagination, selection, and bulk actions.
 
 ```tsx
 const { data, filters, sort, pagination, selection, emptyReason } = useCrudList(useUserList);
 
-<List>
-  <List.Toolbar>
-    <List.Search value={filters.search} onChange={filters.setSearch} />
-    <List.Filter
-      label="Role"
-      value={roleFilter}
-      onChange={setRoleFilter}
-      options={roleOptions}
-    />
-  </List.Toolbar>
+<CrudList>
+  <CrudList.Toolbar>
+    <CrudList.Search value={filters.search} onChange={filters.setSearch} />
+  </CrudList.Toolbar>
 
-  <List.BulkActions selectedCount={selection.selected.size} onClear={selection.clear}>
-    <List.BulkAction label="Delete Selected" onClick={handleBulkDelete} variant="destructive" />
-  </List.BulkActions>
+  <CrudList.BulkActions selectedCount={selection.selected.size} onClear={selection.clear}>
+    <CrudList.BulkAction label="Delete Selected" onClick={handleBulkDelete} variant="destructive" />
+  </CrudList.BulkActions>
 
   {emptyReason ? (
-    <List.Empty reason={emptyReason} />
+    <CrudList.Empty reason={emptyReason} />
   ) : (
-    <List.Table
+    <CrudList.Table
       data={data}
       sort={{ field: sort.field!, direction: sort.direction }}
       onSortChange={(s) => sort.setSort(s.field, s.direction)}
@@ -414,15 +410,15 @@ const { data, filters, sort, pagination, selection, emptyReason } = useCrudList(
       onSelectAll={() => selection.toggleAll(data)}
       onRowClick={handleRowClick}
     >
-      <List.Column field="name" header="Name" sortable />
-      <List.Column field="email" header="Email" sortable />
-      <List.Column field="status" header="Status" display="badge"
+      <CrudList.Column field="name" header="Name" sortable />
+      <CrudList.Column field="email" header="Email" sortable />
+      <CrudList.Column field="status" header="Status" display="badge"
         variants={{ active: "success", inactive: "secondary" }} />
-      <List.Column field="createdAt" header="Created" format="date" sortable />
-    </List.Table>
+      <CrudList.Column field="createdAt" header="Created" format="date" sortable />
+    </CrudList.Table>
   )}
 
-  <List.Pagination
+  <CrudList.Pagination
     page={pagination.page}
     pageSize={pagination.pageSize}
     total={pagination.total}
@@ -430,12 +426,14 @@ const { data, filters, sort, pagination, selection, emptyReason } = useCrudList(
     onPageChange={pagination.setPage}
     onPageSizeChange={pagination.setPageSize}
   />
-</List>
+</CrudList>
 ```
 
-Sub-components: `List.Toolbar`, `List.Search`, `List.Filter`, `List.Table`, `List.Column`, `List.RowActions`, `List.Action`, `List.Pagination`, `List.BulkActions`, `List.BulkAction`, `List.Empty`
+Sub-components: `CrudList.Toolbar`, `CrudList.Search`, `CrudList.Table`, `CrudList.TableCard`, `CrudList.Column`, `CrudList.Pagination`, `CrudList.BulkActions`, `CrudList.BulkAction`, `CrudList.Empty`, `CrudList.ViewToggle`, and the filter components `CrudList.FilterBar`, `CrudList.FilterActions`, `CrudList.TextFilter`, `CrudList.MultiTextFilter`, `CrudList.AdvancedTextFilter`, `CrudList.UnifiedTextFilter`, `CrudList.NumberFilter`, `CrudList.DateFilter`, `CrudList.DateRangeFilter`, `CrudList.FacetedFilter`, `CrudList.AdvancedSelectFilter`, `CrudList.ToggleFilter`, `CrudList.ChipFilter`.
 
-`List.Table` and `Tree.Table` render a sticky header by default - once scrolling an outer container (a page, dialog, or detail-pane body) would hide the header row, it sticks to the top of the nearest scrollable ancestor. Wide tables keep their own horizontal scrollbar, and the floating header scrolls with its columns. Pass `stickyHeader={false}` to disable. Inside a `List.TableCard` the table owns its scroll region and the header is always sticky.
+Row actions are passed to `CrudList.Table` as its `actions` prop (`RowActionDef[]`), not as child components.
+
+`CrudList.Table` and `CrudTree.Table` render a sticky header by default - once scrolling an outer container (a page, dialog, or detail-pane body) would hide the header row, it sticks to the top of the nearest scrollable ancestor. Wide tables keep their own horizontal scrollbar, and the floating header scrolls with its columns. Pass `stickyHeader={false}` to disable. Inside a `CrudList.TableCard` the table owns its scroll region and the header is always sticky.
 
 #### CardList
 
@@ -460,7 +458,7 @@ Form layout with sections and actions.
 ```tsx
 <CrudForm
   onSubmit={handleSubmit}
-  fieldVariant={{ labelPosition: "top", size: "md" }}
+  fieldVariant={{ layout: "top", size: "md" }}
   warnOnUnsavedChanges
 >
   <CrudForm.Section title="Basic Info" layout="two-column">
@@ -486,7 +484,7 @@ Sub-components: `CrudForm.Section` (with `layout`: single-column/two-column/thre
 Read-only detail view layout.
 
 ```tsx
-<CrudDetail fieldVariant={{ labelPosition: "left" }}>
+<CrudDetail fieldVariant={{ layout: "left" }}>
   <CrudDetail.Section title="User Info">
     <DetailFields.DetailTextField label="Name" value={user.name} copyable />
     <DetailFields.DetailDateField label="Joined" value={user.createdAt} format="relative" />
@@ -503,7 +501,7 @@ Read-only detail view layout.
 </CrudDetail>
 ```
 
-Sub-components: `CrudDetail.Section`, `CrudDetail.Actions`
+Sub-components: `CrudDetail.Section`, `CrudDetail.Actions`, `CrudDetail.DefaultActions`, `CrudDetail.ActionFooter`, `CrudDetail.AuditFooter`, `CrudDetail.List`, `CrudDetail.Table`
 
 #### CrudDelete
 
@@ -521,7 +519,7 @@ import { CrudDelete } from "@simplix-react/ui";
 />
 ```
 
-Props: `open`, `onOpenChange`, `onConfirm`, `title`, `description`, `loading`, `entityName`
+Props: `open`, `onOpenChange`, `onConfirm`, `title`, `description`, `loading`, `entityName`, `cancelLabel`, `deleteLabel`, `deletingLabel`
 
 #### CrudErrorBoundary
 
@@ -578,7 +576,7 @@ const { data, isLoading } = useGet(id);
 if (isLoading || !data) return <QueryFallback isLoading={isLoading} notFoundMessage="Pet not found." />;
 ```
 
-Props: `isLoading`, `notFoundMessage`, `loadingMessage`
+Props: `isLoading`, `notFoundMessage`, `onNotFound`
 
 ### CRUD Hooks
 
@@ -673,25 +671,26 @@ const stableData = usePreviousData(data);
 CSS fade transition hook for view transitions (e.g., list-to-detail).
 
 ```tsx
-const { isVisible, shouldRender } = useFadeTransition({
-  show: !!selectedId,
+const { displayedId, fading, style } = useFadeTransition({
+  active: true,
+  targetId: selectedId,
   duration: 200,
 });
 ```
 
-Returns: `{ isVisible, shouldRender }`
+Returns: `{ displayedId, fading, style }`
 
 #### useListDetailState
 
-State management for the ListDetail pattern - tracks selected item and panel toggle.
+State management for the ListDetail pattern - tracks the selected item and the open view.
 
 ```tsx
-const { selectedId, select, deselect, isDetailOpen } = useListDetailState({
-  onSelect: (id) => navigate(`/users/${id}`),
+const { selectedId, view, showList, showDetail, showNew, showEdit } = useListDetailState({
+  initialView: "list",
 });
 ```
 
-Returns: `{ selectedId, select, deselect, isDetailOpen }`
+Returns: `{ selectedId, view, showList, showDetail, showNew, showEdit }`
 
 #### useCrudList
 
@@ -786,12 +785,12 @@ Status values: `"idle"` | `"saving"` | `"saved"` | `"error"`
 
 #### ListDetail
 
-Two rendering variants for list + detail layouts.
+Rendering variants for list + detail layouts: `panel`, `dialog` and `drawer`.
 
 **Panel variant** (default): Side-by-side layout with draggable divider.
 
 ```tsx
-<ListDetail variant="panel" listWidth="1/3">
+<ListDetail variant="panel" listWidth={360}>
   <ListDetail.List>
     {/* List content */}
   </ListDetail.List>
@@ -816,14 +815,20 @@ Two rendering variants for list + detail layouts.
 
 Props:
 
-- `variant`: `"panel"` (default) | `"dialog"`
-- `listWidth`: `"1/4"` | `"1/3"` | `"2/5"` | `"1/2"` | `"3/5"` | `"2/3"` | `"3/4"` | `"4/5"` (panel variant only)
+- `variant`: `"panel"` (default) | `"dialog"` | `"drawer"`
+- `detailWidth`: fixed detail panel width in px; the list fills the rest (defaults to `DETAIL_PANEL_WIDTH`)
+- `listWidth`: fixed list panel width in px; the detail fills the rest (use either `detailWidth` or `listWidth`, not both)
+- `minDetailWidth`, `maxDetailWidth`, `minListWidth`: drag limits in px
+- `onDetailWidthChange`, `onDetailWidthReset`: called when the reader drags the divider or resets it with a double press
+- `dialogHeight`: height of the dialog variant
 - `activePanel`: `"list"` | `"detail"` (controlled mode)
 - `onClose`: Callback when dialog is dismissed (dialog variant only)
 
 Panel variant features:
 - Responsive: collapses to single-panel on mobile
 - Draggable divider with keyboard support (ArrowLeft/Right)
+
+Sub-components: `ListDetail.List`, `ListDetail.Detail`, `ListDetail.ViewSwitch`.
 
 `ListDetailRoot` is the same component as `ListDetail` - exported as an alias for compound pattern composition.
 
@@ -848,6 +853,8 @@ same filtered list.
 The framework knows no entity's filter keys. A page narrows `search.filters` to the keys its list
 declares before applying them, so a stale link never sends a parameter the server refuses, and it
 leaves out a filter over a field a tab already forces.
+
+![A filter the reader commits is written to the address with replace, and an address that changes under the list is adopted by it](../../_media/pkg-ui-addressed-filters.en.svg)
 
 **Applying and writing back.** `useCrudList` takes `addressedFilters` to keep its committed filters
 in the address:
@@ -880,7 +887,8 @@ onNavigate={(next, options) => navigate({ to: "/jobs", search: next, replace: op
 
 **One request for a count and its list.** `filtersToRequestParams(filters, { controls, forced,
 transformFilters, searchKey })` returns the request parameters the list sends for a set of filters,
-without its page window. A tile that counts what its link opens calls it for both:
+without its page window. A tile that counts what its link opens calls it for both (`useListCount`
+stands for the application's own count hook; the framework does not export one):
 
 ```tsx
 const failed = { "status.in": ["FAILED"] };
@@ -937,7 +945,7 @@ import { MyInput, MySelect } from "./custom-components";
 </UIProvider>
 ```
 
-Overridable components: `Input`, `Textarea`, `Label`, `Switch`, `Checkbox`, `Badge`, `Calendar`, `Select` (compound), `RadioGroup` (compound).
+Overridable components (`UIComponents`): `Input`, `Textarea`, `Label`, `Switch`, `Checkbox`, `Badge`, `Calendar`, `Button`, `Skeleton`; the compounds `Select`, `RadioGroup`, `Dialog`, `Sheet`, `Popover`, `Tooltip`, `DropdownMenu`, `Tabs`, `Command`, `Table`; the primitives `Stack`, `Flex`, `Grid`, `Heading`, `Text`, `Card`; and `SectionShell`, `QueryFallback`, `CrudDelete`, `FieldWrapper`, `DetailFieldWrapper`. `Container` and `Section` are exported but not overridable.
 
 ### Utilities
 
@@ -963,15 +971,17 @@ Overridable components: `Input`, `Textarea`, `Label`, `Switch`, `Checkbox`, `Bad
 
 ```json
 {
+  "@simplix-react/api": "workspace:*",
   "@simplix-react/form": "workspace:*",
   "@simplix-react/i18n": "workspace:*",
   "@simplix-react/react": "workspace:*",
+  "@tanstack/react-query": ">=5.0.0",
   "react": ">=18.0.0",
-  "react-router-dom": ">=6.0.0 (optional)"
+  "react-router-dom": ">=6.0.0"
 }
 ```
 
-`react-router-dom` is required only when using `createReactRouterAdapter`. Other router adapters can be provided via `CrudProvider`.
+`react-router-dom` is an optional peer, required only when using `createReactRouterAdapter`. `createTanstackRouterAdapter` adapts TanStack Router, and any other `RouterAdapter` can be provided via `CrudProvider`.
 
 ## License
 

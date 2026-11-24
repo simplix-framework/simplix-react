@@ -1,0 +1,330 @@
+[**Documentation**](../../README.md)
+
+***
+
+[Documentation](../../README.md) / @simplix-react/i18n
+
+<p align="center">
+  <img src="../../_media/simplix-logo.png" alt="simplix-react" width="200" />
+</p>
+
+# @simplix-react/i18n
+
+**English** | [한국어](../../_media/README.ko-10.md)
+
+Internationalization framework with an adapter pattern and built-in i18next integration.
+
+## Installation
+
+```bash
+pnpm add @simplix-react/i18n
+```
+
+### Peer Dependencies
+
+| Package | Version | Required |
+| --- | --- | --- |
+| `i18next` | >= 25.0.0 | Optional |
+| `react` | >= 18.0.0 | Optional |
+| `react-i18next` | >= 16.0.0 | Optional |
+
+Install the peers you need based on your usage:
+
+```bash
+# Core only (i18next adapter)
+pnpm add i18next
+
+# With React bindings
+pnpm add i18next react react-i18next
+```
+
+## Quick Example
+
+```ts
+import { createI18nConfig } from "@simplix-react/i18n";
+
+const appTranslations = import.meta.glob("./locales/**/*.json", { eager: true });
+
+const { adapter, i18nReady } = createI18nConfig({
+  defaultLocale: "ko",
+  appTranslations,
+});
+
+await i18nReady;
+
+adapter.t("common:greeting");          // "안녕하세요"
+adapter.formatCurrency(10000);         // "₩10,000"
+adapter.formatDate(new Date());        // "2025. 1. 15."
+```
+
+## API Overview
+
+![Module and domain translations are registered first, createI18nConfig loads them into one adapter, and I18nProvider hands that adapter to the React hooks](../../_media/pkg-i18n-loading.en.svg)
+
+### Core (`@simplix-react/i18n`)
+
+| Export | Kind | Description |
+| --- | --- | --- |
+| `II18nAdapter` | Interface | Adapter contract for i18n backends |
+| `I18nextAdapter` | Class | i18next-based adapter implementation |
+| `createI18nConfig` | Function | Factory that creates and initializes an adapter |
+| `buildModuleTranslations` | Function | Builds lazy-loadable module translation descriptors |
+| `registerModuleTranslations` | Function | Registers module translation descriptors for every adapter `createI18nConfig` creates |
+| `registerDomainTranslations` | Function | Registers domain-specific translation resources |
+| `DEFAULT_LOCALES` | Constant | Built-in locale configs for 84 languages |
+| `SUPPORTED_LOCALES` | Constant | Locale codes from `DEFAULT_LOCALES` |
+| `DATE_TIME_STYLES` | Constant | Date/time formatting style values |
+| `NUMBER_FORMAT_STYLES` | Constant | Number formatting style values |
+| `TEXT_DIRECTIONS` | Constant | Text direction values (ltr, rtl) |
+| `TRANSLATION_LOAD_STATES` | Constant | Translation loading state values |
+| `formatDate`, `formatTime`, `formatDateTime`, `formatRelative` | Function | Locale- and time-zone-aware `Intl` formatters that need no adapter |
+| `toBCP47Locale`, `clearFormatterCaches` | Function | Locale tag conversion and formatter cache reset |
+| `configureFallbackLocale`, `getFallbackLocale`, `useFallbackLocale`, `DEFAULT_FALLBACK_LOCALE` | Function, Hook, Constant | The language a multilingual value falls back to (default `"en"`) |
+| `seedI18nDefaults`, `i18nBaseValue`, `i18nFallbackText`, `someLanguageFilled` | Function | Helpers for multilingual field values |
+| `koreanParticle`, `formatKoreanParticle`, `localeParticle`, `KOREAN_PARTICLES` | Function, Constant | Korean particle selection after a word or number |
+| `byteSize`, `messageLength`, `unitAmount` | Function | Byte sizes, message length and amounts with a unit as display text |
+
+### React Bindings (`@simplix-react/i18n/react`)
+
+| Export | Kind | Description |
+| --- | --- | --- |
+| `I18nProvider` | Component | Provides the adapter via React context |
+| `useTranslation` | Hook | Namespace-scoped translation with auto re-render |
+| `useLocale` | Hook | Returns the active locale with auto re-render |
+| `useI18n` | Hook | Returns the raw adapter from context |
+| `useI18nAdapter` | Hook | Returns the adapter or `null` from context |
+| `useEntityTranslation` | Hook | Translated labels for entity fields (`entity/{entityName}` namespace) and enum values (`enums` namespace) |
+| `useLocalePicker` | Hook | Current locale, available locales with display names and a setter, for a locale picker |
+| `useOptionalTranslation` | Hook | Translation for keys built from a server value that the catalogue may not carry |
+| `DateTimeProvider`, `useDateTime` | Component, Hook | Binds the active locale and an injected time zone to the `Intl` formatters |
+| `useFormattedDate`, `useFormattedTime`, `useFormattedDateTime`, `useFormattedRelative` | Hook | Formatted values from `DateTimeProvider` |
+| `useI18nEditLanguage`, `useContentEditLanguage` | Hook | The language the multilingual fields on a screen edit |
+
+The remaining exports of both entry points are listed in the [API reference](../../_media/README-2.md).
+
+## Key Concepts
+
+### Adapter Pattern
+
+The `II18nAdapter` interface decouples your application from any specific i18n library. The built-in `I18nextAdapter` implements this interface using i18next, but you can create a custom adapter for any backend.
+
+```ts
+import { I18nextAdapter } from "@simplix-react/i18n";
+
+const adapter = new I18nextAdapter({
+  defaultLocale: "en",
+  fallbackLocale: "en",
+  resources: {
+    en: { common: { greeting: "Hello, {{name}}!" } },
+    ko: { common: { greeting: "안녕하세요, {{name}}!" } },
+  },
+});
+
+await adapter.initialize();
+
+adapter.t("common:greeting");                    // uses default namespace
+adapter.tn("common", "greeting", { name: "A" }); // namespaced lookup
+adapter.tp("items", 3);                          // plural form
+```
+
+### Module Translations
+
+Use `buildModuleTranslations` to define lazy-loaded, per-component translations. This enables code splitting: translations are only loaded when their module is used.
+
+```ts
+import { buildModuleTranslations } from "@simplix-react/i18n";
+
+const dashboardTranslations = buildModuleTranslations({
+  namespace: "dashboard",
+  locales: ["en", "ko"],
+  components: {
+    header: {
+      en: () => import("./header/locales/en.json"),
+      ko: () => import("./header/locales/ko.json"),
+    },
+    sidebar: {
+      en: () => import("./sidebar/locales/en.json"),
+      ko: () => import("./sidebar/locales/ko.json"),
+    },
+  },
+});
+```
+
+Pass these to `createI18nConfig` for automatic loading:
+
+```ts
+const { adapter, i18nReady } = createI18nConfig({
+  defaultLocale: "ko",
+  moduleTranslations: [dashboardTranslations],
+});
+```
+
+### Domain Translations
+
+Use `registerDomainTranslations` to register translations from domain packages (e.g., packages generated by `simplix openapi`). Each domain registers its own locale files, which are automatically loaded during `createI18nConfig` initialization.
+
+```ts
+import { registerDomainTranslations } from "@simplix-react/i18n";
+
+registerDomainTranslations({
+  domain: "pet",
+  locales: {
+    en: () => import("./locales/en.json"),
+    ko: () => import("./locales/ko.json"),
+  },
+});
+```
+
+Call this as a side-effect import in your domain package's entry point so translations are available when the package is imported.
+
+### Locale Configuration
+
+`DEFAULT_LOCALES` holds built-in locale configs for 84 languages, and `createI18nConfig` supports all of them unless `supportedLocales` is given. An `I18nextAdapter` created without `locales` supports Korean, English and Japanese. Pass `supportedLocales` (locale codes or `LocaleConfig` objects) to limit or extend the set:
+
+```ts
+import type { LocaleConfig } from "@simplix-react/i18n";
+
+const customLocales: LocaleConfig[] = [
+  { code: "en", name: "English", englishName: "English", currency: "USD" },
+  { code: "ko", name: "한국어", englishName: "Korean", currency: "KRW" },
+  { code: "zh", name: "中文", englishName: "Chinese", currency: "CNY" },
+];
+
+const { adapter, i18nReady } = createI18nConfig({
+  defaultLocale: "en",
+  supportedLocales: customLocales,
+});
+```
+
+### Formatting
+
+The adapter provides locale-aware formatting powered by the `Intl` API:
+
+```ts
+// Date / Time
+adapter.formatDate(new Date(), { dateStyle: "long" });
+adapter.formatTime(new Date(), { timeStyle: "short", hour12: true });
+adapter.formatDateTime(new Date());
+adapter.formatRelativeTime(pastDate); // "3 hours ago"
+
+// Numbers
+adapter.formatNumber(1234567.89);                              // "1,234,567.89"
+adapter.formatNumber(0.42, { style: "percent" });              // "42%"
+adapter.formatCurrency(9900, "KRW");                           // "₩9,900"
+```
+
+## React Integration
+
+Wrap your app with `I18nProvider` and use the hooks:
+
+```tsx
+import { I18nProvider, useTranslation, useLocale } from "@simplix-react/i18n/react";
+import { createI18nConfig } from "@simplix-react/i18n";
+
+// Setup
+const { adapter, i18nReady } = createI18nConfig({ defaultLocale: "ko" });
+await i18nReady;
+
+// Provider
+function App() {
+  return (
+    <I18nProvider adapter={adapter}>
+      <Dashboard />
+    </I18nProvider>
+  );
+}
+
+// Consumer
+function Dashboard() {
+  const { t, locale } = useTranslation("dashboard");
+  return <h1>{t("title")} ({locale})</h1>;
+}
+
+// Locale-only
+function LocaleBadge() {
+  const locale = useLocale();
+  return <span>{locale}</span>;
+}
+```
+
+## Related Packages
+
+- `@simplix-react/contract`: Type-safe API contract definitions
+- `@simplix-react/react`: React Query hooks derived from contracts
+- `@simplix-react/mock`: MSW handlers with in-memory stores
+
+## Classes
+
+- [I18nextAdapter](classes/I18nextAdapter.md)
+
+## Interfaces
+
+- [BuildModuleTranslationsOptions](interfaces/BuildModuleTranslationsOptions.md)
+- [ComponentTranslations](interfaces/ComponentTranslations.md)
+- [CreateI18nConfigOptions](interfaces/CreateI18nConfigOptions.md)
+- [DateTimeFormatOptions](interfaces/DateTimeFormatOptions.md)
+- [DomainTranslationConfig](interfaces/DomainTranslationConfig.md)
+- [FormatDateOptions](interfaces/FormatDateOptions.md)
+- [FormatDateTimeOptions](interfaces/FormatDateTimeOptions.md)
+- [FormatTimeOptions](interfaces/FormatTimeOptions.md)
+- [I18nConfigResult](interfaces/I18nConfigResult.md)
+- [I18nextAdapterOptions](interfaces/I18nextAdapterOptions.md)
+- [II18nAdapter](interfaces/II18nAdapter.md)
+- [LocaleConfig](interfaces/LocaleConfig.md)
+- [LocaleInfo](interfaces/LocaleInfo.md)
+- [MessageLength](interfaces/MessageLength.md)
+- [ModuleTranslations](interfaces/ModuleTranslations.md)
+- [NumberFormatOptions](interfaces/NumberFormatOptions.md)
+- [PluralForms](interfaces/PluralForms.md)
+
+## Type Aliases
+
+- [DateInput](type-aliases/DateInput.md)
+- [DateTimeStyle](type-aliases/DateTimeStyle.md)
+- [KoreanParticle](type-aliases/KoreanParticle.md)
+- [LocaleCode](type-aliases/LocaleCode.md)
+- [NumberFormatStyle](type-aliases/NumberFormatStyle.md)
+- [TextDirection](type-aliases/TextDirection.md)
+- [TranslationLoadState](type-aliases/TranslationLoadState.md)
+- [TranslationNamespace](type-aliases/TranslationNamespace.md)
+- [TranslationResources](type-aliases/TranslationResources.md)
+- [TranslationValues](type-aliases/TranslationValues.md)
+
+## Variables
+
+- [DATE\_TIME\_STYLES](variables/DATE_TIME_STYLES.md)
+- [DEFAULT\_FALLBACK\_LOCALE](variables/DEFAULT_FALLBACK_LOCALE.md)
+- [DEFAULT\_LOCALES](variables/DEFAULT_LOCALES.md)
+- [KOREAN\_PARTICLE\_FORMAT](variables/KOREAN_PARTICLE_FORMAT.md)
+- [KOREAN\_PARTICLE\_NAMES](variables/KOREAN_PARTICLE_NAMES.md)
+- [KOREAN\_PARTICLES](variables/KOREAN_PARTICLES.md)
+- [NUMBER\_FORMAT\_STYLES](variables/NUMBER_FORMAT_STYLES.md)
+- [SUPPORTED\_LOCALES](variables/SUPPORTED_LOCALES.md)
+- [TEXT\_DIRECTIONS](variables/TEXT_DIRECTIONS.md)
+- [TRANSLATION\_LOAD\_STATES](variables/TRANSLATION_LOAD_STATES.md)
+
+## Functions
+
+- [buildModuleTranslations](functions/buildModuleTranslations.md)
+- [byteSize](functions/byteSize.md)
+- [clearFormatterCaches](functions/clearFormatterCaches.md)
+- [configureFallbackLocale](functions/configureFallbackLocale.md)
+- [createI18nConfig](functions/createI18nConfig.md)
+- [formatDate](functions/formatDate.md)
+- [formatDateTime](functions/formatDateTime.md)
+- [formatKoreanParticle](functions/formatKoreanParticle.md)
+- [formatRelative](functions/formatRelative.md)
+- [formatTime](functions/formatTime.md)
+- [getFallbackLocale](functions/getFallbackLocale.md)
+- [i18nBaseValue](functions/i18nBaseValue.md)
+- [i18nFallbackText](functions/i18nFallbackText.md)
+- [koreanParticle](functions/koreanParticle.md)
+- [localeParticle](functions/localeParticle.md)
+- [messageLength](functions/messageLength.md)
+- [registerDomainTranslations](functions/registerDomainTranslations.md)
+- [registerModuleTranslations](functions/registerModuleTranslations.md)
+- [seedI18nDefaults](functions/seedI18nDefaults.md)
+- [someLanguageFilled](functions/someLanguageFilled.md)
+- [toBCP47Locale](functions/toBCP47Locale.md)
+- [unitAmount](functions/unitAmount.md)
+- [useFallbackLocale](functions/useFallbackLocale.md)
