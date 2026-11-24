@@ -234,4 +234,4 @@ describe("my hook", () => {
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/packages/testing/README.md" target="_blank" rel="noopener noreferrer">View source</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/packages/testing/README.md" target="_blank" rel="noopener noreferrer">Edit on GitHub</a></p>

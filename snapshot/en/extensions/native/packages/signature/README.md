@@ -69,4 +69,4 @@ The package exports the prop and option types of the API above: `SignaturePadPro
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/extensions/native/packages/signature/README.md" target="_blank" rel="noopener noreferrer">View source</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/extensions/native/packages/signature/README.md" target="_blank" rel="noopener noreferrer">Edit on GitHub</a></p>

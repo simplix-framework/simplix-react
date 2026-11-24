@@ -441,4 +441,4 @@ The auth layer is fully decoupled from the API contract. You can switch from `be
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/tutorials/auth-protected-app.md" target="_blank" rel="noopener noreferrer">View source</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/tutorials/auth-protected-app.md" target="_blank" rel="noopener noreferrer">Edit on GitHub</a></p>

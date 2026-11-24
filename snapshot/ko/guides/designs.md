@@ -89,4 +89,4 @@ UI 키트는 같은 방법으로 자체 slot을 추가합니다. `--root <키트
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/ko/guides/designs.md" target="_blank" rel="noopener noreferrer">원본 보기</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/ko/guides/designs.md" target="_blank" rel="noopener noreferrer">GitHub에서 편집</a></p>

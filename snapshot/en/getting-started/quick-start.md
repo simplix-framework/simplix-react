@@ -222,4 +222,4 @@ With just a few files, you now have:
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/getting-started/quick-start.md" target="_blank" rel="noopener noreferrer">View source</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/getting-started/quick-start.md" target="_blank" rel="noopener noreferrer">Edit on GitHub</a></p>

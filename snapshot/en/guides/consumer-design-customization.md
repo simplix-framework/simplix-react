@@ -18,7 +18,7 @@ Related documents: [`consumer-styling-setup.md`](/en/guides/consumer-styling-set
   - [3. You want one component to look different everywhere](#_3-you-want-one-component-to-look-different-everywhere-eg-only-button-in-a-corporate-style)
   - [4. You want just one specific instance to look slightly different](#_4-you-want-just-one-specific-instance-to-look-slightly-different)
   - [5. You want to restyle the table scrollbar](#_5-you-want-to-restyle-the-table-scrollbar)
-  - [6. You want to change the component structure itself](#_6-you-want-to-change-the-component-structure-itself-layout--behavior)
+  - [6. You want to change the component structure itself](#_6-you-want-to-change-the-component-structure-itself-layout-behavior)
 - [Decision tree summary](#decision-tree-summary)
 - [What is included in theme/base.css](#what-is-included-in-themebasecss)
   - [Radius definitions](#radius-definitions)
@@ -417,4 +417,4 @@ decorators: [
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/guides/consumer-design-customization.md" target="_blank" rel="noopener noreferrer">View source</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/guides/consumer-design-customization.md" target="_blank" rel="noopener noreferrer">Edit on GitHub</a></p>

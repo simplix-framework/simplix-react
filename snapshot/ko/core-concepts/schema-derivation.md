@@ -186,4 +186,4 @@ Zod 스키마를 변경하면 그 변경에 맞지 않는 컴포넌트마다 Typ
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/ko/core-concepts/schema-derivation.md" target="_blank" rel="noopener noreferrer">원본 보기</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/ko/core-concepts/schema-derivation.md" target="_blank" rel="noopener noreferrer">GitHub에서 편집</a></p>

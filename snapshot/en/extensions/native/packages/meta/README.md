@@ -40,4 +40,4 @@ RN packages ship source (`src/`): Metro transpiles them, and NativeWind class ex
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/extensions/native/packages/meta/README.md" target="_blank" rel="noopener noreferrer">View source</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/extensions/native/packages/meta/README.md" target="_blank" rel="noopener noreferrer">Edit on GitHub</a></p>

@@ -200,4 +200,4 @@ The mock layer can power standalone demo applications that run entirely in the b
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/core-concepts/mock-data-layer.md" target="_blank" rel="noopener noreferrer">View source</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/core-concepts/mock-data-layer.md" target="_blank" rel="noopener noreferrer">Edit on GitHub</a></p>

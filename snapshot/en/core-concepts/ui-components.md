@@ -294,4 +294,4 @@ CRUD components need routing for navigation (detail pages, edit pages) and URL s
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/core-concepts/ui-components.md" target="_blank" rel="noopener noreferrer">View source</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/core-concepts/ui-components.md" target="_blank" rel="noopener noreferrer">Edit on GitHub</a></p>

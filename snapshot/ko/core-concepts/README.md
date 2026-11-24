@@ -21,4 +21,4 @@ simplix-react가 내부에서 어떻게 동작하는지 구조 관점에서 설�
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/ko/core-concepts/README.md" target="_blank" rel="noopener noreferrer">원본 보기</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/ko/core-concepts/README.md" target="_blank" rel="noopener noreferrer">GitHub에서 편집</a></p>

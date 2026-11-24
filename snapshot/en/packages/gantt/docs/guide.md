@@ -200,4 +200,4 @@ The `.github/workflows/gantt.yml` workflow runs the type check, lint, unit tests
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt/docs/guide.md" target="_blank" rel="noopener noreferrer">View source</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt/docs/guide.md" target="_blank" rel="noopener noreferrer">Edit on GitHub</a></p>

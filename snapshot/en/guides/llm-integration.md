@@ -266,4 +266,4 @@ Test prompts to verify that the agent correctly understands simplix-react contex
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/guides/llm-integration.md" target="_blank" rel="noopener noreferrer">View source</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/guides/llm-integration.md" target="_blank" rel="noopener noreferrer">Edit on GitHub</a></p>

@@ -135,4 +135,4 @@ Cookie-based authentication (session cookies, CSRF tokens) is intentionally omit
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/core-concepts/authentication.md" target="_blank" rel="noopener noreferrer">View source</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/core-concepts/authentication.md" target="_blank" rel="noopener noreferrer">Edit on GitHub</a></p>

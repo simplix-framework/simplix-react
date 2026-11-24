@@ -135,4 +135,4 @@ simplix-react의 파생 모델과 일관되도록 전략 패턴을 선택했습�
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/ko/core-concepts/authentication.md" target="_blank" rel="noopener noreferrer">원본 보기</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/ko/core-concepts/authentication.md" target="_blank" rel="noopener noreferrer">GitHub에서 편집</a></p>

@@ -774,4 +774,4 @@ import { CrudErrorBoundary } from "@simplix-react/ui";
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/ko/guides/ui-components.md" target="_blank" rel="noopener noreferrer">원본 보기</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/ko/guides/ui-components.md" target="_blank" rel="noopener noreferrer">GitHub에서 편집</a></p>

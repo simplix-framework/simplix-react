@@ -247,4 +247,4 @@ The access package depends on `@simplix-react/auth` only through the minimal `Au
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/core-concepts/authorization.md" target="_blank" rel="noopener noreferrer">View source</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/core-concepts/authorization.md" target="_blank" rel="noopener noreferrer">Edit on GitHub</a></p>

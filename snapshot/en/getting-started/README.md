@@ -15,4 +15,4 @@ Essential guides for setting up and running your first simplix-react project. St
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/getting-started/README.md" target="_blank" rel="noopener noreferrer">View source</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/getting-started/README.md" target="_blank" rel="noopener noreferrer">Edit on GitHub</a></p>

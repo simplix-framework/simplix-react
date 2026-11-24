@@ -153,4 +153,4 @@ multipart 업로드에 쓸 `{ uri, name, type }`을 반환합니다. `fileName`�
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/extensions/native/packages/capture/README.ko.md" target="_blank" rel="noopener noreferrer">원본 보기</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/extensions/native/packages/capture/README.ko.md" target="_blank" rel="noopener noreferrer">GitHub에서 편집</a></p>

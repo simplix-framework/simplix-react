@@ -130,4 +130,4 @@ The access adapter requires a `fetchFn` and throws when none is given. It has no
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/extensions/simplix-boot/README.md" target="_blank" rel="noopener noreferrer">View source</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/extensions/simplix-boot/README.md" target="_blank" rel="noopener noreferrer">Edit on GitHub</a></p>

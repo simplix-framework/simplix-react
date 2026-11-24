@@ -251,4 +251,4 @@ If there are no errors, you are ready to define your first contract.
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/getting-started/installation.md" target="_blank" rel="noopener noreferrer">View source</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/getting-started/installation.md" target="_blank" rel="noopener noreferrer">Edit on GitHub</a></p>

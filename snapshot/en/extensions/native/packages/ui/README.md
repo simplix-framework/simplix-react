@@ -195,4 +195,4 @@ Every component and hook exports its prop or option type under its own name with
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/extensions/native/packages/ui/README.md" target="_blank" rel="noopener noreferrer">View source</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/extensions/native/packages/ui/README.md" target="_blank" rel="noopener noreferrer">Edit on GitHub</a></p>

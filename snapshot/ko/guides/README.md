@@ -51,4 +51,4 @@ simplix-react로 특정 작업을 처리하는 방법을 설명하는 실무 가
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/ko/guides/README.md" target="_blank" rel="noopener noreferrer">원본 보기</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/ko/guides/README.md" target="_blank" rel="noopener noreferrer">GitHub에서 편집</a></p>

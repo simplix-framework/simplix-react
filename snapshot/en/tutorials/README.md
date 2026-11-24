@@ -15,4 +15,4 @@ Step-by-step tutorials that walk through building complete applications from scr
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/tutorials/README.md" target="_blank" rel="noopener noreferrer">View source</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/tutorials/README.md" target="_blank" rel="noopener noreferrer">Edit on GitHub</a></p>

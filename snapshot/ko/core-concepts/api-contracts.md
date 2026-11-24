@@ -157,4 +157,4 @@ Zod는 선언 하나로 런타임 검증과 정적 타입 추론을 함께 제�
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/ko/core-concepts/api-contracts.md" target="_blank" rel="noopener noreferrer">원본 보기</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/ko/core-concepts/api-contracts.md" target="_blank" rel="noopener noreferrer">GitHub에서 편집</a></p>

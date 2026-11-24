@@ -157,4 +157,4 @@ The functions an operation may carry are pure mappings: `invalidates` maps query
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/core-concepts/api-contracts.md" target="_blank" rel="noopener noreferrer">View source</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/core-concepts/api-contracts.md" target="_blank" rel="noopener noreferrer">Edit on GitHub</a></p>

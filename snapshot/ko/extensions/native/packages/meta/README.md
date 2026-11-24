@@ -40,4 +40,4 @@ RN 패키지는 소스(`src/`)를 배포합니다. Metro가 소스를 변환하�
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/extensions/native/packages/meta/README.ko.md" target="_blank" rel="noopener noreferrer">원본 보기</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/extensions/native/packages/meta/README.ko.md" target="_blank" rel="noopener noreferrer">GitHub에서 편집</a></p>

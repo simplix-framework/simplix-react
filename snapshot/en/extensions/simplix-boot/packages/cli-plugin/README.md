@@ -116,4 +116,4 @@ If an `openapi` entry references a profile whose plugin is not listed in `plugin
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/extensions/simplix-boot/packages/cli-plugin/README.md" target="_blank" rel="noopener noreferrer">View source</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/extensions/simplix-boot/packages/cli-plugin/README.md" target="_blank" rel="noopener noreferrer">Edit on GitHub</a></p>

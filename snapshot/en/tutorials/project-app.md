@@ -583,4 +583,4 @@ All type safety flows from the Zod schemas: change a schema, and TypeScript catc
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/tutorials/project-app.md" target="_blank" rel="noopener noreferrer">View source</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/tutorials/project-app.md" target="_blank" rel="noopener noreferrer">Edit on GitHub</a></p>

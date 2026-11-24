@@ -178,4 +178,4 @@ A static import would make the CLI depend on every extension at build time. Inst
 
 ---
 
-<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/core-concepts/extensions.md" target="_blank" rel="noopener noreferrer">View source</a></p>
+<p class="page-source"><a href="https://github.com/simplix-framework/simplix-react/blob/main/docs/en/core-concepts/extensions.md" target="_blank" rel="noopener noreferrer">Edit on GitHub</a></p>
