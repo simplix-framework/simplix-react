@@ -44,7 +44,7 @@ Defined in: [packages/ui/src/crud/patterns/list-detail.tsx:109](https://github.c
 
 Defined in: [packages/ui/src/crud/patterns/list-detail.tsx:108](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail.tsx#L108)
 
-Fixed dialog height (e.g. `"60vh"`, `"500px"`). When set, the dialog uses a fixed height with internal scrolling. When omitted, height fits content up to `max-h-[85vh]`. Only applies to `"dialog"` variant.
+Fixed dialog height (e.g. `"60vh"`, `"500px"`). When set, the dialog uses a fixed height with internal scrolling. When omitted, the height fits the content up to the window less a margin (`100dvh - 2rem`), the ceiling of the shared dialog frame. Only applies to `"dialog"` variant.
 
 ***
 

@@ -121,7 +121,7 @@ export interface ListDetailBaseProps {
   activePanel?: "list" | "detail";
   /** Called when the dialog is dismissed (only applies to `"dialog"` variant). */
   onClose?: () => void;
-  /** Fixed dialog height (e.g. `"60vh"`, `"500px"`). When set, the dialog uses a fixed height with internal scrolling. When omitted, height fits content up to `max-h-[85vh]`. Only applies to `"dialog"` variant. */
+  /** Fixed dialog height (e.g. `"60vh"`, `"500px"`). When set, the dialog uses a fixed height with internal scrolling. When omitted, the height fits the content up to the window less a margin (`100dvh - 2rem`), the ceiling of the shared dialog frame. Only applies to `"dialog"` variant. */
   dialogHeight?: string;
   /**
    * The narrowest width (px) the reader can drag the detail to, in every variant. Defaults to 280.
@@ -623,7 +623,7 @@ const DetailPanel = forwardRef<HTMLElement, PanelProps>(({ children, className }
         frame="column"
         flush
         showCloseButton={false}
-        className={cn("sm:max-w-[var(--detail-open-width)]", !dialogHeight && "max-h-[85vh]", className)}
+        className={cn("sm:max-w-[var(--detail-open-width)]", className)}
         style={{ "--detail-open-width": `${detailWidth}px`, ...(dialogHeight ? { height: dialogHeight } : {}) } as React.CSSProperties}
       >
         <DialogPrimitive.Title className="sr-only">{t("common.detail")}</DialogPrimitive.Title>
