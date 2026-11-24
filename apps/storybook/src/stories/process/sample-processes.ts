@@ -98,6 +98,29 @@ export function equipmentInspection(): ProcessDefinition {
   );
 }
 
+/** An expense claim whose first step ends in the lane it began in, under its first act: the rework line comes round by the left. */
+export function expenseClaim(): ProcessDefinition {
+  return define(
+    "expense-claim",
+    "경비 청구",
+    [
+      { id: "claimant", label: "청구자" },
+      { id: "manager", label: "부서장" },
+      { id: "accounting", label: "회계 담당" },
+    ],
+    [
+      {
+        id: "claim",
+        label: "청구와 지급",
+        steps: [
+          step("file", "청구서 작성", [act("fill", "claimant", "do", "청구서 작성"), act("confirm", "manager", "check", "증빙 확인", { tags: ["서명"] }), act("submit", "claimant", "do", "청구서 제출")], { rework: { label: "증빙 보완" } }),
+          step("pay", "지급", [act("transfer", "accounting", "do", "경비 지급")]),
+        ],
+      },
+    ],
+  );
+}
+
 /** A document review in one lane group with three jumps into one step. */
 export function documentReview(): ProcessDefinition {
   return define(

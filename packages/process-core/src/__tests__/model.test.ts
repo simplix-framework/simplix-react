@@ -144,13 +144,12 @@ describe("resolveProcess", () => {
     expect(numbers({})).toBe("1i 2c 3i 4i 5i 6i");
   });
 
-  it("excludes a step whose every act is excluded, and leaves its lane out", () => {
-    const process = resolveProcess(
-      definition([lane("a"), lane("b")], [section("s", [step("t1", [act("x1", "a")]), step("t2", [act("x2", "b", "do", { condition: fact("f") })])])]),
-      { f: false },
-    );
+  it("excludes a step whose every act is excluded, and leaves its lane out only where what is left out is folded", () => {
+    const stored = definition([lane("a"), lane("b")], [section("s", [step("t1", [act("x1", "a")]), step("t2", [act("x2", "b", "do", { condition: fact("f") })])])]);
+    const process = resolveProcess(stored, { f: false });
     expect(process.sections[0].steps.map((entry) => entry.inclusion)).toEqual(["included", "excluded"]);
-    expect(process.lanes.map((entry) => entry.id)).toEqual(["a"]);
+    expect(process.lanes.map((entry) => entry.id)).toEqual(["a", "b"]);
+    expect(resolveProcess(stored, { f: false }, { leftOut: "folded" }).lanes.map((entry) => entry.id)).toEqual(["a"]);
   });
 
   it("gives each jump its direction and draws it only between steps of the case", () => {

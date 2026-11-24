@@ -209,7 +209,10 @@ export function agreementProblems(process: ResolvedProcess, geometry: LaneGeomet
     if (row.kind !== "rework") return;
     const node = spans.get(row.stepId)!.node;
     const reached = reachable(geometry, { row: index, column: laneColumn(geometry, row.from) }, ["rework"]);
-    if (!reached.has(centre(node.row, laneColumn(geometry, node.lane)))) problems.push(`the rework line of step ${row.stepId} does not come back to its first act`);
+    // It comes back into the left node, or straight up into the node over its turn-back node, which stands left of where it left.
+    const lane = row.way === "up" ? row.lane : node.lane;
+    if (row.lane > row.from) problems.push(`the rework line of step ${row.stepId} leaves rightwards`);
+    if (!reached.has(centre(node.row, laneColumn(geometry, lane)))) problems.push(`the rework line of step ${row.stepId} does not come back to its first act`);
   });
   return problems;
 }

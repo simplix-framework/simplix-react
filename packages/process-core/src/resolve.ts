@@ -1,10 +1,29 @@
 import { evaluateCondition } from "./condition";
-import type { Condition, Facts, Id, Inclusion, Lane, ProcessDefinition, ResolvedAct, ResolvedJump, ResolvedProcess, ResolvedStep } from "./types";
+import type { Condition, Facts, Id, Inclusion, Lane, LeftOut, ProcessDefinition, ResolvedAct, ResolvedJump, ResolvedProcess, ResolvedStep } from "./types";
 
 function inclusionOf(condition: Condition | undefined, facts: Facts): Inclusion {
   if (condition === undefined) return "included";
   const verdict = evaluateCondition(condition, facts);
   return verdict === "true" ? "included" : verdict === "false" ? "excluded" : "conditional";
+}
+
+/** What {@link resolveProcess} takes besides the definition and the facts. */
+export interface ResolveOptions {
+  /**
+   * What the reading does with the steps and acts the case leaves out.
+   * @defaultValue "drawn"
+   */
+  leftOut?: LeftOut;
+}
+
+/** Whether a reading shows a step or an act of this inclusion in its place. */
+export function showsInclusion(process: Pick<ResolvedProcess, "leftOut">, inclusion: Inclusion): boolean {
+  return process.leftOut === "drawn" || inclusion !== "excluded";
+}
+
+/** Whether a reading shows a jump: under `folded`, only one both of whose ends belong to the case. */
+export function showsJump(process: Pick<ResolvedProcess, "leftOut">, jump: ResolvedJump): boolean {
+  return process.leftOut === "drawn" || jump.drawn;
 }
 
 /**
@@ -17,7 +36,8 @@ function inclusionOf(condition: Condition | undefined, facts: Facts): Inclusion 
  * @param definition a definition {@link validateDefinition} finds nothing wrong with
  * @param facts the facts of the case; pass none to read the definition with every condition undecided
  */
-export function resolveProcess(definition: ProcessDefinition, facts: Facts = {}): ResolvedProcess {
+export function resolveProcess(definition: ProcessDefinition, facts: Facts = {}, options: ResolveOptions = {}): ResolvedProcess {
+  const leftOut = options.leftOut ?? "drawn";
   const byId = new Map<Id, ResolvedStep>();
   let number = 0;
   const sections = definition.sections.map((section) => ({
@@ -35,9 +55,9 @@ export function resolveProcess(definition: ProcessDefinition, facts: Facts = {})
 
   const used = new Set<Id>();
   for (const step of byId.values()) {
-    if (step.inclusion === "excluded") continue;
+    if (leftOut === "folded" && step.inclusion === "excluded") continue;
     for (const { act, inclusion } of step.acts) {
-      if (inclusion !== "excluded") act.lanes.forEach((lane) => used.add(lane));
+      if (leftOut === "drawn" || inclusion !== "excluded") act.lanes.forEach((lane) => used.add(lane));
     }
   }
   const lanes: Lane[] = definition.lanes.filter((lane) => used.has(lane.id));
@@ -60,5 +80,5 @@ export function resolveProcess(definition: ProcessDefinition, facts: Facts = {})
       drawn: from.inclusion !== "excluded" && to.inclusion !== "excluded",
     });
   }
-  return { definition, sections, lanes, jumps };
+  return { definition, sections, lanes, jumps, leftOut };
 }

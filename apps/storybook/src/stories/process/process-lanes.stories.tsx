@@ -4,7 +4,7 @@ import type { ProcessTarget } from "@simplix-react/process";
 import { useState } from "react";
 import type { ReactNode } from "react";
 
-import { documentReview, emptyProcess, equipmentInspection, inspectionFinished, largeProcess, longLabels, purchaseRequest, purchaseRunning, singleLane } from "./sample-processes";
+import { documentReview, emptyProcess, equipmentInspection, expenseClaim, inspectionFinished, largeProcess, longLabels, purchaseRequest, purchaseRunning, singleLane } from "./sample-processes";
 
 const meta: Meta<typeof ProcessLanes> = {
   title: "Process/ProcessLanes",
@@ -52,9 +52,14 @@ export const Conditional: Story = {
   render: () => <ProcessLanes definition={purchaseRequest()} />,
 };
 
-/** A purchase under the limit: the budget step is left out and the line passes it. */
+/** A purchase under the limit: the budget step is left out, and it keeps its place, drawn faint and named as not applicable. */
 export const Excluded: Story = {
   render: () => <ProcessLanes definition={purchaseRequest()} facts={{ large: false }} />,
+};
+
+/** The same case with what it leaves out folded: the budget step is one line the flow passes, and its lane is not drawn. */
+export const ExcludedFolded: Story = {
+  render: () => <ProcessLanes definition={purchaseRequest()} facts={{ large: false }} leftOut="folded" />,
 };
 
 /** The facts of the case switched from the controls panel. */
@@ -76,6 +81,11 @@ export const ParallelAndRepeat: Story = {
 /** Three jumps back into one step share one track. */
 export const JumpsIntoOneStep: Story = {
   render: () => <ProcessLanes definition={documentReview()} facts={{ contract: true }} />,
+};
+
+/** A step whose last act stands under its first: the rework line leaves leftwards, climbs a track and turns into the first act. */
+export const ReworkRound: Story = {
+  render: () => <ProcessLanes definition={expenseClaim()} />,
 };
 
 /** A running case: done, in progress and waiting steps, with who holds the step in progress. */

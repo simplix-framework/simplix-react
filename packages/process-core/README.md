@@ -64,8 +64,8 @@ if (result.ok) {
 
 | Function | Result |
 | --- | --- |
-| `resolveProcess` | The steps and acts that apply for the facts given, and the ones left out with their condition. |
+| `resolveProcess` | The steps and acts that apply for the facts given, and the ones left out with their condition. Its `leftOut` option says whether the layouts keep what is left out in place (`drawn`, the default) or fold it (`folded`). |
 | `readingOrder` | Sections, steps, acts and jumps in the one order every view follows. |
-| `laneGeometry` | The procedure on a grid of lanes: rows, columns and the pieces of every line. |
+| `laneGeometry` | The procedure on a grid of lanes: rows, columns and the pieces of every line. Under `drawn` the grid is the same whatever the facts, and the acts, lines and jumps of what the case leaves out carry `off`. |
 | `stackGeometry` | The procedure as one column of step cards. |
 | `chooseLayout` | Which of the two a box of a given width takes. |

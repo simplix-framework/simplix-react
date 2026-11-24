@@ -23,6 +23,8 @@ import { ProcessLanes } from "@simplix-react/process";
 ```
 
 - The layout follows the width of the component's own box, never the screen: lanes side by side where they fit, the same grid scrolled sideways where they do not, and one column of step cards in a narrow box.
+- `facts` says which conditions hold for the case. A step whose condition is undecided (its fact is not given) is marked conditional. A step or an act the case leaves out keeps its place, drawn faint and named as not applicable, so a procedure has one shape whatever the facts; `leftOut="folded"` draws a left-out step as one line and drops a lane only left-out acts stand in.
+- A jump ahead runs down the right of the lanes. A jump back and a rework line leave leftwards and rise in the nearest lane left of their acts that is clear on the rows they pass, or in a track left of the lanes where none is. A rework line goes straight up into the first act where the step's acts stand on one row and the first act stands left of the last.
 - `run` marks how far a case has come; the act in progress carries a ring that spreads and fades.
 - `highlightLanes` tints the lanes the reader holds, and `marks` sets a word on a step, an act or a jump as `data-mark`.
 - Colours, type sizes and radii are the theme tokens of `@simplix-react/ui`; the markup is the same under every design.

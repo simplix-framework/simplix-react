@@ -148,11 +148,20 @@ export interface ResolvedJump {
   drawn: boolean;
 }
 
+/**
+ * What a reading does with the steps and acts a case leaves out.
+ *
+ * - `drawn`: they keep their place, marked as left out, so a procedure has one shape whatever the facts
+ * - `folded`: a left-out step is one line with no acts, a left-out act is not shown, and a lane only they stand in is dropped
+ */
+export type LeftOut = "drawn" | "folded";
+
 /** A definition read for one case. */
 export interface ResolvedProcess {
   definition: ProcessDefinition;
   sections: { section: Section; steps: ResolvedStep[] }[];
-  /** The lanes at least one act of the case stands in, in the definition's order. */
+  /** The lanes shown, in the definition's order: every lane an act stands in, or under `folded` only the lanes of acts that belong to the case. */
   lanes: Lane[];
   jumps: ResolvedJump[];
+  leftOut: LeftOut;
 }

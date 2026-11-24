@@ -7,7 +7,7 @@ import { resolveProcess } from "../resolve";
 import { stackGeometry } from "../stack-geometry";
 import type { ResolvedProcess } from "../types";
 import { validateDefinition } from "../validate";
-import { act, definition, equipmentInspection, jump, lane, purchaseRequest, section, step } from "./fixtures";
+import { act, definition, equipmentInspection, fact, jump, lane, purchaseRequest, section, step } from "./fixtures";
 import { agreementProblems, geometryProblems } from "./geometry-checks";
 import { generator, randomDefinition, randomFacts } from "./random-definitions";
 
@@ -91,27 +91,45 @@ describe("laneGeometry", () => {
     expect(geometryProblems(geometry)).toEqual([]);
   });
 
-  it("runs a jump back up the left, on the rows of the first acts it joins where nothing stands to their left", () => {
-    const geometry = laneGeometry(resolveProcess(definition([lane("a"), lane("b")], [section("s", [step("t1", [act("x1", "b")]), step("t2", [act("x2", "a")]), step("t3", [act("x3", "b")])])], [jump("j", "t3", "t1")])));
+  it("runs a jump back up the left where it crosses fewer lanes there, on the rows of the first acts it joins where nothing stands to their left", () => {
+    const geometry = laneGeometry(resolveProcess(definition([lane("a"), lane("b")], [section("s", [step("t1", [act("x1", "a")]), step("t2", [act("x2", "b")]), step("t3", [act("x3", "a")])])], [jump("j", "t3", "t1")])));
     expect(rowKinds(geometry)).toBe("section start acts flow acts flow acts end");
     expect(geometry.trackCount).toBe(1);
     const track = trackColumn(geometry, 0);
     expect(track).toBe(1);
-    expect(cellAt(geometry, 6, laneColumn(geometry, 1))).toBe("top>center:flow* center>bottom:flow center>left:back");
-    expect(cellAt(geometry, 6, laneColumn(geometry, 0))).toBe("right>left:back");
+    expect(cellAt(geometry, 6, laneColumn(geometry, 0))).toBe("top>center:flow* center>bottom:flow center>left:back");
     expect(cellAt(geometry, 6, track)).toBe("right>top:back");
     for (const row of [3, 4, 5]) expect(cellAt(geometry, row, track)).toBe("bottom>top:back");
     expect(cellAt(geometry, 2, track)).toBe("bottom>right:back");
-    expect(cellAt(geometry, 2, laneColumn(geometry, 0))).toBe("left>right:back");
-    expect(cellAt(geometry, 2, laneColumn(geometry, 1))).toBe("top>center:flow* center>bottom:flow left>center:back*");
-    expect(geometry.tags).toEqual([{ jumpId: "j", row: 6, column: laneColumn(geometry, 1), side: "left", gate: false }]);
+    expect(cellAt(geometry, 2, laneColumn(geometry, 0))).toBe("top>center:flow* center>bottom:flow left>center:back*");
+    expect(geometry.tags).toEqual([{ jumpId: "j", row: 6, column: laneColumn(geometry, 0), side: "left", gate: false }]);
     expect([geometry.leftTracks, geometry.rightTracks]).toEqual([1, 0]);
     expect(geometry.steps.map((span) => `${span.stepId}:${span.jumps.join()}:${span.arrivals.join()}`)).toEqual(["t1::j", "t2::", "t3:j:"]);
   });
 
+  it("raises a jump back in the nearest lane left of its acts that is clear on the rows it passes, and takes no track", () => {
+    const stored = definition([lane("a"), lane("b")], [section("s", [step("t0", [act("x0", "a")]), step("t1", [act("x1", "b")]), step("t2", [act("x2", "b")]), step("t3", [act("x3", "b")])])], [jump("j", "t3", "t1")]);
+    const process = resolveProcess(stored);
+    const geometry = laneGeometry(process);
+    expect(geometry.trackCount).toBe(0);
+    const clear = laneColumn(geometry, 0);
+    expect(cellAt(geometry, 8, laneColumn(geometry, 1))).toBe("top>center:flow* center>bottom:flow center>left:back");
+    expect(cellAt(geometry, 8, clear)).toBe("right>top:back");
+    for (const row of [5, 6, 7]) expect(cellAt(geometry, row, clear)).toBe("bottom>top:back");
+    expect(cellAt(geometry, 4, clear)).toBe("bottom>right:back");
+    expect(cellAt(geometry, 4, laneColumn(geometry, 1))).toBe("top>center:flow* center>bottom:flow left>center:back*");
+    expect(geometryProblems(geometry)).toEqual([]);
+    expect(agreementProblems(process, geometry)).toEqual([]);
+    // A node in that lane on a row the line passes sends it to a track.
+    const blocked = laneGeometry(resolveProcess(definition([lane("a"), lane("b")], [section("s", [step("t1", [act("x1", "b")]), step("t2", [act("x2", "a")]), step("t3", [act("x3", "b")])])], [jump("j", "t3", "t1")])));
+    expect([blocked.leftTracks, blocked.rightTracks]).toEqual([1, 0]);
+    expect(cellAt(blocked, 6, laneColumn(blocked, 0))).toBe("right>left:back");
+    expect(cellAt(blocked, 6, trackColumn(blocked, 0))).toBe("right>top:back");
+  });
+
   it("takes a jump over a gate row and down beside the lane's own line where the first act has something to its left", () => {
     // The first step runs leftwards from b to a, so a jump cannot reach its first act along the row.
-    const geometry = laneGeometry(resolveProcess(definition([lane("a"), lane("b")], [section("s", [step("t1", [act("x1", "b"), act("x2", "a", "check")]), step("t2", [act("x3", "b")])])], [jump("j", "t2", "t1")])));
+    const geometry = laneGeometry(resolveProcess(definition([lane("a"), lane("b"), lane("c")], [section("s", [step("t1", [act("x1", "b"), act("x2", "a", "check")]), step("t2", [act("x3", "b"), act("x4", "c")])])], [jump("j", "t2", "t1")])));
     expect(rowKinds(geometry)).toBe("section start gate acts flow acts end");
     const track = trackColumn(geometry, 0);
     expect(cellAt(geometry, 2, track)).toBe("bottom>right:back");
@@ -148,19 +166,18 @@ describe("laneGeometry", () => {
     expect(geometryProblems(apart)).toEqual([]);
   });
 
-  it("brings a rework line from the last act to a turn-back node and up a track into the first act", () => {
-    const geometry = laneGeometry(resolveProcess(definition([lane("a"), lane("b")], [section("s", [step("t", [act("x1", "a"), act("x2", "b", "check")], { rework: { label: "again" } })])])));
+  it("brings a rework line from the last act to a turn-back node under the first act and straight up into it, where the acts stand on one row", () => {
+    const process = resolveProcess(definition([lane("a"), lane("b")], [section("s", [step("t", [act("x1", "a"), act("x2", "b", "check")], { rework: { label: "again" } })])]));
+    const geometry = laneGeometry(process);
     expect(rowKinds(geometry)).toBe("section start acts rework end");
-    expect(geometry.rows[3]).toEqual({ kind: "rework", stepId: "t", lane: 0, from: 1 });
-    expect(geometry.trackCount).toBe(1);
-    const track = trackColumn(geometry, 0);
+    expect(geometry.rows[3]).toEqual({ kind: "rework", stepId: "t", lane: 0, from: 1, way: "up" });
+    expect(geometry.trackCount).toBe(0);
     expect(cellAt(geometry, 3, laneColumn(geometry, 1))).toBe("center>left:rework top>bottom:flow");
-    expect(cellAt(geometry, 3, laneColumn(geometry, 0))).toBe("right>center:rework* center>left:rework");
-    expect(cellAt(geometry, 3, track)).toBe("right>top:rework");
-    expect(cellAt(geometry, 2, track)).toBe("bottom>right:rework");
-    expect(cellAt(geometry, 2, laneColumn(geometry, 0))).toBe("top>center:flow* center>right:inner left>center:rework*");
+    expect(cellAt(geometry, 3, laneColumn(geometry, 0))).toBe("right>center:rework* center>top:rework");
+    expect(cellAt(geometry, 2, laneColumn(geometry, 0))).toBe("top>center:flow* center>right:inner bottom>center:rework*");
     expect(geometry.steps[0]).toMatchObject({ firstRow: 2, lastRow: 3 });
     expect(geometryProblems(geometry)).toEqual([]);
+    expect(agreementProblems(process, geometry)).toEqual([]);
     // A step of one act has nothing to come back from.
     const single = laneGeometry(resolveProcess(definition([lane("a")], [section("s", [step("t", [act("x1", "a")], { rework: { label: "again" } })])])));
     expect(rowKinds(single)).toBe("section start acts end");
@@ -212,12 +229,50 @@ describe("laneGeometry", () => {
     expect(geometryProblems(geometry)).toEqual([]);
   });
 
-  it("sends the rework line over the gate row where the first act has something to its left", () => {
-    const geometry = laneGeometry(resolveProcess(definition([lane("a"), lane("b")], [section("s", [step("t", [act("x1", "b"), act("x2", "a", "check")], { rework: { label: "again" } })])])));
-    expect(rowKinds(geometry)).toBe("section start gate acts rework end");
-    // The last act stands left of the first, so the turn-back node stands under the last act.
-    expect(geometry.rows[4]).toEqual({ kind: "rework", stepId: "t", lane: 0, from: 0 });
-    expect(cellAt(geometry, 4, laneColumn(geometry, 0))).toBe("top>bottom:flow center>left:rework");
+  it("takes the rework line round by the left where the first act does not stand left of the last on one row", () => {
+    const of = (lanes: string[]): LaneGeometry =>
+      laneGeometry(resolveProcess(definition([lane("a"), lane("b")], [section("s", [step("t", lanes.map((name, index) => act(`x${index + 1}`, name)), { rework: { label: "again" } })])])));
+    const left = of(["a", "b", "a"]);
+    expect(rowKinds(left)).toBe("section start acts flow acts rework end");
+    expect(left.rows[5]).toEqual({ kind: "rework", stepId: "t", lane: 0, from: 0, way: "left" });
+    expect([left.leftTracks, left.rightTracks]).toEqual([1, 0]);
+    expect(cellAt(left, 5, laneColumn(left, 0))).toBe("top>bottom:flow center>left:rework");
+    expect(cellAt(left, 5, trackColumn(left, 0))).toBe("right>top:rework");
+    expect(cellAt(left, 2, trackColumn(left, 0))).toBe("bottom>right:rework");
+    expect(cellAt(left, 2, laneColumn(left, 0))).toBe("top>center:flow* center>right:inner left>center:rework*");
+    expect(geometryProblems(left)).toEqual([]);
+
+    // The first act stands right of the last: the line still leaves leftwards, and never by the right.
+    const turned = of(["b", "a", "b"]);
+    expect(turned.rows[6]).toEqual({ kind: "rework", stepId: "t", lane: 1, from: 1, way: "left" });
+    expect([turned.leftTracks, turned.rightTracks]).toEqual([1, 0]);
+    expect(cellAt(turned, 6, laneColumn(turned, 1))).toBe("top>bottom:flow center>left:rework");
+    expect(geometryProblems(turned)).toEqual([]);
+  });
+
+  it("raises the rework line in the nearest clear lane left of the step, over the gate row and down into the first act", () => {
+    const process = resolveProcess(definition([lane("a"), lane("b"), lane("c")], [section("s", [step("t0", [act("x0", "a")]), step("t", [act("x1", "c"), act("x2", "b")], { rework: { label: "again" } })])]));
+    const geometry = laneGeometry(process);
+    expect(rowKinds(geometry)).toBe("section start acts flow gate acts rework end");
+    expect(geometry.rows[6]).toEqual({ kind: "rework", stepId: "t", lane: 1, from: 1, way: "left" });
+    expect(geometry.trackCount).toBe(0);
+    const clear = laneColumn(geometry, 0);
+    expect(cellAt(geometry, 6, laneColumn(geometry, 1))).toBe("top>bottom:flow center>left:rework");
+    expect(cellAt(geometry, 6, clear)).toBe("right>top:rework");
+    expect(cellAt(geometry, 5, clear)).toBe("bottom>top:rework");
+    expect(cellAt(geometry, 4, clear)).toBe("bottom>right:rework");
+    expect(cellAt(geometry, 4, laneColumn(geometry, 1))).toBe("left>right:rework");
+    expect(cellAt(geometry, 4, laneColumn(geometry, 2))).toBe("top>bottom:flow left>side-bottom:rework*");
+    expect(cellAt(geometry, 5, laneColumn(geometry, 2))).toBe("top>center:flow* center>left:inner side-top>center:rework");
+    expect(geometryProblems(geometry)).toEqual([]);
+    expect(agreementProblems(process, geometry)).toEqual([]);
+  });
+
+  it("sends the rework line over the gate row where the first act has something on the side the line comes by", () => {
+    const geometry = laneGeometry(resolveProcess(definition([lane("a"), lane("b")], [section("s", [step("t", [act("x1", "b"), act("x2", "a", "check"), act("x3", "a")], { rework: { label: "again" } })])])));
+    expect(rowKinds(geometry)).toBe("section start gate acts flow acts rework end");
+    expect(geometry.rows[6]).toEqual({ kind: "rework", stepId: "t", lane: 0, from: 0, way: "left" });
+    expect(cellAt(geometry, 6, laneColumn(geometry, 0))).toBe("top>bottom:flow center>left:rework");
     expect(cellAt(geometry, 3, trackColumn(geometry, 0))).toBe("bottom>top:rework");
     expect(cellAt(geometry, 2, laneColumn(geometry, 1))).toBe("top>bottom:flow left>side-bottom:rework*");
     expect(cellAt(geometry, 3, laneColumn(geometry, 1))).toBe("top>center:flow* center>left:inner side-top>center:rework");
@@ -233,10 +288,45 @@ describe("laneGeometry", () => {
     expect(cellAt(geometry, row, laneColumn(geometry, 2))).toBe("left>center:joint");
   });
 
-  it("gives an excluded step a row the line passes", () => {
-    const excluded = laneGeometry(resolveProcess(purchaseRequest(), { large: false }));
+  it("gives an excluded step a row the line passes, where what the case leaves out is folded", () => {
+    const excluded = laneGeometry(resolveProcess(purchaseRequest(), { large: false }, { leftOut: "folded" }));
     expect(excluded.rows.filter((row) => row.kind === "excluded")).toEqual([{ kind: "excluded", stepId: "budget" }]);
     expect(geometryProblems(excluded)).toEqual([]);
+  });
+
+  it("keeps an excluded step in its place, marking its acts and the line through it as left out", () => {
+    const stored = definition(
+      [lane("a"), lane("b")],
+      [section("s", [step("t1", [act("x1", "a")]), step("t2", [act("x2", "b"), act("x3", "a")], { condition: fact("f"), rework: { label: "again" } }), step("t3", [act("x4", "a")]), step("t4", [act("x5", "a")])])],
+      [jump("j1", "t3", "t2"), jump("j2", "t4", "t3")],
+    );
+    const geometry = laneGeometry(resolveProcess(stored, { f: false }));
+    expect(geometry.rows.some((row) => row.kind === "excluded")).toBe(false);
+    const acts = geometry.rows.flatMap((row) => (row.kind === "acts" ? row.acts : []));
+    expect(acts.map((entry) => `${entry.actId}${entry.off ? "-" : ""}`).join(" ")).toBe("x1 x2- x3- x4 x5");
+    const rowOf = (id: string): number => geometry.rows.findIndex((row) => row.kind === "acts" && row.acts.some((entry) => entry.actId === id));
+    // From the last act of the case before the step to the first act of the case after it, every piece is left out.
+    for (const cell of geometry.cells) {
+      if (cell.row <= rowOf("x1") || cell.row >= rowOf("x4")) continue;
+      for (const segment of cell.segments) if (segment.style !== "back") expect(segment.off, `${cell.row}:${cell.column} ${segment.from}>${segment.to}`).toBe(true);
+    }
+    expect(geometry.cells.find((cell) => cell.row === rowOf("x1"))!.segments.map((segment) => `${segment.from}>${segment.to}${segment.off ? "-" : ""}`)).toEqual(["top>center", "center>bottom-"]);
+    // A jump into the step is left out; a jump between steps of the case is not, on the pieces they do not share either.
+    expect(geometry.tags.map((tag) => `${tag.jumpId}${tag.off ? "-" : ""}`).join(" ")).toBe("j1- j2");
+    const back = geometry.cells.flatMap((cell) => cell.segments.filter((segment) => segment.style === "back").map((segment) => ({ row: cell.row, off: segment.off === true })));
+    expect(back.filter((piece) => piece.row === rowOf("x5")).every((piece) => !piece.off)).toBe(true);
+    expect(back.some((piece) => piece.off)).toBe(true);
+    expect(geometryProblems(geometry)).toEqual([]);
+  });
+
+  it("marks an act left out of a step of the case, and the lines that join it", () => {
+    const stored = definition([lane("a"), lane("b"), lane("c")], [section("s", [step("t1", [act("x1", "a"), act("x2", "b", "do", { condition: fact("f") }), act("x3", "c")])])]);
+    const geometry = laneGeometry(resolveProcess(stored, { f: false }));
+    const row = geometry.rows.findIndex((entry) => entry.kind === "acts");
+    const marks = (column: number): string => (geometry.cells.find((cell) => cell.row === row && cell.column === column)?.segments ?? []).map((segment) => `${segment.from}>${segment.to}${segment.off ? "-" : ""}`).join(" ");
+    expect(marks(laneColumn(geometry, 0))).toBe("top>center center>right-");
+    expect(marks(laneColumn(geometry, 1))).toBe("left>center- center>right-");
+    expect(marks(laneColumn(geometry, 2))).toBe("left>center- center>bottom");
   });
 
   it("forks into every step of a parallel run from a row above it, and joins their lines on a row below", () => {
@@ -362,7 +452,7 @@ describe("random procedures", () => {
     for (let round = 0; round < ROUNDS; round += 1) {
       const stored = randomDefinition(next);
       expect(validateDefinition(stored), `round ${round}`).toEqual([]);
-      const geometry = laneGeometry(resolveProcess(stored, randomFacts(next)));
+      const geometry = laneGeometry(resolveProcess(stored, randomFacts(next), { leftOut: round % 2 === 0 ? "folded" : "drawn" }));
       geometry.rows.forEach((row) => kinds.add(row.kind));
       tracks = Math.max(tracks, geometry.trackCount);
     }
@@ -373,13 +463,48 @@ describe("random procedures", () => {
   it("lay out whole, agree with the case, and read in one order as a grid and as a stack", () => {
     const next = generator(11);
     for (let round = 0; round < ROUNDS; round += 1) {
-      const process = resolveProcess(randomDefinition(next), randomFacts(next));
+      const process = resolveProcess(randomDefinition(next), randomFacts(next), { leftOut: round % 2 === 0 ? "folded" : "drawn" });
       const geometry = laneGeometry(process);
       expect(geometryProblems(geometry), `round ${round}`).toEqual([]);
       expect(agreementProblems(process, geometry), `round ${round}`).toEqual([]);
       expect(laneOrder(geometry), `round ${round}`).toBe(readOrder(process));
       expect(stackOrder(process), `round ${round}`).toBe(readOrder(process));
+      // A line that rises in a lane shares no cell with a line of the stated order that runs up or down, nor with a node.
+      for (const cell of geometry.cells) {
+        if (cell.column <= geometry.leftTracks || cell.column > geometry.leftTracks + geometry.lanes.length) continue;
+        const upright = (segment: { from: string; to: string }): boolean => [segment.from, segment.to].sort().join() === "bottom,top";
+        const rising = cell.segments.some((segment) => (segment.style === "back" || segment.style === "rework") && upright(segment));
+        if (rising) expect(cell.segments.filter((segment) => segment.style !== "back" && segment.style !== "rework").every((segment) => [segment.from, segment.to].every((end) => end === "left" || end === "right")), `round ${round} cell ${cell.row}:${cell.column}`).toBe(true);
+      }
     }
+  });
+
+  it("have one shape whatever the facts, where what a case leaves out is drawn", () => {
+    const next = generator(808);
+    /** A geometry with the marks of what the case leaves out taken off. */
+    const shape = (geometry: LaneGeometry): string => JSON.stringify(geometry, (key, value: unknown) => (key === "off" ? undefined : value));
+    let marked = 0;
+    for (let round = 0; round < ROUNDS; round += 1) {
+      const stored = randomDefinition(next);
+      const undecided = resolveProcess(stored);
+      const whole = laneGeometry(undecided);
+      expect(JSON.stringify(whole), `round ${round}`).toBe(shape(whole));
+      for (let trial = 0; trial < 4; trial += 1) {
+        const process = resolveProcess(stored, randomFacts(next));
+        const geometry = laneGeometry(process);
+        expect(shape(geometry), `round ${round}`).toBe(shape(whole));
+        expect(readOrder(process), `round ${round}`).toBe(readOrder(undecided));
+        expect(process.lanes, `round ${round}`).toEqual(undecided.lanes);
+        // What is marked is what the case leaves out: its acts, and no act of the case.
+        const out = new Set(process.sections.flatMap((entry) => entry.steps).flatMap((entry) => entry.acts.filter((one) => entry.inclusion === "excluded" || one.inclusion === "excluded").map((one) => one.act.id)));
+        const off = new Set(geometry.rows.flatMap((row) => (row.kind === "acts" ? row.acts.filter((entry) => entry.off).map((entry) => entry.actId) : [])));
+        expect([...off].sort(), `round ${round}`).toEqual([...out].sort());
+        // The line into an act of the case that follows an act of the case is not left out.
+        marked += geometry.cells.reduce((sum, cell) => sum + cell.segments.filter((segment) => segment.off).length, 0);
+        if (out.size === 0) expect(JSON.stringify(geometry), `round ${round}`).toBe(shape(geometry));
+      }
+    }
+    expect(marked).toBeGreaterThan(1000);
   });
 
   it("lay out whole under any choice of lanes to draw", () => {

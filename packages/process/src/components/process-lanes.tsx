@@ -1,4 +1,4 @@
-import { chooseLayout, DEFAULT_LAYOUT_METRICS, laneGeometry, resolveProcess, stackGeometry } from "@simplix-react/process-core";
+import { chooseLayout, DEFAULT_LAYOUT_METRICS, laneGeometry, resolveProcess, showsInclusion, stackGeometry } from "@simplix-react/process-core";
 import type { Id, LayoutMode } from "@simplix-react/process-core";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import type { CSSProperties, FocusEvent } from "react";
@@ -39,6 +39,7 @@ export function ProcessLanes({
   visibleLanes,
   onVisibleLanesChange,
   highlightLanes,
+  leftOut = "drawn",
   laneFilter = false,
   selected = null,
   marks,
@@ -53,7 +54,7 @@ export function ProcessLanes({
   const width = useContainerWidth(root);
   const sizes = useMemo(() => ({ ...DEFAULT_LAYOUT_METRICS, ...metrics }), [metrics]);
 
-  const process = useMemo(() => resolveProcess(definition, facts), [definition, facts]);
+  const process = useMemo(() => resolveProcess(definition, facts, { leftOut }), [definition, facts, leftOut]);
   const view = useMemo(() => viewOf(process, run), [process, run]);
 
   const [ownLanes, setOwnLanes] = useState<Id[] | undefined>(undefined);
@@ -85,7 +86,7 @@ export function ProcessLanes({
   const [focused, setFocused] = useState<string | undefined>(undefined);
   const firstStop = useMemo(() => {
     for (const section of process.sections) {
-      for (const step of section.steps) if (step.inclusion !== "excluded") return `step:${step.step.id}`;
+      for (const step of section.steps) if (showsInclusion(process, step.inclusion)) return `step:${step.step.id}`;
     }
     return undefined;
   }, [process]);

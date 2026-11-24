@@ -1,4 +1,4 @@
-import type { Facts, Id, LayoutMetrics, LayoutMode, ProcessDefinition, ProcessRunState } from "@simplix-react/process-core";
+import type { Facts, Id, LayoutMetrics, LayoutMode, LeftOut, ProcessDefinition, ProcessRunState } from "@simplix-react/process-core";
 import type { ReactNode } from "react";
 
 /** What a reader picked: a step, an act or a jump, with the `ref` an act carries. */
@@ -33,6 +33,13 @@ export interface ProcessLanesProps {
   onVisibleLanesChange?: (lanes: Id[]) => void;
   /** The lanes the reader holds, by id: drawn with a tint of their own and named as the reader's. */
   highlightLanes?: readonly Id[];
+  /**
+   * What is done with the steps and acts the case leaves out. `drawn`: each keeps its place, drawn
+   * faint and named as not applicable, so the procedure has one shape whatever the facts.
+   * `folded`: a left-out step is one line, and a lane only left-out acts stand in is not drawn.
+   * @defaultValue "drawn"
+   */
+  leftOut?: LeftOut;
   /** Draws the row of lane toggles above the procedure. @defaultValue false */
   laneFilter?: boolean;
   /**

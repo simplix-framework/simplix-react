@@ -107,8 +107,8 @@ export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, mar
     const resolved = view.steps.get(stepId)!;
     const mark = view.stepMark(stepId);
     return (
-      <li key={stepId} data-process-step={stepId} data-process-slot="step" data-run={mark?.status}>
-        <div data-process-slot="step-title" data-selected={isPicked("step", stepId) || undefined} data-mark={marks?.[stepId]} data-run={mark?.status} data-parallel={resolved.step.parallel !== undefined || undefined} style={at(span.firstRow, 0, span.lastRow)}>
+      <li key={stepId} data-process-step={stepId} data-process-slot="step" data-run={mark?.status} data-inclusion={resolved.inclusion === "excluded" ? "left-out" : undefined}>
+        <div data-process-slot="step-title" data-off={resolved.inclusion === "excluded" || undefined} data-selected={isPicked("step", stepId) || undefined} data-mark={marks?.[stepId]} data-run={mark?.status} data-parallel={resolved.step.parallel !== undefined || undefined} style={at(span.firstRow, 0, span.lastRow)}>
           <button type="button" {...stop("step", stepId)} data-process-slot="step-button" aria-current={mark?.status === "active" ? "step" : undefined} onClick={() => onPick({ kind: "step", id: stepId })}>
             <span data-process-slot="step-number" aria-label={t("stepNumber", { number: resolved.number })}>
               {stepNo(resolved.number)}
@@ -155,11 +155,12 @@ export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, mar
                       data-process-act={act.id}
                       data-kind={act.kind}
                       data-run={actMark?.status}
+                      data-off={entry.off || undefined}
                       data-selected={isPicked("act", act.id) || undefined} data-mark={marks?.[act.id]}
-                      aria-label={[`${t(`kind.${act.kind}`)}: ${act.label}`, laneLabels(view, act).join(", "), actMark === undefined ? "" : runWords(actMark, t)].filter((part) => part.length > 0).join(", ")}
+                      aria-label={[`${t(`kind.${act.kind}`)}: ${act.label}`, laneLabels(view, act).join(", "), entry.off ? t("notApplicable") : actMark === undefined ? "" : runWords(actMark, t)].filter((part) => part.length > 0).join(", ")}
                       onClick={() => onPick(act.ref === undefined ? { kind: "act", id: act.id } : { kind: "act", id: act.id, ref: act.ref })}
                     >
-                      <Node order={entry.order} first={entry.order === 1} mark={actMark} />
+                      <Node order={entry.order} first={entry.order === 1} mark={actMark} off={entry.off} />
                       <span data-process-slot="act-line">
                         <span data-process-slot="act-label">{act.label}</span>
                         <ActTags act={act} />
@@ -167,8 +168,8 @@ export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, mar
                       </span>
                     </button>
                   ) : (
-                    <span aria-hidden data-process-slot="act" data-shadow>
-                      <Node order={entry.order} first={entry.order === 1} mark={actMark} />
+                    <span aria-hidden data-process-slot="act" data-shadow data-off={entry.off || undefined}>
+                      <Node order={entry.order} first={entry.order === 1} mark={actMark} off={entry.off} />
                     </span>
                   )}
                 </div>
@@ -240,7 +241,8 @@ export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, mar
           <div key={`life-${lane.id}`} aria-hidden data-process-slot="lane" data-band={band[index] || undefined} data-highlight={highlight.has(lane.id) || undefined} style={{ gridRow: bodyRows, gridColumn: laneColumn(geometry, index) + 1 }} />
         ))}
       {geometry.rows.map((row, index) => {
-        const owner = stepOf[index];
+        // A row between two rows of acts of one step is the step's own, and is shaded with it.
+        const owner = stepOf[index] ?? geometry.steps.find((span) => span.firstRow < index && index < span.lastRow)?.stepId;
         const first = owner !== undefined && spans.get(owner)?.firstRow === index;
         const last = owner !== undefined && spans.get(owner)?.lastRow === index;
         return <div key={`row-${index}`} aria-hidden data-process-slot="row" data-row={row.kind} data-step-start={first || undefined} data-step-end={last || undefined} data-run={owner === undefined ? undefined : view.stepMark(owner)?.status} style={across(index)} />;
@@ -264,14 +266,15 @@ export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, mar
         }
         if (row.kind !== "rework") return null;
         const label = view.steps.get(row.stepId)!.step.rework!.label;
+        const off = view.steps.get(row.stepId)!.inclusion === "excluded" || undefined;
         return [
-          <div key={`rework-${row.stepId}`} aria-hidden data-process-slot="rework-cell" style={at(index, laneColumn(geometry, row.lane))}>
+          <div key={`rework-${row.stepId}`} aria-hidden data-process-slot="rework-cell" data-off={off} style={at(index, laneColumn(geometry, row.lane))}>
             <span data-process-slot="node" data-rework>
               ↺
             </span>
             <span data-process-slot="act-label">{t("reworkAgain")}</span>
           </div>,
-          <div key={`via-${row.stepId}`} aria-hidden data-process-slot="via-cell" style={at(index, laneColumn(geometry, row.from))}>
+          <div key={`via-${row.stepId}`} aria-hidden data-process-slot="via-cell" data-off={off} style={at(index, laneColumn(geometry, row.from))}>
             {row.from !== row.lane && <span data-process-slot="via" />}
             <span data-process-slot="line-tag" data-direction="back">
               {label}
@@ -280,7 +283,7 @@ export function LaneGrid({ view, geometry, scroll, uid, highlight, selected, mar
         ];
       })}
       {geometry.tags.map((tag) => (
-        <div key={`tag-${tag.jumpId}`} aria-hidden data-process-slot="tag-cell" data-side={tag.side} data-gate={tag.gate || undefined} style={at(tag.row, tag.column)}>
+        <div key={`tag-${tag.jumpId}`} aria-hidden data-process-slot="tag-cell" data-side={tag.side} data-gate={tag.gate || undefined} data-off={tag.off || undefined} style={at(tag.row, tag.column)}>
           <span data-process-slot="line-tag" data-direction={view.jumps.get(tag.jumpId)!.direction}>
             {view.jumps.get(tag.jumpId)!.jump.label}
           </span>

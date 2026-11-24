@@ -8,7 +8,7 @@ import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const STORIES = "^(default|long-labels|lane-filter|stack|stack-parallel|large): ";
+const STORIES = "^(default|long-labels|lane-filter|rework-round|stack|stack-parallel|large): ";
 
 /** Each defect, the style sheet that plants it, and words its finding must contain. */
 const DEFECTS = [

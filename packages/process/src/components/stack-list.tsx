@@ -1,3 +1,4 @@
+import { showsJump } from "@simplix-react/process-core";
 import type { Id, StackBlock } from "@simplix-react/process-core";
 import type { ReactNode } from "react";
 
@@ -39,18 +40,21 @@ export function StackList({ view, blocks, lanes, highlight, uid, selected, marks
   const stop = (kind: string, id: string) => ({ "data-process-stop": `${kind}:${id}`, tabIndex: tabStop === `${kind}:${id}` ? 0 : -1 });
   const arrivals = new Map<Id, Id[]>();
   for (const jump of view.process.jumps) {
-    if (jump.drawn && jump.jump.to !== undefined) arrivals.set(jump.jump.to, [...(arrivals.get(jump.jump.to) ?? []), jump.jump.id]);
+    if (showsJump(view.process, jump) && jump.jump.to !== undefined) arrivals.set(jump.jump.to, [...(arrivals.get(jump.jump.to) ?? []), jump.jump.id]);
   }
 
   const card = (block: StepBlock): ReactNode => {
     const resolved = view.steps.get(block.stepId)!;
     const mark = view.stepMark(block.stepId);
     const acts = block.acts.filter((entry) => entry.lanes.some((lane) => lanes.has(lane)));
-    const off = block.inclusion === "excluded" || acts.length === 0;
-    const reason = block.inclusion !== "excluded" ? t("folded") : resolved.step.conditionLabel === undefined ? t("notApplicable") : `${t("notApplicable")}: ${resolved.step.conditionLabel}`;
+    // A step the case leaves out keeps its card where the reading draws such steps; its acts are marked there.
+    const out = block.inclusion === "excluded";
+    const off = (out && view.process.leftOut === "folded") || acts.length === 0;
+    const outActs = new Set(resolved.acts.filter((entry) => out || entry.inclusion === "excluded").map((entry) => entry.act.id));
+    const reason = !(out && view.process.leftOut === "folded") ? t("folded") : resolved.step.conditionLabel === undefined ? t("notApplicable") : `${t("notApplicable")}: ${resolved.step.conditionLabel}`;
     const picked = selected !== null && (isPicked("step", block.stepId) || acts.some((entry) => isPicked("act", entry.actId)) || block.jumps.some((entry) => isPicked("jump", entry.jumpId)));
     return (
-      <li key={block.stepId} data-process-step={block.stepId} data-process-slot="card" data-inclusion={off ? (block.inclusion === "excluded" ? "excluded" : "folded") : block.inclusion} data-run={mark?.status}>
+      <li key={block.stepId} data-process-step={block.stepId} data-process-slot="card" data-inclusion={off ? (out && view.process.leftOut === "folded" ? "excluded" : "folded") : out ? "left-out" : block.inclusion} data-run={mark?.status}>
         {off ? (
           <div data-process-slot="step-off">
             <span data-process-slot="step-number" aria-label={t("stepNumber", { number: block.number })}>
@@ -82,16 +86,17 @@ export function StackList({ view, blocks, lanes, highlight, uid, selected, marks
                       data-process-slot="act"
                       data-process-act={act.id}
                       data-kind={act.kind}
+                      data-off={outActs.has(act.id) || undefined}
                       data-selected={isPicked("act", act.id) || undefined} data-mark={marks?.[act.id]}
                       onClick={() => onPick(act.ref === undefined ? { kind: "act", id: act.id } : { kind: "act", id: act.id, ref: act.ref })}
                     >
-                      <Node order={index + 1} first={index === 0} mark={actMark} />
+                      <Node order={index + 1} first={index === 0} mark={actMark} off={outActs.has(act.id)} />
                       <span data-process-slot="act-text">
                         <span className="sr-only">{`${t(`kind.${act.kind}`)}: `}</span>
                         <span data-process-slot="act-label">{act.label}</span>
                         <span data-process-slot="act-lanes">
                           {entry.lanes.map((lane) => (highlight.has(lane) ? `${t("myLane")} · ${view.lanes.get(lane)?.label ?? lane}` : (view.lanes.get(lane)?.label ?? lane))).join(" · ")}
-                          {actMark === undefined ? "" : ` · ${runWords(actMark, t)}`}
+                          {outActs.has(act.id) ? ` · ${t("notApplicable")}` : actMark === undefined ? "" : ` · ${runWords(actMark, t)}`}
                         </span>
                       </span>
                       <ActTags act={act} />

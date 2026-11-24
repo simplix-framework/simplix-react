@@ -1,4 +1,5 @@
 import { readingOrder } from "./reading-order";
+import { showsInclusion, showsJump } from "./resolve";
 import { assignTracks } from "./tracks";
 import type { TrackRange } from "./tracks";
 import type { Id, Lane, ResolvedJump, ResolvedProcess, ResolvedStep } from "./types";
@@ -34,6 +35,8 @@ export interface Segment {
   tail?: boolean;
   /** A piece running across that passes over a line running up or down which it does not join: it is drawn with a hop over that line. */
   hop?: boolean;
+  /** A piece only steps or acts the case leaves out are reached by: it is drawn as left out. */
+  off?: boolean;
 }
 
 /** The lines of one cell. Cells without lines are not listed. */
@@ -52,7 +55,15 @@ export interface GridAct {
   enter: number;
   /** Its place among the acts its step shows, from 1. */
   order: number;
+  /** The case leaves the act out: its condition failed, or its step's did. */
+  off?: boolean;
 }
+
+/**
+ * How a rework line comes back from its turn-back node into the step's first act: straight `up`
+ * where the node stands under that act, and otherwise round by the `left`.
+ */
+export type ReworkWay = "up" | "left";
 
 /** One row of the lane grid, top to bottom. */
 export type GridRow =
@@ -62,7 +73,7 @@ export type GridRow =
   | { kind: "acts"; stepId: Id; acts: GridAct[] }
   | { kind: "flow" }
   | { kind: "gate"; stepId: Id }
-  | { kind: "rework"; stepId: Id; lane: number; from: number }
+  | { kind: "rework"; stepId: Id; lane: number; from: number; way: ReworkWay }
   | { kind: "excluded"; stepId: Id }
   | { kind: "folded"; stepId: Id };
 
@@ -97,6 +108,8 @@ export interface JumpTag {
   column: number;
   side: TrackSide;
   gate: boolean;
+  /** The case leaves out the step the jump leaves or the step it arrives at. */
+  off?: boolean;
 }
 
 /**
@@ -104,7 +117,8 @@ export interface JumpTag {
  *
  * Column 0 holds the step titles. Then come the tracks lines that go up travel in, the lanes one
  * column each, and the tracks lines that go down travel in; of each set of tracks the innermost
- * (track 0) stands next to the lanes. Heights and widths are left to whatever draws the grid;
+ * (track 0) stands next to the lanes. Where the reading draws what the case leaves out, the rows,
+ * columns and lines are the same whatever the facts, and only the `off` marks differ. Heights and widths are left to whatever draws the grid;
  * every line is stated as pieces inside single cells, so nothing has to be measured to draw it.
  */
 export interface LaneGeometry {
@@ -170,7 +184,7 @@ function nearest(from: readonly number[], to: readonly number[]): [number, numbe
  * the act before it and the line to it crosses no lane the row already uses, so a row always
  * runs one way; an act that would turn back or cross starts the next row.
  */
-function subRows(acts: { actId: Id; boxes: number[] }[]): SubRow[] {
+function subRows(acts: { actId: Id; boxes: number[]; off: boolean }[]): SubRow[] {
   const rows: SubRow[] = [];
   let used = new Set<number>();
   acts.forEach((act, index) => {
@@ -187,7 +201,7 @@ function subRows(acts: { actId: Id; boxes: number[] }[]): SubRow[] {
         const crossed = Array.from({ length: Math.abs(link.to - link.from) - 1 }, (_, offset) => Math.min(link.from, link.to) + 1 + offset);
         if (![...crossed, ...own].some((lane) => used.has(lane))) {
           [...crossed, ...own].forEach((lane) => used.add(lane));
-          row.acts.push({ actId: act.actId, boxes: act.boxes, enter: link.to, order: index + 1 });
+          row.acts.push({ actId: act.actId, boxes: act.boxes, enter: link.to, order: index + 1, ...(act.off ? { off: true } : {}) });
           row.links.push(link);
           row.lowest = Math.min(row.lowest, low);
           row.highest = Math.max(row.highest, high);
@@ -196,7 +210,7 @@ function subRows(acts: { actId: Id; boxes: number[] }[]): SubRow[] {
       }
     }
     used = new Set(own);
-    rows.push({ acts: [{ actId: act.actId, boxes: act.boxes, enter: low, order: index + 1 }], links: [], lowest: low, highest: high });
+    rows.push({ acts: [{ actId: act.actId, boxes: act.boxes, enter: low, order: index + 1, ...(act.off ? { off: true } : {}) }], links: [], lowest: low, highest: high });
   });
   return rows;
 }
@@ -209,13 +223,18 @@ function subRows(acts: { actId: Id; boxes: number[] }[]): SubRow[] {
  * runs a `flow` row that carries the line from one lane to the next.
  *
  * A jump leaves the first act of its step and arrives at the first act of its target. A line
- * that goes up, a jump back or a rework line, runs on the left of the lanes and joins its nodes
- * from the left; a jump ahead goes down on the right and joins its nodes from the right. On
- * either side a line runs on the act's own row where nothing stands on that side of the act, and
- * otherwise over a `gate` row above it, dropping into the node beside the lane's own line.
+ * that goes up, a jump back or a rework line, leaves leftwards and joins its nodes from the left;
+ * a jump ahead goes down on the right and joins its nodes from the right. On either side a line
+ * runs on the act's own row where nothing stands on that side of the act, and otherwise over a
+ * `gate` row above it, dropping into the node beside the lane's own line.
  *
- * A step with a rework line gets a `rework` row under its acts: the line leaves its last act,
- * crosses to a turn-back node, and comes back into the first act the way a jump back does.
+ * A line that goes up rises in the nearest column to the left of the acts it joins that nothing
+ * stands in on the rows it passes: a lane where one is clear, and otherwise a track left of the lanes.
+ *
+ * A step with a rework line gets a `rework` row under its acts: the line leaves its last act and
+ * crosses leftwards to a turn-back node. Where the step's acts stand on one row and the first act
+ * stands left of the last, the node stands under the first act and the line goes straight up into
+ * it; otherwise it comes back the way a jump back does.
  *
  * Every line that arrives at one step on one side travels in one track column, so their vertical
  * parts stand on one line.
@@ -225,6 +244,10 @@ function subRows(acts: { actId: Id; boxes: number[] }[]): SubRow[] {
  * meet on a row below the run, and one line goes on from there. A branch drops straight down its
  * lane where no node of another step of the run stands in the way, and otherwise goes round by a
  * track on the right.
+ *
+ * A step or an act the case leaves out stands where it would otherwise, where the reading draws
+ * such parts. The line of the stated order runs through it, marked `off` from the last act of the
+ * case before it to the first act of the case after it; its own jumps and rework line are `off` too.
  */
 export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOptions = {}): LaneGeometry {
   const lanes = options.lanes === undefined ? process.lanes : process.lanes.filter((lane) => options.lanes!.includes(lane.id));
@@ -235,17 +258,17 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
   // The rows each step shows under the lanes drawn.
   const shown = new Map<Id, SubRow[]>();
   for (const [id, { acts, inclusion }] of steps) {
-    if (inclusion === "excluded") continue;
-    const list: { actId: Id; boxes: number[] }[] = [];
+    if (!showsInclusion(process, inclusion)) continue;
+    const list: { actId: Id; boxes: number[]; off: boolean }[] = [];
     for (const { act, inclusion: actInclusion } of acts) {
-      if (actInclusion === "excluded") continue;
+      if (!showsInclusion(process, actInclusion)) continue;
       const boxes = act.lanes.map((lane) => laneIndex.get(lane)).filter((index): index is number => index !== undefined);
-      if (boxes.length > 0) list.push({ actId: act.id, boxes: [...boxes].sort((a, b) => a - b) });
+      if (boxes.length > 0) list.push({ actId: act.id, boxes: [...boxes].sort((a, b) => a - b), off: inclusion === "excluded" || actInclusion === "excluded" });
     }
     if (list.length > 0) shown.set(id, subRows(list));
   }
 
-  const lineJumps: ResolvedJump[] = process.jumps.filter((jump) => jump.direction !== "external" && jump.drawn && shown.has(jump.jump.from) && shown.has(jump.jump.to!));
+  const lineJumps: ResolvedJump[] = process.jumps.filter((jump) => jump.direction !== "external" && showsJump(process, jump) && shown.has(jump.jump.from) && shown.has(jump.jump.to!));
   const sideOf = (jump: ResolvedJump): TrackSide => (jump.direction === "back" ? "left" : "right");
   const leaving = new Map<Id, Id[]>();
   const arriving = new Map<Id, Id[]>();
@@ -254,7 +277,7 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
   const reaches: Record<TrackSide, Set<Id>> = { left: new Set(), right: new Set() };
   for (const jump of process.jumps) {
     const line = lineJumps.includes(jump);
-    if (line || (jump.direction === "external" && jump.drawn && shown.has(jump.jump.from))) leaving.set(jump.jump.from, [...(leaving.get(jump.jump.from) ?? []), jump.jump.id]);
+    if (line || (jump.direction === "external" && showsJump(process, jump) && shown.has(jump.jump.from))) leaving.set(jump.jump.from, [...(leaving.get(jump.jump.from) ?? []), jump.jump.id]);
     if (line) {
       leaves[sideOf(jump)].add(jump.jump.from);
       reaches[sideOf(jump)].add(jump.jump.to!);
@@ -273,8 +296,8 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
   interface Plan {
     left: SidePlan;
     right: SidePlan;
-    /** The rework line: the lane it leaves from, and the lane its turn-back node stands in. */
-    rework?: { from: number; turn: number };
+    /** The rework line: the lane it leaves from, the lane its turn-back node stands in, and the way it comes back. */
+    rework?: { from: number; turn: number; way: ReworkWay };
   }
   const plans = new Map<Id, Plan>();
   for (const [id, subs] of shown) {
@@ -283,13 +306,22 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
     const rightLane = head.boxes[head.boxes.length - 1];
     const lastSub = subs[subs.length - 1];
     const count = subs.reduce((sum, sub) => sum + sub.acts.length, 0);
-    const from = nearest(lastSub.acts[lastSub.acts.length - 1].boxes, [lane])[0];
-    // The turn-back node stands under the first act where the line passes that lane on its way left.
-    const rework: Plan["rework"] = steps.get(id)!.step.rework !== undefined && count > 1 ? { from, turn: Math.min(from, lane) } : undefined;
+    const lastBoxes = lastSub.acts[lastSub.acts.length - 1].boxes;
+    let rework: Plan["rework"];
+    if (steps.get(id)!.step.rework !== undefined && count > 1) {
+      const [near, under] = nearest(lastBoxes, head.boxes);
+      // Nothing stands between the first act and the row under it, and the way there is leftwards: the line goes straight up.
+      if (subs.length === 1 && under < near) rework = { from: near, turn: under, way: "up" };
+      else {
+        // The turn-back node stands under the first act where the line passes that lane on its way left.
+        const from = nearest(lastBoxes, [lane])[0];
+        rework = { from, turn: Math.min(from, lane), way: "left" };
+      }
+    }
     // Something of the row stands on that side of the node: a line cannot run there.
     const busy = { left: subs[0].lowest !== lane, right: subs[0].highest !== rightLane };
     const side = (which: TrackSide, node: number): SidePlan => {
-      const arrives = reaches[which].has(id) || (which === "left" && rework !== undefined);
+      const arrives = reaches[which].has(id) || rework?.way === which;
       // One row takes the lines of one direction: a step that is reached keeps its row for the arrivals.
       return { lane: node, arriveByGate: arrives && busy[which], leaveByGate: leaves[which].has(id) && (busy[which] || arrives) };
     };
@@ -299,6 +331,18 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
 
   const rows: GridRow[] = [];
   const pending: Pending[] = [];
+  // Whether the pieces being drawn are reached only by what the case leaves out.
+  let dim = false;
+  /** Draws with every piece marked `off` where `off` holds, and as the surrounding drawing has it otherwise. */
+  const dimmed = <T>(off: boolean, draw: () => T): T => {
+    const before = dim;
+    dim = before || off;
+    try {
+      return draw();
+    } finally {
+      dim = before;
+    }
+  };
   const spans = new Map<Id, StepSpan>();
   const groups: GroupSpan[] = [];
   const gateRow = new Map<Id, number>();
@@ -306,6 +350,7 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
   const add = (row: number, place: Place, from: SegmentEnd, to: SegmentEnd, style: SegmentStyle, arrow = false, tail = false): Segment => {
     const segment: Segment = arrow ? { from, to, style, arrow } : { from, to, style };
     if (tail) segment.tail = true;
+    if (dim) segment.off = true;
     pending.push({ row, place, segment });
     return segment;
   };
@@ -333,6 +378,8 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
     row: number;
     boxes: number[];
     reworkRow?: number;
+    /** The case leaves the act out. */
+    off: boolean;
   }
   /** One step of a parallel run as drawn: the lane its line leaves by, and the row its way round starts on where it has one. */
   interface Branch {
@@ -348,6 +395,8 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
     heads: number[];
     forkRow: number;
     branches: Branch[];
+    /** The line into the run comes from what the case leaves out, or every step of the run is left out. */
+    off: boolean;
   }
   /** A line that goes round by a track on the right: the rows it spans, and how it is drawn once its track is known. */
   interface Detour extends TrackRange {
@@ -369,6 +418,8 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
   let joining: Run | undefined;
   let between: GridRow[] = [];
   let group: { key: string; firstRow: number } | undefined;
+  /** Whether the line about to be drawn leaves what the case leaves out. */
+  const cameOff = (): boolean => (joining !== undefined ? joining.branches.every((branch) => branch.tail.off) : tail?.off === true);
 
   /** Draws the line out of an act down its lane, through the rework row where the step has one. */
   const leave = (from: Tail, lane: number, style: SegmentStyle): void => {
@@ -434,25 +485,29 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
       bus(row, straight.map((branch) => branch.lane), downs, straight.length < waiting.branches.length, detourDown, style);
       rows.push({ kind: "flow" });
       for (const branch of waiting.branches) {
-        leave(branch.tail, branch.lane, style);
-        if (branch.exitRow === undefined) {
-          for (let below = branch.lastRow + 1; below < row; below += 1) pass(below, branch.lane, style);
-          continue;
-        }
-        // Round by the right: out of the row under its step, down a track, and into the joining row from the right.
-        const exit = branch.exitRow;
-        add(exit, { lane: branch.lane }, "top", "right", style);
-        for (let lane = branch.lane + 1; lane < lanes.length; lane += 1) add(exit, { lane }, "left", "right", style);
-        detours.push({
-          low: exit,
-          high: row,
-          draw: (track) => {
-            acrossTracks(exit, track, "left", "right", style);
-            add(exit, { track, side: "right" }, "left", "bottom", style);
-            for (let middle = exit + 1; middle < row; middle += 1) add(middle, { track, side: "right" }, "top", "bottom", style);
-            add(row, { track, side: "right" }, "top", "left", style);
-            acrossTracks(row, track, "right", "left", style);
-          },
+        const off = dim || branch.tail.off;
+        dimmed(off, () => {
+          leave(branch.tail, branch.lane, style);
+          if (branch.exitRow === undefined) {
+            for (let below = branch.lastRow + 1; below < row; below += 1) pass(below, branch.lane, style);
+            return;
+          }
+          // Round by the right: out of the row under its step, down a track, and into the joining row from the right.
+          const exit = branch.exitRow;
+          add(exit, { lane: branch.lane }, "top", "right", style);
+          for (let lane = branch.lane + 1; lane < lanes.length; lane += 1) add(exit, { lane }, "left", "right", style);
+          detours.push({
+            low: exit,
+            high: row,
+            draw: (track) =>
+              dimmed(off, () => {
+                acrossTracks(exit, track, "left", "right", style);
+                add(exit, { track, side: "right" }, "left", "bottom", style);
+                for (let middle = exit + 1; middle < row; middle += 1) add(middle, { track, side: "right" }, "top", "bottom", style);
+                add(row, { track, side: "right" }, "top", "left", style);
+                acrossTracks(row, track, "right", "left", style);
+              }),
+          });
         });
       }
       return row;
@@ -505,9 +560,13 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
       const inRun = members !== undefined && members.length > 1;
       // The line into a step that repeats is drawn as the repeat's; into a step of a parallel run it is plain.
       const style: SegmentStyle = !inRun && step.repeat !== undefined ? "repeat" : "flow";
+      const stepOff = steps.get(item.stepId)!.inclusion === "excluded";
+      const headOff = head.off === true;
+      // The line into the step is left out from the last act of the case to the first act of the case.
+      let lead = cameOff() || headOff;
       if (!inRun) {
         head.enter = tail === undefined || joining !== undefined ? head.boxes[0] : nearest(tail.boxes, head.boxes)[1];
-        descend([head.enter], style, false);
+        dimmed(lead, () => descend([head.enter], style, false));
       } else {
         const index = members.indexOf(item.stepId);
         head.enter = head.boxes[0];
@@ -515,29 +574,38 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
           const heads = members.map((id) => shown.get(id)![0].acts[0].boxes[0]);
           // A branch drops straight where no node of an earlier step of the run stands in its lane.
           const straight = heads.filter((lane, at) => !members.slice(0, at).some((id) => nodeLanes(id).has(lane)));
-          const forkRow = descend(straight, style, straight.length < heads.length)!;
-          run = { key: step.parallel!, members, heads, forkRow, branches: [] };
+          const off = cameOff() || members.every((id) => shown.get(id)![0].acts[0].off === true);
+          const forkRow = dimmed(off, () => descend(straight, style, straight.length < heads.length)!);
+          run = { key: step.parallel!, members, heads, forkRow, branches: [], off };
+          lead = off || headOff;
         } else {
+          lead = run.off || headOff;
+          const branchOff = lead;
           for (const row of between) rows.push(row);
           const blocked = members.slice(0, index).some((id) => nodeLanes(id).has(head.enter));
-          if (!blocked) for (let above = run.forkRow + 1; above < rows.length; above += 1) pass(above, head.enter, style);
+          if (!blocked) dimmed(branchOff, () => {
+            for (let above = run!.forkRow + 1; above < rows.length; above += 1) pass(above, head.enter, style);
+          });
           else {
             // Round by the right: from the forking row down a track, and in over a row of its own above the step.
             const fork = run.forkRow;
             const row = rows.length;
-            add(row, { lane: head.enter }, "right", "bottom", style);
-            for (let lane = head.enter + 1; lane < lanes.length; lane += 1) add(row, { lane }, "right", "left", style);
+            dimmed(branchOff, () => {
+              add(row, { lane: head.enter }, "right", "bottom", style);
+              for (let lane = head.enter + 1; lane < lanes.length; lane += 1) add(row, { lane }, "right", "left", style);
+            });
             rows.push({ kind: "flow" });
             detours.push({
               low: fork,
               high: row,
-              draw: (track) => {
-                acrossTracks(fork, track, "left", "right", style);
-                add(fork, { track, side: "right" }, "left", "bottom", style);
-                for (let middle = fork + 1; middle < row; middle += 1) add(middle, { track, side: "right" }, "top", "bottom", style);
-                add(row, { track, side: "right" }, "top", "left", style);
-                acrossTracks(row, track, "right", "left", style);
-              },
+              draw: (track) =>
+                dimmed(branchOff, () => {
+                  acrossTracks(fork, track, "left", "right", style);
+                  add(fork, { track, side: "right" }, "left", "bottom", style);
+                  for (let middle = fork + 1; middle < row; middle += 1) add(middle, { track, side: "right" }, "top", "bottom", style);
+                  add(row, { track, side: "right" }, "top", "left", style);
+                  acrossTracks(row, track, "right", "left", style);
+                }),
             });
           }
         }
@@ -548,47 +616,62 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
       spans.set(item.stepId, span);
       if (gated(plan)) {
         gateRow.set(item.stepId, rows.length);
-        pass(rows.length, head.enter, style);
+        dimmed(lead, () => pass(rows.length, head.enter, style));
         rows.push({ kind: "gate", stepId: item.stepId });
       }
       span.node.row = rows.length;
       let last: Tail | undefined;
       for (const [index, sub] of subs.entries()) {
         const first = sub.acts[0];
+        // A line between two acts is left out where either of them is.
+        const turned = index > 0 && last !== undefined && (last.off || first.off === true);
         if (index > 0 && last !== undefined) {
-          const [from, to] = nearest(last.boxes, first.boxes);
+          const before = last;
+          const [from, to] = nearest(before.boxes, first.boxes);
           first.enter = to;
-          add(last.row, { lane: from }, "center", "bottom", "inner");
-          connect(from, to, "inner");
+          dimmed(turned, () => {
+            add(before.row, { lane: from }, "center", "bottom", "inner");
+            connect(from, to, "inner");
+          });
         }
         const row = rows.length;
         const into: SegmentStyle = index === 0 ? style : "inner";
-        add(row, { lane: first.enter }, "top", "center", into, pointed(into));
-        for (const link of sub.links) {
+        dimmed(index === 0 ? lead : turned, () => add(row, { lane: first.enter }, "top", "center", into, pointed(into)));
+        sub.links.forEach((link, at) => {
           const right = link.to > link.from;
-          add(row, { lane: link.from }, "center", right ? "right" : "left", "inner");
-          for (let lane = Math.min(link.from, link.to) + 1; lane < Math.max(link.from, link.to); lane += 1) add(row, { lane }, right ? "left" : "right", right ? "right" : "left", "inner");
-          add(row, { lane: link.to }, right ? "left" : "right", "center", "inner", true);
-        }
+          dimmed(sub.acts[at].off === true || sub.acts[at + 1].off === true, () => {
+            add(row, { lane: link.from }, "center", right ? "right" : "left", "inner");
+            for (let lane = Math.min(link.from, link.to) + 1; lane < Math.max(link.from, link.to); lane += 1) add(row, { lane }, right ? "left" : "right", right ? "right" : "left", "inner");
+            add(row, { lane: link.to }, right ? "left" : "right", "center", "inner", true);
+          });
+        });
         for (const act of sub.acts) {
           const low = act.boxes[0];
           const high = act.boxes[act.boxes.length - 1];
-          for (let lane = low; lane <= high && low !== high; lane += 1) add(row, { lane }, lane === low ? "center" : "left", lane === high ? "center" : "right", "joint");
+          dimmed(act.off === true, () => {
+            for (let lane = low; lane <= high && low !== high; lane += 1) add(row, { lane }, lane === low ? "center" : "left", lane === high ? "center" : "right", "joint");
+          });
         }
         rows.push({ kind: "acts", stepId: item.stepId, acts: sub.acts });
-        last = { stepId: item.stepId, row, boxes: sub.acts[sub.acts.length - 1].boxes };
+        last = { stepId: item.stepId, row, boxes: sub.acts[sub.acts.length - 1].boxes, off: sub.acts[sub.acts.length - 1].off === true };
         span.lastRow = row;
       }
       if (plan.rework !== undefined && last !== undefined) {
         const row = rows.length;
-        const { from, turn } = plan.rework;
-        // From the last act's lane to the turn-back node; the way on from there is drawn with the tracks.
-        if (from !== turn) {
-          add(row, { lane: from }, "center", "left", "rework");
-          for (let lane = turn + 1; lane < from; lane += 1) add(row, { lane }, "right", "left", "rework");
-          add(row, { lane: turn }, "right", "center", "rework", true);
-        }
-        rows.push({ kind: "rework", stepId: item.stepId, lane: turn, from });
+        const { from, turn, way } = plan.rework;
+        dimmed(stepOff, () => {
+          // From the last act's lane to the turn-back node; the way on by a track is drawn with the tracks.
+          if (from !== turn) {
+            add(row, { lane: from }, "center", "left", "rework");
+            for (let lane = turn + 1; lane < from; lane += 1) add(row, { lane }, "right", "left", "rework");
+            add(row, { lane: turn }, "right", "center", "rework", true);
+          }
+          if (way === "up") {
+            add(row, { lane: turn }, "center", "top", "rework");
+            add(span.node.row, { lane: turn }, "bottom", "center", "rework", true);
+          }
+        });
+        rows.push({ kind: "rework", stepId: item.stepId, lane: turn, from, way });
         last.reworkRow = row;
         span.lastRow = row;
       }
@@ -608,20 +691,26 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
     }
   }
 
+  const endOff = cameOff();
   if (joining !== undefined) {
     const lane = joining.branches[joining.branches.length - 1].lane;
-    descend([lane], "flow", false);
-    add(rows.length, { lane }, "top", "center", "flow");
+    dimmed(endOff, () => {
+      descend([lane], "flow", false);
+      add(rows.length, { lane }, "top", "center", "flow");
+    });
     rows.push({ kind: "end", lane });
   } else if (tail === undefined) for (const row of between) rows.push(row);
   else {
-    const lane = tail.boxes[0];
-    leave(tail, lane, "flow");
-    for (const row of between) {
-      pass(rows.length, lane, "flow");
-      rows.push(row);
-    }
-    add(rows.length, { lane }, "top", "center", "flow");
+    const from = tail;
+    const lane = from.boxes[0];
+    dimmed(endOff, () => {
+      leave(from, lane, "flow");
+      for (const row of between) {
+        pass(rows.length, lane, "flow");
+        rows.push(row);
+      }
+      add(rows.length, { lane }, "top", "center", "flow");
+    });
     rows.push({ kind: "end", lane });
   }
 
@@ -634,6 +723,8 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
     nodeRow: number;
     /** Whether it leaves its node on the node's own row, or by the side over a gate row. */
     start: "center" | "side";
+    /** The case leaves out the step it leaves or the step it arrives at. */
+    off: boolean;
   }
   /** The row a step's lines of one side turn into their track on: the gate row, or the row of its first act. */
   const turnRow = (id: Id, byGate: boolean): number => (byGate ? gateRow.get(id)! : spans.get(id)!.node.row);
@@ -655,15 +746,34 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
   for (const jump of lineJumps) {
     const side = sideOf(jump);
     const source = plans.get(jump.jump.from)![side];
-    arrive(side, jump.jump.to!, { style: jump.direction as "back" | "skip", row: turnRow(jump.jump.from, source.leaveByGate), lane: source.lane, nodeRow: spans.get(jump.jump.from)!.node.row, start: source.leaveByGate ? "side" : "center" });
+    arrive(side, jump.jump.to!, { style: jump.direction as "back" | "skip", row: turnRow(jump.jump.from, source.leaveByGate), lane: source.lane, nodeRow: spans.get(jump.jump.from)!.node.row, start: source.leaveByGate ? "side" : "center", off: !jump.drawn });
   }
   rows.forEach((row, index) => {
-    if (row.kind === "rework") arrive("left", row.stepId, { style: "rework", row: index, lane: row.lane, nodeRow: index, start: "center" });
+    if (row.kind === "rework" && row.way !== "up") arrive(row.way, row.stepId, { style: "rework", row: index, lane: row.lane, nodeRow: index, start: "center", off: steps.get(row.stepId)!.inclusion === "excluded" });
   });
+  // A line that goes up rises in the nearest lane left of the acts it joins that is clear on the rows it passes:
+  // nothing there but lines running straight across, which it crosses. Without one it takes a track.
+  const held = new Map<string, Segment[]>();
+  for (const { row, place, segment } of pending) if ("lane" in place) held.set(`${row}:${place.lane}`, [...(held.get(`${row}:${place.lane}`) ?? []), segment]);
+  const level = (segment: Segment): boolean => (segment.from === "left" || segment.from === "right") && (segment.to === "left" || segment.to === "right");
+  const taken = new Set<string>();
+  const risers: (number | undefined)[] = targets.left.map((target) => {
+    const leftmost = Math.min(plans.get(target.to)!.left.lane, ...target.lines.map((line) => line.lane));
+    for (let lane = leftmost - 1; lane >= 0; lane -= 1) {
+      let clear = true;
+      for (let row = target.low; row <= target.high && clear; row += 1) clear = !taken.has(`${row}:${lane}`) && (held.get(`${row}:${lane}`) ?? []).every(level) && rows[row].kind !== "start" && rows[row].kind !== "end";
+      if (!clear) continue;
+      for (let row = target.low; row <= target.high; row += 1) taken.add(`${row}:${lane}`);
+      return lane;
+    }
+    return undefined;
+  });
+  const tracked = targets.left.filter((_, index) => risers[index] === undefined);
+  const leftAssigned = assignTracks(tracked);
   // The branches of a parallel run that go round share the right with the jumps ahead.
   const rightAll = assignTracks([...targets.right, ...detours]);
-  const trackOf: Record<TrackSide, number[]> = { left: assignTracks(targets.left), right: rightAll.slice(0, targets.right.length) };
-  const leftTracks = trackOf.left.length === 0 ? 0 : Math.max(...trackOf.left) + 1;
+  const trackOf: Record<TrackSide, number[]> = { left: targets.left.map((target) => leftAssigned[tracked.indexOf(target)] ?? 0), right: rightAll.slice(0, targets.right.length) };
+  const leftTracks = leftAssigned.length === 0 ? 0 : Math.max(...leftAssigned) + 1;
   const rightTracks = rightAll.length === 0 ? 0 : Math.max(...rightAll) + 1;
   detours.forEach((detour, index) => detour.draw(rightAll[targets.right.length + index]));
 
@@ -675,17 +785,24 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
     const sideBottom: SegmentEnd = side === "left" ? "side-bottom" : "rside-bottom";
     targets[side].forEach((target, index) => {
       const track = trackOf[side][index];
+      const riser = side === "left" ? risers[index] : undefined;
+      /** The column the line rises or falls in: a clear lane, or its track. */
+      const column: Place = riser === undefined ? { track, side } : { lane: riser };
       const plan = plans.get(target.to)![side];
       const nodeRow = spans.get(target.to)!.node.row;
       const arrival = turnRow(target.to, plan.arriveByGate);
       /** The sideways run between a track and a lane, drawn the way the line travels. */
       const run = (row: number, lane: number, toward: "track" | "lane", style: SegmentStyle): void => {
         const [from, to]: [SegmentEnd, SegmentEnd] = toward === "lane" ? [out, back] : [back, out];
+        if (riser !== undefined) {
+          for (let crossed = riser + 1; crossed < lane; crossed += 1) add(row, { lane: crossed }, from, to, style);
+          return;
+        }
         for (let inner = 0; inner < track; inner += 1) add(row, { track: inner, side }, from, to, style);
         if (side === "left") for (let crossed = 0; crossed < lane; crossed += 1) add(row, { lane: crossed }, from, to, style);
         else for (let crossed = lane + 1; crossed < lanes.length; crossed += 1) add(row, { lane: crossed }, from, to, style);
       };
-      for (const line of target.lines) {
+      for (const line of target.lines) dimmed(line.off, () => {
         const up = line.row > arrival;
         // Out of its node and along its row to the track.
         if (line.start === "side") {
@@ -696,19 +813,19 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
         // Where a line turns into a track that already carries a line from further off, the two run on as
         // one: the one turning in shows the way just past its bend.
         const further = target.lines.some((other) => other !== line && (up ? other.row > line.row : other.row < line.row));
-        add(line.row, { track, side }, back, up ? "top" : "bottom", line.style, false, further);
+        add(line.row, column, back, up ? "top" : "bottom", line.style, false, further);
         for (let row = Math.min(line.row, arrival) + 1; row < Math.max(line.row, arrival); row += 1) {
-          add(row, { track, side }, up ? "bottom" : "top", up ? "top" : "bottom", line.style);
+          add(row, column, up ? "bottom" : "top", up ? "top" : "bottom", line.style);
         }
         // Off the track and along the arrival row into the node.
-        add(arrival, { track, side }, up ? "bottom" : "top", back, line.style);
+        add(arrival, column, up ? "bottom" : "top", back, line.style);
         run(arrival, plan.lane, "lane", line.style);
         if (plan.arriveByGate) {
           // The head stands on the way down, where the line is straight; the turn into the node is too short to carry one.
           add(arrival, { lane: plan.lane }, out, sideBottom, line.style, true);
           add(nodeRow, { lane: plan.lane }, sideTop, "center", line.style);
         } else add(nodeRow, { lane: plan.lane }, out, "center", line.style, true);
-      }
+      });
     });
   }
 
@@ -723,6 +840,8 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
     else {
       if (segment.arrow) same.arrow = true;
       if (segment.tail) same.tail = true;
+      // A piece lines share is left out only where every one of them is.
+      if (!segment.off) delete same.off;
     }
     cells.set(key, cell);
   }
@@ -747,7 +866,7 @@ export function laneGeometry(process: ResolvedProcess, options: LaneGeometryOpti
     tags: lineJumps.map((jump) => {
       const side = sideOf(jump);
       const source = plans.get(jump.jump.from)![side];
-      return { jumpId: jump.jump.id, row: spans.get(jump.jump.from)!.node.row, column: laneColumn(geometry, source.lane), side, gate: source.leaveByGate };
+      return { jumpId: jump.jump.id, row: spans.get(jump.jump.from)!.node.row, column: laneColumn(geometry, source.lane), side, gate: source.leaveByGate, ...(jump.drawn ? {} : { off: true }) };
     }),
   };
 }

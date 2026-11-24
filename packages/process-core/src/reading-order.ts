@@ -1,10 +1,11 @@
+import { showsInclusion, showsJump } from "./resolve";
 import type { Id, Inclusion, ResolvedProcess } from "./types";
 
 /**
  * One entry of a procedure read from its first step to its last.
  *
- * A step is followed by its acts and then by the jumps that leave it. An excluded step is listed
- * with no acts and no jumps. A run of steps sharing a parallel key stands between a `group-start`
+ * A step is followed by its acts and then by the jumps that leave it. Where the reading folds what
+ * the case leaves out, an excluded step is listed with no acts and no jumps. A run of steps sharing a parallel key stands between a `group-start`
  * and a `group-end`.
  */
 export type ReadingItem =
@@ -40,12 +41,12 @@ export function readingOrder(process: ResolvedProcess): ReadingItem[] {
         }
       }
       items.push({ kind: "step", stepId: resolved.step.id, inclusion: resolved.inclusion });
-      if (resolved.inclusion === "excluded") continue;
+      if (!showsInclusion(process, resolved.inclusion)) continue;
       for (const { act, inclusion } of resolved.acts) {
-        if (inclusion !== "excluded") items.push({ kind: "act", stepId: resolved.step.id, actId: act.id });
+        if (showsInclusion(process, inclusion)) items.push({ kind: "act", stepId: resolved.step.id, actId: act.id });
       }
-      for (const { jump, drawn } of process.jumps) {
-        if (jump.from === resolved.step.id && drawn) items.push({ kind: "jump", stepId: resolved.step.id, jumpId: jump.id });
+      for (const entry of process.jumps) {
+        if (entry.jump.from === resolved.step.id && showsJump(process, entry)) items.push({ kind: "jump", stepId: resolved.step.id, jumpId: entry.jump.id });
       }
     }
   }

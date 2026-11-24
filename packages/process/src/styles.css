@@ -19,6 +19,8 @@
   [data-process-root] {
     /* The drawing: line width, node, arrowhead, corner, and where on a row a node stands. */
     --process-line: 2px;
+    /* How faint what the case leaves out is drawn. */
+    --process-off: 0.45;
     --process-node: 18px;
     --process-node-y: 16px;
     --process-arrow: 5px;
@@ -581,6 +583,37 @@
     color: var(--muted-foreground);
   }
 
+  /*
+   * What the case leaves out keeps its place and is drawn faint: a dashed, unfilled node and a
+   * muted label. The words "not applicable" under the step's title say it without the colour.
+   */
+  [data-process-slot="node"][data-off] {
+    border-style: dashed;
+    border-color: var(--border-strong);
+    background: var(--card);
+    color: var(--muted-foreground);
+    box-shadow: none;
+    animation: none;
+  }
+
+  [data-process-slot="act"][data-off] :is([data-process-slot="act-label"], [data-process-slot="act-holder"], [data-process-slot="act-lanes"]),
+  [data-process-slot="step-title"][data-off] :is([data-process-slot="step-number"], [data-process-slot="step-label"]),
+  [data-process-slot="card"][data-inclusion="left-out"] [data-process-slot="card-head"] :is([data-process-slot="step-number"], [data-process-slot="step-label"]) {
+    color: var(--muted-foreground);
+    font-weight: var(--fw-regular, 400);
+  }
+
+  [data-process-slot="act"][data-off] [data-process-slot="act-tags"],
+  :is([data-process-slot="rework-cell"], [data-process-slot="via-cell"], [data-process-slot="tag-cell"])[data-off],
+  [data-process-slot="step"][data-inclusion="left-out"] :is([data-process-slot="jump"], [data-process-slot="chips"]),
+  [data-process-slot="card"][data-inclusion="left-out"] :is([data-process-slot="jumps"], [data-process-slot="chips"]) {
+    opacity: var(--process-off);
+  }
+
+  [data-process-slot="card"][data-inclusion="left-out"] {
+    border-style: dashed;
+  }
+
   [data-process-slot="node"][data-rework] {
     border-color: var(--process-back);
     background: var(--card);
@@ -650,6 +683,11 @@
 
   [data-process-seg][data-on],
   [data-process-seg]:is([data-style="inner"], [data-style="joint"]) { --process-stroke: var(--process-ink); }
+  /* A line only what the case leaves out is reached by is faint, whatever it stands for. */
+  [data-process-seg][data-off],
+  [data-process-arrow][data-off] { opacity: var(--process-off); }
+  [data-process-seg][data-off]:is([data-style="inner"], [data-style="joint"]) { --process-stroke: var(--process-flow); }
+  [data-process-arrow][data-off][data-style="inner"] { color: var(--process-flow); }
   [data-process-seg]:is([data-style="back"], [data-style="rework"]) { --process-stroke: var(--process-back); }
   [data-process-seg][data-style="skip"] { --process-stroke: var(--process-skip); }
 
@@ -804,6 +842,7 @@
   [data-process-arrow="down"][data-at="node"] { top: calc(var(--process-mid) - var(--process-node) / 2 - var(--process-arrow-length)); }
   [data-process-arrow="right"][data-at="node"] { left: calc(50% - var(--process-node) / 2 - var(--process-arrow-length)); }
   [data-process-arrow="left"][data-at="node"] { left: calc(50% + var(--process-node) / 2); }
+  [data-process-arrow="up"][data-at="foot"] { left: calc(50% - var(--process-arrow)); bottom: 0; }
   [data-process-arrow="right"][data-at="edge"] { right: 3px; }
   [data-process-arrow="left"][data-at="edge"] { left: 3px; }
   /*
