@@ -1,5 +1,7 @@
 # Setting Up Parent-Child Entity Relationships
 
+**English** | [한국어](../../ko/guides/parent-child.md)
+
 > Configure nested entity hierarchies so that child resources are scoped under their parent's URL path (e.g., `/projects/:projectId/tasks`).
 
 ## Before You Begin
@@ -9,7 +11,7 @@
 
 ## Solution
 
-### Step 1 -- Define the Parent Entity
+### Step 1: Define the Parent Entity
 
 The parent entity is a standard entity definition with no special configuration.
 
@@ -33,7 +35,7 @@ const updateProjectSchema = z.object({
 });
 ```
 
-### Step 2 -- Define the Child Entity with `parent`
+### Step 2: Define the Child Entity with `parent`
 
 Add the `parent` field to the child entity. This tells the framework how to construct nested URLs.
 
@@ -57,26 +59,26 @@ const updateTaskSchema = z.object({
 });
 
 const taskEntity = {
-  path: "/tasks",
   schema: taskSchema,
-  createSchema: createTaskSchema,
-  updateSchema: updateTaskSchema,
   parent: {
     param: "projectId",    // Route parameter name
     path: "/projects",     // Parent's URL segment
   },
-};
+  operations: {
+    list:   { method: "GET",    path: "/tasks" },
+    get:    { method: "GET",    path: "/tasks/:id" },
+    create: { method: "POST",   path: "/tasks", input: createTaskSchema },
+    update: { method: "PATCH",  path: "/tasks/:id", input: updateTaskSchema },
+    delete: { method: "DELETE", path: "/tasks/:id" },
+  },
+} satisfies EntityDefinition;
 ```
 
-The `parent` configuration produces the URL pattern:
+The `parent` configuration puts the parent's path and the parent ID in front of the path of the `list` and `create` operations:
 
-```text
-basePath + parent.path + /:param + path
-/api/v1  + /projects   + /:projectId + /tasks
-→ /api/v1/projects/:projectId/tasks
-```
+![basePath, parent.path, the parent ID and the operation path join into /api/v1/projects/:projectId/tasks for list and create](../../assets/figures/guides-parent-child-url-composition.en.svg)
 
-### Step 3 -- Register Both Entities
+### Step 3: Register Both Entities
 
 ```ts
 import { defineApi, simpleQueryBuilder } from "@simplix-react/contract";
@@ -86,10 +88,14 @@ const projectApi = defineApi({
   basePath: "/api/v1",
   entities: {
     project: {
-      path: "/projects",
       schema: projectSchema,
-      createSchema: createProjectSchema,
-      updateSchema: updateProjectSchema,
+      operations: {
+        list:   { method: "GET",    path: "/projects" },
+        get:    { method: "GET",    path: "/projects/:id" },
+        create: { method: "POST",   path: "/projects", input: createProjectSchema },
+        update: { method: "PATCH",  path: "/projects/:id", input: updateProjectSchema },
+        delete: { method: "DELETE", path: "/projects/:id" },
+      },
     },
     task: taskEntity,
   },
@@ -97,9 +103,9 @@ const projectApi = defineApi({
 });
 ```
 
-### Step 4 -- Use the Client with Parent ID
+### Step 4: Use the Client with Parent ID
 
-For child entities, pass the parent ID as the first argument to `list` and `create`.
+For child entities, pass the parent ID as the first argument to `list` and `create`. Without a parent ID they request the operation path alone (`/api/v1/tasks`).
 
 ```ts
 const projectId = "proj-1";
@@ -127,9 +133,9 @@ const updated = await projectApi.client.task.update("task-1", {
 await projectApi.client.task.delete("task-1");
 ```
 
-### Step 5 -- Query Key Propagation
+### Step 5: Query Key Propagation
 
-When a parent ID is provided, it is automatically included in query keys for proper cache scoping.
+When a parent ID is given to `useList` or `useInfiniteList`, it is included in the list query key under the `parent.param` name, so each parent's lists are cached apart.
 
 ```ts
 // Query key for all tasks under a specific project:
@@ -141,9 +147,9 @@ projectApi.queryKeys.task.all;
 // → ["project", "task"]
 ```
 
-### Step 6 -- Use Derived Hooks with Parent ID
+### Step 6: Use Derived Hooks with Parent ID
 
-When using `@simplix-react/react`, pass the parent ID to query and mutation hooks.
+When using `@simplix-react/react`, pass the parent ID to the list hooks and to `useCreate`.
 
 ```tsx
 import { deriveEntityHooks } from "@simplix-react/react";
@@ -179,7 +185,7 @@ function TaskList({ projectId }: { projectId: string }) {
 }
 ```
 
-The `useList` hook automatically disables itself when `projectId` is falsy (undefined or empty string), preventing requests without a valid parent.
+The `useList` hook automatically disables itself when `projectId` is falsy (undefined or empty string), preventing requests without a valid parent. `useCreate` invalidates every query of the entity (`queryKeys.task.all`) after it succeeds.
 
 ## Variations
 
@@ -195,16 +201,32 @@ const { data: tasks } = hooks.task.useList(projectId, {
 });
 ```
 
+### Nested Paths for Get, Update and Delete
+
+`get`, `update` and `delete` use their own operation path and do not add the parent. When the server nests them too, write the full path and pass an object that fills every path parameter.
+
+```ts
+const commentEntity = {
+  schema: commentSchema,
+  parent: { param: "taskId", path: "/tasks" },
+  operations: {
+    list: { method: "GET",    path: "/comments" },
+    get:  { method: "GET",    path: "/tasks/:taskId/comments/:id" },
+    delete: { method: "DELETE", path: "/tasks/:taskId/comments/:id" },
+  },
+} satisfies EntityDefinition;
+
+// GET /api/v1/tasks/task-1/comments/c-9
+await projectApi.client.comment.get({ taskId: "task-1", id: "c-9" });
+```
+
 ### Named Query Scopes
 
-Use `queries` on the entity definition to declare reusable parent-based query scopes.
+`queries` declares named parent-based query scopes on the entity definition. It is a declaration only: no package reads it to build requests, query keys or hooks.
 
 ```ts
 const taskEntity = {
-  path: "/tasks",
   schema: taskSchema,
-  createSchema: createTaskSchema,
-  updateSchema: updateTaskSchema,
   parent: {
     param: "projectId",
     path: "/projects",
@@ -215,12 +237,15 @@ const taskEntity = {
       param: "projectId",
     },
   },
-};
+  operations: {
+    list: { method: "GET", path: "/tasks" },
+  },
+} satisfies EntityDefinition;
 ```
 
 ### Infinite Scrolling with Parent ID
 
-The `useInfiniteList` hook also supports parent-scoped queries.
+The `useInfiniteList` hook also supports parent-scoped queries. Each page is `{ data, meta }`, and the next page is requested while `meta.hasNextPage` is true.
 
 ```tsx
 function TaskInfiniteList({ projectId }: { projectId: string }) {
@@ -247,5 +272,5 @@ function TaskInfiniteList({ projectId }: { projectId: string }) {
 
 ## Related
 
-- [Defining Entities in a Contract](./defining-entities.md) -- basic entity setup
-- [Custom Operations Beyond CRUD](./custom-operations.md) -- operations that work alongside parent-child entities
+- [Defining Entities in a Contract](./defining-entities.md): basic entity setup
+- [Custom Operations Beyond CRUD](./custom-operations.md): operations that work alongside parent-child entities

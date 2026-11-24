@@ -1,5 +1,7 @@
 # How to Set Up a Test Environment with Mock Utilities
 
+**English** | [한국어](../../ko/guides/testing-with-mocks.md)
+
 > Configure Vitest and React Testing Library with simplix-react's testing helpers for deterministic, leak-free component and hook tests.
 
 ## Before You Begin
@@ -28,7 +30,7 @@ export default defineConfig({
 
 ## Solution
 
-### Step 1 -- Create a Test QueryClient
+### Step 1: Create a Test QueryClient
 
 `createTestQueryClient` returns a `QueryClient` pre-configured for deterministic test execution. It disables retries and garbage collection so queries resolve immediately and do not leak state:
 
@@ -55,7 +57,7 @@ afterEach(() => {
 });
 ```
 
-### Step 2 -- Create a Test Wrapper
+### Step 2: Create a Test Wrapper
 
 `createTestWrapper` returns a React component that wraps children with all required providers (`QueryClientProvider`). Pass it as the `wrapper` option to `renderHook` or `render`:
 
@@ -77,9 +79,9 @@ const queryClient = createTestQueryClient();
 const wrapper = createTestWrapper({ queryClient });
 ```
 
-### Step 3 -- Create a Mock Client for Unit Tests
+### Step 3: Create a Mock Client for Unit Tests
 
-`createMockClient` creates an in-memory CRUD client that mirrors the shape of a real API client without requiring MSW or any network layer. Data is stored in plain arrays that you seed and inspect directly:
+`createMockClient(config, data)` creates an in-memory client that mirrors the shape of a real API client without requiring MSW or any network layer. `data` is keyed by entity name, and each entity gets one function per operation, under the operation's name. The functions work on the arrays you pass in, so the seed arrays themselves change as the test creates, updates and deletes:
 
 ```ts
 import { createMockClient } from "@simplix-react/testing";
@@ -93,36 +95,40 @@ const mockClient = createMockClient(contract.config, {
 });
 ```
 
-Available CRUD methods per entity:
+What each operation does, by its role:
 
-| Method | Signature | Description |
+| Role | Signature | Description |
 | --- | --- | --- |
-| `list` | `(params?) => Promise<T[]>` | Returns all seeded items |
-| `get` | `(id) => Promise<T>` | Finds by `id`, rejects if not found |
-| `create` | `(dto) => Promise<T>` | Appends with auto-generated `id` |
+| `list` | `() => Promise<T[]>` | Returns the seeded array; parameters are ignored |
+| `get` | `(id) => Promise<T>` | Finds the item whose `id` is strictly equal, rejects if not found |
+| `create` | `(dto)` or `(parentId, dto) => Promise<T>` | Appends with an `id` from `crypto.randomUUID()` |
 | `update` | `(id, dto) => Promise<T>` | Merges fields, rejects if not found |
 | `delete` | `(id) => Promise<void>` | Removes by `id`, rejects if not found |
+| `tree` | `() => Promise<[]>` | Resolves an empty array |
+| custom | `() => Promise<null>` | Resolves `null` |
+
+The `get`, `update` and `delete` lookups compare with `===`, so seed string ids when the test passes string ids.
 
 ```ts
 // List
-const products = await mockClient.products.list();
+const products = await mockClient.product.list();
 expect(products).toHaveLength(2);
 
 // Create
-const created = await mockClient.products.create({ name: "Doohickey", price: 50 });
+const created = await mockClient.product.create({ name: "Doohickey", price: 50 });
 expect(created.id).toBeDefined();
 
 // Update
-const updated = await mockClient.products.update("1", { price: 150 });
+const updated = await mockClient.product.update("1", { price: 150 });
 expect(updated.price).toBe(150);
 
 // Delete
-await mockClient.products.delete("2");
-const remaining = await mockClient.products.list();
+await mockClient.product.delete("2");
+const remaining = await mockClient.product.list();
 expect(remaining).toHaveLength(2); // original 2 - 1 deleted + 1 created
 ```
 
-### Step 4 -- Wait for Queries to Settle
+### Step 4: Wait for Queries to Settle
 
 `waitForQuery` polls the `QueryClient` cache until a specific query key resolves (leaves `"pending"` status). Use it when you need to wait for server state without relying on UI-level `waitFor`:
 
@@ -139,15 +145,15 @@ const data = queryClient.getQueryData(["products"]);
 expect(data).toBeDefined();
 ```
 
-Configure the timeout (default: 5000 ms):
+`waitForQuery` throws when the query is still pending after the timeout. Configure the timeout (default: 5000 ms):
 
 ```ts
 await waitForQuery(queryClient, ["products"], { timeout: 10000 });
 ```
 
-### Step 5 -- Full Integration Test Example
+### Step 5: Full Integration Test Example
 
-Combine all utilities for a complete hook test:
+The mock client is typed as a plain record. To run derived hooks against it, derive them from the contract with the mock client in place of the real one:
 
 ```tsx
 import { describe, it, expect, afterEach } from "vitest";
@@ -157,18 +163,19 @@ import {
   createTestWrapper,
   createMockClient,
 } from "@simplix-react/testing";
+import { deriveEntityHooks } from "@simplix-react/react";
 import { contract } from "@myapp/myapp-domain-inventory";
-import { useProducts } from "@myapp/myapp-domain-inventory/react";
 
-describe("useProducts", () => {
+describe("product.useList", () => {
   const queryClient = createTestQueryClient();
   const wrapper = createTestWrapper({ queryClient });
 
   const mockClient = createMockClient(contract.config, {
-    products: [
+    product: [
       { id: "1", name: "Widget", price: 100 },
     ],
   });
+  const hooks = deriveEntityHooks({ ...contract, client: mockClient });
 
   afterEach(() => {
     queryClient.clear();
@@ -176,7 +183,7 @@ describe("useProducts", () => {
 
   it("returns product list", async () => {
     const { result } = renderHook(
-      () => useProducts({ client: mockClient }),
+      () => hooks.product.useList(),
       { wrapper },
     );
 
@@ -194,15 +201,23 @@ describe("useProducts", () => {
 
 ### Using MSW for HTTP-Level Mocking
 
-For tests that need to exercise the actual HTTP layer, use MSW (Mock Service Worker) alongside the testing utilities. Domain packages generated by `simplix add-domain` include MSW handler templates:
+For tests that need to exercise the actual HTTP layer, use MSW (Mock Service Worker) alongside the testing utilities. A domain package generated by `simplix add-domain` or `simplix openapi` exports a `create<Domain>Mock()` factory from its `/mock` entry; its `handlers` are the derived mock handlers, and its `seed` is keyed by store name. In Node, start the handlers with `setupServer` and load the seed into the in-memory store yourself:
 
 ```ts
 import { setupServer } from "msw/node";
-import { handlers } from "@myapp/myapp-domain-inventory/mock";
+import { resetStore, seedEntityStore } from "@simplix-react/mock";
+import { createInventoryMock } from "@myapp/myapp-domain-inventory/mock";
 
-const server = setupServer(...handlers);
+const inventoryMock = createInventoryMock();
+const server = setupServer(...inventoryMock.handlers);
 
 beforeAll(() => server.listen());
+beforeEach(() => {
+  resetStore();
+  for (const [storeName, records] of Object.entries(inventoryMock.seed ?? {})) {
+    seedEntityStore(storeName, records);
+  }
+});
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 ```
@@ -276,10 +291,10 @@ When testing components or hooks that depend on `@simplix-react/access` (e.g., `
 
 #### `createMockPolicy`
 
-Creates a mock `AccessPolicy` backed by a static adapter. By default it grants full access (`manage` on `all`) so that tests not focused on permissions pass without extra setup.
+Creates an `AccessPolicy` backed by a static adapter. By default it grants full access (`manage` on `all`) so that tests not focused on permissions pass without extra setup.
 
 ```ts
-function createMockPolicy(options?: MockPolicyOptions): AccessPolicy<string, string>
+function createMockPolicy(options?: MockPolicyOptions): AccessPolicy
 ```
 
 Options:
@@ -293,7 +308,7 @@ Options:
 ```ts
 import { createMockPolicy } from "@simplix-react/testing";
 
-// Default — full access
+// Default: full access
 const policy = createMockPolicy();
 policy.can("edit", "Pet"); // true
 
@@ -346,7 +361,7 @@ const policy = createMockPolicy({
 const wrapper = createAccessTestWrapper({ policy });
 ```
 
-#### Full Example -- Queries and Access Control Together
+#### Full Example: Queries and Access Control Together
 
 A complete test for a component that fetches data and conditionally renders based on permissions:
 
@@ -359,12 +374,17 @@ import {
   createMockClient,
   createMockPolicy,
 } from "@simplix-react/testing";
+import { deriveEntityHooks } from "@simplix-react/react";
 import { contract } from "@myapp/myapp-domain-inventory";
 import { Can } from "@simplix-react/access/react";
-import { useProducts } from "@myapp/myapp-domain-inventory/react";
+
+const mockClient = createMockClient(contract.config, {
+  product: [{ id: "1", name: "Widget", price: 100 }],
+});
+const hooks = deriveEntityHooks({ ...contract, client: mockClient });
 
 function ProductManager() {
-  const { data: products } = useProducts();
+  const { data: products } = hooks.product.useList();
 
   if (!products) return <p>Loading...</p>;
 
@@ -384,10 +404,6 @@ function ProductManager() {
 
 describe("ProductManager", () => {
   const queryClient = createTestQueryClient();
-
-  const mockClient = createMockClient(contract.config, {
-    products: [{ id: "1", name: "Widget", price: 100 }],
-  });
 
   afterEach(() => {
     queryClient.clear();
@@ -432,6 +448,7 @@ describe("ProductManager", () => {
 
 ## Related
 
-- [Internationalization](./internationalization.md) -- Setting up i18n (relevant for testing i18n components)
-- [CLI Usage](./cli-usage.md) -- `simplix add-domain` generates mock handler templates
-- [@simplix-react/testing source](../../packages/testing/src/)
+- [Internationalization](./internationalization.md): setting up i18n (relevant for testing i18n components)
+- [Mock Handlers](./mock-handlers.md): derive mock handlers and seed the in-memory store
+- [CLI Usage](./cli-usage.md): `simplix add-domain` and `simplix openapi` generate the `/mock` entry of a domain package
+- [@simplix-react/testing source](../../../packages/testing/src/)

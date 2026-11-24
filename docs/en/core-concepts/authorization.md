@@ -1,12 +1,14 @@
 # Authorization
 
+**English** | [한국어](../../ko/core-concepts/authorization.md)
+
 ## Overview
 
-Authorization in simplix-react is handled by `@simplix-react/access`, a package that wraps the CASL library to provide declarative, rule-based access control. Rather than scattering permission checks throughout your application, you declare an `AccessPolicy` once --- backed by an adapter that extracts rules from your authentication source --- and the policy becomes the single source of truth for what the current user can and cannot do.
+Authorization in simplix-react is handled by `@simplix-react/access`, a package that wraps the CASL library to provide declarative, rule-based access control. Rather than scattering permission checks throughout your application, you declare an `AccessPolicy` once, backed by an adapter that extracts rules from your authentication source, and the policy becomes the single source of truth for what the current user can and cannot do.
 
 The core insight is that authorization rules almost always come from an external source (a JWT token, an API endpoint, a static configuration) and need to be translated into a uniform format that the frontend can evaluate. The access package formalizes this translation through the adapter pattern: each adapter knows how to extract CASL rules from a specific auth source, and the policy evaluates those rules consistently regardless of where they came from.
 
-This separation means the same application code works with different authorization backends --- JWT claims in one environment, an API endpoint in another, static rules in tests --- without any changes to the permission-checking logic.
+This separation means the same application code works with different authorization backends (JWT claims in one environment, an API endpoint in another, static rules in tests) without any changes to the permission-checking logic.
 
 ## How It Works
 
@@ -50,19 +52,15 @@ const policy = createAccessPolicy({
 });
 ```
 
-The policy starts empty --- no user, no roles, no rules. Its lifecycle is:
+The configuration also accepts `publicAccess`: rules, or an adapter called with `null`, that apply while no user is signed in.
 
-```text
-empty → update(authData) → adapter.extract(authData) → applyRules → active
-                                                                       |
-                                                            subscribe/notify
-                                                                       |
-active → clear() → empty (persisted state also cleared)
-```
+The policy starts empty: no user, no roles, no rules. `update(authData)` passes the auth data to the adapter and applies the rules it extracts; every change notifies the subscribers; `clear()` returns the policy to empty and removes the persisted state.
 
-Key methods on the policy:
+![update() moves an empty policy to active through the adapter, and clear() moves it back to empty](../../assets/figures/concepts-authorization-policy-lifecycle.en.svg)
 
-| Method | Purpose |
+Key members of the policy:
+
+| Member | Purpose |
 | --- | --- |
 | `update(authData)` | Passes auth data to the adapter, applies extracted rules |
 | `setRules(rules, user?, roles?)` | Directly sets rules without going through the adapter |
@@ -71,10 +69,11 @@ Key methods on the policy:
 | `hasRole(role)` | Checks if the user has a role (prefix-insensitive) |
 | `hasAnyRole(roles)` | Checks if the user has any of the given roles |
 | `clear()` | Clears all state and persisted data |
-| `loadPublicAccess()` | Loads unauthenticated access rules from config |
-| `rehydrate()` | Restores state from persisted storage |
+| `loadPublicAccess()` | Applies the `publicAccess` rules from the configuration |
+| `rehydrate()` | Restores state from persisted storage; returns `true` when something was restored |
 | `subscribe(listener)` | Subscribes to state changes (for React integration) |
 | `getSnapshot()` | Returns a reference-stable snapshot for `useSyncExternalStore` |
+| `ability`, `user`, `roles` | Read-only: the current CASL ability, `AccessUser` (or `null`) and role names |
 
 ### The Adapter Pattern
 
@@ -86,19 +85,11 @@ interface AccessAdapter<TActions, TSubjects> {
 }
 ```
 
-The `extract` method receives raw auth data and returns rules, user info, and roles. Three built-in adapters cover the most common scenarios:
+The `extract` method receives raw auth data and returns rules, user info, and roles. Three built-in adapters cover the most common scenarios: `createJwtAdapter()` decodes a JWT payload, `createApiAdapter()` fetches rules from an API endpoint, and `createStaticAdapter()` returns fixed rules.
 
-```text
-AccessAdapter (interface)
-    |
-    +--- createJwtAdapter()     → Decodes JWT payload, extracts permissions
-    |
-    +--- createApiAdapter()     → Fetches rules from an API endpoint
-    |
-    +--- createStaticAdapter()  → Returns fixed rules (testing, public access)
-```
+![Three adapters turn a JWT, an API response or fixed rules into the same CASL rules that one policy evaluates](../../assets/figures/concepts-authorization-adapters.en.svg)
 
-**JWT Adapter** (`createJwtAdapter`): Decodes a JWT token client-side (without signature verification) and converts claims into CASL rules. Supports three permission formats:
+**JWT Adapter** (`createJwtAdapter`): Decodes a JWT token client-side (without signature verification) and converts claims into CASL rules. Supports three permission formats, set with `permissionFormat` (default `"map"`):
 
 | Format | Shape | Example |
 | --- | --- | --- |
@@ -106,11 +97,11 @@ AccessAdapter (interface)
 | `"flat"` | `["RESOURCE:action"]` | `["PET:list", "PET:view"]` |
 | `"scopes"` | Space-delimited string | `"pet:read pet:write"` |
 
-Configurable claim keys (`rolesKey`, `permissionsKey`, `userIdKey`, etc.) make it compatible with Spring Security, Keycloak, Auth0, and custom JWT structures. A `transform` function provides a complete escape hatch for non-standard token layouts.
+Configurable claim keys (`rolesKey` default `"roles"`, `permissionsKey` default `"permissions"`, `superAdminKey` default `"isSuperAdmin"`, `userIdKey` default `"sub"`, `usernameKey` default `"username"`) and `flatSeparator` (default `":"`) make it compatible with Spring Security, Keycloak, Auth0, and custom JWT structures. `decode` replaces the payload decoder, and a `transform` function provides a complete escape hatch for non-standard token layouts.
 
-**API Adapter** (`createApiAdapter`): Fetches permissions from a server endpoint. The default response format is `{ permissions: PermissionMap }`, with automatic handling of nested `{ body: { permissions } }` structures. Accepts a custom `fetchFn` (typically the authenticated fetch from `@simplix-react/auth`) and a `transformResponse` function for non-standard response shapes.
+**API Adapter** (`createApiAdapter`): Fetches permissions from a server endpoint (default `"/api/me/permissions"`). The default response format is `{ permissions: PermissionMap }`, with automatic handling of nested `{ body: { permissions } }` structures. Accepts a custom `fetchFn` (typically the authenticated fetch from `@simplix-react/auth`) and a `transformResponse` function for non-standard response shapes.
 
-**Static Adapter** (`createStaticAdapter`): Returns the same fixed rules on every `extract` call. Useful for testing, development, and defining public access rules via the `publicAccess` config option.
+**Static Adapter** (`createStaticAdapter`): Returns the same fixed rules, and an optional user, on every `extract` call. Useful for testing, development, and defining public access rules via the `publicAccess` config option.
 
 ### Rule Normalization
 
@@ -134,7 +125,7 @@ Roles are normalized to handle the common `ROLE_` prefix convention used by Spri
 | `hasRole(roles, role)` | Prefix-insensitive comparison |
 | `hasAnyRole(roles, targetRoles)` | Returns `true` if any target role matches |
 
-> ℹ **Backend-specific role objects:** `normalizeRoles(roles)` and the `RoleInput` type — which normalize mixed arrays of plain strings and Spring Security role objects (`{ roleCode, roleName, name }`) — live in the `@simplix-react-ext/simplix-boot-access` extension, not core `@simplix-react/access`. That object shape is specific to the SimpliX (Spring Security) backend, so it belongs with the backend adapter rather than the backend-agnostic core.
+> ℹ **Backend-specific role objects:** `normalizeRoles(roles)` and the `RoleInput` type, which normalize mixed arrays of plain strings and Spring Security role objects (`{ roleCode, roleName, name }`), live in the `@simplix-react-ext/simplix-boot-access` extension, not core `@simplix-react/access`. That object shape is specific to the SimpliX (Spring Security) backend, so it belongs with the backend adapter rather than the backend-agnostic core.
 
 ### Super-Admin Bypass
 
@@ -150,7 +141,7 @@ This grants unrestricted access to every resource. The check uses either a custo
 
 When `persist` is configured, the policy serializes its state (rules, user, roles) to a `Storage` backend (defaults to `localStorage`) under a configurable key (defaults to `"simplix-access"`).
 
-On application startup, `rehydrate()` restores the persisted state, allowing the policy to be functional immediately --- before the auth adapter has fetched fresh rules. This prevents a flash of unauthorized content during page load.
+On application startup, `rehydrate()` restores the persisted state, allowing the policy to be functional immediately, before the auth adapter has fetched fresh rules. This prevents a flash of unauthorized content during page load.
 
 ### Subscription Model
 
@@ -165,7 +156,7 @@ policy.getSnapshot()        → returns cached AccessSnapshot (reference-stable)
 
 React bindings are provided via a separate entry point (`@simplix-react/access/react`):
 
-**AccessProvider**: Wraps the component tree with the policy context. Optionally accepts an `AuthLike` instance (compatible with `@simplix-react/auth`) for automatic synchronization --- when the user logs in, the policy is updated with the access token; when the user logs out, the policy is cleared and public access rules are loaded.
+**AccessProvider**: Wraps the component tree with the policy context. Optionally accepts an `AuthLike` instance (compatible with `@simplix-react/auth`) for automatic synchronization: on mount the policy is rehydrated, when the user logs in the policy is updated with the access token, and when the user logs out the policy is cleared and public access rules are loaded.
 
 ```tsx
 <AccessProvider policy={policy} auth={auth}>
@@ -178,6 +169,8 @@ React bindings are provided via a separate entry point (`@simplix-react/access/r
 ```tsx
 const canEdit = useCan("edit", "Pet");
 ```
+
+**useCanWith(decide)**: Returns a reactive boolean computed by `decide`, which receives a `can(action, subject)` function. Use it to combine several checks in one subscription. Outside an `AccessProvider`, every `can` call returns `true`.
 
 **useAccess()**: Returns the full `AccessPolicy` object. Throws if used outside an `AccessProvider`.
 
@@ -195,13 +188,13 @@ access.hasRole("ADMIN");
 </Can>
 ```
 
-**requireAccess(policy, options)**: Imperative guard for route-level protection, designed for TanStack Router `beforeLoad`. Throws `AccessDeniedError` when the check fails. Supports a `storageFallback` option for checking persisted state when the policy has not yet rehydrated.
+**requireAccess(policy, options)**: Imperative guard for route-level protection, designed for TanStack Router `beforeLoad`. Throws `AccessDeniedError` (exported from `@simplix-react/access`) when the check fails. Supports a `storageFallback` option (`{ key, check }`) that reads `localStorage` when the policy has not yet rehydrated.
 
 ```ts
 requireAccess(policy, { action: "view", subject: "BACKOFFICE_ACCESS" });
 ```
 
-**useMenuFilter(items)**: Recursively filters a menu tree based on each item's `permission` property. Items without a `permission` are always shown. If all children of a parent are filtered out, the parent is removed too.
+**useMenuFilter(items)**: Recursively filters a menu tree based on each item's `permission` property (`{ action, subject }`). Items without a `permission` are always shown. If all children of a parent are filtered out, the parent is removed too.
 
 ```tsx
 const filtered = useMenuFilter(menuItems);
@@ -215,9 +208,9 @@ CASL was chosen because it provides a well-tested, isomorphic authorization mode
 
 Alternatives considered:
 
-- **Custom permission maps** --- simpler but lack the composability and condition support that CASL provides
-- **Role-only checks** --- insufficient for fine-grained resource-level permissions
-- **Server-side only** --- adds latency to every UI interaction and requires network connectivity
+- **Custom permission maps**: simpler but lack the composability and condition support that CASL provides
+- **Role-only checks**: insufficient for fine-grained resource-level permissions
+- **Server-side only**: adds latency to every UI interaction and requires network connectivity
 
 ### Why the Adapter Pattern?
 
@@ -225,7 +218,7 @@ Authorization data arrives in many formats: JWT claims, API responses, static co
 
 ### Why Opt-In Access Control?
 
-`useCan` returns `true` when used outside an `AccessProvider`. This makes access control opt-in --- applications can add authorization incrementally without wrapping every component tree in a provider. Components that use `useCan` work in both access-controlled and uncontrolled contexts.
+`useCan` returns `true` when used outside an `AccessProvider`. This makes access control opt-in: applications can add authorization incrementally without wrapping every component tree in a provider. Components that use `useCan` work in both access-controlled and uncontrolled contexts.
 
 ### Why Separate from Auth?
 
@@ -249,5 +242,5 @@ The access package depends on `@simplix-react/auth` only through the minimal `Au
 
 ## Related
 
-- [Authentication](./authentication.md) --- how auth tokens are managed and refreshed
-- [API Contracts](./api-contracts.md) --- how contracts define the entity surface that access controls protect
+- [Authentication](./authentication.md): how auth tokens are managed and refreshed
+- [API Contracts](./api-contracts.md): how contracts define the entity surface that access controls protect

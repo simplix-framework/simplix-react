@@ -1,5 +1,7 @@
 # LLM Coding Agent Integration
 
+**English** | [한국어](../../ko/guides/llm-integration.md)
+
 > How to provide context so that LLM coding agents can accurately understand and generate code for simplix-react.
 
 ## Before You Begin
@@ -14,17 +16,21 @@ simplix-react provides several resources for LLM agents. Choose the appropriate 
 | Resource | URL | Description |
 | --- | --- | --- |
 | llms.txt | `https://raw.githubusercontent.com/simplix-framework/simplix-react/main/docs/llms.txt` | Navigation index with links |
-| Claude Code Skill | `https://raw.githubusercontent.com/simplix-framework/simplix-react/main/skills/simplix-react.skill` | Claude Code skill package |
+| Claude Code skill | `https://github.com/simplix-framework/simplix-react/tree/main/skills/simplix-react` | Skill folder: `SKILL.md` and its `references/` |
+| Skill manifest | `https://raw.githubusercontent.com/simplix-framework/simplix-react/main/skills/simplix-react.skill` | Name, version, entry file and reference files of the skill |
 | README | `https://raw.githubusercontent.com/simplix-framework/simplix-react/main/README.md` | Project overview |
 
 ## Agent-Specific Setup
 
 ### Claude Code
 
-Provides the deepest level of integration. Install the simplix-react skill to instantly load framework context with the `/simplix-react` command.
+Provides the deepest level of integration. Copy the skill folder `skills/simplix-react/` into `.claude/skills/` of your project (or `~/.claude/skills/` for every project). Claude Code loads the skill when a task matches its description, and the `/simplix-react` command loads it on demand.
 
 ```bash
-claude skill add https://raw.githubusercontent.com/simplix-framework/simplix-react/main/skills/simplix-react.skill
+git clone --depth 1 https://github.com/simplix-framework/simplix-react.git simplix-react-src
+mkdir -p .claude/skills
+cp -R simplix-react-src/skills/simplix-react .claude/skills/
+rm -rf simplix-react-src
 ```
 
 Alternatively, add a direct reference in CLAUDE.md:
@@ -38,13 +44,7 @@ Reference: https://raw.githubusercontent.com/simplix-framework/simplix-react/mai
 
 ### OpenAI Codex
 
-Inject llms.txt content into the system prompt:
-
-```bash
-codex --instructions "$(curl -s https://raw.githubusercontent.com/simplix-framework/simplix-react/main/docs/llms.txt | head -500)"
-```
-
-Or create a `.codex/instructions.md` file to permanently set up framework context:
+Codex reads `AGENTS.md` at the repository root. Add the framework context there:
 
 ```markdown
 ## Framework: simplix-react
@@ -63,9 +63,9 @@ Add context to the `.cursor/rules` file in the project root:
 This project uses simplix-react, a contract-driven React framework.
 
 Core pipeline:
-1. defineApi() — Zod schemas → { config, client, queryKeys }
-2. deriveEntityHooks() — contract → React Query hooks
-3. deriveMockHandlers() — contract → MSW handlers (backed by in-memory stores)
+1. defineApi(): Zod schemas → { config, client, queryKeys }
+2. deriveEntityHooks(): contract → React Query hooks
+3. deriveMockHandlers(): contract → MSW handlers (backed by in-memory stores)
 
 Key rules:
 - Entity ≠ model; derive ≠ generate; contract ≠ schema
@@ -85,9 +85,9 @@ Create a `.windsurfrules` file in the project root:
 This project uses simplix-react, a contract-driven React framework.
 
 Core pipeline:
-1. defineApi() — Zod schemas → { config, client, queryKeys }
-2. deriveEntityHooks() — contract → React Query hooks
-3. deriveMockHandlers() — contract → MSW handlers (backed by in-memory stores)
+1. defineApi(): Zod schemas → { config, client, queryKeys }
+2. deriveEntityHooks(): contract → React Query hooks
+3. deriveMockHandlers(): contract → MSW handlers (backed by in-memory stores)
 
 Key rules:
 - Entity ≠ model; derive ≠ generate; contract ≠ schema
@@ -107,9 +107,9 @@ Create a `.github/copilot-instructions.md` file in the project:
 This project uses simplix-react, a contract-driven React framework.
 
 Core pipeline:
-1. defineApi() — Zod schemas → { config, client, queryKeys }
-2. deriveEntityHooks() — contract → React Query hooks
-3. deriveMockHandlers() — contract → MSW handlers (backed by in-memory stores)
+1. defineApi(): Zod schemas → { config, client, queryKeys }
+2. deriveEntityHooks(): contract → React Query hooks
+3. deriveMockHandlers(): contract → MSW handlers (backed by in-memory stores)
 
 Key rules:
 - Entity ≠ model; derive ≠ generate; contract ≠ schema
@@ -117,11 +117,12 @@ Key rules:
 - File naming: kebab-case
 
 Package map:
-- @simplix-react/contract — defineApi, EntityDefinition, OperationDefinition
-- @simplix-react/react — deriveEntityHooks
-- @simplix-react/mock — deriveMockHandlers, setupMockWorker
-- @simplix-react/i18n — createI18nConfig, I18nextAdapter
-- @simplix-react/cli — project scaffolding
+- @simplix-react/contract: defineApi, EntityDefinition, OperationDefinition
+- @simplix-react/react: deriveEntityHooks
+- @simplix-react/form: deriveEntityFormHooks
+- @simplix-react/mock: deriveMockHandlers, setupMockWorker
+- @simplix-react/i18n: createI18nConfig, I18nextAdapter
+- @simplix-react/cli: project scaffolding
 
 Full docs: https://raw.githubusercontent.com/simplix-framework/simplix-react/main/docs/llms.txt
 ```
@@ -144,9 +145,9 @@ Create a `.clinerules` file in the project root:
 This project uses simplix-react, a contract-driven React framework.
 
 Core pipeline:
-1. defineApi() — Zod schemas → { config, client, queryKeys }
-2. deriveEntityHooks() — contract → React Query hooks
-3. deriveMockHandlers() — contract → MSW handlers (backed by in-memory stores)
+1. defineApi(): Zod schemas → { config, client, queryKeys }
+2. deriveEntityHooks(): contract → React Query hooks
+3. deriveMockHandlers(): contract → MSW handlers (backed by in-memory stores)
 
 Key rules:
 - Entity ≠ model; derive ≠ generate; contract ≠ schema
@@ -188,14 +189,14 @@ curl -o docs/llms.txt https://raw.githubusercontent.com/simplix-framework/simpli
 A universal context block that can be used with any LLM agent. Copy and paste it into the agent's configuration file or system prompt.
 
 ```markdown
-## simplix-react — Package-first React Framework
+## simplix-react: Package-first React Framework
 
 This project uses simplix-react, a contract-driven React framework.
 
 ### Core Pipeline
-1. defineApi() — Zod schemas → { config, client, queryKeys }
-2. deriveEntityHooks() — contract → React Query hooks (useList, useGet, useCreate, useUpdate, useDelete, useInfiniteList)
-3. deriveMockHandlers() — contract → MSW handlers (backed by in-memory stores)
+1. defineApi(): Zod schemas → { config, client, queryKeys }
+2. deriveEntityHooks(): contract → React Query hooks (useList, useGet, useCreate, useUpdate, useDelete, useInfiniteList, useTree)
+3. deriveMockHandlers(): contract → MSW handlers (backed by in-memory stores)
 
 ### Key Rules
 - Entity ≠ model; derive ≠ generate; contract ≠ schema
@@ -204,12 +205,13 @@ This project uses simplix-react, a contract-driven React framework.
 - Always use simpleQueryBuilder unless custom pagination needed
 
 ### Package Map
-- @simplix-react/contract — defineApi, EntityDefinition, OperationDefinition
-- @simplix-react/react — deriveEntityHooks
-- @simplix-react/mock — deriveMockHandlers, setupMockWorker
-- @simplix-react/i18n — createI18nConfig, I18nextAdapter
-- @simplix-react/testing — test utilities
-- @simplix-react/cli — project scaffolding
+- @simplix-react/contract: defineApi, EntityDefinition, OperationDefinition
+- @simplix-react/react: deriveEntityHooks
+- @simplix-react/form: deriveEntityFormHooks
+- @simplix-react/mock: deriveMockHandlers, setupMockWorker
+- @simplix-react/i18n: createI18nConfig, I18nextAdapter
+- @simplix-react/testing: test utilities
+- @simplix-react/cli: project scaffolding
 
 ### Full Docs
 https://raw.githubusercontent.com/simplix-framework/simplix-react/main/docs/llms.txt
@@ -258,6 +260,6 @@ Test prompts to verify that the agent correctly understands simplix-react contex
 
 ## Related
 
-- [Quick Start](../getting-started/quick-start.md) -- Build a feature in 5 minutes
-- [API Contracts](../core-concepts/api-contracts.md) -- Deep dive into contract design
-- [Testing with Mocks](./testing-with-mocks.md) -- Test setup with the mock layer
+- [Quick Start](../getting-started/quick-start.md): build a feature in 5 minutes
+- [API Contracts](../core-concepts/api-contracts.md): deep dive into contract design
+- [Testing with Mocks](./testing-with-mocks.md): test setup with the mock layer

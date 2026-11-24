@@ -1,10 +1,12 @@
 # Cache Invalidation
 
+**English** | [한국어](../../ko/core-concepts/cache-invalidation.md)
+
 ## Overview
 
 Cache invalidation in simplix-react is automatic and convention-driven. When a mutation succeeds (create, update, or delete), the framework invalidates the appropriate TanStack Query cache entries without requiring any manual intervention from the developer. This behavior is built into the derived hooks and driven by the query key structure.
 
-The fundamental problem that cache invalidation solves is ensuring that data displayed in the UI stays consistent with the server after mutations. Without automatic invalidation, developers must manually specify which queries to refetch after every mutation --- a process that is tedious, error-prone, and frequently forgotten. simplix-react eliminates this burden by encoding invalidation rules into the derivation pipeline itself.
+The fundamental problem that cache invalidation solves is ensuring that data displayed in the UI stays consistent with the server after mutations. Without automatic invalidation, developers must manually specify which queries to refetch after every mutation, a process that is tedious, error-prone, and frequently forgotten. simplix-react eliminates this burden by encoding invalidation rules into the derivation pipeline itself.
 
 The strategy is deliberately conservative: mutations invalidate broadly rather than surgically. When a task is updated, all task queries (both lists and details) are marked as stale, not just the specific list or detail that contains the changed item. This simplicity trades a small amount of unnecessary refetching for a guarantee that the UI never shows stale data.
 
@@ -20,6 +22,8 @@ Every query key in simplix-react follows a hierarchical structure rooted in the 
 [domain, entityName, "list", { ...params }]   // specific list with filters
 [domain, entityName, "detail"]                // all details
 [domain, entityName, "detail", id]            // specific detail by ID
+[domain, entityName, "tree"]                  // all trees
+[domain, entityName, "tree", { ...params }]   // specific tree with parameters
 ```
 
 For example, with `domain: "project"` and an entity named `task`:
@@ -32,13 +36,18 @@ queryKeys.task.list({ status: "open" })
 queryKeys.task.details()        // ["project", "task", "detail"]
 queryKeys.task.detail("abc-123")
                                 // ["project", "task", "detail", "abc-123"]
+queryKeys.task.trees()          // ["project", "task", "tree"]
 ```
 
-This hierarchy is critical because TanStack Query's `invalidateQueries` uses prefix matching by default. Invalidating `["project", "task"]` matches every key that starts with those two segments --- which includes all lists and all details for that entity.
+`useInfiniteList` adds `infinite: true` to its list parameters, and a custom `GET` operation of an entity uses `list({ operation: <name>, ...params })`, so both also sit under the entity's root key.
+
+This hierarchy is critical because TanStack Query's `invalidateQueries` uses prefix matching by default. Invalidating `["project", "task"]` matches every key that starts with those two segments, which includes all lists, details, and trees for that entity.
+
+![Invalidating the root key of an entity reaches every list, detail, and tree key under it, because invalidateQueries matches by prefix](../../assets/figures/concepts-cache-invalidation-key-hierarchy.en.svg)
 
 ### Entity Mutation Invalidation
 
-The derived entity hooks (`useCreate`, `useUpdate`, `useDelete`) all invalidate using `keys.all` --- the root key for the entity:
+The derived entity hooks (`useCreate`, `useUpdate`, `useDelete`) all invalidate using `keys.all`, the root key for the entity:
 
 ```ts
 // useCreate - invalidates on success
@@ -61,24 +70,19 @@ This means that after any mutation on an entity, **all queries for that entity**
 
 ### Optimistic Updates
 
-The `useUpdate` hook supports an `optimistic` mode that provides instant UI feedback before the server responds:
-
-```ts
-const updateTask = hooks.task.useUpdate({ optimistic: true });
-updateTask.mutate({ id: taskId, dto: { status: "done" } });
-```
+The `useUpdate` hook has an `optimistic` mode that updates the UI before the server responds. The hook applies an optimistic update when it is given `optimistic: true`, but the option is missing from the hook's type, so a type-checked call cannot pass it.
 
 When optimistic mode is enabled, the mutation lifecycle follows this sequence:
 
-1. **onMutate** --- cancels in-flight queries for the entity, snapshots all list data, and optimistically patches the matching item in every list cache
-2. **onError** --- rolls back all list caches to their snapshots
-3. **onSettled** --- invalidates `keys.all` regardless of success or failure, triggering a refetch to reconcile with the server
+1. **onMutate**: cancels in-flight queries for the entity, snapshots all list data, and optimistically patches the matching item in every list cache
+2. **onError**: rolls back all list caches to their snapshots
+3. **onSettled**: invalidates `keys.all` regardless of success or failure, triggering a refetch to reconcile with the server
 
 This ensures that the UI updates immediately, but the final state always reflects the server's response.
 
 ### Operation Invalidation
 
-Custom operations use a declarative `invalidates` function defined in the contract:
+Top-level operations and the custom operations of an entity use a declarative `invalidates` function defined in the contract:
 
 ```ts
 const assignTask = {
@@ -92,7 +96,7 @@ const assignTask = {
 };
 ```
 
-The `invalidates` function receives all query key factories and the resolved path parameters, and returns an array of query keys to invalidate. The derived `useMutation` hook calls this function after a successful mutation:
+The `invalidates` function receives the query key factories and a path parameter object, and returns an array of query keys to invalidate. The derived `useMutation` hook of a top-level operation calls this function after a successful mutation, passing every entity's query key factory and an empty parameter object:
 
 ```ts
 onSuccess: () => {
@@ -104,6 +108,8 @@ onSuccess: () => {
   }
 }
 ```
+
+A custom mutation operation of an entity that declares no `invalidates` invalidates `keys.all` of its entity, and a top-level operation without `invalidates` invalidates nothing. For a custom operation of an entity, the hook calls `invalidates` with a map holding one entry, keyed by the operation name and holding the entity's query key factory, and an empty parameter object: inside the `archive` operation, `queryKeys.archive.all` is the entity's `all` key, and the keys of other entities are not in the map. The cross-entity example below is therefore for a top-level operation.
 
 This gives operations fine-grained control over cross-entity invalidation. An operation that modifies both tasks and projects can invalidate both:
 
@@ -127,7 +133,7 @@ hooks.task.useList("project-2");
 // query key: ["project", "task", "list", { projectId: "project-2" }]
 ```
 
-Because invalidation targets `keys.all` (which is `["project", "task"]`), a mutation on any task invalidates task lists for **all** parent scopes. This is intentional --- it is safer to over-invalidate than to miss a stale cache entry. If a task is moved from one project to another, both project's task lists need to refetch.
+Because invalidation targets `keys.all` (which is `["project", "task"]`), a mutation on any task invalidates task lists for **all** parent scopes. This is intentional: it is safer to over-invalidate than to miss a stale cache entry. If a task is moved from one project to another, both project's task lists need to refetch.
 
 ## Design Decisions
 
@@ -139,17 +145,17 @@ A surgical approach would update only the specific cache entries affected by a m
 - It breaks when the mutation changes fields that affect sort order or filter inclusion
 - It creates subtle bugs when new list queries are added but the invalidation logic is not updated
 
-Broad invalidation (`keys.all`) is correct by default. The cost --- a few extra refetches --- is negligible in most applications, especially since TanStack Query deduplicates concurrent requests and only refetches queries that are actively observed by mounted components.
+Broad invalidation (`keys.all`) is correct by default. The cost, a few extra refetches, is negligible in most applications, especially since TanStack Query deduplicates concurrent requests and only refetches queries that are actively observed by mounted components.
 
 ### Why Optimistic Updates Are Opt-In
 
-Optimistic updates add complexity (snapshot management, rollback logic, reconciliation). They are valuable for high-frequency interactions where perceived latency matters, but unnecessary for most CRUD operations. Making them opt-in (`{ optimistic: true }`) keeps the default path simple while providing the capability for use cases that need it.
+Optimistic updates add complexity (snapshot management, rollback logic, reconciliation). They are valuable for high-frequency interactions where perceived latency matters, but unnecessary for most CRUD operations. Making them opt-in (`optimistic: true`) keeps the default path simple while providing the capability for use cases that need it.
 
 ### Why Operations Declare Their Invalidation Targets
 
 Entity mutations have predictable invalidation targets (the entity itself), so the framework can handle them automatically. Operations, however, may affect any combination of entities, and only the developer knows which ones. Rather than guessing, the framework provides the `invalidates` function as a declarative escape hatch.
 
-This keeps the contract as the single source of truth --- invalidation rules live alongside the operation definition, not scattered across component code.
+This keeps the contract as the single source of truth: invalidation rules live alongside the operation definition, not scattered across component code.
 
 ## Manual Invalidation with `useInvalidateEntity`
 
@@ -163,14 +169,14 @@ import { useInvalidateEntity } from "@simplix-react/ui";
 const invalidate = useInvalidateEntity("/api/v1/holiday-type");
 ```
 
-The returned function invalidates all queries whose first key element starts with the given URL prefix. It returns a `Promise<void>` that resolves when all matching queries have been refetched.
+The returned function invalidates all queries whose first key element is a string starting with the given URL prefix; `readsUnder(apiPrefix)` exposes the same test as a predicate for `invalidateQueries`. A domain generated from SimpliX Meta exports each entity's prefix as `<entity>EntityPath`; pass that rather than typing the route. It returns a `Promise<void>` that resolves when all matching queries have been refetched.
 
 ### Fire-and-Forget (CrudForm, Scaffolded Code)
 
 When the component navigates away after save, awaiting is unnecessary:
 
 ```ts
-// OK --- component unmounts after save, no stale flash risk
+// OK: component unmounts after save, no stale flash risk
 adaptOrvalCreate(_create, { onSettled: invalidate });
 adaptOrvalUpdate(_update, "id", { onSettled: invalidate });
 ```
@@ -180,10 +186,10 @@ adaptOrvalUpdate(_update, "id", { onSettled: invalidate });
 When the component stays mounted after save and resets local state, the invalidation **must** be awaited to prevent a brief flash of stale cached data:
 
 ```ts
-// REQUIRED --- inline editor that resets draft state after save
+// REQUIRED: inline editor that resets draft state after save
 await saveAll.mutateAsync({ data: { items } });
 await invalidate();   // wait for refetch to complete
-reset();              // now safe --- UI shows fresh server data
+reset();              // now safe: UI shows fresh server data
 ```
 
 Without `await`, `reset()` runs before the refetch completes, causing the component to render with stale cache data for one frame.

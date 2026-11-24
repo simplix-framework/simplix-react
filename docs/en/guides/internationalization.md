@@ -1,5 +1,7 @@
 # How to Add Internationalization to Your App
 
+**English** | [한국어](../../ko/guides/internationalization.md)
+
 > Set up multi-language support in a simplix-react application using `@simplix-react/i18n`.
 
 ## Before You Begin
@@ -14,9 +16,9 @@ pnpm add @simplix-react/i18n
 
 ## Solution
 
-### Step 1 -- Create Translation Files
+### Step 1: Create Translation Files
 
-Organize translations by namespace and locale. Each namespace gets its own directory with one JSON file per locale:
+Organize translations by namespace and locale. Each namespace gets its own directory with one JSON file per locale. `createI18nConfig` reads the namespace and the locale from the path `/locales/<namespace>/<locale>.json`, so a nested directory such as `locales/dashboard/header/ko.json` is the namespace `dashboard/header`:
 
 ```text
 src/
@@ -50,7 +52,7 @@ src/
 }
 ```
 
-### Step 2 -- Configure i18n
+### Step 2: Configure i18n
 
 Use `createI18nConfig` to initialize the adapter. Vite's `import.meta.glob` loads all translation files eagerly at build time:
 
@@ -75,11 +77,24 @@ export const { adapter, i18nReady } = createI18nConfig({
 | Return value | Type | Description |
 | --- | --- | --- |
 | `adapter` | `I18nextAdapter` | The configured adapter instance |
-| `i18nReady` | `Promise<void>` | Resolves when all translations (including module translations) are loaded |
+| `i18nReady` | `Promise<void>` | Resolves when all translations (including module and domain translations) are loaded |
 
-### Step 3 -- Wrap Your App with I18nProvider
+![createI18nConfig merges the application JSON, the module translations and the domain translations into one adapter before i18nReady resolves](../../assets/figures/guides-internationalization-resource-loading.en.svg)
 
-The `I18nProvider` component exposes the adapter to all descendant components via React context. Wait for `i18nReady` before rendering:
+The other options:
+
+| Option | Default | Purpose |
+| --- | --- | --- |
+| `defaultLocale` | `"en"` | The locale activated when detection finds none |
+| `fallbackLocale` | `"en"` | The locale used for a missing key |
+| `supportedLocales` | `DEFAULT_LOCALES` | Locale codes or `LocaleConfig` objects; a code is looked up in `DEFAULT_LOCALES` |
+| `detection` | none | `{ order: ("localStorage" \| "navigator")[], storageKey? }`; with `"localStorage"` in `order`, every locale switch is saved under `storageKey` (`"i18n:locale"`) |
+| `moduleTranslations` | `[]` | Descriptors from `buildModuleTranslations` |
+| `debug` | `false` | i18next debug logging |
+
+### Step 3: Wrap Your App with I18nProvider
+
+The `I18nProvider` component exposes the adapter to all descendant components via React context and keeps `<html lang>` equal to the active locale. Wait for `i18nReady` before rendering:
 
 ```tsx
 // src/main.tsx
@@ -104,11 +119,11 @@ async function bootstrap() {
 bootstrap();
 ```
 
-### Step 4 -- Use Translation Hooks in Components
+### Step 4: Use Translation Hooks in Components
 
-#### useTranslation -- Namespace-Scoped Translations
+#### useTranslation: Namespace-Scoped Translations
 
-The primary hook for translating text. It scopes all lookups to a single namespace and re-renders automatically on locale changes:
+The primary hook for translating text. It scopes all lookups to a single namespace and re-renders automatically on locale changes and when translations arrive later. Outside an `I18nProvider`, `t` returns the key:
 
 ```tsx
 import { useTranslation } from "@simplix-react/i18n/react";
@@ -133,7 +148,7 @@ The returned object contains:
 | `locale` | `string` | Currently active locale code |
 | `exists` | `(key) => boolean` | Checks whether a key exists |
 
-#### useLocale -- Reactive Locale Code
+#### useLocale: Reactive Locale Code
 
 Returns only the active locale code. Re-renders on locale change:
 
@@ -146,9 +161,9 @@ function LocaleBadge() {
 }
 ```
 
-#### useI18n -- Direct Adapter Access
+#### useI18n: Direct Adapter Access
 
-Returns the full `II18nAdapter` instance for advanced operations (formatting, locale info, programmatic locale switching):
+Returns the full `II18nAdapter` instance for advanced operations (formatting, locale info, programmatic locale switching), or `null` outside an `I18nProvider`:
 
 ```tsx
 import { useI18n } from "@simplix-react/i18n/react";
@@ -161,9 +176,29 @@ function PriceDisplay({ amount }: { amount: number }) {
 }
 ```
 
-### Step 5 -- Switch Locales at Runtime
+### Step 5: Switch Locales at Runtime
 
-Use the adapter's `setLocale` method. All hooks subscribed via `useSyncExternalStore` re-render automatically:
+For a ready-made list of locales with their names written in each locale's own language, use `useLocalePicker`:
+
+```tsx
+import { useLocalePicker } from "@simplix-react/i18n/react";
+
+function LocaleMenu() {
+  const { locale, locales, setLocale } = useLocalePicker();
+
+  return (
+    <select value={locale} onChange={(e) => setLocale(e.target.value)}>
+      {locales.map((option) => (
+        <option key={option.value} value={option.value}>
+          {option.displayName}
+        </option>
+      ))}
+    </select>
+  );
+}
+```
+
+To build the control yourself, use the adapter's `setLocale` method. All hooks subscribed via `useSyncExternalStore` re-render automatically:
 
 ```tsx
 import { useI18n } from "@simplix-react/i18n/react";
@@ -190,7 +225,7 @@ function LocaleSwitcher() {
 }
 ```
 
-### Step 6 -- Sync Locale to API Requests (Accept-Language Header)
+### Step 6: Sync Locale to API Requests (Accept-Language Header)
 
 When your server returns localized responses based on the `Accept-Language` header, wire the i18n adapter to `@simplix-react/api` so that every API request includes the app's active locale:
 
@@ -215,7 +250,7 @@ i18nAdapter.onLocaleChange(setRequestLocale);
 i18nReady.then(() => setRequestLocale(i18nAdapter.locale));
 ```
 
-Two lines do all the work:
+Two lines do the work:
 
 | Line | Purpose |
 | --- | --- |
@@ -237,7 +272,7 @@ Accept-Language: en
 
 ### Lazy-Loading Module Translations
 
-For large apps, split translations per module using `buildModuleTranslations`. Module translations are loaded on demand rather than bundled eagerly:
+For large apps, split translations per module using `buildModuleTranslations`. Each JSON file stays in its own chunk, and `i18nReady` loads the chunks of every locale the module lists:
 
 ```ts
 // modules/dashboard/src/locales/index.ts
@@ -278,7 +313,9 @@ export const { adapter, i18nReady } = createI18nConfig({
 });
 ```
 
-Module translations are namespaced as `dashboard/header`, `dashboard/sidebar`, etc. Use them in components:
+A module package can instead call `registerModuleTranslations(dashboardTranslations)` in its entry point; `createI18nConfig` loads every registered descriptor, including one registered after `i18nReady` resolved.
+
+Module translations are namespaced as `dashboard/header`, `dashboard/sidebar`, etc. An application file at `locales/dashboard/header/<locale>.json` overrides the module's values key by key. Use them in components:
 
 ```tsx
 const { t } = useTranslation("dashboard/header");
@@ -287,7 +324,7 @@ t("title"); // looks up "dashboard/header:title"
 
 ### Custom Locale Configuration
 
-Override the built-in locales (ko, en, ja) with custom `LocaleConfig` entries:
+Replace the built-in `DEFAULT_LOCALES` list with your own `LocaleConfig` entries (`timeFormat` is also available):
 
 ```ts
 import { createI18nConfig } from "@simplix-react/i18n";
@@ -348,6 +385,40 @@ function OrderSummary({ total, date }: { total: number; date: Date }) {
 }
 ```
 
+### Domain Translations and Entity Labels
+
+A domain package registers its field and enum labels with `registerDomainTranslations`. Each top-level key of the JSON becomes the namespace `entity/<key>`, and the key `enums` becomes the namespace `enums`:
+
+```ts
+import { registerDomainTranslations } from "@simplix-react/i18n";
+
+registerDomainTranslations({
+  domain: "pet",
+  locales: {
+    en: () => import("./locales/en.json"),
+    ko: () => import("./locales/ko.json"),
+  },
+});
+```
+
+`useEntityTranslation` reads those labels:
+
+```tsx
+import { useEntityTranslation } from "@simplix-react/i18n/react";
+
+function PetStatus({ status }: { status: string }) {
+  const { fieldLabel, enumLabel } = useEntityTranslation("pet");
+
+  return (
+    <span>
+      {fieldLabel("status")}: {enumLabel("PetStatus", status)}
+    </span>
+  );
+}
+```
+
+`fieldLabel("status")` looks up `fields.status` in `entity/pet`, and `enumLabel("PetStatus", status)` looks up `PetStatus.<status>` in `enums`.
+
 ### Type-Safe Translation Keys with i18n-codegen
 
 Generate TypeScript types from your JSON files to catch missing keys at compile time:
@@ -356,18 +427,18 @@ Generate TypeScript types from your JSON files to catch missing keys at compile 
 simplix i18n-codegen
 ```
 
-This produces `keys.d.ts` files alongside your locale JSON. Use the generated type with `useTranslation`:
+Run it from the project root. It scans every module under `modules/` for `src/locales/` directories, and in each directory that holds JSON files it writes `keys.d.ts` with a type named after the directory (`header` gives `HeaderKeys`), taking the keys from `en.json` or else the first JSON file. `--watch` regenerates on change. Use the generated type with `useTranslation`:
 
 ```tsx
-import type { CommonKeys } from "../locales/keys.d.ts";
+import type { HeaderKeys } from "../locales/header/keys";
 
-const { t } = useTranslation<CommonKeys>("common");
+const { t } = useTranslation<HeaderKeys>("dashboard/header");
 t("greeting"); // ✔ type-checked
 t("typo");     // ✖ compile error
 ```
 
 ## Related
 
-- [CLI Usage](./cli-usage.md) -- `simplix init` with i18n, `simplix i18n-codegen`
-- [Testing with Mocks](./testing-with-mocks.md) -- Testing components that use i18n
-- [@simplix-react/i18n source](../../packages/i18n/src/)
+- [CLI Usage](./cli-usage.md): `simplix init` with i18n, `simplix i18n-codegen`
+- [Testing with Mocks](./testing-with-mocks.md): Testing components that use i18n
+- [@simplix-react/i18n API Reference](../../api/@simplix-react/i18n/README.md): Full API documentation

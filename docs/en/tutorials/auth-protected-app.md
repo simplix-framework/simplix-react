@@ -1,10 +1,12 @@
 # Build a Protected App with Authentication
 
-> After completing this tutorial, you will have a React application with login/logout functionality, automatic token refresh, protected routes, and authenticated API requests --- all built with `@simplix-react/auth` and `@simplix-react/contract`.
+**English** | [한국어](../../ko/tutorials/auth-protected-app.md)
+
+> After completing this tutorial, you will have a React application with login/logout functionality, automatic token refresh, protected routes, and authenticated API requests, all built with `@simplix-react/auth` and `@simplix-react/contract`.
 
 ## Prerequisites
 
-- Node.js 18+
+- Node.js 20+
 - pnpm installed globally
 - Completed the [Project Management App tutorial](./project-app.md) or equivalent familiarity with `defineApi` and `deriveEntityHooks`
 
@@ -74,10 +76,10 @@ export const auth = createAuth({
 This configures:
 
 - Bearer token authentication with `localStorage` persistence
-- Automatic token refresh 60 seconds before expiry
+- A token refresh before any request made within 60 seconds of the access token expiry, and a refresh and retry after a 401 response
 - Redirect to `/login` when refresh fails
 
-**Expected result:** The file compiles without errors. The `auth` object has `fetchFn`, `isAuthenticated`, `setTokens`, `clear`, and `subscribe` methods.
+**Expected result:** The file compiles without errors. The `auth` object has `fetchFn`, `isAuthenticated`, `getAccessToken`, `setTokens`, `clear`, `subscribe`, `rehydrate`, `getUser`, and `setUser`.
 
 ## Step 3: Connect Auth to the API Contract
 
@@ -117,10 +119,14 @@ export const projectApi = defineApi(
     basePath: "/api/v1",
     entities: {
       project: {
-        path: "/projects",
         schema: projectSchema,
-        createSchema: createProjectSchema,
-        updateSchema: updateProjectSchema,
+        operations: {
+          list: { method: "GET", path: "/projects" },
+          get: { method: "GET", path: "/projects/:id" },
+          create: { method: "POST", path: "/projects", input: createProjectSchema },
+          update: { method: "PATCH", path: "/projects/:id", input: updateProjectSchema },
+          delete: { method: "DELETE", path: "/projects/:id" },
+        },
       },
     },
     queryBuilder: simpleQueryBuilder,
@@ -129,7 +135,7 @@ export const projectApi = defineApi(
 );
 ```
 
-The only change is passing `auth.fetchFn` to `defineApi`. Every API request now automatically carries the Bearer token, handles 401 responses, and refreshes the token when needed.
+The only change is passing `auth.fetchFn` as the second argument of `defineApi`. Every API request now carries the Bearer token, and a 401 response triggers a token refresh followed by one retry (`maxRetries` defaults to `1`).
 
 **Expected result:** The file compiles. All existing hooks derived from `projectApi` now make authenticated requests without any changes.
 
@@ -291,6 +297,8 @@ When the user clicks "Logout":
 
 Assemble the components into the main app with `AuthProvider`.
 
+![The login page stores tokens in the auth instance, every API request carries the Bearer token through auth.fetchFn, and logout clears the store so the route guard redirects to /login](../../assets/figures/tutorials-auth-protected-app-flow.en.svg)
+
 Update `src/App.tsx`:
 
 ```tsx
@@ -346,12 +354,12 @@ Verify the complete authentication flow works end-to-end.
 
 ### Manual Testing Checklist
 
-1. Open the app in a browser --- you should be redirected to `/login`
-2. Enter credentials and submit --- you should be redirected to the project list
-3. Open DevTools Network tab --- all API requests should have an `Authorization: Bearer ...` header
-4. Wait for the token to approach expiry --- a refresh request should fire automatically
-5. Click "Logout" --- you should be redirected to `/login`
-6. Open a new tab --- the auth state should persist (tokens are in `localStorage`)
+1. Open the app in a browser: you are redirected to `/login`
+2. Enter credentials and submit: you are redirected to the project list
+3. Open the DevTools Network tab: every API request has an `Authorization: Bearer ...` header
+4. Wait until the access token is within 60 seconds of expiry, then trigger an API request: a request to `/api/auth/refresh` is sent before it
+5. Click "Logout": you are redirected to `/login`
+6. Open a new tab: the auth state persists (tokens are in `localStorage`)
 
 ### Unit Testing Auth State
 
@@ -410,14 +418,14 @@ describe("auth flow", () => {
 });
 ```
 
-**Expected result:** All three tests pass, confirming the auth instance transitions between states correctly.
+**Expected result:** The tests pass, confirming the auth instance transitions between states correctly.
 
 ## Summary
 
 In this tutorial you:
 
 1. Installed `@simplix-react/auth` and created an auth instance with Bearer token support
-2. Connected the auth instance to `defineApi` via `fetchFn` --- existing hooks gained authentication with zero changes
+2. Connected the auth instance to `defineApi` via `fetchFn`, so existing hooks gained authentication with zero changes
 3. Built a login page that stores tokens via `useAuth().login()`
 4. Created a route guard that redirects unauthenticated users
 5. Added logout functionality with automatic state propagation via `useSyncExternalStore`

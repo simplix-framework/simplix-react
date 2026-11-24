@@ -1,12 +1,15 @@
 # Build a Project Management App from Scratch
 
+**English** | [한국어](../../ko/tutorials/project-app.md)
+
 > After completing this tutorial, you will have a fully functional project management app with CRUD operations for projects and tasks, built entirely with simplix-react.
 
 ## Prerequisites
 
-- Node.js 18+
+- Node.js 20+
 - pnpm installed globally
 - Basic knowledge of React, TypeScript, and TanStack Query
+- An HTTP API that serves the endpoints of Step 2 and Step 8 under `/api/v1` on the same origin as the app, or the in-memory mock of the [Full-Stack Mock tutorial](./full-stack-mock.md). The default fetch reads the payload from a `data` field when the response has one and uses the whole JSON body otherwise
 
 ## Step 1: Set Up the Project
 
@@ -15,7 +18,7 @@ Create a new React project and install the required simplix-react packages.
 ```bash
 pnpm create vite project-manager --template react-ts
 cd project-manager
-pnpm add @simplix-react/contract @simplix-react/react @tanstack/react-query zod
+pnpm add @simplix-react/contract @simplix-react/react @tanstack/react-query @tanstack/react-query-persist-client @tanstack/query-sync-storage-persister zod
 pnpm add -D @types/react @types/react-dom
 ```
 
@@ -25,11 +28,11 @@ Verify the installation succeeded:
 pnpm list @simplix-react/contract @simplix-react/react @tanstack/react-query zod
 ```
 
-**Expected result:** All four packages appear in the dependency list with their versions.
+**Expected result:** Every listed package appears in the dependency list with its version.
 
 ## Step 2: Define the Project Entity Contract
 
-Create the API contract that defines your project entity with Zod schemas and `defineApi`.
+Create the API contract that defines your project entity with Zod schemas and `defineApi`. An entity has a `schema` and an `operations` map; an operation named `list`, `get`, `create`, `update` or `delete` takes that CRUD role from its name.
 
 Create `src/contract.ts`:
 
@@ -63,10 +66,14 @@ export const projectApi = defineApi({
   basePath: "/api/v1",
   entities: {
     project: {
-      path: "/projects",
       schema: projectSchema,
-      createSchema: createProjectSchema,
-      updateSchema: updateProjectSchema,
+      operations: {
+        list: { method: "GET", path: "/projects" },
+        get: { method: "GET", path: "/projects/:id" },
+        create: { method: "POST", path: "/projects", input: createProjectSchema },
+        update: { method: "PATCH", path: "/projects/:id", input: updateProjectSchema },
+        delete: { method: "DELETE", path: "/projects/:id" },
+      },
     },
   },
   queryBuilder: simpleQueryBuilder,
@@ -88,13 +95,16 @@ import { projectApi } from "./contract";
 export const hooks = deriveEntityHooks(projectApi);
 ```
 
-This single call produces hooks for every CRUD operation:
+This single call derives one hook per operation, named `use` + the operation name, and `useInfiniteList` for the list operation:
 
-- `hooks.project.useList()` — fetch all projects
-- `hooks.project.useGet(id)` — fetch a single project
-- `hooks.project.useCreate()` — create a project
-- `hooks.project.useUpdate()` — update a project
-- `hooks.project.useDelete()` — delete a project
+- `hooks.project.useList()`: fetch all projects
+- `hooks.project.useGet(id)`: fetch a single project
+- `hooks.project.useCreate()`: create a project
+- `hooks.project.useUpdate()`: update a project
+- `hooks.project.useDelete()`: delete a project
+- `hooks.project.useInfiniteList()`: fetch projects page by page
+
+![The contract derives one hook per operation, components call the hooks, and every mutation invalidates the queries of its entity](../../assets/figures/tutorials-project-app-flow.en.svg)
 
 **Expected result:** The file compiles and `hooks.project` is fully typed with all entity hooks.
 
@@ -127,7 +137,7 @@ export function ProjectList({
             <button onClick={() => onSelect(project.id)}>
               {project.name}
             </button>
-            <span> — {project.status}</span>
+            <span> ({project.status})</span>
           </li>
         ))}
       </ul>
@@ -198,7 +208,7 @@ export function CreateProject() {
 }
 ```
 
-**Expected result:** Submitting the form creates a new project via POST. On success, the project list automatically refreshes because `useCreate` invalidates all project queries.
+**Expected result:** Submitting the form creates a new project via POST. On success, the project list automatically refreshes because `useCreate` invalidates every query of the project entity.
 
 ## Step 6: Add Project Editing
 
@@ -367,19 +377,27 @@ export const projectApi = defineApi({
   basePath: "/api/v1",
   entities: {
     project: {
-      path: "/projects",
       schema: projectSchema,
-      createSchema: createProjectSchema,
-      updateSchema: updateProjectSchema,
+      operations: {
+        list: { method: "GET", path: "/projects" },
+        get: { method: "GET", path: "/projects/:id" },
+        create: { method: "POST", path: "/projects", input: createProjectSchema },
+        update: { method: "PATCH", path: "/projects/:id", input: updateProjectSchema },
+        delete: { method: "DELETE", path: "/projects/:id" },
+      },
     },
     task: {
-      path: "/tasks",
       schema: taskSchema,
-      createSchema: createTaskSchema,
-      updateSchema: updateTaskSchema,
       parent: {
         param: "projectId",
         path: "/projects",
+      },
+      operations: {
+        list: { method: "GET", path: "/tasks" },
+        get: { method: "GET", path: "/tasks/:id" },
+        create: { method: "POST", path: "/tasks", input: createTaskSchema },
+        update: { method: "PATCH", path: "/tasks/:id", input: updateTaskSchema },
+        delete: { method: "DELETE", path: "/tasks/:id" },
       },
     },
   },
@@ -387,9 +405,9 @@ export const projectApi = defineApi({
 });
 ```
 
-The `parent` field tells the framework that tasks are nested under projects. This produces URLs like `/api/v1/projects/:projectId/tasks`.
+The `parent` field tells the framework that tasks are nested under projects. When you pass a project id, the `list` and `create` operations put `parent.path` and the id in front of their own path, which produces `/api/v1/projects/:projectId/tasks`. The `get`, `update` and `delete` operations keep their own path, `/api/v1/tasks/:id`.
 
-**Expected result:** `hooks.task` now exists alongside `hooks.project`. The task hooks automatically handle parent scoping — `useList` accepts a `projectId`, and `useCreate` scopes new tasks under the given project.
+**Expected result:** `hooks.task` now exists alongside `hooks.project`. The task hooks handle parent scoping: `useList` accepts a `projectId` and does not run until it has one, and `useCreate` scopes new tasks under the given project.
 
 ## Step 9: Create the TaskList Component with parentId
 
@@ -543,7 +561,7 @@ export default function App() {
 }
 ```
 
-**Expected result:** The app renders with a project creation form, a project list, and — when a project is selected — its tasks. All CRUD operations are fully wired with automatic cache invalidation.
+**Expected result:** The app renders with a project creation form, a project list, and the tasks of the selected project. All CRUD operations are fully wired with automatic cache invalidation.
 
 ## Summary
 
@@ -552,13 +570,13 @@ In this tutorial you:
 1. Defined an API contract with `defineApi` using Zod schemas for both project and task entities
 2. Derived type-safe React Query hooks with a single `deriveEntityHooks` call
 3. Built CRUD components (`useList`, `useGet`, `useCreate`, `useUpdate`, `useDelete`)
-4. Modeled a parent-child relationship between projects and tasks using the `parent` field
+4. Modeled a parent and child relationship between projects and tasks using the `parent` field
 5. Scoped task queries and mutations to a specific project via `parentId`
 
-All type safety flows from the Zod schemas — change a schema, and TypeScript catches every affected component at compile time.
+All type safety flows from the Zod schemas: change a schema, and TypeScript catches every affected component at compile time.
 
 **Next steps:**
 
 - Add a mock backend with `@simplix-react/mock` (see the [Full-Stack Mock tutorial](./full-stack-mock.md))
-- Add filtering and sorting with `ListParams`
+- Add filtering and sorting by passing `ListParams` to `useList`
 - Add infinite scrolling with `useInfiniteList`

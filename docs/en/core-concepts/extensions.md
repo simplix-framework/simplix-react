@@ -1,5 +1,7 @@
 # Extensions
 
+**English** | [한국어](../../ko/core-concepts/extensions.md)
+
 ## Overview
 
 Extensions provide environment-specific implementations for the abstract interfaces defined by core simplix-react packages. While core packages (`packages/`) are designed to be universally applicable and environment-agnostic, extensions address the needs of particular backend platforms, server frameworks, or infrastructure setups.
@@ -10,25 +12,21 @@ The core insight is that simplix-react's core packages define _what_ needs to ha
 
 Extensions follow a provider pattern: core packages define abstract interfaces, and extensions supply concrete implementations.
 
-```text
-Core Packages (environment-agnostic)          Extensions (environment-specific)
+![Core packages define the interfaces, the simplix-boot auth and access packages implement them for Spring Boot and the CLI plugin registers with the CLI, so components and hooks depend only on the interfaces](../../assets/figures/concepts-extensions-provider-pattern.en.svg)
 
-@simplix-react/auth                           @simplix-react-ext/simplix-boot-auth
-  AuthInstance, TokenPair, FetchFn      <---    createBootAuth()
+| Core package | Interface | simplix-boot package | Implementation |
+| --- | --- | --- | --- |
+| `@simplix-react/auth` | `AuthInstance`, `TokenPair`, `FetchFn` | `@simplix-react-ext/simplix-boot-auth` | `createBootAuth()` |
+| `@simplix-react/access` | `AccessAdapter`, `AccessPolicy` | `@simplix-react-ext/simplix-boot-access` | `createSpringAccessAdapter()`, `createBootAccessPolicy()` |
+| `@simplix-react/cli` | `registerPlugin()`, `registerSchemaAdapter()` | `@simplix-react-ext/simplix-boot-cli-plugin` | `simplixBootNaming`, `bootSchemaAdapter` |
 
-@simplix-react/access                         @simplix-react-ext/simplix-boot-access
-  AccessAdapter, AccessPolicy           <---    createSpringAccessAdapter()
-                                                createBootAccessPolicy()
+`simplix-boot-cli-plugin` implements no interface: its entry point registers with the CLI through `registerPlugin()` and `registerSchemaAdapter()`.
 
-@simplix-react/cli                            @simplix-react-ext/simplix-boot-cli-plugin
-  registerPlugin(), SchemaAdapter       <---    simplixBootNaming, bootSchemaAdapter
-```
-
-Your application code depends on core interfaces. At configuration time, you wire in the extension's implementation. If you later switch backends (e.g., from Spring Boot to a different framework), you swap the extension --- your components and hooks remain unchanged.
+Your components and hooks depend on core interfaces, and the application's bootstrap file imports the extension and wires in its implementation. If you later switch backends (e.g., from Spring Boot to a different framework), you swap the extension; your components and hooks remain unchanged.
 
 ### Naming Convention
 
-Extension packages follow the `@simplix-react-ext/` scope prefix:
+Backend extension packages follow the `@simplix-react-ext/` scope prefix:
 
 ```text
 @simplix-react-ext/<extension>-<sub-package>
@@ -39,7 +37,10 @@ For example, the simplix-boot extension produces:
 - `@simplix-react-ext/simplix-boot-auth`
 - `@simplix-react-ext/simplix-boot-access`
 - `@simplix-react-ext/simplix-boot-cli-plugin`
+- `@simplix-react-ext/simplix-boot-stream`
 - `@simplix-react-ext/simplix-boot-utils`
+
+The native extension, which targets React Native rather than a backend, uses its own scopes: `@simplix-react-native/*` for its core packages, `@simplix-react-native-ext/*` for device-layer packages, and the meta package `simplix-react-native`.
 
 ### Directory Structure
 
@@ -60,6 +61,7 @@ simplix-react/
         auth/                       #     Boot authentication
         access/                     #     Boot access control
         cli-plugin/                 #     CLI spec profile
+        stream/                     #     SSE streaming hooks
         utils/                      #     Boot-specific utilities
 ```
 
@@ -69,15 +71,17 @@ Extension sub-packages are registered in the root `pnpm-workspace.yaml` so they 
 
 ```yaml
 packages:
-  - "packages/*"
-  - "extensions/simplix-boot/packages/*"
+  - packages/*
+  - apps/*
+  - extensions/simplix-boot/packages/*
+  - extensions/native/packages/*
 ```
 
 This allows `pnpm build`, `pnpm test`, and Turborepo pipelines to include extension packages automatically.
 
 ### Peer Dependency Model
 
-Extension packages declare core packages as `peerDependencies` rather than direct dependencies. This avoids version duplication and ensures the extension uses the same instance of the core package as the consuming application:
+Extension packages declare the core packages they build on as `peerDependencies` rather than direct dependencies. This avoids version duplication and ensures the extension uses the same instance of the core package as the consuming application:
 
 ```json
 {
@@ -119,9 +123,14 @@ Adapters for SimpliX, a Spring Boot-based backend framework by SimpleCORE Inc. I
 | `@simplix-react-ext/simplix-boot-auth` | `@simplix-react/auth` | Spring Security authentication: token issue/refresh/revoke, user profile, Boot envelope handling, `ApiResponseError` |
 | `@simplix-react-ext/simplix-boot-access` | `@simplix-react/access` | Spring Security authorization: permission-to-CASL conversion, `AccessAdapter` implementation |
 | `@simplix-react-ext/simplix-boot-cli-plugin` | `@simplix-react/cli` | CLI spec profile: Boot naming strategy, response adapter (envelope format), schema adapter (envelope unwrapping) |
-| `@simplix-react-ext/simplix-boot-utils` | (standalone) | Boot-specific utilities such as `resolveBootEnum()` for handling Spring enum objects |
+| `@simplix-react-ext/simplix-boot-stream` | (standalone, React) | SSE streaming: `StreamProvider`, `useStreamSubscription`, `useStreamStatus`, stale-data detection |
+| `@simplix-react-ext/simplix-boot-utils` | `@simplix-react/api` | Boot-specific utilities such as `resolveBootEnum()` for handling Spring enum objects |
 
 The auth package provides `createBootAuth()`, which wires up Bearer token authentication with automatic refresh, cross-tab sync, and Boot envelope unwrapping in a single call. The access package provides `createSpringAccessAdapter()` and `createBootAccessPolicy()`, which convert Spring Security permission responses into CASL rules. The CLI plugin registers a `simplix-boot` spec profile so `simplix openapi` can generate domain packages from Boot-style OpenAPI specs.
+
+### native (React Native)
+
+A mobile UI kit, Expo runtime glue, and device-layer packages (capture, kiosk, QR, signature) for React Native apps built with Expo. It is a separate workspace under `extensions/native/`; see [its README](../../../extensions/native/README.md).
 
 ## Creating a New Extension
 
@@ -155,14 +164,14 @@ Core packages must remain environment-agnostic to serve all users. Embedding Spr
 
 ### Why Peer Dependencies?
 
-Peer dependencies prevent version duplication. If an extension bundled its own copy of `@simplix-react/auth`, the application would have two separate auth instances --- one from the app and one from the extension --- leading to split state and subtle bugs. Peer dependencies guarantee a single shared instance.
+Peer dependencies prevent version duplication. If an extension bundled its own copy of `@simplix-react/auth`, the application would have two separate auth instances, one from the app and one from the extension, leading to split state and subtle bugs. Peer dependencies guarantee a single shared instance.
 
 ### Why Config-Driven Plugin Loading?
 
-A static import would make the CLI depend on every extension at build time. Instead, each project declares the plugins it needs in `simplix.config.ts`, and the CLI dynamically imports them at startup. This keeps the CLI backend-agnostic --- no hardcoded extension names --- with a minimal dependency footprint, while still failing loudly when a referenced spec profile's plugin is missing.
+A static import would make the CLI depend on every extension at build time. Instead, each project declares the plugins it needs in `simplix.config.ts`, and the CLI dynamically imports them at startup. This keeps the CLI backend-agnostic (no hardcoded extension names) with a minimal dependency footprint, while still failing loudly when a referenced spec profile's plugin is missing.
 
 ## Related
 
-- [Extensions Guide](../guides/extensions.md) --- how to set up and use the Boot extension
-- [Authentication Architecture](./authentication.md) --- core auth design that extensions implement
-- [API Contracts](./api-contracts.md) --- how contracts and `fetchFn` interact
+- [Extensions Guide](../guides/extensions.md): how to set up and use the Boot extension
+- [Authentication Architecture](./authentication.md): core auth design that extensions implement
+- [API Contracts](./api-contracts.md): how contracts and `fetchFn` interact

@@ -1,5 +1,7 @@
 # How to Build CRUD Interfaces with @simplix-react/ui
 
+**English** | [한국어](../../ko/guides/ui-components.md)
+
 > Use `@simplix-react/ui` components to build list, form, and detail views with compound component patterns, explicit field props, and customizable layouts.
 
 ## Before You Begin
@@ -15,10 +17,13 @@ pnpm add @simplix-react/ui
 
 | Package | Version |
 | --- | --- |
+| `@simplix-react/api` | workspace |
 | `@simplix-react/form` | workspace |
 | `@simplix-react/i18n` | workspace |
 | `@simplix-react/react` | workspace |
+| `@tanstack/react-query` | >= 5.0.0 |
 | `react` | >= 18.0.0 |
+| `react-router-dom` | >= 6.0.0 (optional, for `createReactRouterAdapter`) |
 
 - An existing contract, hooks, and form hooks setup:
 
@@ -32,7 +37,6 @@ export const projectContract = defineApi({
   basePath: "/api",
   entities: {
     user: {
-      path: "/users",
       schema: z.object({
         id: z.string(),
         name: z.string(),
@@ -40,16 +44,13 @@ export const projectContract = defineApi({
         status: z.enum(["active", "inactive"]),
         createdAt: z.string(),
       }),
-      createSchema: z.object({
-        name: z.string(),
-        email: z.string(),
-        status: z.enum(["active", "inactive"]),
-      }),
-      updateSchema: z.object({
-        name: z.string().optional(),
-        email: z.string().optional(),
-        status: z.enum(["active", "inactive"]).optional(),
-      }),
+      operations: {
+        list: { method: "GET", path: "/users" },
+        get: { method: "GET", path: "/users/:id" },
+        create: { method: "POST", path: "/users" },
+        update: { method: "PATCH", path: "/users/:id" },
+        delete: { method: "DELETE", path: "/users/:id" },
+      },
     },
   },
 });
@@ -63,7 +64,9 @@ export const projectHooks = deriveEntityHooks(projectContract);
 
 ## Solution
 
-### Step 1 -- Set Up UIProvider
+![useCrudList and the derived hooks feed CrudList, CrudForm and CrudDetail, all under one UIProvider](../../assets/figures/guides-ui-components-crud-pages.en.svg)
+
+### Step 1: Set Up UIProvider
 
 Wrap your app with `UIProvider` to enable component overrides and default configurations:
 
@@ -79,13 +82,13 @@ function App() {
 }
 ```
 
-To globally override base components (e.g., replace `Input` or `Select` with custom implementations):
+To globally override base components (e.g., replace `Input` or `Select` with custom implementations), build the map with `createOverrides`, whose factory receives the default implementations:
 
 ```tsx
-import { UIProvider } from "@simplix-react/ui";
+import { createOverrides, UIProvider } from "@simplix-react/ui";
 import { MyCustomInput } from "./my-input";
 
-<UIProvider overrides={{
+const overrides = createOverrides(() => ({
   Input: MyCustomInput,
   Select: {
     Root: MySelect.Root,
@@ -94,14 +97,16 @@ import { MyCustomInput } from "./my-input";
     Content: MySelect.Content,
     Item: MySelect.Item,
   },
-}}>
+}));
+
+<UIProvider overrides={overrides}>
   {/* All fields now use custom input/select */}
 </UIProvider>
 ```
 
-Overridable components: `Input`, `Textarea`, `Label`, `Switch`, `Checkbox`, `Badge`, `Calendar`, `Select` (compound), `RadioGroup` (compound).
+Overridable components are the keys of `UIComponents`: `Input`, `Textarea`, `Label`, `Switch`, `Checkbox`, `Badge`, `Calendar`, `Button`, `Skeleton`, `Stack`, `Flex`, `Grid`, `Heading`, `Text`, `Card`, `SectionShell`, `QueryFallback`, `CrudDelete`, `FieldWrapper`, `DetailFieldWrapper`, and the compounds `Select`, `RadioGroup`, `Dialog`, `Sheet`, `Popover`, `Tooltip`, `DropdownMenu`, `Tabs`, `Command` and `Table`. A partial compound override keeps the sub-components it leaves out. `UIProvider` also takes `defaults`, `statusTones` and `design` (see [designs.md](./designs.md)).
 
-### Step 2 -- Build a CRUD List Page
+### Step 2: Build a CRUD List Page
 
 Use `useCrudList` to manage list state and `CrudList` for the compound layout:
 
@@ -172,6 +177,8 @@ function UserListPage() {
 }
 ```
 
+`useCrudList(useList, options?)` options: `stateMode` (`"server"` | `"client"`), `filterMode` (`"immediate"` | `"deferred"`), `maxRows`, `defaultSort`, `defaultPageSize`, `defaultFilters`, `addressedFilters`, `scopeKey`.
+
 `useCrudList` returns:
 
 | Property | Description |
@@ -181,28 +188,28 @@ function UserListPage() {
 | `error` | Error object if query failed |
 | `isPaused` | Query is in flight but stalled (React Query `fetchStatus === "paused"`) |
 | `failureCount` | Consecutive failed fetch attempts; `> 0` with `error === null` means a retry is pending |
-| `filters` | `{ search, setSearch, values, setValues }` |
-| `sort` | `{ field, direction, setSort }` |
+| `filters` | `{ search, setSearch, values, setValue, setValues, setAll, clear, apply, isPending, committedValues, commitValue, commitValues }` |
+| `sort` | `{ field, direction, setSort, toggleSort }` |
 | `pagination` | `{ page, pageSize, total, totalPages, setPage, setPageSize }` |
-| `selection` | `{ selected, toggle, toggleAll, clear }` |
+| `selection` | `{ selected, toggle, toggleAll, clear, isSelected }` |
 | `emptyReason` | `"no-data"`, `"no-filter"`, `"no-search"`, `"error"`, `"unavailable"`, or `null` |
 
-A query that is neither settled successfully nor settled with an error — paused,
-or waiting to retry after a failed attempt — reports `emptyReason:
+A query that is neither settled successfully nor settled with an error (paused,
+or waiting to retry after a failed attempt) reports `emptyReason:
 "unavailable"`. React Query pauses a fetch while the document is hidden or the
 browser reports offline, and such a query exposes `isLoading: false` with
 `error: null`, so rendering it as "no data" would tell the operator the list is
 empty when the server never answered. `CrudList` renders "the list could not be
 loaded" for that reason instead.
 
-`CrudList.Table` draws a page's own words for the two empty reasons a page can speak to.
+`CrudList.Table` draws a page's own words for the empty reasons a page can speak to.
 `emptyState` (`{ icon, title, description, action }`) replaces the table for `"no-data"`, a list with
 no rows yet. `filteredEmptyState` (the same shape) replaces the framework's "No matching items"
 card for `"no-filter"`, filters that matched nothing, so a page can say what its own filter or chip
 means. Without either, the framework's text stays; `"no-search"`, `"error"` and `"unavailable"`
 always draw the framework's card. `slots.empty` replaces all of them, whatever the reason.
 
-### Step 3 -- Build a Create/Edit Form
+### Step 3: Build a Create/Edit Form
 
 Use `CrudForm` with `FormFields` for explicit value/onChange field components:
 
@@ -287,13 +294,13 @@ Use `SaveButton` for all save/create/update actions. It handles isDirty, loading
 ```tsx
 import { SaveButton, useIsDirty } from "@simplix-react/ui";
 
-// Edit mode — disabled until changes, shows server error count badge
+// Edit mode: disabled until changes, shows server error count badge
 const isDirty = useIsDirty(values, initialValues);
 <SaveButton type="submit" isDirty={isDirty} isSaving={isPending} fieldErrors={fieldErrors}>
   Save Changes
 </SaveButton>
 
-// Create mode — isDirty omitted (always enabled)
+// Create mode: isDirty omitted (always enabled)
 <SaveButton type="submit" isSaving={isPending} fieldErrors={fieldErrors}>
   Create
 </SaveButton>
@@ -308,9 +315,10 @@ const isDirty = useIsDirty(values, initialValues);
 | --- | --- | --- | --- |
 | `isDirty` | `boolean` | `true` | Disabled when `false`. Omit for create mode. |
 | `isSaving` | `boolean` | `false` | Shows spinner and disables button. |
-| `fieldErrors` | `Record<string, string>` | — | Server validation errors. Shows count badge (informational). |
-| `validationCount` | `number` | — | Client validation errors. Takes priority over fieldErrors. Disables button. |
-| `savingText` | `string` | `"Saving..."` | Text shown during save. |
+| `fieldErrors` | `Record<string, string>` | none | Server validation errors. Shows count badge (informational). |
+| `validationCount` | `number` | none | Client validation errors. Takes priority over fieldErrors. Disables button. |
+| `savingText` | `string` | the translated `common.saving` | Text shown during save. |
+| `disabled` | `boolean` | `false` | Disables the button. |
 
 ### Button Loading Prop
 
@@ -333,21 +341,23 @@ Available form field components:
 | `FormFields.TextField` | `string` | `type`, `placeholder`, `maxLength` |
 | `FormFields.TextareaField` | `string` | `rows`, `maxLength`, `resize` |
 | `FormFields.NumberField` | `number \| null` | `min`, `max`, `step` |
-| `FormFields.SelectField` | `string` | `options`, `placeholder` |
+| `FormFields.SelectField` | `T` (a string type) | `options`, `placeholder` |
 | `FormFields.SwitchField` | `boolean` | `switchProps` |
 | `FormFields.CheckboxField` | `boolean` | `checkboxProps` |
-| `FormFields.RadioGroupField` | `string` | `options`, `direction` |
-| `FormFields.DateField` | `Date \| null` | `minDate`, `maxDate`, `format` |
-| `FormFields.ComboboxField` | `string \| null` | `options`, `onSearch`, `loading` |
+| `FormFields.RadioGroupField` | `T` (a string type) | `options`, `direction` |
+| `FormFields.DateField` | `Date \| string \| number \| null` in, `Date \| null` out | `minDate`, `maxDate`, `locale`, `placeholder` |
+| `FormFields.ComboboxField` | `T \| null` | `options`, `onSearch`, `loading` |
 | `FormFields.PasswordField` | `string` | `placeholder`, `maxLength` |
-| `FormFields.ColorField` | `string` (hex) | Native color picker + hex input |
+| `FormFields.ColorField` | `string` (hex) | `presetColors`, `showCustomPicker`, `clearable` |
 | `FormFields.SliderField` | `number` | `min`, `max`, `step`, `showValue` |
-| `FormFields.MultiSelectField` | `string[]` | `options`, `maxCount` |
+| `FormFields.MultiSelectField` | `T[]` | `options`, `maxCount` |
 | `FormFields.Field` | `ReactNode` | Generic wrapper for custom content |
 
 All fields share common props: `label`, `error`, `description`, `required`, `disabled`, `className`.
 
-### Step 4 -- Build a Detail View
+`FormFields` also has `CountryField`, `CurrencyField`, `DateRangeField`, `DateTimeField`, `FileField`, `GroupedToggleField`, `IconField`, `ImageField`, `LocationPickerField`, `PhoneField`, `PlateEditorField`, `StaticField`, `TimeField`, `TimezoneField` and `TreeMultiSelectField`.
+
+### Step 4: Build a Detail View
 
 Use `CrudDetail` with `DetailFields` for read-only display:
 
@@ -372,7 +382,7 @@ function UserDetailPage({ userId }: { userId: string }) {
 
   return (
     <>
-      <CrudDetail fieldVariant={{ labelPosition: "left" }}>
+      <CrudDetail fieldVariant={{ layout: "left" }}>
         <CrudDetail.Section title="User Info">
           <DetailFields.DetailTextField label="Name" value={user.name} copyable />
           <DetailFields.DetailTextField label="Email" value={user.email} copyable />
@@ -413,7 +423,7 @@ Available detail field components:
 | --- | --- | --- |
 | `DetailFields.DetailTextField` | `string \| null` | `fallback`, `copyable` |
 | `DetailFields.DetailNumberField` | `number \| null` | `format` (decimal/currency/percent), `locale`, `currency` |
-| `DetailFields.DetailDateField` | `Date \| string \| null` | `format` (date/datetime/relative), `fallback` |
+| `DetailFields.DetailDateField` | `Date \| string \| number \| null` | `format` (date/datetime/time/relative), `fallback` |
 | `DetailFields.DetailBadgeField` | `string` | `variants` (value-to-variant mapping) |
 | `DetailFields.DetailLinkField` | `string` | `href`, `external` |
 | `DetailFields.DetailBooleanField` | `boolean \| null` | `mode` (text/icon), `labels` |
@@ -421,7 +431,9 @@ Available detail field components:
 | `DetailFields.DetailListField` | `string[] \| null` | `mode` (badges/comma/bullet) |
 | `DetailFields.DetailField` | `ReactNode` | Generic wrapper for custom content |
 
-### Step 5 -- Use Layout Primitives
+`DetailFields` also has `DetailBlockField`, `DetailCountryField`, `DetailCurrencyField`, `DetailLocationField`, `DetailNoteField`, `DetailPhoneField`, `DetailStatusField`, `DetailTextareaField` and `DetailTimezoneField`.
+
+### Step 5: Use Layout Primitives
 
 Layout primitives provide semantic, CVA-based layout components:
 
@@ -454,14 +466,14 @@ function UserProfilePage() {
 
 | Component | Key Props | Description |
 | --- | --- | --- |
-| `Stack` | `direction`, `gap`, `align`, `justify`, `wrap` | Vertical/horizontal flex layout |
+| `Stack` | `direction`, `gap` (none/xs/sm/md/lg/xl), `align`, `justify`, `wrap` | Vertical/horizontal flex layout |
 | `Flex` | Same as Stack | Horizontal flex (alias for `Stack direction="row"`) |
-| `Grid` | `columns` (1-6), `gap` | CSS Grid layout |
-| `Container` | `size` (sm/md/lg/xl/full) | Centered max-width wrapper |
+| `Grid` | `columns` (1-6), `gap`, `responsive` (default `true`) | CSS Grid layout |
+| `Container` | `size` (sm/md/lg/xl/2xl/full, default lg) | Centered max-width wrapper |
 | `Section` | `title`, `description` | Content section with title/description |
-| `Card` | `padding` (none/sm/md/lg), `interactive` | Card container with border and shadow |
+| `Card` | `padding` (none/sm/md/lg), `interactive`, `fill`, `as` | Card container with border and shadow |
 | `Heading` | `level` (1-6), `tone`, `font` | Semantic heading (h1-h6) |
-| `Text` | `size` (lg/base/sm/caption), `tone`, `font` | Body text with typography scale |
+| `Text` | `size` (lg/base/sm/caption), `tone`, `font`, `weight`, `align`, `as` | Body text with typography scale |
 
 ## Variations
 
@@ -472,17 +484,17 @@ Control field label position and size across a section or page:
 ```tsx
 import { FieldVariantContext } from "@simplix-react/ui";
 
-<FieldVariantContext.Provider value={{ labelPosition: "left", size: "sm" }}>
+<FieldVariantContext.Provider value={{ layout: "left", size: "sm" }}>
   <FormFields.TextField label="Name" value={name} onChange={setName} />
   <FormFields.TextField label="Email" value={email} onChange={setEmail} />
 </FieldVariantContext.Provider>
 ```
 
-Options: `labelPosition` (`"top"` | `"left"` | `"hidden"`), `size` (`"sm"` | `"md"` | `"lg"`).
+Options: `layout` (`"top"` | `"left"` | `"inline"` | `"trailing"` | `"hidden"`), `size` (`"sm"` | `"md"` | `"lg"`). `CrudForm` and `CrudDetail` take the same object as `fieldVariant`.
 
 ### Card-Based List Layout
 
-Use `CardList` for mobile-friendly card layouts:
+Use `CardList` for mobile-friendly card layouts (`columns` is 1, 2 or 3):
 
 ```tsx
 import { CardList } from "@simplix-react/ui";
@@ -548,13 +560,13 @@ function UserList() {
 
 ### ListDetail Pattern
 
-Two-panel layout with list and detail side by side:
+Two-panel layout with list and detail side by side. `variant` is `"panel"`, `"dialog"` or `"drawer"`; a panel takes `detailWidth` or `listWidth` in px, not both:
 
 ```tsx
 import { ListDetail } from "@simplix-react/ui";
 
 // Panel variant (side-by-side with draggable divider)
-<ListDetail variant="panel" listWidth="1/3">
+<ListDetail variant="panel" listWidth={480}>
   <ListDetail.List>
     {/* List content */}
   </ListDetail.List>
@@ -576,7 +588,7 @@ import { ListDetail } from "@simplix-react/ui";
 
 ### Calendar Selection Modes
 
-`Calendar` supports four selection modes via the `mode` prop:
+`Calendar` takes its selection mode from the `mode` prop:
 
 | Mode | Output | Use Case |
 | --- | --- | --- |
@@ -585,7 +597,7 @@ import { ListDetail } from "@simplix-react/ui";
 | `"week"` | `onSelectRange({ from, to })` | Click any day to select its entire week (Mon-Sun) |
 | `"month"` | `onSelectRange({ from, to })` | Pick a month from a 2-column year grid |
 
-**Single mode** -- default, select one date:
+**Single mode**: default, select one date:
 
 ```tsx
 import { Calendar } from "@simplix-react/ui";
@@ -599,7 +611,7 @@ import { Calendar } from "@simplix-react/ui";
 />
 ```
 
-**Week mode** -- click a day to select the full week. The entire row highlights on hover:
+**Week mode**: click a day to select the full week. The entire row highlights on hover:
 
 ```tsx
 import { Calendar } from "@simplix-react/ui";
@@ -615,7 +627,7 @@ const [range, setRange] = useState<DateRange>({ from: undefined, to: undefined }
 />
 ```
 
-**Month mode** -- displays a year view with 2-column month grid. Navigation switches to year-level:
+**Month mode**: displays a year view with 2-column month grid. Navigation switches to year-level:
 
 ```tsx
 <Calendar
@@ -626,7 +638,7 @@ const [range, setRange] = useState<DateRange>({ from: undefined, to: undefined }
 />
 ```
 
-**Controlled view month** -- use `month` / `onMonthChange` to control which month is displayed (useful when switching between week and month modes):
+**Controlled view month**: use `month` / `onMonthChange` to control which month is displayed (useful when switching between week and month modes):
 
 ```tsx
 const [viewMonth, setViewMonth] = useState(new Date());
@@ -640,7 +652,7 @@ const [viewMonth, setViewMonth] = useState(new Date());
 />
 ```
 
-**Date math utilities** -- helper functions exported from `@simplix-react/ui` for week/month range calculations:
+**Date math utilities**: helper functions exported from `@simplix-react/ui` for week/month range calculations:
 
 ```tsx
 import {
@@ -721,7 +733,7 @@ function JobsPage({ search, onNavigate }: { search: CrudSearch; onNavigate: (s: 
 
 // Tile: the count and the link are built from one filters object.
 const failed = { "status.in": ["FAILED"] };
-const count = useListCount(useListJobs, filtersToRequestParams(failed));
+const count = useListCount(useListJobs, filtersToRequestParams(failed)); // useListCount: the app's own count read
 <Link to="/jobs" search={{ filters: failed }}>{count} failed</Link>
 ```
 
@@ -772,6 +784,6 @@ import { CrudErrorBoundary } from "@simplix-react/ui";
 
 ## Related
 
-- [Form Hooks Guide](./form-hooks.md) -- Derive TanStack Form hooks from contracts
-- [Defining Entities](./defining-entities.md) -- Setting up entity schemas in contracts
-- [@simplix-react/ui API Reference](../api/@simplix-react/ui/README.md) -- Full API documentation
+- [Form Hooks Guide](./form-hooks.md): Derive TanStack Form hooks from contracts
+- [Defining Entities](./defining-entities.md): Setting up entity schemas in contracts
+- [@simplix-react/ui API Reference](../../api/@simplix-react/ui/README.md): Full API documentation

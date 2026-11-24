@@ -1,13 +1,16 @@
 # Quick Start
 
-Build a complete contract-driven feature in 5 minutes. This guide walks through the full simplix-react pipeline: defining a contract, deriving hooks, rendering data in React, and adding a mock backend.
+**English** | [한국어](../../ko/getting-started/quick-start.md)
+
+Build a complete contract-driven feature. This guide walks through the full simplix-react pipeline: defining a contract, deriving hooks, rendering data in React, and adding a mock backend.
 
 ## Step 1: Install Dependencies
 
 ```bash
 # Runtime
 pnpm add @simplix-react/contract @simplix-react/react \
-  zod @tanstack/react-query react react-dom
+  zod @tanstack/react-query @tanstack/react-query-persist-client \
+  @tanstack/query-sync-storage-persister react react-dom
 
 # Dev (mock layer)
 pnpm add -D @simplix-react/mock msw
@@ -15,7 +18,7 @@ pnpm add -D @simplix-react/mock msw
 
 ## Step 2: Define a Contract
 
-Create a contract that describes a `task` entity with Zod schemas for its shape, creation payload, and update payload.
+Create a contract that describes a `task` entity: a Zod schema for its shape and an operation for each CRUD role, with the request schema of `create` and `update` as their `input`.
 
 ```ts
 // src/contracts/project.ts
@@ -23,37 +26,34 @@ import { z } from "zod";
 import { defineApi, simpleQueryBuilder } from "@simplix-react/contract";
 
 const taskSchema = z.object({
-  id: z.string(),
+  id: z.number(),
   title: z.string(),
   status: z.string(),
   createdAt: z.string(),
 });
 
-const taskCreateSchema = z.object({
-  title: z.string(),
-  status: z.string(),
-});
-
-const taskUpdateSchema = z.object({
-  title: z.string().optional(),
-  status: z.string().optional(),
-});
+const taskCreateSchema = taskSchema.pick({ title: true, status: true });
+const taskUpdateSchema = taskCreateSchema.partial();
 
 export const projectApi = defineApi({
   domain: "project",
   basePath: "/api/v1",
   entities: {
     task: {
-      path: "/tasks",
       schema: taskSchema,
-      createSchema: taskCreateSchema,
-      updateSchema: taskUpdateSchema,
+      operations: {
+        list: { method: "GET", path: "/tasks" },
+        get: { method: "GET", path: "/tasks/:id" },
+        create: { method: "POST", path: "/tasks", input: taskCreateSchema },
+        update: { method: "PATCH", path: "/tasks/:id", input: taskUpdateSchema },
+        delete: { method: "DELETE", path: "/tasks/:id" },
+      },
     },
   },
   queryBuilder: simpleQueryBuilder,
 });
 
-// Inferred types — no manual type definitions needed
+// Inferred types: no manual type definitions needed
 export type Task = z.infer<typeof taskSchema>;
 export type TaskCreate = z.infer<typeof taskCreateSchema>;
 export type TaskUpdate = z.infer<typeof taskUpdateSchema>;
@@ -66,7 +66,7 @@ This single definition gives you:
 
 ## Step 3: Derive Hooks
 
-Pass the contract to `deriveEntityHooks` to generate TanStack Query hooks for every CRUD operation.
+Pass the contract to `deriveEntityHooks` to get a TanStack Query hook for every operation.
 
 ```ts
 // src/hooks/project-hooks.ts
@@ -76,17 +76,17 @@ import { projectApi } from "../contracts/project";
 export const projectHooks = deriveEntityHooks(projectApi);
 
 // Available hooks:
-// projectHooks.task.useList()       — fetch all tasks
-// projectHooks.task.useGet(id)      — fetch one task
-// projectHooks.task.useCreate()     — create a task
-// projectHooks.task.useUpdate()     — update a task
-// projectHooks.task.useDelete()     — delete a task
-// projectHooks.task.useInfiniteList() — paginated list
+// projectHooks.task.useList()          fetch all tasks
+// projectHooks.task.useInfiniteList()  paginated list
+// projectHooks.task.useGet(id)         fetch one task
+// projectHooks.task.useCreate()        create a task
+// projectHooks.task.useUpdate()        update a task: mutate({ id, dto })
+// projectHooks.task.useDelete()        delete a task: mutate(id)
 ```
 
 ## Step 4: Use in a React Component
 
-Use the derived hooks in your components. The hooks return standard TanStack Query results — `data`, `isLoading`, `error`, `mutate`, etc.
+Use the derived hooks in your components. The hooks return standard TanStack Query results: `data`, `isLoading`, `error`, `mutate`, and the rest.
 
 ```tsx
 // src/components/task-list.tsx
@@ -118,7 +118,7 @@ export function TaskList() {
       <ul>
         {tasks?.map((task) => (
           <li key={task.id}>
-            {task.title} — {task.status}
+            {task.title}: {task.status}
             <button onClick={() => deleteTask.mutate(task.id)}>Delete</button>
           </li>
         ))}
@@ -148,9 +148,13 @@ export function App() {
 
 ## Step 5: Add a Mock Data Layer
 
-Use `@simplix-react/mock` to create a fully functional in-browser backend powered by MSW and in-memory stores. No real server required.
+Use `@simplix-react/mock` to create an in-browser backend powered by MSW and in-memory stores. No real server required.
+
+![The component calls a derived hook, the hook calls the client, and MSW answers the request from the in-memory store](../../assets/figures/start-quick-start-request-flow.en.svg)
 
 ### 5a. Derive Handlers and Start the Worker
+
+Seed data is keyed by store name: the domain and the entity name in snake case, `project_task` here. A record created through a handler gets the next numeric `id` and `createdAt` and `updatedAt` timestamps.
 
 ```ts
 // src/mocks/setup.ts
@@ -164,16 +168,22 @@ export async function startMockWorker(): Promise<void> {
         name: "project",
         handlers: deriveMockHandlers(projectApi.config),
         seed: {
-          task: [
-            { id: "task-1", title: "Design the API contract", status: "done" },
-            { id: "task-2", title: "Implement the frontend", status: "in-progress" },
-            { id: "task-3", title: "Write tests", status: "pending" },
+          project_task: [
+            { id: 1, title: "Design the API contract", status: "done" },
+            { id: 2, title: "Implement the frontend", status: "in-progress" },
+            { id: 3, title: "Write tests", status: "pending" },
           ],
         },
       },
     ],
   });
 }
+```
+
+MSW needs its service worker script in your public directory:
+
+```bash
+npx msw init public/ --save
 ```
 
 ### 5b. Initialize Before Rendering
@@ -203,9 +213,9 @@ With just a few files, you now have:
 - ✔ An **HTTP client** with `list`, `get`, `create`, `update`, `delete` methods
 - ✔ **React Query hooks** with automatic cache invalidation
 - ✔ An **in-browser mock backend** with MSW and in-memory stores
-- ✔ **Zero manual type definitions** — everything is inferred from the contract
+- ✔ **Zero manual type definitions**: everything is inferred from the contract
 
 ## Next Steps
 
-- [TypeScript Setup](./typescript.md) — Fine-tune your TypeScript configuration
-- [Overview](./overview.md) — Learn more about the framework architecture
+- [TypeScript Setup](./typescript.md): fine-tune your TypeScript configuration
+- [Overview](./overview.md): learn more about the framework architecture

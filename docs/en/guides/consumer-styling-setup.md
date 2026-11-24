@@ -1,34 +1,35 @@
 # `@simplix-react/ui` Consumer Styling / Token Setup Guide
 
-This document is a reference for **what you must define on the consumer side** when you add `@simplix-react/ui` as a dependency in another project and use its components.
+**English** | [한국어](../../ko/guides/consumer-styling-setup.md)
 
-> **Prerequisites:** You have a simplix-react project (or any React app) that adds `@simplix-react/ui` as a dependency, and a build that supports Tailwind CSS v4 (via `@tailwindcss/vite`). You should also be comfortable defining CSS variables in a Tailwind v4 `@theme` block.
+This document is a reference for **what you must set up on the consumer side** when you add `@simplix-react/ui` as a dependency in another project and use its components.
+
+> **Prerequisites:** You have a simplix-react project (or any React app) that adds `@simplix-react/ui` as a dependency, and a build that supports Tailwind CSS v4 (via `@tailwindcss/vite`).
 
 ## In One Sentence
 
-This package ships almost no CSS files. The **design tokens (CSS variables) and Tailwind configuration that the component class names reference must be provided by you, the consumer**, and the only CSS the package ships is a single file that corrects table scrollbar rendering.
+The package ships its whole style layer, design tokens included, as one stylesheet, `@simplix-react/ui/theme.css`; the consumer imports it after Tailwind and overrides tokens only where the app differs.
 
 ---
 
-## 1. The Style File the Package Actually Ships (Exactly One)
+## 1. The Style Files the Package Ships
 
 | File | Contents | When to use |
 |---|---|---|
-| `@simplix-react/ui/styles.css` (source: `packages/ui/src/styles.css` → copied verbatim to `dist/styles.css` at build time) | ~30 lines of cross-browser scrollbar correction for `[data-slot="table-container"]` | Required if you use the `Table` family. Otherwise optional |
+| `@simplix-react/ui/theme.css` | The style layer in one import: `styles.css`, the base tokens (`theme/base.css`), the classic design (`theme/designs/classic.css`), the card fills (`theme/fills.css`) and every colour preset (`theme/presets/*.css`) | Always |
+| `@simplix-react/ui/styles.css` | Registers the package as a Tailwind content source (`@source "./**/*.js"` and `@source "../src/**/*.{ts,tsx}"`), plus scrollbar and column-width rules for `[data-slot="table-container"]` and `[data-crud-slot="body"]` | Pulled in by `theme.css`; import it on its own only when you do not import `theme.css` |
 
-Internally it references `var(--muted)` and `var(--border)`, so if you do not define these tokens, the affected areas are rendered as transparent.
+![theme.css pulls styles.css, the base tokens, the classic design, the card fills and the colour presets into one import](../../assets/figures/guides-consumer-styling-setup-layers.en.svg)
 
-Build-config evidence: `packages/ui/tsup.config.ts` → `onSuccess: "cp src/styles.css dist/styles.css"`
+Designs other than classic are not part of `theme.css`: `UIProvider` loads their stylesheets when you choose one (see [designs.md](./designs.md)).
+
+Build-config evidence: `packages/ui/tsup.config.ts` → `onSuccess` copies `src/styles.css`, `src/theme.css` and `src/theme/` into `dist/`.
 
 ---
 
-## 2. CSS Variables You Must Define (Design Tokens)
+## 2. Design Tokens (CSS Variables)
 
-Because the component class names use Tailwind utilities such as `bg-background`, `text-muted-foreground`, `border-input`, and `bg-primary/10`, the following variables must be defined in a Tailwind v4 `@theme` block.
-
-Evidence locations:
-- `packages/ui/src/base/inputs/textarea.tsx:12` — `border-input bg-background placeholder:text-muted-foreground aria-[invalid=true]:border-destructive`
-- `packages/ui/src/base/inputs/icon-picker.tsx:319-337` — `bg-primary/10 text-primary bg-muted`
+The component class names use Tailwind utilities such as `bg-background`, `text-muted-foreground`, `border-input` and `bg-primary/10`. `theme/base.css` defines every token they read, in `:root` and `.dark`, and maps them to Tailwind colours in `@theme inline`. You define a token yourself only to change it; put the override after the `theme.css` import.
 
 ### 2-1. Color Tokens (Used in Pairs)
 
@@ -42,30 +43,30 @@ Evidence locations:
 | `--muted` | `--muted-foreground` | Disabled text, hover surface, placeholder |
 | `--accent` | `--accent-foreground` | Hover/focus surface, menu items |
 | `--destructive` | `--destructive-foreground` | Delete button, errors, `aria-invalid` |
-| `--warning` | — | Notifications / warnings |
-| `--info` | — | Informational notifications |
-| `--border` | — | All separators, input/card borders |
-| `--input` | — | `Input`, `Textarea` borders (usually the same as `--border`) |
-| `--ring` | — | focus-visible ring |
+| `--success` | none | Success states |
+| `--warning` | none | Notifications / warnings |
+| `--info` | none | Informational notifications |
+| `--border` | none | All separators, input/card borders |
+| `--input` | none | `Input`, `Textarea` borders |
+| `--ring` | none | focus-visible ring |
 
 ### 2-2. Chart Tokens (Used by `base/charts/`)
 
 `--chart-1` through `--chart-5`
 
-### 2-3. Sidebar Tokens (Optional — Used by Layout / Menu Components)
+### 2-3. Sidebar Tokens (Used by Layout / Menu Components)
 
 `--sidebar`, `--sidebar-foreground`, `--sidebar-primary`, `--sidebar-primary-foreground`, `--sidebar-accent`, `--sidebar-accent-foreground`, `--sidebar-border`, `--sidebar-ring`
 
 ### 2-4. Corner Radius
 
-`--radius` (base) → `--radius-sm | --radius-md | --radius-lg | --radius-xl` are automatically derived from it via `calc()`
+`--radius` (base) → `--radius-sm | --radius-md | --radius-lg | --radius-xl` are derived from it via `calc()` in `theme/base.css`
 
 ### 2-5. Font Families
 
-- `--font-sans` — Body text (Tailwind `font-sans`)
-- `--font-display` — Heading emphasis (Tailwind `font-display`)
-- `--font-mono` — Code (Tailwind `font-mono`)
-- `--font-title` — Referenced directly by some headings (Optional)
+- `--font-sans`: Body text (Tailwind `font-sans`)
+- `--font-display`: Heading emphasis (Tailwind `font-display`)
+- `--font-mono`: Code (Tailwind `font-mono`)
 
 ---
 
@@ -76,29 +77,27 @@ This package assumes **Tailwind CSS v4** (catalog version `^4.2.1`). Your consum
 1. Add the `@tailwindcss/vite` plugin to `vite.config.ts`
 2. In your consumer entry CSS:
    - `@import "tailwindcss";`
-   - **`@source "../node_modules/@simplix-react/ui/dist/**/*.js";`** — if you omit this, the component classes are tree-shaken away and the styles disappear
-   - Define the tokens above in an `@theme { ... }` block
+   - `@import "@simplix-react/ui/theme.css";`: its `styles.css` registers the package's compiled output as a content source, so you need no `@source` line for the package
+   - Override tokens after that import, if the app needs to
 
-The starter that the CLI generates looks exactly like this: `packages/cli/src/templates/project/app/index-css.hbs`
+The starter that the CLI generates follows this: `packages/cli/src/templates/project/app/index-css.hbs`
 
 ---
 
 ## 4. Dark Mode / Multi-Color Themes
 
-- **Dark mode**: Toggle a `.dark` class on `<html>` or a wrapper → tokens are overridden in the `.dark { ... }` block
-- **Color scheme swap**: Redefine tokens via an attribute selector such as `data-color-theme="blue"`
-- **Six reference implementations**: `apps/storybook/src/themes/{default,blue,green,rose,orange,violet}.css`
-
-These six files are the most complete token definition examples, so you can copy them directly as the starting point for the `index.css` you create.
+- **Dark mode**: Toggle a `.dark` class on `<html>` → `theme/base.css` and each preset override the tokens in their `.dark` blocks
+- **Color scheme swap**: Set `data-color-theme="<name>"` on `<html>`; each preset is scoped to `:root[data-color-theme='<name>']`
+- **Presets shipped**: `packages/ui/src/theme/presets/{blue,clear,cobalt,forest,fresh,grape,graphite,green,krds,orange,rose,violet}.css`, listed with their labels, radius, typeface and fill by `THEMES` (type `ColorTheme`)
 
 ---
 
 ## 5. i18n Side Effect (Intentional side-effect import)
 
-Merely importing `@simplix-react/ui` runs `src/locales/index.ts`, which automatically registers the `simplix` namespace (en/ko/ja) in the `@simplix-react/i18n` module registry.
+Merely importing `@simplix-react/ui` runs `src/locales/index.ts`, which registers the `simplix` namespace (en/ko/ja) in the `@simplix-react/i18n` module registry.
 
 - The `sideEffects` field in `package.json` is configured to preserve these files
-- **Import order matters**: You must import `@simplix-react/ui` **before** calling `createI18nConfig()` (see the comment in `apps/storybook/.storybook/preview.tsx:11`)
+- **Import order matters**: You must import `@simplix-react/ui` **before** calling `createI18nConfig()` (see the comment in `apps/storybook/.storybook/preview.tsx:9`)
 
 ---
 
@@ -111,6 +110,7 @@ pnpm add -D tailwindcss@^4.2 @tailwindcss/vite
 ```
 
 `vite.config.ts`:
+
 ```ts
 import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
@@ -119,44 +119,31 @@ export default defineConfig({
 ```
 
 `src/index.css`:
+
 ```css
 @import "tailwindcss";
-@source "../node_modules/@simplix-react/ui/dist/**/*.js";
-@source "./**/*.tsx";
+@import "@simplix-react/ui/theme.css";
 
+/* Optional: override tokens after the import */
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  /* ... copy every token from apps/storybook/src/themes/default.css */
-}
-.dark { /* dark override */ }
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  /* ... map all --color-* aliases */
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius: 0.5rem;
 }
 
 @layer base {
-  * { @apply border-border outline-ring/50; }
   body { @apply m-0 font-sans antialiased text-foreground bg-background; }
 }
 ```
 
 `src/main.tsx`:
+
 ```ts
 import "./index.css";
 import "@simplix-react/ui";              // i18n side-effect first
-import "@simplix-react/ui/styles.css";   // required if you use Table
 // then createI18nConfig(), createRoot, etc.
 ```
 
 App root:
+
 ```tsx
 <UIProvider>
   <CrudProvider router={createReactRouterAdapter({ useNavigate, useSearchParams, useLocation })}>
@@ -171,19 +158,20 @@ App root:
 
 | File | Role |
 |---|---|
-| `packages/ui/src/styles.css` | The **only** CSS the package ships (scrollbar correction) |
-| `packages/ui/tsup.config.ts` | Copies the CSS to `dist/styles.css` without processing |
+| `packages/ui/src/theme.css` | The single style import |
+| `packages/ui/src/styles.css` | Tailwind content source registration and scroll-container rules |
+| `packages/ui/src/theme/base.css` | Base tokens: `:root`, `.dark`, `@theme inline` |
+| `packages/ui/src/theme/presets/*.css` | The `data-color-theme="..."` presets |
+| `packages/ui/src/theme/fills.css` | Card fills (`data-fill`) |
+| `packages/ui/tsup.config.ts` | Copies the CSS to `dist/` without processing |
 | `packages/ui/src/index.ts` | Public surface (exports all components/hooks/types) |
 | `packages/ui/src/locales/{en,ko,ja}.json` | Translations bundled with the package |
 | `packages/ui/src/locales/index.ts` | Automatic i18n module registration (side effect) |
-| `apps/storybook/src/index.css` | Reference for Tailwind import + `@source` + `@layer base` |
-| `apps/storybook/src/themes/default.css` | Complete example of `:root` + `.dark` + `@theme inline` (115 lines) — the base for consumers to copy |
-| `apps/storybook/src/themes/{blue,green,rose,orange,violet}.css` | The `data-color-theme="..."` multi-theme pattern |
+| `apps/storybook/src/index.css` | Reference for Tailwind import + `theme.css` + `@layer base` |
 | `apps/storybook/.storybook/preview.tsx` | Import order + theme toggle demo |
-| `packages/cli/src/templates/project/app/index-css.hbs` | CLI-generated starter (minimal production token set) |
+| `packages/cli/src/templates/project/app/index-css.hbs` | CLI-generated starter |
 | `packages/cli/src/templates/project/app/vite-config.hbs` | Vite + Tailwind v4 plugin setup |
 | `packages/cli/src/templates/project/app/main-tsx.hbs` | Entry import order |
-| `packages/ui/README.md:148` | 5-step customization guide, including UIProvider overrides |
 
 ---
 

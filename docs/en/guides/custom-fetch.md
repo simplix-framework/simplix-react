@@ -1,5 +1,7 @@
 # Custom Fetch Functions
 
+**English** | [한국어](../../ko/guides/custom-fetch.md)
+
 > How to customize the HTTP layer for headers, interceptors, and error handling.
 >
 > **Looking for authentication?** For token-based auth (Bearer, API Key, OAuth2) with automatic refresh and 401 retry, use [`@simplix-react/auth`](./authentication.md) instead. This guide covers lower-level fetch customization for cases not covered by the auth package.
@@ -8,11 +10,63 @@
 
 - You have a contract defined with `defineApi` from `@simplix-react/contract`
 - You understand the `FetchFn` type signature: `<T>(path: string, options?: RequestInit) => Promise<T>`
-- The built-in `defaultFetch` adds `Content-Type: application/json`, unwraps `{ data: T }` envelopes, and throws `ApiError` on non-2xx responses
+- The built-in `defaultFetch` is `createFetch` with a response transform. It sends `Content-Type: application/json` on a `POST`, `PUT` or `PATCH` request whose body is not `FormData`, sends an `X-Timezone` header with the browser's time zone, unwraps a `{ data: T }` envelope, returns `undefined` for a `204` response and a `Blob` for a response whose content type is not JSON, and throws `ApiError` on non-2xx responses
+
+## Which Fetch Function a Contract Uses
+
+![A multipart or blob request goes to the global fetch; any other request goes through the contract's fetchFn, otherwise the function set by configureDefaultFetch, otherwise defaultFetch](../../assets/figures/guides-custom-fetch-resolution.en.svg)
+
+The client decides on every request, in this order:
+
+1. An operation with `contentType: "multipart"` and an input, or with `responseType: "blob"`, calls the global `fetch` directly and skips the steps below, unless it has `transformRequest`
+2. The `fetchFn` passed as the second argument of `defineApi`
+3. The function set with `configureDefaultFetch`
+4. `defaultFetch`
+
+⚠ Headers added by your fetch function are not sent with a request of the first step.
 
 ## Solution
 
-### Basic: Add Authorization Headers
+### Basic: Build a Fetch Function with `createFetch`
+
+`createFetch` builds a `FetchFn` from options: `baseUrl` (prepended to relative paths), `getToken` (sent as `Authorization: Bearer <token>` unless the request already has an `Authorization` header), `transformResponse` (receives the parsed JSON and `{ path, method }`), and `onError` (receives `{ status, body, path, method }` with the body parsed as JSON when possible; throw your own error from it, otherwise `ApiError` is thrown).
+
+```ts
+import { createFetch, defineApi } from "@simplix-react/contract";
+import { projectConfig } from "./contract";
+
+const apiFetch = createFetch({
+  baseUrl: "https://api.example.com",
+  getToken: () => localStorage.getItem("access_token"),
+  transformResponse: (json) => (json as { body?: unknown }).body ?? json,
+  onError: ({ status, body }) => {
+    const envelope = body as { errorCode?: string; message?: string };
+    if (envelope.errorCode) {
+      throw new Error(`${status} ${envelope.errorCode}: ${envelope.message}`);
+    }
+  },
+});
+
+const projectApi = defineApi(projectConfig, { fetchFn: apiFetch });
+```
+
+### Set the Default for Every Contract
+
+`configureDefaultFetch` replaces `defaultFetch` for every contract that has no `fetchFn` of its own, including contracts created before the call.
+
+```ts
+import { configureDefaultFetch, createFetch } from "@simplix-react/contract";
+
+// Every contract created without its own fetchFn uses this function
+configureDefaultFetch(
+  createFetch({
+    getToken: () => localStorage.getItem("access_token"),
+    transformResponse: (json) => (json as { data?: unknown }).data ?? json,
+  }),
+);
+```
+
+### Add Authorization Headers to `defaultFetch`
 
 ```ts
 import { defineApi, defaultFetch } from "@simplix-react/contract";
@@ -35,7 +89,7 @@ const projectApi = defineApi(projectConfig, {
 
 ### Handle `ApiError` Responses
 
-`defaultFetch` throws `ApiError` for any non-2xx status. Catch it to handle specific HTTP errors:
+`defaultFetch` throws `ApiError` for any non-2xx status. `status` is the HTTP status and `body` is the raw response text. Catch it to handle specific HTTP errors:
 
 ```ts
 import { ApiError } from "@simplix-react/contract";
@@ -238,24 +292,20 @@ const projectApi = defineApi(projectConfig, { fetchFn: fetchWithRefresh });
 ### Adding Base URL Prefix
 
 ```ts
-import { defineApi, defaultFetch, type FetchFn } from "@simplix-react/contract";
+import { createFetch, defineApi } from "@simplix-react/contract";
 import { projectConfig } from "./contract";
 
-const API_BASE = "https://api.example.com";
-
-const prefixedFetch: FetchFn = async <T>(
-  path: string,
-  options?: RequestInit,
-): Promise<T> => {
-  return defaultFetch<T>(`${API_BASE}${path}`, options);
-};
+const prefixedFetch = createFetch({
+  baseUrl: "https://api.example.com",
+  transformResponse: (json) => (json as { data?: unknown }).data ?? json,
+});
 
 const projectApi = defineApi(projectConfig, { fetchFn: prefixedFetch });
 ```
 
 ## Related
 
-- [Authentication Guide](./authentication.md) --- set up token-based auth with `@simplix-react/auth`
-- [Internationalization Guide](./internationalization.md) --- includes `Accept-Language` header sync via `setRequestLocale`
-- [Mock Handlers](./mock-handlers.md) --- set up MSW handlers for development without a backend
-- `@simplix-react/contract` types: `FetchFn`, `ApiError`, `defaultFetch`
+- [Authentication Guide](./authentication.md): set up token-based auth with `@simplix-react/auth`
+- [Internationalization Guide](./internationalization.md): includes `Accept-Language` header sync via `setRequestLocale`
+- [Mock Handlers](./mock-handlers.md): set up MSW handlers for development without a backend
+- `@simplix-react/contract` exports: `FetchFn`, `ApiError`, `defaultFetch`, `createFetch`, `CreateFetchOptions`, `configureDefaultFetch`

@@ -1,10 +1,12 @@
 # Internationalization
 
+**English** | [한국어](../../ko/core-concepts/internationalization.md)
+
 ## Overview
 
 Internationalization in simplix-react is handled by `@simplix-react/i18n`, a package that provides a structured, adapter-based translation and formatting system. Rather than coupling your application directly to a specific i18n library, the package defines an `II18nAdapter` interface that abstracts translation lookup, locale management, date/time/number formatting, and namespace-scoped resource loading. The built-in `I18nextAdapter` implements this interface using i18next as the underlying engine.
 
-The core insight is that internationalization in a domain-driven application has two distinct concerns: **application-level translations** (navigation labels, common UI strings) and **domain-level translations** (entity field labels, enum display values). These concerns have different ownership --- application translations live in the app, domain translations ship with domain packages. The i18n package provides a registry-based architecture that unifies both sources at runtime without creating cross-package dependencies.
+The core insight is that internationalization in a domain-driven application has two distinct concerns: **application-level translations** (navigation labels, common UI strings) and **domain-level translations** (entity field labels, enum display values). These concerns have different ownership: application translations live in the app, domain translations ship with domain packages. The i18n package provides a registry-based architecture that unifies both sources at runtime without creating cross-package dependencies.
 
 ## How It Works
 
@@ -12,15 +14,16 @@ The core insight is that internationalization in a domain-driven application has
 
 The `II18nAdapter` interface defines the full surface area of an i18n adapter:
 
-| Capability | Methods |
+| Capability | Members |
 | --- | --- |
+| Identity | `id`, `name` |
 | Translation | `t(key, values?)`, `tn(namespace, key, values?)`, `tp(key, count, values?)`, `exists(key, namespace?)` |
 | Locale management | `locale`, `fallbackLocale`, `availableLocales`, `setLocale(locale)`, `getLocaleInfo(locale)` |
 | Date/time formatting | `formatDate(date, options?)`, `formatTime(date, options?)`, `formatDateTime(date, options?)`, `formatRelativeTime(date)` |
 | Number formatting | `formatNumber(value, options?)`, `formatCurrency(value, currency?)` |
 | Lifecycle | `initialize(defaultLocale?)`, `dispose()` |
 | Resource loading | `loadTranslations(locale, namespace, translations)`, `getLoadState(locale, namespace?)` |
-| Reactivity | `onLocaleChange(handler)` |
+| Reactivity | `onLocaleChange(handler)`, optional `resourcesVersion` and `onResourcesChange(handler)` |
 
 The interface is designed so that alternative implementations (custom adapters for non-i18next backends) can be swapped in without changing any application or component code.
 
@@ -45,10 +48,12 @@ adapter.tn("common", "greeting", { name: "Alice" }); // "Alice!"
 
 Key characteristics:
 
+- Options are `defaultLocale` and `fallbackLocale` (both default `"en"`), `locales`, `resources`, `i18nextInstance` and `debug`
 - Uses `i18next.createInstance()` by default (isolated instance, no global side effects), or accepts an existing `i18nextInstance` for integration with `react-i18next`
 - Disables HTML escaping (`escapeValue: false`) since React handles escaping
 - Delegates all formatting to the `Intl` API using the active locale
 - Supports plural forms via `tp(key, count)` using i18next's built-in CLDR plural rules
+- Registers the `josa` formatter, so a Korean message can write `{{plan, josa(을/를)}}` and get the particle form that the value's last sound calls for
 
 ### Domain Translation Architecture
 
@@ -68,7 +73,7 @@ registerDomainTranslations({
 
 This call registers the domain into a global `Map`-based registry. Registrations happen as side-effect imports when the domain package is loaded, so translations are available automatically without explicit wiring.
 
-During initialization, `createI18nConfig` reads the registry and loads all registered domain translations. The JSON structure follows a convention:
+During initialization, `createI18nConfig` reads the registry and loads all registered domain translations; a domain registered after initialization is loaded when it registers. The JSON structure follows a convention:
 
 ```json
 {
@@ -104,7 +109,7 @@ const translations = buildModuleTranslations({
 registerModuleTranslations(translations);
 ```
 
-Module translations are lazy-loaded per locale and scoped under `{namespace}/{componentPath}` namespaces. This enables code-split translation loading --- only the translations for the active locale and rendered components are fetched.
+Module translations are scoped under `{namespace}/{componentPath}` namespaces and loaded through dynamic `import()`, one loader per locale and component. `createI18nConfig` loads every locale the module lists when it initializes, and a module registered later is loaded when it registers. When the application's own translations hold the same namespace, their keys are merged over the module's.
 
 ### Initialization with createI18nConfig
 
@@ -128,18 +133,21 @@ const { adapter, i18nReady } = createI18nConfig({
 await i18nReady;
 ```
 
+The other options are `fallbackLocale` (default `"en"`), `moduleTranslations` (module translations passed directly instead of registered) and `debug`. `defaultLocale` defaults to `"en"` and `supportedLocales` to `DEFAULT_LOCALES`.
+
+![createI18nConfig gathers app, module and domain translations into one adapter that the React hooks read](../../assets/figures/concepts-internationalization-sources.en.svg)
+
 The initialization sequence:
 
-1. **Resolve locale configs** --- string locale codes are resolved against `DEFAULT_LOCALES` (a built-in list of 84 locale configurations with native names, date/time formats, and currency codes)
-2. **Parse app translations** --- Vite glob imports matching `/locales/{namespace}/{locale}.json` are parsed into i18next resource bundles
-3. **Create adapter** --- a new `I18nextAdapter` is instantiated with the resolved configuration
-4. **Detect locale** --- checks `localStorage` and `navigator.languages` (in configured order) for a preferred locale
-5. **Initialize** --- the adapter is initialized with the detected or default locale
-6. **Persist locale** --- if localStorage detection is enabled, locale changes are automatically persisted
-7. **Load module translations** --- all registered module translations are loaded for their supported locales
-8. **Load domain translations** --- all registered domain translations are loaded from the global registry
+1. **Resolve locale configs**: string locale codes are resolved against `DEFAULT_LOCALES` (built-in locale configurations with native names, date/time formats, and currency codes); an unknown code gets a configuration whose names are the code itself
+2. **Parse app translations**: Vite glob imports matching `/locales/{namespace}/{locale}.json` are parsed into i18next resource bundles
+3. **Create adapter**: a new `I18nextAdapter` is instantiated with the resolved configuration
+4. **Detect locale**: checks `localStorage` and `navigator.languages` (in configured order) for a preferred locale that is in the supported list; a `navigator` language also matches by its prefix (`ko-KR` → `ko`)
+5. **Initialize**: the adapter is initialized with the detected or default locale
+6. **Persist locale**: if localStorage detection is enabled, locale changes are automatically persisted
+7. **Load module and domain translations**: every module translation (passed or registered) and every registered domain translation is loaded at once, and later registrations are loaded as they arrive
 
-The function returns both the `adapter` and an `i18nReady` promise. The adapter is available immediately for provider setup; the promise resolves when all async translation loading completes.
+The function returns both the `adapter` and an `i18nReady` promise. The adapter is available immediately for provider setup; the promise resolves when the translations registered so far have loaded.
 
 ### API Request Locale Synchronization
 
@@ -154,7 +162,7 @@ i18nReady.then(() => setRequestLocale(i18nAdapter.locale));
 
 This is necessary because browsers set `Accept-Language` from OS/browser language preferences, which may differ from the application's selected language. For example, a user with a Korean OS who selects English in the app would send `Accept-Language: ko` without this feature. `setRequestLocale` ensures `getMutator()` injects the correct locale.
 
-The design keeps `@simplix-react/api` and `@simplix-react/i18n` fully decoupled --- there is no direct dependency between them. The wiring happens at the application level through the adapter's `onLocaleChange` callback, following the same pattern as locale persistence to `localStorage`.
+The design keeps `@simplix-react/api` and `@simplix-react/i18n` fully decoupled: there is no direct dependency between them. The wiring happens at the application level through the adapter's `onLocaleChange` callback, following the same pattern as locale persistence to `localStorage`.
 
 ### Locale Configuration
 
@@ -172,7 +180,23 @@ interface LocaleConfig {
 }
 ```
 
-The `DEFAULT_LOCALES` constant provides built-in configurations for 84 locales across East Asian, Southeast Asian, South Asian, European, Middle Eastern, and African language groups, including regional variants (e.g., `en-GB`, `pt-BR`, `es-MX`).
+The `DEFAULT_LOCALES` constant provides built-in configurations for East Asian, Southeast Asian, South Asian, European, Middle Eastern, and African languages, including regional variants (e.g., `en-GB`, `pt-BR`, `es-MX`). `SUPPORTED_LOCALES` lists their codes.
+
+### Locale-Bound Formatting and Text Helpers
+
+The package also exports helpers that apply the active locale outside a translation string:
+
+| Export | Purpose |
+| --- | --- |
+| `formatDate`, `formatTime`, `formatDateTime`, `formatRelative` | `Intl` formatting for a given locale and IANA time zone (`formatDate(date, locale, timeZone, options?)`) |
+| `DateTimeProvider`, `useDateTime` | A context that binds those formatters to the adapter's locale and a `timeZone` (the browser zone when omitted) |
+| `useFormattedDate`, `useFormattedTime`, `useFormattedDateTime`, `useFormattedRelative` | Memoized formatting bound to the active locale and time zone |
+| `configureFallbackLocale`, `useFallbackLocale`, `getFallbackLocale` | The language a multilingual value falls back to (`DEFAULT_FALLBACK_LOCALE` is `"en"`) |
+| `useLocalizedText` | Picks the active locale's entry from a per-locale value map, or the first filled entry |
+| `useOptionalTranslation` | `useTranslation` plus `tOr(key, fallback, values?)` for a key the catalogue may lack |
+| `koreanParticle`, `localeParticle`, `formatKoreanParticle` | The Korean particle form that follows a word, also behind the `josa` formatter |
+
+These are imported from `@simplix-react/i18n`, or from `@simplix-react/i18n/react` for the providers and hooks.
 
 ### React Integration
 
@@ -188,7 +212,7 @@ import { I18nProvider } from "@simplix-react/i18n/react";
 </I18nProvider>
 ```
 
-**useTranslation(namespace)**: Returns a namespace-scoped `t` function, the current `locale`, and an `exists` function. Re-renders on locale changes via `useSyncExternalStore`:
+**useTranslation(namespace)**: Returns a namespace-scoped `t` function, the current `locale`, and an `exists` function. Re-renders on locale changes, and on resources that arrive after the first render, via `useSyncExternalStore`:
 
 ```tsx
 const { t, locale, exists } = useTranslation("common");
@@ -201,7 +225,7 @@ t("greeting", { name: "Alice" }); // "Hello, Alice!"
 const locale = useLocale(); // "ko"
 ```
 
-**useI18n()**: Returns the full `II18nAdapter` from context for direct access to formatting methods and other adapter APIs.
+**useI18n()**: Returns the full `II18nAdapter` from context (or `null` outside an `I18nProvider`) for direct access to formatting methods and other adapter APIs.
 
 **useEntityTranslation(entity)**: Provides `fieldLabel` and `enumLabel` functions scoped to a specific entity, using the `entity/{name}` and `enums` namespaces:
 
@@ -236,15 +260,15 @@ Namespaces prevent key collisions between unrelated translation sets. The `entit
 
 Date, time, number, and currency formatting use the browser's `Intl` API rather than i18next's formatting plugins. The `Intl` API provides locale-aware formatting that follows CLDR standards out of the box, requires no additional dependencies, and produces results consistent with the rest of the browser platform.
 
-### Why Lazy Loading for Module/Domain Translations?
+### Why Loaders for Module/Domain Translations?
 
-Translation files can be large, and applications may support many locales. Lazy loading (via dynamic `import()`) ensures that only the translations for the active locale are fetched. The loader functions are compatible with Vite's code splitting, so each locale's translations become a separate chunk.
+Translation files can be large, and applications may support many locales. Because each locale is a loader (a dynamic `import()`), the translation files stay out of the main bundle: Vite's code splitting makes each locale's translations a separate chunk, and the loaders of all listed locales run together during initialization.
 
 ## Implications
 
 ### For Application Developers
 
-- Translation setup is centralized in `createI18nConfig` --- one function call configures the entire i18n system
+- Translation setup is centralized in `createI18nConfig`: one function call configures the entire i18n system
 - Application translations use Vite glob imports for zero-configuration namespace discovery
 - Locale detection and persistence are handled automatically
 - Components use `useTranslation` for scoped lookups and `useEntityTranslation` for entity field/enum labels
@@ -263,5 +287,5 @@ Translation files can be large, and applications may support many locales. Lazy 
 
 ## Related
 
-- [API Contracts](./api-contracts.md) --- how entity schemas relate to translation namespaces
-- [Form Derivation](./form-derivation.md) --- how form labels can use entity translations
+- [API Contracts](./api-contracts.md): how entity schemas relate to translation namespaces
+- [Form Derivation](./form-derivation.md): how form labels can use entity translations

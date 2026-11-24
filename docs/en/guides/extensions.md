@@ -1,5 +1,7 @@
 # How to Use the Boot Extension
 
+**English** | [한국어](../../ko/guides/extensions.md)
+
 > Set up Spring Boot authentication, authorization, and CLI code generation using the simplix-boot extension packages.
 
 ## Before You Begin
@@ -13,7 +15,7 @@
 pnpm add @simplix-react-ext/simplix-boot-auth @simplix-react-ext/simplix-boot-access
 ```
 
-For CLI code generation support (then declare it in `simplix.config.ts` under `plugins` --- see [Using the CLI Plugin](#using-the-cli-plugin)):
+For CLI code generation support (then declare it in `simplix.config.ts` under `plugins`; see [Using the CLI Plugin](#using-the-cli-plugin)):
 
 ```bash
 pnpm add -D @simplix-react-ext/simplix-boot-cli-plugin
@@ -23,6 +25,12 @@ For Boot-specific utilities:
 
 ```bash
 pnpm add @simplix-react-ext/simplix-boot-utils
+```
+
+For live updates over server-sent events (see [Streaming Updates](#streaming-updates)):
+
+```bash
+pnpm add @simplix-react-ext/simplix-boot-stream
 ```
 
 ## Solution
@@ -53,6 +61,9 @@ What this sets up automatically:
 - Cross-tab logout and token sync via `BroadcastChannel` (disable with `crossTabSync: false`)
 - Boot envelope error conversion to `ApiResponseError`
 - Single-flight refresh deduplication (concurrent 401s share one refresh call)
+- Background refresh only while the user is active on the page (disable with `activityAware: false`)
+
+![createBootAuth wraps one token store into the fetch functions it returns, and bootMutator unwraps the envelope or throws ApiResponseError](../../assets/figures/guides-extensions-boot-auth-wiring.en.svg)
 
 #### `BootAuthOptions`
 
@@ -68,7 +79,10 @@ What this sets up automatically:
 | `maxRetries` | `number` | - | Max 401 retry attempts |
 | `rawFetchOptions` | `{ baseUrl?: string }` | - | Options for `rawAuthFetch` (non-Boot specs) |
 | `autoSchedule` | `boolean` | `true` | Enable background token auto-refresh |
-| `crossTabSync` | `boolean` | `true` | Enable cross-tab logout/token sync |
+| `crossTabSync` | `boolean` | `true` | Enable cross-tab logout/token sync and a cross-tab single-flight refresh |
+| `activityAware` | `boolean` | `true` in a browser | Run background refresh only while the user is active, so an idle page reaches the issuer's idle timeout |
+| `onExternalLogout` | `() => void` | - | Called after another tab signed out and this tab's tokens were cleared; send the user to the sign-in screen here |
+| `tokenClient` | `ExternalTokenClient` | - | Tokens come from an external issuer (such as an OpenID Connect provider): refresh and revoke go through it, and `authClient.loginFn` refuses |
 
 #### `BootAuthResult`
 
@@ -78,9 +92,11 @@ What this sets up automatically:
 | `authClient` | `BootAuthClient` | Login, refresh, revoke, and user info functions |
 | `store` | `TokenStore` | Token store instance |
 | `baseFetch` | `FetchFn` | Base fetch with Boot error conversion (no auth headers) |
-| `rawAuthFetch` | `FetchFn` | Auth-wrapped fetch without Boot envelope handling |
+| `rawAuthFetch` | `FetchFn` | Auth-wrapped fetch without Boot envelope handling when `rawFetchOptions` is set; otherwise it is `baseFetch` |
 | `bootMutator` | `FetchFn` | Auth-wrapped fetch with Boot envelope unwrapping |
 | `getToken` | `() => string \| null` | Get current access token |
+| `uploadWithProgress` | `(url, formData, opts?) => Promise<T>` | Multipart upload over XHR with progress (`opts.onProgress`, `opts.signal`), auth headers, 401 refresh-retry and envelope unwrapping |
+| `fetchAttachmentBlob` | `(url: string) => Promise<Blob>` | Authenticated blob fetch (attachment download or thumbnail) with 401 refresh-retry |
 
 #### `BootAuthClient`
 
@@ -110,9 +126,9 @@ const user = await authClient.userInfoFn();
 
 | Method | Default Path | Description |
 | --- | --- | --- |
-| GET | `/api/v1/auth/token/issue` | Issue tokens (Basic Auth header) |
-| GET | `/api/v1/auth/token/refresh` | Refresh token (`X-Refresh-Token` header) |
-| POST | `/api/v1/auth/token/revoke` | Revoke current token |
+| POST | `/api/v1/auth/token/issue` | Issue tokens (Basic Auth header) |
+| POST | `/api/v1/auth/token/refresh` | Refresh token (`X-Refresh-Token` header) |
+| POST | `/api/v1/auth/token/revoke` | Revoke current token (`X-Refresh-Token` header) |
 | GET | `/api/v1/user/me` | Get current user profile |
 
 All paths are relative to the configured `basePath`.
@@ -175,7 +191,7 @@ const access = createAccessPolicy({ adapter });
 | `permissionsEndpoint` | `string` | `"/api/v1/user/me/permissions"` | Authenticated permissions endpoint |
 | `publicPermissionsEndpoint` | `string` | `"/api/v1/public/user/permissions"` | Public permissions endpoint |
 | `systemAdminRole` | `string` | `"ROLE_SYSTEM_ADMIN"` | Role code that identifies a system admin |
-| `fetchFn` | `OrvalMutator` | (required) | Custom fetch function |
+| `fetchFn` | `OrvalMutator` | - | Custom fetch function |
 
 #### Spring Security Permission Format
 
@@ -246,6 +262,14 @@ hasBackofficeAccess(rules, false);             // checks for BACKOFFICE_ACCESS r
 hasBackofficeAccess(rules, false, "MY_PANEL"); // checks for custom resource
 ```
 
+#### Other Access Exports
+
+| Export | Description |
+| --- | --- |
+| `normalizeRoles(roles)` | Turns a mixed list of role strings and `{ roleCode, roleName }` objects into role codes |
+| `createSelfAccessPolicy(config)` | An `AccessPolicy` for an app whose users act only on their own account; the boundary itself stays on the server |
+| `useSelfAccessRefusal()`, `currentSelfAccessRefusal()` | The refusal the self-access policy names, for a shell that draws its own page for it |
+
 ### Using the CLI Plugin
 
 After installing `@simplix-react-ext/simplix-boot-cli-plugin`, declare it in the `plugins` field of `simplix.config.ts` so the CLI loads it and registers the `simplix-boot` spec profile:
@@ -267,6 +291,8 @@ The plugin registers:
 - **Naming strategy** (`simplixBootNaming`): Handles Boot-style OpenAPI conventions like tag format `scope.crud.EntityName`, auto-generated operation IDs, and CRUD path patterns (`/search`, `/create`, `/{id}`, `/{id}/edit`, `/batch`).
 - **Response adapter** (`boot`): Configures Boot envelope handling for generated code, including `bootResponseAdapter` for error conversion and `wrapEnvelope` for mock responses.
 - **Schema adapter** (`bootSchemaAdapter`): Unwraps Boot envelope schemas (strips `type`, `message`, `timestamp`, `errorCode`, `errorDetail` wrappers) so generated types reflect the actual `body` payload, not the envelope.
+- **Server endpoints**: the i18n messages endpoint (`/api/v1/dev/i18n/messages`) that generation downloads entity labels from, and the SimpliX Meta endpoint (`/api/v1/dev/meta/dto`).
+- **Labeled enums**: a response field holding a Boot `LabeledEnum` is typed `LabeledEnumValue` from `@simplix-react-ext/simplix-boot-utils`.
 
 Reference the `simplix-boot` profile per spec in the `openapi` config, then run code generation:
 
@@ -300,8 +326,8 @@ interface BootEnvelope<T = unknown> {
   message: string;     // Human-readable message
   body: T;             // Actual response payload
   timestamp: string;   // ISO 8601 timestamp
-  errorCode?: string;  // Application-specific error code
-  errorDetail?: ErrorDetail; // Validation errors or additional info
+  errorCode?: string | null;  // Application-specific error code
+  errorDetail?: ErrorDetail | null; // Validation errors or additional info
 }
 ```
 
@@ -398,7 +424,7 @@ try {
 
 #### `resolveBootEnum()`
 
-Boot APIs may return enum values as plain strings or as `{ type, value, label }` objects. This utility normalizes both formats:
+Boot APIs may return enum values as plain strings or as `LabeledEnumValue` objects carrying `value` and `label`. This utility normalizes both formats, and coerces anything else to a string:
 
 ```ts
 import { resolveBootEnum } from "@simplix-react-ext/simplix-boot-utils";
@@ -407,6 +433,18 @@ resolveBootEnum("ACTIVE");                           // "ACTIVE"
 resolveBootEnum({ type: "Status", value: "ACTIVE", label: "Active" }); // "ACTIVE"
 resolveBootEnum(null);                               // ""
 ```
+
+#### Other Utilities
+
+| Export | Package | Description |
+| --- | --- | --- |
+| `toLabeledEnum(value)` | `simplix-boot-utils` | Builds a `LabeledEnumValue` whose label is the value, for a request body |
+| `transformSearchableFilters(filters)` | `simplix-boot-utils` | Transforms generic CRUD filter values to the searchable-jpa format |
+| `bootBody(data)`, `bootPage(data)` | `simplix-boot-utils` | Read a generated hook's answer as the DTO or the page it is at run time |
+| `updateBody(loaded)` | `simplix-boot-utils` | Builds an update body from a loaded record, leaving out its audit stamps |
+| `serverMessage` | `simplix-boot-utils` | Re-exported from `@simplix-react/api` |
+| `pageOf(itemSchema)`, `springPageSchema` | `simplix-boot-auth` | Zod schemas of a Spring page |
+| `createBootHttpFetch(options?)`, `bootResponseAdapter` | `simplix-boot-auth` | The base fetch that converts Boot errors, and the error adapter generated mutators use |
 
 ### Setting Up Mocks
 
@@ -441,6 +479,24 @@ const authMock = createAuthMock({
 ```
 
 This creates MSW handlers for token issue, token refresh, token revoke, user profile, and permission endpoints.
+
+### Streaming Updates
+
+`@simplix-react-ext/simplix-boot-stream` opens one `EventSource` connection to a SimpliX Boot SSE backend and hands live resource updates to React hooks. Mount `StreamProvider` near the root, then subscribe with `useStreamSubscription`:
+
+```tsx
+import { StreamProvider } from "@simplix-react-ext/simplix-boot-stream";
+
+function App() {
+  return (
+    <StreamProvider url="/api/stream/connect">
+      <Dashboard />
+    </StreamProvider>
+  );
+}
+```
+
+The package also exports `useStreamStatus`, `useStaleDetection`, `useTimestampFreshness` and `useStreamLogs`. Its [README](../../../extensions/simplix-boot/packages/stream/README.md) covers every prop and hook.
 
 ## Complete Integration Example
 
@@ -507,7 +563,7 @@ function LoginPage() {
 
 ## Related
 
-- [Extensions Architecture](../core-concepts/extensions.md) --- design decisions and how extensions work
-- [Authentication Guide](./authentication.md) --- core auth setup (non-Boot)
-- [Authentication Architecture](../core-concepts/authentication.md) --- core auth design
-- [Mock Handlers](./mock-handlers.md) --- set up MSW handlers for development
+- [Extensions Architecture](../core-concepts/extensions.md): design decisions and how extensions work
+- [Authentication Guide](./authentication.md): core auth setup (non-Boot)
+- [Authentication Architecture](../core-concepts/authentication.md): core auth design
+- [Mock Handlers](./mock-handlers.md): set up MSW handlers for development

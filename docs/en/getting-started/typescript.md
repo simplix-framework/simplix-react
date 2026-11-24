@@ -1,5 +1,7 @@
 # TypeScript Setup
 
+**English** | [한국어](../../ko/getting-started/typescript.md)
+
 simplix-react is built with TypeScript and leverages Zod's type inference to provide end-to-end type safety. This guide covers the recommended configuration for optimal developer experience.
 
 ## Recommended tsconfig.json
@@ -44,11 +46,14 @@ The following configuration is recommended for projects using simplix-react:
 
 simplix-react requires `"strict": true` for accurate type inference. The individual flags enabled by strict mode are:
 
-- `strictNullChecks` — Prevents `null`/`undefined` from being assigned to non-nullable types
-- `strictFunctionTypes` — Enforces correct function parameter types
-- `strictBindCallApply` — Type-checks `bind`, `call`, and `apply`
-- `noImplicitAny` — Disallows implicit `any` types
-- `noImplicitThis` — Disallows `this` with an implicit `any` type
+- `strictNullChecks`: prevents `null`/`undefined` from being assigned to non-nullable types
+- `strictFunctionTypes`: enforces correct function parameter types
+- `strictBindCallApply`: type-checks `bind`, `call`, and `apply`
+- `noImplicitAny`: disallows implicit `any` types
+- `noImplicitThis`: disallows `this` with an implicit `any` type
+- `strictPropertyInitialization`: requires class properties to be initialized
+- `useUnknownInCatchVariables`: types `catch` variables as `unknown`
+- `alwaysStrict`: emits `"use strict"` and parses in strict mode
 
 Without strict mode, Zod's `z.infer<>` may produce overly wide types (e.g., `string | undefined` where `string` is expected), leading to false positives and missed errors.
 
@@ -77,7 +82,7 @@ import { projectApi } from "../../../contracts/project";
 import { projectApi } from "@/contracts/project";
 ```
 
-※ **Bundler configuration required** — Path aliases in `tsconfig.json` only affect TypeScript's type checker. Your bundler must also resolve them:
+※ **Bundler configuration required:** path aliases in `tsconfig.json` only affect TypeScript's type checker. Your bundler must also resolve them:
 
 **Vite** (`vite.config.ts`):
 
@@ -96,7 +101,7 @@ export default defineConfig({
 
 ## Type Inference with Zod
 
-simplix-react uses `z.infer<>` to derive TypeScript types directly from Zod schemas. You never need to write separate type definitions — the contract schemas are the types.
+simplix-react uses `z.infer<>` to derive TypeScript types directly from Zod schemas. You never need to write separate type definitions: the contract schemas are the types.
 
 ### Extracting Types from Schemas
 
@@ -129,10 +134,13 @@ const projectApi = defineApi({
   basePath: "/api/v1",
   entities: {
     task: {
-      path: "/tasks",
       schema: z.object({ id: z.string(), title: z.string() }),
-      createSchema: z.object({ title: z.string() }),
-      updateSchema: z.object({ title: z.string().optional() }),
+      operations: {
+        list: { method: "GET", path: "/tasks" },
+        get: { method: "GET", path: "/tasks/:id" },
+        create: { method: "POST", path: "/tasks", input: z.object({ title: z.string() }) },
+        update: { method: "PATCH", path: "/tasks/:id", input: z.object({ title: z.string().optional() }) },
+      },
     },
   },
   queryBuilder: simpleQueryBuilder,
@@ -140,11 +148,11 @@ const projectApi = defineApi({
 
 const hooks = deriveEntityHooks(projectApi);
 
-// All fully typed — no manual annotations needed:
+// All fully typed, no manual annotations needed:
 // hooks.task.useList()    → UseQueryResult<{ id: string; title: string }[]>
 // hooks.task.useGet(id)   → UseQueryResult<{ id: string; title: string }>
 // hooks.task.useCreate()  → UseMutationResult<..., { title: string }>
-// hooks.task.useUpdate()  → UseMutationResult<..., { id: string; dto: { title?: string } }>
+// hooks.task.useUpdate()  → UseMutationResult<..., { id: EntityId; dto: { title?: string } }>
 ```
 
 ### Working with Inferred Types
@@ -177,10 +185,14 @@ export const projectApi = defineApi({
   basePath: "/api/v1",
   entities: {
     task: {
-      path: "/tasks",
       schema: taskSchema,
-      createSchema: taskCreateSchema,
-      updateSchema: taskUpdateSchema,
+      operations: {
+        list: { method: "GET", path: "/tasks" },
+        get: { method: "GET", path: "/tasks/:id" },
+        create: { method: "POST", path: "/tasks", input: taskCreateSchema },
+        update: { method: "PATCH", path: "/tasks/:id", input: taskUpdateSchema },
+        delete: { method: "DELETE", path: "/tasks/:id" },
+      },
     },
   },
   queryBuilder: simpleQueryBuilder,
@@ -213,9 +225,9 @@ function TaskCard({ task }: { task: Task }) {
 
 Install the following extensions for the best experience:
 
-- **TypeScript and JavaScript Language Features** — Built-in, ensure it is enabled
-- **Zod Intellisense** — Provides autocomplete for Zod schema methods
-- **ESLint** — Integrates with the project's lint rules
+- **TypeScript and JavaScript Language Features**: built in; ensure it is enabled
+- **Zod Intellisense**: provides autocomplete for Zod schema methods
+- **ESLint**: integrates with the project's lint rules
 
 Recommended workspace settings (`.vscode/settings.json`):
 
@@ -236,11 +248,11 @@ Recommended workspace settings (`.vscode/settings.json`):
 Use `verbatimModuleSyntax` (already included in the recommended tsconfig) to enforce explicit type-only imports:
 
 ```ts
-// Correct — type imports are explicit
+// Correct: type imports are explicit
 import type { Task } from "@/contracts/project";
 import { projectApi } from "@/contracts/project";
 
-// Error with verbatimModuleSyntax — type should use 'import type'
+// Error with verbatimModuleSyntax: type should use 'import type'
 import { Task, projectApi } from "@/contracts/project";
 ```
 
@@ -248,5 +260,5 @@ This prevents types from being included in the runtime bundle and makes the dist
 
 ## Next Steps
 
-- [Overview](./overview.md) — Understand the framework architecture
-- [Quick Start](./quick-start.md) — Build your first feature with simplix-react
+- [Overview](./overview.md): understand the framework architecture
+- [Quick Start](./quick-start.md): build your first feature with simplix-react

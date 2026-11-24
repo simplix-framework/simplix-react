@@ -1,5 +1,7 @@
 # Guides
 
+**English** | [한국어](../../ko/guides/README.md)
+
 Practical how-to guides for accomplishing specific tasks with simplix-react. Each guide focuses on a single goal, provides step-by-step instructions, and includes working code examples.
 
 ## Contents
@@ -8,9 +10,9 @@ Practical how-to guides for accomplishing specific tasks with simplix-react. Eac
 
 | Document | Description |
 | --- | --- |
-| [Defining Entities](./defining-entities.md) | Define type-safe CRUD entities with Zod schemas (entity, create, and update schemas), register them in a contract via `defineApi()`, and configure path patterns for automatic client and hook derivation |
-| [Custom Operations](./custom-operations.md) | Add non-CRUD endpoints (batch actions, RPC calls, file uploads) using `OperationDefinition` with custom HTTP methods, path parameters, and input/output schemas |
-| [Parent-Child](./parent-child.md) | Configure nested entity hierarchies so child resources are scoped under parent URL paths (e.g., `/projects/:projectId/tasks`) with automatic query scoping and cache invalidation |
+| [Defining Entities](./defining-entities.md) | Define type-safe CRUD entities as a Zod schema and a map of operations (`{ method, path, input? }`), register them in a contract via `defineApi()`, and use the derived client and query keys |
+| [Custom Operations](./custom-operations.md) | Add non-CRUD endpoints (batch actions, RPC calls, file uploads) inside an entity or as a top-level `OperationDefinition`, with path parameters, input/output schemas, multipart and blob handling, and cache invalidation |
+| [Parent-Child](./parent-child.md) | Configure nested entity hierarchies so child resources are listed and created under parent URL paths (e.g., `/projects/:projectId/tasks`) with parent-scoped list query keys |
 
 ### React Integration
 
@@ -20,12 +22,14 @@ Practical how-to guides for accomplishing specific tasks with simplix-react. Eac
 | [Form Hooks](./form-hooks.md) | Derive TanStack Form hooks from contracts via `deriveEntityFormHooks()`, build create/update forms with automatic dirty-field tracking, default value handling, and server validation error mapping |
 | [UI Components](./ui-components.md) | Build CRUD interfaces using `CrudList`, `CrudForm`, `CrudDetail`, and `CrudTree` compound components with explicit field configuration, custom column rendering, and composable layout patterns |
 | [Designs](./designs.md) | Choose the design every component is drawn in (`classic`, `clarity`) on the root `UIProvider`, mark what a component draws with slot and part declarations, and add a design from a spec of class replacements and per-slot overrides |
+| [Consumer Styling Setup](./consumer-styling-setup.md) | Reference for what a project that depends on `@simplix-react/ui` must define: Tailwind wiring, `@source` globs, the stylesheet import and design tokens |
+| [Consumer Design Customization](./consumer-design-customization.md) | Customize how `@simplix-react/ui` components look in your project after the styling setup is in place |
 
 ### HTTP & Auth
 
 | Document | Description |
 | --- | --- |
-| [Custom Fetch](./custom-fetch.md) | Customize the HTTP layer for headers, interceptors, logging, and error transformation by wrapping `defaultFetch` or providing a fully custom `FetchFn` implementation |
+| [Custom Fetch](./custom-fetch.md) | Customize the HTTP layer for headers, interceptors, logging, and error transformation with `createFetch`, `configureDefaultFetch`, a wrapper around `defaultFetch`, or a fully custom `FetchFn` implementation |
 | [Authentication](./authentication.md) | Set up authenticated API requests using Bearer tokens, API keys, or OAuth2 via `@simplix-react/auth` with automatic token refresh, 401 retry, and `AuthProvider` React integration |
 | [Authorization](./authorization.md) | Implement role-based access control using `@simplix-react/access` with CASL rules, JWT/API/static adapters, `AccessProvider` context, and `useCan()` hook for conditional UI rendering |
 
@@ -34,8 +38,8 @@ Practical how-to guides for accomplishing specific tasks with simplix-react. Eac
 | Document | Description |
 | --- | --- |
 | [Internationalization](./internationalization.md) | Add multi-language support with `@simplix-react/i18n`: configure `createI18nConfig`, organize translation files by namespace/locale, register domain translations, and use `useTranslation` hooks |
-| [Testing with Mocks](./testing-with-mocks.md) | Configure Vitest and React Testing Library with `@simplix-react/testing` helpers: `createMockClient` for deterministic data, `createQueryWrapper` for provider setup, and mock access control testing |
-| [Mock Handlers](./mock-handlers.md) | Set up and customize MSW mock handlers derived from contracts: seed data, override individual handlers, add custom response delays, and configure relation loading behavior |
+| [Testing with Mocks](./testing-with-mocks.md) | Configure Vitest and React Testing Library with `@simplix-react/testing` helpers: `createMockClient` for deterministic data, `createTestWrapper` for provider setup, and mock access control testing |
+| [Mock Handlers](./mock-handlers.md) | Set up and customize MSW mock handlers derived from contracts: seed data, override individual handlers, and configure relation loading behavior |
 
 ### Tooling & Extensions
 

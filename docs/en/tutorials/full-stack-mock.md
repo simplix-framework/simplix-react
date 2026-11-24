@@ -1,22 +1,25 @@
 # Build a Full-Stack Mock Development Environment
 
-> After completing this tutorial, you will have a fully working frontend application backed by an in-memory mock store and MSW service worker — no backend server required.
+**English** | [한국어](../../ko/tutorials/full-stack-mock.md)
+
+> After completing this tutorial, you will have a fully working frontend application backed by an in-memory mock store and an MSW service worker, with no backend server.
 
 ## Prerequisites
 
-- Node.js 18+
+- Node.js 20+
 - pnpm installed globally
 - Basic knowledge of React, TypeScript, and TanStack Query
 - A Vite-based React project (or follow Step 1 below)
 
 ## Step 1: Set Up Dependencies
 
-Create a new project and install all three simplix-react packages.
+Create a new project and install the simplix-react packages with their peer dependencies.
 
 ```bash
 pnpm create vite mock-demo --template react-ts
 cd mock-demo
-pnpm add @simplix-react/contract @simplix-react/react @simplix-react/mock @tanstack/react-query zod
+pnpm add @simplix-react/contract @simplix-react/react @simplix-react/mock @tanstack/react-query @tanstack/react-query-persist-client @tanstack/query-sync-storage-persister zod
+pnpm add -D msw
 pnpm add -D @types/react @types/react-dom
 ```
 
@@ -36,7 +39,7 @@ ls public/mockServiceWorker.js
 
 ## Step 2: Define the Contract
 
-Create the API contract with project and task entities. The task entity uses `parent` to nest under projects.
+Create the API contract with project and task entities. The task entity uses `parent` to nest under projects. The `id` fields are numbers because the mock handlers give every created record a numeric `id`.
 
 Create `src/contract.ts`:
 
@@ -45,7 +48,7 @@ import { z } from "zod";
 import { defineApi, simpleQueryBuilder } from "@simplix-react/contract";
 
 const projectSchema = z.object({
-  id: z.string(),
+  id: z.number(),
   name: z.string(),
   description: z.string(),
   status: z.enum(["active", "archived"]),
@@ -66,7 +69,7 @@ const updateProjectSchema = z.object({
 });
 
 const taskSchema = z.object({
-  id: z.string(),
+  id: z.number(),
   projectId: z.string(),
   title: z.string(),
   completed: z.boolean(),
@@ -89,19 +92,27 @@ export const projectApi = defineApi({
   basePath: "/api/v1",
   entities: {
     project: {
-      path: "/projects",
       schema: projectSchema,
-      createSchema: createProjectSchema,
-      updateSchema: updateProjectSchema,
+      operations: {
+        list: { method: "GET", path: "/projects" },
+        get: { method: "GET", path: "/projects/:id" },
+        create: { method: "POST", path: "/projects", input: createProjectSchema },
+        update: { method: "PATCH", path: "/projects/:id", input: updateProjectSchema },
+        delete: { method: "DELETE", path: "/projects/:id" },
+      },
     },
     task: {
-      path: "/tasks",
       schema: taskSchema,
-      createSchema: createTaskSchema,
-      updateSchema: updateTaskSchema,
       parent: {
         param: "projectId",
         path: "/projects",
+      },
+      operations: {
+        list: { method: "GET", path: "/tasks" },
+        get: { method: "GET", path: "/tasks/:id" },
+        create: { method: "POST", path: "/tasks", input: createTaskSchema },
+        update: { method: "PATCH", path: "/tasks/:id", input: updateTaskSchema },
+        delete: { method: "DELETE", path: "/tasks/:id" },
       },
     },
   },
@@ -131,7 +142,7 @@ export const handlers = deriveMockHandlers(projectApi.config, {
 });
 ```
 
-This single call generates 10 handlers:
+This single call derives one handler per operation. The `list` and `create` operations of the task entity are served under the parent path:
 
 | Entity  | Method | Path                                       |
 | ------- | ------ | ------------------------------------------ |
@@ -148,8 +159,10 @@ This single call generates 10 handlers:
 
 Key points:
 
-- No `tableName` is needed — the store name is derived automatically as `{domain}_{snake_case_entity}` (e.g. `project_project`, `project_task`)
-- `defaultSort` uses `"field:direction"` format with camelCase field names
+- No `tableName` is needed: the store name is derived as `{domain}_{snake_case_entity}` (e.g. `project_project`, `project_task`)
+- `defaultSort` uses `"field:direction"` format with camelCase field names, and `"createdAt:desc"` is its default
+- A created record gets the next numeric `id` of its store and `createdAt` and `updatedAt` timestamps when the request leaves them out; an update sets `updatedAt`
+- A response body is `{ data: <payload> }`, which the default fetch of the contract unwraps
 
 **Expected result:** `handlers` is an array of MSW `HttpHandler` instances. Each handler reads from and writes to the in-memory store.
 
@@ -206,7 +219,11 @@ bootstrap();
 3. Seeds each entity store from domain seed data (if provided)
 4. Combines handlers from enabled domains and starts the MSW service worker
 
-**Expected result:** Opening the browser console shows `[MSW] Mocking enabled`. All API requests to `/api/v1/*` are intercepted by the service worker and handled by the in-memory store.
+`setupMockWorker` starts the worker with `quiet: true`, so it writes no start-up message to the console, and with `onUnhandledRequest: "bypass"`, so a request no handler matches goes to the network.
+
+![The service worker intercepts each request to /api/v1, the mock handler reads or writes the in-memory store, and the response returns to the hook](../../assets/figures/tutorials-full-stack-mock-request.en.svg)
+
+**Expected result:** The Network tab of DevTools shows the requests to `/api/v1/*` answered by the service worker and handled by the in-memory store.
 
 ## Step 5: Derive Hooks and Build the UI
 
@@ -257,8 +274,10 @@ function ProjectManager() {
       <ul>
         {projects?.map((p) => (
           <li key={p.id}>
-            <button onClick={() => setSelectedId(p.id)}>{p.name}</button>
-            <button onClick={() => deleteProject.mutate(p.id)}>Delete</button>
+            <button onClick={() => setSelectedId(String(p.id))}>{p.name}</button>
+            <button onClick={() => deleteProject.mutate(String(p.id))}>
+              Delete
+            </button>
           </li>
         ))}
       </ul>
@@ -310,14 +329,16 @@ function TaskPanel({ projectId }: { projectId: string }) {
                 checked={t.completed}
                 onChange={() =>
                   updateTask.mutate({
-                    id: t.id,
+                    id: String(t.id),
                     dto: { completed: !t.completed },
                   })
                 }
               />
               {t.title}
             </label>
-            <button onClick={() => deleteTask.mutate(t.id)}>Remove</button>
+            <button onClick={() => deleteTask.mutate(String(t.id))}>
+              Remove
+            </button>
           </li>
         ))}
       </ul>
@@ -333,6 +354,8 @@ export default function App() {
   );
 }
 ```
+
+The hooks take an id as a string, so the component passes `String(p.id)` and `String(t.id)`.
 
 **Expected result:** The app runs with full CRUD for projects and tasks. All data is stored in-memory and handled via MSW.
 
@@ -355,11 +378,11 @@ Open the browser and perform these operations in order:
 | 5 | Click "Remove" on the task | The task disappears from the list                  |
 | 6 | Click "Delete" on the project | The project disappears from the list             |
 
-Open the Network tab in DevTools. All requests to `/api/v1/*` should show `(ServiceWorker)` as the initiator.
+Open the Network tab in DevTools. The requests to `/api/v1/*` are marked as answered by the service worker.
 
-> **Note:** Data is stored in-memory and resets on every page refresh. This is by design — the mock layer is intended for development and testing, not data persistence. See Step 7 for pre-populating data with seed records.
+> **Note:** Data is stored in-memory and resets on every page refresh. This is by design: the mock layer is intended for development and testing, not data persistence. See Step 7 for pre-populating data with seed records.
 
-**Expected result:** All six operations succeed. Each page refresh starts with a clean slate (or with seed data if configured).
+**Expected result:** Every operation in the table succeeds. Each page refresh starts with a clean slate (or with seed data if configured).
 
 ## Step 7: Add Seed Data
 
@@ -380,7 +403,7 @@ export async function startMockEnvironment(): Promise<void> {
         seed: {
           project_project: [
             {
-              id: "proj-1",
+              id: 1,
               name: "Website Redesign",
               description: "Redesign the company website",
               status: "active",
@@ -388,7 +411,7 @@ export async function startMockEnvironment(): Promise<void> {
               updatedAt: "2025-01-15T09:00:00Z",
             },
             {
-              id: "proj-2",
+              id: 2,
               name: "Mobile App",
               description: "Build a mobile application",
               status: "active",
@@ -396,7 +419,7 @@ export async function startMockEnvironment(): Promise<void> {
               updatedAt: "2025-01-10T09:00:00Z",
             },
             {
-              id: "proj-3",
+              id: 3,
               name: "Legacy Migration",
               description: "Migrate legacy systems",
               status: "archived",
@@ -406,40 +429,40 @@ export async function startMockEnvironment(): Promise<void> {
           ],
           project_task: [
             {
-              id: "task-1",
-              projectId: "proj-1",
+              id: 1,
+              projectId: "1",
               title: "Create wireframes",
               completed: true,
               createdAt: "2025-01-16T09:00:00Z",
               updatedAt: "2025-01-16T09:00:00Z",
             },
             {
-              id: "task-2",
-              projectId: "proj-1",
+              id: 2,
+              projectId: "1",
               title: "Design mockups",
               completed: false,
               createdAt: "2025-01-17T09:00:00Z",
               updatedAt: "2025-01-17T09:00:00Z",
             },
             {
-              id: "task-3",
-              projectId: "proj-1",
+              id: 3,
+              projectId: "1",
               title: "Implement homepage",
               completed: false,
               createdAt: "2025-01-18T09:00:00Z",
               updatedAt: "2025-01-18T09:00:00Z",
             },
             {
-              id: "task-4",
-              projectId: "proj-2",
+              id: 4,
+              projectId: "2",
               title: "Set up React Native",
               completed: true,
               createdAt: "2025-01-11T09:00:00Z",
               updatedAt: "2025-01-11T09:00:00Z",
             },
             {
-              id: "task-5",
-              projectId: "proj-2",
+              id: 5,
+              projectId: "2",
               title: "Build navigation",
               completed: false,
               createdAt: "2025-01-12T09:00:00Z",
@@ -455,16 +478,18 @@ export async function startMockEnvironment(): Promise<void> {
 
 Key points:
 
-- Seed data is plain JavaScript objects — no SQL, no migrations
+- Seed data is plain JavaScript objects, with no SQL and no migrations
 - Store names follow the convention `{domain}_{snake_case_entity}` (e.g. domain `"project"` + entity `"project"` = `"project_project"`, entity `"task"` = `"project_task"`)
 - Each record should include all fields that the schema expects, including `id`, `createdAt`, and `updatedAt`
+- A task stores `projectId` as a string, the form the handler writes from the route parameter, and the task list filters on it
+- Seeding numeric ids moves the id counter of the store to the largest one, so the next created project gets `4`
 - Seed data is loaded fresh on every page refresh, ensuring a consistent starting state
 
-**Expected result:** The app loads with 3 projects and their associated tasks pre-populated on every page load.
+**Expected result:** The app loads with the seeded projects and their tasks on every page load.
 
 ## Step 8: Transition to a Real API
 
-When your backend is ready, switching from mock to real API requires zero changes to your contract, hooks, or components. The only changes are in your bootstrap code.
+When your backend is ready, switching from mock to real API requires no changes to your contract, hooks, or components. The only changes are in your bootstrap code.
 
 Update `src/main.tsx`:
 
@@ -504,15 +529,9 @@ VITE_USE_MOCK=false
 
 The transition path:
 
-```text
-Contract (shared)
-    |
-    +-- Mock: In-Memory Store + MSW (development)
-    |
-    +-- Real: Backend API server (production)
-```
+![One contract serves both the in-memory mock with MSW in development and the backend API server in production](../../assets/figures/tutorials-full-stack-mock-switch.en.svg)
 
-Because `defineApi` produces a standard HTTP client, your components work with both the MSW mock layer and a real API server. The contract is the single source of truth.
+Because `defineApi` derives a standard HTTP client, your components work with both the MSW mock layer and a real API server. The contract is the single source of truth.
 
 **Expected result:** Setting `VITE_USE_MOCK=false` bypasses the mock setup entirely. All fetch requests go directly to the real backend at `/api/v1/*`.
 
@@ -520,7 +539,7 @@ Because `defineApi` produces a standard HTTP client, your components work with b
 
 In this tutorial you:
 
-1. Installed `@simplix-react/contract`, `@simplix-react/react`, and `@simplix-react/mock`
+1. Installed `@simplix-react/contract`, `@simplix-react/react`, `@simplix-react/mock`, and `msw`
 2. Defined a contract with project and task entities
 3. Derived MSW handlers with `deriveMockHandlers`
 4. Bootstrapped the mock environment with `setupMockWorker`
@@ -534,4 +553,4 @@ The mock environment provides:
 - Sorting, filtering, and offset-based pagination out of the box
 - Network-level interception via MSW (visible in DevTools Network tab)
 - Consistent seed data on every page load for reliable development
-- Zero code changes needed when switching to a real backend
+- No code changes when switching to a real backend, as long as it returns the payload in a `data` field or as the whole body and the same id types

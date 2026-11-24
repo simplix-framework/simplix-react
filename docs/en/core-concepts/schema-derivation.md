@@ -1,35 +1,33 @@
 # Schema Derivation
 
+**English** | [한국어](../../ko/core-concepts/schema-derivation.md)
+
 ## Overview
 
-Schema derivation is the process by which simplix-react transforms a declarative API contract into executable code --- HTTP clients, query key factories, React Query hooks, and MSW mock handlers. Instead of manually wiring these layers together, you call `defineApi()` once and the framework generates everything from the contract's Zod schemas and path definitions.
+Schema derivation turns one declarative API contract into the code that talks to the API: an HTTP client, query key factories, React Query hooks, form hooks, and MSW mock handlers. You call `defineApi()` once, and each layer is derived from the Zod schemas and the operation paths of that contract.
 
-The derivation pipeline is the central architectural mechanism of simplix-react. It enforces the invariant that every layer of the stack --- from the HTTP call to the React hook to the mock handler --- agrees on the same types, the same URL structure, and the same validation rules. When you change a Zod schema, every derived artifact updates automatically because they all trace back to the same source definition.
+Every layer therefore agrees on the same types, the same URLs, and the same validation rules. When you change a Zod schema, the client, the hooks, and the mock handlers change with it, because each of them reads the same definition.
 
-This approach eliminates an entire class of bugs: mismatched types between client and server, forgotten query key updates after renaming an entity, stale mock handlers that no longer match the real API. The derivation pipeline makes these inconsistencies structurally impossible.
+This removes a class of defects that hand-written layers collect: a hook whose type no longer matches the response, a query key left behind after an entity was renamed, a mock handler that answers for an endpoint the API no longer has.
 
 ## How It Works
 
-The derivation pipeline has five stages, each consuming the contract and producing a different artifact:
+![One contract is the input of the client, the query keys, the hooks, the form hooks, and the mock handlers](../../assets/figures/concepts-schema-derivation-pipeline.en.svg)
 
-<!--
-```mermaid
-graph LR
-    A[defineApi] --> B[deriveClient]
-    A --> C[deriveQueryKeys]
-    B --> D[deriveEntityHooks]
-    C --> D
-    A --> E[deriveMockHandlers]
-```
--->
+The contract is the only input. `defineApi()` derives the client and the query keys while it assembles the contract, and each of the other packages derives its own layer from that contract.
 
-**Contract** → **Client** + **QueryKeys** → **Hooks** → (consumed by React components)
-
-**Contract** → **MockHandlers** → (consumed by MSW service worker)
+| Stage | Function | Package | Derives |
+| --- | --- | --- | --- |
+| 1 | `defineApi` | `@simplix-react/contract` | The contract: `config`, `client`, `queryKeys` |
+| 2 | `deriveClient` | `@simplix-react/contract` | A typed function for each operation |
+| 3 | `deriveQueryKeys` | `@simplix-react/contract` | A query key factory for each entity |
+| 4 | `deriveEntityHooks` | `@simplix-react/react` | A React Query hook for each operation |
+| 5 | `deriveEntityFormHooks` | `@simplix-react/form` | TanStack Form hooks for the create and update operations |
+| 6 | `deriveMockHandlers` | `@simplix-react/mock` | An MSW handler for each operation |
 
 ### Stage 1: defineApi (Contract Assembly)
 
-`defineApi()` is the entry point. It takes an `ApiContractConfig` containing entities, operations, domain name, base path, and an optional query builder. It immediately calls `deriveClient()` and `deriveQueryKeys()`, returning a contract object with three properties: `config`, `client`, and `queryKeys`.
+`defineApi()` is the entry point. It takes an `ApiContractConfig` with a domain name, a base path, the entities, optional top-level operations, and an optional query builder. It calls `deriveClient()` and `deriveQueryKeys()` and returns a contract with three properties: `config`, `client`, and `queryKeys`.
 
 ```ts
 // packages/contract/src/define-api.ts
@@ -42,108 +40,146 @@ export function defineApi(config, options?) {
 }
 ```
 
-### Stage 2: deriveClient (HTTP Client Derivation)
-
-`deriveClient()` iterates over all entities and operations in the config. For each entity, it derives an object with five CRUD methods: `list`, `get`, `create`, `update`, and `delete`. For each operation, it derives a callable function that maps positional arguments to path parameters.
-
-Key behaviors:
-
-- **Parent-aware URL construction** --- if an entity has a `parent` definition, `list` and `create` prepend the parent path segment (e.g. `/projects/:projectId/tasks`)
-- **Query parameter serialization** --- the `list` method delegates to the contract's `queryBuilder.buildSearchParams()` for filter, sort, and pagination encoding
-- **Content type handling** --- operations with `contentType: "multipart"` automatically convert input to `FormData`; operations with `responseType: "blob"` return binary data
-- **Pluggable fetch** --- the `fetchFn` option allows replacing the default HTTP client (e.g. for adding auth headers or retry logic)
+An entity is a Zod schema and a map of operations. Each operation states its HTTP method and its path:
 
 ```ts
-// Entity client shape
-api.client.task.list(parentId?, params?)  // GET
-api.client.task.get(id)                    // GET /:id
-api.client.task.create(parentIdOrDto, dto?) // POST
-api.client.task.update(id, dto)            // PATCH /:id
-api.client.task.delete(id)                 // DELETE /:id
+import { z } from "zod";
+import { defineApi, simpleQueryBuilder } from "@simplix-react/contract";
 
-// Operation client shape
-api.client.assignTask(taskId, { userId })  // POST /tasks/:taskId/assign
+const taskSchema = z.object({ id: z.string(), title: z.string(), status: z.enum(["open", "done"]) });
+
+export const api = defineApi({
+  domain: "project",
+  basePath: "/api",
+  entities: {
+    task: {
+      schema: taskSchema,
+      operations: {
+        list: { method: "GET", path: "/tasks" },
+        get: { method: "GET", path: "/tasks/:id" },
+        create: { method: "POST", path: "/tasks", input: taskSchema.omit({ id: true }) },
+        update: { method: "PATCH", path: "/tasks/:id", input: taskSchema.partial().omit({ id: true }) },
+        delete: { method: "DELETE", path: "/tasks/:id" },
+        archive: { method: "POST", path: "/tasks/:id/archive" },
+      },
+    },
+  },
+  queryBuilder: simpleQueryBuilder,
+});
 ```
+
+### The Role of an Operation
+
+Every later stage decides what to derive from the role of an operation. An operation named `list`, `get`, `create`, `update`, `delete`, or `tree` has the role of its name. An operation with another name takes a role only when it states one with `role`, and is a custom operation otherwise. In the contract above, `archive` is a custom operation.
+
+### Stage 2: deriveClient (HTTP Client Derivation)
+
+`deriveClient()` derives one function for each operation of each entity, and one for each top-level operation. The role decides the shape of the function:
+
+```ts
+api.client.task.list({ filters: { status: "open" } }); // GET /api/tasks with the filters as query parameters
+api.client.task.get(id);                               // GET /api/tasks/:id
+api.client.task.create(dto);                           // POST /api/tasks
+api.client.task.update(id, dto);                       // PATCH /api/tasks/:id
+api.client.task.delete(id);                            // DELETE /api/tasks/:id
+
+// A custom operation takes its path parameters in order, then its input.
+api.client.task.archive(id);                           // POST /api/tasks/:id/archive
+```
+
+- **Parent-aware URLs**: when an entity has a `parent`, `list` and `create` take the parent ID first and prepend the parent path (`/projects/:projectId/tasks`).
+- **Query parameters**: `list` hands its filters, sort, and pagination to the `buildSearchParams()` of the contract's query builder.
+- **Request and response formats**: a custom operation with `contentType: "multipart"` sends its input as `FormData`, and one with `responseType: "blob"` returns binary data. `transformRequest` and `transformResponse` replace the default serialization.
+- **Pluggable fetch**: the `fetchFn` option of `defineApi()` replaces the HTTP function, for example to add authentication headers.
 
 ### Stage 3: deriveQueryKeys (Query Key Factory Derivation)
 
-`deriveQueryKeys()` iterates over all entity names and creates a `QueryKeyFactory` for each. The factory follows the TanStack Query key factory pattern with a hierarchical structure:
+`deriveQueryKeys()` creates a `QueryKeyFactory` for each entity. The keys are hierarchical, as TanStack Query recommends:
 
 ```ts
-queryKeys.task.all              // ["project", "task"]
-queryKeys.task.lists()          // ["project", "task", "list"]
-queryKeys.task.list({ status }) // ["project", "task", "list", { status }]
-queryKeys.task.details()        // ["project", "task", "detail"]
-queryKeys.task.detail(id)       // ["project", "task", "detail", id]
+api.queryKeys.task.all;              // ["project", "task"]
+api.queryKeys.task.lists();          // ["project", "task", "list"]
+api.queryKeys.task.list({ status }); // ["project", "task", "list", { status }]
+api.queryKeys.task.details();        // ["project", "task", "detail"]
+api.queryKeys.task.detail(id);       // ["project", "task", "detail", id]
+api.queryKeys.task.trees();          // ["project", "task", "tree"]
+api.queryKeys.task.tree(params);     // ["project", "task", "tree", params]
 ```
 
-The hierarchy enables granular cache invalidation: invalidating `queryKeys.task.all` clears everything, while invalidating `queryKeys.task.lists()` only clears list queries without touching detail queries.
+Invalidating `queryKeys.task.all` clears every query of the entity, and invalidating `queryKeys.task.lists()` clears the list queries and leaves the detail queries alone.
 
 ### Stage 4: deriveEntityHooks (React Query Hook Derivation)
 
-`deriveEntityHooks()` from `@simplix-react/react` takes the full contract object (config + client + queryKeys) and derives React Query hooks for each entity and operation.
+`deriveEntityHooks()` from `@simplix-react/react` takes the contract and derives one hook for each operation, named `use` followed by the operation name.
 
-For entities, six hooks are derived:
+| Role | Hook | TanStack primitive | Behavior |
+| --- | --- | --- | --- |
+| `list` | `useList` | `useQuery` | Fetches a list with an optional parent ID, filters, sort, and pagination |
+| `list` | `useInfiniteList` | `useInfiniteQuery` | Derived with `useList` for infinite scrolling |
+| `get` | `useGet` | `useQuery` | Fetches one entity by ID |
+| `create` | `useCreate` | `useMutation` | Creates an entity and invalidates `queryKeys.<entity>.all` |
+| `update` | `useUpdate` | `useMutation` | Updates an entity (optimistically when given `optimistic: true`, an option missing from the hook's type) and invalidates `queryKeys.<entity>.all` |
+| `delete` | `useDelete` | `useMutation` | Deletes an entity and invalidates `queryKeys.<entity>.all` |
+| `tree` | `useTree` | `useQuery` | Fetches the entity as a hierarchy |
+| custom, `GET` | `use<Operation>` | `useQuery` | Runs the operation as a query |
+| custom, other methods | `use<Operation>` | `useMutation` | Runs the operation and invalidates the keys its `invalidates` returns, or `queryKeys.<entity>.all` without one |
 
-| Hook | TanStack Primitive | Purpose |
-| --- | --- | --- |
-| `useList` | `useQuery` | Fetch a list with optional parent ID, filters, sort, pagination |
-| `useGet` | `useQuery` | Fetch a single entity by ID |
-| `useCreate` | `useMutation` | Create a new entity, auto-invalidates `keys.all` on success |
-| `useUpdate` | `useMutation` | Update an entity, supports optimistic updates, auto-invalidates on settle |
-| `useDelete` | `useMutation` | Delete an entity, auto-invalidates `keys.all` on success |
-| `useInfiniteList` | `useInfiniteQuery` | Infinite scroll with cursor or offset pagination |
+A top-level operation gets `hooks.<operation>.useMutation()`, which invalidates the keys its `invalidates` returns.
 
-For operations, a single `useMutation` hook is derived with automatic cache invalidation driven by the operation's `invalidates` configuration.
+Each hook accepts TanStack Query options. The derivation owns `queryKey` and `queryFn` for a query and `mutationFn` for a mutation.
 
-All hooks support full TanStack Query options passthrough --- callers can provide any option except `queryKey`/`queryFn` (for queries) or `mutationFn` (for mutations), which are managed by the derivation layer.
+### Stage 5: deriveEntityFormHooks (Form Hook Derivation)
 
-### Stage 5: deriveMockHandlers (MSW Handler Derivation)
+`deriveEntityFormHooks()` from `@simplix-react/form` takes the contract and the hooks of stage 4. An entity with a `create` operation gets `useCreateForm`, and one with an `update` operation gets `useUpdateForm`. Each form hook connects TanStack Form to the mutation, sends only the fields that changed on an update, and maps server validation errors to the fields.
 
-`deriveMockHandlers()` from `@simplix-react/mock` reads the contract config and derives MSW `http.*` handlers for each entity's CRUD operations. Each handler reads from and writes to an in-memory Map store.
+### Stage 6: deriveMockHandlers (MSW Handler Derivation)
 
-For each entity, five handlers are derived:
+`deriveMockHandlers()` from `@simplix-react/mock` reads `contract.config` and derives an MSW handler for each operation. The handlers read from and write to an in-memory store.
 
-- `http.get(listPath)` --- supports filtering, sorting, and pagination via query params
-- `http.get(detailPath)` --- supports `belongsTo` relation loading via joins
-- `http.post(createPath)` --- auto-generates UUID IDs, handles parent-scoped creation
-- `http.patch(updatePath)` --- partial updates with automatic `updated_at` timestamps
-- `http.delete(deletePath)` --- removes the row by ID
+| Role | Handler |
+| --- | --- |
+| `list` | Filters, sorts, and paginates by offset from the query parameters |
+| `get` | Returns one record, with its `belongsTo` relations when the mock configuration declares them |
+| `create` | Stores the record, with a numeric `id` when the request gives none, and sets `createdAt` and `updatedAt` |
+| `update` | Merges the request into the record and sets `updatedAt` |
+| `delete` | Removes the record by `id` |
+| `tree` | Returns the records as a hierarchy |
+| custom | Answers 200, or runs the resolver the mock configuration gives for the operation |
 
 ## Design Decisions
 
 ### Why Derivation Over Manual Wiring
 
-Manual wiring means writing the HTTP call, the query key, the React hook, and the mock handler separately for each endpoint. This leads to:
+Manual wiring means writing the HTTP call, the query key, the React hook, and the mock handler separately for each endpoint. Three defects follow:
 
-- **Type drift** --- the hook's return type gradually diverges from the actual API response
-- **Stale keys** --- query keys are copied and pasted, then forgotten when endpoints change
-- **Incomplete mocks** --- mock handlers lag behind real API changes
+- **Type drift**: the return type of a hook diverges from the actual response.
+- **Stale keys**: query keys are copied, then forgotten when an endpoint changes.
+- **Incomplete mocks**: mock handlers lag behind the API.
 
-Derivation eliminates all three problems. Since every artifact traces back to the same Zod schema and path definition, they are structurally forced to agree. The cost is a slightly higher abstraction level, but the reduction in maintenance burden and bug surface area more than compensates.
+Derivation removes all three. Every layer reads the same Zod schema and the same paths, so the layers cannot disagree. The cost is one more level of abstraction between your component and the HTTP call.
 
 ### Why Each Stage Is a Separate Function
 
-The derivation pipeline is decomposed into independent functions (`deriveClient`, `deriveQueryKeys`, `deriveEntityHooks`, `deriveMockHandlers`) rather than a single monolithic generator. This decomposition enables:
+The pipeline is a set of independent functions:
 
-- **Package separation** --- `deriveClient` and `deriveQueryKeys` live in `@simplix-react/contract`, `deriveEntityHooks` lives in `@simplix-react/react`, and `deriveMockHandlers` lives in `@simplix-react/mock`. Consumers only install the packages they need.
-- **Tree-shaking** --- if you don't use mocks in production, `@simplix-react/mock` is never bundled.
-- **Extensibility** --- new derivation targets can be added as new packages without modifying existing ones.
+- **Package separation**: `deriveClient` and `deriveQueryKeys` live in `@simplix-react/contract`, `deriveEntityHooks` in `@simplix-react/react`, `deriveEntityFormHooks` in `@simplix-react/form`, and `deriveMockHandlers` in `@simplix-react/mock`. You install only the packages you use.
+- **Tree-shaking**: an application that does not use mocks in production never bundles `@simplix-react/mock`.
+- **Extensibility**: a new derivation target is a new package that reads the contract, and the existing packages stay as they are.
 
 ### Why the Contract Object Bundles Config, Client, and QueryKeys
 
-The `defineApi()` return value bundles all three because downstream consumers need different subsets. `deriveEntityHooks()` needs all three (config for entity definitions, client for query/mutation functions, queryKeys for cache management). `deriveMockHandlers()` only needs config. Bundling them together means you pass a single object everywhere, and TypeScript ensures the types flow through correctly.
+Each consumer needs a different part of the contract. `deriveEntityHooks()` needs all three: `config` for the operations, `client` for the query and mutation functions, and `queryKeys` for the cache. `deriveEntityFormHooks()` needs `config` and the derived hooks. `deriveMockHandlers()` needs `config` alone. You pass one object, and TypeScript carries the types through.
 
 ## Implications
 
 ### Adding a New Entity
 
-Adding a new entity to your API surface requires exactly one change: add an entry to the `entities` object in your `ApiContractConfig`. The derivation pipeline automatically generates the client methods, query keys, hooks, and mock handlers. No manual registration, no code generation step, no boilerplate.
+To add an entity, add one entry to `entities` with its schema and its operations. The client functions, the query keys, the hooks, the form hooks, and the mock handlers follow from that entry. Nothing is registered by hand, and no code generation step runs.
 
 ### Changing a Schema
 
-Changing a Zod schema (e.g. adding a field to `updateSchema`) immediately propagates as TypeScript errors to every component that uses the derived `useUpdate` hook with an incompatible DTO shape. The feedback loop is instantaneous --- you change the schema, the compiler tells you what else needs to change.
+A changed Zod schema reaches every component as a TypeScript error where the component no longer fits. When you add a required field to the input of `update`, the compiler points at each call of `useUpdate` that does not send it.
 
 ### Adding Custom Behavior
 
-The derivation pipeline generates standard behavior. When you need custom logic (e.g. a complex query that joins multiple entities, a mutation with side effects beyond cache invalidation), you define it as an `OperationDefinition` with explicit input/output schemas and an `invalidates` function. The operation integrates into the same derivation pipeline without special-casing.
+When an endpoint is not one of the standard roles, add it to the `operations` of its entity under its own name, or to the top-level `operations` of the contract when it belongs to no entity. State its input and output schemas and an `invalidates` function. It is derived with the rest: a client function, a hook, and a mock handler.

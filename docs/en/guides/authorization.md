@@ -1,5 +1,7 @@
 # How to Add Authorization
 
+**English** | [한국어](../../ko/guides/authorization.md)
+
 > Set up role-based access control using `@simplix-react/access` with CASL-powered permission checks, adapter-based rule extraction, and React integration.
 
 ## Before You Begin
@@ -15,11 +17,11 @@ pnpm add @simplix-react/access @casl/ability
 
 ## Solution
 
-### Step 1 -- Create an AccessPolicy with an Adapter
+### Step 1: Create an AccessPolicy with an Adapter
 
 The `createAccessPolicy` function creates a policy instance backed by CASL. You choose an adapter based on where your permission data lives.
 
-**JWT Adapter** -- Extract permissions directly from JWT claims (no server round-trip):
+**JWT Adapter**: Extract permissions directly from JWT claims (no server round-trip):
 
 ```ts
 import { createAccessPolicy, createJwtAdapter } from "@simplix-react/access";
@@ -45,7 +47,7 @@ The JWT adapter supports three permission formats:
 | `"flat"` | `["PET:list", "PET:view"]` | Spring Security authorities |
 | `"scopes"` | `"pet:read pet:write"` | OAuth2 scopes |
 
-For the `"flat"` format, configure a separator (defaults to `":"`):
+For the `"flat"` and `"scopes"` formats, the text before the separator becomes the subject and the text after it the action, as written: `"PET:list"` gives the subject `PET`, not `Pet`. A string without a separator becomes `manage` on that subject. With `"scopes"`, the adapter reads `permissionsKey` and falls back to the standard `scope` claim. Configure the separator with `flatSeparator` (defaults to `":"`):
 
 ```ts
 const adapter = createJwtAdapter({
@@ -55,7 +57,7 @@ const adapter = createJwtAdapter({
 });
 ```
 
-For a fully custom JWT structure, use the `transform` option to bypass default extraction:
+The keys default to `rolesKey: "roles"`, `permissionsKey: "permissions"`, `superAdminKey: "isSuperAdmin"`, `userIdKey: "sub"` and `usernameKey: "username"`. The adapter decodes the token payload without verifying its signature; pass `decode` to replace the decoder. For a fully custom JWT structure, use the `transform` option to bypass default extraction:
 
 ```ts
 const adapter = createJwtAdapter({
@@ -74,7 +76,7 @@ const adapter = createJwtAdapter({
 });
 ```
 
-**API Adapter** -- Fetch permissions from a REST endpoint:
+**API Adapter**: Fetch permissions from a REST endpoint:
 
 ```ts
 import { createAccessPolicy, createApiAdapter } from "@simplix-react/access";
@@ -88,7 +90,7 @@ const policy = createAccessPolicy({
 });
 ```
 
-The default response format is `{ permissions: PermissionMap }`. For custom server responses, use `transformResponse`:
+The endpoint defaults to `"/api/me/permissions"` and `fetchFn` to the global `fetch`. The default response format is `{ permissions: PermissionMap, roles?: string[] }`, and a response nested as `{ body: { permissions } }` is read too. The default reading sets no user, so a super-admin flag is read only through `transformResponse`, and only when it also returns `user`:
 
 ```ts
 const adapter = createApiAdapter({
@@ -98,18 +100,21 @@ const adapter = createApiAdapter({
     const data = res as {
       permissions: Record<string, string[]>;
       roles: string[];
+      userId: string;
+      username: string;
       isSuperAdmin: boolean;
     };
     return {
       permissions: data.permissions,
       roles: data.roles,
+      user: { userId: data.userId, username: data.username },
       isSuperAdmin: data.isSuperAdmin,
     };
   },
 });
 ```
 
-**Static Adapter** -- Return fixed rules (useful for testing and development):
+**Static Adapter**: Return fixed rules (useful for testing and development):
 
 ```ts
 import { createAccessPolicy, createStaticAdapter } from "@simplix-react/access";
@@ -132,11 +137,11 @@ policy.can("view", "Pet");    // true
 policy.can("delete", "Pet");  // false
 ```
 
-### Step 2 -- Configure Super-Admin Bypass and Persistence
+### Step 2: Configure Super-Admin Bypass and Persistence
 
 A super-admin user bypasses all permission checks by receiving `manage:all` (all actions on all subjects).
 
-Two detection methods:
+Pass `isSuperAdmin` to decide it yourself:
 
 ```ts
 const policy = createAccessPolicy({
@@ -153,9 +158,11 @@ const policy = createAccessPolicy({
 });
 ```
 
-The `AccessUser.isSuperAdmin` flag is the default detection method. If the JWT or API response sets `isSuperAdmin: true`, the user is automatically treated as a super-admin.
+Without `isSuperAdmin`, the policy reads the `AccessUser.isSuperAdmin` flag (`true` or `"true"`). The JWT adapter sets it from the `superAdminKey` claim, and the API adapter from the `isSuperAdmin` that `transformResponse` returns alongside a `user`.
 
-### Step 3 -- Set Up AccessProvider in React
+With `persist`, every rule change is written to the storage key as `{ rules, user, roles }`, `policy.clear()` removes it, and `policy.rehydrate()` reads it back.
+
+### Step 3: Set Up AccessProvider in React
 
 Wrap your app with `AccessProvider` to make the policy available to all components. Pass an optional `auth` prop to auto-sync with authentication state.
 
@@ -200,6 +207,10 @@ Auto-sync behavior:
 | Logout (unauthenticated) | `policy.clear()` then `policy.loadPublicAccess()` |
 | Mount | `policy.rehydrate()` then initial sync |
 
+![When the auth instance reports a sign-in, the provider loads the rules for the new token; on sign-out it clears them and loads the public rules](../../assets/figures/guides-authorization-auth-sync.en.svg)
+
+The provider updates the policy again only when the access token changes, so a token refresh reloads the rules.
+
 The `auth` prop accepts any object implementing `AuthLike`:
 
 ```ts
@@ -210,9 +221,9 @@ interface AuthLike {
 }
 ```
 
-### Step 4 -- Check Permissions with useCan and Can
+### Step 4: Check Permissions with useCan and Can
 
-**`useCan` hook** -- Returns a boolean for a single permission check:
+**`useCan` hook**: Returns a boolean for a single permission check:
 
 ```tsx
 import { useCan } from "@simplix-react/access/react";
@@ -230,9 +241,19 @@ function PetToolbar() {
 }
 ```
 
-When there is no `AccessProvider` in the tree, `useCan` returns `true`. This enables opt-in adoption -- access control is applied only where you wire it up.
+When there is no `AccessProvider` in the tree, `useCan` returns `true`. This enables opt-in adoption: access control is applied only where you wire it up.
 
-**`Can` component** -- Declarative permission guard:
+**`useCanWith` hook**: Combines several checks into one answer with a single hook call:
+
+```tsx
+import { useCanWith } from "@simplix-react/access/react";
+
+const canReview = useCanWith((can) => can("approve", "Order") || can("edit", "Order"));
+```
+
+Outside an `AccessProvider`, the `can` it receives answers `true`.
+
+**`Can` component**: Declarative permission guard:
 
 ```tsx
 import { Can } from "@simplix-react/access/react";
@@ -267,7 +288,7 @@ function PetActions() {
 | `fallback` | `ReactNode` | Rendered when check fails |
 | `children` | `ReactNode` | Rendered when check passes |
 
-### Step 5 -- Access the Full Policy with useAccess
+### Step 5: Access the Full Policy with useAccess
 
 When you need more than a single permission check (e.g., user info, roles), use `useAccess`:
 
@@ -287,7 +308,7 @@ function UserBadge() {
 
 Unlike `useCan`, `useAccess` throws if used outside an `AccessProvider`.
 
-### Step 6 -- Protect Routes with requireAccess
+### Step 6: Protect Routes with requireAccess
 
 Use `requireAccess` in TanStack Router `beforeLoad` guards. It throws `AccessDeniedError` when the check fails.
 
@@ -322,6 +343,8 @@ requireAccess(policy, {
 });
 ```
 
+The fallback reads the key from `localStorage` whatever storage `persist` uses.
+
 Handle the error in a route's `onError` or a global error boundary:
 
 ```ts
@@ -336,7 +359,7 @@ if (error instanceof AccessDeniedError) {
 }
 ```
 
-### Step 7 -- Filter Menus with useMenuFilter
+### Step 7: Filter Menus with useMenuFilter
 
 `useMenuFilter` recursively filters a menu tree based on the current user's permissions. Items without a `permission` field are always shown. If all children of a parent are filtered out, the parent is also removed.
 
@@ -386,7 +409,7 @@ When used outside an `AccessProvider`, all items are returned unfiltered.
 
 ### Role Checking
 
-Role utilities normalize the `ROLE_` prefix automatically -- `"ADMIN"` matches `"ROLE_ADMIN"`:
+Role utilities normalize the `ROLE_` prefix automatically: `"ADMIN"` matches `"ROLE_ADMIN"`:
 
 ```ts
 // On the policy instance
@@ -477,6 +500,29 @@ const unsubscribe = policy.subscribe(() => {
 unsubscribe();
 ```
 
+### Converting Permission Data
+
+The adapters convert permission data with helpers you can call yourself, for example inside a JWT `transform` or a custom `AccessAdapter`:
+
+```ts
+import {
+  normalizePermissionMap,
+  normalizeFlatPermissions,
+  normalizeScopePermissions,
+} from "@simplix-react/access";
+
+normalizePermissionMap({ Pet: ["list", "view"] });
+// [{ action: "list", subject: "Pet" }, { action: "view", subject: "Pet" }]
+
+normalizeFlatPermissions(["PET:list", "ROLE_ADMIN"]);
+// [{ action: "list", subject: "PET" }, { action: "manage", subject: "ROLE_ADMIN" }]
+
+normalizeScopePermissions("pet:read pet:write");
+// [{ action: "read", subject: "pet" }, { action: "write", subject: "pet" }]
+```
+
+A custom adapter is an object with `extract(authData)` that resolves to `{ rules, user?, roles? }`. `policy.update(authData)` passes `authData` to it unchanged.
+
 ### Testing
 
 Use `createStaticAdapter` or `@simplix-react/testing` utilities:
@@ -501,6 +547,6 @@ render(<MyComponent />, { wrapper });
 
 ## Related
 
-- [Authentication Guide](./authentication.md) -- Set up authenticated API requests
-- [@simplix-react/access API Reference](../api/@simplix-react/access/README.md) -- Full API documentation
-- [Testing with Mocks](./testing-with-mocks.md) -- Testing components with mock data
+- [Authentication Guide](./authentication.md): Set up authenticated API requests
+- [@simplix-react/access API Reference](../../api/@simplix-react/access/README.md): Full API documentation
+- [Testing with Mocks](./testing-with-mocks.md): Testing components with mock data

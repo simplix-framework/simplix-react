@@ -1,19 +1,26 @@
 # Defining Custom Operations Beyond CRUD
 
-> Add non-CRUD endpoints (batch actions, RPC calls, file uploads) to your contract using `OperationDefinition`.
+**English** | [한국어](../../ko/guides/custom-operations.md)
+
+> Add non-CRUD endpoints (batch actions, RPC calls, file uploads) to your contract, inside an entity or as a top-level `OperationDefinition`.
 
 ## Before You Begin
 
 - Know how to [define entities in a contract](./defining-entities.md)
 - Understand the difference between CRUD entity methods and custom operations
 
-Standard entity definitions cover `list`, `get`, `create`, `update`, and `delete`. For anything outside that pattern -- assigning a task, archiving a project, exporting a report -- use an `OperationDefinition`.
+An entity operation named `list`, `get`, `create`, `update`, `delete` or `tree`, or one that sets `role`, is a CRUD operation. For anything outside that pattern (assigning a task, archiving a project, exporting a report), define the operation in one of these places:
+
+- an operation with any other name in an entity's `operations`, which belongs to that entity (see [Custom Operations Inside an Entity](#custom-operations-inside-an-entity))
+- an `OperationDefinition` in the contract's top-level `operations`, which belongs to no entity (the steps below)
+
+![Where a custom operation is defined and its HTTP method decide which hook it gets](../../assets/figures/guides-custom-operations-hook-kind.en.svg)
 
 ## Solution
 
-### Step 1 -- Define the Operation
+### Step 1: Define the Operation
 
-An `OperationDefinition` specifies the HTTP method, path, input schema, and output schema.
+An `OperationDefinition` specifies the HTTP method, path, input schema, and output schema. `input` and `output` are both required.
 
 ```ts
 import { z } from "zod";
@@ -35,7 +42,7 @@ const assignTask = {
 
 Path parameters use the `:paramName` syntax. They are positionally mapped to function arguments when calling the derived client.
 
-### Step 2 -- Register in the Contract
+### Step 2: Register in the Contract
 
 Add the operation to the `operations` field alongside your entities.
 
@@ -56,7 +63,7 @@ const projectApi = defineApi({
 });
 ```
 
-### Step 3 -- Call the Derived Client
+### Step 3: Call the Derived Client
 
 The operation client accepts path parameters as positional arguments, followed by the input payload.
 
@@ -85,32 +92,61 @@ await projectApi.client.transferTask("proj-1", "task-1", {
 });
 ```
 
-### Step 4 -- Use Derived Hooks
+### Step 4: Use Derived Hooks
 
-Operations produce a `useMutation` hook in `@simplix-react/react`.
+`deriveEntityHooks` gives every top-level operation `hooks.<operation>.useMutation()`, whatever its HTTP method. The hook calls the client with the mutation variable as its only argument, so it fits an operation without path parameters:
 
 ```tsx
+import { z } from "zod";
+import type { OperationDefinition } from "@simplix-react/contract";
 import { deriveEntityHooks } from "@simplix-react/react";
 
+const importTasks = {
+  method: "POST",
+  path: "/tasks/import",
+  input: z.object({ source: z.string() }),
+  output: z.object({ importedCount: z.number() }),
+} satisfies OperationDefinition;
+
+// Registered under `operations: { assignTask, importTasks }` in the contract
 const hooks = deriveEntityHooks(projectApi);
 
-function AssignButton({ taskId }: { taskId: string }) {
-  const { mutate, isPending } = hooks.assignTask.useMutation();
+function ImportButton() {
+  const { mutate, isPending } = hooks.importTasks.useMutation();
 
   return (
-    <button
-      disabled={isPending}
-      onClick={() => mutate({ taskId, userId: "user-42" })}
-    >
+    <button disabled={isPending} onClick={() => mutate({ source: "jira" })}>
+      {isPending ? "Importing..." : "Import"}
+    </button>
+  );
+}
+```
+
+For an operation with path parameters such as `assignTask`, call the client inside your own `useMutation`:
+
+```tsx
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
+function AssignButton({ taskId }: { taskId: string }) {
+  const queryClient = useQueryClient();
+  const { mutate, isPending } = useMutation({
+    mutationFn: (userId: string) =>
+      projectApi.client.assignTask(taskId, { userId }),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: projectApi.queryKeys.task.all }),
+  });
+
+  return (
+    <button disabled={isPending} onClick={() => mutate("user-42")}>
       {isPending ? "Assigning..." : "Assign"}
     </button>
   );
 }
 ```
 
-### Step 5 -- Add Cache Invalidation
+### Step 5: Add Cache Invalidation
 
-Use the `invalidates` callback to automatically invalidate relevant queries after the operation succeeds.
+Use the `invalidates` callback to invalidate relevant queries after the derived `useMutation` succeeds. A top-level operation without `invalidates` invalidates nothing.
 
 ```ts
 const assignTask = {
@@ -131,16 +167,39 @@ const assignTask = {
 ```
 
 The `invalidates` function receives:
-- `queryKeys` -- a record of all entity query key factories in the contract
-- `params` -- the resolved path parameters from the request
+- `queryKeys`: a record of all entity query key factories in the contract
+- `params`: path parameters; the derived hook passes an empty object
 
-After the mutation succeeds, the framework automatically calls `queryClient.invalidateQueries` for each returned key array.
+After the mutation succeeds, the hook calls `queryClient.invalidateQueries` for each returned key array.
 
 ## Variations
 
+### Custom Operations Inside an Entity
+
+An entity operation whose name is not a CRUD name and which has no `role` is a custom operation of that entity. `output` is optional and defaults to the entity's `schema`. Its hook is `use` + the operation name: a `GET` operation gets a query hook and any other method a mutation hook. When the mutation succeeds, the hook invalidates the keys the operation's `invalidates` returns, or all queries of the entity when it has none. The mutation variable becomes the client function's first argument, so it fills the operation's first path parameter, and the hook cannot send an input of yours beside it. For an operation that needs a path parameter and an input, call the client inside your own `useMutation`.
+
+```ts
+const projectEntity = {
+  schema: projectSchema,
+  operations: {
+    list:    { method: "GET",  path: "/projects" },
+    get:     { method: "GET",  path: "/projects/:id" },
+    archive: { method: "POST", path: "/projects/:id/archive", input: z.object({ reason: z.string() }) },
+    stats:   { method: "GET",  path: "/projects/stats", output: z.object({ total: z.number() }) },
+  },
+} satisfies EntityDefinition;
+
+// Client: path parameters first, then the input
+await projectApi.client.project.archive("proj-1", { reason: "done" });
+
+// Hooks: a custom GET is a query, any other method a mutation
+const { data: stats } = hooks.project.useStats();
+const archive = hooks.project.useArchive();
+```
+
 ### GET Operations (Queries Instead of Mutations)
 
-Operations with `method: "GET"` still derive a `useMutation` hook. If you need a query-style hook, use the client directly with `useQuery`.
+A top-level operation with `method: "GET"` still derives a `useMutation` hook. If you need a query-style hook, define the operation inside an entity, or use the client directly with `useQuery`.
 
 ```ts
 import { useQuery } from "@tanstack/react-query";
@@ -185,16 +244,14 @@ const uploadAttachment = {
 } satisfies OperationDefinition;
 ```
 
-The framework automatically converts the input object to `FormData`, appending `File`/`Blob` values and stringifying primitives.
+The framework converts the input object to `FormData`, appending `File`/`Blob` values and stringifying primitives. The request goes through the global `fetch`, not through the contract's fetch function (see [Custom Fetch](./custom-fetch.md)).
 
 ```tsx
 function FileUploadButton({ taskId }: { taskId: string }) {
-  const upload = hooks.uploadAttachment.useMutation();
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      upload.mutate({ taskId, file, description: "Screenshot" });
+      await projectApi.client.uploadAttachment(taskId, { file, description: "Screenshot" });
     }
   };
 
@@ -204,7 +261,7 @@ function FileUploadButton({ taskId }: { taskId: string }) {
 
 ### Blob Responses (File Downloads)
 
-Set `responseType: "blob"` to receive binary data.
+Set `responseType: "blob"` to receive binary data. This request also uses the global `fetch`.
 
 ```ts
 const downloadReport = {
@@ -246,10 +303,12 @@ Available query key granularity:
 | `.list(params)` | `[domain, entity, "list", params]` | Specific filtered list |
 | `.details()` | `[domain, entity, "detail"]` | All detail queries |
 | `.detail(id)` | `[domain, entity, "detail", id]` | Specific detail query |
+| `.trees()` | `[domain, entity, "tree"]` | All tree queries |
+| `.tree(params)` | `[domain, entity, "tree", params]` | Specific tree query |
 
 ### All Supported HTTP Methods
 
-The `method` field accepts: `"GET"`, `"POST"`, `"PUT"`, `"PATCH"`, `"DELETE"`.
+The `method` field accepts: `"GET"`, `"POST"`, `"PUT"`, `"PATCH"`, `"DELETE"`. A body is sent for every method except `GET`.
 
 ```ts
 // PUT -- full replacement
@@ -279,5 +338,5 @@ const updateSettings = {
 
 ## Related
 
-- [Defining Entities in a Contract](./defining-entities.md) -- standard CRUD entity setup
-- [Parent-Child Entity Relationships](./parent-child.md) -- nested URL construction with `EntityParent`
+- [Defining Entities in a Contract](./defining-entities.md): standard CRUD entity setup
+- [Parent-Child Entity Relationships](./parent-child.md): nested URL construction with `EntityParent`
