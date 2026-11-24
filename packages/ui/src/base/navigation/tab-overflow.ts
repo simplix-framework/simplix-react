@@ -27,3 +27,22 @@ export function overflowEdges(scrollLeft: number, clientWidth: number, scrollWid
 export function arrowStep(clientWidth: number): number {
   return Math.max(48, Math.round(clientWidth * 0.8));
 }
+
+/** A stretch along the strip's scrolling axis, from `start` to `end`. */
+export interface Span {
+  readonly start: number;
+  readonly end: number;
+}
+
+/**
+ * Whether a tab lies wholly inside the strip's view, with the same pixel of slack at each side as
+ * {@link overflowEdges}, so a tab that `scrollIntoView` placed against an edge at a fractional
+ * position still counts as seen.
+ *
+ * @param tab where the tab runs along the strip's content
+ * @param view the part of the strip's content in view
+ */
+export function whollyInSight(tab: Span, view: Span): boolean {
+  const slack = 1;
+  return tab.start >= view.start - slack && tab.end <= view.end + slack;
+}

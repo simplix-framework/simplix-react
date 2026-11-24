@@ -13,9 +13,9 @@ simplix-react provides several resources for LLM agents. Choose the appropriate 
 
 | Resource | URL | Description |
 | --- | --- | --- |
-| llms.txt | `https://raw.githubusercontent.com/simplix-react/simplix-react/main/docs/llms.txt` | Navigation index with links |
-| Claude Code Skill | `https://raw.githubusercontent.com/simplix-react/simplix-react/main/skills/simplix-react.skill` | Claude Code skill package |
-| README | `https://raw.githubusercontent.com/simplix-react/simplix-react/main/README.md` | Project overview |
+| llms.txt | `https://raw.githubusercontent.com/simplix-framework/simplix-react/main/docs/llms.txt` | Navigation index with links |
+| Claude Code Skill | `https://raw.githubusercontent.com/simplix-framework/simplix-react/main/skills/simplix-react.skill` | Claude Code skill package |
+| README | `https://raw.githubusercontent.com/simplix-framework/simplix-react/main/README.md` | Project overview |
 
 ## Agent-Specific Setup
 
@@ -24,7 +24,7 @@ simplix-react provides several resources for LLM agents. Choose the appropriate 
 Provides the deepest level of integration. Install the simplix-react skill to instantly load framework context with the `/simplix-react` command.
 
 ```bash
-claude skill add https://raw.githubusercontent.com/simplix-react/simplix-react/main/skills/simplix-react.skill
+claude skill add https://raw.githubusercontent.com/simplix-framework/simplix-react/main/skills/simplix-react.skill
 ```
 
 Alternatively, add a direct reference in CLAUDE.md:
@@ -33,7 +33,7 @@ Alternatively, add a direct reference in CLAUDE.md:
 ## simplix-react
 
 This project uses simplix-react for API-first development.
-Reference: https://raw.githubusercontent.com/simplix-react/simplix-react/main/docs/llms.txt
+Reference: https://raw.githubusercontent.com/simplix-framework/simplix-react/main/docs/llms.txt
 ```
 
 ### OpenAI Codex
@@ -41,7 +41,7 @@ Reference: https://raw.githubusercontent.com/simplix-react/simplix-react/main/do
 Inject llms.txt content into the system prompt:
 
 ```bash
-codex --instructions "$(curl -s https://raw.githubusercontent.com/simplix-react/simplix-react/main/docs/llms.txt | head -500)"
+codex --instructions "$(curl -s https://raw.githubusercontent.com/simplix-framework/simplix-react/main/docs/llms.txt | head -500)"
 ```
 
 Or create a `.codex/instructions.md` file to permanently set up framework context:
@@ -50,7 +50,7 @@ Or create a `.codex/instructions.md` file to permanently set up framework contex
 ## Framework: simplix-react
 
 This project uses simplix-react, a contract-driven React framework.
-See: https://raw.githubusercontent.com/simplix-react/simplix-react/main/docs/llms.txt
+See: https://raw.githubusercontent.com/simplix-framework/simplix-react/main/docs/llms.txt
 ```
 
 ### Cursor
@@ -72,7 +72,7 @@ Key rules:
 - One contract per domain (defineApi per bounded context)
 - File naming: kebab-case
 
-@docs https://raw.githubusercontent.com/simplix-react/simplix-react/main/docs/llms.txt
+@docs https://raw.githubusercontent.com/simplix-framework/simplix-react/main/docs/llms.txt
 ```
 
 ### Windsurf
@@ -94,7 +94,7 @@ Key rules:
 - One contract per domain (defineApi per bounded context)
 - File naming: kebab-case
 
-Full docs: https://raw.githubusercontent.com/simplix-react/simplix-react/main/docs/llms.txt
+Full docs: https://raw.githubusercontent.com/simplix-framework/simplix-react/main/docs/llms.txt
 ```
 
 ### GitHub Copilot
@@ -123,14 +123,14 @@ Package map:
 - @simplix-react/i18n — createI18nConfig, I18nextAdapter
 - @simplix-react/cli — project scaffolding
 
-Full docs: https://raw.githubusercontent.com/simplix-react/simplix-react/main/docs/llms.txt
+Full docs: https://raw.githubusercontent.com/simplix-framework/simplix-react/main/docs/llms.txt
 ```
 
 ### Google Gemini (AI Studio / Code Assist)
 
 Upload llms.txt as a context file in AI Studio, or include it in the Code Assist system prompt:
 
-1. Download the content from `https://raw.githubusercontent.com/simplix-react/simplix-react/main/docs/llms.txt`
+1. Download the content from `https://raw.githubusercontent.com/simplix-framework/simplix-react/main/docs/llms.txt`
 2. AI Studio: Add via "Upload file" or "Add context"
 3. Code Assist: Register as a reference document in the project settings
 
@@ -153,7 +153,7 @@ Key rules:
 - One contract per domain (defineApi per bounded context)
 - File naming: kebab-case
 
-Full docs: https://raw.githubusercontent.com/simplix-react/simplix-react/main/docs/llms.txt
+Full docs: https://raw.githubusercontent.com/simplix-framework/simplix-react/main/docs/llms.txt
 ```
 
 ### OpenCode
@@ -163,7 +163,7 @@ Add context in the `opencode.json` configuration file:
 ```json
 {
   "context": {
-    "simplix-react": "https://raw.githubusercontent.com/simplix-react/simplix-react/main/docs/llms.txt"
+    "simplix-react": "https://raw.githubusercontent.com/simplix-framework/simplix-react/main/docs/llms.txt"
   }
 }
 ```
@@ -180,7 +180,7 @@ read:
 If llms.txt is not included in the project, download it first:
 
 ```bash
-curl -o docs/llms.txt https://raw.githubusercontent.com/simplix-react/simplix-react/main/docs/llms.txt
+curl -o docs/llms.txt https://raw.githubusercontent.com/simplix-framework/simplix-react/main/docs/llms.txt
 ```
 
 ## Universal Context Snippet
@@ -212,7 +212,7 @@ This project uses simplix-react, a contract-driven React framework.
 - @simplix-react/cli — project scaffolding
 
 ### Full Docs
-https://raw.githubusercontent.com/simplix-react/simplix-react/main/docs/llms.txt
+https://raw.githubusercontent.com/simplix-framework/simplix-react/main/docs/llms.txt
 ```
 
 ## Verifying Agent Understanding

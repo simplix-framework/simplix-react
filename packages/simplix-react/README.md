@@ -5,7 +5,7 @@
 # SimpliX React
 
 [![npm version](https://img.shields.io/npm/v/simplix-react.svg)](https://www.npmjs.com/package/simplix-react)
-[![license](https://img.shields.io/npm/l/simplix-react.svg)](https://github.com/simplix-react/simplix-react/blob/main/LICENSE)
+[![license](https://img.shields.io/npm/l/simplix-react.svg)](https://github.com/simplix-framework/simplix-react/blob/main/LICENSE)
 
 Meta package that installs all `@simplix-react/*` packages in one dependency.
 
@@ -64,8 +64,8 @@ pnpm add @simplix-react/contract @simplix-react/react
 
 ## Documentation
 
-- [Getting Started](https://github.com/simplix-react/simplix-react/blob/main/docs/getting-started/overview.md)
-- [API Reference](https://github.com/simplix-react/simplix-react/tree/main/docs/api)
+- [Getting Started](https://github.com/simplix-framework/simplix-react/blob/main/docs/getting-started/overview.md)
+- [API Reference](https://github.com/simplix-framework/simplix-react/tree/main/docs/api)
 
 ## License
 

@@ -13,7 +13,7 @@ Thank you for your interest in contributing to simplix-react. This guide covers 
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/simplix-react/simplix-react.git
+git clone https://github.com/simplix-framework/simplix-react.git
 cd simplix-react
 pnpm install
 ```

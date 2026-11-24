@@ -7,4 +7,4 @@ references:
   - simplix-react/references/api-patterns.md
   - simplix-react/references/recipes.md
   - simplix-react/references/configuration.md
-install: claude skill add https://raw.githubusercontent.com/simplix-react/simplix-react/main/skills/simplix-react.skill
+install: claude skill add https://raw.githubusercontent.com/simplix-framework/simplix-react/main/skills/simplix-react.skill
