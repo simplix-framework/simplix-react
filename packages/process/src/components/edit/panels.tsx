@@ -3,33 +3,34 @@ import type { Act, Condition, Id, Jump, Patch, Step } from "@simplix-react/proce
 import { useEffect, useId, useState } from "react";
 import type { ReactNode } from "react";
 
-import { Button, Checkbox, Input, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@simplix-react/ui";
+import { Button, Checkbox, FieldWrapper, Input, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@simplix-react/ui";
 
 import type { ProcessEditing } from "../../lib/use-process-editing";
 import { useProcessEditTranslation } from "../../lib/use-process-edit-translation";
 
 type Words = ReturnType<typeof useProcessEditTranslation>;
 
-/** One labelled field of a panel. */
-function Field({ label, children, htmlFor }: { label: string; children: ReactNode; htmlFor?: string }) {
+/** One labelled field of a panel, drawn as every form field of the framework is: the label over the control it names. */
+function Field({ label, children }: { label: string; children: (id: string) => ReactNode }) {
   return (
     <div data-process-slot="editor-field">
-      <Label htmlFor={htmlFor}>{label}</Label>
-      {children}
+      <FieldWrapper label={label} layout="top">
+        {({ id }) => children(id)}
+      </FieldWrapper>
     </div>
   );
 }
 
 /** A line of text that becomes one edit when the reader leaves it or presses Enter, never one a keystroke. */
 function TextField({ label, value, onCommit, name, placeholder }: { label: string; value: string; onCommit: (next: string) => void; name: string; placeholder?: string }) {
-  const id = useId();
   const [draft, setDraft] = useState(value);
   useEffect(() => setDraft(value), [value]);
   const commit = (): void => {
     if (draft !== value) onCommit(draft);
   };
   return (
-    <Field label={label} htmlFor={id}>
+    <Field label={label}>
+      {(id) => (
       <Input
         id={id}
         value={draft}
@@ -41,14 +42,15 @@ function TextField({ label, value, onCommit, name, placeholder }: { label: strin
           if (event.key === "Enter") commit();
         }}
       />
+      )}
     </Field>
   );
 }
 
 function Choice({ label, value, options, onCommit, name }: { label: string; value: string; options: readonly { value: string; label: string }[]; onCommit: (next: string) => void; name: string }) {
-  const id = useId();
   return (
-    <Field label={label} htmlFor={id}>
+    <Field label={label}>
+      {(id) => (
       <Select value={value} onValueChange={onCommit}>
         <SelectTrigger id={id} data-process-field={name}>
           <SelectValue />
@@ -61,6 +63,7 @@ function Choice({ label, value, options, onCommit, name }: { label: string; valu
           ))}
         </SelectContent>
       </Select>
+      )}
     </Field>
   );
 }

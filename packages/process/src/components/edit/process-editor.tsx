@@ -3,7 +3,7 @@ import type { Act, Facts, Id, ProcessDefinition, Step } from "@simplix-react/pro
 import { useMemo, useState } from "react";
 import type { ReactNode } from "react";
 
-import { Badge, Button } from "@simplix-react/ui";
+import { Button, StatusBadge } from "@simplix-react/ui";
 
 import { cn } from "../../lib/cn";
 import type { ProcessEditing } from "../../lib/use-process-editing";
@@ -120,9 +120,7 @@ export function ProcessEditor({ editing, facts, problems = [], renderFields, sco
           {t("redo")}
         </Button>
         <span data-process-slot="editor-gap" />
-        <Badge variant={listed.length === 0 ? "secondary" : "destructive"} data-process-slot="editor-count" data-problems={listed.length}>
-          {listed.length === 0 ? t("noProblems") : t("problemCount", { count: listed.length })}
-        </Badge>
+        <StatusBadge tone={listed.length === 0 ? "neutral" : "danger"} label={listed.length === 0 ? t("noProblems") : t("problemCount", { count: listed.length })} data-process-slot="editor-count" data-problems={listed.length} />
       </div>
       {editing.refusal !== null && (
         <p role="alert" data-process-slot="editor-refusal" data-refusal={editing.refusal.code}>

@@ -2,7 +2,7 @@ import { diffDefinitions } from "@simplix-react/process-core";
 import type { DefinitionChange, Facts, Id, ProcessDefinition } from "@simplix-react/process-core";
 import { useMemo, useState } from "react";
 
-import { Badge, Button } from "@simplix-react/ui";
+import { Button, StatusBadge } from "@simplix-react/ui";
 
 import { cn } from "../../lib/cn";
 import { useProcessEditTranslation } from "../../lib/use-process-edit-translation";
@@ -21,7 +21,7 @@ export interface ProcessDiffProps {
   className?: string;
 }
 
-const TONE = { added: "success", removed: "destructive", changed: "warning", moved: "secondary" } as const;
+const TONE = { added: "success", removed: "danger", changed: "warning", moved: "neutral" } as const;
 
 function labels(definition: ProcessDefinition): Map<string, string> {
   const names = new Map<string, string>();
@@ -72,7 +72,7 @@ export function ProcessDiff({ before, after, facts, fieldLabel, className }: Pro
         <ul data-process-slot="diff-list">
           {changes.map((change, index) => (
             <li key={`${change.subject}-${change.id}-${change.kind}-${index}`} data-process-slot="diff-row" data-kind={change.kind} data-subject={change.subject} data-process-change={change.id}>
-              <Badge variant={TONE[change.kind]}>{t(`diff.${change.kind}`)}</Badge>
+              <StatusBadge tone={TONE[change.kind]} label={t(`diff.${change.kind}`)} />
               <span data-process-slot="diff-subject">{t(`diff.subject.${change.subject}`)}</span>
               {shown(change) ? (
                 <Button type="button" size="xs" variant="ghost" onClick={() => setSelected({ kind: change.subject as ProcessTarget["kind"], id: change.id })}>
