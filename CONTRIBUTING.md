@@ -161,6 +161,22 @@ node scripts/check-docs.mjs all
 
 The command checks that every relative link resolves, that the pairs agree, and that the names a code example imports exist in the packages.
 
+### Documentation site
+
+The documents are published as a Docsify site on GitHub Pages, with one folder for each version.
+
+- `docs/site.json` names the site and lists the documents outside `docs/` that become pages. `docs/index.html`, `docs/_coverpage.md` and `docs/_navbar.md` are the frame of the site.
+- `docs/en/_sidebar.md` and `docs/ko/_sidebar.md` are the sidebars. Add a new page to both, at the same position.
+- A link stays relative, as GitHub reads it. The build rewrites each link to the place its target takes in the site, and fails on a link that leads nowhere.
+
+```bash
+node scripts/build-docs.mjs                      # assemble the site under build-docs/
+node scripts/preview-docs.mjs --release 0.3.11   # serve it as GitHub Pages does, with a second version to switch to
+node --test scripts/tests/docs-site.test.mjs     # the checks of the site tooling
+```
+
+The `Deploy Documentation` workflow publishes the site to the `gh-pages` branch. A documentation change on `main` refreshes the `snapshot` folder, and a manual run with a released version such as `0.3.12` builds the tag `v0.3.12` into a folder of that name. The root of the site opens the highest released version, or the snapshot when there is none.
+
 ## Submitting Changes
 
 ### 1. Create a branch

@@ -19,6 +19,7 @@ workflow stamps it with the released version and date, then opens a fresh
 - `@simplix-react/process-core`: a procedure as data, with no runtime dependency and no UI: the definition format and its validation, conditions over the facts of a case, the reading order, the layout of lanes and of one column, editing operations with undo, and the comparison of two versions. A reading keeps the steps and acts a case leaves out in their place or folds them
 - `@simplix-react/process`: a procedure drawn from its definition on `@simplix-react/ui`: steps and acts on a grid of lanes with jumps, parallel runs, repeats and conditions, laid out as one column in a narrow box. It marks a running case, draws what a case leaves out faint in its place or folds it, filters and highlights lanes, and keeps the editor and the comparison of two versions under `@simplix-react/process/edit`, so a screen that only draws a procedure loads no editing code. It ships English, Korean and Japanese
 - The documentation is published in English under `docs/en` and in Korean under `docs/ko`, with a Korean `README.ko.md` beside every README. Its diagrams are SVG figures in both languages, and `node scripts/check-docs.mjs` checks the links, the language pairs and the names a code example imports
+- A documentation site: `node scripts/build-docs.mjs` assembles the guides, the package READMEs and the figures of both languages into a Docsify site, and the `Deploy Documentation` workflow publishes it to GitHub Pages with one folder for each version and a version selector
 
 ### Changed
 

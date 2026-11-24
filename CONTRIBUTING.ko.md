@@ -161,6 +161,22 @@ node scripts/check-docs.mjs all
 
 이 명령은 상대 링크가 모두 유효한지, 두 언어의 문서가 서로 대응하는지, 코드 예제가 가져오는 이름이 패키지에 있는지 검사합니다.
 
+### 문서 사이트
+
+문서는 GitHub Pages에 Docsify 사이트로 게시하며, 버전마다 폴더를 하나씩 둡니다.
+
+- `docs/site.json`에는 사이트 이름과, `docs/` 밖에 있으면서 사이트 페이지가 되는 문서의 목록을 적습니다. `docs/index.html`, `docs/_coverpage.md`, `docs/_navbar.md`는 사이트의 틀입니다.
+- `docs/en/_sidebar.md`와 `docs/ko/_sidebar.md`는 사이드바입니다. 새 페이지는 두 파일의 같은 위치에 추가하세요.
+- 링크는 GitHub에서 읽는 그대로 상대 경로로 씁니다. 빌드는 링크를 대상이 사이트에서 놓이는 위치로 바꾸고, 대상이 없는 링크가 있으면 실패합니다.
+
+```bash
+node scripts/build-docs.mjs                      # assemble the site under build-docs/
+node scripts/preview-docs.mjs --release 0.3.11   # serve it as GitHub Pages does, with a second version to switch to
+node --test scripts/tests/docs-site.test.mjs     # the checks of the site tooling
+```
+
+`Deploy Documentation` 워크플로는 사이트를 `gh-pages` 브랜치에 게시합니다. `main`의 문서가 바뀌면 `snapshot` 폴더를 갱신하고, `0.3.12` 같은 릴리스 버전을 입력해 직접 실행하면 태그 `v0.3.12`를 그 이름의 폴더로 빌드합니다. 사이트 루트는 가장 높은 릴리스 버전을 열고, 릴리스가 없으면 스냅샷을 엽니다.
+
 ## 변경 제출
 
 ### 1. 브랜치 만들기
