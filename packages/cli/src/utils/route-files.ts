@@ -321,7 +321,7 @@ export async function writeRoute(input: RouteInput): Promise<RouteWrite> {
   // A module that exports its catalogs registers them when its screen is first routed to.
   const moduleLocales = manifest.exports?.["./locales"] !== undefined;
   const routeCtx = { ...input.ctx, routePath, modulePackage, moduleLocales, accessList: input.accessList };
-  const outcome = await writeGenerated(file, renderTemplate(template, routeCtx), input.origin);
+  const outcome = await writeGenerated(input.rootDir, file, renderTemplate(template, routeCtx), input.origin);
   await ensureAppDependencies(resolve(input.rootDir, input.target.dir), [String(input.ctx.packageName ?? ""), modulePackage]);
 
   const menu = input.target.menu;

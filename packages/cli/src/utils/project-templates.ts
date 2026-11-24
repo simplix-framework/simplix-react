@@ -459,11 +459,12 @@ export function isUntouchedRender(held: string): boolean {
  * rewritten while its fingerprint matches, merged three-way into the edits once somebody has
  * edited it (see {@link writeStampedGenerated}).
  *
+ * @param rootDir the root of the project the file belongs to, where its merge base is kept
  * @param filePath where the file goes
  * @param rendered the fresh render, carrying {@link GENERATED_PAGE_MARKER}
  * @param origin the arguments that reproduce the render
  * @returns what writing the file came to
  */
-export async function writeGenerated(filePath: string, rendered: string, origin?: string): Promise<GeneratedOutcome> {
-  return (await writeStampedGenerated(filePath, stampFingerprint(rendered, origin))).outcome;
+export async function writeGenerated(rootDir: string, filePath: string, rendered: string, origin?: string): Promise<GeneratedOutcome> {
+  return (await writeStampedGenerated(rootDir, filePath, stampFingerprint(rendered, origin))).outcome;
 }

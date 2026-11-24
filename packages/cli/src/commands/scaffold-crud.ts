@@ -1779,6 +1779,7 @@ interface GeneratedPages {
 }
 
 async function generatePages(
+  rootDir: string,
   moduleDir: string,
   entityKebab: string,
   ctx: Record<string, unknown>,
@@ -1835,7 +1836,7 @@ async function generatePages(
       // A page is scaffolded and then written on, so carrying the marker proves only where the
       // file came from. Untouched, it is rewritten; edited, the template change is merged into it
       // three-way against the render last written, and a conflict leaves it alone.
-      const { outcome, held } = await writeStampedGenerated(filePath, stamped);
+      const { outcome, held } = await writeStampedGenerated(rootDir, filePath, stamped);
       if (outcome === "written" || outcome === "merged") generated.push(fileName);
       if (outcome !== "written") log.warn(`pages/${entityKebab}/${fileName}: ${outcome}`);
       onDisk.push(held);
@@ -3332,7 +3333,7 @@ export async function runScaffold(entityArg: string, options: ScaffoldOptions): 
       // A widget whose template stamps it is rewritten while nobody has touched it, as a page is.
       const stamped = content.includes(GENERATED_PAGE_MARKER) ? stampFingerprint(content, origin) : content;
       if (stamped !== content) {
-        const outcome = await writeStampedGenerated(filePath, stamped);
+        const outcome = await writeStampedGenerated(rootDir, filePath, stamped);
         if (outcome.outcome !== "written") log.warn(`${fileName}: ${outcome.outcome}`);
         held.push(outcome.held);
         continue;
@@ -3351,7 +3352,7 @@ export async function runScaffold(entityArg: string, options: ScaffoldOptions): 
       // and merged once edited; an unstamped project template is still laid down once.
       const stamped = content.includes(GENERATED_PAGE_MARKER) ? stampFingerprint(content, origin) : content;
       if (stamped !== content) {
-        const outcome = await writeStampedGenerated(filePath, stamped);
+        const outcome = await writeStampedGenerated(rootDir, filePath, stamped);
         if (outcome.outcome !== "written") log.warn(`${fileName}: ${outcome.outcome}`);
         held.push(outcome.held);
       } else if (!(await pathExists(filePath))) {
@@ -3372,7 +3373,7 @@ export async function runScaffold(entityArg: string, options: ScaffoldOptions): 
       const storyPath = resolve(rootDir, storiesDir, storyFileFor(templateSettings.story, entityKebab, `${entityKebab}.stories.tsx`));
       const named = (pattern: string | undefined) => pattern?.replaceAll("{entity}", entityKebab).replaceAll("{Entity}", EntityPascal);
       const storyCtx = { ...fullCtx, storyId: named(templateSettings.story?.id), storyTitle: named(templateSettings.story?.title) ?? `Generated/${EntityPascal}` };
-      const outcome = await writeGenerated(storyPath, renderTemplate(storyTemplate, storyCtx), origin);
+      const outcome = await writeGenerated(rootDir, storyPath, renderTemplate(storyTemplate, storyCtx), origin);
       log.info(`${outcome} story ${relative(rootDir, storyPath)}`);
     }
 
@@ -3405,7 +3406,7 @@ export async function runScaffold(entityArg: string, options: ScaffoldOptions): 
       // Pages generation (reuse i18nLocales loaded above)
       const locales = i18nLocales;
 
-      const pages = await generatePages(moduleDir, entityKebab, fullCtx, projectTemplates, origin, options.blocks === true);
+      const pages = await generatePages(rootDir, moduleDir, entityKebab, fullCtx, projectTemplates, origin, options.blocks === true);
       if (pages.written.length > 0) {
         log.info(`Generated ${pages.written.length} page files`);
       }

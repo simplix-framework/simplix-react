@@ -325,7 +325,7 @@ export async function regenerateNamed(
       laid.add(file);
       const content = render.written.get(file);
       if (content !== undefined) await writeFileWithDir(file, content);
-      const basePath = await basePathFor(file);
+      const basePath = basePathFor(rootDir, file);
       const base = render.written.get(resolve(basePath));
       if (base !== undefined) await writeFileWithDir(basePath, base);
       const outcome = render.outcomes.get(file);

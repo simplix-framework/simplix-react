@@ -250,7 +250,7 @@ export async function planAdopt(
       refuse("untouched: it is still what the generator wrote, so there is nothing to adopt");
       continue;
     }
-    if (options.rebase !== true && (await readBase(file)) !== undefined) {
+    if (options.rebase !== true && (await readBase(projectRoot, file)) !== undefined) {
       refuse("it already has a base: `simplix generated --all` merges the template change into it");
       continue;
     }
@@ -290,10 +290,10 @@ export async function planAdopt(
 }
 
 /** Records each ready item's render as its file's merge base, and gives the file that render's stamp line. */
-export async function applyAdopt(items: readonly AdoptItem[]): Promise<void> {
+export async function applyAdopt(projectRoot: string, items: readonly AdoptItem[]): Promise<void> {
   for (const item of items) {
     if (item.refusal !== undefined || item.render === undefined || item.adopted === undefined) continue;
-    await recordBase(item.file, item.render);
+    await recordBase(projectRoot, item.file, item.render);
     if (item.adopted !== (await readFile(item.file, "utf-8"))) await writeFileWithDir(item.file, item.adopted);
   }
 }
@@ -351,7 +351,7 @@ export async function runAdopt(
     log.warn("Nothing recorded.");
     return 1;
   }
-  await applyAdopt(ready);
+  await applyAdopt(projectRoot, ready);
   log.info(`adopted ${ready.length} file(s): their renders are their merge bases now${refused > 0 ? `; ${refused} refused` : ""}`);
   return refused > 0 ? 1 : 0;
 }

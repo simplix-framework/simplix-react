@@ -4,7 +4,7 @@ import { tmpdir } from "node:os";
 import { join, relative, resolve, sep } from "node:path";
 import { promisify } from "node:util";
 
-import { findProjectRoot, noteKeptRender, pathExists, writeFileWithDir } from "./fs.js";
+import { noteKeptRender, pathExists, writeFileWithDir } from "./fs.js";
 import { carryStamp, GENERATED_HASH_MARKER, isUntouchedRender, renderFingerprint } from "./project-templates.js";
 
 const run = promisify(execFile);
@@ -99,28 +99,31 @@ export function takeGeneratedOutcomes(): GeneratedWrite[] {
 }
 
 /**
- * Where the stored base of a generated file lives. A file outside the project root (a story
- * directory beside it) keeps its `..` segments spelled as `__up__` so the base stays inside the folder.
+ * Where the stored base of a generated file lives, in the project the file belongs to. A file
+ * outside the project root (a story directory beside it) keeps its `..` segments spelled as
+ * `__up__` so the base stays inside the folder.
+ *
+ * @param rootDir the root of the project the file belongs to, spelled the way `filePath` is
+ * @param filePath the generated file
  */
-export async function basePathFor(filePath: string): Promise<string> {
-  const root = await findProjectRoot(process.cwd());
-  const rel = relative(root, resolve(filePath));
+export function basePathFor(rootDir: string, filePath: string): string {
+  const rel = relative(rootDir, resolve(filePath));
   const safe = rel
     .split(sep)
     .map((part) => (part === ".." ? "__up__" : part))
     .join("/");
-  return join(root, GENERATED_BASE_DIR, safe);
+  return join(rootDir, GENERATED_BASE_DIR, safe);
 }
 
 /** The stored base of a generated file, or undefined when none was ever recorded. */
-export async function readBase(filePath: string): Promise<string | undefined> {
-  const at = await basePathFor(filePath);
+export async function readBase(rootDir: string, filePath: string): Promise<string | undefined> {
+  const at = basePathFor(rootDir, filePath);
   return (await pathExists(at)) ? readFile(at, "utf-8") : undefined;
 }
 
 /** Stores `render` as the merge base the file's later regenerations read its edits against. */
-export async function recordBase(filePath: string, render: string): Promise<void> {
-  await writeFileWithDir(await basePathFor(filePath), render);
+export async function recordBase(rootDir: string, filePath: string, render: string): Promise<void> {
+  await writeFileWithDir(basePathFor(rootDir, filePath), render);
 }
 
 /** The fingerprint an edited file still carries from the render it was laid down as. */
@@ -163,27 +166,28 @@ export async function mergeThreeWay(base: string, ours: string, theirs: string):
  * file with no stored base gets one when its recorded fingerprint is the fingerprint of the
  * current render: that render is then the one the file was laid down as.
  *
+ * @param rootDir the root of the project the file belongs to, where its base is kept
  * @param filePath where the file goes
  * @param stamped the fresh render, already stamped with its fingerprint
  * @returns the outcome and what the file holds after this call
  */
-export async function writeStampedGenerated(filePath: string, stamped: string): Promise<{ outcome: GeneratedOutcome; held: string }> {
+export async function writeStampedGenerated(rootDir: string, filePath: string, stamped: string): Promise<{ outcome: GeneratedOutcome; held: string }> {
   stamped = await formatRender(filePath, stamped);
   const note = (entry: Omit<GeneratedWrite, "path">) => outcomes.push({ path: resolve(filePath), ...entry });
   if (!(await pathExists(filePath))) {
-    if (honourRemovals && (await readBase(filePath)) !== undefined) {
+    if (honourRemovals && (await readBase(rootDir, filePath)) !== undefined) {
       note({ outcome: "removed" });
       return { outcome: "removed", held: "" };
     }
     await writeFileWithDir(filePath, stamped);
-    await recordBase(filePath, stamped);
+    await recordBase(rootDir, filePath, stamped);
     note({ outcome: "written" });
     return { outcome: "written", held: stamped };
   }
   const ours = await readFile(filePath, "utf-8");
   if (isUntouchedRender(ours)) {
     await writeFileWithDir(filePath, stamped);
-    await recordBase(filePath, stamped);
+    await recordBase(rootDir, filePath, stamped);
     note({ outcome: "written" });
     return { outcome: "written", held: stamped };
   }
@@ -195,7 +199,7 @@ export async function writeStampedGenerated(filePath: string, stamped: string): 
     note({ outcome: "conflict", hunks: unresolved, markersWritten: false });
     return { outcome: "conflict", held: ours };
   }
-  let base = await readBase(filePath);
+  let base = await readBase(rootDir, filePath);
   if (base === undefined && recordedFingerprint(ours) === renderFingerprint(stamped)) base = stamped;
   if (base === undefined) {
     note({ outcome: "no-base" });
@@ -207,12 +211,12 @@ export async function writeStampedGenerated(filePath: string, stamped: string): 
   if (hunks.length > 0) {
     if (conflictMarkers) {
       await writeFileWithDir(filePath, text);
-      await recordBase(filePath, stamped);
+      await recordBase(rootDir, filePath, stamped);
     }
     note({ outcome: "conflict", hunks, markersWritten: conflictMarkers });
     return { outcome: "conflict", held: conflictMarkers ? text : ours };
   }
-  await recordBase(filePath, stamped);
+  await recordBase(rootDir, filePath, stamped);
   if (text === ours || text === carryStamp(ours, stamped)) {
     note({ outcome: "current" });
     return { outcome: "current", held: ours };

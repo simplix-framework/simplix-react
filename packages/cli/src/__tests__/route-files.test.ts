@@ -307,6 +307,22 @@ describe("writing a list screen's route", () => {
     const out = await writeRoute({ rootDir: root, moduleDir: join(root, "modules/admin/voice"), target: { dir: "app/routes" }, templates: new Map(), ctx: {}, entityKebab: "voice", entityPlural: "voices", origin: "x" });
     expect(out.outcome).toBe("no-template");
   });
+
+  it("keeps the route's merge base in the project the route was written into, whatever the working directory", async () => {
+    const templates = new Map([["route.tanstack", '/**\n * @simplix-generated route/test\n */\nexport const path = "/{{routePath}}";\n']]);
+    const out = await writeRoute({
+      rootDir: root,
+      moduleDir: join(root, "modules/admin/voice"),
+      target: { dir: "app/routes", template: "route.tanstack" },
+      templates,
+      ctx: { packageName: "@app/domain-voice" },
+      entityKebab: "catalog-voice",
+      entityPlural: "catalogVoices",
+      origin: "scaffold catalog-voice --module admin/voice",
+    });
+    expect(out.outcome).toBe("written");
+    expect(await readFile(join(root, ".simplix/generated/app/routes/catalog-voices.tsx"), "utf-8")).toBe(await readFile(out.file, "utf-8"));
+  });
 });
 
 describe("the paths a menu file's entries lead to through a constant", () => {

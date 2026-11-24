@@ -175,7 +175,7 @@ describe("simplix generated --adopt", () => {
 
   it("applyAdopt skips a refused item", async () => {
     const [refused] = await planAdopt(root, [pagePath()]);
-    await applyAdopt([refused!]);
+    await applyAdopt(root, [refused!]);
     await expect(readFile(basePath("apps/web/src/pages/about/page.tsx"), "utf-8")).resolves.toContain("v1");
   });
 });

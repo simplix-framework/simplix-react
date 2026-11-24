@@ -187,7 +187,7 @@ export async function runAddPage(rawKind: string, name: string, flags: { module?
         log.step(path);
         continue;
       }
-      const { outcome } = await writeStampedGenerated(path, content);
+      const { outcome } = await writeStampedGenerated(rootDir, path, content);
       log.step(`${outcome.padEnd(8)} ${path}`);
     }
     // A page in a module is mounted by an app's route, which imports it through the package.
@@ -199,7 +199,7 @@ export async function runAddPage(rawKind: string, name: string, flags: { module?
     if (story !== undefined && storiesDir) {
       const fallback = pageStoryFile(name, flags);
       const storyPath = resolve(rootDir, storiesDir, storyFileFor(settings.story, fallback.slice(0, -".stories.tsx".length), fallback));
-      const outcome = await writeGenerated(storyPath, story, origin);
+      const outcome = await writeGenerated(rootDir, storyPath, story, origin);
       log.info(`${outcome} story ${relative(rootDir, storyPath)}`);
     }
 }

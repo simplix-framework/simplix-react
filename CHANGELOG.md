@@ -17,6 +17,10 @@ workflow stamps it with the released version and date, then opens a fresh
 - Storybook reads the workspace packages from their TypeScript source, so an edit shows up without building the package first
 - `@simplix-react/gantt`: a Gantt chart built on the engine and on `@simplix-react/ui`. A task table with inline editing sits beside a timeline with drag to move, resize, set progress and draw links; the chart shows the critical path and a saved baseline, has a resource sheet and a resource usage screen, edits project settings, calendars and custom fields, shows work and cost, exchanges rows with the system clipboard, exports a paginated PDF, prints the whole plan scaled to the page, moves between cells and moves tasks from the keyboard, lists schedule conflicts, marks today, the status date and the ends of the plan with coloured lines and name tags, filters, sorts, groups and searches its rows, colours and labels its bars, draws a progress line, shows a network diagram, a calendar, a resource graph and a task usage table, opens read-only, stores and restores its layout, keeps its timeline in reach on narrow screens, where the views take a line above the commands and the commands that do not fit move into the menu, shows the table or the timeline alone, scrolls under a finger wherever it goes down and drags what a finger rests on, keeps its bars filled in contrast themes, saves and opens plan files, merges another reader's changes and asks about the ones that conflict, draws dependency lines with curved corners, undoes and redoes every edit, reports each edit as a list of changed records, draws only the rows on screen, and ships English, Korean and Japanese
 
+### Fixed
+
+- `@simplix-react/cli`: the store of merge bases under `.simplix/generated` takes the project root from the generator that writes the file. It read the root from the working directory, so a generator given another root kept its bases in the working directory's project
+
 ## [0.3.11] - 2026-10-08
 
 ### Changed
