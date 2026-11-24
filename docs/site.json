@@ -1,5 +1,10 @@
 {
   "name": "simplix-react",
+  "title": "SimpliX React",
+  "badge": [
+    "SimpliX",
+    "React"
+  ],
   "description": "simplix-react - a package-first React framework that derives the API client, hooks, forms and mocks from one contract",
   "keywords": "simplix-react, React, TypeScript, Zod, TanStack Query, OpenAPI, MSW",
   "repository": "https://github.com/simplix-framework/simplix-react",
@@ -20,8 +25,11 @@
     "extensions/*/packages/*/README.md"
   ],
   "theme": {
-    "color": "#1c6ea4",
-    "strong": "#12496d",
-    "cover": "#cfe6f5"
+    "color": "#0284c7",
+    "cover": "#7dd3fc",
+    "coverTitle": "#075985",
+    "coverText": "#0c4a6e",
+    "button": "#0284c7",
+    "buttonHover": "#0369a1"
   }
 }
