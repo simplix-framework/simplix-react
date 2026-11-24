@@ -6,7 +6,7 @@
 
 # Interface: TimeValue
 
-Defined in: [time-select.ts:77](https://github.com/simplix-react/simplix-react/blob/main/time-select.ts#L77)
+Defined in: [time-select.ts:77](https://github.com/simplix-framework/simplix-react/blob/main/time-select.ts#L77)
 
 A time of day without a date.
 
@@ -16,7 +16,7 @@ A time of day without a date.
 
 > **hours**: `number`
 
-Defined in: [time-select.ts:79](https://github.com/simplix-react/simplix-react/blob/main/time-select.ts#L79)
+Defined in: [time-select.ts:79](https://github.com/simplix-framework/simplix-react/blob/main/time-select.ts#L79)
 
 Hours in 24-hour form (0-23).
 
@@ -26,6 +26,6 @@ Hours in 24-hour form (0-23).
 
 > **minutes**: `number`
 
-Defined in: [time-select.ts:81](https://github.com/simplix-react/simplix-react/blob/main/time-select.ts#L81)
+Defined in: [time-select.ts:81](https://github.com/simplix-framework/simplix-react/blob/main/time-select.ts#L81)
 
 Minutes (0-59).

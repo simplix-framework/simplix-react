@@ -8,7 +8,7 @@
 
 > **PaginationParam** = \{ `limit`: `number`; `page`: `number`; `type`: `"offset"`; \} \| \{ `cursor`: `string`; `limit`: `number`; `type`: `"cursor"`; \}
 
-Defined in: [packages/contract/src/helpers/query-types.ts:34](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/helpers/query-types.ts#L34)
+Defined in: [packages/contract/src/helpers/query-types.ts:34](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/helpers/query-types.ts#L34)
 
 Describes pagination strategy, supporting both offset-based and cursor-based patterns.
 

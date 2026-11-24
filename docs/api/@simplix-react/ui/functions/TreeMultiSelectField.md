@@ -8,7 +8,7 @@
 
 > **TreeMultiSelectField**\<`T`\>(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/fields/form/tree-multi-select-field.tsx:295](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/tree-multi-select-field.tsx#L295)
+Defined in: [packages/ui/src/fields/form/tree-multi-select-field.tsx:308](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/tree-multi-select-field.tsx#L308)
 
 Multi-select variant of [TreeSelectField](TreeSelectField.md): picks any number of nodes
 from a hierarchical dataset. Selected nodes render as removable badge chips

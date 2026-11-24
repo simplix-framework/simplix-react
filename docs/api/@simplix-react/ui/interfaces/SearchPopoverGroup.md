@@ -6,7 +6,7 @@
 
 # Interface: SearchPopoverGroup\<T\>
 
-Defined in: [packages/ui/src/base/inputs/search-popover.tsx:34](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/search-popover.tsx#L34)
+Defined in: [packages/ui/src/base/inputs/search-popover.tsx:34](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/search-popover.tsx#L34)
 
 A group of items with a label header.
 
@@ -22,7 +22,7 @@ A group of items with a label header.
 
 > **items**: `T`[]
 
-Defined in: [packages/ui/src/base/inputs/search-popover.tsx:38](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/search-popover.tsx#L38)
+Defined in: [packages/ui/src/base/inputs/search-popover.tsx:38](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/search-popover.tsx#L38)
 
 Items within this group.
 
@@ -32,6 +32,6 @@ Items within this group.
 
 > **label**: `string`
 
-Defined in: [packages/ui/src/base/inputs/search-popover.tsx:36](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/search-popover.tsx#L36)
+Defined in: [packages/ui/src/base/inputs/search-popover.tsx:36](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/search-popover.tsx#L36)
 
 Display label for the group header.

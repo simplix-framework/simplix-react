@@ -6,7 +6,7 @@
 
 # Interface: UseTreeExpansionOptions\<T\>
 
-Defined in: [packages/ui/src/crud/tree/use-tree-expansion.ts:7](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/use-tree-expansion.ts#L7)
+Defined in: [packages/ui/src/crud/tree/use-tree-expansion.ts:7](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/use-tree-expansion.ts#L7)
 
 **`Internal`**
 
@@ -24,7 +24,7 @@ Options for the [useTreeExpansion](../functions/useTreeExpansion.md) hook.
 
 > **config**: [`TreeConfig`](TreeConfig.md)\<`T`\>
 
-Defined in: [packages/ui/src/crud/tree/use-tree-expansion.ts:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/use-tree-expansion.ts#L11)
+Defined in: [packages/ui/src/crud/tree/use-tree-expansion.ts:11](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/use-tree-expansion.ts#L11)
 
 Tree structure configuration (id field, children field, etc.).
 
@@ -34,6 +34,6 @@ Tree structure configuration (id field, children field, etc.).
 
 > **data**: `T`[]
 
-Defined in: [packages/ui/src/crud/tree/use-tree-expansion.ts:9](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/use-tree-expansion.ts#L9)
+Defined in: [packages/ui/src/crud/tree/use-tree-expansion.ts:9](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/use-tree-expansion.ts#L9)
 
 Flat or nested tree data array.

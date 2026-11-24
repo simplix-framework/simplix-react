@@ -8,7 +8,7 @@
 
 > **normalizeScopePermissions**(`scopes`, `separator?`): `SubjectRawRule`\<`string`, `string`, `MongoQuery`\>[]
 
-Defined in: [packages/access/src/helpers/normalize-rules.ts:90](https://github.com/simplix-react/simplix-react/blob/main/packages/access/src/helpers/normalize-rules.ts#L90)
+Defined in: [packages/access/src/helpers/normalize-rules.ts:90](https://github.com/simplix-framework/simplix-react/blob/main/packages/access/src/helpers/normalize-rules.ts#L90)
 
 Converts an OAuth2-style scope string into CASL rules.
 

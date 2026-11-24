@@ -6,7 +6,7 @@
 
 # Interface: BarChartProps
 
-Defined in: [packages/ui/src/base/charts/types.ts:49](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L49)
+Defined in: [packages/ui/src/base/charts/types.ts:49](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L49)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:49](https://github.com/simplix
 
 > **categories**: `string`[]
 
-Defined in: [packages/ui/src/base/charts/types.ts:51](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L51)
+Defined in: [packages/ui/src/base/charts/types.ts:51](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L51)
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:51](https://github.com/simplix
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/base/charts/types.ts:31](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L31)
+Defined in: [packages/ui/src/base/charts/types.ts:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L31)
 
 #### Inherited from
 
@@ -38,7 +38,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:31](https://github.com/simplix
 
 > `optional` **height**: `string` \| `number`
 
-Defined in: [packages/ui/src/base/charts/types.ts:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L30)
+Defined in: [packages/ui/src/base/charts/types.ts:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L30)
 
 #### Inherited from
 
@@ -50,7 +50,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:30](https://github.com/simplix
 
 > `optional` **horizontal**: `boolean`
 
-Defined in: [packages/ui/src/base/charts/types.ts:52](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L52)
+Defined in: [packages/ui/src/base/charts/types.ts:52](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L52)
 
 ***
 
@@ -58,7 +58,29 @@ Defined in: [packages/ui/src/base/charts/types.ts:52](https://github.com/simplix
 
 > **series**: [`ChartSeries`](ChartSeries.md)[]
 
-Defined in: [packages/ui/src/base/charts/types.ts:50](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L50)
+Defined in: [packages/ui/src/base/charts/types.ts:50](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L50)
+
+***
+
+### showLegend?
+
+> `optional` **showLegend**: `boolean`
+
+Defined in: [packages/ui/src/base/charts/types.ts:65](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L65)
+
+Draws the legend even where there is only one series.
+
+<p>The renderer hides a legend for a single series by default, on the reasoning that the
+chart's own title already names what it draws. That holds where a caller wrote a title and
+not where the series name IS the only word saying what the bars count — a column of months
+with no legend leaves the reader to infer the unit. Pass this where the series carries the
+name and nothing above the chart repeats it.
+
+#### Default Value
+
+```ts
+false
+```
 
 ***
 
@@ -66,4 +88,4 @@ Defined in: [packages/ui/src/base/charts/types.ts:50](https://github.com/simplix
 
 > `optional` **stacked**: `boolean`
 
-Defined in: [packages/ui/src/base/charts/types.ts:53](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L53)
+Defined in: [packages/ui/src/base/charts/types.ts:53](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L53)

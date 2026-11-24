@@ -8,7 +8,7 @@
 
 > **DialogHeader**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/base/overlay/dialog.tsx:158](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/overlay/dialog.tsx#L158)
+Defined in: [packages/ui/src/base/overlay/dialog.tsx:264](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/overlay/dialog.tsx#L264)
 
 ## Parameters
 

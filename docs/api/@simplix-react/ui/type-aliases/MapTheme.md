@@ -8,4 +8,4 @@
 
 > **MapTheme** = `"light"` \| `"dark"`
 
-Defined in: [packages/ui/src/base/map/map.tsx:115](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L115)
+Defined in: [packages/ui/src/base/map/map.tsx:124](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L124)

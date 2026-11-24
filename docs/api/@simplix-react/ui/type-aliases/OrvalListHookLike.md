@@ -8,7 +8,7 @@
 
 > **OrvalListHookLike** = (`params?`, `options?`) => `object`
 
-Defined in: [packages/headless/dist/index.d.ts:182](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L182)
+Defined in: [packages/headless/dist/index.d.ts:199](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L199)
 
 Loose hook shape that accepts any Orval-generated list hook.
 Orval hooks have concretely typed params / return that are incompatible

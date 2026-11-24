@@ -8,7 +8,7 @@
 
 > **apiKeyScheme**(`options`): [`AuthScheme`](../interfaces/AuthScheme.md)
 
-Defined in: [packages/auth/src/schemes/api-key-scheme.ts:19](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/schemes/api-key-scheme.ts#L19)
+Defined in: [packages/auth/src/schemes/api-key-scheme.ts:19](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/schemes/api-key-scheme.ts#L19)
 
 Creates an API Key [AuthScheme](../interfaces/AuthScheme.md).
 

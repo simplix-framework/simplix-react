@@ -6,7 +6,7 @@
 
 # Interface: FileFieldProps
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:175](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L175)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:175](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L175)
 
 Props for the FileField form component.
 Extends CommonFieldProps (label, error, disabled, layout, size, etc.).
@@ -24,7 +24,7 @@ does NOT call api.list() on mount. Callers pre-fetch and pass the list here.
 
 > **api**: [`FileFieldApi`](../../../interfaces/FileFieldApi.md)
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:189](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L189)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:189](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L189)
 
 API implementation provided by the caller.
 
@@ -34,7 +34,7 @@ API implementation provided by the caller.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:49](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L49)
+Defined in: [packages/ui/src/crud/shared/types.ts:49](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L49)
 
 #### Inherited from
 
@@ -46,7 +46,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:49](https://github.com/simplix
 
 > `optional` **config**: `FileFieldConfig`
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:191](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L191)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:191](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L191)
 
 Capacity / MIME constraints.
 
@@ -56,7 +56,7 @@ Capacity / MIME constraints.
 
 > `optional` **description**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:34](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L34)
+Defined in: [packages/ui/src/crud/shared/types.ts:34](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L34)
 
 #### Inherited from
 
@@ -68,7 +68,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:34](https://github.com/simplix
 
 > `optional` **disabled**: `boolean`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:36](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L36)
+Defined in: [packages/ui/src/crud/shared/types.ts:36](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L36)
 
 #### Inherited from
 
@@ -80,7 +80,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:36](https://github.com/simplix
 
 > `optional` **error**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:32](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L32)
+Defined in: [packages/ui/src/crud/shared/types.ts:32](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L32)
 
 #### Inherited from
 
@@ -92,7 +92,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:32](https://github.com/simplix
 
 > `optional` **initialAttachments**: [`AttachmentRecord`](../../../interfaces/AttachmentRecord.md)[]
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:187](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L187)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:187](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L187)
 
 Seed for the hook's internal items state (DEC-1/UD-8).
 Pass the pre-fetched attachment list from the server here.
@@ -104,7 +104,7 @@ The hook will NOT call api.list() on mount.
 
 > `optional` **label**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L30)
+Defined in: [packages/ui/src/crud/shared/types.ts:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L30)
 
 #### Inherited from
 
@@ -116,7 +116,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:30](https://github.com/simplix
 
 > `optional` **labelKey**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:31](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L31)
+Defined in: [packages/ui/src/crud/shared/types.ts:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L31)
 
 #### Inherited from
 
@@ -128,7 +128,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:31](https://github.com/simplix
 
 > `optional` **languages**: `LocaleConfig`[]
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:196](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L196)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:196](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L196)
 
 Supported locale list for the i18n description dialog.
 When omitted the dialog renders a single plain-text input.
@@ -139,7 +139,7 @@ When omitted the dialog renders a single plain-text input.
 
 > `optional` **layout**: `"inline"` \| `"left"` \| `"top"` \| `"hidden"` \| `"trailing"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
+Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
 
 Label placement. `"top"` stacks the label above the input, `"left"` puts
 it in a leading column, `"inline"` keeps label and input on one row,
@@ -157,7 +157,7 @@ label for screen readers only.
 
 > `optional` **onAuthError**: (`error`) => `void`
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:181](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L181)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:181](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L181)
 
 Called when an API call returns 401 or 403 (R2-5/R2-6).
 
@@ -177,7 +177,7 @@ Called when an API call returns 401 or 403 (R2-5/R2-6).
 
 > **onChange**: (`value`) => `void`
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:179](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L179)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:179](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L179)
 
 Called whenever the completed attachment list changes.
 
@@ -197,7 +197,7 @@ Called whenever the completed attachment list changes.
 
 > `optional` **prefixControl**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:41](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L41)
+Defined in: [packages/ui/src/crud/shared/types.ts:41](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L41)
 
 Control rendered on the leading (left in LTR) side of the input, on the
 same row. Use for IconPicker, ColorPicker, or similar adornments.
@@ -212,7 +212,7 @@ same row. Use for IconPicker, ColorPicker, or similar adornments.
 
 > `optional` **required**: `boolean`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:35](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L35)
+Defined in: [packages/ui/src/crud/shared/types.ts:35](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L35)
 
 #### Inherited from
 
@@ -224,7 +224,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:35](https://github.com/simplix
 
 > `optional` **size**: `"sm"` \| `"lg"` \| `"md"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
+Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
 
 #### Inherited from
 
@@ -236,7 +236,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix
 
 > `optional` **suffixControl**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:48](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L48)
+Defined in: [packages/ui/src/crud/shared/types.ts:48](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L48)
 
 Control rendered on the trailing (right in LTR) side of the input, on the
 same row. Use instead of composing a button next to the field — the
@@ -253,7 +253,7 @@ below at full width.
 
 > **value**: [`AttachmentRecord`](../../../interfaces/AttachmentRecord.md)[]
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:177](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L177)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:177](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L177)
 
 Controlled list of completed attachments (server records).
 
@@ -263,7 +263,7 @@ Controlled list of completed attachments (server records).
 
 > `optional` **warning**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:33](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L33)
+Defined in: [packages/ui/src/crud/shared/types.ts:33](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L33)
 
 #### Inherited from
 

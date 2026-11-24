@@ -6,7 +6,7 @@
 
 # Enumeration: SearchOperator
 
-Defined in: [packages/headless/dist/index.d.ts:344](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L344)
+Defined in: [packages/headless/dist/index.d.ts:373](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L373)
 
 Search operators supported by searchable-jpa backend
 
@@ -16,7 +16,7 @@ Search operators supported by searchable-jpa backend
 
 > **BETWEEN**: `"between"`
 
-Defined in: [packages/headless/dist/index.d.ts:357](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L357)
+Defined in: [packages/headless/dist/index.d.ts:386](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L386)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/headless/dist/index.d.ts:357](https://github.com/simplix-r
 
 > **CONTAINS**: `"contains"`
 
-Defined in: [packages/headless/dist/index.d.ts:347](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L347)
+Defined in: [packages/headless/dist/index.d.ts:376](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L376)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [packages/headless/dist/index.d.ts:347](https://github.com/simplix-r
 
 > **ENDS\_WITH**: `"endsWith"`
 
-Defined in: [packages/headless/dist/index.d.ts:350](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L350)
+Defined in: [packages/headless/dist/index.d.ts:379](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L379)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [packages/headless/dist/index.d.ts:350](https://github.com/simplix-r
 
 > **EQUALS**: `"equals"`
 
-Defined in: [packages/headless/dist/index.d.ts:345](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L345)
+Defined in: [packages/headless/dist/index.d.ts:374](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L374)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [packages/headless/dist/index.d.ts:345](https://github.com/simplix-r
 
 > **GREATER\_THAN**: `"greaterThan"`
 
-Defined in: [packages/headless/dist/index.d.ts:351](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L351)
+Defined in: [packages/headless/dist/index.d.ts:380](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L380)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [packages/headless/dist/index.d.ts:351](https://github.com/simplix-r
 
 > **GREATER\_THAN\_OR\_EQUAL**: `"greaterThanOrEqualTo"`
 
-Defined in: [packages/headless/dist/index.d.ts:353](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L353)
+Defined in: [packages/headless/dist/index.d.ts:382](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L382)
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: [packages/headless/dist/index.d.ts:353](https://github.com/simplix-r
 
 > **IN**: `"in"`
 
-Defined in: [packages/headless/dist/index.d.ts:355](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L355)
+Defined in: [packages/headless/dist/index.d.ts:384](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L384)
 
 ***
 
@@ -72,7 +72,7 @@ Defined in: [packages/headless/dist/index.d.ts:355](https://github.com/simplix-r
 
 > **IS\_FALSE**: `"isFalse"`
 
-Defined in: [packages/headless/dist/index.d.ts:362](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L362)
+Defined in: [packages/headless/dist/index.d.ts:391](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L391)
 
 ***
 
@@ -80,7 +80,7 @@ Defined in: [packages/headless/dist/index.d.ts:362](https://github.com/simplix-r
 
 > **IS\_NOT\_NULL**: `"isNotNull"`
 
-Defined in: [packages/headless/dist/index.d.ts:360](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L360)
+Defined in: [packages/headless/dist/index.d.ts:389](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L389)
 
 ***
 
@@ -88,7 +88,7 @@ Defined in: [packages/headless/dist/index.d.ts:360](https://github.com/simplix-r
 
 > **IS\_NULL**: `"isNull"`
 
-Defined in: [packages/headless/dist/index.d.ts:359](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L359)
+Defined in: [packages/headless/dist/index.d.ts:388](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L388)
 
 ***
 
@@ -96,7 +96,7 @@ Defined in: [packages/headless/dist/index.d.ts:359](https://github.com/simplix-r
 
 > **IS\_TRUE**: `"isTrue"`
 
-Defined in: [packages/headless/dist/index.d.ts:361](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L361)
+Defined in: [packages/headless/dist/index.d.ts:390](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L390)
 
 ***
 
@@ -104,7 +104,7 @@ Defined in: [packages/headless/dist/index.d.ts:361](https://github.com/simplix-r
 
 > **LESS\_THAN**: `"lessThan"`
 
-Defined in: [packages/headless/dist/index.d.ts:352](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L352)
+Defined in: [packages/headless/dist/index.d.ts:381](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L381)
 
 ***
 
@@ -112,7 +112,7 @@ Defined in: [packages/headless/dist/index.d.ts:352](https://github.com/simplix-r
 
 > **LESS\_THAN\_OR\_EQUAL**: `"lessThanOrEqualTo"`
 
-Defined in: [packages/headless/dist/index.d.ts:354](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L354)
+Defined in: [packages/headless/dist/index.d.ts:383](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L383)
 
 ***
 
@@ -120,7 +120,7 @@ Defined in: [packages/headless/dist/index.d.ts:354](https://github.com/simplix-r
 
 > **NOT\_BETWEEN**: `"notBetween"`
 
-Defined in: [packages/headless/dist/index.d.ts:358](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L358)
+Defined in: [packages/headless/dist/index.d.ts:387](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L387)
 
 ***
 
@@ -128,7 +128,7 @@ Defined in: [packages/headless/dist/index.d.ts:358](https://github.com/simplix-r
 
 > **NOT\_CONTAINS**: `"notContains"`
 
-Defined in: [packages/headless/dist/index.d.ts:348](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L348)
+Defined in: [packages/headless/dist/index.d.ts:377](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L377)
 
 ***
 
@@ -136,7 +136,7 @@ Defined in: [packages/headless/dist/index.d.ts:348](https://github.com/simplix-r
 
 > **NOT\_EQUALS**: `"notEquals"`
 
-Defined in: [packages/headless/dist/index.d.ts:346](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L346)
+Defined in: [packages/headless/dist/index.d.ts:375](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L375)
 
 ***
 
@@ -144,7 +144,7 @@ Defined in: [packages/headless/dist/index.d.ts:346](https://github.com/simplix-r
 
 > **NOT\_IN**: `"notIn"`
 
-Defined in: [packages/headless/dist/index.d.ts:356](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L356)
+Defined in: [packages/headless/dist/index.d.ts:385](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L385)
 
 ***
 
@@ -152,4 +152,4 @@ Defined in: [packages/headless/dist/index.d.ts:356](https://github.com/simplix-r
 
 > **STARTS\_WITH**: `"startsWith"`
 
-Defined in: [packages/headless/dist/index.d.ts:349](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L349)
+Defined in: [packages/headless/dist/index.d.ts:378](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L378)

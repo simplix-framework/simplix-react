@@ -8,7 +8,7 @@
 
 > **scaleCells**(`scale`, `unit`, `fromX`, `toX`, `weekStartsOn?`): [`ScaleCell`](../interfaces/ScaleCell.md)[]
 
-Defined in: [lib/time-scale.ts:110](https://github.com/simplix-react/simplix-react/blob/main/lib/time-scale.ts#L110)
+Defined in: [lib/time-scale.ts:110](https://github.com/simplix-framework/simplix-react/blob/main/lib/time-scale.ts#L110)
 
 The header cells of one unit between two pixels of the scale. Only the
 cells that intersect the pixel range are returned, so a long plan costs no

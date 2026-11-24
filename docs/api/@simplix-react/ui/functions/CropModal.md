@@ -8,7 +8,7 @@
 
 > **CropModal**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/fields/image-attachment/components/crop-modal.tsx:46](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/image-attachment/components/crop-modal.tsx#L46)
+Defined in: [packages/ui/src/fields/image-attachment/components/crop-modal.tsx:69](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/image-attachment/components/crop-modal.tsx#L69)
 
 ## Parameters
 

@@ -8,7 +8,7 @@
 
 > **DetailLinkField**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/fields/detail/link-field.tsx:25](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/link-field.tsx#L25)
+Defined in: [packages/ui/src/fields/detail/link-field.tsx:27](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/link-field.tsx#L27)
 
 Read-only hyperlink display field.
 

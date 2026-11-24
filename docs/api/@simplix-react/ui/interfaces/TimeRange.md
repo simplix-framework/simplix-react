@@ -6,7 +6,7 @@
 
 # Interface: TimeRange
 
-Defined in: [packages/ui/src/base/inputs/time-range-selector/types.ts:18](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/time-range-selector/types.ts#L18)
+Defined in: [packages/ui/src/base/inputs/time-range-selector/types.ts:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/time-range-selector/types.ts#L18)
 
 A simple date range.
 
@@ -20,7 +20,7 @@ A simple date range.
 
 > **from**: `Date`
 
-Defined in: [packages/ui/src/base/inputs/time-range-selector/types.ts:19](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/time-range-selector/types.ts#L19)
+Defined in: [packages/ui/src/base/inputs/time-range-selector/types.ts:19](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/time-range-selector/types.ts#L19)
 
 ***
 
@@ -28,4 +28,4 @@ Defined in: [packages/ui/src/base/inputs/time-range-selector/types.ts:19](https:
 
 > **to**: `Date`
 
-Defined in: [packages/ui/src/base/inputs/time-range-selector/types.ts:20](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/time-range-selector/types.ts#L20)
+Defined in: [packages/ui/src/base/inputs/time-range-selector/types.ts:20](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/time-range-selector/types.ts#L20)

@@ -8,7 +8,7 @@
 
 > **datePart**(`value`): `string`
 
-Defined in: [helpers.ts:351](https://github.com/simplix-react/simplix-react/blob/main/helpers.ts#L351)
+Defined in: [helpers.ts:351](https://github.com/simplix-framework/simplix-react/blob/main/helpers.ts#L351)
 
 Returns the `yyyy-MM-dd` part of a backend date value. Backends serialize
 date-only fields inconsistently (`"2026-01-01"` vs `"2026-01-01T00:00:00+09:00"`);

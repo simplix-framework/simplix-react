@@ -6,7 +6,7 @@
 
 # Interface: UseCrudPageStateResult
 
-Defined in: [packages/ui/src/crud/patterns/use-crud-page.ts:49](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/use-crud-page.ts#L49)
+Defined in: [packages/ui/src/crud/patterns/use-crud-page.ts:79](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/use-crud-page.ts#L79)
 
 Return type of [useCrudPageState](../functions/useCrudPageState.md).
 
@@ -16,7 +16,7 @@ Return type of [useCrudPageState](../functions/useCrudPageState.md).
 
 > **closePanel**: () => `void` \| `undefined`
 
-Defined in: [packages/ui/src/crud/patterns/use-crud-page.ts:52](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/use-crud-page.ts#L52)
+Defined in: [packages/ui/src/crud/patterns/use-crud-page.ts:82](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/use-crud-page.ts#L82)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/ui/src/crud/patterns/use-crud-page.ts:52](https://github.c
 
 > **fade**: [`UseFadeTransitionResult`](UseFadeTransitionResult.md)
 
-Defined in: [packages/ui/src/crud/patterns/use-crud-page.ts:51](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/use-crud-page.ts#L51)
+Defined in: [packages/ui/src/crud/patterns/use-crud-page.ts:81](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/use-crud-page.ts#L81)
 
 ***
 
@@ -32,4 +32,4 @@ Defined in: [packages/ui/src/crud/patterns/use-crud-page.ts:51](https://github.c
 
 > **state**: [`UseListDetailStateResult`](UseListDetailStateResult.md)
 
-Defined in: [packages/ui/src/crud/patterns/use-crud-page.ts:50](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/use-crud-page.ts#L50)
+Defined in: [packages/ui/src/crud/patterns/use-crud-page.ts:80](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/use-crud-page.ts#L80)

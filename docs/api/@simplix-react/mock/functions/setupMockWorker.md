@@ -8,7 +8,7 @@
 
 > **setupMockWorker**(`config`): `Promise`\<`void`\>
 
-Defined in: [msw.ts:105](https://github.com/simplix-react/simplix-react/blob/main/msw.ts#L105)
+Defined in: [msw.ts:105](https://github.com/simplix-framework/simplix-react/blob/main/msw.ts#L105)
 
 Bootstraps a complete mock environment with MSW and in-memory stores.
 

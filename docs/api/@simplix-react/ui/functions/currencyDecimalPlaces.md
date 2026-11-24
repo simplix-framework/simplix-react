@@ -8,7 +8,7 @@
 
 > **currencyDecimalPlaces**(`code`): `number`
 
-Defined in: [packages/ui/src/utils/use-currency-options.ts:46](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/use-currency-options.ts#L46)
+Defined in: [packages/ui/src/utils/use-currency-options.ts:46](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/use-currency-options.ts#L46)
 
 How many decimal places a currency implies.
 

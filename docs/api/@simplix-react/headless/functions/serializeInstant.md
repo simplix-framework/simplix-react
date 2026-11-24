@@ -8,7 +8,7 @@
 
 > **serializeInstant**(`date`, `displayZone?`): `string` \| `undefined`
 
-Defined in: [rfc3339-date.ts:84](https://github.com/simplix-react/simplix-react/blob/main/rfc3339-date.ts#L84)
+Defined in: [rfc3339-date.ts:84](https://github.com/simplix-framework/simplix-react/blob/main/rfc3339-date.ts#L84)
 
 Serialize an absolute instant to `yyyy-MM-ddTHH:mm:ss±HH:MM`.
 

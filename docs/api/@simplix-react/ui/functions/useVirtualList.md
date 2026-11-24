@@ -8,7 +8,7 @@
 
 > **useVirtualList**(`options`): `object`
 
-Defined in: [packages/ui/src/crud/list/use-virtual.ts:31](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-virtual.ts#L31)
+Defined in: [packages/ui/src/crud/list/use-virtual.ts:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-virtual.ts#L31)
 
 Virtual scrolling hook for large lists, wrapping `@tanstack/react-virtual`.
 

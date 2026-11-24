@@ -8,7 +8,7 @@
 
 > **createLocalQueryStore**(`opts`): `object`
 
-Defined in: [packages/react/src/local-query.ts:74](https://github.com/simplix-react/simplix-react/blob/main/packages/react/src/local-query.ts#L74)
+Defined in: [packages/react/src/local-query.ts:74](https://github.com/simplix-framework/simplix-react/blob/main/packages/react/src/local-query.ts#L74)
 
 Creates an isolated "local query" store: a registry of query keys whose
 react-query cache entries should be persisted to `localStorage` and kept

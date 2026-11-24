@@ -8,7 +8,7 @@
 
 > **RecurringDialog**(): `Element` \| `null`
 
-Defined in: [components/recurring-dialog.tsx:18](https://github.com/simplix-react/simplix-react/blob/main/components/recurring-dialog.tsx#L18)
+Defined in: [components/recurring-dialog.tsx:18](https://github.com/simplix-framework/simplix-react/blob/main/components/recurring-dialog.tsx#L18)
 
 The recurring task dialog: a name, a duration and when it repeats. Creating
 it adds a summary task with one task per occurrence, as one undo step.

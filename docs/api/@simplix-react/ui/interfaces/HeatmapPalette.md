@@ -6,7 +6,7 @@
 
 # Interface: HeatmapPalette
 
-Defined in: [packages/ui/src/base/inputs/time-range-selector/themes.ts:7](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/time-range-selector/themes.ts#L7)
+Defined in: [packages/ui/src/base/inputs/time-range-selector/themes.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/time-range-selector/themes.ts#L12)
 
 A pair of light/dark palettes for heatmap rendering.
 
@@ -16,7 +16,7 @@ A pair of light/dark palettes for heatmap rendering.
 
 > **accent**: `object`
 
-Defined in: [packages/ui/src/base/inputs/time-range-selector/themes.ts:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/time-range-selector/themes.ts#L11)
+Defined in: [packages/ui/src/base/inputs/time-range-selector/themes.ts:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/time-range-selector/themes.ts#L16)
 
 Accent color for selection markers, contrasting with the heatmap palette.
 
@@ -34,7 +34,7 @@ Accent color for selection markers, contrasting with the heatmap palette.
 
 > **dark**: `string`[]
 
-Defined in: [packages/ui/src/base/inputs/time-range-selector/themes.ts:9](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/time-range-selector/themes.ts#L9)
+Defined in: [packages/ui/src/base/inputs/time-range-selector/themes.ts:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/time-range-selector/themes.ts#L14)
 
 ***
 
@@ -42,4 +42,4 @@ Defined in: [packages/ui/src/base/inputs/time-range-selector/themes.ts:9](https:
 
 > **light**: `string`[]
 
-Defined in: [packages/ui/src/base/inputs/time-range-selector/themes.ts:8](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/time-range-selector/themes.ts#L8)
+Defined in: [packages/ui/src/base/inputs/time-range-selector/themes.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/time-range-selector/themes.ts#L13)

@@ -8,4 +8,4 @@
 
 > `const` **Skeleton**: `ComponentType`\<[`SkeletonProps`](../type-aliases/SkeletonProps.md)\>
 
-Defined in: [packages/ui/src/base/display/skeleton.tsx:16](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/skeleton.tsx#L16)
+Defined in: [packages/ui/src/base/display/skeleton.tsx:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/skeleton.tsx#L18)

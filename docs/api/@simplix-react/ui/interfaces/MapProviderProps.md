@@ -6,7 +6,7 @@
 
 # Interface: MapProviderProps
 
-Defined in: [packages/ui/src/base/map/map-provider.tsx:3](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map-provider.tsx#L3)
+Defined in: [packages/ui/src/base/map/map-provider.tsx:3](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map-provider.tsx#L3)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/base/map/map-provider.tsx:3](https://github.com/sim
 
 > **children**: `ReactNode`
 
-Defined in: [packages/ui/src/base/map/map-provider.tsx:8](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map-provider.tsx#L8)
+Defined in: [packages/ui/src/base/map/map-provider.tsx:8](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map-provider.tsx#L8)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [packages/ui/src/base/map/map-provider.tsx:8](https://github.com/sim
 
 > `optional` **defaultFallbackTileUrl**: `string`
 
-Defined in: [packages/ui/src/base/map/map-provider.tsx:5](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map-provider.tsx#L5)
+Defined in: [packages/ui/src/base/map/map-provider.tsx:5](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map-provider.tsx#L5)
 
 Default PMTiles file URL for offline fallback, used by Map when its own fallbackTileUrl is not set.
 
@@ -32,6 +32,6 @@ Default PMTiles file URL for offline fallback, used by Map when its own fallback
 
 > `optional` **defaultMarkerIcon**: `ReactNode`
 
-Defined in: [packages/ui/src/base/map/map-provider.tsx:7](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map-provider.tsx#L7)
+Defined in: [packages/ui/src/base/map/map-provider.tsx:7](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map-provider.tsx#L7)
 
 Default marker icon ReactNode, used by MapMarker when no children are provided.

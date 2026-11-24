@@ -8,4 +8,4 @@
 
 > **MapRef** = `MapLibreGL.Map`
 
-Defined in: [packages/ui/src/base/map/map.tsx:194](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L194)
+Defined in: [packages/ui/src/base/map/map.tsx:208](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L208)

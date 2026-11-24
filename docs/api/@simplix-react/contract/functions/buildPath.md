@@ -8,7 +8,7 @@
 
 > **buildPath**(`template`, `params?`): `string`
 
-Defined in: [packages/contract/src/helpers/path-builder.ts:23](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/helpers/path-builder.ts#L23)
+Defined in: [packages/contract/src/helpers/path-builder.ts:23](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/helpers/path-builder.ts#L23)
 
 Substitutes `:paramName` placeholders in a URL path template with actual values.
 

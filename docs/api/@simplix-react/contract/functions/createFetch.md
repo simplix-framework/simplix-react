@@ -8,7 +8,7 @@
 
 > **createFetch**(`options?`): [`FetchFn`](../type-aliases/FetchFn.md)
 
-Defined in: [packages/contract/src/helpers/create-fetch.ts:54](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L54)
+Defined in: [packages/contract/src/helpers/create-fetch.ts:54](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L54)
 
 ## Parameters
 

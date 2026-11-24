@@ -8,7 +8,7 @@
 
 > **MapMarker**(`__namedParameters`): `ReactPortal` \| `null`
 
-Defined in: [packages/ui/src/base/map/map.tsx:556](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L556)
+Defined in: [packages/ui/src/base/map/map.tsx:572](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L572)
 
 ## Parameters
 

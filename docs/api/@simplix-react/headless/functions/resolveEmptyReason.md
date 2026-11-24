@@ -8,7 +8,7 @@
 
 > **resolveEmptyReason**(`input`): [`EmptyReason`](../type-aliases/EmptyReason.md) \| `null`
 
-Defined in: [resolve-empty-reason.ts:50](https://github.com/simplix-react/simplix-react/blob/main/resolve-empty-reason.ts#L50)
+Defined in: [resolve-empty-reason.ts:50](https://github.com/simplix-framework/simplix-react/blob/main/resolve-empty-reason.ts#L50)
 
 Classify why a list renders no rows.
 

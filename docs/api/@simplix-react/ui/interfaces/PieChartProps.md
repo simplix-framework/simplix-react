@@ -6,7 +6,7 @@
 
 # Interface: PieChartProps
 
-Defined in: [packages/ui/src/base/charts/types.ts:56](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L56)
+Defined in: [packages/ui/src/base/charts/types.ts:68](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L68)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:56](https://github.com/simplix
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/base/charts/types.ts:31](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L31)
+Defined in: [packages/ui/src/base/charts/types.ts:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L31)
 
 #### Inherited from
 
@@ -30,7 +30,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:31](https://github.com/simplix
 
 > `optional` **colors**: `string`[]
 
-Defined in: [packages/ui/src/base/charts/types.ts:59](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L59)
+Defined in: [packages/ui/src/base/charts/types.ts:71](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L71)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:59](https://github.com/simplix
 
 > `optional` **height**: `string` \| `number`
 
-Defined in: [packages/ui/src/base/charts/types.ts:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L30)
+Defined in: [packages/ui/src/base/charts/types.ts:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L30)
 
 #### Inherited from
 
@@ -50,7 +50,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:30](https://github.com/simplix
 
 > **labels**: `string`[]
 
-Defined in: [packages/ui/src/base/charts/types.ts:57](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L57)
+Defined in: [packages/ui/src/base/charts/types.ts:69](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L69)
 
 ***
 
@@ -58,4 +58,4 @@ Defined in: [packages/ui/src/base/charts/types.ts:57](https://github.com/simplix
 
 > **series**: `number`[]
 
-Defined in: [packages/ui/src/base/charts/types.ts:58](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L58)
+Defined in: [packages/ui/src/base/charts/types.ts:70](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L70)

@@ -8,7 +8,7 @@
 
 > **parseWorkingRanges**(`text`): [`WorkingRange`](../interfaces/WorkingRange.md)[]
 
-Defined in: [packages/gantt-core/src/edit-project.ts:35](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-project.ts#L35)
+Defined in: [packages/gantt-core/src/edit-project.ts:35](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-project.ts#L35)
 
 Reads the working time of a day as it is typed: `08:00-12:00, 13:00-17:00`.
 Empty text is a non-working day.

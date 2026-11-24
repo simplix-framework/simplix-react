@@ -6,7 +6,7 @@
 
 # Interface: CrudDetailTableProps
 
-Defined in: [packages/ui/src/crud/detail/crud-detail-table.tsx:7](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-table.tsx#L7)
+Defined in: [packages/ui/src/crud/detail/crud-detail-table.tsx:7](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-table.tsx#L7)
 
 Props for the [DetailPagedTable](../variables/CrudDetail.md) sub-component.
 
@@ -16,7 +16,7 @@ Props for the [DetailPagedTable](../variables/CrudDetail.md) sub-component.
 
 > **children**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/detail/crud-detail-table.tsx:9](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-table.tsx#L9)
+Defined in: [packages/ui/src/crud/detail/crud-detail-table.tsx:9](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-table.tsx#L9)
 
 The table — a `Table` with its own header row and column widths.
 
@@ -26,7 +26,7 @@ The table — a `Table` with its own header row and column widths.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/detail/crud-detail-table.tsx:34](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-table.tsx#L34)
+Defined in: [packages/ui/src/crud/detail/crud-detail-table.tsx:34](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-table.tsx#L34)
 
 Additional classes merged onto the card.
 
@@ -36,7 +36,7 @@ Additional classes merged onto the card.
 
 > `optional` **onPageChange**: (`page`) => `void`
 
-Defined in: [packages/ui/src/crud/detail/crud-detail-table.tsx:32](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-table.tsx#L32)
+Defined in: [packages/ui/src/crud/detail/crud-detail-table.tsx:32](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-table.tsx#L32)
 
 Called with the page the reader asked for.
 
@@ -56,7 +56,7 @@ Called with the page the reader asked for.
 
 > `optional` **page**: `number`
 
-Defined in: [packages/ui/src/crud/detail/crud-detail-table.tsx:19](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-table.tsx#L19)
+Defined in: [packages/ui/src/crud/detail/crud-detail-table.tsx:19](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-table.tsx#L19)
 
 The paging, for a table whose rows come a page at a time.
 
@@ -72,7 +72,7 @@ component cannot tell a catalogue of eleven from a history of eleven-so-far.
 
 > `optional` **pageSize**: `number`
 
-Defined in: [packages/ui/src/crud/detail/crud-detail-table.tsx:21](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-table.tsx#L21)
+Defined in: [packages/ui/src/crud/detail/crud-detail-table.tsx:21](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-table.tsx#L21)
 
 How many rows a page holds.
 
@@ -82,7 +82,7 @@ How many rows a page holds.
 
 > `optional` **total**: `number`
 
-Defined in: [packages/ui/src/crud/detail/crud-detail-table.tsx:23](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-table.tsx#L23)
+Defined in: [packages/ui/src/crud/detail/crud-detail-table.tsx:23](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-table.tsx#L23)
 
 How many rows there are in total, across every page.
 
@@ -92,7 +92,7 @@ How many rows there are in total, across every page.
 
 > `optional` **totalPages**: `number`
 
-Defined in: [packages/ui/src/crud/detail/crud-detail-table.tsx:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-table.tsx#L30)
+Defined in: [packages/ui/src/crud/detail/crud-detail-table.tsx:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-table.tsx#L30)
 
 How many pages that comes to.
 

@@ -6,7 +6,7 @@
 
 # Interface: MultiTextFilterField
 
-Defined in: [packages/ui/src/crud/filters/multi-text-filter.tsx:9](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/multi-text-filter.tsx#L9)
+Defined in: [packages/ui/src/crud/filters/multi-text-filter.tsx:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/multi-text-filter.tsx#L15)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/crud/filters/multi-text-filter.tsx:9](https://githu
 
 > **field**: `string`
 
-Defined in: [packages/ui/src/crud/filters/multi-text-filter.tsx:10](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/multi-text-filter.tsx#L10)
+Defined in: [packages/ui/src/crud/filters/multi-text-filter.tsx:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/multi-text-filter.tsx#L16)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [packages/ui/src/crud/filters/multi-text-filter.tsx:10](https://gith
 
 > **label**: `string`
 
-Defined in: [packages/ui/src/crud/filters/multi-text-filter.tsx:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/multi-text-filter.tsx#L11)
+Defined in: [packages/ui/src/crud/filters/multi-text-filter.tsx:17](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/multi-text-filter.tsx#L17)
 
 ***
 
@@ -30,4 +30,4 @@ Defined in: [packages/ui/src/crud/filters/multi-text-filter.tsx:11](https://gith
 
 > `optional` **placeholder**: `string`
 
-Defined in: [packages/ui/src/crud/filters/multi-text-filter.tsx:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/multi-text-filter.tsx#L12)
+Defined in: [packages/ui/src/crud/filters/multi-text-filter.tsx:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/multi-text-filter.tsx#L18)

@@ -8,7 +8,7 @@
 
 > **DetailCountryField**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/fields/detail/country-field.tsx:24](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/country-field.tsx#L24)
+Defined in: [packages/ui/src/fields/detail/country-field.tsx:27](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/country-field.tsx#L27)
 
 Read-only country display field with flag icon and localized name.
 

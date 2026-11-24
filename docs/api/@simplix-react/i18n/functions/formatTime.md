@@ -8,7 +8,7 @@
 
 > **formatTime**(`date`, `locale`, `timeZone`, `options?`): `string`
 
-Defined in: [datetime.ts:213](https://github.com/simplix-react/simplix-react/blob/main/datetime.ts#L213)
+Defined in: [datetime.ts:213](https://github.com/simplix-framework/simplix-react/blob/main/datetime.ts#L213)
 
 Format a time according to locale conventions.
 

@@ -8,6 +8,6 @@
 
 > **GroupKey** = `"none"` \| `"resource"` \| `"critical"` \| `"status"`
 
-Defined in: [lib/view-rows.ts:11](https://github.com/simplix-react/simplix-react/blob/main/lib/view-rows.ts#L11)
+Defined in: [lib/view-rows.ts:11](https://github.com/simplix-framework/simplix-react/blob/main/lib/view-rows.ts#L11)
 
 What the rows are gathered under; `none` keeps the outline.

@@ -8,7 +8,7 @@
 
 > **redo**\<`T`\>(`history`): [`History`](../interfaces/History.md)\<`T`\>
 
-Defined in: [packages/gantt-core/src/history.ts:47](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/history.ts#L47)
+Defined in: [packages/gantt-core/src/history.ts:47](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/history.ts#L47)
 
 Steps forward one undone change. Returns the history unchanged when there is none.
 

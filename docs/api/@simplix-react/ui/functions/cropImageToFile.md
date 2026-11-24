@@ -8,7 +8,7 @@
 
 > **cropImageToFile**(`source`, `area`): `Promise`\<`File`\>
 
-Defined in: [packages/ui/src/fields/image-attachment/lib/crop-image.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/image-attachment/lib/crop-image.ts#L13)
+Defined in: [packages/ui/src/fields/image-attachment/lib/crop-image.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/image-attachment/lib/crop-image.ts#L13)
 
 Crops source File to area using offscreen canvas.
 Same name + mimeType as original (OQ-3): no format conversion.

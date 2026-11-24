@@ -8,7 +8,7 @@
 
 > **isAncestor**(`outline`, `ancestor`, `index`): `boolean`
 
-Defined in: [packages/gantt-core/src/outline.ts:74](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/outline.ts#L74)
+Defined in: [packages/gantt-core/src/outline.ts:74](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/outline.ts#L74)
 
 True when the row at `ancestor` has the row at `index` somewhere under it.
 

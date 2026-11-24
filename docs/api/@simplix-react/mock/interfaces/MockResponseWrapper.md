@@ -6,7 +6,7 @@
 
 # Interface: MockResponseWrapper
 
-Defined in: [derive-mock-handlers.ts:91](https://github.com/simplix-react/simplix-react/blob/main/derive-mock-handlers.ts#L91)
+Defined in: [derive-mock-handlers.ts:91](https://github.com/simplix-framework/simplix-react/blob/main/derive-mock-handlers.ts#L91)
 
 Transforms raw mock data into a server-specific response envelope.
 
@@ -16,7 +16,7 @@ Transforms raw mock data into a server-specific response envelope.
 
 > **error**: (`error`) => `Record`\<`string`, `unknown`\>
 
-Defined in: [derive-mock-handlers.ts:95](https://github.com/simplix-react/simplix-react/blob/main/derive-mock-handlers.ts#L95)
+Defined in: [derive-mock-handlers.ts:95](https://github.com/simplix-framework/simplix-react/blob/main/derive-mock-handlers.ts#L95)
 
 Wraps an error result.
 
@@ -36,7 +36,7 @@ Wraps an error result.
 
 > **success**: (`data`) => `Record`\<`string`, `unknown`\>
 
-Defined in: [derive-mock-handlers.ts:93](https://github.com/simplix-react/simplix-react/blob/main/derive-mock-handlers.ts#L93)
+Defined in: [derive-mock-handlers.ts:93](https://github.com/simplix-framework/simplix-react/blob/main/derive-mock-handlers.ts#L93)
 
 Wraps a successful result payload.
 

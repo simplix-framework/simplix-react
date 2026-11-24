@@ -8,7 +8,7 @@
 
 > **toCivil**(`t`): [`CivilDateTime`](../interfaces/CivilDateTime.md)
 
-Defined in: [packages/gantt-core/src/time.ts:43](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/time.ts#L43)
+Defined in: [packages/gantt-core/src/time.ts:43](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/time.ts#L43)
 
 Splits an instant into calendar fields.
 

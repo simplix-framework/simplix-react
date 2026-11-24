@@ -8,7 +8,7 @@
 
 > **useChartAdapter**(): [`ChartAdapter`](../interfaces/ChartAdapter.md)
 
-Defined in: [packages/ui/src/base/charts/chart-provider.tsx:15](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/chart-provider.tsx#L15)
+Defined in: [packages/ui/src/base/charts/chart-provider.tsx:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/chart-provider.tsx#L15)
 
 ## Returns
 

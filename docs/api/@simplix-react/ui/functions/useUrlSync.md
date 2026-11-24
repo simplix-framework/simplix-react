@@ -8,7 +8,7 @@
 
 > **useUrlSync**(`options`): `void`
 
-Defined in: [packages/ui/src/crud/list/use-url-sync.ts:113](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-url-sync.ts#L113)
+Defined in: [packages/ui/src/crud/list/use-url-sync.ts:115](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-url-sync.ts#L115)
 
 Sync list state (filters, sort, pagination) with URL query parameters.
 
@@ -28,6 +28,8 @@ Sync list state (filters, sort, pagination) with URL query parameters.
 
 Reads initial state from URL on mount. Writes state changes to URL
 with a 300ms debounce using `history.replaceState` (no page reload).
+It rewrites the whole search string, so a page that also carries `id`, `mode` or `tab` in its
+address keeps its filters with `addressedFilters` of `useCrudList` instead.
 
 ## Example
 

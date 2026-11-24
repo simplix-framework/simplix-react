@@ -6,7 +6,7 @@
 
 # Interface: History\<T\>
 
-Defined in: [packages/gantt-core/src/history.ts:5](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/history.ts#L5)
+Defined in: [packages/gantt-core/src/history.ts:5](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/history.ts#L5)
 
 An undo and redo stack over immutable values. Every state is kept whole, so
 values that share unchanged parts cost little.
@@ -23,7 +23,7 @@ values that share unchanged parts cost little.
 
 > `readonly` **future**: readonly [`HistoryEntry`](HistoryEntry.md)\<`T`\>[]
 
-Defined in: [packages/gantt-core/src/history.ts:8](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/history.ts#L8)
+Defined in: [packages/gantt-core/src/history.ts:8](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/history.ts#L8)
 
 ***
 
@@ -31,7 +31,7 @@ Defined in: [packages/gantt-core/src/history.ts:8](https://github.com/simplix-re
 
 > `readonly` **limit**: `number`
 
-Defined in: [packages/gantt-core/src/history.ts:10](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/history.ts#L10)
+Defined in: [packages/gantt-core/src/history.ts:10](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/history.ts#L10)
 
 States kept for undo before the oldest is dropped.
 
@@ -41,7 +41,7 @@ States kept for undo before the oldest is dropped.
 
 > `readonly` **past**: readonly [`HistoryEntry`](HistoryEntry.md)\<`T`\>[]
 
-Defined in: [packages/gantt-core/src/history.ts:6](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/history.ts#L6)
+Defined in: [packages/gantt-core/src/history.ts:6](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/history.ts#L6)
 
 ***
 
@@ -49,4 +49,4 @@ Defined in: [packages/gantt-core/src/history.ts:6](https://github.com/simplix-re
 
 > `readonly` **present**: `T`
 
-Defined in: [packages/gantt-core/src/history.ts:7](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/history.ts#L7)
+Defined in: [packages/gantt-core/src/history.ts:7](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/history.ts#L7)

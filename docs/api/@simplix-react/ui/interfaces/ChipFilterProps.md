@@ -6,7 +6,7 @@
 
 # Interface: ChipFilterProps\<T\>
 
-Defined in: [packages/ui/src/crud/filters/chip-filter.tsx:26](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/chip-filter.tsx#L26)
+Defined in: [packages/ui/src/crud/filters/chip-filter.tsx:28](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/chip-filter.tsx#L28)
 
 Props for the [ChipFilter](../functions/ChipFilter.md) component.
 
@@ -22,7 +22,7 @@ Props for the [ChipFilter](../functions/ChipFilter.md) component.
 
 > **field**: `string`
 
-Defined in: [packages/ui/src/crud/filters/chip-filter.tsx:35](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/chip-filter.tsx#L35)
+Defined in: [packages/ui/src/crud/filters/chip-filter.tsx:37](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/chip-filter.tsx#L37)
 
 Server filter key.
 
@@ -37,7 +37,7 @@ membership operator reads.
 
 > `optional` **gap**: `"none"` \| `"xs"` \| `"sm"` \| `"lg"` \| `"md"`
 
-Defined in: [packages/ui/src/crud/filters/chip-filter.tsx:41](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/chip-filter.tsx#L41)
+Defined in: [packages/ui/src/crud/filters/chip-filter.tsx:43](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/chip-filter.tsx#L43)
 
 Space between chips.
 
@@ -53,7 +53,7 @@ Space between chips.
 
 > **options**: [`ChipFilterOption`](ChipFilterOption.md)\<`T`\>[]
 
-Defined in: [packages/ui/src/crud/filters/chip-filter.tsx:37](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/chip-filter.tsx#L37)
+Defined in: [packages/ui/src/crud/filters/chip-filter.tsx:39](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/chip-filter.tsx#L39)
 
 Available options.
 
@@ -63,6 +63,6 @@ Available options.
 
 > **state**: [`CrudListFilters`](CrudListFilters.md)
 
-Defined in: [packages/ui/src/crud/filters/chip-filter.tsx:39](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/chip-filter.tsx#L39)
+Defined in: [packages/ui/src/crud/filters/chip-filter.tsx:41](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/chip-filter.tsx#L41)
 
 CrudList filter state to read/write.

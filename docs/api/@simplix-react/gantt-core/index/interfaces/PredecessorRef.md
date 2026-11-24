@@ -6,7 +6,7 @@
 
 # Interface: PredecessorRef
 
-Defined in: [packages/gantt-core/src/duration.ts:93](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L93)
+Defined in: [packages/gantt-core/src/duration.ts:93](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L93)
 
 One entry of a predecessor list, naming the predecessor by its row number.
 
@@ -16,7 +16,7 @@ One entry of a predecessor list, naming the predecessor by its row number.
 
 > **lag**: `number`
 
-Defined in: [packages/gantt-core/src/duration.ts:97](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L97)
+Defined in: [packages/gantt-core/src/duration.ts:97](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L97)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/gantt-core/src/duration.ts:97](https://github.com/simplix-
 
 > **lagMode**: [`LagMode`](../type-aliases/LagMode.md)
 
-Defined in: [packages/gantt-core/src/duration.ts:98](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L98)
+Defined in: [packages/gantt-core/src/duration.ts:98](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L98)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [packages/gantt-core/src/duration.ts:98](https://github.com/simplix-
 
 > **lagUnit**: [`DurationUnit`](../type-aliases/DurationUnit.md)
 
-Defined in: [packages/gantt-core/src/duration.ts:99](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L99)
+Defined in: [packages/gantt-core/src/duration.ts:99](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L99)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [packages/gantt-core/src/duration.ts:99](https://github.com/simplix-
 
 > **row**: `number`
 
-Defined in: [packages/gantt-core/src/duration.ts:95](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L95)
+Defined in: [packages/gantt-core/src/duration.ts:95](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L95)
 
 One-based row number of the predecessor.
 
@@ -50,4 +50,4 @@ One-based row number of the predecessor.
 
 > **type**: [`LinkType`](../type-aliases/LinkType.md)
 
-Defined in: [packages/gantt-core/src/duration.ts:96](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L96)
+Defined in: [packages/gantt-core/src/duration.ts:96](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L96)

@@ -6,7 +6,7 @@
 
 # Interface: MspdiLoss
 
-Defined in: [packages/gantt-core/src/mspdi/losses.ts:15](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/mspdi/losses.ts#L15)
+Defined in: [packages/gantt-core/src/mspdi/losses.ts:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/mspdi/losses.ts#L15)
 
 One kind of data an export leaves out, with the ids of the tasks or fields it concerns.
 
@@ -16,7 +16,7 @@ One kind of data an export leaves out, with the ids of the tasks or fields it co
 
 > **code**: [`MspdiLossCode`](../type-aliases/MspdiLossCode.md)
 
-Defined in: [packages/gantt-core/src/mspdi/losses.ts:16](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/mspdi/losses.ts#L16)
+Defined in: [packages/gantt-core/src/mspdi/losses.ts:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/mspdi/losses.ts#L16)
 
 ***
 
@@ -24,4 +24,4 @@ Defined in: [packages/gantt-core/src/mspdi/losses.ts:16](https://github.com/simp
 
 > **ids**: `string`[]
 
-Defined in: [packages/gantt-core/src/mspdi/losses.ts:17](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/mspdi/losses.ts#L17)
+Defined in: [packages/gantt-core/src/mspdi/losses.ts:17](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/mspdi/losses.ts#L17)

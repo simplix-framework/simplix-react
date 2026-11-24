@@ -6,7 +6,7 @@
 
 # Interface: QrCodeProps
 
-Defined in: [packages/ui/src/base/display/qr-code.tsx:6](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/qr-code.tsx#L6)
+Defined in: [packages/ui/src/base/display/qr-code.tsx:7](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/qr-code.tsx#L7)
 
 Props for the [QrCode](../functions/QrCode.md) component.
 
@@ -16,7 +16,7 @@ Props for the [QrCode](../functions/QrCode.md) component.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/base/display/qr-code.tsx:15](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/qr-code.tsx#L15)
+Defined in: [packages/ui/src/base/display/qr-code.tsx:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/qr-code.tsx#L16)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/ui/src/base/display/qr-code.tsx:15](https://github.com/sim
 
 > `optional` **label**: `string`
 
-Defined in: [packages/ui/src/base/display/qr-code.tsx:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/qr-code.tsx#L14)
+Defined in: [packages/ui/src/base/display/qr-code.tsx:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/qr-code.tsx#L15)
 
 Accessible label announced for the symbol.
 
@@ -32,9 +32,9 @@ Accessible label announced for the symbol.
 
 ### level?
 
-> `optional` **level**: `"L"` \| `"M"` \| `"Q"` \| `"H"`
+> `optional` **level**: `"H"` \| `"L"` \| `"M"` \| `"Q"`
 
-Defined in: [packages/ui/src/base/display/qr-code.tsx:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/qr-code.tsx#L12)
+Defined in: [packages/ui/src/base/display/qr-code.tsx:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/qr-code.tsx#L13)
 
 Error-correction level; defaults to `M`.
 
@@ -44,7 +44,7 @@ Error-correction level; defaults to `M`.
 
 > `optional` **size**: `number`
 
-Defined in: [packages/ui/src/base/display/qr-code.tsx:10](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/qr-code.tsx#L10)
+Defined in: [packages/ui/src/base/display/qr-code.tsx:11](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/qr-code.tsx#L11)
 
 Rendered edge length in CSS pixels; defaults to 192.
 
@@ -54,6 +54,6 @@ Rendered edge length in CSS pixels; defaults to 192.
 
 > **value**: `string`
 
-Defined in: [packages/ui/src/base/display/qr-code.tsx:8](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/qr-code.tsx#L8)
+Defined in: [packages/ui/src/base/display/qr-code.tsx:9](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/qr-code.tsx#L9)
 
 Payload encoded into the QR symbol.

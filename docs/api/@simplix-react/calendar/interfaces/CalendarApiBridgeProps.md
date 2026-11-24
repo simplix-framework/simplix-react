@@ -6,7 +6,7 @@
 
 # Interface: CalendarApiBridgeProps
 
-Defined in: [context/calendar-api-bridge.tsx:18](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-api-bridge.tsx#L18)
+Defined in: [context/calendar-api-bridge.tsx:18](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-api-bridge.tsx#L18)
 
 Props for [CalendarApiBridge](../functions/CalendarApiBridge.md).
 
@@ -16,6 +16,6 @@ Props for [CalendarApiBridge](../functions/CalendarApiBridge.md).
 
 > **apiRef**: `MutableRefObject`\<[`CalendarApi`](CalendarApi.md) \| `null`\>
 
-Defined in: [context/calendar-api-bridge.tsx:20](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-api-bridge.tsx#L20)
+Defined in: [context/calendar-api-bridge.tsx:20](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-api-bridge.tsx#L20)
 
 Receives the [CalendarApi](CalendarApi.md) while the bridge is mounted; reset to null on unmount.

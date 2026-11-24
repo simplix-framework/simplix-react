@@ -8,4 +8,4 @@
 
 > **TableRowProps** = `ComponentPropsWithRef`\<`"tr"`\>
 
-Defined in: [packages/ui/src/base/display/table.tsx:288](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/table.tsx#L288)
+Defined in: [packages/ui/src/base/display/table.tsx:361](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/table.tsx#L361)

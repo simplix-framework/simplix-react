@@ -8,7 +8,7 @@
 
 > **adaptOrvalDelete**\<`TId`\>(`mutation`, `pathParam`, `opts?`): [`CrudMutation`](../interfaces/CrudMutation.md)\<`TId`\>
 
-Defined in: [packages/headless/dist/index.d.ts:327](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L327)
+Defined in: [packages/headless/dist/index.d.ts:356](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L356)
 
 Adapts an Orval **delete** mutation (`mutate({ [pathParam]: id })`) to the
 [CrudMutation](../interfaces/CrudMutation.md) interface (`mutate(id)`).

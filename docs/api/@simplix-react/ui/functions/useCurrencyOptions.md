@@ -8,7 +8,7 @@
 
 > **useCurrencyOptions**(): [`CurrencyOption`](../interfaces/CurrencyOption.md)[]
 
-Defined in: [packages/ui/src/utils/use-currency-options.ts:63](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/use-currency-options.ts#L63)
+Defined in: [packages/ui/src/utils/use-currency-options.ts:63](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/use-currency-options.ts#L63)
 
 Currency options (ISO code, localized/English names, decimal places) for pickers and
 display cells.

@@ -8,7 +8,7 @@
 
 > **useTableCardFrame**(): [`TableCardFrameValue`](../interfaces/TableCardFrameValue.md) \| `null`
 
-Defined in: [packages/ui/src/crud/shared/table-card-frame.tsx:24](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/table-card-frame.tsx#L24)
+Defined in: [packages/ui/src/crud/shared/table-card-frame.tsx:26](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/table-card-frame.tsx#L26)
 
 Reads the surrounding TableCardFrame, or null when rendered standalone.
 

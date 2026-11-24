@@ -6,7 +6,7 @@
 
 # Interface: GroupedToggleFieldProps\<T\>
 
-Defined in: [packages/ui/src/fields/form/grouped-toggle-field.tsx:51](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/grouped-toggle-field.tsx#L51)
+Defined in: [packages/ui/src/fields/form/grouped-toggle-field.tsx:66](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/grouped-toggle-field.tsx#L66)
 
 Props for the [GroupedToggleField](../functions/GroupedToggleField.md) form component.
 
@@ -26,7 +26,7 @@ Props for the [GroupedToggleField](../functions/GroupedToggleField.md) form comp
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:49](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L49)
+Defined in: [packages/ui/src/crud/shared/types.ts:49](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L49)
 
 #### Inherited from
 
@@ -38,7 +38,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:49](https://github.com/simplix
 
 > `optional` **columns**: `number`
 
-Defined in: [packages/ui/src/fields/form/grouped-toggle-field.tsx:70](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/grouped-toggle-field.tsx#L70)
+Defined in: [packages/ui/src/fields/form/grouped-toggle-field.tsx:85](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/grouped-toggle-field.tsx#L85)
 
 Number of group columns at the `sm` breakpoint and up.
 
@@ -54,7 +54,7 @@ Number of group columns at the `sm` breakpoint and up.
 
 > `optional` **description**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:34](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L34)
+Defined in: [packages/ui/src/crud/shared/types.ts:34](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L34)
 
 #### Inherited from
 
@@ -66,7 +66,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:34](https://github.com/simplix
 
 > `optional` **disabled**: `boolean`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:36](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L36)
+Defined in: [packages/ui/src/crud/shared/types.ts:36](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L36)
 
 #### Inherited from
 
@@ -78,7 +78,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:36](https://github.com/simplix
 
 > `optional` **error**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:32](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L32)
+Defined in: [packages/ui/src/crud/shared/types.ts:32](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L32)
 
 #### Inherited from
 
@@ -90,7 +90,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:32](https://github.com/simplix
 
 > **groups**: [`GroupedToggleGroup`](GroupedToggleGroup.md)\<`T`\>[]
 
-Defined in: [packages/ui/src/fields/form/grouped-toggle-field.tsx:58](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/grouped-toggle-field.tsx#L58)
+Defined in: [packages/ui/src/fields/form/grouped-toggle-field.tsx:73](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/grouped-toggle-field.tsx#L73)
 
 Group definitions rendered as cards.
 
@@ -100,7 +100,7 @@ Group definitions rendered as cards.
 
 > `optional` **label**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L30)
+Defined in: [packages/ui/src/crud/shared/types.ts:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L30)
 
 #### Inherited from
 
@@ -112,7 +112,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:30](https://github.com/simplix
 
 > `optional` **labelKey**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:31](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L31)
+Defined in: [packages/ui/src/crud/shared/types.ts:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L31)
 
 #### Inherited from
 
@@ -124,7 +124,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:31](https://github.com/simplix
 
 > `optional` **layout**: `"inline"` \| `"left"` \| `"top"` \| `"hidden"` \| `"trailing"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
+Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
 
 Label placement. `"top"` stacks the label above the input, `"left"` puts
 it in a leading column, `"inline"` keeps label and input on one row,
@@ -142,7 +142,7 @@ label for screen readers only.
 
 > **onChange**: (`value`) => `void`
 
-Defined in: [packages/ui/src/fields/form/grouped-toggle-field.tsx:56](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/grouped-toggle-field.tsx#L56)
+Defined in: [packages/ui/src/fields/form/grouped-toggle-field.tsx:71](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/grouped-toggle-field.tsx#L71)
 
 Called when the selection changes. Receives the full next record.
 
@@ -162,7 +162,7 @@ Called when the selection changes. Receives the full next record.
 
 > `optional` **prefixControl**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:41](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L41)
+Defined in: [packages/ui/src/crud/shared/types.ts:41](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L41)
 
 Control rendered on the leading (left in LTR) side of the input, on the
 same row. Use for IconPicker, ColorPicker, or similar adornments.
@@ -177,7 +177,7 @@ same row. Use for IconPicker, ColorPicker, or similar adornments.
 
 > `optional` **renderOtherNote**: (`info`) => `ReactNode`
 
-Defined in: [packages/ui/src/fields/form/grouped-toggle-field.tsx:68](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/grouped-toggle-field.tsx#L68)
+Defined in: [packages/ui/src/fields/form/grouped-toggle-field.tsx:83](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/grouped-toggle-field.tsx#L83)
 
 Renders a note about selected values that match no option in any group's
 catalog. These values are always preserved across toggles and select-all,
@@ -199,7 +199,7 @@ so this surfaces externally-registered entries.
 
 > `optional` **required**: `boolean`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:35](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L35)
+Defined in: [packages/ui/src/crud/shared/types.ts:35](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L35)
 
 #### Inherited from
 
@@ -211,7 +211,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:35](https://github.com/simplix
 
 > **selectAllLabel**: `string`
 
-Defined in: [packages/ui/src/fields/form/grouped-toggle-field.tsx:62](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/grouped-toggle-field.tsx#L62)
+Defined in: [packages/ui/src/fields/form/grouped-toggle-field.tsx:77](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/grouped-toggle-field.tsx#L77)
 
 Label for the select-all switch, resolved by the consumer (already localized).
 
@@ -221,7 +221,7 @@ Label for the select-all switch, resolved by the consumer (already localized).
 
 > `optional` **showSelectAll**: `boolean`
 
-Defined in: [packages/ui/src/fields/form/grouped-toggle-field.tsx:60](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/grouped-toggle-field.tsx#L60)
+Defined in: [packages/ui/src/fields/form/grouped-toggle-field.tsx:75](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/grouped-toggle-field.tsx#L75)
 
 Show the per-group "select all" switch.
 
@@ -237,7 +237,7 @@ true
 
 > `optional` **size**: `"sm"` \| `"lg"` \| `"md"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
+Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
 
 #### Inherited from
 
@@ -249,7 +249,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix
 
 > `optional` **suffixControl**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:48](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L48)
+Defined in: [packages/ui/src/crud/shared/types.ts:48](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L48)
 
 Control rendered on the trailing (right in LTR) side of the input, on the
 same row. Use instead of composing a button next to the field — the
@@ -266,7 +266,7 @@ below at full width.
 
 > **value**: `Record`\<`string`, `T`[]\>
 
-Defined in: [packages/ui/src/fields/form/grouped-toggle-field.tsx:54](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/grouped-toggle-field.tsx#L54)
+Defined in: [packages/ui/src/fields/form/grouped-toggle-field.tsx:69](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/grouped-toggle-field.tsx#L69)
 
 Selected values keyed by group id.
 
@@ -276,7 +276,7 @@ Selected values keyed by group id.
 
 > `optional` **warning**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:33](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L33)
+Defined in: [packages/ui/src/crud/shared/types.ts:33](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L33)
 
 #### Inherited from
 

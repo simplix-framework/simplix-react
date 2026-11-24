@@ -6,7 +6,7 @@
 
 # Class: HttpError
 
-Defined in: [packages/api/src/index.ts:29](https://github.com/simplix-react/simplix-react/blob/main/packages/api/src/index.ts#L29)
+Defined in: [packages/api/src/index.ts:29](https://github.com/simplix-framework/simplix-react/blob/main/packages/api/src/index.ts#L29)
 
 HTTP error with status code and optional response data.
 
@@ -31,7 +31,7 @@ throw new HttpError(404, "Pet not found", { errorCode: "PET_NOT_FOUND" });
 
 > **new HttpError**(`status`, `message`, `data?`): `HttpError`
 
-Defined in: [packages/api/src/index.ts:35](https://github.com/simplix-react/simplix-react/blob/main/packages/api/src/index.ts#L35)
+Defined in: [packages/api/src/index.ts:35](https://github.com/simplix-framework/simplix-react/blob/main/packages/api/src/index.ts#L35)
 
 #### Parameters
 
@@ -67,7 +67,7 @@ Optional response body or structured error payload.
 
 > `optional` **cause**: `unknown`
 
-Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:26](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/typescript@5.9.3/node_modules/typescript/lib/lib.es2022.error.d.ts#L26)
+Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:26](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/typescript@5.9.3/node_modules/typescript/lib/lib.es2022.error.d.ts#L26)
 
 #### Inherited from
 
@@ -79,7 +79,7 @@ Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/l
 
 > `readonly` `optional` **data**: `unknown`
 
-Defined in: [packages/api/src/index.ts:38](https://github.com/simplix-react/simplix-react/blob/main/packages/api/src/index.ts#L38)
+Defined in: [packages/api/src/index.ts:38](https://github.com/simplix-framework/simplix-react/blob/main/packages/api/src/index.ts#L38)
 
 Optional response body or structured error payload.
 
@@ -89,7 +89,7 @@ Optional response body or structured error payload.
 
 > **message**: `string`
 
-Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es5.d.ts:1077](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/typescript@5.9.3/node_modules/typescript/lib/lib.es5.d.ts#L1077)
+Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es5.d.ts:1077](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/typescript@5.9.3/node_modules/typescript/lib/lib.es5.d.ts#L1077)
 
 #### Inherited from
 
@@ -101,7 +101,7 @@ Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/l
 
 > **name**: `string`
 
-Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es5.d.ts:1076](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/typescript@5.9.3/node_modules/typescript/lib/lib.es5.d.ts#L1076)
+Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es5.d.ts:1076](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/typescript@5.9.3/node_modules/typescript/lib/lib.es5.d.ts#L1076)
 
 #### Inherited from
 
@@ -113,7 +113,7 @@ Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/l
 
 > `optional` **stack**: `string`
 
-Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es5.d.ts:1078](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/typescript@5.9.3/node_modules/typescript/lib/lib.es5.d.ts#L1078)
+Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es5.d.ts:1078](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/typescript@5.9.3/node_modules/typescript/lib/lib.es5.d.ts#L1078)
 
 #### Inherited from
 
@@ -125,6 +125,6 @@ Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/l
 
 > `readonly` **status**: `number`
 
-Defined in: [packages/api/src/index.ts:36](https://github.com/simplix-react/simplix-react/blob/main/packages/api/src/index.ts#L36)
+Defined in: [packages/api/src/index.ts:36](https://github.com/simplix-framework/simplix-react/blob/main/packages/api/src/index.ts#L36)
 
 HTTP status code (e.g. 400, 401, 500).

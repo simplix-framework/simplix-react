@@ -6,7 +6,7 @@
 
 # Interface: OpenAPISpecConfig
 
-Defined in: [config/types.ts:391](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L391)
+Defined in: [config/types.ts:417](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L417)
 
 Per-spec OpenAPI configuration
 
@@ -16,7 +16,7 @@ Per-spec OpenAPI configuration
 
 > `optional` **crud**: `Partial`\<`Record`\<`CrudRole`, [`CrudEndpointPattern`](CrudEndpointPattern.md)\>\>
 
-Defined in: [config/types.ts:408](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L408)
+Defined in: [config/types.ts:434](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L434)
 
 CRUD role detection patterns. When omitted, no CRUD roles are assigned.
 
@@ -26,7 +26,7 @@ CRUD role detection patterns. When omitted, no CRUD roles are assigned.
 
 > **domains**: `Record`\<`string`, `string`[]\>
 
-Defined in: [config/types.ts:406](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L406)
+Defined in: [config/types.ts:432](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L432)
 
 Tag-based domain splitting: domainName → tagPatterns (exact string or /regex/)
 
@@ -36,7 +36,7 @@ Tag-based domain splitting: domainName → tagPatterns (exact string or /regex/)
 
 > `optional` **meta**: [`OpenAPIMetaConfig`](OpenAPIMetaConfig.md)
 
-Defined in: [config/types.ts:410](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L410)
+Defined in: [config/types.ts:436](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L436)
 
 DTO metadata generation. Omit the block and the meta pipeline does not run for this spec.
 
@@ -46,7 +46,7 @@ DTO metadata generation. Omit the block and the meta pipeline does not run for t
 
 > `optional` **naming**: [`OpenApiNamingStrategy`](OpenApiNamingStrategy.md)
 
-Defined in: [config/types.ts:402](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L402)
+Defined in: [config/types.ts:428](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L428)
 
 NamingStrategy — overrides profile's naming if both are set
 
@@ -56,7 +56,7 @@ NamingStrategy — overrides profile's naming if both are set
 
 > `optional` **profile**: `string`
 
-Defined in: [config/types.ts:400](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L400)
+Defined in: [config/types.ts:426](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L426)
 
 Spec Profile preset name (bundles naming + responseAdapter)
 
@@ -66,7 +66,7 @@ Spec Profile preset name (bundles naming + responseAdapter)
 
 > `optional` **responseAdapter**: [`ResponseAdapterConfig`](../type-aliases/ResponseAdapterConfig.md)
 
-Defined in: [config/types.ts:404](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L404)
+Defined in: [config/types.ts:430](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L430)
 
 ResponseAdapter — overrides profile's responseAdapter if both are set
 
@@ -76,7 +76,7 @@ ResponseAdapter — overrides profile's responseAdapter if both are set
 
 > `optional` **spec**: `string`
 
-Defined in: [config/types.ts:398](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L398)
+Defined in: [config/types.ts:424](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L424)
 
 The OpenAPI document the Orval half reads. Optional: a project that has finished migrating
 runs `simplix meta`, which needs no document — it states `meta.source` instead. `simplix

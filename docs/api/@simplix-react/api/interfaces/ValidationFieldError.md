@@ -6,7 +6,7 @@
 
 # Interface: ValidationFieldError
 
-Defined in: [packages/api/src/error-utils.ts:11](https://github.com/simplix-react/simplix-react/blob/main/packages/api/src/error-utils.ts#L11)
+Defined in: [packages/api/src/error-utils.ts:11](https://github.com/simplix-framework/simplix-react/blob/main/packages/api/src/error-utils.ts#L11)
 
 A single field-level validation error returned by the server.
 
@@ -22,7 +22,7 @@ const err: ValidationFieldError = { field: "email", message: "must be valid" };
 
 > **field**: `string`
 
-Defined in: [packages/api/src/error-utils.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/api/src/error-utils.ts#L13)
+Defined in: [packages/api/src/error-utils.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/api/src/error-utils.ts#L13)
 
 The form field name that failed validation (e.g. `"email"`, `"name"`).
 
@@ -32,7 +32,7 @@ The form field name that failed validation (e.g. `"email"`, `"name"`).
 
 > `optional` **label**: `string`
 
-Defined in: [packages/api/src/error-utils.ts:25](https://github.com/simplix-react/simplix-react/blob/main/packages/api/src/error-utils.ts#L25)
+Defined in: [packages/api/src/error-utils.ts:25](https://github.com/simplix-framework/simplix-react/blob/main/packages/api/src/error-utils.ts#L25)
 
 What the server calls that field, already in the request's locale.
 
@@ -49,6 +49,6 @@ Optional because other server shapes (Rails-style `errors`) carry no label.
 
 > **message**: `string`
 
-Defined in: [packages/api/src/error-utils.ts:15](https://github.com/simplix-react/simplix-react/blob/main/packages/api/src/error-utils.ts#L15)
+Defined in: [packages/api/src/error-utils.ts:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/api/src/error-utils.ts#L15)
 
 Human-readable validation message for the field.

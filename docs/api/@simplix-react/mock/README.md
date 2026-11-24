@@ -391,6 +391,7 @@ describe("task store", () => {
 - [MockResult](interfaces/MockResult.md)
 - [MockServerConfig](interfaces/MockServerConfig.md)
 - [PagedResult](interfaces/PagedResult.md)
+- [StopMockingOptions](interfaces/StopMockingOptions.md)
 
 ## Functions
 
@@ -405,3 +406,4 @@ describe("task store", () => {
 - [resetStore](functions/resetStore.md)
 - [seedEntityStore](functions/seedEntityStore.md)
 - [setupMockWorker](functions/setupMockWorker.md)
+- [stopMocking](functions/stopMocking.md)

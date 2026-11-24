@@ -8,7 +8,7 @@
 
 > **startOfWeek**(`d`): `Date`
 
-Defined in: [packages/headless/dist/index.d.ts:502](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L502)
+Defined in: [packages/headless/dist/index.d.ts:547](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L547)
 
 Monday-based start of week.
 

@@ -6,7 +6,7 @@
 
 # Interface: PlateEditorFieldProps
 
-Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/plate-editor-field.tsx#L11)
+Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:11](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/plate-editor-field.tsx#L11)
 
 Shared props for all form field components.
 
@@ -20,7 +20,7 @@ Shared props for all form field components.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:49](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L49)
+Defined in: [packages/ui/src/crud/shared/types.ts:49](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L49)
 
 #### Inherited from
 
@@ -32,7 +32,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:49](https://github.com/simplix
 
 > `optional` **defaultHeight**: `string` \| `number`
 
-Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:16](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/plate-editor-field.tsx#L16)
+Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/plate-editor-field.tsx#L16)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:16](https://gith
 
 > `optional` **description**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:34](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L34)
+Defined in: [packages/ui/src/crud/shared/types.ts:34](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L34)
 
 #### Inherited from
 
@@ -52,7 +52,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:34](https://github.com/simplix
 
 > `optional` **disabled**: `boolean`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:36](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L36)
+Defined in: [packages/ui/src/crud/shared/types.ts:36](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L36)
 
 #### Inherited from
 
@@ -64,7 +64,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:36](https://github.com/simplix
 
 > `optional` **error**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:32](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L32)
+Defined in: [packages/ui/src/crud/shared/types.ts:32](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L32)
 
 #### Inherited from
 
@@ -76,7 +76,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:32](https://github.com/simplix
 
 > `optional` **label**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L30)
+Defined in: [packages/ui/src/crud/shared/types.ts:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L30)
 
 #### Inherited from
 
@@ -88,7 +88,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:30](https://github.com/simplix
 
 > `optional` **labelKey**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:31](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L31)
+Defined in: [packages/ui/src/crud/shared/types.ts:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L31)
 
 #### Inherited from
 
@@ -100,7 +100,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:31](https://github.com/simplix
 
 > `optional` **layout**: `"inline"` \| `"left"` \| `"top"` \| `"hidden"` \| `"trailing"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
+Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
 
 Label placement. `"top"` stacks the label above the input, `"left"` puts
 it in a leading column, `"inline"` keeps label and input on one row,
@@ -118,7 +118,7 @@ label for screen readers only.
 
 > `optional` **maxHeight**: `string` \| `number`
 
-Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:18](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/plate-editor-field.tsx#L18)
+Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/plate-editor-field.tsx#L18)
 
 ***
 
@@ -126,7 +126,7 @@ Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:18](https://gith
 
 > `optional` **minHeight**: `string` \| `number`
 
-Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:17](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/plate-editor-field.tsx#L17)
+Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:17](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/plate-editor-field.tsx#L17)
 
 ***
 
@@ -134,7 +134,7 @@ Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:17](https://gith
 
 > **onChange**: (`value`) => `void`
 
-Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/plate-editor-field.tsx#L13)
+Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/plate-editor-field.tsx#L13)
 
 #### Parameters
 
@@ -152,7 +152,7 @@ Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:13](https://gith
 
 > `optional` **placeholder**: `string`
 
-Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:15](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/plate-editor-field.tsx#L15)
+Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/plate-editor-field.tsx#L15)
 
 ***
 
@@ -160,7 +160,7 @@ Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:15](https://gith
 
 > `optional` **prefixControl**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:41](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L41)
+Defined in: [packages/ui/src/crud/shared/types.ts:41](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L41)
 
 Control rendered on the leading (left in LTR) side of the input, on the
 same row. Use for IconPicker, ColorPicker, or similar adornments.
@@ -175,7 +175,7 @@ same row. Use for IconPicker, ColorPicker, or similar adornments.
 
 > `optional` **required**: `boolean`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:35](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L35)
+Defined in: [packages/ui/src/crud/shared/types.ts:35](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L35)
 
 #### Inherited from
 
@@ -187,7 +187,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:35](https://github.com/simplix
 
 > `optional` **resizable**: `boolean`
 
-Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:19](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/plate-editor-field.tsx#L19)
+Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:19](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/plate-editor-field.tsx#L19)
 
 ***
 
@@ -195,7 +195,7 @@ Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:19](https://gith
 
 > `optional` **size**: `"sm"` \| `"lg"` \| `"md"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
+Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
 
 #### Inherited from
 
@@ -207,7 +207,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix
 
 > `optional` **suffixControl**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:48](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L48)
+Defined in: [packages/ui/src/crud/shared/types.ts:48](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L48)
 
 Control rendered on the trailing (right in LTR) side of the input, on the
 same row. Use instead of composing a button next to the field — the
@@ -224,7 +224,7 @@ below at full width.
 
 > **value**: `string`
 
-Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/plate-editor-field.tsx#L12)
+Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/plate-editor-field.tsx#L12)
 
 ***
 
@@ -232,7 +232,7 @@ Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:12](https://gith
 
 > `optional` **variant**: [`PlateEditorVariant`](../type-aliases/PlateEditorVariant.md)
 
-Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/plate-editor-field.tsx#L14)
+Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/plate-editor-field.tsx#L14)
 
 ***
 
@@ -240,7 +240,7 @@ Defined in: [packages/ui/src/fields/form/plate-editor-field.tsx:14](https://gith
 
 > `optional` **warning**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:33](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L33)
+Defined in: [packages/ui/src/crud/shared/types.ts:33](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L33)
 
 #### Inherited from
 

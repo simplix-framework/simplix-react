@@ -8,7 +8,7 @@
 
 > **haversineDistance**(`lat1`, `lon1`, `lat2`, `lon2`): `number`
 
-Defined in: [packages/ui/src/utils/geo.ts:84](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L84)
+Defined in: [packages/ui/src/utils/geo.ts:84](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L84)
 
 ## Parameters
 

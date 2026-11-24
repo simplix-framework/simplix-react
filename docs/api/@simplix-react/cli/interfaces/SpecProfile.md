@@ -6,7 +6,7 @@
 
 # Interface: SpecProfile
 
-Defined in: [openapi/orchestration/spec-profile.ts:77](https://github.com/simplix-react/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L77)
+Defined in: [openapi/orchestration/spec-profile.ts:77](https://github.com/simplix-framework/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L77)
 
 Bundles a naming strategy and response adapter as a reusable preset for a backend convention.
 
@@ -32,7 +32,7 @@ export default {
 
 > `optional` **containerTypes**: `Record`\<`string`, [`ContainerMapping`](ContainerMapping.md)\>
 
-Defined in: [openapi/orchestration/spec-profile.ts:98](https://github.com/simplix-react/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L98)
+Defined in: [openapi/orchestration/spec-profile.ts:98](https://github.com/simplix-framework/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L98)
 
 Java container name → the TypeScript type and zod factory it becomes.
 
@@ -42,7 +42,7 @@ Java container name → the TypeScript type and zod factory it becomes.
 
 > `optional` **dependencies**: `Record`\<`string`, `string`\>
 
-Defined in: [openapi/orchestration/spec-profile.ts:88](https://github.com/simplix-react/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L88)
+Defined in: [openapi/orchestration/spec-profile.ts:88](https://github.com/simplix-framework/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L88)
 
 Extra dependencies to inject into the domain package.json
 
@@ -52,7 +52,7 @@ Extra dependencies to inject into the domain package.json
 
 > `optional` **i18nDownloader**: [`I18nDownloader`](../type-aliases/I18nDownloader.md)
 
-Defined in: [openapi/orchestration/spec-profile.ts:92](https://github.com/simplix-react/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L92)
+Defined in: [openapi/orchestration/spec-profile.ts:92](https://github.com/simplix-framework/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L92)
 
 Callback for downloading and transforming i18n data from a server
 
@@ -62,7 +62,7 @@ Callback for downloading and transforming i18n data from a server
 
 > `optional` **i18nEndpoint**: `string`
 
-Defined in: [openapi/orchestration/spec-profile.ts:90](https://github.com/simplix-react/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L90)
+Defined in: [openapi/orchestration/spec-profile.ts:90](https://github.com/simplix-framework/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L90)
 
 Server-relative i18n endpoint path for downloading translations at codegen time
 
@@ -72,7 +72,7 @@ Server-relative i18n endpoint path for downloading translations at codegen time
 
 > `optional` **labeledEnum**: `LabeledEnumMapping`
 
-Defined in: [openapi/orchestration/spec-profile.ts:104](https://github.com/simplix-react/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L104)
+Defined in: [openapi/orchestration/spec-profile.ts:104](https://github.com/simplix-framework/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L104)
 
 The generic that wraps an enum value with its label, which a backend serializing a labeled
 enum as an object needs. Absent, every enum is its bare value union in both directions — the
@@ -84,7 +84,7 @@ honest reading for a backend that does not label them.
 
 > `optional` **metaDownloader**: (`serverOrigin`) => `Promise`\<`DtoMeta` \| `undefined`\>
 
-Defined in: [openapi/orchestration/spec-profile.ts:96](https://github.com/simplix-react/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L96)
+Defined in: [openapi/orchestration/spec-profile.ts:96](https://github.com/simplix-framework/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L96)
 
 Callback for downloading SimpliX Meta from a server.
 
@@ -104,7 +104,7 @@ Callback for downloading SimpliX Meta from a server.
 
 > `optional` **metaEndpoint**: `string`
 
-Defined in: [openapi/orchestration/spec-profile.ts:94](https://github.com/simplix-react/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L94)
+Defined in: [openapi/orchestration/spec-profile.ts:94](https://github.com/simplix-framework/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L94)
 
 Server-relative path of the DTO meta endpoint.
 
@@ -114,7 +114,7 @@ Server-relative path of the DTO meta endpoint.
 
 > `optional` **metaExtensions**: (`meta`) => [`MetaExtensionOutput`](MetaExtensionOutput.md) \| `undefined`
 
-Defined in: [openapi/orchestration/spec-profile.ts:106](https://github.com/simplix-react/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L106)
+Defined in: [openapi/orchestration/spec-profile.ts:106](https://github.com/simplix-framework/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L106)
 
 Turns a contributor's `extensions` payload into generated files.
 
@@ -134,7 +134,7 @@ Turns a contributor's `extensions` payload into generated files.
 
 > `optional` **mutatorHint**: `object`
 
-Defined in: [openapi/orchestration/spec-profile.ts:81](https://github.com/simplix-react/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L81)
+Defined in: [openapi/orchestration/spec-profile.ts:81](https://github.com/simplix-framework/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L81)
 
 Hint for app-providers.tsx mutator setup (used by scaffold)
 
@@ -152,7 +152,7 @@ Hint for app-providers.tsx mutator setup (used by scaffold)
 
 > `optional` **mutatorStrategy**: `string`
 
-Defined in: [openapi/orchestration/spec-profile.ts:86](https://github.com/simplix-react/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L86)
+Defined in: [openapi/orchestration/spec-profile.ts:86](https://github.com/simplix-framework/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L86)
 
 Mutator strategy name for configureMutator/getMutator registry
 
@@ -162,7 +162,7 @@ Mutator strategy name for configureMutator/getMutator registry
 
 > **naming**: [`OpenApiNamingStrategy`](OpenApiNamingStrategy.md)
 
-Defined in: [openapi/orchestration/spec-profile.ts:78](https://github.com/simplix-react/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L78)
+Defined in: [openapi/orchestration/spec-profile.ts:78](https://github.com/simplix-framework/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L78)
 
 ***
 
@@ -170,4 +170,4 @@ Defined in: [openapi/orchestration/spec-profile.ts:78](https://github.com/simpli
 
 > **responseAdapter**: [`ResponseAdapterConfig`](../type-aliases/ResponseAdapterConfig.md)
 
-Defined in: [openapi/orchestration/spec-profile.ts:79](https://github.com/simplix-react/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L79)
+Defined in: [openapi/orchestration/spec-profile.ts:79](https://github.com/simplix-framework/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L79)

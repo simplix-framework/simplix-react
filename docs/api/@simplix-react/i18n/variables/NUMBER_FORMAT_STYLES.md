@@ -8,7 +8,7 @@
 
 > `const` **NUMBER\_FORMAT\_STYLES**: `object`
 
-Defined in: [types.ts:50](https://github.com/simplix-react/simplix-react/blob/main/types.ts#L50)
+Defined in: [types.ts:50](https://github.com/simplix-framework/simplix-react/blob/main/types.ts#L50)
 
 Provides constant values for number formatting styles compatible with the `Intl.NumberFormat` API.
 

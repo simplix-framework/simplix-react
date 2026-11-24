@@ -6,7 +6,7 @@
 
 # Interface: SimplixTemplatesConfig
 
-Defined in: [config/types.ts:266](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L266)
+Defined in: [config/types.ts:292](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L292)
 
 Where page and widget templates come from, and where the generated design-reference stories go.
 
@@ -14,8 +14,11 @@ Where page and widget templates come from, and where the generated design-refere
 
 `from` names a UI kit package (resolved from the project root, then from the workspace's
 packages) or a directory path. The kit's `package.json` says where its templates are under
-`simplix.templates`; a path is read as the template directory itself. Without this setting the
-CLI looks for one dependency of the project root that declares `simplix.templates`.
+`simplix.templates`, and a kit that starts from another names it under `simplix.extends`: the
+base kit's templates are read beneath the kit's own, name by name, and `{{@kit.package}}`,
+`{{@kit.label}}` and `{{@kit.id}}` in any template are written as the kit `from` names. A path
+is read as the template directory itself. Without this setting the CLI looks for one dependency
+of the project root that is a kit, counting a kit and the base it extends as one.
 
 Under an app of [SimplixConfig.apps](SimplixConfig.md#apps), each key set here replaces the top-level key of the
 same name for that app's pages, and each key left out falls back to it.
@@ -26,7 +29,7 @@ same name for that app's pages, and each key left out falls back to it.
 
 > `optional` **from**: `string`
 
-Defined in: [config/types.ts:267](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L267)
+Defined in: [config/types.ts:293](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L293)
 
 ***
 
@@ -34,7 +37,7 @@ Defined in: [config/types.ts:267](https://github.com/simplix-react/simplix-react
 
 > `optional` **storiesDir**: `string` \| `null`
 
-Defined in: [config/types.ts:277](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L277)
+Defined in: [config/types.ts:303](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L303)
 
 Where generated Storybook stories are written, relative to the project root: the design
 reference's screens directory. A template with a `.stories` sibling (`list.stories.hbs`)
@@ -50,7 +53,7 @@ reference is not the one the top-level stories go to.
 
 > `optional` **story**: `object`
 
-Defined in: [config/types.ts:284](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L284)
+Defined in: [config/types.ts:310](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L310)
 
 The board story's id and title, as patterns over `{entity}` (kebab case) and `{Entity}`
 (Pascal case), so the design reference's own navigation can link to a generated frame

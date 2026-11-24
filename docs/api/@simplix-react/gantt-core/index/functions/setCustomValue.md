@@ -8,7 +8,7 @@
 
 > **setCustomValue**(`project`, `taskId`, `fieldId`, `value`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-extras.ts:97](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-extras.ts#L97)
+Defined in: [packages/gantt-core/src/edit-extras.ts:97](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-extras.ts#L97)
 
 Sets a task's value of a custom field; `undefined` clears it.
 

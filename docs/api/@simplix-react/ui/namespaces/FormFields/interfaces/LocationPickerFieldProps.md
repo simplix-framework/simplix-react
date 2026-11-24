@@ -6,7 +6,7 @@
 
 # Interface: LocationPickerFieldProps
 
-Defined in: [packages/ui/src/fields/form/location-picker-field.tsx:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/location-picker-field.tsx#L12)
+Defined in: [packages/ui/src/fields/form/location-picker-field.tsx:38](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/location-picker-field.tsx#L38)
 
 Props for the [LocationPickerField](../functions/LocationPickerField.md) component.
 
@@ -20,7 +20,7 @@ Props for the [LocationPickerField](../functions/LocationPickerField.md) compone
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:49](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L49)
+Defined in: [packages/ui/src/crud/shared/types.ts:49](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L49)
 
 #### Inherited from
 
@@ -32,7 +32,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:49](https://github.com/simplix
 
 > `optional` **description**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:34](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L34)
+Defined in: [packages/ui/src/crud/shared/types.ts:34](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L34)
 
 #### Inherited from
 
@@ -44,7 +44,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:34](https://github.com/simplix
 
 > `optional` **disabled**: `boolean`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:36](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L36)
+Defined in: [packages/ui/src/crud/shared/types.ts:36](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L36)
 
 #### Inherited from
 
@@ -56,7 +56,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:36](https://github.com/simplix
 
 > `optional` **error**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:32](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L32)
+Defined in: [packages/ui/src/crud/shared/types.ts:32](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L32)
 
 #### Inherited from
 
@@ -68,7 +68,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:32](https://github.com/simplix
 
 > `optional` **fallbackTileUrl**: `string`
 
-Defined in: [packages/ui/src/fields/form/location-picker-field.tsx:21](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/location-picker-field.tsx#L21)
+Defined in: [packages/ui/src/fields/form/location-picker-field.tsx:47](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/location-picker-field.tsx#L47)
 
 PMTiles file URL for offline map fallback (e.g. "/offline-map.pmtiles").
 
@@ -78,7 +78,7 @@ PMTiles file URL for offline map fallback (e.g. "/offline-map.pmtiles").
 
 > `optional` **label**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L30)
+Defined in: [packages/ui/src/crud/shared/types.ts:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L30)
 
 #### Inherited from
 
@@ -90,7 +90,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:30](https://github.com/simplix
 
 > `optional` **labelKey**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:31](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L31)
+Defined in: [packages/ui/src/crud/shared/types.ts:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L31)
 
 #### Inherited from
 
@@ -102,7 +102,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:31](https://github.com/simplix
 
 > **latitude**: `number`
 
-Defined in: [packages/ui/src/fields/form/location-picker-field.tsx:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/location-picker-field.tsx#L13)
+Defined in: [packages/ui/src/fields/form/location-picker-field.tsx:39](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/location-picker-field.tsx#L39)
 
 ***
 
@@ -110,7 +110,7 @@ Defined in: [packages/ui/src/fields/form/location-picker-field.tsx:13](https://g
 
 > `optional` **layout**: `"inline"` \| `"left"` \| `"top"` \| `"hidden"` \| `"trailing"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
+Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
 
 Label placement. `"top"` stacks the label above the input, `"left"` puts
 it in a leading column, `"inline"` keeps label and input on one row,
@@ -128,7 +128,7 @@ label for screen readers only.
 
 > **longitude**: `number`
 
-Defined in: [packages/ui/src/fields/form/location-picker-field.tsx:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/location-picker-field.tsx#L14)
+Defined in: [packages/ui/src/fields/form/location-picker-field.tsx:40](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/location-picker-field.tsx#L40)
 
 ***
 
@@ -136,7 +136,7 @@ Defined in: [packages/ui/src/fields/form/location-picker-field.tsx:14](https://g
 
 > `optional` **mapHeight**: `string`
 
-Defined in: [packages/ui/src/fields/form/location-picker-field.tsx:17](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/location-picker-field.tsx#L17)
+Defined in: [packages/ui/src/fields/form/location-picker-field.tsx:43](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/location-picker-field.tsx#L43)
 
 ***
 
@@ -144,7 +144,7 @@ Defined in: [packages/ui/src/fields/form/location-picker-field.tsx:17](https://g
 
 > `optional` **markerIcon**: `ReactNode`
 
-Defined in: [packages/ui/src/fields/form/location-picker-field.tsx:19](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/location-picker-field.tsx#L19)
+Defined in: [packages/ui/src/fields/form/location-picker-field.tsx:45](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/location-picker-field.tsx#L45)
 
 Custom marker icon. Replaces the default blue dot.
 
@@ -154,7 +154,7 @@ Custom marker icon. Replaces the default blue dot.
 
 > **onLocationChange**: (`lat`, `lng`) => `void`
 
-Defined in: [packages/ui/src/fields/form/location-picker-field.tsx:15](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/location-picker-field.tsx#L15)
+Defined in: [packages/ui/src/fields/form/location-picker-field.tsx:41](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/location-picker-field.tsx#L41)
 
 #### Parameters
 
@@ -176,7 +176,7 @@ Defined in: [packages/ui/src/fields/form/location-picker-field.tsx:15](https://g
 
 > `optional` **prefixControl**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:41](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L41)
+Defined in: [packages/ui/src/crud/shared/types.ts:41](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L41)
 
 Control rendered on the leading (left in LTR) side of the input, on the
 same row. Use for IconPicker, ColorPicker, or similar adornments.
@@ -191,7 +191,7 @@ same row. Use for IconPicker, ColorPicker, or similar adornments.
 
 > `optional` **required**: `boolean`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:35](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L35)
+Defined in: [packages/ui/src/crud/shared/types.ts:35](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L35)
 
 #### Inherited from
 
@@ -203,7 +203,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:35](https://github.com/simplix
 
 > `optional` **size**: `"sm"` \| `"lg"` \| `"md"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
+Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
 
 #### Inherited from
 
@@ -215,7 +215,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix
 
 > `optional` **suffixControl**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:48](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L48)
+Defined in: [packages/ui/src/crud/shared/types.ts:48](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L48)
 
 Control rendered on the trailing (right in LTR) side of the input, on the
 same row. Use instead of composing a button next to the field — the
@@ -232,7 +232,7 @@ below at full width.
 
 > `optional` **warning**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:33](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L33)
+Defined in: [packages/ui/src/crud/shared/types.ts:33](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L33)
 
 #### Inherited from
 
@@ -244,4 +244,4 @@ Defined in: [packages/ui/src/crud/shared/types.ts:33](https://github.com/simplix
 
 > `optional` **zoom**: `number`
 
-Defined in: [packages/ui/src/fields/form/location-picker-field.tsx:16](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/location-picker-field.tsx#L16)
+Defined in: [packages/ui/src/fields/form/location-picker-field.tsx:42](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/location-picker-field.tsx#L42)

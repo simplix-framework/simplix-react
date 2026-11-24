@@ -6,7 +6,7 @@
 
 # Interface: CrudListColumnContextValue
 
-Defined in: [packages/ui/src/crud/shared/column-context.tsx:10](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L10)
+Defined in: [packages/ui/src/crud/shared/column-context.tsx:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L12)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/crud/shared/column-context.tsx:10](https://github.c
 
 > **canGridView**: `boolean`
 
-Defined in: [packages/ui/src/crud/shared/column-context.tsx:22](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L22)
+Defined in: [packages/ui/src/crud/shared/column-context.tsx:27](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L27)
 
 True when the table declares grid as a selectable view (Table `gridView` + card slots).
 
@@ -24,7 +24,7 @@ True when the table declares grid as a selectable view (Table `gridView` + card 
 
 > **columns**: [`ColumnInfo`](ColumnInfo.md)[]
 
-Defined in: [packages/ui/src/crud/shared/column-context.tsx:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L11)
+Defined in: [packages/ui/src/crud/shared/column-context.tsx:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L13)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [packages/ui/src/crud/shared/column-context.tsx:11](https://github.c
 
 > **hiddenColumns**: `Set`\<`string`\>
 
-Defined in: [packages/ui/src/crud/shared/column-context.tsx:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L13)
+Defined in: [packages/ui/src/crud/shared/column-context.tsx:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L15)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [packages/ui/src/crud/shared/column-context.tsx:13](https://github.c
 
 > **isCardMode**: `boolean`
 
-Defined in: [packages/ui/src/crud/shared/column-context.tsx:16](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L16)
+Defined in: [packages/ui/src/crud/shared/column-context.tsx:21](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L21)
 
 Effective card-mode mirror (responsive OR manual grid) — used to hide the column toggle.
 
@@ -50,7 +50,7 @@ Effective card-mode mirror (responsive OR manual grid) — used to hide the colu
 
 > **responsiveCardMode**: `boolean`
 
-Defined in: [packages/ui/src/crud/shared/column-context.tsx:25](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L25)
+Defined in: [packages/ui/src/crud/shared/column-context.tsx:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L30)
 
 True when width < cardBreakpoint forces cards — used to hide the view toggle.
 
@@ -60,7 +60,7 @@ True when width < cardBreakpoint forces cards — used to hide the view toggle.
 
 > **setCanGridView**: `Dispatch`\<`SetStateAction`\<`boolean`\>\>
 
-Defined in: [packages/ui/src/crud/shared/column-context.tsx:23](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L23)
+Defined in: [packages/ui/src/crud/shared/column-context.tsx:28](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L28)
 
 ***
 
@@ -68,7 +68,7 @@ Defined in: [packages/ui/src/crud/shared/column-context.tsx:23](https://github.c
 
 > **setColumns**: `Dispatch`\<`SetStateAction`\<[`ColumnInfo`](ColumnInfo.md)[]\>\>
 
-Defined in: [packages/ui/src/crud/shared/column-context.tsx:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L12)
+Defined in: [packages/ui/src/crud/shared/column-context.tsx:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L14)
 
 ***
 
@@ -76,7 +76,7 @@ Defined in: [packages/ui/src/crud/shared/column-context.tsx:12](https://github.c
 
 > **setHiddenColumns**: `Dispatch`\<`SetStateAction`\<`Set`\<`string`\>\>\>
 
-Defined in: [packages/ui/src/crud/shared/column-context.tsx:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L14)
+Defined in: [packages/ui/src/crud/shared/column-context.tsx:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L16)
 
 ***
 
@@ -84,7 +84,7 @@ Defined in: [packages/ui/src/crud/shared/column-context.tsx:14](https://github.c
 
 > **setIsCardMode**: `Dispatch`\<`SetStateAction`\<`boolean`\>\>
 
-Defined in: [packages/ui/src/crud/shared/column-context.tsx:17](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L17)
+Defined in: [packages/ui/src/crud/shared/column-context.tsx:22](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L22)
 
 ***
 
@@ -92,7 +92,15 @@ Defined in: [packages/ui/src/crud/shared/column-context.tsx:17](https://github.c
 
 > **setResponsiveCardMode**: `Dispatch`\<`SetStateAction`\<`boolean`\>\>
 
-Defined in: [packages/ui/src/crud/shared/column-context.tsx:26](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L26)
+Defined in: [packages/ui/src/crud/shared/column-context.tsx:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L31)
+
+***
+
+### setShownColumns
+
+> **setShownColumns**: `Dispatch`\<`SetStateAction`\<`Set`\<`string`\>\>\>
+
+Defined in: [packages/ui/src/crud/shared/column-context.tsx:19](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L19)
 
 ***
 
@@ -100,7 +108,17 @@ Defined in: [packages/ui/src/crud/shared/column-context.tsx:26](https://github.c
 
 > **setViewMode**: `Dispatch`\<`SetStateAction`\<[`CrudListViewMode`](../type-aliases/CrudListViewMode.md)\>\>
 
-Defined in: [packages/ui/src/crud/shared/column-context.tsx:20](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L20)
+Defined in: [packages/ui/src/crud/shared/column-context.tsx:25](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L25)
+
+***
+
+### shownColumns
+
+> **shownColumns**: `Set`\<`string`\>
+
+Defined in: [packages/ui/src/crud/shared/column-context.tsx:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L18)
+
+Columns the reader switched on that the list's width would have dropped; they are drawn anyway.
 
 ***
 
@@ -108,6 +126,6 @@ Defined in: [packages/ui/src/crud/shared/column-context.tsx:20](https://github.c
 
 > **viewMode**: [`CrudListViewMode`](../type-aliases/CrudListViewMode.md)
 
-Defined in: [packages/ui/src/crud/shared/column-context.tsx:19](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L19)
+Defined in: [packages/ui/src/crud/shared/column-context.tsx:24](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L24)
 
 User-selected view. Drives manual grid rendering when the table opts into `gridView`.

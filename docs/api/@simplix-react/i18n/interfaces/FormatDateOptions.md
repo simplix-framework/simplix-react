@@ -6,7 +6,7 @@
 
 # Interface: FormatDateOptions
 
-Defined in: [datetime.ts:15](https://github.com/simplix-react/simplix-react/blob/main/datetime.ts#L15)
+Defined in: [datetime.ts:15](https://github.com/simplix-framework/simplix-react/blob/main/datetime.ts#L15)
 
 ## Extended by
 
@@ -18,7 +18,7 @@ Defined in: [datetime.ts:15](https://github.com/simplix-react/simplix-react/blob
 
 > `optional` **custom**: `DateTimeFormatOptions`
 
-Defined in: [datetime.ts:17](https://github.com/simplix-react/simplix-react/blob/main/datetime.ts#L17)
+Defined in: [datetime.ts:17](https://github.com/simplix-framework/simplix-react/blob/main/datetime.ts#L17)
 
 ***
 
@@ -26,4 +26,4 @@ Defined in: [datetime.ts:17](https://github.com/simplix-react/simplix-react/blob
 
 > `optional` **preset**: `"full"` \| `"long"` \| `"medium"` \| `"short"`
 
-Defined in: [datetime.ts:16](https://github.com/simplix-react/simplix-react/blob/main/datetime.ts#L16)
+Defined in: [datetime.ts:16](https://github.com/simplix-framework/simplix-react/blob/main/datetime.ts#L16)

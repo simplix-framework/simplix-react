@@ -8,7 +8,7 @@
 
 > **useAutosave**(`options`): [`UseAutosaveReturn`](../interfaces/UseAutosaveReturn.md)
 
-Defined in: [packages/ui/src/crud/form/use-autosave.ts:49](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/use-autosave.ts#L49)
+Defined in: [packages/ui/src/crud/form/use-autosave.ts:49](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/use-autosave.ts#L49)
 
 Debounced autosave hook that watches form values for changes.
 

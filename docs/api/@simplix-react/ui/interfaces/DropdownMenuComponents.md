@@ -6,7 +6,7 @@
 
 # Interface: DropdownMenuComponents
 
-Defined in: [packages/ui/src/provider/types.ts:121](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/types.ts#L121)
+Defined in: [packages/ui/src/provider/types.ts:125](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/types.ts#L125)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/provider/types.ts:121](https://github.com/simplix-r
 
 > **CheckboxItem**: `ComponentType`\<`DropdownMenuCheckboxItemProps` & `RefAttributes`\<`HTMLDivElement`\>\>
 
-Defined in: [packages/ui/src/provider/types.ts:126](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/types.ts#L126)
+Defined in: [packages/ui/src/provider/types.ts:130](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/types.ts#L130)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [packages/ui/src/provider/types.ts:126](https://github.com/simplix-r
 
 > **Content**: `ComponentType`\<`DropdownMenuContentProps` & `RefAttributes`\<`HTMLDivElement`\>\>
 
-Defined in: [packages/ui/src/provider/types.ts:124](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/types.ts#L124)
+Defined in: [packages/ui/src/provider/types.ts:128](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/types.ts#L128)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [packages/ui/src/provider/types.ts:124](https://github.com/simplix-r
 
 > **Group**: `ComponentType`\<\{ `children?`: `ReactNode`; \}\>
 
-Defined in: [packages/ui/src/provider/types.ts:130](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/types.ts#L130)
+Defined in: [packages/ui/src/provider/types.ts:134](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/types.ts#L134)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [packages/ui/src/provider/types.ts:130](https://github.com/simplix-r
 
 > **Item**: `ComponentType`\<[`DropdownMenuItemProps`](../type-aliases/DropdownMenuItemProps.md)\>
 
-Defined in: [packages/ui/src/provider/types.ts:125](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/types.ts#L125)
+Defined in: [packages/ui/src/provider/types.ts:129](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/types.ts#L129)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [packages/ui/src/provider/types.ts:125](https://github.com/simplix-r
 
 > **Label**: `ComponentType`\<[`DropdownMenuLabelProps`](../type-aliases/DropdownMenuLabelProps.md)\>
 
-Defined in: [packages/ui/src/provider/types.ts:128](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/types.ts#L128)
+Defined in: [packages/ui/src/provider/types.ts:132](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/types.ts#L132)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: [packages/ui/src/provider/types.ts:128](https://github.com/simplix-r
 
 > **RadioGroup**: `ComponentType`\<\{ `children?`: `ReactNode`; `onValueChange?`: (`value`) => `void`; `value?`: `string`; \}\>
 
-Defined in: [packages/ui/src/provider/types.ts:131](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/types.ts#L131)
+Defined in: [packages/ui/src/provider/types.ts:135](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/types.ts#L135)
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: [packages/ui/src/provider/types.ts:131](https://github.com/simplix-r
 
 > **RadioItem**: `ComponentType`\<`DropdownMenuRadioItemProps` & `RefAttributes`\<`HTMLDivElement`\>\>
 
-Defined in: [packages/ui/src/provider/types.ts:127](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/types.ts#L127)
+Defined in: [packages/ui/src/provider/types.ts:131](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/types.ts#L131)
 
 ***
 
@@ -70,7 +70,7 @@ Defined in: [packages/ui/src/provider/types.ts:127](https://github.com/simplix-r
 
 > **Root**: `ComponentType`\<\{ `children?`: `ReactNode`; `onOpenChange?`: (`open`) => `void`; `open?`: `boolean`; \}\>
 
-Defined in: [packages/ui/src/provider/types.ts:122](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/types.ts#L122)
+Defined in: [packages/ui/src/provider/types.ts:126](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/types.ts#L126)
 
 ***
 
@@ -78,7 +78,7 @@ Defined in: [packages/ui/src/provider/types.ts:122](https://github.com/simplix-r
 
 > **Separator**: `ComponentType`\<`DropdownMenuSeparatorProps` & `RefAttributes`\<`HTMLDivElement`\>\>
 
-Defined in: [packages/ui/src/provider/types.ts:129](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/types.ts#L129)
+Defined in: [packages/ui/src/provider/types.ts:133](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/types.ts#L133)
 
 ***
 
@@ -86,7 +86,7 @@ Defined in: [packages/ui/src/provider/types.ts:129](https://github.com/simplix-r
 
 > **Sub**: `ComponentType`\<\{ `children?`: `ReactNode`; `onOpenChange?`: (`open`) => `void`; `open?`: `boolean`; \}\>
 
-Defined in: [packages/ui/src/provider/types.ts:132](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/types.ts#L132)
+Defined in: [packages/ui/src/provider/types.ts:136](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/types.ts#L136)
 
 ***
 
@@ -94,7 +94,7 @@ Defined in: [packages/ui/src/provider/types.ts:132](https://github.com/simplix-r
 
 > **SubContent**: `ComponentType`\<`DropdownMenuSubContentProps` & `RefAttributes`\<`HTMLDivElement`\>\>
 
-Defined in: [packages/ui/src/provider/types.ts:134](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/types.ts#L134)
+Defined in: [packages/ui/src/provider/types.ts:138](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/types.ts#L138)
 
 ***
 
@@ -102,7 +102,7 @@ Defined in: [packages/ui/src/provider/types.ts:134](https://github.com/simplix-r
 
 > **SubTrigger**: `ComponentType`\<[`DropdownMenuSubTriggerProps`](../type-aliases/DropdownMenuSubTriggerProps.md)\>
 
-Defined in: [packages/ui/src/provider/types.ts:133](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/types.ts#L133)
+Defined in: [packages/ui/src/provider/types.ts:137](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/types.ts#L137)
 
 ***
 
@@ -110,4 +110,4 @@ Defined in: [packages/ui/src/provider/types.ts:133](https://github.com/simplix-r
 
 > **Trigger**: `ComponentType`\<\{ `asChild?`: `boolean`; `children?`: `ReactNode`; \}\>
 
-Defined in: [packages/ui/src/provider/types.ts:123](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/types.ts#L123)
+Defined in: [packages/ui/src/provider/types.ts:127](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/types.ts#L127)

@@ -8,7 +8,7 @@
 
 > **isSameWeek**(`a`, `b`): `boolean`
 
-Defined in: [date-math.ts:64](https://github.com/simplix-react/simplix-react/blob/main/date-math.ts#L64)
+Defined in: [date-math.ts:64](https://github.com/simplix-framework/simplix-react/blob/main/date-math.ts#L64)
 
 ## Parameters
 

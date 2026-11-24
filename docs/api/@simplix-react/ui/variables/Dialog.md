@@ -8,4 +8,4 @@
 
 > `const` **Dialog**: `FC`\<`DialogProps`\> = `DialogPrimitive.Root`
 
-Defined in: [packages/ui/src/base/overlay/dialog.tsx:31](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/overlay/dialog.tsx#L31)
+Defined in: [packages/ui/src/base/overlay/dialog.tsx:71](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/overlay/dialog.tsx#L71)

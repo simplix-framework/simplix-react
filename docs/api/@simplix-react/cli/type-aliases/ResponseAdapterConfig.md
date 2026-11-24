@@ -8,7 +8,7 @@
 
 > **ResponseAdapterConfig** = `"boot"` \| `"raw"` \| `string` \| \{ `unwrap?`: (`data`) => `unknown`; `unwrapByRole?`: `Partial`\<`Record`\<`CrudRole`, `string`\>\>; `unwrapExpression?`: `string`; \}
 
-Defined in: [openapi/adaptation/response-adapter.ts:25](https://github.com/simplix-react/simplix-react/blob/main/openapi/adaptation/response-adapter.ts#L25)
+Defined in: [openapi/adaptation/response-adapter.ts:25](https://github.com/simplix-framework/simplix-react/blob/main/openapi/adaptation/response-adapter.ts#L25)
 
 Configuration for controlling how generated hook wrappers unwrap API responses.
 

@@ -8,7 +8,7 @@
 
 > **parseDate**(`value`): `Date` \| `undefined`
 
-Defined in: [parse-date.ts:49](https://github.com/simplix-react/simplix-react/blob/main/parse-date.ts#L49)
+Defined in: [parse-date.ts:49](https://github.com/simplix-framework/simplix-react/blob/main/parse-date.ts#L49)
 
 Parse a date-like value into a Date object.
 Returns `undefined` for null, undefined, empty strings, or invalid dates.

@@ -8,7 +8,7 @@
 
 > **MapBoundsOverlay**(`__namedParameters`): `null`
 
-Defined in: [packages/ui/src/base/map/map-bounds-overlay.tsx:24](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map-bounds-overlay.tsx#L24)
+Defined in: [packages/ui/src/base/map/map-bounds-overlay.tsx:24](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map-bounds-overlay.tsx#L24)
 
 Renders a dark mask with a circular hole around the given points,
 plus optional ripple animation outside the boundary.

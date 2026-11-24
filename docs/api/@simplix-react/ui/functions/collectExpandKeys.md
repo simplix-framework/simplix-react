@@ -8,7 +8,7 @@
 
 > **collectExpandKeys**\<`T`\>(`pathname`, `items`): `string`[]
 
-Defined in: [packages/ui/src/menu/nav-utils.ts:18](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/nav-utils.ts#L18)
+Defined in: [packages/ui/src/menu/nav-utils.ts:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/nav-utils.ts#L18)
 
 ## Type Parameters
 

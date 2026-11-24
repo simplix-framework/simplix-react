@@ -6,7 +6,7 @@
 
 # Interface: DateRangeFilterDef
 
-Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:115](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L115)
+Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:146](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L146)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:115](https://github.com
 
 > `optional` **columnBreak**: `boolean`
 
-Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:35](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L35)
+Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:66](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L66)
 
 When the filter popover renders in multiple columns, start a new column at
 this filter. Up to (columns - 1) flags take effect, in order; without flags
@@ -34,7 +34,7 @@ the fields are split evenly (column-major). Ignored in single-column layout.
 
 > `optional` **dateOnly**: `boolean`
 
-Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:124](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L124)
+Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:155](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L155)
 
 Set for a `LocalDate` (`format:date`) column: the range boundaries are
 serialized as zone-neutral `yyyy-MM-dd` (local) instead of a UTC ISO
@@ -48,7 +48,7 @@ which keep full UTC ISO serialization.
 
 > `optional` **displayZone**: `string`
 
-Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:132](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L132)
+Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:163](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L163)
 
 Set for a site-scoped `Instant` column whose day boundaries must be computed
 in the site zone: the picked day's start-of-day / end-of-day are interpreted
@@ -62,7 +62,7 @@ zone. Takes precedence over [dateOnly](#dateonly).
 
 > **field**: `string`
 
-Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:28](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L28)
+Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:59](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L59)
 
 #### Inherited from
 
@@ -74,7 +74,7 @@ Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:28](https://github.com/
 
 > **label**: `string`
 
-Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:29](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L29)
+Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:60](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L60)
 
 #### Inherited from
 
@@ -86,4 +86,4 @@ Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:29](https://github.com/
 
 > **type**: `"dateRange"`
 
-Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:116](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L116)
+Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:147](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L147)

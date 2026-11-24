@@ -8,7 +8,7 @@
 
 > **EntityClient**\<`TSchema`, `TOperations`\> = `{ [K in keyof TOperations & string]: EntityClientFn<ResolveRole<K, TOperations[K]>, TOperations[K], TSchema> }`
 
-Defined in: [packages/contract/src/types.ts:604](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/types.ts#L604)
+Defined in: [packages/contract/src/types.ts:604](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/types.ts#L604)
 
 Provides a type-safe client for a single entity, derived from its
 [EntityDefinition](../interfaces/EntityDefinition.md) operations.

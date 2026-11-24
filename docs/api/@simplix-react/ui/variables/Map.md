@@ -8,4 +8,4 @@
 
 > `const` **Map**: `ForwardRefExoticComponent`\<`object` & `Omit`\<`MapOptions`, `"style"` \| `"container"`\> & `RefAttributes`\<`Map$1`\>\>
 
-Defined in: [packages/ui/src/base/map/map.tsx:196](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L196)
+Defined in: [packages/ui/src/base/map/map.tsx:210](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L210)

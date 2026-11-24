@@ -8,7 +8,7 @@
 
 > **insertSubproject**(`project`, `sub`, `beforeIndex?`, `name?`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-extras.ts:259](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-extras.ts#L259)
+Defined in: [packages/gantt-core/src/edit-extras.ts:259](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-extras.ts#L259)
 
 Inserts another plan as a summary task with its tasks under it, before the
 row at `beforeIndex` (the end when omitted). Every inserted record gets a

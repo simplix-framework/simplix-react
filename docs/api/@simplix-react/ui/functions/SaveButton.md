@@ -8,7 +8,7 @@
 
 > **SaveButton**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/crud/form/save-button.tsx:58](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/save-button.tsx#L58)
+Defined in: [packages/ui/src/crud/form/save-button.tsx:60](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/save-button.tsx#L60)
 
 Self-contained save button for CRUD forms and editors.
 

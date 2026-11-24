@@ -6,7 +6,7 @@
 
 # Interface: PaginationState
 
-Defined in: [packages/headless/dist/index.d.ts:7](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L7)
+Defined in: [packages/headless/dist/index.d.ts:7](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L7)
 
 Represents pagination state with page, size, and total count.
 
@@ -16,7 +16,7 @@ Represents pagination state with page, size, and total count.
 
 > **page**: `number`
 
-Defined in: [packages/headless/dist/index.d.ts:8](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L8)
+Defined in: [packages/headless/dist/index.d.ts:8](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L8)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/headless/dist/index.d.ts:8](https://github.com/simplix-rea
 
 > **pageSize**: `number`
 
-Defined in: [packages/headless/dist/index.d.ts:9](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L9)
+Defined in: [packages/headless/dist/index.d.ts:9](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L9)
 
 ***
 
@@ -32,4 +32,4 @@ Defined in: [packages/headless/dist/index.d.ts:9](https://github.com/simplix-rea
 
 > **total**: `number`
 
-Defined in: [packages/headless/dist/index.d.ts:10](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L10)
+Defined in: [packages/headless/dist/index.d.ts:10](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L10)

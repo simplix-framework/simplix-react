@@ -8,7 +8,7 @@
 
 > **localStorageStore**(`prefix?`): [`TokenStore`](../interfaces/TokenStore.md)
 
-Defined in: [packages/auth/src/stores/local-storage-store.ts:19](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/stores/local-storage-store.ts#L19)
+Defined in: [packages/auth/src/stores/local-storage-store.ts:19](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/stores/local-storage-store.ts#L19)
 
 Creates a [TokenStore](../interfaces/TokenStore.md) backed by `localStorage`.
 

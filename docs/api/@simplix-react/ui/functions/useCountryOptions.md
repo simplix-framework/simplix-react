@@ -8,7 +8,7 @@
 
 > **useCountryOptions**(): [`CountryOption`](../interfaces/CountryOption.md)[]
 
-Defined in: [packages/ui/src/utils/use-country-options.ts:42](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/use-country-options.ts#L42)
+Defined in: [packages/ui/src/utils/use-country-options.ts:42](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/use-country-options.ts#L42)
 
 Country options (ISO code, localized/English names, flag component) for
 pickers and display cells.

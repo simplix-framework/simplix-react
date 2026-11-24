@@ -8,7 +8,7 @@
 
 > **useMenuSelection**(): `object`
 
-Defined in: [packages/ui/src/menu/use-menu-selection.ts:28](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/use-menu-selection.ts#L28)
+Defined in: [packages/ui/src/menu/use-menu-selection.ts:28](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/use-menu-selection.ts#L28)
 
 ## Returns
 

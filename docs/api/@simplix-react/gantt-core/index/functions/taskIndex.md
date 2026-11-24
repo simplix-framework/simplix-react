@@ -8,7 +8,7 @@
 
 > **taskIndex**(`project`, `id`): `number`
 
-Defined in: [packages/gantt-core/src/edit-tasks.ts:10](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-tasks.ts#L10)
+Defined in: [packages/gantt-core/src/edit-tasks.ts:10](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-tasks.ts#L10)
 
 Row index of a task.
 

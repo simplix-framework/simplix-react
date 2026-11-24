@@ -8,4 +8,4 @@
 
 > `const` **NavigationMenuList**: `ForwardRefExoticComponent`\<`Omit`\<`NavigationMenuListProps` & `RefAttributes`\<`HTMLUListElement`\>, `"ref"`\> & `RefAttributes`\<`HTMLUListElement`\>\>
 
-Defined in: [packages/ui/src/base/navigation/navigation-menu.tsx:41](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/navigation/navigation-menu.tsx#L41)
+Defined in: [packages/ui/src/base/navigation/navigation-menu.tsx:52](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/navigation/navigation-menu.tsx#L52)

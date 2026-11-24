@@ -8,7 +8,7 @@
 
 > **decodeWallClockTime**(`value`): [`TimeValue`](../interfaces/TimeValue.md) \| `undefined`
 
-Defined in: [packages/headless/dist/index.d.ts:688](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L688)
+Defined in: [packages/headless/dist/index.d.ts:733](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L733)
 
 Decode a textual `HH:mm[:ss]` into a [TimeValue](../interfaces/TimeValue.md) (seconds are dropped).
 

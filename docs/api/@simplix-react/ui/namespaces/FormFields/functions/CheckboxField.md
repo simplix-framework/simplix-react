@@ -8,7 +8,7 @@
 
 > **CheckboxField**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/fields/form/checkbox-field.tsx:26](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/checkbox-field.tsx#L26)
+Defined in: [packages/ui/src/fields/form/checkbox-field.tsx:26](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/checkbox-field.tsx#L26)
 
 Checkbox field. Defaults to `layout="left"` for natural layout.
 

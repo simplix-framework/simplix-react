@@ -8,7 +8,7 @@
 
 > **changeTask**(`project`, `id`, `change`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-tasks.ts:17](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-tasks.ts#L17)
+Defined in: [packages/gantt-core/src/edit-tasks.ts:17](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-tasks.ts#L17)
 
 Returns the project with one task replaced by what `change` returns for it.
 

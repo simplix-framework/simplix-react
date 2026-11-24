@@ -6,6 +6,6 @@
 
 # Variable: PopoverContent
 
-> `const` **PopoverContent**: `ForwardRefExoticComponent`\<`Omit`\<`PopoverContentProps` & `RefAttributes`\<`HTMLDivElement`\>, `"ref"`\> & `RefAttributes`\<`HTMLDivElement`\>\>
+> `const` **PopoverContent**: `ForwardRefExoticComponent`\<`Omit`\<[`PopoverContentProps`](../type-aliases/PopoverContentProps.md), `"ref"`\> & `RefAttributes`\<`HTMLDivElement`\>\>
 
-Defined in: [packages/ui/src/base/overlay/popover.tsx:20](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/overlay/popover.tsx#L20)
+Defined in: [packages/ui/src/base/overlay/popover.tsx:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/overlay/popover.tsx#L31)

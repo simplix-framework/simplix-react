@@ -6,7 +6,7 @@
 
 # Interface: PasswordFieldProps
 
-Defined in: [packages/ui/src/fields/form/password-field.tsx:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/password-field.tsx#L11)
+Defined in: [packages/ui/src/fields/form/password-field.tsx:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/password-field.tsx#L15)
 
 Props for the [PasswordField](../functions/PasswordField.md) form component.
 
@@ -20,7 +20,7 @@ Props for the [PasswordField](../functions/PasswordField.md) form component.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:49](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L49)
+Defined in: [packages/ui/src/crud/shared/types.ts:49](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L49)
 
 #### Inherited from
 
@@ -32,7 +32,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:49](https://github.com/simplix
 
 > `optional` **description**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:34](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L34)
+Defined in: [packages/ui/src/crud/shared/types.ts:34](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L34)
 
 #### Inherited from
 
@@ -44,7 +44,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:34](https://github.com/simplix
 
 > `optional` **disabled**: `boolean`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:36](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L36)
+Defined in: [packages/ui/src/crud/shared/types.ts:36](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L36)
 
 #### Inherited from
 
@@ -56,7 +56,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:36](https://github.com/simplix
 
 > `optional` **error**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:32](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L32)
+Defined in: [packages/ui/src/crud/shared/types.ts:32](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L32)
 
 #### Inherited from
 
@@ -68,7 +68,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:32](https://github.com/simplix
 
 > `optional` **inputProps**: `DetailedHTMLProps`\<`InputHTMLAttributes`\<`HTMLInputElement`\>, `HTMLInputElement`\>
 
-Defined in: [packages/ui/src/fields/form/password-field.tsx:19](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/password-field.tsx#L19)
+Defined in: [packages/ui/src/fields/form/password-field.tsx:23](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/password-field.tsx#L23)
 
 Additional props forwarded to the underlying input element.
 
@@ -78,7 +78,7 @@ Additional props forwarded to the underlying input element.
 
 > `optional` **label**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L30)
+Defined in: [packages/ui/src/crud/shared/types.ts:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L30)
 
 #### Inherited from
 
@@ -90,7 +90,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:30](https://github.com/simplix
 
 > `optional` **labelKey**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:31](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L31)
+Defined in: [packages/ui/src/crud/shared/types.ts:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L31)
 
 #### Inherited from
 
@@ -102,7 +102,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:31](https://github.com/simplix
 
 > `optional` **layout**: `"inline"` \| `"left"` \| `"top"` \| `"hidden"` \| `"trailing"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
+Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
 
 Label placement. `"top"` stacks the label above the input, `"left"` puts
 it in a leading column, `"inline"` keeps label and input on one row,
@@ -120,7 +120,7 @@ label for screen readers only.
 
 > `optional` **maxLength**: `number`
 
-Defined in: [packages/ui/src/fields/form/password-field.tsx:17](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/password-field.tsx#L17)
+Defined in: [packages/ui/src/fields/form/password-field.tsx:21](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/password-field.tsx#L21)
 
 ***
 
@@ -128,7 +128,7 @@ Defined in: [packages/ui/src/fields/form/password-field.tsx:17](https://github.c
 
 > **onChange**: (`value`) => `void`
 
-Defined in: [packages/ui/src/fields/form/password-field.tsx:15](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/password-field.tsx#L15)
+Defined in: [packages/ui/src/fields/form/password-field.tsx:19](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/password-field.tsx#L19)
 
 Called when the value changes.
 
@@ -148,7 +148,7 @@ Called when the value changes.
 
 > `optional` **placeholder**: `string`
 
-Defined in: [packages/ui/src/fields/form/password-field.tsx:16](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/password-field.tsx#L16)
+Defined in: [packages/ui/src/fields/form/password-field.tsx:20](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/password-field.tsx#L20)
 
 ***
 
@@ -156,7 +156,7 @@ Defined in: [packages/ui/src/fields/form/password-field.tsx:16](https://github.c
 
 > `optional` **prefixControl**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:41](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L41)
+Defined in: [packages/ui/src/crud/shared/types.ts:41](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L41)
 
 Control rendered on the leading (left in LTR) side of the input, on the
 same row. Use for IconPicker, ColorPicker, or similar adornments.
@@ -171,7 +171,7 @@ same row. Use for IconPicker, ColorPicker, or similar adornments.
 
 > `optional` **required**: `boolean`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:35](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L35)
+Defined in: [packages/ui/src/crud/shared/types.ts:35](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L35)
 
 #### Inherited from
 
@@ -183,7 +183,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:35](https://github.com/simplix
 
 > `optional` **size**: `"sm"` \| `"lg"` \| `"md"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
+Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
 
 #### Inherited from
 
@@ -195,7 +195,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix
 
 > `optional` **suffixControl**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:48](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L48)
+Defined in: [packages/ui/src/crud/shared/types.ts:48](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L48)
 
 Control rendered on the trailing (right in LTR) side of the input, on the
 same row. Use instead of composing a button next to the field — the
@@ -212,7 +212,7 @@ below at full width.
 
 > **value**: `string`
 
-Defined in: [packages/ui/src/fields/form/password-field.tsx:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/password-field.tsx#L13)
+Defined in: [packages/ui/src/fields/form/password-field.tsx:17](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/password-field.tsx#L17)
 
 Current input value.
 
@@ -222,7 +222,7 @@ Current input value.
 
 > `optional` **warning**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:33](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L33)
+Defined in: [packages/ui/src/crud/shared/types.ts:33](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L33)
 
 #### Inherited from
 

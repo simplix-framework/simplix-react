@@ -8,7 +8,7 @@
 
 > **resetStore**(): `void`
 
-Defined in: [mock-store.ts:108](https://github.com/simplix-react/simplix-react/blob/main/mock-store.ts#L108)
+Defined in: [mock-store.ts:108](https://github.com/simplix-framework/simplix-react/blob/main/mock-store.ts#L108)
 
 Clears all entity stores and resets all auto-increment counters.
 

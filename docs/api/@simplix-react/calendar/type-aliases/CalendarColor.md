@@ -8,6 +8,6 @@
 
 > **CalendarColor** = `"blue"` \| `"green"` \| `"red"` \| `"yellow"` \| `"purple"` \| `"orange"` \| `"gray"` \| `"teal"`
 
-Defined in: [model/types.ts:41](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L41)
+Defined in: [model/types.ts:41](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L41)
 
 Color token applied to an item across every view.

@@ -8,7 +8,7 @@
 
 > **createMockEntityStore**\<`T`\>(`seeds`, `idField?`): [`MockEntityStore`](../interfaces/MockEntityStore.md)\<`T`\>
 
-Defined in: [mock-entity-store.ts:47](https://github.com/simplix-react/simplix-react/blob/main/mock-entity-store.ts#L47)
+Defined in: [mock-entity-store.ts:47](https://github.com/simplix-framework/simplix-react/blob/main/mock-entity-store.ts#L47)
 
 Create a typed in-memory CRUD store for mock handlers.
 

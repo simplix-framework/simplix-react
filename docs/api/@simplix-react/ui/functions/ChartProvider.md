@@ -8,7 +8,7 @@
 
 > **ChartProvider**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/base/charts/chart-provider.tsx:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/chart-provider.tsx#L11)
+Defined in: [packages/ui/src/base/charts/chart-provider.tsx:11](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/chart-provider.tsx#L11)
 
 ## Parameters
 

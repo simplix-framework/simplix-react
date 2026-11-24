@@ -6,7 +6,7 @@
 
 # Interface: AdvancedTextFilterProps
 
-Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-text-filter.tsx#L11)
+Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-text-filter.tsx#L18)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:11](https://g
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:20](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-text-filter.tsx#L20)
+Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:27](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-text-filter.tsx#L27)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:20](https://g
 
 > `optional` **defaultOperator**: [`SearchOperator`](../enumerations/SearchOperator.md)
 
-Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:18](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-text-filter.tsx#L18)
+Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:25](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-text-filter.tsx#L25)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:18](https://g
 
 > `optional` **label**: `string`
 
-Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-text-filter.tsx#L12)
+Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:19](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-text-filter.tsx#L19)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:12](https://g
 
 > **onChange**: (`value`) => `void`
 
-Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:15](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-text-filter.tsx#L15)
+Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:22](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-text-filter.tsx#L22)
 
 #### Parameters
 
@@ -56,7 +56,7 @@ Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:15](https://g
 
 > **onOperatorChange**: (`operator`) => `void`
 
-Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:16](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-text-filter.tsx#L16)
+Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:23](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-text-filter.tsx#L23)
 
 #### Parameters
 
@@ -74,7 +74,7 @@ Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:16](https://g
 
 > **operator**: [`SearchOperator`](../enumerations/SearchOperator.md)
 
-Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-text-filter.tsx#L14)
+Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:21](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-text-filter.tsx#L21)
 
 ***
 
@@ -82,7 +82,7 @@ Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:14](https://g
 
 > **operators**: [`SearchOperator`](../enumerations/SearchOperator.md)[]
 
-Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:17](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-text-filter.tsx#L17)
+Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:24](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-text-filter.tsx#L24)
 
 ***
 
@@ -90,7 +90,7 @@ Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:17](https://g
 
 > `optional` **placeholder**: `string`
 
-Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:19](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-text-filter.tsx#L19)
+Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:26](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-text-filter.tsx#L26)
 
 ***
 
@@ -98,4 +98,4 @@ Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:19](https://g
 
 > **value**: `string`
 
-Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-text-filter.tsx#L13)
+Defined in: [packages/ui/src/crud/filters/advanced-text-filter.tsx:20](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-text-filter.tsx#L20)

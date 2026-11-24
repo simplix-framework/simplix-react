@@ -6,7 +6,7 @@
 
 # Interface: CrudListSort
 
-Defined in: [packages/ui/src/crud/list/use-crud-list.ts:71](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-crud-list.ts#L71)
+Defined in: [packages/ui/src/crud/list/use-crud-list.ts:85](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-crud-list.ts#L85)
 
 Sort state returned by [useCrudList](../functions/useCrudList.md).
 
@@ -16,7 +16,7 @@ Sort state returned by [useCrudList](../functions/useCrudList.md).
 
 > **direction**: `"desc"` \| `"asc"`
 
-Defined in: [packages/ui/src/crud/list/use-crud-list.ts:73](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-crud-list.ts#L73)
+Defined in: [packages/ui/src/crud/list/use-crud-list.ts:87](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-crud-list.ts#L87)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/ui/src/crud/list/use-crud-list.ts:73](https://github.com/s
 
 > **field**: `string` \| `null`
 
-Defined in: [packages/ui/src/crud/list/use-crud-list.ts:72](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-crud-list.ts#L72)
+Defined in: [packages/ui/src/crud/list/use-crud-list.ts:86](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-crud-list.ts#L86)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [packages/ui/src/crud/list/use-crud-list.ts:72](https://github.com/s
 
 > **setSort**: (`field`, `direction`) => `void`
 
-Defined in: [packages/ui/src/crud/list/use-crud-list.ts:74](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-crud-list.ts#L74)
+Defined in: [packages/ui/src/crud/list/use-crud-list.ts:88](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-crud-list.ts#L88)
 
 #### Parameters
 
@@ -54,7 +54,7 @@ Defined in: [packages/ui/src/crud/list/use-crud-list.ts:74](https://github.com/s
 
 > **toggleSort**: (`field`) => `void`
 
-Defined in: [packages/ui/src/crud/list/use-crud-list.ts:75](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-crud-list.ts#L75)
+Defined in: [packages/ui/src/crud/list/use-crud-list.ts:89](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-crud-list.ts#L89)
 
 #### Parameters
 

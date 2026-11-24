@@ -8,7 +8,7 @@
 
 > **ChoiceChips**\<`T`\>(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:75](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L75)
+Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:77](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L77)
 
 A pill row where exactly one option is lit.
 

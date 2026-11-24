@@ -8,7 +8,7 @@
 
 > **getRequestTimezone**(): `string`
 
-Defined in: [packages/api/src/index.ts:87](https://github.com/simplix-react/simplix-react/blob/main/packages/api/src/index.ts#L87)
+Defined in: [packages/api/src/index.ts:87](https://github.com/simplix-framework/simplix-react/blob/main/packages/api/src/index.ts#L87)
 
 Returns the client's IANA timezone identifier (e.g. `"Asia/Seoul"`).
 

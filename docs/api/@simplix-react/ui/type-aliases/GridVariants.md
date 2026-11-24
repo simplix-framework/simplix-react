@@ -6,8 +6,14 @@
 
 # Type Alias: GridVariants
 
-> **GridVariants** = `VariantProps`\<*typeof* [`gridVariants`](../variables/gridVariants.md)\>
+> **GridVariants** = `VariantProps`\<*typeof* `gridLayout`\> & `object`
 
-Defined in: [packages/ui/src/primitives/grid.tsx:32](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/primitives/grid.tsx#L32)
+Defined in: [packages/ui/src/primitives/grid.tsx:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/primitives/grid.tsx#L31)
 
-Variant props extracted from [gridVariants](../variables/gridVariants.md).
+Variant props extracted from [gridVariants](../functions/gridVariants.md).
+
+## Type Declaration
+
+### gap?
+
+> `optional` **gap**: `NonNullable`\<`Parameters`\<*typeof* `gridLook`\>\[`0`\]\>\[`"gap"`\]

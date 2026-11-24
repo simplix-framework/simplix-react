@@ -8,7 +8,7 @@
 
 > **mapServerErrorsToForm**(`error`, `form`): `boolean`
 
-Defined in: [utils/server-error-mapping.ts:37](https://github.com/simplix-react/simplix-react/blob/main/utils/server-error-mapping.ts#L37)
+Defined in: [utils/server-error-mapping.ts:37](https://github.com/simplix-framework/simplix-react/blob/main/utils/server-error-mapping.ts#L37)
 
 Maps server validation errors to TanStack Form field errors using duck typing.
 

@@ -8,7 +8,7 @@
 
 > **destinationPoint**(`lat`, `lon`, `distM`, `bearingRad`): \[`number`, `number`\]
 
-Defined in: [packages/ui/src/utils/geo.ts:91](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L91)
+Defined in: [packages/ui/src/utils/geo.ts:91](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L91)
 
 ## Parameters
 

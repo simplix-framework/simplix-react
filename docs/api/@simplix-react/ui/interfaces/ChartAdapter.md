@@ -6,7 +6,7 @@
 
 # Interface: ChartAdapter
 
-Defined in: [packages/ui/src/base/charts/types.ts:74](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L74)
+Defined in: [packages/ui/src/base/charts/types.ts:86](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L86)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:74](https://github.com/simplix
 
 > **AreaChart**: `ComponentType`\<[`AreaChartProps`](AreaChartProps.md)\>
 
-Defined in: [packages/ui/src/base/charts/types.ts:76](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L76)
+Defined in: [packages/ui/src/base/charts/types.ts:88](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L88)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:76](https://github.com/simplix
 
 > **BarChart**: `ComponentType`\<[`BarChartProps`](BarChartProps.md)\>
 
-Defined in: [packages/ui/src/base/charts/types.ts:77](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L77)
+Defined in: [packages/ui/src/base/charts/types.ts:89](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L89)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:77](https://github.com/simplix
 
 > **DonutChart**: `ComponentType`\<[`DonutChartProps`](DonutChartProps.md)\>
 
-Defined in: [packages/ui/src/base/charts/types.ts:79](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L79)
+Defined in: [packages/ui/src/base/charts/types.ts:91](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L91)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:79](https://github.com/simplix
 
 > **HeatmapChart**: `ComponentType`\<[`HeatmapChartProps`](HeatmapChartProps.md)\>
 
-Defined in: [packages/ui/src/base/charts/types.ts:80](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L80)
+Defined in: [packages/ui/src/base/charts/types.ts:92](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L92)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:80](https://github.com/simplix
 
 > **LineChart**: `ComponentType`\<[`LineChartProps`](LineChartProps.md)\>
 
-Defined in: [packages/ui/src/base/charts/types.ts:75](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L75)
+Defined in: [packages/ui/src/base/charts/types.ts:87](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L87)
 
 ***
 
@@ -54,4 +54,4 @@ Defined in: [packages/ui/src/base/charts/types.ts:75](https://github.com/simplix
 
 > **PieChart**: `ComponentType`\<[`PieChartProps`](PieChartProps.md)\>
 
-Defined in: [packages/ui/src/base/charts/types.ts:78](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L78)
+Defined in: [packages/ui/src/base/charts/types.ts:90](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L90)

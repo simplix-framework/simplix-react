@@ -8,7 +8,7 @@
 
 > **ToggleFilter**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/crud/filters/toggle-filter.tsx:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/toggle-filter.tsx#L14)
+Defined in: [packages/ui/src/crud/filters/toggle-filter.tsx:20](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/toggle-filter.tsx#L20)
 
 ## Parameters
 

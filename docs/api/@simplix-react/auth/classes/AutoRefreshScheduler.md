@@ -6,7 +6,7 @@
 
 # Class: AutoRefreshScheduler
 
-Defined in: [packages/auth/src/helpers/auto-refresh-scheduler.ts:18](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/helpers/auto-refresh-scheduler.ts#L18)
+Defined in: [packages/auth/src/helpers/auto-refresh-scheduler.ts:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/helpers/auto-refresh-scheduler.ts#L18)
 
 Timer-based background token refresh scheduler.
 
@@ -19,7 +19,7 @@ via a minimum interval guard.
 
 > **new AutoRefreshScheduler**(`options?`): `AutoRefreshScheduler`
 
-Defined in: [packages/auth/src/helpers/auto-refresh-scheduler.ts:22](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/helpers/auto-refresh-scheduler.ts#L22)
+Defined in: [packages/auth/src/helpers/auto-refresh-scheduler.ts:22](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/helpers/auto-refresh-scheduler.ts#L22)
 
 #### Parameters
 
@@ -37,7 +37,7 @@ Defined in: [packages/auth/src/helpers/auto-refresh-scheduler.ts:22](https://git
 
 > **isRunning**(): `boolean`
 
-Defined in: [packages/auth/src/helpers/auto-refresh-scheduler.ts:39](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/helpers/auto-refresh-scheduler.ts#L39)
+Defined in: [packages/auth/src/helpers/auto-refresh-scheduler.ts:43](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/helpers/auto-refresh-scheduler.ts#L43)
 
 #### Returns
 
@@ -49,13 +49,16 @@ Defined in: [packages/auth/src/helpers/auto-refresh-scheduler.ts:39](https://git
 
 > **start**(`refreshFn`, `getExpiresAt`): `void`
 
-Defined in: [packages/auth/src/helpers/auto-refresh-scheduler.ts:24](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/helpers/auto-refresh-scheduler.ts#L24)
+Defined in: [packages/auth/src/helpers/auto-refresh-scheduler.ts:28](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/helpers/auto-refresh-scheduler.ts#L28)
+
+Starts the schedule. `refreshFn` may resolve `null` to say it skipped this refresh; the
+schedule then stops until the next `start`.
 
 #### Parameters
 
 ##### refreshFn
 
-() => `Promise`\<[`TokenPair`](../interfaces/TokenPair.md)\>
+() => `Promise`\<[`TokenPair`](../interfaces/TokenPair.md) \| `null`\>
 
 ##### getExpiresAt
 
@@ -71,7 +74,7 @@ Defined in: [packages/auth/src/helpers/auto-refresh-scheduler.ts:24](https://git
 
 > **stop**(): `void`
 
-Defined in: [packages/auth/src/helpers/auto-refresh-scheduler.ts:32](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/helpers/auto-refresh-scheduler.ts#L32)
+Defined in: [packages/auth/src/helpers/auto-refresh-scheduler.ts:36](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/helpers/auto-refresh-scheduler.ts#L36)
 
 #### Returns
 

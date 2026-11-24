@@ -8,7 +8,7 @@
 
 > **isMinuteOutOfRange**(`hour24`, `minute`, `minTime?`, `maxTime?`): `boolean`
 
-Defined in: [packages/headless/dist/index.d.ts:584](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L584)
+Defined in: [packages/headless/dist/index.d.ts:629](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L629)
 
 True when the given hour:minute falls outside [minTime, maxTime].
 

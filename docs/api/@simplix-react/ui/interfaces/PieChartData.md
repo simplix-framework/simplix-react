@@ -6,7 +6,7 @@
 
 # Interface: PieChartData
 
-Defined in: [packages/ui/src/base/charts/types.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L13)
+Defined in: [packages/ui/src/base/charts/types.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L13)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:13](https://github.com/simplix
 
 > `optional` **colors**: `string`[]
 
-Defined in: [packages/ui/src/base/charts/types.ts:16](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L16)
+Defined in: [packages/ui/src/base/charts/types.ts:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L16)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:16](https://github.com/simplix
 
 > **labels**: `string`[]
 
-Defined in: [packages/ui/src/base/charts/types.ts:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L14)
+Defined in: [packages/ui/src/base/charts/types.ts:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L14)
 
 ***
 
@@ -30,4 +30,4 @@ Defined in: [packages/ui/src/base/charts/types.ts:14](https://github.com/simplix
 
 > **series**: `number`[]
 
-Defined in: [packages/ui/src/base/charts/types.ts:15](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L15)
+Defined in: [packages/ui/src/base/charts/types.ts:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L15)

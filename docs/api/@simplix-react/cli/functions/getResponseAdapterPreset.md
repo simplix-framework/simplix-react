@@ -8,7 +8,7 @@
 
 > **getResponseAdapterPreset**(`name`): [`ResponseAdapterPreset`](../interfaces/ResponseAdapterPreset.md) \| `undefined`
 
-Defined in: [openapi/plugin-registry.ts:189](https://github.com/simplix-react/simplix-react/blob/main/openapi/plugin-registry.ts#L189)
+Defined in: [openapi/plugin-registry.ts:189](https://github.com/simplix-framework/simplix-react/blob/main/openapi/plugin-registry.ts#L189)
 
 Looks up a response adapter preset by name.
 

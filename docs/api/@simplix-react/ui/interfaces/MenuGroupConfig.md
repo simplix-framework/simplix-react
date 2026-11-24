@@ -6,7 +6,7 @@
 
 # Interface: MenuGroupConfig
 
-Defined in: [packages/ui/src/menu/menu-types.ts:74](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L74)
+Defined in: [packages/ui/src/menu/menu-types.ts:74](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L74)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/menu/menu-types.ts:74](https://github.com/simplix-r
 
 > **basePath**: `string`
 
-Defined in: [packages/ui/src/menu/menu-types.ts:76](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L76)
+Defined in: [packages/ui/src/menu/menu-types.ts:76](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L76)
 
 ***
 
@@ -22,4 +22,4 @@ Defined in: [packages/ui/src/menu/menu-types.ts:76](https://github.com/simplix-r
 
 > **menuCode**: `string`
 
-Defined in: [packages/ui/src/menu/menu-types.ts:75](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L75)
+Defined in: [packages/ui/src/menu/menu-types.ts:75](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L75)

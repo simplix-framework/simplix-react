@@ -6,7 +6,7 @@
 
 # Interface: AdvancedSelectFilterOption
 
-Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L13)
+Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:24](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L24)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:13](https:/
 
 > `optional` **icon**: `ComponentType`\<\{ `className?`: `string`; \}\>
 
-Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:16](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L16)
+Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:27](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L27)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:16](https:/
 
 > **label**: `string`
 
-Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L14)
+Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:25](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L25)
 
 ***
 
@@ -30,4 +30,4 @@ Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:14](https:/
 
 > **value**: `string`
 
-Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:15](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L15)
+Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:26](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L26)

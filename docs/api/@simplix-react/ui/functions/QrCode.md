@@ -8,7 +8,7 @@
 
 > **QrCode**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/base/display/qr-code.tsx:28](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/qr-code.tsx#L28)
+Defined in: [packages/ui/src/base/display/qr-code.tsx:29](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/qr-code.tsx#L29)
 
 Renders a QR symbol for an arbitrary payload onto a canvas. Re-encodes
 whenever the payload changes, so rotating tokens (e.g. a kiosk presence QR)

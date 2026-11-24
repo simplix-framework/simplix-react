@@ -6,7 +6,7 @@
 
 # Interface: CrudMutation\<TInput\>
 
-Defined in: [packages/headless/dist/index.d.ts:125](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L125)
+Defined in: [packages/headless/dist/index.d.ts:125](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L125)
 
 Minimal mutation shape consumed by form submit helpers on every platform.
 
@@ -22,7 +22,7 @@ Minimal mutation shape consumed by form submit helpers on every platform.
 
 > **isPending**: `boolean`
 
-Defined in: [packages/headless/dist/index.d.ts:133](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L133)
+Defined in: [packages/headless/dist/index.d.ts:133](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L133)
 
 Whether the mutation is currently in flight.
 
@@ -32,7 +32,7 @@ Whether the mutation is currently in flight.
 
 > **mutate**: (`input`, `options?`) => `void`
 
-Defined in: [packages/headless/dist/index.d.ts:127](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L127)
+Defined in: [packages/headless/dist/index.d.ts:127](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L127)
 
 Trigger the mutation with the given input.
 
@@ -58,7 +58,7 @@ Trigger the mutation with the given input.
 
 > **mutateAsync**: (`input`) => `Promise`\<`unknown`\>
 
-Defined in: [packages/headless/dist/index.d.ts:131](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L131)
+Defined in: [packages/headless/dist/index.d.ts:131](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L131)
 
 Promise-based mutation trigger for error handling.
 

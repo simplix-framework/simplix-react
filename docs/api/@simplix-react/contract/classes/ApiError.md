@@ -6,7 +6,7 @@
 
 # Class: ApiError
 
-Defined in: [packages/contract/src/helpers/api-error.ts:1](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/helpers/api-error.ts#L1)
+Defined in: [packages/contract/src/helpers/api-error.ts:1](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/helpers/api-error.ts#L1)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [packages/contract/src/helpers/api-error.ts:1](https://github.com/si
 
 > **new ApiError**(`status`, `body`): `ApiError`
 
-Defined in: [packages/contract/src/helpers/api-error.ts:2](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/helpers/api-error.ts#L2)
+Defined in: [packages/contract/src/helpers/api-error.ts:2](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/helpers/api-error.ts#L2)
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Raw response body text.
 
 > `readonly` **body**: `string`
 
-Defined in: [packages/contract/src/helpers/api-error.ts:6](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/helpers/api-error.ts#L6)
+Defined in: [packages/contract/src/helpers/api-error.ts:6](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/helpers/api-error.ts#L6)
 
 Raw response body text.
 
@@ -58,7 +58,7 @@ Raw response body text.
 
 > `optional` **cause**: `unknown`
 
-Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:26](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/typescript@5.9.3/node_modules/typescript/lib/lib.es2022.error.d.ts#L26)
+Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:26](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/typescript@5.9.3/node_modules/typescript/lib/lib.es2022.error.d.ts#L26)
 
 #### Inherited from
 
@@ -70,7 +70,7 @@ Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/l
 
 > **message**: `string`
 
-Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es5.d.ts:1077](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/typescript@5.9.3/node_modules/typescript/lib/lib.es5.d.ts#L1077)
+Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es5.d.ts:1077](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/typescript@5.9.3/node_modules/typescript/lib/lib.es5.d.ts#L1077)
 
 #### Inherited from
 
@@ -82,7 +82,7 @@ Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/l
 
 > **name**: `string`
 
-Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es5.d.ts:1076](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/typescript@5.9.3/node_modules/typescript/lib/lib.es5.d.ts#L1076)
+Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es5.d.ts:1076](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/typescript@5.9.3/node_modules/typescript/lib/lib.es5.d.ts#L1076)
 
 #### Inherited from
 
@@ -94,7 +94,7 @@ Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/l
 
 > `optional` **stack**: `string`
 
-Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es5.d.ts:1078](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/typescript@5.9.3/node_modules/typescript/lib/lib.es5.d.ts#L1078)
+Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es5.d.ts:1078](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/typescript@5.9.3/node_modules/typescript/lib/lib.es5.d.ts#L1078)
 
 #### Inherited from
 
@@ -106,6 +106,6 @@ Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/l
 
 > `readonly` **status**: `number`
 
-Defined in: [packages/contract/src/helpers/api-error.ts:4](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/helpers/api-error.ts#L4)
+Defined in: [packages/contract/src/helpers/api-error.ts:4](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/helpers/api-error.ts#L4)
 
 HTTP status code of the failed response.

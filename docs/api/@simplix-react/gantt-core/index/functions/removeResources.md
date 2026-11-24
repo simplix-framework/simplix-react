@@ -8,7 +8,7 @@
 
 > **removeResources**(`project`, `ids`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-links.ts:82](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-links.ts#L82)
+Defined in: [packages/gantt-core/src/edit-links.ts:82](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-links.ts#L82)
 
 Removes resources and their assignments.
 

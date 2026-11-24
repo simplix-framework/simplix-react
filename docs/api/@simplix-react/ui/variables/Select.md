@@ -8,4 +8,4 @@
 
 > `const` **Select**: `FC`\<`SelectProps`\> = `SelectPrimitive.Root`
 
-Defined in: [packages/ui/src/base/inputs/select.tsx:9](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/select.tsx#L9)
+Defined in: [packages/ui/src/base/inputs/select.tsx:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/select.tsx#L18)

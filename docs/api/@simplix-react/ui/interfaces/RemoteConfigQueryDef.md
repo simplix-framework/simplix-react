@@ -6,7 +6,7 @@
 
 # Interface: RemoteConfigQueryDef\<T\>
 
-Defined in: [packages/ui/src/config/types.ts:8](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/config/types.ts#L8)
+Defined in: [packages/ui/src/config/types.ts:8](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/config/types.ts#L8)
 
 Definition of a single remote-config query injected into [createAppConfig](../functions/createAppConfig.md).
 
@@ -26,7 +26,7 @@ MenuProvider injection pattern.
 
 > `optional` **enabled**: `boolean`
 
-Defined in: [packages/ui/src/config/types.ts:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/config/types.ts#L14)
+Defined in: [packages/ui/src/config/types.ts:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/config/types.ts#L14)
 
 Gate the query (e.g. only when authenticated). Defaults to enabled.
 
@@ -36,7 +36,7 @@ Gate the query (e.g. only when authenticated). Defaults to enabled.
 
 > **queryFn**: (`ctx`) => `Promise`\<`T`\>
 
-Defined in: [packages/ui/src/config/types.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/config/types.ts#L12)
+Defined in: [packages/ui/src/config/types.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/config/types.ts#L12)
 
 Host fetcher (e.g. an authenticated `/files/policy` request).
 
@@ -58,7 +58,7 @@ Host fetcher (e.g. an authenticated `/files/policy` request).
 
 > **queryKey**: readonly `unknown`[]
 
-Defined in: [packages/ui/src/config/types.ts:10](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/config/types.ts#L10)
+Defined in: [packages/ui/src/config/types.ts:10](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/config/types.ts#L10)
 
 react-query cache key.
 
@@ -68,6 +68,6 @@ react-query cache key.
 
 > `optional` **staleTime**: `number`
 
-Defined in: [packages/ui/src/config/types.ts:16](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/config/types.ts#L16)
+Defined in: [packages/ui/src/config/types.ts:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/config/types.ts#L16)
 
 Per-query staleTime (ms).

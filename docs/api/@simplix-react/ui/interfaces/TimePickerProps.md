@@ -6,7 +6,7 @@
 
 # Interface: TimePickerProps
 
-Defined in: [packages/ui/src/base/inputs/time-picker.tsx:540](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/time-picker.tsx#L540)
+Defined in: [packages/ui/src/base/inputs/time-picker.tsx:546](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/time-picker.tsx#L546)
 
 Props for the [TimePicker](../functions/TimePicker.md) component.
 
@@ -16,7 +16,7 @@ Props for the [TimePicker](../functions/TimePicker.md) component.
 
 > `optional` **aria-labelledby**: `string`
 
-Defined in: [packages/ui/src/base/inputs/time-picker.tsx:558](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/time-picker.tsx#L558)
+Defined in: [packages/ui/src/base/inputs/time-picker.tsx:564](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/time-picker.tsx#L564)
 
 Id of the element naming this picker — see TimeSelectControlProps.
 
@@ -26,7 +26,7 @@ Id of the element naming this picker — see TimeSelectControlProps.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/base/inputs/time-picker.tsx:556](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/time-picker.tsx#L556)
+Defined in: [packages/ui/src/base/inputs/time-picker.tsx:562](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/time-picker.tsx#L562)
 
 Additional class name for the wrapper.
 
@@ -36,7 +36,7 @@ Additional class name for the wrapper.
 
 > `optional` **disabled**: `boolean`
 
-Defined in: [packages/ui/src/base/inputs/time-picker.tsx:554](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/time-picker.tsx#L554)
+Defined in: [packages/ui/src/base/inputs/time-picker.tsx:560](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/time-picker.tsx#L560)
 
 Disable the picker.
 
@@ -46,7 +46,7 @@ Disable the picker.
 
 > `optional` **hour12**: `boolean`
 
-Defined in: [packages/ui/src/base/inputs/time-picker.tsx:546](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/time-picker.tsx#L546)
+Defined in: [packages/ui/src/base/inputs/time-picker.tsx:552](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/time-picker.tsx#L552)
 
 Use a 12-hour clock with an AM/PM toggle. Set to `false` for a 24-hour clock.
 
@@ -62,7 +62,7 @@ true
 
 > `optional` **maxTime**: [`TimeValue`](TimeValue.md)
 
-Defined in: [packages/ui/src/base/inputs/time-picker.tsx:552](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/time-picker.tsx#L552)
+Defined in: [packages/ui/src/base/inputs/time-picker.tsx:558](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/time-picker.tsx#L558)
 
 Latest selectable time. Out-of-range options are disabled and commits are clamped.
 
@@ -72,7 +72,7 @@ Latest selectable time. Out-of-range options are disabled and commits are clampe
 
 > `optional` **minTime**: [`TimeValue`](TimeValue.md)
 
-Defined in: [packages/ui/src/base/inputs/time-picker.tsx:550](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/time-picker.tsx#L550)
+Defined in: [packages/ui/src/base/inputs/time-picker.tsx:556](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/time-picker.tsx#L556)
 
 Earliest selectable time. Out-of-range options are disabled and commits are clamped.
 
@@ -82,7 +82,7 @@ Earliest selectable time. Out-of-range options are disabled and commits are clam
 
 > `optional` **minuteStep**: `number`
 
-Defined in: [packages/ui/src/base/inputs/time-picker.tsx:548](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/time-picker.tsx#L548)
+Defined in: [packages/ui/src/base/inputs/time-picker.tsx:554](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/time-picker.tsx#L554)
 
 Interval between minute options in the option list. Direct input and the spinner still accept any minute.
 
@@ -98,7 +98,7 @@ Interval between minute options in the option list. Direct input and the spinner
 
 > **onChange**: (`value`) => `void`
 
-Defined in: [packages/ui/src/base/inputs/time-picker.tsx:544](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/time-picker.tsx#L544)
+Defined in: [packages/ui/src/base/inputs/time-picker.tsx:550](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/time-picker.tsx#L550)
 
 Called with the new time on every change.
 
@@ -118,6 +118,6 @@ Called with the new time on every change.
 
 > **value**: [`TimeValue`](TimeValue.md) \| `undefined`
 
-Defined in: [packages/ui/src/base/inputs/time-picker.tsx:542](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/time-picker.tsx#L542)
+Defined in: [packages/ui/src/base/inputs/time-picker.tsx:548](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/time-picker.tsx#L548)
 
 Currently selected time of day.

@@ -8,7 +8,7 @@
 
 > **fromCivil**(`year`, `month`, `day`, `hour?`, `minute?`): `number`
 
-Defined in: [packages/gantt-core/src/time.ts:66](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/time.ts#L66)
+Defined in: [packages/gantt-core/src/time.ts:66](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/time.ts#L66)
 
 Builds an instant from calendar fields.
 

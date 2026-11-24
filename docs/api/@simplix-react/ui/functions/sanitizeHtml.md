@@ -8,7 +8,7 @@
 
 > **sanitizeHtml**(`dirty`): `string`
 
-Defined in: [packages/ui/src/utils/sanitize.ts:19](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/sanitize.ts#L19)
+Defined in: [packages/ui/src/utils/sanitize.ts:19](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/sanitize.ts#L19)
 
 Sanitize an HTML string by stripping dangerous tags and attributes.
 

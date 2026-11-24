@@ -6,7 +6,7 @@
 
 # Interface: ListTotalBadgeProps
 
-Defined in: [packages/ui/src/crud/shared/list-total-badge.tsx:7](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/list-total-badge.tsx#L7)
+Defined in: [packages/ui/src/crud/shared/list-total-badge.tsx:9](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/list-total-badge.tsx#L9)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/crud/shared/list-total-badge.tsx:7](https://github.
 
 > `optional` **children**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/list-total-badge.tsx:28](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/list-total-badge.tsx#L28)
+Defined in: [packages/ui/src/crud/shared/list-total-badge.tsx:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/list-total-badge.tsx#L30)
 
 What the badge says instead of the framework's `Total N`, for a total the
 framework cannot phrase.
@@ -34,7 +34,7 @@ Passing the sentence keeps the shape and replaces only the words.
 
 > `optional` **count**: `number` \| `null`
 
-Defined in: [packages/ui/src/crud/shared/list-total-badge.tsx:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/list-total-badge.tsx#L14)
+Defined in: [packages/ui/src/crud/shared/list-total-badge.tsx:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/list-total-badge.tsx#L16)
 
 Total row count shown in the badge. Pass `undefined` / `null` while the
 figure is unknown — the first page in flight, a count query that has not

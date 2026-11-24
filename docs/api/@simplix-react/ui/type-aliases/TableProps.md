@@ -8,7 +8,7 @@
 
 > **TableProps** = `ComponentPropsWithRef`\<`"table"`\> & `object`
 
-Defined in: [packages/ui/src/base/display/table.tsx:133](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/table.tsx#L133)
+Defined in: [packages/ui/src/base/display/table.tsx:215](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/table.tsx#L215)
 
 ## Type Declaration
 
@@ -28,7 +28,7 @@ Fills a height-bounded flex parent (`flex-1 min-h-0`) instead of using `maxHeigh
 
 How the columns take their widths.
 
-<p>`"auto"` — the default — sizes each column to its content, which is right for a table with
+<p>`"auto"` (the default) sizes each column to its content, which is right for a table with
 room to spread. `"fixed"` divides the declared widths and gives the rest to the columns that
 declared none, which is what a column of free text needs: under `auto` a long value has no
 bound to be cut to, so a truncating cell never truncates and the table widens instead. In a
@@ -44,6 +44,13 @@ Bounds the scroll container height so the body scrolls vertically. Pair with `st
 ### rounded?
 
 > `optional` **rounded**: `"none"` \| `"sm"` \| `"md"` \| `"lg"`
+
+### scrollLabel?
+
+> `optional` **scrollLabel**: `string`
+
+The name a screen reader gives the box while the table scrolls sideways, when it becomes a
+focusable region. Defaults to the package's generic 「table」 wording; a list passes its own.
 
 ### size?
 

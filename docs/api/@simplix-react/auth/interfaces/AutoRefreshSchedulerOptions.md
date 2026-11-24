@@ -6,7 +6,7 @@
 
 # Interface: AutoRefreshSchedulerOptions
 
-Defined in: [packages/auth/src/helpers/auto-refresh-scheduler.ts:3](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/helpers/auto-refresh-scheduler.ts#L3)
+Defined in: [packages/auth/src/helpers/auto-refresh-scheduler.ts:3](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/helpers/auto-refresh-scheduler.ts#L3)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/auth/src/helpers/auto-refresh-scheduler.ts:3](https://gith
 
 > `optional` **minIntervalSeconds**: `number`
 
-Defined in: [packages/auth/src/helpers/auto-refresh-scheduler.ts:7](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/helpers/auto-refresh-scheduler.ts#L7)
+Defined in: [packages/auth/src/helpers/auto-refresh-scheduler.ts:7](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/helpers/auto-refresh-scheduler.ts#L7)
 
 Minimum interval between refreshes in seconds. Defaults to `30`.
 
@@ -22,11 +22,17 @@ Minimum interval between refreshes in seconds. Defaults to `30`.
 
 ### onRefreshFailed()?
 
-> `optional` **onRefreshFailed**: () => `void`
+> `optional` **onRefreshFailed**: (`error`) => `void`
 
-Defined in: [packages/auth/src/helpers/auto-refresh-scheduler.ts:9](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/helpers/auto-refresh-scheduler.ts#L9)
+Defined in: [packages/auth/src/helpers/auto-refresh-scheduler.ts:9](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/helpers/auto-refresh-scheduler.ts#L9)
 
-Called when a scheduled refresh fails.
+Called when a scheduled refresh fails, with what the refresh threw.
+
+#### Parameters
+
+##### error
+
+`unknown`
 
 #### Returns
 
@@ -38,6 +44,6 @@ Called when a scheduled refresh fails.
 
 > `optional` **refreshBeforeExpirySeconds**: `number`
 
-Defined in: [packages/auth/src/helpers/auto-refresh-scheduler.ts:5](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/helpers/auto-refresh-scheduler.ts#L5)
+Defined in: [packages/auth/src/helpers/auto-refresh-scheduler.ts:5](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/helpers/auto-refresh-scheduler.ts#L5)
 
 Seconds before expiry to trigger refresh. Defaults to `60`.

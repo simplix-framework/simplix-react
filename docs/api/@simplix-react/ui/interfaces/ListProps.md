@@ -6,7 +6,7 @@
 
 # Interface: ListProps
 
-Defined in: [packages/ui/src/crud/list/crud-list.tsx:113](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/crud-list.tsx#L113)
+Defined in: [packages/ui/src/crud/list/crud-list.tsx:217](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/crud-list.tsx#L217)
 
 Props for the [CrudList](../variables/CrudList.md) compound component root.
 
@@ -26,7 +26,7 @@ Props for the [CrudList](../variables/CrudList.md) compound component root.
 
 > `optional` **children**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/list/crud-list.tsx:115](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/crud-list.tsx#L115)
+Defined in: [packages/ui/src/crud/list/crud-list.tsx:219](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/crud-list.tsx#L219)
 
 ***
 
@@ -34,7 +34,43 @@ Defined in: [packages/ui/src/crud/list/crud-list.tsx:115](https://github.com/sim
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/list/crud-list.tsx:114](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/crud-list.tsx#L114)
+Defined in: [packages/ui/src/crud/list/crud-list.tsx:218](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/crud-list.tsx#L218)
+
+***
+
+### defaultViewMode?
+
+> `optional` **defaultViewMode**: [`CrudListViewMode`](../type-aliases/CrudListViewMode.md)
+
+Defined in: [packages/ui/src/crud/list/crud-list.tsx:236](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/crud-list.tsx#L236)
+
+The view the list opens in: `"grid"` draws the rows as cards in a fit grid on the first render,
+`"list"` (the default) as the table. It only takes effect on a table that declares card slots
+(`cardTitle` / `cardContent`); it is read once, so a later change of the prop moves nothing.
+
+<p>A table that also sets `gridView` offers the list/grid toggle and the reader's pick replaces
+this default; one that does not offers no toggle, so the default is the only view.
+
+***
+
+### onViewModeChange()?
+
+> `optional` **onViewModeChange**: (`mode`) => `void`
+
+Defined in: [packages/ui/src/crud/list/crud-list.tsx:241](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/crud-list.tsx#L241)
+
+Called with the view the reader switched to through the toggle, so the caller can remember it
+and hand it back as [defaultViewMode](#defaultviewmode) on the next visit.
+
+#### Parameters
+
+##### mode
+
+[`CrudListViewMode`](../type-aliases/CrudListViewMode.md)
+
+#### Returns
+
+`void`
 
 ***
 
@@ -42,7 +78,7 @@ Defined in: [packages/ui/src/crud/list/crud-list.tsx:114](https://github.com/sim
 
 > `optional` **ref**: `Ref`\<`HTMLDivElement`\>
 
-Defined in: [packages/ui/src/crud/list/crud-list.tsx:123](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/crud-list.tsx#L123)
+Defined in: [packages/ui/src/crud/list/crud-list.tsx:227](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/crud-list.tsx#L227)
 
 The list's own outermost element.
 

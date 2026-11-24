@@ -8,7 +8,7 @@
 
 > **useCalendarDate**(): `object`
 
-Defined in: [context/calendar-context.tsx:246](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L246)
+Defined in: [context/calendar-context.tsx:265](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L265)
 
 Selected date and its setter.
 

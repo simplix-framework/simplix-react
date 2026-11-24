@@ -8,7 +8,7 @@
 
 > **MenuProvider**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/menu/menu-provider.tsx:19](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/menu-provider.tsx#L19)
+Defined in: [packages/ui/src/menu/menu-provider.tsx:19](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/menu-provider.tsx#L19)
 
 ## Parameters
 

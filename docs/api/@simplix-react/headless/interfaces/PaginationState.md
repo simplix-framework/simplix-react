@@ -6,7 +6,7 @@
 
 # Interface: PaginationState
 
-Defined in: [shared-types.ts:10](https://github.com/simplix-react/simplix-react/blob/main/shared-types.ts#L10)
+Defined in: [shared-types.ts:10](https://github.com/simplix-framework/simplix-react/blob/main/shared-types.ts#L10)
 
 Represents pagination state with page, size, and total count.
 
@@ -16,7 +16,7 @@ Represents pagination state with page, size, and total count.
 
 > **page**: `number`
 
-Defined in: [shared-types.ts:11](https://github.com/simplix-react/simplix-react/blob/main/shared-types.ts#L11)
+Defined in: [shared-types.ts:11](https://github.com/simplix-framework/simplix-react/blob/main/shared-types.ts#L11)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [shared-types.ts:11](https://github.com/simplix-react/simplix-react/
 
 > **pageSize**: `number`
 
-Defined in: [shared-types.ts:12](https://github.com/simplix-react/simplix-react/blob/main/shared-types.ts#L12)
+Defined in: [shared-types.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/shared-types.ts#L12)
 
 ***
 
@@ -32,4 +32,4 @@ Defined in: [shared-types.ts:12](https://github.com/simplix-react/simplix-react/
 
 > **total**: `number`
 
-Defined in: [shared-types.ts:13](https://github.com/simplix-react/simplix-react/blob/main/shared-types.ts#L13)
+Defined in: [shared-types.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/shared-types.ts#L13)

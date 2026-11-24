@@ -8,6 +8,6 @@
 
 > **AutosaveStatus** = `"idle"` \| `"saving"` \| `"saved"` \| `"error"`
 
-Defined in: [packages/ui/src/crud/form/use-autosave.ts:4](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/use-autosave.ts#L4)
+Defined in: [packages/ui/src/crud/form/use-autosave.ts:4](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/use-autosave.ts#L4)
 
 Possible states of the autosave mechanism.

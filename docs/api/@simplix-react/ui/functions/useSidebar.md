@@ -8,7 +8,7 @@
 
 > **useSidebar**(): `object`
 
-Defined in: [packages/ui/src/menu/use-sidebar.ts:3](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/use-sidebar.ts#L3)
+Defined in: [packages/ui/src/menu/use-sidebar.ts:3](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/use-sidebar.ts#L3)
 
 ## Returns
 

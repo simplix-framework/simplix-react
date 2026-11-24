@@ -8,7 +8,7 @@
 
 > **DisplayZoneProvider**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/crud/shared/display-zone-context.tsx:25](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/display-zone-context.tsx#L25)
+Defined in: [packages/ui/src/crud/shared/display-zone-context.tsx:25](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/display-zone-context.tsx#L25)
 
 Provides the ambient default display zone for datetime rendering. Consumed by
 `CrudList.Column format="datetime"`, `DetailDateField format="datetime"`, and

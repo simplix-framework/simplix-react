@@ -8,7 +8,7 @@
 
 > **addLink**(`project`, `link`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-links.ts:14](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-links.ts#L14)
+Defined in: [packages/gantt-core/src/edit-links.ts:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-links.ts#L14)
 
 Adds a dependency. Omitted fields default to finish-to-start with no lag.
 

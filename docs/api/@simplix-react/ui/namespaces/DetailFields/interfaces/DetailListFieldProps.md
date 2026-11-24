@@ -6,7 +6,7 @@
 
 # Interface: DetailListFieldProps
 
-Defined in: [packages/ui/src/fields/detail/list-field.tsx:10](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/list-field.tsx#L10)
+Defined in: [packages/ui/src/fields/detail/list-field.tsx:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/list-field.tsx#L12)
 
 Props for the [DetailListField](../functions/DetailListField.md) component.
 
@@ -20,7 +20,7 @@ Props for the [DetailListField](../functions/DetailListField.md) component.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
+Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
 
 #### Inherited from
 
@@ -32,7 +32,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix
 
 > `optional` **fallback**: `string`
 
-Defined in: [packages/ui/src/fields/detail/list-field.tsx:16](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/list-field.tsx#L16)
+Defined in: [packages/ui/src/fields/detail/list-field.tsx:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/list-field.tsx#L18)
 
 Fallback text when value is null, undefined, or empty array. Defaults to the shared no-value badge.
 
@@ -42,7 +42,7 @@ Fallback text when value is null, undefined, or empty array. Defaults to the sha
 
 > `optional` **label**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
+Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
 
 #### Inherited from
 
@@ -54,7 +54,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix
 
 > `optional` **labelKey**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
+Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
 
 #### Inherited from
 
@@ -66,7 +66,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix
 
 > `optional` **layout**: `"inline"` \| `"left"` \| `"top"` \| `"hidden"` \| `"trailing"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
+Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
 
 Label placement. `"top"` stacks the label above the input, `"left"` puts
 it in a leading column, `"inline"` keeps label and input on one row,
@@ -84,7 +84,7 @@ label for screen readers only.
 
 > `optional` **mode**: [`ListDisplayMode`](../type-aliases/ListDisplayMode.md)
 
-Defined in: [packages/ui/src/fields/detail/list-field.tsx:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/list-field.tsx#L14)
+Defined in: [packages/ui/src/fields/detail/list-field.tsx:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/list-field.tsx#L16)
 
 Display mode. Defaults to `"badges"`.
 
@@ -94,7 +94,7 @@ Display mode. Defaults to `"badges"`.
 
 > `optional` **size**: `"sm"` \| `"lg"` \| `"md"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
+Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
 
 #### Inherited from
 
@@ -106,6 +106,6 @@ Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix
 
 > **value**: `string`[] \| `null` \| `undefined`
 
-Defined in: [packages/ui/src/fields/detail/list-field.tsx:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/list-field.tsx#L12)
+Defined in: [packages/ui/src/fields/detail/list-field.tsx:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/list-field.tsx#L14)
 
 Array of string values to display.

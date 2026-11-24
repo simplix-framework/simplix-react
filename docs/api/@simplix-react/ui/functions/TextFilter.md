@@ -8,7 +8,7 @@
 
 > **TextFilter**(`props`): `Element`
 
-Defined in: [packages/ui/src/crud/filters/text-filter.tsx:35](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/text-filter.tsx#L35)
+Defined in: [packages/ui/src/crud/filters/text-filter.tsx:37](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/text-filter.tsx#L37)
 
 Text input filter with search icon and clear button.
 

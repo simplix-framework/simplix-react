@@ -8,7 +8,7 @@
 
 > **clampToRange**(`date`, `minDate?`, `maxDate?`): `Date`
 
-Defined in: [packages/headless/dist/index.d.ts:571](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L571)
+Defined in: [packages/headless/dist/index.d.ts:616](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L616)
 
 Clamp a date into [minDate, maxDate].
 

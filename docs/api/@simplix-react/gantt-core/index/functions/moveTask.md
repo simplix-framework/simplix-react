@@ -8,7 +8,7 @@
 
 > **moveTask**(`project`, `id`, `beforeIndex`, `outlineLevel?`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-outline.ts:71](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-outline.ts#L71)
+Defined in: [packages/gantt-core/src/edit-outline.ts:71](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-outline.ts#L71)
 
 Moves a task and the tasks under it so the task lands before the row now at
 `beforeIndex` (the end when it equals the row count), at `outlineLevel` or

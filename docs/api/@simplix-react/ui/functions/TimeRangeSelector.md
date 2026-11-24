@@ -8,7 +8,7 @@
 
 > **TimeRangeSelector**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/base/inputs/time-range-selector/index.tsx:103](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/time-range-selector/index.tsx#L103)
+Defined in: [packages/ui/src/base/inputs/time-range-selector/index.tsx:122](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/time-range-selector/index.tsx#L122)
 
 ## Parameters
 

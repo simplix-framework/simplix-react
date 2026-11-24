@@ -6,7 +6,7 @@
 
 # Interface: EmptyStateProps
 
-Defined in: [packages/ui/src/crud/shared/empty-state.tsx:4](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/empty-state.tsx#L4)
+Defined in: [packages/ui/src/crud/shared/empty-state.tsx:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/empty-state.tsx#L14)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/crud/shared/empty-state.tsx:4](https://github.com/s
 
 > `optional` **action**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/empty-state.tsx:8](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/empty-state.tsx#L8)
+Defined in: [packages/ui/src/crud/shared/empty-state.tsx:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/empty-state.tsx#L18)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [packages/ui/src/crud/shared/empty-state.tsx:8](https://github.com/s
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/shared/empty-state.tsx:29](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/empty-state.tsx#L29)
+Defined in: [packages/ui/src/crud/shared/empty-state.tsx:44](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/empty-state.tsx#L44)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [packages/ui/src/crud/shared/empty-state.tsx:29](https://github.com/
 
 > `optional` **description**: `string`
 
-Defined in: [packages/ui/src/crud/shared/empty-state.tsx:7](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/empty-state.tsx#L7)
+Defined in: [packages/ui/src/crud/shared/empty-state.tsx:17](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/empty-state.tsx#L17)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [packages/ui/src/crud/shared/empty-state.tsx:7](https://github.com/s
 
 > `optional` **footer**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/empty-state.tsx:28](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/empty-state.tsx#L28)
+Defined in: [packages/ui/src/crud/shared/empty-state.tsx:43](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/empty-state.tsx#L43)
 
 A quiet line under the actions — a status number, a correlation id, whatever support reads and
 the operator does not act on.
@@ -49,7 +49,18 @@ the operator does not act on.
 
 > `optional` **icon**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/empty-state.tsx:5](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/empty-state.tsx#L5)
+Defined in: [packages/ui/src/crud/shared/empty-state.tsx:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/empty-state.tsx#L15)
+
+***
+
+### iconAttributes?
+
+> `optional` **iconAttributes**: `Readonly`\<`Record`\<`string`, `string`\>\>
+
+Defined in: [packages/ui/src/crud/shared/empty-state.tsx:38](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/empty-state.tsx#L38)
+
+Attributes for the icon's badge beside [iconClassName](#iconclassname), such as the `data-part` marks a
+caller's design declaration draws the tint with (`partAttributes`).
 
 ***
 
@@ -57,7 +68,7 @@ Defined in: [packages/ui/src/crud/shared/empty-state.tsx:5](https://github.com/s
 
 > `optional` **iconClassName**: `string`
 
-Defined in: [packages/ui/src/crud/shared/empty-state.tsx:23](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/empty-state.tsx#L23)
+Defined in: [packages/ui/src/crud/shared/empty-state.tsx:33](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/empty-state.tsx#L33)
 
 The tint the icon's badge is painted with, where the KIND of state has a colour.
 
@@ -72,7 +83,7 @@ to a second one.
 
 > `optional` **size**: `"default"` \| `"sm"`
 
-Defined in: [packages/ui/src/crud/shared/empty-state.tsx:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/empty-state.tsx#L14)
+Defined in: [packages/ui/src/crud/shared/empty-state.tsx:24](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/empty-state.tsx#L24)
 
 Vertical weight. `"default"` fills an empty page or table body; `"sm"` is for
 a panel section, where a full-height placeholder pushes the real content
@@ -84,4 +95,4 @@ off-screen for a state that carries no information.
 
 > **title**: `string`
 
-Defined in: [packages/ui/src/crud/shared/empty-state.tsx:6](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/empty-state.tsx#L6)
+Defined in: [packages/ui/src/crud/shared/empty-state.tsx:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/empty-state.tsx#L16)

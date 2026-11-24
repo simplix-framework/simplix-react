@@ -6,7 +6,7 @@
 
 # Interface: ChartCategory
 
-Defined in: [packages/ui/src/base/charts/types.ts:9](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L9)
+Defined in: [packages/ui/src/base/charts/types.ts:9](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L9)
 
 ## Properties
 
@@ -14,4 +14,4 @@ Defined in: [packages/ui/src/base/charts/types.ts:9](https://github.com/simplix-
 
 > **categories**: `string`[]
 
-Defined in: [packages/ui/src/base/charts/types.ts:10](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L10)
+Defined in: [packages/ui/src/base/charts/types.ts:10](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L10)

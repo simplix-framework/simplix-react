@@ -8,7 +8,7 @@
 
 > **setTaskFinish**(`project`, `schedule`, `id`, `finish`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-tasks.ts:184](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-tasks.ts#L184)
+Defined in: [packages/gantt-core/src/edit-tasks.ts:184](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-tasks.ts#L184)
 
 Moves a task's finish to `finish`, keeping its start: the duration becomes
 the working time between the two.

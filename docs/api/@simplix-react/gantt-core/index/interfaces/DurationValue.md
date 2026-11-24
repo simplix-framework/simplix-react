@@ -6,7 +6,7 @@
 
 # Interface: DurationValue
 
-Defined in: [packages/gantt-core/src/duration.ts:5](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L5)
+Defined in: [packages/gantt-core/src/duration.ts:5](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L5)
 
 A duration as a person writes it: an amount, a unit, and whether it runs on the clock.
 
@@ -16,7 +16,7 @@ A duration as a person writes it: an amount, a unit, and whether it runs on the 
 
 > **elapsed**: `boolean`
 
-Defined in: [packages/gantt-core/src/duration.ts:8](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L8)
+Defined in: [packages/gantt-core/src/duration.ts:8](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L8)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/gantt-core/src/duration.ts:8](https://github.com/simplix-r
 
 > **estimated**: `boolean`
 
-Defined in: [packages/gantt-core/src/duration.ts:9](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L9)
+Defined in: [packages/gantt-core/src/duration.ts:9](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L9)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [packages/gantt-core/src/duration.ts:9](https://github.com/simplix-r
 
 > **minutes**: `number`
 
-Defined in: [packages/gantt-core/src/duration.ts:6](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L6)
+Defined in: [packages/gantt-core/src/duration.ts:6](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L6)
 
 ***
 
@@ -40,4 +40,4 @@ Defined in: [packages/gantt-core/src/duration.ts:6](https://github.com/simplix-r
 
 > **unit**: [`DurationUnit`](../type-aliases/DurationUnit.md)
 
-Defined in: [packages/gantt-core/src/duration.ts:7](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L7)
+Defined in: [packages/gantt-core/src/duration.ts:7](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L7)

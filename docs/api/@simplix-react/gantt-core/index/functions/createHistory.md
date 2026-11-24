@@ -8,7 +8,7 @@
 
 > **createHistory**\<`T`\>(`initial`, `limit?`): [`History`](../interfaces/History.md)\<`T`\>
 
-Defined in: [packages/gantt-core/src/history.ts:20](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/history.ts#L20)
+Defined in: [packages/gantt-core/src/history.ts:20](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/history.ts#L20)
 
 Starts a history at `initial`, keeping up to `limit` states for undo.
 

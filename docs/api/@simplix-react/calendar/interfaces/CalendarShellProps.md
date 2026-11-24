@@ -6,7 +6,7 @@
 
 # Interface: CalendarShellProps
 
-Defined in: [components/calendar-shell.tsx:9](https://github.com/simplix-react/simplix-react/blob/main/components/calendar-shell.tsx#L9)
+Defined in: [components/calendar-shell.tsx:9](https://github.com/simplix-framework/simplix-react/blob/main/components/calendar-shell.tsx#L9)
 
 Props for [CalendarShell](../functions/CalendarShell.md).
 
@@ -20,7 +20,7 @@ Props for [CalendarShell](../functions/CalendarShell.md).
 
 > `optional` **sidePanel**: `ReactNode`
 
-Defined in: [components/calendar-shell.tsx:15](https://github.com/simplix-react/simplix-react/blob/main/components/calendar-shell.tsx#L15)
+Defined in: [components/calendar-shell.tsx:15](https://github.com/simplix-framework/simplix-react/blob/main/components/calendar-shell.tsx#L15)
 
 Fixed-width column rendered to the right of the scrolling calendar body,
 below the header line (e.g. a summary or detail panel). It scrolls
@@ -32,7 +32,7 @@ independently so switching views never shifts the layout.
 
 > `optional` **sidePanelClassName**: `string`
 
-Defined in: [components/calendar-shell.tsx:17](https://github.com/simplix-react/simplix-react/blob/main/components/calendar-shell.tsx#L17)
+Defined in: [components/calendar-shell.tsx:17](https://github.com/simplix-framework/simplix-react/blob/main/components/calendar-shell.tsx#L17)
 
 Width class for the side panel column. Defaults to `w-72`.
 
@@ -42,7 +42,7 @@ Width class for the side panel column. Defaults to `w-72`.
 
 > `optional` **trailing**: `ReactNode`
 
-Defined in: [components/header/calendar-header.tsx:41](https://github.com/simplix-react/simplix-react/blob/main/components/header/calendar-header.tsx#L41)
+Defined in: [components/header/calendar-header.tsx:41](https://github.com/simplix-framework/simplix-react/blob/main/components/header/calendar-header.tsx#L41)
 
 Actions rendered after the view switcher (e.g. an add-item button).
 
@@ -56,7 +56,7 @@ Actions rendered after the view switcher (e.g. an add-item button).
 
 > `optional` **views**: [`CalendarView`](../type-aliases/CalendarView.md)[]
 
-Defined in: [components/header/calendar-header.tsx:39](https://github.com/simplix-react/simplix-react/blob/main/components/header/calendar-header.tsx#L39)
+Defined in: [components/header/calendar-header.tsx:39](https://github.com/simplix-framework/simplix-react/blob/main/components/header/calendar-header.tsx#L39)
 
 Restricts and orders the view-switcher buttons. Defaults to the five base
 views; the data-driven views (resource-timeline, heatmap-month) render

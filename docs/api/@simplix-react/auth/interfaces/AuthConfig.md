@@ -6,7 +6,7 @@
 
 # Interface: AuthConfig
 
-Defined in: [packages/auth/src/types.ts:76](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L76)
+Defined in: [packages/auth/src/types.ts:106](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L106)
 
 Configuration for creating an auth instance via [createAuth](../functions/createAuth.md).
 
@@ -16,7 +16,7 @@ Configuration for creating an auth instance via [createAuth](../functions/create
 
 > `optional` **fetchFn**: [`FetchFn`](../@simplix-react/contract/type-aliases/FetchFn.md)
 
-Defined in: [packages/auth/src/types.ts:99](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L99)
+Defined in: [packages/auth/src/types.ts:129](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L129)
 
 Base fetch function to wrap with auth headers. Defaults to defaultFetch.
 
@@ -26,7 +26,7 @@ Base fetch function to wrap with auth headers. Defaults to defaultFetch.
 
 > `optional` **globalHeaders**: () => `Record`\<`string`, `string`\> \| `Promise`\<`Record`\<`string`, `string`\>\>
 
-Defined in: [packages/auth/src/types.ts:96](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L96)
+Defined in: [packages/auth/src/types.ts:126](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L126)
 
 Returns additional headers to merge into every authenticated request.
 
@@ -40,7 +40,7 @@ Returns additional headers to merge into every authenticated request.
 
 > `optional` **is401**: (`error`) => `boolean`
 
-Defined in: [packages/auth/src/types.ts:90](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L90)
+Defined in: [packages/auth/src/types.ts:120](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L120)
 
 Custom 401 detection predicate. Defaults to duck-typing `error.status === 401`.
 
@@ -60,7 +60,7 @@ Custom 401 detection predicate. Defaults to duck-typing `error.status === 401`.
 
 > `optional` **maxRetries**: `number`
 
-Defined in: [packages/auth/src/types.ts:87](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L87)
+Defined in: [packages/auth/src/types.ts:117](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L117)
 
 Maximum retry attempts after 401. Defaults to `1`.
 
@@ -70,7 +70,7 @@ Maximum retry attempts after 401. Defaults to `1`.
 
 > `optional` **onRefreshFailure**: (`error`) => `void`
 
-Defined in: [packages/auth/src/types.ts:84](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L84)
+Defined in: [packages/auth/src/types.ts:114](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L114)
 
 Called when all refresh attempts fail.
 
@@ -90,7 +90,7 @@ Called when all refresh attempts fail.
 
 > `optional` **onRehydrate**: (`accessToken`) => `Promise`\<`boolean`\>
 
-Defined in: [packages/auth/src/types.ts:93](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L93)
+Defined in: [packages/auth/src/types.ts:123](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L123)
 
 Validates a stored access token on rehydration. Return `true` if valid.
 
@@ -110,7 +110,7 @@ Validates a stored access token on rehydration. Return `true` if valid.
 
 > **schemes**: [`AuthScheme`](AuthScheme.md)[]
 
-Defined in: [packages/auth/src/types.ts:78](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L78)
+Defined in: [packages/auth/src/types.ts:108](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L108)
 
 One or more authentication schemes to compose.
 
@@ -120,6 +120,6 @@ One or more authentication schemes to compose.
 
 > `optional` **store**: [`TokenStore`](TokenStore.md)
 
-Defined in: [packages/auth/src/types.ts:81](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L81)
+Defined in: [packages/auth/src/types.ts:111](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L111)
 
 Token store shared across schemes.

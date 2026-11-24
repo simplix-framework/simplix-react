@@ -6,7 +6,7 @@
 
 # Interface: OrvalGetResultLike
 
-Defined in: [packages/headless/dist/index.d.ts:234](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L234)
+Defined in: [packages/headless/dist/index.d.ts:263](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L263)
 
 Minimal shape required of an Orval-generated single-resource query result:
 only `data` is needed at the boundary. Orval types `data` as the raw HTTP
@@ -19,4 +19,4 @@ runtime so `data` is the plain entity DTO. This adapter bridges that gap.
 
 > **data**: `unknown`
 
-Defined in: [packages/headless/dist/index.d.ts:235](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L235)
+Defined in: [packages/headless/dist/index.d.ts:264](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L264)

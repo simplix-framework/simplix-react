@@ -8,7 +8,7 @@
 
 > **usePulseOnUpdate**(`updatedAt`, `duration?`): `boolean`
 
-Defined in: [packages/ui/src/hooks/use-pulse-on-update.ts:19](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/hooks/use-pulse-on-update.ts#L19)
+Defined in: [packages/ui/src/hooks/use-pulse-on-update.ts:19](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/hooks/use-pulse-on-update.ts#L19)
 
 Returns `true` for a short window after `updatedAt` changes,
 enabling a visual "pulse" effect on freshly updated items.

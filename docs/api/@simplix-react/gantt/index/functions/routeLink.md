@@ -8,7 +8,7 @@
 
 > **routeLink**(`type`, `from`, `to`, `stub`, `rowHeight`): [`LinkPath`](../interfaces/LinkPath.md)
 
-Defined in: [lib/link-path.ts:34](https://github.com/simplix-react/simplix-react/blob/main/lib/link-path.ts#L34)
+Defined in: [lib/link-path.ts:34](https://github.com/simplix-framework/simplix-react/blob/main/lib/link-path.ts#L34)
 
 Routes a dependency between two bars with right-angle segments.
 

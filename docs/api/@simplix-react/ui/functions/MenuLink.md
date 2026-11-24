@@ -8,7 +8,7 @@
 
 > **MenuLink**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/menu/menu-link.tsx:24](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/menu-link.tsx#L24)
+Defined in: [packages/ui/src/menu/menu-link.tsx:29](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/menu-link.tsx#L29)
 
 Router-agnostic menu link.
 

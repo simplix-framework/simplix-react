@@ -8,7 +8,7 @@
 
 > **parsePredecessors**(`text`, `sizes`): [`PredecessorRef`](../interfaces/PredecessorRef.md)[]
 
-Defined in: [packages/gantt-core/src/duration.ts:110](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L110)
+Defined in: [packages/gantt-core/src/duration.ts:110](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L110)
 
 Reads a predecessor list as it is typed into a task table: `3`, `3FS+2d`,
 `4SS-1d`, `5FF+50%`, separated by commas or semicolons.

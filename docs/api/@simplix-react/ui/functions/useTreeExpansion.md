@@ -8,7 +8,7 @@
 
 > **useTreeExpansion**\<`T`\>(`options`): [`UseTreeExpansionResult`](../interfaces/UseTreeExpansionResult.md)
 
-Defined in: [packages/ui/src/crud/tree/use-tree-expansion.ts:51](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/use-tree-expansion.ts#L51)
+Defined in: [packages/ui/src/crud/tree/use-tree-expansion.ts:51](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/use-tree-expansion.ts#L51)
 
 Manage expand/collapse state for a tree data structure.
 

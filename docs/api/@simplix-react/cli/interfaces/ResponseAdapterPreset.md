@@ -6,7 +6,7 @@
 
 # Interface: ResponseAdapterPreset
 
-Defined in: [openapi/adaptation/response-adapter.ts:56](https://github.com/simplix-react/simplix-react/blob/main/openapi/adaptation/response-adapter.ts#L56)
+Defined in: [openapi/adaptation/response-adapter.ts:56](https://github.com/simplix-framework/simplix-react/blob/main/openapi/adaptation/response-adapter.ts#L56)
 
 Reusable preset definition for a response adapter.
 
@@ -33,7 +33,7 @@ registerResponseAdapterPreset("my-api", {
 
 > `optional` **errorAdapterImport**: `string`
 
-Defined in: [openapi/adaptation/response-adapter.ts:60](https://github.com/simplix-react/simplix-react/blob/main/openapi/adaptation/response-adapter.ts#L60)
+Defined in: [openapi/adaptation/response-adapter.ts:60](https://github.com/simplix-framework/simplix-react/blob/main/openapi/adaptation/response-adapter.ts#L60)
 
 Import statement for error adapter (used in mutator setup)
 
@@ -43,7 +43,7 @@ Import statement for error adapter (used in mutator setup)
 
 > `optional` **errorAdapterName**: `string`
 
-Defined in: [openapi/adaptation/response-adapter.ts:62](https://github.com/simplix-react/simplix-react/blob/main/openapi/adaptation/response-adapter.ts#L62)
+Defined in: [openapi/adaptation/response-adapter.ts:62](https://github.com/simplix-framework/simplix-react/blob/main/openapi/adaptation/response-adapter.ts#L62)
 
 Error adapter export name
 
@@ -53,7 +53,7 @@ Error adapter export name
 
 > `optional` **mockResponseWrapper**: `string`
 
-Defined in: [openapi/adaptation/response-adapter.ts:64](https://github.com/simplix-react/simplix-react/blob/main/openapi/adaptation/response-adapter.ts#L64)
+Defined in: [openapi/adaptation/response-adapter.ts:64](https://github.com/simplix-framework/simplix-react/blob/main/openapi/adaptation/response-adapter.ts#L64)
 
 Mock response wrapper function name
 
@@ -63,7 +63,7 @@ Mock response wrapper function name
 
 > `optional` **mockResponseWrapperImport**: `string`
 
-Defined in: [openapi/adaptation/response-adapter.ts:66](https://github.com/simplix-react/simplix-react/blob/main/openapi/adaptation/response-adapter.ts#L66)
+Defined in: [openapi/adaptation/response-adapter.ts:66](https://github.com/simplix-framework/simplix-react/blob/main/openapi/adaptation/response-adapter.ts#L66)
 
 Import statement for mock response wrapper
 
@@ -73,6 +73,6 @@ Import statement for mock response wrapper
 
 > `optional` **unwrapExpression**: `string`
 
-Defined in: [openapi/adaptation/response-adapter.ts:58](https://github.com/simplix-react/simplix-react/blob/main/openapi/adaptation/response-adapter.ts#L58)
+Defined in: [openapi/adaptation/response-adapter.ts:58](https://github.com/simplix-framework/simplix-react/blob/main/openapi/adaptation/response-adapter.ts#L58)
 
 Unwrap expression template (variable name: `data`). Omit when mutator handles unwrap.

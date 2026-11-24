@@ -6,7 +6,7 @@
 
 # Interface: DetailProfileProps
 
-Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:22](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L22)
+Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:34](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L34)
 
 Props for the [DetailProfile](../variables/DetailProfile.md) root.
 
@@ -16,7 +16,7 @@ Props for the [DetailProfile](../variables/DetailProfile.md) root.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:32](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L32)
+Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:44](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L44)
 
 Extra classes on the root `<section>`.
 
@@ -26,7 +26,7 @@ Extra classes on the root `<section>`.
 
 > `optional` **feats**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:28](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L28)
+Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:40](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L40)
 
 Feature badges, right-aligned. Use `<DetailProfile.Feats>`.
 
@@ -36,7 +36,7 @@ Feature badges, right-aligned. Use `<DetailProfile.Feats>`.
 
 > **mark**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:24](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L24)
+Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:36](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L36)
 
 Left mark-tile content (icon / monogram). Decorative — rendered `aria-hidden`.
 
@@ -46,7 +46,7 @@ Left mark-tile content (icon / monogram). Decorative — rendered `aria-hidden`.
 
 > `optional` **meta**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L30)
+Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:42](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L42)
 
 Meta row under the title. Use `<DetailProfile.Meta>`.
 
@@ -56,6 +56,6 @@ Meta row under the title. Use `<DetailProfile.Meta>`.
 
 > **title**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:26](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L26)
+Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:38](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L38)
 
 Already-localized entity title (channel name, etc.).

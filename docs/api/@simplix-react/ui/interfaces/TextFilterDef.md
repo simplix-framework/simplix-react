@@ -6,7 +6,7 @@
 
 # Interface: TextFilterDef
 
-Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:44](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L44)
+Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:75](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L75)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:44](https://github.com/
 
 > `optional` **columnBreak**: `boolean`
 
-Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:35](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L35)
+Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:66](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L66)
 
 When the filter popover renders in multiple columns, start a new column at
 this filter. Up to (columns - 1) flags take effect, in order; without flags
@@ -34,7 +34,7 @@ the fields are split evenly (column-major). Ignored in single-column layout.
 
 > **defaultOperator**: [`SearchOperator`](../enumerations/SearchOperator.md)
 
-Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:47](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L47)
+Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:78](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L78)
 
 ***
 
@@ -42,7 +42,7 @@ Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:47](https://github.com/
 
 > **field**: `string`
 
-Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:28](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L28)
+Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:59](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L59)
 
 #### Inherited from
 
@@ -54,7 +54,7 @@ Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:28](https://github.com/
 
 > **label**: `string`
 
-Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:29](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L29)
+Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:60](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L60)
 
 #### Inherited from
 
@@ -66,7 +66,7 @@ Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:29](https://github.com/
 
 > **operators**: [`SearchOperator`](../enumerations/SearchOperator.md)[]
 
-Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:46](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L46)
+Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:77](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L77)
 
 ***
 
@@ -74,7 +74,7 @@ Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:46](https://github.com/
 
 > `optional` **options**: [`TextFilterOptionDef`](TextFilterOptionDef.md)[]
 
-Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:56](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L56)
+Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:87](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L87)
 
 Closed catalogue the value is picked from instead of typed. Use it for a column
 the server matches literally — a constant key, a code — where a typo produces an
@@ -88,7 +88,7 @@ keys keeps working.
 
 > `optional` **placeholder**: `string`
 
-Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:48](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L48)
+Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:79](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L79)
 
 ***
 
@@ -96,4 +96,4 @@ Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:48](https://github.com/
 
 > **type**: `"text"`
 
-Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:45](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L45)
+Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:76](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L76)

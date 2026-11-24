@@ -8,6 +8,6 @@
 
 > **TaskFilter** = `"all"` \| `"critical"` \| `"incomplete"` \| `"completed"` \| `"milestones"` \| `"late"` \| `"unassigned"`
 
-Defined in: [lib/view-rows.ts:7](https://github.com/simplix-react/simplix-react/blob/main/lib/view-rows.ts#L7)
+Defined in: [lib/view-rows.ts:7](https://github.com/simplix-framework/simplix-react/blob/main/lib/view-rows.ts#L7)
 
 Which tasks a chart shows.

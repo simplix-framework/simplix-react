@@ -6,7 +6,7 @@
 
 # Interface: Outline
 
-Defined in: [packages/gantt-core/src/outline.ts:5](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/outline.ts#L5)
+Defined in: [packages/gantt-core/src/outline.ts:5](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/outline.ts#L5)
 
 The tree the outline levels of a row list describe, by row index.
 
@@ -16,7 +16,7 @@ The tree the outline levels of a row list describe, by row index.
 
 > **active**: readonly `boolean`[]
 
-Defined in: [packages/gantt-core/src/outline.ts:15](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/outline.ts#L15)
+Defined in: [packages/gantt-core/src/outline.ts:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/outline.ts#L15)
 
 False for an inactive row and every row under one.
 
@@ -26,7 +26,7 @@ False for an inactive row and every row under one.
 
 > **children**: readonly readonly `number`[][]
 
-Defined in: [packages/gantt-core/src/outline.ts:9](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/outline.ts#L9)
+Defined in: [packages/gantt-core/src/outline.ts:9](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/outline.ts#L9)
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: [packages/gantt-core/src/outline.ts:9](https://github.com/simplix-re
 
 > **indexById**: `ReadonlyMap`\<`string`, `number`\>
 
-Defined in: [packages/gantt-core/src/outline.ts:6](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/outline.ts#L6)
+Defined in: [packages/gantt-core/src/outline.ts:6](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/outline.ts#L6)
 
 ***
 
@@ -42,7 +42,7 @@ Defined in: [packages/gantt-core/src/outline.ts:6](https://github.com/simplix-re
 
 > **parent**: readonly `number`[]
 
-Defined in: [packages/gantt-core/src/outline.ts:8](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/outline.ts#L8)
+Defined in: [packages/gantt-core/src/outline.ts:8](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/outline.ts#L8)
 
 Row index of the parent, or -1 at the top level.
 
@@ -52,7 +52,7 @@ Row index of the parent, or -1 at the top level.
 
 > **summary**: readonly `boolean`[]
 
-Defined in: [packages/gantt-core/src/outline.ts:11](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/outline.ts#L11)
+Defined in: [packages/gantt-core/src/outline.ts:11](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/outline.ts#L11)
 
 True for a row with rows under it.
 
@@ -62,6 +62,6 @@ True for a row with rows under it.
 
 > **wbs**: readonly `string`[]
 
-Defined in: [packages/gantt-core/src/outline.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/outline.ts#L13)
+Defined in: [packages/gantt-core/src/outline.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/outline.ts#L13)
 
 Outline number, such as `1.2.3`.

@@ -8,7 +8,7 @@
 
 > **getFilterLayout**(`n`): `number`[]
 
-Defined in: [filter-utils.ts:29](https://github.com/simplix-react/simplix-react/blob/main/filter-utils.ts#L29)
+Defined in: [filter-utils.ts:29](https://github.com/simplix-framework/simplix-react/blob/main/filter-utils.ts#L29)
 
 Calculate filter layout: distribute N filters into rows.
 Returns array of items-per-row.

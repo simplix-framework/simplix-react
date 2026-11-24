@@ -8,4 +8,4 @@
 
 > **DurationUnit** = `"m"` \| `"h"` \| `"d"` \| `"w"` \| `"mo"`
 
-Defined in: [packages/gantt-core/src/types.ts:49](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L49)
+Defined in: [packages/gantt-core/src/types.ts:49](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/types.ts#L49)

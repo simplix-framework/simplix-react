@@ -8,4 +8,4 @@
 
 > **LabelProps** = `ComponentPropsWithRef`\<*typeof* `LabelPrimitive.Root`\>
 
-Defined in: [packages/ui/src/base/controls/label.tsx:7](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/controls/label.tsx#L7)
+Defined in: [packages/ui/src/base/controls/label.tsx:9](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/controls/label.tsx#L9)

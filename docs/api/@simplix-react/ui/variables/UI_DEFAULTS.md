@@ -8,6 +8,6 @@
 
 > `const` **UI\_DEFAULTS**: [`UIDefaults`](../interfaces/UIDefaults.md)
 
-Defined in: [packages/ui/src/provider/ui-defaults-context.ts:46](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/ui-defaults-context.ts#L46)
+Defined in: [packages/ui/src/provider/ui-defaults-context.ts:70](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/ui-defaults-context.ts#L70)
 
 What a product gets when it declares nothing.

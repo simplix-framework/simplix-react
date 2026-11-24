@@ -8,7 +8,7 @@
 
 > **pasteTasks**(`project`, `clipboard`, `beforeIndex`, `createId`, `outlineLevel?`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-outline.ts:124](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-outline.ts#L124)
+Defined in: [packages/gantt-core/src/edit-outline.ts:124](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-outline.ts#L124)
 
 Inserts copied tasks before the row at `beforeIndex`, at `outlineLevel` or
 as deep as the row above allows. Every pasted record gets a new id from

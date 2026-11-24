@@ -6,7 +6,7 @@
 
 # Interface: TaskClipboard
 
-Defined in: [packages/gantt-core/src/edit-outline.ts:95](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-outline.ts#L95)
+Defined in: [packages/gantt-core/src/edit-outline.ts:95](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-outline.ts#L95)
 
 Tasks lifted out of a project together with the links and assignments among them.
 
@@ -16,7 +16,7 @@ Tasks lifted out of a project together with the links and assignments among them
 
 > **assignments**: readonly [`Assignment`](Assignment.md)[]
 
-Defined in: [packages/gantt-core/src/edit-outline.ts:98](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-outline.ts#L98)
+Defined in: [packages/gantt-core/src/edit-outline.ts:98](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-outline.ts#L98)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/gantt-core/src/edit-outline.ts:98](https://github.com/simp
 
 > **links**: readonly [`Link`](Link.md)[]
 
-Defined in: [packages/gantt-core/src/edit-outline.ts:97](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-outline.ts#L97)
+Defined in: [packages/gantt-core/src/edit-outline.ts:97](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-outline.ts#L97)
 
 ***
 
@@ -32,4 +32,4 @@ Defined in: [packages/gantt-core/src/edit-outline.ts:97](https://github.com/simp
 
 > **tasks**: readonly [`Task`](Task.md)[]
 
-Defined in: [packages/gantt-core/src/edit-outline.ts:96](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-outline.ts#L96)
+Defined in: [packages/gantt-core/src/edit-outline.ts:96](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-outline.ts#L96)

@@ -8,7 +8,7 @@
 
 > **getAttachmentTransport**(): [`AttachmentTransport`](../interfaces/AttachmentTransport.md)
 
-Defined in: [packages/ui/src/fields/file-attachment/attachment-transport.ts:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/attachment-transport.ts#L30)
+Defined in: [packages/ui/src/fields/file-attachment/attachment-transport.ts:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/attachment-transport.ts#L30)
 
 The currently registered attachment transport (empty object if unset).
 

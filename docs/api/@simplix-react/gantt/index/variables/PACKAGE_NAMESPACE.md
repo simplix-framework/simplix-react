@@ -8,7 +8,7 @@
 
 > `const` **PACKAGE\_NAMESPACE**: `"simplix-gantt/gantt"` = `"simplix-gantt/gantt"`
 
-Defined in: [locales/index.ts:8](https://github.com/simplix-react/simplix-react/blob/main/locales/index.ts#L8)
+Defined in: [locales/index.ts:8](https://github.com/simplix-framework/simplix-react/blob/main/locales/index.ts#L8)
 
 i18next namespace every chart component translates against. The module
 registers under `"simplix-gantt"` and its components read the

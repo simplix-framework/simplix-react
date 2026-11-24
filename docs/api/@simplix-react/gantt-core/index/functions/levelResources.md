@@ -8,7 +8,7 @@
 
 > **levelResources**(`project`, `options?`): [`LevelingResult`](../interfaces/LevelingResult.md)
 
-Defined in: [packages/gantt-core/src/leveling.ts:154](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/leveling.ts#L154)
+Defined in: [packages/gantt-core/src/leveling.ts:154](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/leveling.ts#L154)
 
 Resolves overallocated work resources by delaying tasks.
 

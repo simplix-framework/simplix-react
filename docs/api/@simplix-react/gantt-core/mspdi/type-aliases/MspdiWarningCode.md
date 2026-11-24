@@ -8,7 +8,7 @@
 
 > **MspdiWarningCode** = `"work-contour-dropped"` \| `"recurrence-skipped"` \| `"working-time-overnight"` \| `"working-day-without-hours"` \| `"baseline-incomplete"` \| `"timephased-data-dropped"` \| `"link-skipped"` \| `"assignment-skipped"` \| `"null-task-skipped"` \| `"unknown-code"`
 
-Defined in: [packages/gantt-core/src/mspdi/warnings.ts:18](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/mspdi/warnings.ts#L18)
+Defined in: [packages/gantt-core/src/mspdi/warnings.ts:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/mspdi/warnings.ts#L18)
 
 Reason an MSPDI import left something out or read it differently from the
 file.

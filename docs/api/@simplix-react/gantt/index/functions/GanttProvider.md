@@ -8,7 +8,7 @@
 
 > **GanttProvider**(`__namedParameters`): `Element`
 
-Defined in: [context/gantt-context.tsx:24](https://github.com/simplix-react/simplix-react/blob/main/context/gantt-context.tsx#L24)
+Defined in: [context/gantt-context.tsx:24](https://github.com/simplix-framework/simplix-react/blob/main/context/gantt-context.tsx#L24)
 
 Owns the store of one chart. Charts under different providers share no
 state.

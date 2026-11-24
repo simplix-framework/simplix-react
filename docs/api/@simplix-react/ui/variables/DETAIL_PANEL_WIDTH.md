@@ -8,7 +8,7 @@
 
 > `const` **DETAIL\_PANEL\_WIDTH**: `768` = `768`
 
-Defined in: [packages/ui/src/crud/patterns/list-detail.tsx:147](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail.tsx#L147)
+Defined in: [packages/ui/src/crud/patterns/list-detail.tsx:188](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail.tsx#L188)
 
 How much room the detail gets when the framework is the one deciding, in px.
 
@@ -21,9 +21,9 @@ one reported a screen defect that was really a setting.
 detail's action row — four buttons, in English, at a 1280 viewport — pushed its last button
 141px past the edge. At 768 that row ends 24px inside it.
 
-<p><b>A screen that pins `listWidth` does not use this in panel mode</b>, and today every screen
-in this console does: the list takes the width it asked for and the detail column takes whatever
-remains, which is wider than 768 on a large monitor and narrower on a small one. So this unifies
-the two presentations that float over the list and sets the default for the panel; making the
-third agree as well would mean overriding a number each screen chose for its own list, which is
-a different decision from this one.
+<p><b>A screen that pins `listWidth` does not use this in panel mode</b>: the list takes the width
+it asked for and the detail column takes whatever remains.
+
+<p><b>The theme names the width first.</b> `--detail-panel-width` (theme/base.css, the same in
+every design) puts the record panel at 440px beside a wide list; this number is the fallback for
+an application whose stylesheet leaves the property unset.

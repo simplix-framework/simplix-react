@@ -8,7 +8,7 @@
 
 > **formatDateRange**(`from`, `to`, `locale?`, `timeZone?`): `string` \| `null`
 
-Defined in: [packages/headless/dist/index.d.ts:492](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L492)
+Defined in: [packages/headless/dist/index.d.ts:537](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L537)
 
 Format a date range as a short string — e.g. "Mar 3 – Mar 27", localized.
 Returns `null` when both `from` and `to` are undefined.

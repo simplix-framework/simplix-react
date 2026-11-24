@@ -8,7 +8,7 @@
 
 > **UIProvider**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/provider/ui-provider.tsx:58](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/ui-provider.tsx#L58)
+Defined in: [packages/ui/src/provider/ui-provider.tsx:66](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/ui-provider.tsx#L66)
 
 Provides overridable base component implementations to the component tree.
 Supports nesting for scoped overrides.

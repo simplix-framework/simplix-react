@@ -6,7 +6,7 @@
 
 # Interface: ModalSidebarRowProps
 
-Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:48](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/modal/modal-sidebar.tsx#L48)
+Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:48](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/modal/modal-sidebar.tsx#L48)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:48](https://github.com
 
 > `optional` **bool**: `boolean`
 
-Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:51](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/modal/modal-sidebar.tsx#L51)
+Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:51](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/modal/modal-sidebar.tsx#L51)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:51](https://github.com
 
 > `optional` **children**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:58](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/modal/modal-sidebar.tsx#L58)
+Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:58](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/modal/modal-sidebar.tsx#L58)
 
 Editable control (form mode) — overrides value / bool.
 
@@ -32,7 +32,7 @@ Editable control (form mode) — overrides value / bool.
 
 > **label**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:49](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/modal/modal-sidebar.tsx#L49)
+Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:49](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/modal/modal-sidebar.tsx#L49)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:49](https://github.com
 
 > `optional` **offLabel**: `string`
 
-Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:56](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/modal/modal-sidebar.tsx#L56)
+Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:56](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/modal/modal-sidebar.tsx#L56)
 
 aria-label for the on/off badge in the `off` state. Defaults to `t("common.off")`.
 
@@ -50,7 +50,7 @@ aria-label for the on/off badge in the `off` state. Defaults to `t("common.off")
 
 > `optional` **on**: `boolean`
 
-Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:52](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/modal/modal-sidebar.tsx#L52)
+Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:52](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/modal/modal-sidebar.tsx#L52)
 
 ***
 
@@ -58,7 +58,7 @@ Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:52](https://github.com
 
 > `optional` **onLabel**: `string`
 
-Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:54](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/modal/modal-sidebar.tsx#L54)
+Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:54](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/modal/modal-sidebar.tsx#L54)
 
 aria-label for the on/off badge in the `on` state. Defaults to `t("common.on")`.
 
@@ -68,4 +68,4 @@ aria-label for the on/off badge in the `on` state. Defaults to `t("common.on")`.
 
 > `optional` **value**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:50](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/modal/modal-sidebar.tsx#L50)
+Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:50](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/modal/modal-sidebar.tsx#L50)

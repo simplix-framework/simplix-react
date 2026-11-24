@@ -6,7 +6,7 @@
 
 # Interface: OrvalMutationLike
 
-Defined in: [adapt-orval-mutation.ts:9](https://github.com/simplix-react/simplix-react/blob/main/adapt-orval-mutation.ts#L9)
+Defined in: [adapt-orval-mutation.ts:9](https://github.com/simplix-framework/simplix-react/blob/main/adapt-orval-mutation.ts#L9)
 
 Loose mutation shape that accepts any Orval-generated hook result.
 Orval hooks return concretely typed `mutate` signatures (e.g. `{ petId: number }`)
@@ -19,7 +19,7 @@ We use `any` at this adapter boundary intentionally.
 
 > **isPending**: `boolean`
 
-Defined in: [adapt-orval-mutation.ts:14](https://github.com/simplix-react/simplix-react/blob/main/adapt-orval-mutation.ts#L14)
+Defined in: [adapt-orval-mutation.ts:14](https://github.com/simplix-framework/simplix-react/blob/main/adapt-orval-mutation.ts#L14)
 
 ***
 
@@ -27,7 +27,7 @@ Defined in: [adapt-orval-mutation.ts:14](https://github.com/simplix-react/simpli
 
 > **mutate**: (...`args`) => `void`
 
-Defined in: [adapt-orval-mutation.ts:11](https://github.com/simplix-react/simplix-react/blob/main/adapt-orval-mutation.ts#L11)
+Defined in: [adapt-orval-mutation.ts:11](https://github.com/simplix-framework/simplix-react/blob/main/adapt-orval-mutation.ts#L11)
 
 #### Parameters
 
@@ -45,7 +45,7 @@ Defined in: [adapt-orval-mutation.ts:11](https://github.com/simplix-react/simpli
 
 > **mutateAsync**: (...`args`) => `Promise`\<`any`\>
 
-Defined in: [adapt-orval-mutation.ts:13](https://github.com/simplix-react/simplix-react/blob/main/adapt-orval-mutation.ts#L13)
+Defined in: [adapt-orval-mutation.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/adapt-orval-mutation.ts#L13)
 
 #### Parameters
 

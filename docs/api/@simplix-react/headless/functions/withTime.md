@@ -8,7 +8,7 @@
 
 > **withTime**(`date`, `hours`, `minutes`): `Date`
 
-Defined in: [time-select.ts:27](https://github.com/simplix-react/simplix-react/blob/main/time-select.ts#L27)
+Defined in: [time-select.ts:27](https://github.com/simplix-framework/simplix-react/blob/main/time-select.ts#L27)
 
 Return a copy of `date` with the given hours/minutes and zeroed seconds.
 

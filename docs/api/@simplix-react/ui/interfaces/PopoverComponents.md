@@ -6,7 +6,7 @@
 
 # Interface: PopoverComponents
 
-Defined in: [packages/ui/src/provider/types.ts:101](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/types.ts#L101)
+Defined in: [packages/ui/src/provider/types.ts:101](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/types.ts#L101)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/provider/types.ts:101](https://github.com/simplix-r
 
 > **Anchor**: `ComponentType`\<\{ `asChild?`: `boolean`; `children?`: `ReactNode`; \}\>
 
-Defined in: [packages/ui/src/provider/types.ts:110](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/types.ts#L110)
+Defined in: [packages/ui/src/provider/types.ts:114](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/types.ts#L114)
 
 Positions the popover against something other than its trigger. A field whose
 box holds controls of its own (removable chips, a search input) cannot make
@@ -25,17 +25,20 @@ anchors and a button inside it triggers.
 
 ### Content
 
-> **Content**: `ComponentType`\<`PopoverContentProps` & `RefAttributes`\<`HTMLDivElement`\>\>
+> **Content**: `ComponentType`\<[`PopoverContentProps`](../type-aliases/PopoverContentProps.md)\>
 
-Defined in: [packages/ui/src/provider/types.ts:111](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/types.ts#L111)
+Defined in: [packages/ui/src/provider/types.ts:115](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/types.ts#L115)
 
 ***
 
 ### Root
 
-> **Root**: `ComponentType`\<\{ `children?`: `ReactNode`; `onOpenChange?`: (`open`) => `void`; `open?`: `boolean`; \}\>
+> **Root**: `ComponentType`\<\{ `children?`: `ReactNode`; `modal?`: `boolean`; `onOpenChange?`: (`open`) => `void`; `open?`: `boolean`; \}\>
 
-Defined in: [packages/ui/src/provider/types.ts:102](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/types.ts#L102)
+Defined in: [packages/ui/src/provider/types.ts:106](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/types.ts#L106)
+
+`modal` gives the popover its own focus scope and blocks the page behind it: what a popover
+holding a text input needs inside a dialog, whose focus trap otherwise takes the input's focus.
 
 ***
 
@@ -43,4 +46,4 @@ Defined in: [packages/ui/src/provider/types.ts:102](https://github.com/simplix-r
 
 > **Trigger**: `ComponentType`\<\{ `asChild?`: `boolean`; `children?`: `ReactNode`; \}\>
 
-Defined in: [packages/ui/src/provider/types.ts:103](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/types.ts#L103)
+Defined in: [packages/ui/src/provider/types.ts:107](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/types.ts#L107)

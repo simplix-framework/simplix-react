@@ -8,4 +8,4 @@
 
 > **SelectSeparatorProps** = `ComponentPropsWithRef`\<*typeof* `SelectPrimitive.Separator`\>
 
-Defined in: [packages/ui/src/base/inputs/select.tsx:153](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/select.tsx#L153)
+Defined in: [packages/ui/src/base/inputs/select.tsx:152](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/select.tsx#L152)

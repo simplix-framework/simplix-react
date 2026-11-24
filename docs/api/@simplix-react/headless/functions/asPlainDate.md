@@ -8,7 +8,7 @@
 
 > **asPlainDate**(`d`): `Date`
 
-Defined in: [parse-date.ts:23](https://github.com/simplix-react/simplix-react/blob/main/parse-date.ts#L23)
+Defined in: [parse-date.ts:23](https://github.com/simplix-framework/simplix-react/blob/main/parse-date.ts#L23)
 
 Tag a Date so JSON serialization emits a zone-neutral calendar date
 (local `yyyy-MM-dd`) instead of `Date.prototype.toJSON`'s UTC `toISOString()`.

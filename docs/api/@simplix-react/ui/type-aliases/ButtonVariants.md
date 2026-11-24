@@ -8,4 +8,4 @@
 
 > **ButtonVariants** = `VariantProps`\<*typeof* [`buttonVariants`](../variables/buttonVariants.md)\>
 
-Defined in: [packages/ui/src/base/controls/button.tsx:97](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/controls/button.tsx#L97)
+Defined in: [packages/ui/src/base/controls/button.tsx:21](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/controls/button.tsx#L21)

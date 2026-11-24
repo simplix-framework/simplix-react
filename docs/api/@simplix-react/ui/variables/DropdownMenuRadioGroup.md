@@ -8,4 +8,4 @@
 
 > `const` **DropdownMenuRadioGroup**: `ForwardRefExoticComponent`\<`DropdownMenuRadioGroupProps` & `RefAttributes`\<`HTMLDivElement`\>\> = `DropdownMenuPrimitive.RadioGroup`
 
-Defined in: [packages/ui/src/base/navigation/dropdown-menu.tsx:19](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/navigation/dropdown-menu.tsx#L19)
+Defined in: [packages/ui/src/base/navigation/dropdown-menu.tsx:32](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/navigation/dropdown-menu.tsx#L32)

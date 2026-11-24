@@ -8,7 +8,7 @@
 
 > **copyTasks**(`project`, `ids`): [`TaskClipboard`](../interfaces/TaskClipboard.md)
 
-Defined in: [packages/gantt-core/src/edit-outline.ts:102](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-outline.ts#L102)
+Defined in: [packages/gantt-core/src/edit-outline.ts:102](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-outline.ts#L102)
 
 Copies tasks with the tasks under them, the links between the copied tasks and their assignments.
 

@@ -8,7 +8,7 @@
 
 > **toBCP47Locale**(`locale`): `string`
 
-Defined in: [datetime.ts:81](https://github.com/simplix-react/simplix-react/blob/main/datetime.ts#L81)
+Defined in: [datetime.ts:81](https://github.com/simplix-framework/simplix-react/blob/main/datetime.ts#L81)
 
 Convert short locale code to BCP 47 tag
 

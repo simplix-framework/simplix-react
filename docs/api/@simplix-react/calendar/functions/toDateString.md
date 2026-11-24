@@ -8,7 +8,7 @@
 
 > **toDateString**(`date`): `string`
 
-Defined in: [helpers.ts:356](https://github.com/simplix-react/simplix-react/blob/main/helpers.ts#L356)
+Defined in: [helpers.ts:356](https://github.com/simplix-framework/simplix-react/blob/main/helpers.ts#L356)
 
 Formats a local date as `yyyy-MM-dd` without timezone shifting.
 

@@ -6,7 +6,7 @@
 
 # Interface: CalendarLegendItem
 
-Defined in: [components/calendar-color-legend.tsx:8](https://github.com/simplix-react/simplix-react/blob/main/components/calendar-color-legend.tsx#L8)
+Defined in: [components/calendar-color-legend.tsx:8](https://github.com/simplix-framework/simplix-react/blob/main/components/calendar-color-legend.tsx#L8)
 
 One legend entry: a calendar color dot with its label.
 
@@ -16,7 +16,7 @@ One legend entry: a calendar color dot with its label.
 
 > **color**: [`CalendarColor`](../type-aliases/CalendarColor.md)
 
-Defined in: [components/calendar-color-legend.tsx:9](https://github.com/simplix-react/simplix-react/blob/main/components/calendar-color-legend.tsx#L9)
+Defined in: [components/calendar-color-legend.tsx:9](https://github.com/simplix-framework/simplix-react/blob/main/components/calendar-color-legend.tsx#L9)
 
 ***
 
@@ -24,4 +24,4 @@ Defined in: [components/calendar-color-legend.tsx:9](https://github.com/simplix-
 
 > **label**: `ReactNode`
 
-Defined in: [components/calendar-color-legend.tsx:10](https://github.com/simplix-react/simplix-react/blob/main/components/calendar-color-legend.tsx#L10)
+Defined in: [components/calendar-color-legend.tsx:10](https://github.com/simplix-framework/simplix-react/blob/main/components/calendar-color-legend.tsx#L10)

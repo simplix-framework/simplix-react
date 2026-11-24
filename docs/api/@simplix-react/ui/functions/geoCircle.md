@@ -8,7 +8,7 @@
 
 > **geoCircle**(`lat`, `lng`, `radiusM`, `steps?`): \[`number`, `number`\][]
 
-Defined in: [packages/ui/src/utils/geo.ts:100](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L100)
+Defined in: [packages/ui/src/utils/geo.ts:100](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L100)
 
 ## Parameters
 

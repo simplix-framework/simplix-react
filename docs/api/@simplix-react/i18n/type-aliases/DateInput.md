@@ -8,7 +8,7 @@
 
 > **DateInput** = `Date` \| `string` \| `number`
 
-Defined in: [datetime.ts:13](https://github.com/simplix-react/simplix-react/blob/main/datetime.ts#L13)
+Defined in: [datetime.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/datetime.ts#L13)
 
 DateTime Internationalization Utilities
 

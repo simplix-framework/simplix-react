@@ -6,7 +6,7 @@
 
 # Class: AccessDeniedError
 
-Defined in: [packages/access/src/errors.ts:23](https://github.com/simplix-react/simplix-react/blob/main/packages/access/src/errors.ts#L23)
+Defined in: [packages/access/src/errors.ts:23](https://github.com/simplix-framework/simplix-react/blob/main/packages/access/src/errors.ts#L23)
 
 Thrown when an access check fails.
 
@@ -41,7 +41,7 @@ try {
 
 > **new AccessDeniedError**(`action`, `subject`): `AccessDeniedError`
 
-Defined in: [packages/access/src/errors.ts:33](https://github.com/simplix-react/simplix-react/blob/main/packages/access/src/errors.ts#L33)
+Defined in: [packages/access/src/errors.ts:33](https://github.com/simplix-framework/simplix-react/blob/main/packages/access/src/errors.ts#L33)
 
 #### Parameters
 
@@ -71,7 +71,7 @@ The subject the action was attempted on.
 
 > `readonly` **action**: `string`
 
-Defined in: [packages/access/src/errors.ts:25](https://github.com/simplix-react/simplix-react/blob/main/packages/access/src/errors.ts#L25)
+Defined in: [packages/access/src/errors.ts:25](https://github.com/simplix-framework/simplix-react/blob/main/packages/access/src/errors.ts#L25)
 
 The action that was denied.
 
@@ -81,7 +81,7 @@ The action that was denied.
 
 > `optional` **cause**: `unknown`
 
-Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:26](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/typescript@5.9.3/node_modules/typescript/lib/lib.es2022.error.d.ts#L26)
+Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:26](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/typescript@5.9.3/node_modules/typescript/lib/lib.es2022.error.d.ts#L26)
 
 #### Inherited from
 
@@ -93,7 +93,7 @@ Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/l
 
 > **message**: `string`
 
-Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es5.d.ts:1077](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/typescript@5.9.3/node_modules/typescript/lib/lib.es5.d.ts#L1077)
+Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es5.d.ts:1077](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/typescript@5.9.3/node_modules/typescript/lib/lib.es5.d.ts#L1077)
 
 #### Inherited from
 
@@ -105,7 +105,7 @@ Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/l
 
 > **name**: `string`
 
-Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es5.d.ts:1076](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/typescript@5.9.3/node_modules/typescript/lib/lib.es5.d.ts#L1076)
+Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es5.d.ts:1076](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/typescript@5.9.3/node_modules/typescript/lib/lib.es5.d.ts#L1076)
 
 #### Inherited from
 
@@ -117,7 +117,7 @@ Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/l
 
 > `optional` **stack**: `string`
 
-Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es5.d.ts:1078](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/typescript@5.9.3/node_modules/typescript/lib/lib.es5.d.ts#L1078)
+Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es5.d.ts:1078](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/typescript@5.9.3/node_modules/typescript/lib/lib.es5.d.ts#L1078)
 
 #### Inherited from
 
@@ -129,6 +129,6 @@ Defined in: [node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/l
 
 > `readonly` **subject**: `string`
 
-Defined in: [packages/access/src/errors.ts:27](https://github.com/simplix-react/simplix-react/blob/main/packages/access/src/errors.ts#L27)
+Defined in: [packages/access/src/errors.ts:27](https://github.com/simplix-framework/simplix-react/blob/main/packages/access/src/errors.ts#L27)
 
 The subject the action was attempted on.

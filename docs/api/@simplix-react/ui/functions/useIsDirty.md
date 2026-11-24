@@ -8,7 +8,7 @@
 
 > **useIsDirty**\<`T`\>(`current`, `initial`): `boolean`
 
-Defined in: [packages/ui/src/crud/form/use-is-dirty.ts:35](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/use-is-dirty.ts#L35)
+Defined in: [packages/ui/src/crud/form/use-is-dirty.ts:35](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/use-is-dirty.ts#L35)
 
 Detect whether form values have changed via shallow comparison.
 Supports Date-aware comparison for date fields.

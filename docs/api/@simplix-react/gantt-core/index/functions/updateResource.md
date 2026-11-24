@@ -8,7 +8,7 @@
 
 > **updateResource**(`project`, `id`, `patch`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-links.ts:71](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-links.ts#L71)
+Defined in: [packages/gantt-core/src/edit-links.ts:71](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-links.ts#L71)
 
 Changes fields of a resource.
 

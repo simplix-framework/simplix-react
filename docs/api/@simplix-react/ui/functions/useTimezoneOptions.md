@@ -8,7 +8,7 @@
 
 > **useTimezoneOptions**(): `object`
 
-Defined in: [packages/ui/src/utils/use-timezone-options.ts:25](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/use-timezone-options.ts#L25)
+Defined in: [packages/ui/src/utils/use-timezone-options.ts:25](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/use-timezone-options.ts#L25)
 
 ## Returns
 

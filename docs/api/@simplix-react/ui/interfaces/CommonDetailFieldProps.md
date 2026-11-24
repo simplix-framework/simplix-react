@@ -6,7 +6,7 @@
 
 # Interface: CommonDetailFieldProps
 
-Defined in: [packages/ui/src/crud/shared/types.ts:53](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L53)
+Defined in: [packages/ui/src/crud/shared/types.ts:53](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L53)
 
 Shared props for all detail (read-only) field components.
 
@@ -41,7 +41,7 @@ Shared props for all detail (read-only) field components.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
+Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
 
 ***
 
@@ -49,7 +49,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix
 
 > `optional` **label**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
+Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
 
 ***
 
@@ -57,7 +57,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix
 
 > `optional` **labelKey**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
+Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
 
 ***
 
@@ -65,7 +65,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix
 
 > `optional` **layout**: `"inline"` \| `"left"` \| `"top"` \| `"hidden"` \| `"trailing"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
+Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
 
 Label placement. `"top"` stacks the label above the input, `"left"` puts
 it in a leading column, `"inline"` keeps label and input on one row,
@@ -83,7 +83,7 @@ label for screen readers only.
 
 > `optional` **size**: `"sm"` \| `"lg"` \| `"md"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
+Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
 
 #### Inherited from
 

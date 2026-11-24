@@ -8,7 +8,7 @@
 
 > **statusToneClass**(`tone`, `slot`): `string`
 
-Defined in: [packages/ui/src/base/status-tone.ts:165](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/status-tone.ts#L165)
+Defined in: [packages/ui/src/base/status-tone.ts:161](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/status-tone.ts#L161)
 
 Resolve a single slot's Tailwind class string for a tone.
 

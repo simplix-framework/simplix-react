@@ -8,7 +8,7 @@
 
 > **createAppConfig**\<`T`\>(): `object`
 
-Defined in: [packages/ui/src/config/create-app-config.tsx:31](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/config/create-app-config.tsx#L31)
+Defined in: [packages/ui/src/config/create-app-config.tsx:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/config/create-app-config.tsx#L31)
 
 Creates a typed, app-level configuration provider that runs host-injected
 queries and distributes their results via context — the framework owns the

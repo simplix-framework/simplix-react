@@ -8,7 +8,7 @@
 
 > **ResolveRole**\<`K`, `Op`\> = `Op` *extends* `object` ? `R` : `K` *extends* `CrudOperationName` ? `K` : `"custom"`
 
-Defined in: [packages/contract/src/types.ts:114](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/types.ts#L114)
+Defined in: [packages/contract/src/types.ts:114](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/types.ts#L114)
 
 Resolves the effective CRUD role of an operation at the type level, mirroring
 the runtime `resolveRole`: an explicit `role` wins, otherwise the operation

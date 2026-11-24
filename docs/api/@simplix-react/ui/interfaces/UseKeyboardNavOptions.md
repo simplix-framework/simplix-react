@@ -6,7 +6,7 @@
 
 # Interface: UseKeyboardNavOptions
 
-Defined in: [packages/ui/src/crud/list/use-keyboard-nav.ts:4](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-keyboard-nav.ts#L4)
+Defined in: [packages/ui/src/crud/list/use-keyboard-nav.ts:4](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-keyboard-nav.ts#L4)
 
 Options for the [useKeyboardNav](../functions/useKeyboardNav.md) hook.
 
@@ -16,7 +16,7 @@ Options for the [useKeyboardNav](../functions/useKeyboardNav.md) hook.
 
 > `optional` **enabled**: `boolean`
 
-Defined in: [packages/ui/src/crud/list/use-keyboard-nav.ts:16](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-keyboard-nav.ts#L16)
+Defined in: [packages/ui/src/crud/list/use-keyboard-nav.ts:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-keyboard-nav.ts#L16)
 
 Enable or disable keyboard listeners. Defaults to `true`.
 
@@ -26,7 +26,7 @@ Enable or disable keyboard listeners. Defaults to `true`.
 
 > `optional` **onEscape**: () => `void`
 
-Defined in: [packages/ui/src/crud/list/use-keyboard-nav.ts:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-keyboard-nav.ts#L14)
+Defined in: [packages/ui/src/crud/list/use-keyboard-nav.ts:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-keyboard-nav.ts#L14)
 
 Called on Escape key press.
 
@@ -40,7 +40,7 @@ Called on Escape key press.
 
 > **onNavigate**: (`direction`) => `void`
 
-Defined in: [packages/ui/src/crud/list/use-keyboard-nav.ts:6](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-keyboard-nav.ts#L6)
+Defined in: [packages/ui/src/crud/list/use-keyboard-nav.ts:6](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-keyboard-nav.ts#L6)
 
 Called on ArrowUp/ArrowDown key press.
 
@@ -60,7 +60,7 @@ Called on ArrowUp/ArrowDown key press.
 
 > **onSearch**: () => `void`
 
-Defined in: [packages/ui/src/crud/list/use-keyboard-nav.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-keyboard-nav.ts#L12)
+Defined in: [packages/ui/src/crud/list/use-keyboard-nav.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-keyboard-nav.ts#L12)
 
 Called on Ctrl+K / Cmd+K key press.
 
@@ -74,7 +74,7 @@ Called on Ctrl+K / Cmd+K key press.
 
 > **onSelect**: () => `void`
 
-Defined in: [packages/ui/src/crud/list/use-keyboard-nav.ts:8](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-keyboard-nav.ts#L8)
+Defined in: [packages/ui/src/crud/list/use-keyboard-nav.ts:8](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-keyboard-nav.ts#L8)
 
 Called on Enter key press.
 
@@ -88,7 +88,7 @@ Called on Enter key press.
 
 > **onToggle**: () => `void`
 
-Defined in: [packages/ui/src/crud/list/use-keyboard-nav.ts:10](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-keyboard-nav.ts#L10)
+Defined in: [packages/ui/src/crud/list/use-keyboard-nav.ts:10](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-keyboard-nav.ts#L10)
 
 Called on Space key press (skipped inside input/textarea/button).
 

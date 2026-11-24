@@ -6,7 +6,7 @@
 
 # Interface: CreateFetchOptions
 
-Defined in: [packages/contract/src/helpers/create-fetch.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L13)
+Defined in: [packages/contract/src/helpers/create-fetch.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L13)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/contract/src/helpers/create-fetch.ts:13](https://github.co
 
 > `optional` **baseUrl**: `string`
 
-Defined in: [packages/contract/src/helpers/create-fetch.ts:15](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L15)
+Defined in: [packages/contract/src/helpers/create-fetch.ts:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L15)
 
 Base URL prepended to relative paths. Absolute URLs bypass this.
 
@@ -24,7 +24,7 @@ Base URL prepended to relative paths. Absolute URLs bypass this.
 
 > `optional` **getToken**: () => `string` \| `null`
 
-Defined in: [packages/contract/src/helpers/create-fetch.ts:18](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L18)
+Defined in: [packages/contract/src/helpers/create-fetch.ts:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L18)
 
 Returns a bearer token to attach as `Authorization: Bearer <token>`.
 
@@ -38,7 +38,7 @@ Returns a bearer token to attach as `Authorization: Bearer <token>`.
 
 > `optional` **onError**: (`context`) => `void`
 
-Defined in: [packages/contract/src/helpers/create-fetch.ts:51](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L51)
+Defined in: [packages/contract/src/helpers/create-fetch.ts:51](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L51)
 
 Called when the response is not OK (non-2xx).
 The response body is parsed as JSON when possible, otherwise raw text.
@@ -74,7 +74,7 @@ createFetch({
 
 > `optional` **transformResponse**: (`json`, `context`) => `unknown`
 
-Defined in: [packages/contract/src/helpers/create-fetch.ts:31](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L31)
+Defined in: [packages/contract/src/helpers/create-fetch.ts:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L31)
 
 Transforms the parsed JSON response before returning.
 Receives the raw JSON and request context for endpoint-specific branching.

@@ -6,7 +6,7 @@
 
 # Interface: FileFieldSource
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:82](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L82)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:82](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L82)
 
 Source descriptor for the standard per-module attachment API.
 
@@ -22,7 +22,7 @@ field accepts this via its `source` prop as an alternative to a hand-built
 
 > `optional` **authenticatedBlob**: `boolean`
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:98](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L98)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:98](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L98)
 
 When true and a blob transport is registered, expose `fetchBlobUrl` so the
 field displays/downloads bytes via the authenticated download/thumbnail
@@ -34,7 +34,7 @@ endpoints. Omit (default) to rely on the record's public `url`.
 
 > **basePath**: `string`
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:84](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L84)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:84](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L84)
 
 Module attachment base, e.g. `"/api/v1/admin/banner"`.
 
@@ -44,7 +44,7 @@ Module attachment base, e.g. `"/api/v1/admin/banner"`.
 
 > `optional` **entityId**: `string`
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:88](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L88)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:88](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L88)
 
 Saved entity id (edit mode). Absent → pre-save `TEMP_<tempEntityId>`.
 
@@ -54,7 +54,7 @@ Saved entity id (edit mode). Absent → pre-save `TEMP_<tempEntityId>`.
 
 > **group**: `string`
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:86](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L86)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:86](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L86)
 
 Attachment group/slot, e.g. `"banner"` (server allowlist-validated).
 
@@ -64,7 +64,7 @@ Attachment group/slot, e.g. `"banner"` (server allowlist-validated).
 
 > `optional` **onMutated**: () => `void`
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:116](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L116)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:116](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L116)
 
 Called after a successful mutating op (upload / delete / reorder /
 representative / updateDescription) — e.g. to invalidate host caches. NOT
@@ -80,7 +80,7 @@ called for read ops (list / fetchBlobUrl).
 
 > `optional` **publicUrlBuilder**: (`group`, `attachmentId`, `opts?`) => `string` \| `undefined`
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:106](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L106)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:106](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L106)
 
 Rewrites a record's display `url`/`thumbnailUrl` to a token-free public URL
 (e.g. public-site logo/favicon served without Bearer auth). Applied to
@@ -114,7 +114,7 @@ set, `fetchBlobUrl` is NOT exposed (public url takes precedence).
 
 > `optional` **strategy**: `string`
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:92](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L92)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:92](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L92)
 
 Mutator strategy name registered by the host (default `"boot"`).
 
@@ -124,6 +124,6 @@ Mutator strategy name registered by the host (default `"boot"`).
 
 > `optional` **tempEntityId**: `string`
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:90](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L90)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:90](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L90)
 
 Stable id scoping pre-save temp uploads before the entity exists.

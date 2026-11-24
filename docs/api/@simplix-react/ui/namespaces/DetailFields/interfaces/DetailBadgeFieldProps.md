@@ -6,7 +6,7 @@
 
 # Interface: DetailBadgeFieldProps\<T\>
 
-Defined in: [packages/ui/src/fields/detail/badge-field.tsx:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/badge-field.tsx#L13)
+Defined in: [packages/ui/src/fields/detail/badge-field.tsx:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/badge-field.tsx#L13)
 
 Props for the [DetailBadgeField](../functions/DetailBadgeField.md) component.
 
@@ -26,7 +26,7 @@ Props for the [DetailBadgeField](../functions/DetailBadgeField.md) component.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
+Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
 
 #### Inherited from
 
@@ -38,7 +38,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix
 
 > `optional` **displayValue**: `string`
 
-Defined in: [packages/ui/src/fields/detail/badge-field.tsx:18](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/badge-field.tsx#L18)
+Defined in: [packages/ui/src/fields/detail/badge-field.tsx:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/badge-field.tsx#L18)
 
 Translated or formatted text to display inside the badge. Falls back to [value](#value) when omitted.
 
@@ -48,7 +48,7 @@ Translated or formatted text to display inside the badge. Falls back to [value](
 
 > `optional` **fallback**: `string`
 
-Defined in: [packages/ui/src/fields/detail/badge-field.tsx:22](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/badge-field.tsx#L22)
+Defined in: [packages/ui/src/fields/detail/badge-field.tsx:22](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/badge-field.tsx#L22)
 
 Fallback text when value is null, undefined, or empty string. Defaults to the shared no-value badge.
 
@@ -58,7 +58,7 @@ Fallback text when value is null, undefined, or empty string. Defaults to the sh
 
 > `optional` **label**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
+Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
 
 #### Inherited from
 
@@ -70,7 +70,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix
 
 > `optional` **labelKey**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
+Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
 
 #### Inherited from
 
@@ -82,7 +82,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix
 
 > `optional` **layout**: `"inline"` \| `"left"` \| `"top"` \| `"hidden"` \| `"trailing"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
+Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
 
 Label placement. `"top"` stacks the label above the input, `"left"` puts
 it in a leading column, `"inline"` keeps label and input on one row,
@@ -100,7 +100,7 @@ label for screen readers only.
 
 > `optional` **size**: `"sm"` \| `"lg"` \| `"md"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
+Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
 
 #### Inherited from
 
@@ -112,7 +112,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix
 
 > **value**: `T` \| `null` \| `undefined`
 
-Defined in: [packages/ui/src/fields/detail/badge-field.tsx:16](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/badge-field.tsx#L16)
+Defined in: [packages/ui/src/fields/detail/badge-field.tsx:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/badge-field.tsx#L16)
 
 The current status/category value (used for variant lookup).
 
@@ -122,6 +122,6 @@ The current status/category value (used for variant lookup).
 
 > **variants**: `Record`\<`T`, [`BadgeVariant`](../type-aliases/BadgeVariant.md)\>
 
-Defined in: [packages/ui/src/fields/detail/badge-field.tsx:20](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/badge-field.tsx#L20)
+Defined in: [packages/ui/src/fields/detail/badge-field.tsx:20](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/badge-field.tsx#L20)
 
 Mapping from value to badge variant for visual differentiation.

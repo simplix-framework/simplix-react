@@ -8,6 +8,6 @@
 
 > **LocaleCode** = `string`
 
-Defined in: [types.ts:4](https://github.com/simplix-react/simplix-react/blob/main/types.ts#L4)
+Defined in: [types.ts:4](https://github.com/simplix-framework/simplix-react/blob/main/types.ts#L4)
 
 Represents a BCP 47 locale code string (e.g., `"en"`, `"ko"`, `"ja"`).

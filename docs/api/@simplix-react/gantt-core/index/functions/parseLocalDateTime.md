@@ -8,7 +8,7 @@
 
 > **parseLocalDateTime**(`text`): `number`
 
-Defined in: [packages/gantt-core/src/time.ts:76](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/time.ts#L76)
+Defined in: [packages/gantt-core/src/time.ts:76](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/time.ts#L76)
 
 Reads `YYYY-MM-DD` or `YYYY-MM-DDTHH:MM[:SS]` as an instant on the project
 clock. Seconds are dropped.

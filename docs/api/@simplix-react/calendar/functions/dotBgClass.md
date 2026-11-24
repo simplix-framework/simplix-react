@@ -8,7 +8,7 @@
 
 > **dotBgClass**(`color`): `string`
 
-Defined in: [lib/item-colors.ts:93](https://github.com/simplix-react/simplix-react/blob/main/lib/item-colors.ts#L93)
+Defined in: [lib/item-colors.ts:93](https://github.com/simplix-framework/simplix-react/blob/main/lib/item-colors.ts#L93)
 
 ## Parameters
 

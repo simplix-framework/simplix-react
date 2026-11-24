@@ -8,7 +8,7 @@
 
 > **formatDateRange**(`from`, `to`, `locale?`, `timeZone?`): `string` \| `null`
 
-Defined in: [format-date.ts:167](https://github.com/simplix-react/simplix-react/blob/main/format-date.ts#L167)
+Defined in: [format-date.ts:167](https://github.com/simplix-framework/simplix-react/blob/main/format-date.ts#L167)
 
 Format a date range as a short string — e.g. "Mar 3 – Mar 27", localized.
 Returns `null` when both `from` and `to` are undefined.

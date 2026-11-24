@@ -6,7 +6,7 @@
 
 # Interface: MspdiReadResult
 
-Defined in: [packages/gantt-core/src/mspdi/warnings.ts:39](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/mspdi/warnings.ts#L39)
+Defined in: [packages/gantt-core/src/mspdi/warnings.ts:39](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/mspdi/warnings.ts#L39)
 
 A project read from an MSPDI document, with what was left out.
 
@@ -16,7 +16,7 @@ A project read from an MSPDI document, with what was left out.
 
 > **project**: [`Project`](../../index/interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/mspdi/warnings.ts:40](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/mspdi/warnings.ts#L40)
+Defined in: [packages/gantt-core/src/mspdi/warnings.ts:40](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/mspdi/warnings.ts#L40)
 
 ***
 
@@ -24,4 +24,4 @@ Defined in: [packages/gantt-core/src/mspdi/warnings.ts:40](https://github.com/si
 
 > **warnings**: [`MspdiWarning`](MspdiWarning.md)[]
 
-Defined in: [packages/gantt-core/src/mspdi/warnings.ts:41](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/mspdi/warnings.ts#L41)
+Defined in: [packages/gantt-core/src/mspdi/warnings.ts:41](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/mspdi/warnings.ts#L41)

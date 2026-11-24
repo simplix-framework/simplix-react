@@ -8,7 +8,7 @@
 
 > **toRad**(`deg`): `number`
 
-Defined in: [packages/ui/src/utils/geo.ts:80](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L80)
+Defined in: [packages/ui/src/utils/geo.ts:80](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L80)
 
 ## Parameters
 

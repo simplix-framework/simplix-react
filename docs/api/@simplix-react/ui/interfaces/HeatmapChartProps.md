@@ -6,7 +6,7 @@
 
 # Interface: HeatmapChartProps
 
-Defined in: [packages/ui/src/base/charts/types.ts:69](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L69)
+Defined in: [packages/ui/src/base/charts/types.ts:81](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L81)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:69](https://github.com/simplix
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/base/charts/types.ts:31](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L31)
+Defined in: [packages/ui/src/base/charts/types.ts:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L31)
 
 #### Inherited from
 
@@ -30,7 +30,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:31](https://github.com/simplix
 
 > `optional` **colors**: `string`[]
 
-Defined in: [packages/ui/src/base/charts/types.ts:71](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L71)
+Defined in: [packages/ui/src/base/charts/types.ts:83](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L83)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:71](https://github.com/simplix
 
 > `optional` **height**: `string` \| `number`
 
-Defined in: [packages/ui/src/base/charts/types.ts:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L30)
+Defined in: [packages/ui/src/base/charts/types.ts:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L30)
 
 #### Inherited from
 
@@ -50,4 +50,4 @@ Defined in: [packages/ui/src/base/charts/types.ts:30](https://github.com/simplix
 
 > **series**: [`HeatmapSeries`](HeatmapSeries.md)[]
 
-Defined in: [packages/ui/src/base/charts/types.ts:70](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L70)
+Defined in: [packages/ui/src/base/charts/types.ts:82](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L82)

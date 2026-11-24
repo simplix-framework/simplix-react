@@ -6,7 +6,7 @@
 
 # Interface: CrudMutation\<TInput\>
 
-Defined in: [crud-mutation.ts:2](https://github.com/simplix-react/simplix-react/blob/main/crud-mutation.ts#L2)
+Defined in: [crud-mutation.ts:2](https://github.com/simplix-framework/simplix-react/blob/main/crud-mutation.ts#L2)
 
 Minimal mutation shape consumed by form submit helpers on every platform.
 
@@ -22,7 +22,7 @@ Minimal mutation shape consumed by form submit helpers on every platform.
 
 > **isPending**: `boolean`
 
-Defined in: [crud-mutation.ts:8](https://github.com/simplix-react/simplix-react/blob/main/crud-mutation.ts#L8)
+Defined in: [crud-mutation.ts:8](https://github.com/simplix-framework/simplix-react/blob/main/crud-mutation.ts#L8)
 
 Whether the mutation is currently in flight.
 
@@ -32,7 +32,7 @@ Whether the mutation is currently in flight.
 
 > **mutate**: (`input`, `options?`) => `void`
 
-Defined in: [crud-mutation.ts:4](https://github.com/simplix-react/simplix-react/blob/main/crud-mutation.ts#L4)
+Defined in: [crud-mutation.ts:4](https://github.com/simplix-framework/simplix-react/blob/main/crud-mutation.ts#L4)
 
 Trigger the mutation with the given input.
 
@@ -58,7 +58,7 @@ Trigger the mutation with the given input.
 
 > **mutateAsync**: (`input`) => `Promise`\<`unknown`\>
 
-Defined in: [crud-mutation.ts:6](https://github.com/simplix-react/simplix-react/blob/main/crud-mutation.ts#L6)
+Defined in: [crud-mutation.ts:6](https://github.com/simplix-framework/simplix-react/blob/main/crud-mutation.ts#L6)
 
 Promise-based mutation trigger for error handling.
 

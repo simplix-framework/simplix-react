@@ -6,7 +6,7 @@
 
 # Interface: ButtonProps
 
-Defined in: [packages/ui/src/base/controls/button.tsx:99](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/controls/button.tsx#L99)
+Defined in: [packages/ui/src/base/controls/button.tsx:23](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/controls/button.tsx#L23)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [packages/ui/src/base/controls/button.tsx:99](https://github.com/sim
 
 > `optional` **about**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2820](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2820)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2820](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2820)
 
 #### Inherited from
 
@@ -30,7 +30,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **accessKey**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2793](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2793)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2793](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2793)
 
 #### Inherited from
 
@@ -42,7 +42,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **aria-activedescendant**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2491](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2491)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2491](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2491)
 
 Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application.
 
@@ -56,7 +56,7 @@ Identifies the currently active element when DOM focus is on a composite widget,
 
 > `optional` **aria-atomic**: `Booleanish`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2493](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2493)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2493](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2493)
 
 Indicates whether assistive technologies will present all, or only parts of, the changed region based on the change notifications defined by the aria-relevant attribute.
 
@@ -70,7 +70,7 @@ Indicates whether assistive technologies will present all, or only parts of, the
 
 > `optional` **aria-autocomplete**: `"list"` \| `"none"` \| `"inline"` \| `"both"`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2498](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2498)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2498](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2498)
 
 Indicates whether inputting text could trigger display of one or more predictions of the user's intended value for an input and specifies how predictions would be
 presented if they are made.
@@ -85,7 +85,7 @@ presented if they are made.
 
 > `optional` **aria-braillelabel**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2504](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2504)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2504](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2504)
 
 Defines a string value that labels the current element, which is intended to be converted into Braille.
 
@@ -103,7 +103,7 @@ aria-label.
 
 > `optional` **aria-brailleroledescription**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2509](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2509)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2509](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2509)
 
 Defines a human-readable, author-localized abbreviated description for the role of an element, which is intended to be converted into Braille.
 
@@ -121,7 +121,7 @@ aria-roledescription.
 
 > `optional` **aria-busy**: `Booleanish`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2510](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2510)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2510](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2510)
 
 #### Inherited from
 
@@ -133,7 +133,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **aria-checked**: `boolean` \| `"true"` \| `"false"` \| `"mixed"`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2515](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2515)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2515](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2515)
 
 Indicates the current "checked" state of checkboxes, radio buttons, and other widgets.
 
@@ -152,7 +152,7 @@ Indicates the current "checked" state of checkboxes, radio buttons, and other wi
 
 > `optional` **aria-colcount**: `number`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2520](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2520)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2520](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2520)
 
 Defines the total number of columns in a table, grid, or treegrid.
 
@@ -170,7 +170,7 @@ aria-colindex.
 
 > `optional` **aria-colindex**: `number`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2525](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2525)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2525](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2525)
 
 Defines an element's column index or position with respect to the total number of columns within a table, grid, or treegrid.
 
@@ -189,7 +189,7 @@ Defines an element's column index or position with respect to the total number o
 
 > `optional` **aria-colindextext**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2530](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2530)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2530](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2530)
 
 Defines a human readable text alternative of aria-colindex.
 
@@ -207,7 +207,7 @@ aria-rowindextext.
 
 > `optional` **aria-colspan**: `number`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2535](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2535)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2535](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2535)
 
 Defines the number of columns spanned by a cell or gridcell within a table, grid, or treegrid.
 
@@ -226,7 +226,7 @@ Defines the number of columns spanned by a cell or gridcell within a table, grid
 
 > `optional` **aria-controls**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2540](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2540)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2540](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2540)
 
 Identifies the element (or elements) whose contents or presence are controlled by the current element.
 
@@ -244,7 +244,7 @@ aria-owns.
 
 > `optional` **aria-current**: `boolean` \| `"date"` \| `"true"` \| `"false"` \| `"time"` \| `"page"` \| `"step"` \| `"location"`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2542](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2542)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2542](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2542)
 
 Indicates the element that represents the current item within a container or set of related elements.
 
@@ -258,7 +258,7 @@ Indicates the element that represents the current item within a container or set
 
 > `optional` **aria-describedby**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2547](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2547)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2547](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2547)
 
 Identifies the element (or elements) that describes the object.
 
@@ -276,7 +276,7 @@ aria-labelledby
 
 > `optional` **aria-description**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2552](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2552)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2552](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2552)
 
 Defines a string value that describes or annotates the current element.
 
@@ -294,7 +294,7 @@ related aria-describedby.
 
 > `optional` **aria-details**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2557](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2557)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2557](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2557)
 
 Identifies the element that provides a detailed, extended description for the object.
 
@@ -312,7 +312,7 @@ aria-describedby.
 
 > `optional` **aria-disabled**: `Booleanish`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2562](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2562)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2562](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2562)
 
 Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable.
 
@@ -331,7 +331,7 @@ Indicates that the element is perceivable but disabled, so it is not editable or
 
 > `optional` **aria-dropeffect**: `"link"` \| `"none"` \| `"copy"` \| `"execute"` \| `"move"` \| `"popup"`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2567](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2567)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2567](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2567)
 
 Indicates what functions can be performed when a dragged object is released on the drop target.
 
@@ -349,7 +349,7 @@ in ARIA 1.1
 
 > `optional` **aria-errormessage**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2572](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2572)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2572](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2572)
 
 Identifies the element that provides an error message for the object.
 
@@ -368,7 +368,7 @@ Identifies the element that provides an error message for the object.
 
 > `optional` **aria-expanded**: `Booleanish`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2574](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2574)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2574](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2574)
 
 Indicates whether the element, or another grouping element it controls, is currently expanded or collapsed.
 
@@ -382,7 +382,7 @@ Indicates whether the element, or another grouping element it controls, is curre
 
 > `optional` **aria-flowto**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2579](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2579)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2579](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2579)
 
 Identifies the next element (or elements) in an alternate reading order of content which, at the user's discretion,
 allows assistive technology to override the general default of reading in document source order.
@@ -397,7 +397,7 @@ allows assistive technology to override the general default of reading in docume
 
 > `optional` **aria-grabbed**: `Booleanish`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2584](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2584)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2584](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2584)
 
 Indicates an element's "grabbed" state in a drag-and-drop operation.
 
@@ -415,7 +415,7 @@ in ARIA 1.1
 
 > `optional` **aria-haspopup**: `boolean` \| `"tree"` \| `"true"` \| `"false"` \| `"dialog"` \| `"menu"` \| `"grid"` \| `"listbox"`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2586](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2586)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2586](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2586)
 
 Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by an element.
 
@@ -429,7 +429,7 @@ Indicates the availability and type of interactive popup element, such as menu o
 
 > `optional` **aria-hidden**: `Booleanish`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2591](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2591)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2591](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2591)
 
 Indicates whether the element is exposed to an accessibility API.
 
@@ -447,7 +447,7 @@ aria-disabled.
 
 > `optional` **aria-invalid**: `boolean` \| `"true"` \| `"false"` \| `"grammar"` \| `"spelling"`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2596](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2596)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2596](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2596)
 
 Indicates the entered value does not conform to the format expected by the application.
 
@@ -465,7 +465,7 @@ aria-errormessage.
 
 > `optional` **aria-keyshortcuts**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2598](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2598)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2598](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2598)
 
 Indicates keyboard shortcuts that an author has implemented to activate or give focus to an element.
 
@@ -479,7 +479,7 @@ Indicates keyboard shortcuts that an author has implemented to activate or give 
 
 > `optional` **aria-label**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2603](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2603)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2603](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2603)
 
 Defines a string value that labels the current element.
 
@@ -497,7 +497,7 @@ aria-labelledby.
 
 > `optional` **aria-labelledby**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2608](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2608)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2608](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2608)
 
 Identifies the element (or elements) that labels the current element.
 
@@ -515,7 +515,7 @@ aria-describedby.
 
 > `optional` **aria-level**: `number`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2610](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2610)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2610](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2610)
 
 Defines the hierarchical level of an element within a structure.
 
@@ -529,7 +529,7 @@ Defines the hierarchical level of an element within a structure.
 
 > `optional` **aria-live**: `"off"` \| `"assertive"` \| `"polite"`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2612](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2612)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2612](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2612)
 
 Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region.
 
@@ -543,7 +543,7 @@ Indicates that an element will be updated, and describes the types of updates th
 
 > `optional` **aria-modal**: `Booleanish`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2614](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2614)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2614](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2614)
 
 Indicates whether an element is modal when displayed.
 
@@ -557,7 +557,7 @@ Indicates whether an element is modal when displayed.
 
 > `optional` **aria-multiline**: `Booleanish`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2616](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2616)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2616](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2616)
 
 Indicates whether a text box accepts multiple lines of input or only a single line.
 
@@ -571,7 +571,7 @@ Indicates whether a text box accepts multiple lines of input or only a single li
 
 > `optional` **aria-multiselectable**: `Booleanish`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2618](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2618)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2618](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2618)
 
 Indicates that the user may select more than one item from the current selectable descendants.
 
@@ -585,7 +585,7 @@ Indicates that the user may select more than one item from the current selectabl
 
 > `optional` **aria-orientation**: `"horizontal"` \| `"vertical"`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2620](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2620)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2620](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2620)
 
 Indicates whether the element's orientation is horizontal, vertical, or unknown/ambiguous.
 
@@ -599,7 +599,7 @@ Indicates whether the element's orientation is horizontal, vertical, or unknown/
 
 > `optional` **aria-owns**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2626](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2626)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2626](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2626)
 
 Identifies an element (or elements) in order to define a visual, functional, or contextual parent/child relationship
 between DOM elements where the DOM hierarchy cannot be used to represent the relationship.
@@ -618,7 +618,7 @@ aria-controls.
 
 > `optional` **aria-placeholder**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2631](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2631)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2631](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2631)
 
 Defines a short hint (a word or short phrase) intended to aid the user with data entry when the control has no value.
 A hint could be a sample value or a brief description of the expected format.
@@ -633,7 +633,7 @@ A hint could be a sample value or a brief description of the expected format.
 
 > `optional` **aria-posinset**: `number`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2636](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2636)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2636](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2636)
 
 Defines an element's number or position in the current set of listitems or treeitems. Not required if all elements in the set are present in the DOM.
 
@@ -651,7 +651,7 @@ aria-setsize.
 
 > `optional` **aria-pressed**: `boolean` \| `"true"` \| `"false"` \| `"mixed"`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2641](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2641)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2641](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2641)
 
 Indicates the current "pressed" state of toggle buttons.
 
@@ -670,7 +670,7 @@ Indicates the current "pressed" state of toggle buttons.
 
 > `optional` **aria-readonly**: `Booleanish`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2646](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2646)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2646](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2646)
 
 Indicates that the element is not editable, but is otherwise operable.
 
@@ -688,7 +688,7 @@ aria-disabled.
 
 > `optional` **aria-relevant**: `"text"` \| `"additions"` \| `"additions removals"` \| `"additions text"` \| `"all"` \| `"removals"` \| `"removals additions"` \| `"removals text"` \| `"text additions"` \| `"text removals"`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2651](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2651)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2651](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2651)
 
 Indicates what notifications the user agent will trigger when the accessibility tree within a live region is modified.
 
@@ -706,7 +706,7 @@ aria-atomic.
 
 > `optional` **aria-required**: `Booleanish`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2664](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2664)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2664](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2664)
 
 Indicates that user input is required on the element before a form may be submitted.
 
@@ -720,7 +720,7 @@ Indicates that user input is required on the element before a form may be submit
 
 > `optional` **aria-roledescription**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2666](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2666)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2666](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2666)
 
 Defines a human-readable, author-localized description for the role of an element.
 
@@ -734,7 +734,7 @@ Defines a human-readable, author-localized description for the role of an elemen
 
 > `optional` **aria-rowcount**: `number`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2671](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2671)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2671](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2671)
 
 Defines the total number of rows in a table, grid, or treegrid.
 
@@ -752,7 +752,7 @@ aria-rowindex.
 
 > `optional` **aria-rowindex**: `number`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2676](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2676)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2676](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2676)
 
 Defines an element's row index or position with respect to the total number of rows within a table, grid, or treegrid.
 
@@ -771,7 +771,7 @@ Defines an element's row index or position with respect to the total number of r
 
 > `optional` **aria-rowindextext**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2681](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2681)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2681](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2681)
 
 Defines a human readable text alternative of aria-rowindex.
 
@@ -789,7 +789,7 @@ aria-colindextext.
 
 > `optional` **aria-rowspan**: `number`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2686](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2686)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2686](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2686)
 
 Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid.
 
@@ -808,7 +808,7 @@ Defines the number of rows spanned by a cell or gridcell within a table, grid, o
 
 > `optional` **aria-selected**: `Booleanish`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2691](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2691)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2691](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2691)
 
 Indicates the current "selected" state of various widgets.
 
@@ -827,7 +827,7 @@ Indicates the current "selected" state of various widgets.
 
 > `optional` **aria-setsize**: `number`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2696](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2696)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2696](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2696)
 
 Defines the number of items in the current set of listitems or treeitems. Not required if all elements in the set are present in the DOM.
 
@@ -845,7 +845,7 @@ aria-posinset.
 
 > `optional` **aria-sort**: `"none"` \| `"ascending"` \| `"descending"` \| `"other"`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2698](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2698)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2698](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2698)
 
 Indicates if items in a table or grid are sorted in ascending or descending order.
 
@@ -859,7 +859,7 @@ Indicates if items in a table or grid are sorted in ascending or descending orde
 
 > `optional` **aria-valuemax**: `number`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2700](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2700)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2700](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2700)
 
 Defines the maximum allowed value for a range widget.
 
@@ -873,7 +873,7 @@ Defines the maximum allowed value for a range widget.
 
 > `optional` **aria-valuemin**: `number`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2702](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2702)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2702](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2702)
 
 Defines the minimum allowed value for a range widget.
 
@@ -887,7 +887,7 @@ Defines the minimum allowed value for a range widget.
 
 > `optional` **aria-valuenow**: `number`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2707](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2707)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2707](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2707)
 
 Defines the current value for a range widget.
 
@@ -905,7 +905,7 @@ aria-valuetext.
 
 > `optional` **aria-valuetext**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2709](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2709)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2709](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2709)
 
 Defines the human readable text alternative of aria-valuenow for a range widget.
 
@@ -919,7 +919,7 @@ Defines the human readable text alternative of aria-valuenow for a range widget.
 
 > `optional` **asChild**: `boolean`
 
-Defined in: [packages/ui/src/base/controls/button.tsx:117](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/controls/button.tsx#L117)
+Defined in: [packages/ui/src/base/controls/button.tsx:41](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/controls/button.tsx#L41)
 
 Render the single child element instead of a `<button>`, merging the
 button styling and behavior onto it (e.g. wrap a router `<Link>`). The
@@ -929,9 +929,9 @@ loading spinner is not composed in this mode.
 
 ### autoCapitalize?
 
-> `optional` **autoCapitalize**: `"none"` \| `string` & `object` \| `"off"` \| `"on"` \| `"sentences"` \| `"words"` \| `"characters"`
+> `optional` **autoCapitalize**: `"none"` \| `string` & `object` \| `"on"` \| `"off"` \| `"sentences"` \| `"words"` \| `"characters"`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2794](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2794)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2794](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2794)
 
 #### Inherited from
 
@@ -943,7 +943,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **autoCorrect**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2833](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2833)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2833](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2833)
 
 #### Inherited from
 
@@ -955,7 +955,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **autoFocus**: `boolean`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2795](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2795)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2795](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2795)
 
 #### Inherited from
 
@@ -967,7 +967,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **autoSave**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2834](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2834)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2834](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2834)
 
 #### Inherited from
 
@@ -979,7 +979,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **children**: `ReactNode`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2267](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2267)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2267](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2267)
 
 #### Inherited from
 
@@ -991,7 +991,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **className**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2796](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2796)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2796](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2796)
 
 #### Inherited from
 
@@ -1003,7 +1003,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **color**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2835](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2835)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2835](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2835)
 
 #### Inherited from
 
@@ -1015,7 +1015,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **content**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2821](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2821)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2821](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2821)
 
 #### Inherited from
 
@@ -1027,7 +1027,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **contentEditable**: `"inherit"` \| `Booleanish` \| `"plaintext-only"`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2797](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2797)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2797](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2797)
 
 #### Inherited from
 
@@ -1039,7 +1039,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **contextMenu**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2798](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2798)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2798](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2798)
 
 #### Inherited from
 
@@ -1051,7 +1051,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **dangerouslySetInnerHTML**: `object`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2268](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2268)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2268](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2268)
 
 #### \_\_html
 
@@ -1067,7 +1067,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **datatype**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2822](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2822)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2822](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2822)
 
 #### Inherited from
 
@@ -1079,7 +1079,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **defaultChecked**: `boolean`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2787](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2787)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2787](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2787)
 
 #### Inherited from
 
@@ -1091,7 +1091,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **defaultValue**: `string` \| `number` \| readonly `string`[]
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2788](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2788)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2788](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2788)
 
 #### Inherited from
 
@@ -1103,7 +1103,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **dir**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2799](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2799)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2799](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2799)
 
 #### Inherited from
 
@@ -1115,7 +1115,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **disabled**: `boolean`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:3053](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L3053)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:3053](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L3053)
 
 #### Inherited from
 
@@ -1127,7 +1127,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **draggable**: `Booleanish`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2800](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2800)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2800](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2800)
 
 #### Inherited from
 
@@ -1139,7 +1139,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **dropdown**: `boolean`
 
-Defined in: [packages/ui/src/base/controls/button.tsx:111](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/controls/button.tsx#L111)
+Defined in: [packages/ui/src/base/controls/button.tsx:35](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/controls/button.tsx#L35)
 
 Append a trailing chevron-down caret so the button reads as a menu/dropdown
 trigger. Use on a `DropdownMenuTrigger` button. Suppressed while loading and
@@ -1151,7 +1151,7 @@ in `asChild` mode.
 
 > `optional` **enterKeyHint**: `"search"` \| `"enter"` \| `"done"` \| `"go"` \| `"next"` \| `"previous"` \| `"send"`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2801](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2801)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2801](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2801)
 
 #### Inherited from
 
@@ -1163,7 +1163,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **exportparts**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2868](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2868)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2868](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2868)
 
 #### See
 
@@ -1179,11 +1179,11 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **fill**: `boolean` \| `null`
 
-Defined in: [packages/ui/src/base/controls/button.tsx:62](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/controls/button.tsx#L62)
+Defined in: [packages/ui/src/base/controls/button.style.ts:49](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/controls/button.style.ts#L49)
 
 Take the whole width of whatever holds it.
 
-<p>For a button that is the ONLY thing on its line and means it — a sign-in submit, a
+<p>For a button that is the ONLY thing on its line and means it - a sign-in submit, a
 single primary in a narrow dialog. A row of actions never uses it: several full-width
 buttons stack into a wall in which nothing is primary.
 
@@ -1197,7 +1197,7 @@ buttons stack into a wall in which nothing is primary.
 
 > `optional` **form**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:3054](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L3054)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:3054](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L3054)
 
 #### Inherited from
 
@@ -1209,7 +1209,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **formAction**: `string` \| (`formData`) => `void` \| `Promise`\<`void`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:3055](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L3055)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:3055](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L3055)
 
 #### Inherited from
 
@@ -1221,7 +1221,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **formEncType**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:3062](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L3062)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:3062](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L3062)
 
 #### Inherited from
 
@@ -1233,7 +1233,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **formMethod**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:3063](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L3063)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:3063](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L3063)
 
 #### Inherited from
 
@@ -1245,7 +1245,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **formNoValidate**: `boolean`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:3064](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L3064)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:3064](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L3064)
 
 #### Inherited from
 
@@ -1257,7 +1257,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **formTarget**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:3065](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L3065)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:3065](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L3065)
 
 #### Inherited from
 
@@ -1269,7 +1269,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **hidden**: `boolean`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2802](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2802)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2802](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2802)
 
 #### Inherited from
 
@@ -1281,7 +1281,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **id**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2803](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2803)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2803](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2803)
 
 #### Inherited from
 
@@ -1293,7 +1293,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **inert**: `boolean`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2854](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2854)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2854](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2854)
 
 #### See
 
@@ -1309,7 +1309,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **inlist**: `any`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2823](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2823)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2823](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2823)
 
 #### Inherited from
 
@@ -1321,7 +1321,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **inputMode**: `"search"` \| `"text"` \| `"none"` \| `"tel"` \| `"url"` \| `"email"` \| `"numeric"` \| `"decimal"`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2859](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2859)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2859](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2859)
 
 Hints at the type of data that might be entered by the user while editing the element or its contents
 
@@ -1339,7 +1339,7 @@ Hints at the type of data that might be entered by the user while editing the el
 
 > `optional` **is**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2864](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2864)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2864](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2864)
 
 Specify that a standard HTML element should behave like a defined custom built-in element
 
@@ -1357,7 +1357,7 @@ Specify that a standard HTML element should behave like a defined custom built-i
 
 > `optional` **itemID**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2839](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2839)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2839](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2839)
 
 #### Inherited from
 
@@ -1369,7 +1369,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **itemProp**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2836](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2836)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2836](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2836)
 
 #### Inherited from
 
@@ -1381,7 +1381,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **itemRef**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2840](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2840)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2840](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2840)
 
 #### Inherited from
 
@@ -1393,7 +1393,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **itemScope**: `boolean`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2837](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2837)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2837](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2837)
 
 #### Inherited from
 
@@ -1405,7 +1405,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **itemType**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2838](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2838)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2838](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2838)
 
 #### Inherited from
 
@@ -1417,7 +1417,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **justify**: `"center"` \| `"start"` \| `null`
 
-Defined in: [packages/ui/src/base/controls/button.tsx:64](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/controls/button.tsx#L64)
+Defined in: [packages/ui/src/base/controls/button.style.ts:51](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/controls/button.style.ts#L51)
 
 #### Inherited from
 
@@ -1429,7 +1429,7 @@ Defined in: [packages/ui/src/base/controls/button.tsx:64](https://github.com/sim
 
 > `optional` **key**: `Key` \| `null`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:259](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L259)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:259](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L259)
 
 #### Inherited from
 
@@ -1441,7 +1441,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **lang**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2804](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2804)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2804](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2804)
 
 #### Inherited from
 
@@ -1453,7 +1453,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **loading**: `boolean`
 
-Defined in: [packages/ui/src/base/controls/button.tsx:103](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/controls/button.tsx#L103)
+Defined in: [packages/ui/src/base/controls/button.tsx:27](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/controls/button.tsx#L27)
 
 Show loading spinner and disable button.
 
@@ -1463,7 +1463,7 @@ Show loading spinner and disable button.
 
 > `optional` **loadingText**: `ReactNode`
 
-Defined in: [packages/ui/src/base/controls/button.tsx:105](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/controls/button.tsx#L105)
+Defined in: [packages/ui/src/base/controls/button.tsx:29](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/controls/button.tsx#L29)
 
 Text to show while loading. Replaces children if provided.
 
@@ -1473,7 +1473,7 @@ Text to show while loading. Replaces children if provided.
 
 > `optional` **name**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:3066](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L3066)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:3066](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L3066)
 
 #### Inherited from
 
@@ -1485,7 +1485,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **nonce**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2805](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2805)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2805](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2805)
 
 #### Inherited from
 
@@ -1497,7 +1497,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onAbort**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2327](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2327)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2327](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2327)
 
 #### Inherited from
 
@@ -1509,7 +1509,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onAbortCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2328](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2328)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2328](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2328)
 
 #### Inherited from
 
@@ -1521,7 +1521,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onAnimationEnd**: `AnimationEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2457](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2457)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2457](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2457)
 
 #### Inherited from
 
@@ -1533,7 +1533,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onAnimationEndCapture**: `AnimationEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2458](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2458)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2458](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2458)
 
 #### Inherited from
 
@@ -1545,7 +1545,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onAnimationIteration**: `AnimationEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2459](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2459)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2459](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2459)
 
 #### Inherited from
 
@@ -1557,7 +1557,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onAnimationIterationCapture**: `AnimationEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2460](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2460)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2460](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2460)
 
 #### Inherited from
 
@@ -1569,7 +1569,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onAnimationStart**: `AnimationEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2455](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2455)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2455](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2455)
 
 #### Inherited from
 
@@ -1581,7 +1581,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onAnimationStartCapture**: `AnimationEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2456](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2456)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2456](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2456)
 
 #### Inherited from
 
@@ -1593,7 +1593,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onAuxClick**: `MouseEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2373](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2373)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2373](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2373)
 
 #### Inherited from
 
@@ -1605,7 +1605,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onAuxClickCapture**: `MouseEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2374](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2374)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2374](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2374)
 
 #### Inherited from
 
@@ -1617,7 +1617,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onBeforeInput**: `InputEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2299](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2299)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2299](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2299)
 
 #### Inherited from
 
@@ -1629,7 +1629,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onBeforeInputCapture**: `InputEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2300](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2300)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2300](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2300)
 
 #### Inherited from
 
@@ -1641,7 +1641,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onBeforeToggle**: `ToggleEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2464](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2464)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2464](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2464)
 
 #### Inherited from
 
@@ -1653,7 +1653,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onBlur**: `FocusEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2293](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2293)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2293](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2293)
 
 #### Inherited from
 
@@ -1665,7 +1665,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onBlurCapture**: `FocusEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2294](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2294)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2294](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2294)
 
 #### Inherited from
 
@@ -1677,7 +1677,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onCanPlay**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2329](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2329)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2329](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2329)
 
 #### Inherited from
 
@@ -1689,7 +1689,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onCanPlayCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2330](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2330)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2330](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2330)
 
 #### Inherited from
 
@@ -1701,7 +1701,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onCanPlayThrough**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2331](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2331)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2331](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2331)
 
 #### Inherited from
 
@@ -1713,7 +1713,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onCanPlayThroughCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2332](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2332)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2332](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2332)
 
 #### Inherited from
 
@@ -1725,7 +1725,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onChange**: `ChangeEventHandler`\<`HTMLButtonElement`, `Element`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2297](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2297)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2297](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2297)
 
 #### Inherited from
 
@@ -1737,7 +1737,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onChangeCapture**: `ChangeEventHandler`\<`HTMLButtonElement`, `Element`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2298](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2298)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2298](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2298)
 
 #### Inherited from
 
@@ -1749,7 +1749,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onClick**: `MouseEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2375](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2375)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2375](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2375)
 
 #### Inherited from
 
@@ -1761,7 +1761,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onClickCapture**: `MouseEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2376](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2376)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2376](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2376)
 
 #### Inherited from
 
@@ -1773,7 +1773,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onCompositionEnd**: `CompositionEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2283](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2283)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2283](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2283)
 
 #### Inherited from
 
@@ -1785,7 +1785,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onCompositionEndCapture**: `CompositionEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2284](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2284)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2284](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2284)
 
 #### Inherited from
 
@@ -1797,7 +1797,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onCompositionStart**: `CompositionEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2285](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2285)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2285](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2285)
 
 #### Inherited from
 
@@ -1809,7 +1809,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onCompositionStartCapture**: `CompositionEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2286](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2286)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2286](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2286)
 
 #### Inherited from
 
@@ -1821,7 +1821,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onCompositionUpdate**: `CompositionEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2287](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2287)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2287](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2287)
 
 #### Inherited from
 
@@ -1833,7 +1833,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onCompositionUpdateCapture**: `CompositionEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2288](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2288)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2288](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2288)
 
 #### Inherited from
 
@@ -1845,7 +1845,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onContextMenu**: `MouseEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2377](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2377)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2377](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2377)
 
 #### Inherited from
 
@@ -1857,7 +1857,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onContextMenuCapture**: `MouseEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2378](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2378)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2378](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2378)
 
 #### Inherited from
 
@@ -1869,7 +1869,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onCopy**: `ClipboardEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2275](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2275)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2275](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2275)
 
 #### Inherited from
 
@@ -1881,7 +1881,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onCopyCapture**: `ClipboardEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2276](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2276)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2276](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2276)
 
 #### Inherited from
 
@@ -1893,7 +1893,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onCut**: `ClipboardEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2277](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2277)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2277](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2277)
 
 #### Inherited from
 
@@ -1905,7 +1905,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onCutCapture**: `ClipboardEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2278](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2278)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2278](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2278)
 
 #### Inherited from
 
@@ -1917,7 +1917,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onDoubleClick**: `MouseEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2379](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2379)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2379](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2379)
 
 #### Inherited from
 
@@ -1929,7 +1929,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onDoubleClickCapture**: `MouseEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2380](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2380)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2380](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2380)
 
 #### Inherited from
 
@@ -1941,7 +1941,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onDrag**: `DragEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2381](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2381)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2381](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2381)
 
 #### Inherited from
 
@@ -1953,7 +1953,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onDragCapture**: `DragEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2382](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2382)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2382](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2382)
 
 #### Inherited from
 
@@ -1965,7 +1965,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onDragEnd**: `DragEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2383](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2383)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2383](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2383)
 
 #### Inherited from
 
@@ -1977,7 +1977,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onDragEndCapture**: `DragEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2384](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2384)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2384](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2384)
 
 #### Inherited from
 
@@ -1989,7 +1989,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onDragEnter**: `DragEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2385](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2385)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2385](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2385)
 
 #### Inherited from
 
@@ -2001,7 +2001,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onDragEnterCapture**: `DragEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2386](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2386)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2386](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2386)
 
 #### Inherited from
 
@@ -2013,7 +2013,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onDragExit**: `DragEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2387](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2387)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2387](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2387)
 
 #### Inherited from
 
@@ -2025,7 +2025,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onDragExitCapture**: `DragEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2388](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2388)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2388](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2388)
 
 #### Inherited from
 
@@ -2037,7 +2037,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onDragLeave**: `DragEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2389](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2389)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2389](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2389)
 
 #### Inherited from
 
@@ -2049,7 +2049,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onDragLeaveCapture**: `DragEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2390](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2390)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2390](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2390)
 
 #### Inherited from
 
@@ -2061,7 +2061,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onDragOver**: `DragEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2391](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2391)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2391](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2391)
 
 #### Inherited from
 
@@ -2073,7 +2073,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onDragOverCapture**: `DragEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2392](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2392)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2392](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2392)
 
 #### Inherited from
 
@@ -2085,7 +2085,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onDragStart**: `DragEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2393](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2393)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2393](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2393)
 
 #### Inherited from
 
@@ -2097,7 +2097,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onDragStartCapture**: `DragEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2394](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2394)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2394](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2394)
 
 #### Inherited from
 
@@ -2109,7 +2109,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onDrop**: `DragEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2395](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2395)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2395](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2395)
 
 #### Inherited from
 
@@ -2121,7 +2121,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onDropCapture**: `DragEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2396](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2396)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2396](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2396)
 
 #### Inherited from
 
@@ -2133,7 +2133,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onDurationChange**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2333](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2333)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2333](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2333)
 
 #### Inherited from
 
@@ -2145,7 +2145,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onDurationChangeCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2334](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2334)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2334](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2334)
 
 #### Inherited from
 
@@ -2157,7 +2157,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onEmptied**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2335](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2335)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2335](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2335)
 
 #### Inherited from
 
@@ -2169,7 +2169,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onEmptiedCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2336](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2336)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2336](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2336)
 
 #### Inherited from
 
@@ -2181,7 +2181,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onEncrypted**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2337](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2337)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2337](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2337)
 
 #### Inherited from
 
@@ -2193,7 +2193,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onEncryptedCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2338](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2338)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2338](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2338)
 
 #### Inherited from
 
@@ -2205,7 +2205,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onEnded**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2339](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2339)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2339](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2339)
 
 #### Inherited from
 
@@ -2217,7 +2217,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onEndedCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2340](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2340)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2340](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2340)
 
 #### Inherited from
 
@@ -2229,7 +2229,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onError**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2313](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2313)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2313](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2313)
 
 #### Inherited from
 
@@ -2241,7 +2241,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onErrorCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2314](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2314)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2314](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2314)
 
 #### Inherited from
 
@@ -2253,7 +2253,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onFocus**: `FocusEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2291](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2291)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2291](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2291)
 
 #### Inherited from
 
@@ -2265,7 +2265,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onFocusCapture**: `FocusEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2292](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2292)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2292](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2292)
 
 #### Inherited from
 
@@ -2277,7 +2277,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onGotPointerCapture**: `PointerEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2439](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2439)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2439](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2439)
 
 #### Inherited from
 
@@ -2289,7 +2289,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onGotPointerCaptureCapture**: `PointerEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2440](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2440)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2440](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2440)
 
 #### Inherited from
 
@@ -2301,7 +2301,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onInput**: `InputEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2301](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2301)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2301](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2301)
 
 #### Inherited from
 
@@ -2313,7 +2313,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onInputCapture**: `InputEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2302](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2302)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2302](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2302)
 
 #### Inherited from
 
@@ -2325,7 +2325,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onInvalid**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2307](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2307)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2307](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2307)
 
 #### Inherited from
 
@@ -2337,7 +2337,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onInvalidCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2308](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2308)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2308](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2308)
 
 #### Inherited from
 
@@ -2349,7 +2349,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onKeyDown**: `KeyboardEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2317](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2317)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2317](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2317)
 
 #### Inherited from
 
@@ -2361,7 +2361,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onKeyDownCapture**: `KeyboardEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2318](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2318)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2318](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2318)
 
 #### Inherited from
 
@@ -2373,7 +2373,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onKeyPress**: `KeyboardEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2320](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2320)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2320](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2320)
 
 #### Deprecated
 
@@ -2389,7 +2389,7 @@ Use `onKeyUp` or `onKeyDown` instead
 
 > `optional` **onKeyPressCapture**: `KeyboardEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2322](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2322)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2322](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2322)
 
 #### Deprecated
 
@@ -2405,7 +2405,7 @@ Use `onKeyUpCapture` or `onKeyDownCapture` instead
 
 > `optional` **onKeyUp**: `KeyboardEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2323](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2323)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2323](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2323)
 
 #### Inherited from
 
@@ -2417,7 +2417,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onKeyUpCapture**: `KeyboardEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2324](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2324)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2324](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2324)
 
 #### Inherited from
 
@@ -2429,7 +2429,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onLoad**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2311](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2311)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2311](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2311)
 
 #### Inherited from
 
@@ -2441,7 +2441,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onLoadCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2312](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2312)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2312](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2312)
 
 #### Inherited from
 
@@ -2453,7 +2453,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onLoadedData**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2341](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2341)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2341](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2341)
 
 #### Inherited from
 
@@ -2465,7 +2465,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onLoadedDataCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2342](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2342)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2342](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2342)
 
 #### Inherited from
 
@@ -2477,7 +2477,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onLoadedMetadata**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2343](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2343)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2343](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2343)
 
 #### Inherited from
 
@@ -2489,7 +2489,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onLoadedMetadataCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2344](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2344)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2344](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2344)
 
 #### Inherited from
 
@@ -2501,7 +2501,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onLoadStart**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2345](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2345)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2345](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2345)
 
 #### Inherited from
 
@@ -2513,7 +2513,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onLoadStartCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2346](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2346)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2346](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2346)
 
 #### Inherited from
 
@@ -2525,7 +2525,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onLostPointerCapture**: `PointerEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2441](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2441)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2441](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2441)
 
 #### Inherited from
 
@@ -2537,7 +2537,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onLostPointerCaptureCapture**: `PointerEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2442](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2442)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2442](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2442)
 
 #### Inherited from
 
@@ -2549,7 +2549,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onMouseDown**: `MouseEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2397](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2397)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2397](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2397)
 
 #### Inherited from
 
@@ -2561,7 +2561,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onMouseDownCapture**: `MouseEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2398](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2398)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2398](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2398)
 
 #### Inherited from
 
@@ -2573,7 +2573,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onMouseEnter**: `MouseEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2399](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2399)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2399](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2399)
 
 #### Inherited from
 
@@ -2585,7 +2585,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onMouseLeave**: `MouseEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2400](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2400)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2400](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2400)
 
 #### Inherited from
 
@@ -2597,7 +2597,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onMouseMove**: `MouseEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2401](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2401)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2401](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2401)
 
 #### Inherited from
 
@@ -2609,7 +2609,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onMouseMoveCapture**: `MouseEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2402](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2402)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2402](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2402)
 
 #### Inherited from
 
@@ -2621,7 +2621,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onMouseOut**: `MouseEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2403](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2403)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2403](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2403)
 
 #### Inherited from
 
@@ -2633,7 +2633,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onMouseOutCapture**: `MouseEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2404](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2404)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2404](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2404)
 
 #### Inherited from
 
@@ -2645,7 +2645,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onMouseOver**: `MouseEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2405](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2405)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2405](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2405)
 
 #### Inherited from
 
@@ -2657,7 +2657,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onMouseOverCapture**: `MouseEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2406](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2406)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2406](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2406)
 
 #### Inherited from
 
@@ -2669,7 +2669,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onMouseUp**: `MouseEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2407](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2407)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2407](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2407)
 
 #### Inherited from
 
@@ -2681,7 +2681,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onMouseUpCapture**: `MouseEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2408](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2408)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2408](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2408)
 
 #### Inherited from
 
@@ -2693,7 +2693,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onPaste**: `ClipboardEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2279](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2279)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2279](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2279)
 
 #### Inherited from
 
@@ -2705,7 +2705,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onPasteCapture**: `ClipboardEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2280](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2280)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2280](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2280)
 
 #### Inherited from
 
@@ -2717,7 +2717,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onPause**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2347](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2347)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2347](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2347)
 
 #### Inherited from
 
@@ -2729,7 +2729,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onPauseCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2348](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2348)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2348](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2348)
 
 #### Inherited from
 
@@ -2741,7 +2741,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onPlay**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2349](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2349)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2349](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2349)
 
 #### Inherited from
 
@@ -2753,7 +2753,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onPlayCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2350](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2350)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2350](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2350)
 
 #### Inherited from
 
@@ -2765,7 +2765,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onPlaying**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2351](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2351)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2351](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2351)
 
 #### Inherited from
 
@@ -2777,7 +2777,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onPlayingCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2352](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2352)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2352](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2352)
 
 #### Inherited from
 
@@ -2789,7 +2789,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onPointerCancel**: `PointerEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2431](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2431)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2431](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2431)
 
 #### Inherited from
 
@@ -2801,7 +2801,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onPointerCancelCapture**: `PointerEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2432](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2432)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2432](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2432)
 
 #### Inherited from
 
@@ -2813,7 +2813,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onPointerDown**: `PointerEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2425](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2425)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2425](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2425)
 
 #### Inherited from
 
@@ -2825,7 +2825,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onPointerDownCapture**: `PointerEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2426](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2426)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2426](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2426)
 
 #### Inherited from
 
@@ -2837,7 +2837,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onPointerEnter**: `PointerEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2433](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2433)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2433](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2433)
 
 #### Inherited from
 
@@ -2849,7 +2849,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onPointerLeave**: `PointerEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2434](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2434)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2434](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2434)
 
 #### Inherited from
 
@@ -2861,7 +2861,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onPointerMove**: `PointerEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2427](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2427)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2427](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2427)
 
 #### Inherited from
 
@@ -2873,7 +2873,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onPointerMoveCapture**: `PointerEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2428](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2428)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2428](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2428)
 
 #### Inherited from
 
@@ -2885,7 +2885,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onPointerOut**: `PointerEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2437](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2437)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2437](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2437)
 
 #### Inherited from
 
@@ -2897,7 +2897,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onPointerOutCapture**: `PointerEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2438](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2438)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2438](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2438)
 
 #### Inherited from
 
@@ -2909,7 +2909,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onPointerOver**: `PointerEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2435](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2435)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2435](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2435)
 
 #### Inherited from
 
@@ -2921,7 +2921,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onPointerOverCapture**: `PointerEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2436](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2436)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2436](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2436)
 
 #### Inherited from
 
@@ -2933,7 +2933,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onPointerUp**: `PointerEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2429](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2429)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2429](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2429)
 
 #### Inherited from
 
@@ -2945,7 +2945,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onPointerUpCapture**: `PointerEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2430](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2430)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2430](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2430)
 
 #### Inherited from
 
@@ -2957,7 +2957,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onProgress**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2353](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2353)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2353](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2353)
 
 #### Inherited from
 
@@ -2969,7 +2969,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onProgressCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2354](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2354)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2354](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2354)
 
 #### Inherited from
 
@@ -2981,7 +2981,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onRateChange**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2355](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2355)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2355](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2355)
 
 #### Inherited from
 
@@ -2993,7 +2993,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onRateChangeCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2356](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2356)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2356](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2356)
 
 #### Inherited from
 
@@ -3005,7 +3005,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onReset**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2303](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2303)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2303](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2303)
 
 #### Inherited from
 
@@ -3017,7 +3017,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onResetCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2304](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2304)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2304](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2304)
 
 #### Inherited from
 
@@ -3029,7 +3029,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onScroll**: `UIEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2445](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2445)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2445](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2445)
 
 #### Inherited from
 
@@ -3041,7 +3041,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onScrollCapture**: `UIEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2446](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2446)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2446](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2446)
 
 #### Inherited from
 
@@ -3053,7 +3053,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onScrollEnd**: `UIEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2447](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2447)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2447](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2447)
 
 #### Inherited from
 
@@ -3065,7 +3065,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onScrollEndCapture**: `UIEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2448](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2448)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2448](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2448)
 
 #### Inherited from
 
@@ -3077,7 +3077,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onSeeked**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2357](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2357)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2357](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2357)
 
 #### Inherited from
 
@@ -3089,7 +3089,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onSeekedCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2358](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2358)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2358](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2358)
 
 #### Inherited from
 
@@ -3101,7 +3101,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onSeeking**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2359](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2359)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2359](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2359)
 
 #### Inherited from
 
@@ -3113,7 +3113,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onSeekingCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2360](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2360)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2360](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2360)
 
 #### Inherited from
 
@@ -3125,7 +3125,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onSelect**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2411](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2411)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2411](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2411)
 
 #### Inherited from
 
@@ -3137,7 +3137,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onSelectCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2412](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2412)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2412](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2412)
 
 #### Inherited from
 
@@ -3149,7 +3149,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onStalled**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2361](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2361)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2361](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2361)
 
 #### Inherited from
 
@@ -3161,7 +3161,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onStalledCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2362](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2362)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2362](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2362)
 
 #### Inherited from
 
@@ -3173,7 +3173,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onSubmit**: `SubmitEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2305](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2305)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2305](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2305)
 
 #### Inherited from
 
@@ -3185,7 +3185,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onSubmitCapture**: `SubmitEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2306](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2306)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2306](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2306)
 
 #### Inherited from
 
@@ -3197,7 +3197,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onSuspend**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2363](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2363)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2363](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2363)
 
 #### Inherited from
 
@@ -3209,7 +3209,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onSuspendCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2364](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2364)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2364](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2364)
 
 #### Inherited from
 
@@ -3221,7 +3221,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onTimeUpdate**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2365](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2365)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2365](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2365)
 
 #### Inherited from
 
@@ -3233,7 +3233,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onTimeUpdateCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2366](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2366)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2366](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2366)
 
 #### Inherited from
 
@@ -3245,7 +3245,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onToggle**: `ToggleEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2463](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2463)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2463](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2463)
 
 #### Inherited from
 
@@ -3257,7 +3257,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onTouchCancel**: `TouchEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2415](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2415)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2415](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2415)
 
 #### Inherited from
 
@@ -3269,7 +3269,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onTouchCancelCapture**: `TouchEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2416](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2416)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2416](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2416)
 
 #### Inherited from
 
@@ -3281,7 +3281,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onTouchEnd**: `TouchEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2417](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2417)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2417](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2417)
 
 #### Inherited from
 
@@ -3293,7 +3293,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onTouchEndCapture**: `TouchEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2418](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2418)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2418](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2418)
 
 #### Inherited from
 
@@ -3305,7 +3305,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onTouchMove**: `TouchEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2419](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2419)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2419](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2419)
 
 #### Inherited from
 
@@ -3317,7 +3317,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onTouchMoveCapture**: `TouchEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2420](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2420)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2420](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2420)
 
 #### Inherited from
 
@@ -3329,7 +3329,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onTouchStart**: `TouchEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2421](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2421)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2421](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2421)
 
 #### Inherited from
 
@@ -3341,7 +3341,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onTouchStartCapture**: `TouchEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2422](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2422)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2422](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2422)
 
 #### Inherited from
 
@@ -3353,7 +3353,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onTransitionCancel**: `TransitionEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2467](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2467)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2467](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2467)
 
 #### Inherited from
 
@@ -3365,7 +3365,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onTransitionCancelCapture**: `TransitionEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2468](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2468)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2468](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2468)
 
 #### Inherited from
 
@@ -3377,7 +3377,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onTransitionEnd**: `TransitionEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2469](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2469)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2469](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2469)
 
 #### Inherited from
 
@@ -3389,7 +3389,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onTransitionEndCapture**: `TransitionEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2470](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2470)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2470](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2470)
 
 #### Inherited from
 
@@ -3401,7 +3401,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onTransitionRun**: `TransitionEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2471](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2471)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2471](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2471)
 
 #### Inherited from
 
@@ -3413,7 +3413,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onTransitionRunCapture**: `TransitionEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2472](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2472)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2472](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2472)
 
 #### Inherited from
 
@@ -3425,7 +3425,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onTransitionStart**: `TransitionEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2473](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2473)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2473](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2473)
 
 #### Inherited from
 
@@ -3437,7 +3437,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onTransitionStartCapture**: `TransitionEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2474](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2474)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2474](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2474)
 
 #### Inherited from
 
@@ -3449,7 +3449,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onVolumeChange**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2367](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2367)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2367](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2367)
 
 #### Inherited from
 
@@ -3461,7 +3461,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onVolumeChangeCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2368](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2368)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2368](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2368)
 
 #### Inherited from
 
@@ -3473,7 +3473,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onWaiting**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2369](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2369)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2369](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2369)
 
 #### Inherited from
 
@@ -3485,7 +3485,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onWaitingCapture**: `ReactEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2370](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2370)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2370](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2370)
 
 #### Inherited from
 
@@ -3497,7 +3497,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onWheel**: `WheelEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2451](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2451)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2451](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2451)
 
 #### Inherited from
 
@@ -3509,7 +3509,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **onWheelCapture**: `WheelEventHandler`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2452](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2452)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2452](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2452)
 
 #### Inherited from
 
@@ -3521,7 +3521,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **part**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2872](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2872)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2872](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2872)
 
 #### See
 
@@ -3537,7 +3537,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **popover**: `""` \| `"auto"` \| `"manual"` \| `"hint"`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2846](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2846)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2846](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2846)
 
 #### Inherited from
 
@@ -3549,7 +3549,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **popoverTarget**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2848](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2848)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2848](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2848)
 
 #### Inherited from
 
@@ -3561,7 +3561,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **popoverTargetAction**: `"show"` \| `"toggle"` \| `"hide"`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2847](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2847)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2847](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2847)
 
 #### Inherited from
 
@@ -3573,7 +3573,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **prefix**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2824](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2824)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2824](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2824)
 
 #### Inherited from
 
@@ -3585,7 +3585,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **property**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2825](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2825)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2825](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2825)
 
 #### Inherited from
 
@@ -3597,7 +3597,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **radioGroup**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2814](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2814)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2814](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2814)
 
 #### Inherited from
 
@@ -3609,7 +3609,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **ref**: `Ref`\<`HTMLButtonElement`\>
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:301](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L301)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:301](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L301)
 
 Allows getting a ref to the component instance.
 Once the component unmounts, React will set `ref.current` to `null`
@@ -3629,7 +3629,7 @@ Once the component unmounts, React will set `ref.current` to `null`
 
 > `optional` **rel**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2826](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2826)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2826](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2826)
 
 #### Inherited from
 
@@ -3641,7 +3641,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **resource**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2827](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2827)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2827](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2827)
 
 #### Inherited from
 
@@ -3653,7 +3653,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **results**: `number`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2841](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2841)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2841](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2841)
 
 #### Inherited from
 
@@ -3665,7 +3665,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **rev**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2828](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2828)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2828](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2828)
 
 #### Inherited from
 
@@ -3677,7 +3677,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **role**: `AriaRole`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2817](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2817)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2817](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2817)
 
 #### Inherited from
 
@@ -3689,7 +3689,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **security**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2842](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2842)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2842](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2842)
 
 #### Inherited from
 
@@ -3701,7 +3701,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **size**: `"default"` \| `"icon"` \| `"link"` \| `"xs"` \| `"sm"` \| `"lg"` \| `"icon-sm"` \| `"icon-xs"` \| `null`
 
-Defined in: [packages/ui/src/base/controls/button.tsx:69](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/controls/button.tsx#L69)
+Defined in: [packages/ui/src/base/controls/button.style.ts:56](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/controls/button.style.ts#L56)
 
 #### Inherited from
 
@@ -3713,7 +3713,7 @@ Defined in: [packages/ui/src/base/controls/button.tsx:69](https://github.com/sim
 
 > `optional` **slot**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2806](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2806)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2806](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2806)
 
 #### Inherited from
 
@@ -3725,7 +3725,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **spellCheck**: `Booleanish`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2807](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2807)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2807](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2807)
 
 #### Inherited from
 
@@ -3737,7 +3737,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **style**: `CSSProperties`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2808](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2808)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2808](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2808)
 
 #### Inherited from
 
@@ -3749,7 +3749,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **suppressContentEditableWarning**: `boolean`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2789](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2789)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2789](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2789)
 
 #### Inherited from
 
@@ -3761,7 +3761,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **suppressHydrationWarning**: `boolean`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2790](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2790)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2790](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2790)
 
 #### Inherited from
 
@@ -3773,7 +3773,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **tabIndex**: `number`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2809](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2809)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2809](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2809)
 
 #### Inherited from
 
@@ -3785,7 +3785,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **title**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2810](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2810)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2810](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2810)
 
 #### Inherited from
 
@@ -3797,11 +3797,11 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **tone**: `"default"` \| `"muted"` \| `null`
 
-Defined in: [packages/ui/src/base/controls/button.tsx:43](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/controls/button.tsx#L43)
+Defined in: [packages/ui/src/base/controls/button.style.ts:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/controls/button.style.ts#L30)
 
 How loudly the label is coloured.
 
-<p>`muted` is for a control that is on the row without claiming it — a breadcrumb above a
+<p>`muted` is for a control that is on the row without claiming it - a breadcrumb above a
 title, a way back out of a screen reached from somewhere else. It is a tone rather than a
 variant because it composes: a quiet link and a quiet ghost are both wanted, and a variant
 per pairing doubles the list for one axis.
@@ -3816,7 +3816,7 @@ per pairing doubles the list for one axis.
 
 > `optional` **translate**: `"yes"` \| `"no"`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2811](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2811)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2811](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2811)
 
 #### Inherited from
 
@@ -3828,7 +3828,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **type**: `"button"` \| `"submit"` \| `"reset"`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:3067](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L3067)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:3067](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L3067)
 
 #### Inherited from
 
@@ -3840,7 +3840,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **typeof**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2829](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2829)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2829](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2829)
 
 #### Inherited from
 
@@ -3850,9 +3850,9 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 ### unselectable?
 
-> `optional` **unselectable**: `"off"` \| `"on"`
+> `optional` **unselectable**: `"on"` \| `"off"`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2843](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2843)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2843](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2843)
 
 #### Inherited from
 
@@ -3864,7 +3864,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **value**: `string` \| `number` \| readonly `string`[]
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:3068](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L3068)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:3068](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L3068)
 
 #### Inherited from
 
@@ -3876,7 +3876,7 @@ Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react
 
 > `optional` **variant**: `"default"` \| `"outline"` \| `"link"` \| `"primary"` \| `"destructive"` \| `"secondary"` \| `"ghost"` \| `null`
 
-Defined in: [packages/ui/src/base/controls/button.tsx:22](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/controls/button.tsx#L22)
+Defined in: [packages/ui/src/base/controls/button.style.ts:9](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/controls/button.style.ts#L9)
 
 #### Inherited from
 
@@ -3888,7 +3888,7 @@ Defined in: [packages/ui/src/base/controls/button.tsx:22](https://github.com/sim
 
 > `optional` **vocab**: `string`
 
-Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2830](https://github.com/simplix-react/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2830)
+Defined in: [node\_modules/.pnpm/@types+react@19.2.14/node\_modules/@types/react/index.d.ts:2830](https://github.com/simplix-framework/simplix-react/blob/main/node_modules/.pnpm/@types+react@19.2.14/node_modules/@types/react/index.d.ts#L2830)
 
 #### Inherited from
 

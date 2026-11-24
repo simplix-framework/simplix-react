@@ -6,7 +6,7 @@
 
 # Interface: DetailI18nTextFieldProps
 
-Defined in: [packages/ui/src/fields/detail/i18n-text-field.tsx:21](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/i18n-text-field.tsx#L21)
+Defined in: [packages/ui/src/fields/detail/i18n-text-field.tsx:21](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/i18n-text-field.tsx#L21)
 
 Shared props for all detail (read-only) field components.
 
@@ -20,7 +20,7 @@ Shared props for all detail (read-only) field components.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
+Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
 
 #### Inherited from
 
@@ -32,7 +32,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix
 
 > `optional` **copyable**: `boolean`
 
-Defined in: [packages/ui/src/fields/detail/i18n-text-field.tsx:24](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/i18n-text-field.tsx#L24)
+Defined in: [packages/ui/src/fields/detail/i18n-text-field.tsx:24](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/i18n-text-field.tsx#L24)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [packages/ui/src/fields/detail/i18n-text-field.tsx:24](https://githu
 
 > `optional` **fallback**: `string`
 
-Defined in: [packages/ui/src/fields/detail/i18n-text-field.tsx:23](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/i18n-text-field.tsx#L23)
+Defined in: [packages/ui/src/fields/detail/i18n-text-field.tsx:23](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/i18n-text-field.tsx#L23)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [packages/ui/src/fields/detail/i18n-text-field.tsx:23](https://githu
 
 > `optional` **label**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
+Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
 
 #### Inherited from
 
@@ -60,7 +60,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix
 
 > `optional` **labelKey**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
+Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
 
 #### Inherited from
 
@@ -72,7 +72,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix
 
 > `optional` **layout**: `"inline"` \| `"left"` \| `"top"` \| `"hidden"` \| `"trailing"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
+Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
 
 Label placement. `"top"` stacks the label above the input, `"left"` puts
 it in a leading column, `"inline"` keeps label and input on one row,
@@ -90,7 +90,7 @@ label for screen readers only.
 
 > `optional` **size**: `"sm"` \| `"lg"` \| `"md"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
+Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
 
 #### Inherited from
 
@@ -102,4 +102,4 @@ Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix
 
 > **value**: `Record`\<`string`, `string`\> \| `null` \| `undefined`
 
-Defined in: [packages/ui/src/fields/detail/i18n-text-field.tsx:22](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/i18n-text-field.tsx#L22)
+Defined in: [packages/ui/src/fields/detail/i18n-text-field.tsx:22](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/i18n-text-field.tsx#L22)

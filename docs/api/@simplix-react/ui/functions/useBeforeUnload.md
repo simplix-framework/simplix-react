@@ -8,7 +8,7 @@
 
 > **useBeforeUnload**(`enabled`): `void`
 
-Defined in: [packages/ui/src/crud/form/use-before-unload.ts:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/use-before-unload.ts#L14)
+Defined in: [packages/ui/src/crud/form/use-before-unload.ts:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/use-before-unload.ts#L14)
 
 Register a `beforeunload` handler to warn users before leaving the page.
 

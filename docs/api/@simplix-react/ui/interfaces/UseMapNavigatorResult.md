@@ -6,7 +6,7 @@
 
 # Interface: UseMapNavigatorResult
 
-Defined in: [packages/ui/src/base/map/map-navigator.tsx:17](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map-navigator.tsx#L17)
+Defined in: [packages/ui/src/base/map/map-navigator.tsx:25](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map-navigator.tsx#L25)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/base/map/map-navigator.tsx:17](https://github.com/s
 
 > **fitAll**: () => `void`
 
-Defined in: [packages/ui/src/base/map/map-navigator.tsx:22](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map-navigator.tsx#L22)
+Defined in: [packages/ui/src/base/map/map-navigator.tsx:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map-navigator.tsx#L30)
 
 #### Returns
 
@@ -26,7 +26,7 @@ Defined in: [packages/ui/src/base/map/map-navigator.tsx:22](https://github.com/s
 
 > **focusedIndex**: `number`
 
-Defined in: [packages/ui/src/base/map/map-navigator.tsx:18](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map-navigator.tsx#L18)
+Defined in: [packages/ui/src/base/map/map-navigator.tsx:26](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map-navigator.tsx#L26)
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: [packages/ui/src/base/map/map-navigator.tsx:18](https://github.com/s
 
 > **handleNext**: () => `void`
 
-Defined in: [packages/ui/src/base/map/map-navigator.tsx:21](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map-navigator.tsx#L21)
+Defined in: [packages/ui/src/base/map/map-navigator.tsx:29](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map-navigator.tsx#L29)
 
 #### Returns
 
@@ -46,7 +46,7 @@ Defined in: [packages/ui/src/base/map/map-navigator.tsx:21](https://github.com/s
 
 > **handlePrev**: () => `void`
 
-Defined in: [packages/ui/src/base/map/map-navigator.tsx:20](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map-navigator.tsx#L20)
+Defined in: [packages/ui/src/base/map/map-navigator.tsx:28](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map-navigator.tsx#L28)
 
 #### Returns
 
@@ -58,7 +58,7 @@ Defined in: [packages/ui/src/base/map/map-navigator.tsx:20](https://github.com/s
 
 > **navigateTo**: (`index`) => `void`
 
-Defined in: [packages/ui/src/base/map/map-navigator.tsx:19](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map-navigator.tsx#L19)
+Defined in: [packages/ui/src/base/map/map-navigator.tsx:27](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map-navigator.tsx#L27)
 
 #### Parameters
 

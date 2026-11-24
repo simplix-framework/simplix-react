@@ -6,7 +6,7 @@
 
 # Interface: ContainerMapping
 
-Defined in: [openapi/orchestration/spec-profile.ts:13](https://github.com/simplix-react/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L13)
+Defined in: [openapi/orchestration/spec-profile.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L13)
 
 What a Java container name from SimpliX Meta becomes on the TypeScript side.
 
@@ -22,7 +22,7 @@ belonging to the spec profile, not to SimpliX Meta.
 
 > `optional` **import**: `string`
 
-Defined in: [openapi/orchestration/spec-profile.ts:19](https://github.com/simplix-react/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L19)
+Defined in: [openapi/orchestration/spec-profile.ts:19](https://github.com/simplix-framework/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L19)
 
 Module the TS type and zod factory are imported from.
 
@@ -32,7 +32,7 @@ Module the TS type and zod factory are imported from.
 
 > `optional` **keyType**: `string`
 
-Defined in: [openapi/orchestration/spec-profile.ts:23](https://github.com/simplix-react/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L23)
+Defined in: [openapi/orchestration/spec-profile.ts:23](https://github.com/simplix-framework/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L23)
 
 For `Map`: the key type, which SimpliX Meta does not carry.
 
@@ -42,7 +42,7 @@ For `Map`: the key type, which SimpliX Meta does not carry.
 
 > `optional` **ts**: `string`
 
-Defined in: [openapi/orchestration/spec-profile.ts:15](https://github.com/simplix-react/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L15)
+Defined in: [openapi/orchestration/spec-profile.ts:15](https://github.com/simplix-framework/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L15)
 
 The TypeScript type name, or absent when the container disappears from client types.
 
@@ -52,7 +52,7 @@ The TypeScript type name, or absent when the container disappears from client ty
 
 > `optional` **unwrap**: `boolean`
 
-Defined in: [openapi/orchestration/spec-profile.ts:21](https://github.com/simplix-react/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L21)
+Defined in: [openapi/orchestration/spec-profile.ts:21](https://github.com/simplix-framework/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L21)
 
 The mutator strips this container before React Query sees it, so it has no client type.
 
@@ -62,6 +62,6 @@ The mutator strips this container before React Query sees it, so it has no clien
 
 > `optional` **zod**: `string`
 
-Defined in: [openapi/orchestration/spec-profile.ts:17](https://github.com/simplix-react/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L17)
+Defined in: [openapi/orchestration/spec-profile.ts:17](https://github.com/simplix-framework/simplix-react/blob/main/openapi/orchestration/spec-profile.ts#L17)
 
 The zod factory that wraps the inner schema.

@@ -8,7 +8,7 @@
 
 > **MenuPermissionFilter** = (`permissionCode`) => `boolean`
 
-Defined in: [packages/ui/src/menu/menu-types.ts:33](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L33)
+Defined in: [packages/ui/src/menu/menu-types.ts:33](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L33)
 
 ## Parameters
 

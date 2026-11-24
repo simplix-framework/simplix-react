@@ -8,7 +8,7 @@
 
 > **CalendarProvider**(`__namedParameters`): `Element`
 
-Defined in: [context/calendar-context.tsx:119](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L119)
+Defined in: [context/calendar-context.tsx:135](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L135)
 
 Owns one isolated calendar store and the item/resource/callback data.
 

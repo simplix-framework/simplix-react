@@ -8,7 +8,7 @@
 
 > **useUIDefaults**(): [`UIDefaults`](../interfaces/UIDefaults.md)
 
-Defined in: [packages/ui/src/provider/ui-defaults-context.ts:58](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/ui-defaults-context.ts#L58)
+Defined in: [packages/ui/src/provider/ui-defaults-context.ts:85](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/ui-defaults-context.ts#L85)
 
 The prop defaults in force here.
 

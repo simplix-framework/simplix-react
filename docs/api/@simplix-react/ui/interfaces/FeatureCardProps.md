@@ -6,7 +6,7 @@
 
 # Interface: FeatureCardProps
 
-Defined in: [packages/ui/src/crud/shared/feature-card.tsx:26](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/feature-card.tsx#L26)
+Defined in: [packages/ui/src/crud/shared/feature-card.tsx:33](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/feature-card.tsx#L33)
 
 Props for the [FeatureCard](../functions/FeatureCard.md).
 
@@ -16,7 +16,7 @@ Props for the [FeatureCard](../functions/FeatureCard.md).
 
 > `optional` **action**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/feature-card.tsx:32](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/feature-card.tsx#L32)
+Defined in: [packages/ui/src/crud/shared/feature-card.tsx:39](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/feature-card.tsx#L39)
 
 Right-aligned header slot: a feature toggle `Switch`, button, or badge.
 
@@ -26,7 +26,7 @@ Right-aligned header slot: a feature toggle `Switch`, button, or badge.
 
 > **children**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/feature-card.tsx:34](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/feature-card.tsx#L34)
+Defined in: [packages/ui/src/crud/shared/feature-card.tsx:41](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/feature-card.tsx#L41)
 
 Card body content.
 
@@ -36,7 +36,7 @@ Card body content.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/shared/feature-card.tsx:36](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/feature-card.tsx#L36)
+Defined in: [packages/ui/src/crud/shared/feature-card.tsx:43](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/feature-card.tsx#L43)
 
 Extra classes on the root `<section>`.
 
@@ -46,7 +46,7 @@ Extra classes on the root `<section>`.
 
 > `optional` **icon**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/feature-card.tsx:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/feature-card.tsx#L30)
+Defined in: [packages/ui/src/crud/shared/feature-card.tsx:37](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/feature-card.tsx#L37)
 
 Leading icon before the title. Decorative — sized to 16px.
 
@@ -56,6 +56,6 @@ Leading icon before the title. Decorative — sized to 16px.
 
 > `optional` **title**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/feature-card.tsx:28](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/feature-card.tsx#L28)
+Defined in: [packages/ui/src/crud/shared/feature-card.tsx:35](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/feature-card.tsx#L35)
 
 Already-localized section title. Omit (with `action`) for a header-less card.

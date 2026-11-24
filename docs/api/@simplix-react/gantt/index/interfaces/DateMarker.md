@@ -6,7 +6,7 @@
 
 # Interface: DateMarker
 
-Defined in: [lib/markers.ts:8](https://github.com/simplix-react/simplix-react/blob/main/lib/markers.ts#L8)
+Defined in: [lib/markers.ts:8](https://github.com/simplix-framework/simplix-react/blob/main/lib/markers.ts#L8)
 
 One marked date.
 
@@ -16,7 +16,7 @@ One marked date.
 
 > **at**: `number`
 
-Defined in: [lib/markers.ts:10](https://github.com/simplix-react/simplix-react/blob/main/lib/markers.ts#L10)
+Defined in: [lib/markers.ts:10](https://github.com/simplix-framework/simplix-react/blob/main/lib/markers.ts#L10)
 
 ***
 
@@ -24,4 +24,4 @@ Defined in: [lib/markers.ts:10](https://github.com/simplix-react/simplix-react/b
 
 > **kind**: [`MarkerKind`](../type-aliases/MarkerKind.md)
 
-Defined in: [lib/markers.ts:9](https://github.com/simplix-react/simplix-react/blob/main/lib/markers.ts#L9)
+Defined in: [lib/markers.ts:9](https://github.com/simplix-framework/simplix-react/blob/main/lib/markers.ts#L9)

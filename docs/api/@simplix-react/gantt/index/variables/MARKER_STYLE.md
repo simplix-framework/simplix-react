@@ -8,6 +8,6 @@
 
 > `const` **MARKER\_STYLE**: `Readonly`\<`Record`\<[`MarkerKind`](../type-aliases/MarkerKind.md), \{ `ink`: `string`; `line`: `string`; `tag`: `string`; \}\>\>
 
-Defined in: [lib/markers.ts:14](https://github.com/simplix-react/simplix-react/blob/main/lib/markers.ts#L14)
+Defined in: [lib/markers.ts:14](https://github.com/simplix-framework/simplix-react/blob/main/lib/markers.ts#L14)
 
 How each kind of marker is drawn: its line in the chart, its name tag in the header, and its colour on paper.

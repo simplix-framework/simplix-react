@@ -8,7 +8,7 @@
 
 > `const` **DEFAULT\_LOCALES**: [`LocaleConfig`](../interfaces/LocaleConfig.md)[]
 
-Defined in: [utils/locale-config.ts:8](https://github.com/simplix-react/simplix-react/blob/main/utils/locale-config.ts#L8)
+Defined in: [utils/locale-config.ts:8](https://github.com/simplix-framework/simplix-react/blob/main/utils/locale-config.ts#L8)
 
 Provides built-in locale configurations for commonly used languages worldwide.
 

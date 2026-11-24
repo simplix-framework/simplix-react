@@ -6,7 +6,7 @@
 
 # Interface: OperatorMeta
 
-Defined in: [packages/ui/src/crud/filters/filter-icons.tsx:20](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-icons.tsx#L20)
+Defined in: [packages/ui/src/crud/filters/filter-icons.tsx:20](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-icons.tsx#L20)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/crud/filters/filter-icons.tsx:20](https://github.co
 
 > **icon**: `ComponentType`\<\{ `className?`: `string`; \}\>
 
-Defined in: [packages/ui/src/crud/filters/filter-icons.tsx:21](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-icons.tsx#L21)
+Defined in: [packages/ui/src/crud/filters/filter-icons.tsx:21](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-icons.tsx#L21)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [packages/ui/src/crud/filters/filter-icons.tsx:21](https://github.co
 
 > **labelKey**: `string`
 
-Defined in: [packages/ui/src/crud/filters/filter-icons.tsx:23](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-icons.tsx#L23)
+Defined in: [packages/ui/src/crud/filters/filter-icons.tsx:23](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-icons.tsx#L23)
 
 ***
 
@@ -30,4 +30,4 @@ Defined in: [packages/ui/src/crud/filters/filter-icons.tsx:23](https://github.co
 
 > **symbol**: `string`
 
-Defined in: [packages/ui/src/crud/filters/filter-icons.tsx:22](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-icons.tsx#L22)
+Defined in: [packages/ui/src/crud/filters/filter-icons.tsx:22](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-icons.tsx#L22)

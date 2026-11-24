@@ -8,7 +8,7 @@
 
 > **navigateDate**(`date`, `view`, `direction`): `Date`
 
-Defined in: [helpers.ts:69](https://github.com/simplix-react/simplix-react/blob/main/helpers.ts#L69)
+Defined in: [helpers.ts:69](https://github.com/simplix-framework/simplix-react/blob/main/helpers.ts#L69)
 
 Step the selected date one unit forward/back for the active view.
 

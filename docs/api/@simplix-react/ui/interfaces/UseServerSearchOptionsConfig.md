@@ -6,7 +6,7 @@
 
 # Interface: UseServerSearchOptionsConfig\<TItem\>
 
-Defined in: [packages/ui/src/crud/list/use-server-search-options.ts:6](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-server-search-options.ts#L6)
+Defined in: [packages/ui/src/crud/list/use-server-search-options.ts:6](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-server-search-options.ts#L6)
 
 Configuration for useServerSearchOptions.
 
@@ -22,7 +22,7 @@ Configuration for useServerSearchOptions.
 
 > `optional` **debounceMs**: `number`
 
-Defined in: [packages/ui/src/crud/list/use-server-search-options.ts:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-server-search-options.ts#L30)
+Defined in: [packages/ui/src/crud/list/use-server-search-options.ts:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-server-search-options.ts#L30)
 
 Debounce delay in milliseconds. Default: 300.
 
@@ -32,7 +32,7 @@ Debounce delay in milliseconds. Default: 300.
 
 > `optional` **limit**: `number`
 
-Defined in: [packages/ui/src/crud/list/use-server-search-options.ts:36](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-server-search-options.ts#L36)
+Defined in: [packages/ui/src/crud/list/use-server-search-options.ts:36](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-server-search-options.ts#L36)
 
 Maximum results per search (maps to page size). Default: 20.
 
@@ -42,7 +42,7 @@ Maximum results per search (maps to page size). Default: 20.
 
 > `optional` **minQueryLength**: `number`
 
-Defined in: [packages/ui/src/crud/list/use-server-search-options.ts:33](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-server-search-options.ts#L33)
+Defined in: [packages/ui/src/crud/list/use-server-search-options.ts:33](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-server-search-options.ts#L33)
 
 Minimum query length to trigger search. Default: 1.
 
@@ -52,7 +52,7 @@ Minimum query length to trigger search. Default: 1.
 
 > `optional` **params**: `Record`\<`string`, `string`\>
 
-Defined in: [packages/ui/src/crud/list/use-server-search-options.ts:39](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-server-search-options.ts#L39)
+Defined in: [packages/ui/src/crud/list/use-server-search-options.ts:39](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-server-search-options.ts#L39)
 
 Additional static search params (e.g., fixed filters).
 
@@ -62,7 +62,7 @@ Additional static search params (e.g., fixed filters).
 
 > **searchField**: `string`
 
-Defined in: [packages/ui/src/crud/list/use-server-search-options.ts:19](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-server-search-options.ts#L19)
+Defined in: [packages/ui/src/crud/list/use-server-search-options.ts:19](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-server-search-options.ts#L19)
 
 Search field name for the backend query param.
 Combined with ".contains" operator: "menuName.contains=query"
@@ -79,7 +79,7 @@ Combined with ".contains" operator: "menuName.contains=query"
 
 > `optional` **selectedOption**: \{ `icon?`: `ReactNode`; `label`: `string`; `value`: `string`; \} \| `null`
 
-Defined in: [packages/ui/src/crud/list/use-server-search-options.ts:27](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-server-search-options.ts#L27)
+Defined in: [packages/ui/src/crud/list/use-server-search-options.ts:27](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-server-search-options.ts#L27)
 
 Pre-resolved option for the current value (FK label display).
 Source: JPA join nested object in parent DTO.
@@ -97,7 +97,7 @@ Merged into options array when value not in search results.
 
 > **toOption**: (`item`) => `object`
 
-Defined in: [packages/ui/src/crud/list/use-server-search-options.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-server-search-options.ts#L12)
+Defined in: [packages/ui/src/crud/list/use-server-search-options.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-server-search-options.ts#L12)
 
 Map each ListDTO item to a combobox option.
 Same pattern as useOrvalOptions.toOption.

@@ -8,7 +8,7 @@
 
 > **TreeReorderDialog**\<`T`\>(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/crud/tree/tree-reorder-dialog.tsx:79](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/tree-reorder-dialog.tsx#L79)
+Defined in: [packages/ui/src/crud/tree/tree-reorder-dialog.tsx:86](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/tree-reorder-dialog.tsx#L86)
 
 ## Type Parameters
 

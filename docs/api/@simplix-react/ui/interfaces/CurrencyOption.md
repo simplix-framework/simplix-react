@@ -6,7 +6,7 @@
 
 # Interface: CurrencyOption
 
-Defined in: [packages/ui/src/utils/use-currency-options.ts:5](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/use-currency-options.ts#L5)
+Defined in: [packages/ui/src/utils/use-currency-options.ts:5](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/use-currency-options.ts#L5)
 
 One currency an amount can be written in.
 
@@ -16,7 +16,7 @@ One currency an amount can be written in.
 
 > **code**: `string`
 
-Defined in: [packages/ui/src/utils/use-currency-options.ts:7](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/use-currency-options.ts#L7)
+Defined in: [packages/ui/src/utils/use-currency-options.ts:7](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/use-currency-options.ts#L7)
 
 ISO 4217 code, e.g. "KRW".
 
@@ -26,7 +26,7 @@ ISO 4217 code, e.g. "KRW".
 
 > **decimalPlaces**: `number`
 
-Defined in: [packages/ui/src/utils/use-currency-options.ts:17](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/use-currency-options.ts#L17)
+Defined in: [packages/ui/src/utils/use-currency-options.ts:17](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/use-currency-options.ts#L17)
 
 How many decimal places the currency implies — the won has none, the dinar has three.
 Amounts are commonly stored as integers in the currency's smallest unit, and this is the
@@ -38,7 +38,7 @@ scale that turns such an integer back into a figure.
 
 > **englishName**: `string`
 
-Defined in: [packages/ui/src/utils/use-currency-options.ts:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/use-currency-options.ts#L11)
+Defined in: [packages/ui/src/utils/use-currency-options.ts:11](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/use-currency-options.ts#L11)
 
 The currency's English name, so a search in either language finds it.
 
@@ -48,6 +48,6 @@ The currency's English name, so a search in either language finds it.
 
 > **localName**: `string`
 
-Defined in: [packages/ui/src/utils/use-currency-options.ts:9](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/use-currency-options.ts#L9)
+Defined in: [packages/ui/src/utils/use-currency-options.ts:9](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/use-currency-options.ts#L9)
 
 The currency's name in the reader's language, e.g. "대한민국 원".

@@ -8,6 +8,6 @@
 
 > `const` **STATUS\_TONE\_NAMES**: readonly [`StatusTone`](../type-aliases/StatusTone.md)[]
 
-Defined in: [packages/ui/src/base/status-tone.ts:143](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/status-tone.ts#L143)
+Defined in: [packages/ui/src/base/status-tone.ts:139](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/status-tone.ts#L139)
 
 Ordered list of all tones (stable iteration for tests/storybook).

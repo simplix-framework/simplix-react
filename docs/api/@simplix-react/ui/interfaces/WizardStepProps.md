@@ -6,7 +6,7 @@
 
 # Interface: WizardStepProps
 
-Defined in: [packages/ui/src/crud/form/wizard.tsx:22](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/wizard.tsx#L22)
+Defined in: [packages/ui/src/crud/form/wizard.tsx:34](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/wizard.tsx#L34)
 
 Props for the Wizard.Step sub-component.
 
@@ -19,7 +19,7 @@ async validation function that must return `true` to proceed.
 
 > **children**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/form/wizard.tsx:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/wizard.tsx#L30)
+Defined in: [packages/ui/src/crud/form/wizard.tsx:42](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/wizard.tsx#L42)
 
 Step content.
 
@@ -29,7 +29,7 @@ Step content.
 
 > `optional` **description**: `string`
 
-Defined in: [packages/ui/src/crud/form/wizard.tsx:26](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/wizard.tsx#L26)
+Defined in: [packages/ui/src/crud/form/wizard.tsx:38](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/wizard.tsx#L38)
 
 Optional description shown below the title.
 
@@ -39,7 +39,7 @@ Optional description shown below the title.
 
 > **title**: `string`
 
-Defined in: [packages/ui/src/crud/form/wizard.tsx:24](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/wizard.tsx#L24)
+Defined in: [packages/ui/src/crud/form/wizard.tsx:36](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/wizard.tsx#L36)
 
 Step title displayed in the step indicator.
 
@@ -49,7 +49,7 @@ Step title displayed in the step indicator.
 
 > `optional` **validate**: () => `boolean` \| `Promise`\<`boolean`\>
 
-Defined in: [packages/ui/src/crud/form/wizard.tsx:28](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/wizard.tsx#L28)
+Defined in: [packages/ui/src/crud/form/wizard.tsx:40](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/wizard.tsx#L40)
 
 Validation function called before advancing. Return `false` to block navigation.
 

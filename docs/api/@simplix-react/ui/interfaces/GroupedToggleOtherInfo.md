@@ -6,7 +6,7 @@
 
 # Interface: GroupedToggleOtherInfo\<T\>
 
-Defined in: [packages/ui/src/fields/form/grouped-toggle-field.tsx:41](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/grouped-toggle-field.tsx#L41)
+Defined in: [packages/ui/src/fields/form/grouped-toggle-field.tsx:56](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/grouped-toggle-field.tsx#L56)
 
 Information passed to [GroupedToggleFieldProps.renderOtherNote](GroupedToggleFieldProps.md#renderothernote).
 
@@ -22,7 +22,7 @@ Information passed to [GroupedToggleFieldProps.renderOtherNote](GroupedToggleFie
 
 > **all**: `T`[]
 
-Defined in: [packages/ui/src/fields/form/grouped-toggle-field.tsx:47](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/grouped-toggle-field.tsx#L47)
+Defined in: [packages/ui/src/fields/form/grouped-toggle-field.tsx:62](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/grouped-toggle-field.tsx#L62)
 
 Flattened list of all out-of-catalog selected values.
 
@@ -32,7 +32,7 @@ Flattened list of all out-of-catalog selected values.
 
 > **byGroup**: `Record`\<`string`, `T`[]\>
 
-Defined in: [packages/ui/src/fields/form/grouped-toggle-field.tsx:45](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/grouped-toggle-field.tsx#L45)
+Defined in: [packages/ui/src/fields/form/grouped-toggle-field.tsx:60](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/grouped-toggle-field.tsx#L60)
 
 Out-of-catalog selected values keyed by group id.
 
@@ -42,6 +42,6 @@ Out-of-catalog selected values keyed by group id.
 
 > **count**: `number`
 
-Defined in: [packages/ui/src/fields/form/grouped-toggle-field.tsx:43](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/grouped-toggle-field.tsx#L43)
+Defined in: [packages/ui/src/fields/form/grouped-toggle-field.tsx:58](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/grouped-toggle-field.tsx#L58)
 
 Total count of selected values not present in any group's catalog.

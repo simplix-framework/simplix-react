@@ -8,4 +8,4 @@
 
 > **HeadingTag** = `"h1"` \| `"h2"` \| `"h3"` \| `"h4"` \| `"h5"` \| `"h6"`
 
-Defined in: [packages/ui/src/primitives/heading.tsx:34](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/primitives/heading.tsx#L34)
+Defined in: [packages/ui/src/primitives/heading.tsx:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/primitives/heading.tsx#L12)

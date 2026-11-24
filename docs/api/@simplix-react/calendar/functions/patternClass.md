@@ -8,7 +8,7 @@
 
 > **patternClass**(`pattern?`): `string`
 
-Defined in: [helpers.ts:327](https://github.com/simplix-react/simplix-react/blob/main/helpers.ts#L327)
+Defined in: [helpers.ts:327](https://github.com/simplix-framework/simplix-react/blob/main/helpers.ts#L327)
 
 Extra classes for an item's optional render pattern (layered over the color fill).
 

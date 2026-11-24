@@ -8,7 +8,7 @@
 
 > **adaptOrvalUpdate**\<`T`, `TId`\>(`mutation`, `pathParam?`, `opts?`): [`CrudMutation`](../interfaces/CrudMutation.md)\<\{ `dto`: `T`; `id`: `TId`; \}\>
 
-Defined in: [adapt-orval-mutation.ts:47](https://github.com/simplix-react/simplix-react/blob/main/adapt-orval-mutation.ts#L47)
+Defined in: [adapt-orval-mutation.ts:47](https://github.com/simplix-framework/simplix-react/blob/main/adapt-orval-mutation.ts#L47)
 
 Adapts an Orval **update** mutation to the [CrudMutation](../interfaces/CrudMutation.md) interface
 (`mutate({ id, dto })`).

@@ -8,7 +8,7 @@
 
 > **withOverride**\<`P`\>(`Component`, `defaultProps`): `ComponentType`\<`P`\>
 
-Defined in: [packages/ui/src/provider/override-utils.ts:18](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/override-utils.ts#L18)
+Defined in: [packages/ui/src/provider/override-utils.ts:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/override-utils.ts#L18)
 
 Creates a wrapped version of a component with default props/className.
 

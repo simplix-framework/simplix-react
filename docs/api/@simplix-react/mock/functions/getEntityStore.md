@@ -8,7 +8,7 @@
 
 > **getEntityStore**(`storeName`): `Map`\<`string` \| `number`, `Record`\<`string`, `unknown`\>\>
 
-Defined in: [mock-store.ts:26](https://github.com/simplix-react/simplix-react/blob/main/mock-store.ts#L26)
+Defined in: [mock-store.ts:26](https://github.com/simplix-framework/simplix-react/blob/main/mock-store.ts#L26)
 
 Returns the `Map` for the given store name, creating it lazily if needed.
 

@@ -8,7 +8,7 @@
 
 > **useServerSearchOptions**\<`TItem`\>(`useSearchQuery`, `config`): [`UseServerSearchOptionsReturn`](../interfaces/UseServerSearchOptionsReturn.md)
 
-Defined in: [packages/ui/src/crud/list/use-server-search-options.ts:63](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-server-search-options.ts#L63)
+Defined in: [packages/ui/src/crud/list/use-server-search-options.ts:63](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-server-search-options.ts#L63)
 
 Server-side search hook for ComboboxField.
 Follows useOrvalOptions conventions with reactive search capability.

@@ -8,7 +8,7 @@
 
 > **mspdiExportLosses**(`project`): [`MspdiLoss`](../interfaces/MspdiLoss.md)[]
 
-Defined in: [packages/gantt-core/src/mspdi/losses.ts:26](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/mspdi/losses.ts#L26)
+Defined in: [packages/gantt-core/src/mspdi/losses.ts:26](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/mspdi/losses.ts#L26)
 
 Lists what `writeMspdi` leaves out of the document for this plan. With an
 empty list everything the plan holds is in the document; a custom field

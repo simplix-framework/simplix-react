@@ -8,7 +8,7 @@
 
 > **MspdiLossCode** = `"splits"` \| `"color"` \| `"recurrence"` \| `"custom-fields"`
 
-Defined in: [packages/gantt-core/src/mspdi/losses.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/mspdi/losses.ts#L12)
+Defined in: [packages/gantt-core/src/mspdi/losses.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/mspdi/losses.ts#L12)
 
 Something of a plan that a Microsoft Project XML document has no place for.
 

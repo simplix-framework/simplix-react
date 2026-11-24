@@ -6,7 +6,7 @@
 
 # Interface: DonutChartProps
 
-Defined in: [packages/ui/src/base/charts/types.ts:62](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L62)
+Defined in: [packages/ui/src/base/charts/types.ts:74](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L74)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:62](https://github.com/simplix
 
 > `optional` **centerLabel**: `string`
 
-Defined in: [packages/ui/src/base/charts/types.ts:66](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L66)
+Defined in: [packages/ui/src/base/charts/types.ts:78](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L78)
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:66](https://github.com/simplix
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/base/charts/types.ts:31](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L31)
+Defined in: [packages/ui/src/base/charts/types.ts:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L31)
 
 #### Inherited from
 
@@ -38,7 +38,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:31](https://github.com/simplix
 
 > `optional` **colors**: `string`[]
 
-Defined in: [packages/ui/src/base/charts/types.ts:65](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L65)
+Defined in: [packages/ui/src/base/charts/types.ts:77](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L77)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:65](https://github.com/simplix
 
 > `optional` **height**: `string` \| `number`
 
-Defined in: [packages/ui/src/base/charts/types.ts:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L30)
+Defined in: [packages/ui/src/base/charts/types.ts:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L30)
 
 #### Inherited from
 
@@ -58,7 +58,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:30](https://github.com/simplix
 
 > **labels**: `string`[]
 
-Defined in: [packages/ui/src/base/charts/types.ts:63](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L63)
+Defined in: [packages/ui/src/base/charts/types.ts:75](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L75)
 
 ***
 
@@ -66,4 +66,4 @@ Defined in: [packages/ui/src/base/charts/types.ts:63](https://github.com/simplix
 
 > **series**: `number`[]
 
-Defined in: [packages/ui/src/base/charts/types.ts:64](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L64)
+Defined in: [packages/ui/src/base/charts/types.ts:76](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L76)

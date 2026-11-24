@@ -8,7 +8,7 @@
 
 > **parseCrudSearch**(`search`): `object`
 
-Defined in: [packages/ui/src/crud/patterns/crud-search.ts:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/crud-search.ts#L30)
+Defined in: [packages/ui/src/crud/patterns/crud-search.ts:107](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/crud-search.ts#L107)
 
 **`Internal`**
 
@@ -21,6 +21,10 @@ Defined in: [packages/ui/src/crud/patterns/crud-search.ts:30](https://github.com
 ## Returns
 
 `object`
+
+### filters?
+
+> `optional` **filters**: [`CrudSearchFilters`](../type-aliases/CrudSearchFilters.md)
 
 ### selectedId?
 

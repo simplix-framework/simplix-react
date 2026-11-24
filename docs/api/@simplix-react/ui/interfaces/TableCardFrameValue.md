@@ -6,7 +6,7 @@
 
 # Interface: TableCardFrameValue
 
-Defined in: [packages/ui/src/crud/shared/table-card-frame.tsx:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/table-card-frame.tsx#L13)
+Defined in: [packages/ui/src/crud/shared/table-card-frame.tsx:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/table-card-frame.tsx#L15)
 
 Frame state published by a TableCardFrame to descendant tables/footers.
 
@@ -16,7 +16,7 @@ Frame state published by a TableCardFrame to descendant tables/footers.
 
 > `optional` **fill**: `boolean`
 
-Defined in: [packages/ui/src/crud/shared/table-card-frame.tsx:18](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/table-card-frame.tsx#L18)
+Defined in: [packages/ui/src/crud/shared/table-card-frame.tsx:20](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/table-card-frame.tsx#L20)
 
 Fills a height-bounded flex parent instead of using `maxHeight`.
 
@@ -26,7 +26,7 @@ Fills a height-bounded flex parent instead of using `maxHeight`.
 
 > **framed**: `boolean`
 
-Defined in: [packages/ui/src/crud/shared/table-card-frame.tsx:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/table-card-frame.tsx#L14)
+Defined in: [packages/ui/src/crud/shared/table-card-frame.tsx:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/table-card-frame.tsx#L16)
 
 ***
 
@@ -34,6 +34,6 @@ Defined in: [packages/ui/src/crud/shared/table-card-frame.tsx:14](https://github
 
 > `optional` **maxHeight**: `string` \| `number`
 
-Defined in: [packages/ui/src/crud/shared/table-card-frame.tsx:16](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/table-card-frame.tsx#L16)
+Defined in: [packages/ui/src/crud/shared/table-card-frame.tsx:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/table-card-frame.tsx#L18)
 
 Bounds the table body height so it scrolls while the header sticks.

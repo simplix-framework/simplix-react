@@ -8,7 +8,7 @@
 
 > `const` **CrudList**: (`__namedParameters`) => `Element` & `object`
 
-Defined in: [packages/ui/src/crud/list/crud-list.tsx:1849](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/crud-list.tsx#L1849)
+Defined in: [packages/ui/src/crud/list/crud-list.tsx:2267](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/crud-list.tsx#L2267)
 
 Compound component for building CRUD list views with toolbar, table,
 pagination, selection, and bulk actions.
@@ -441,3 +441,18 @@ Text input filter with search icon and clear button.
 #### Returns
 
 `Element`
+
+### ViewToggle()
+
+> **ViewToggle**: () => `Element` \| `null` = `ViewModeToggle`
+
+The list/grid switch of a list whose table declares `gridView`. It draws nothing otherwise, and
+nothing while the list is narrower than its `cardBreakpoint`, where cards are forced and there is
+no second view to switch to.
+
+<p>The filter bar draws it inside its leading group. A list with no filter bar places it in its own
+toolbar, so the switch is one control wherever it stands. Reads the enclosing `CrudList`.
+
+#### Returns
+
+`Element` \| `null`

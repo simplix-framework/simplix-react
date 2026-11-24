@@ -6,7 +6,7 @@
 
 # Interface: FetchErrorContext
 
-Defined in: [packages/contract/src/helpers/create-fetch.ts:9](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L9)
+Defined in: [packages/contract/src/helpers/create-fetch.ts:9](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L9)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [packages/contract/src/helpers/create-fetch.ts:9](https://github.com
 
 > **method**: `string`
 
-Defined in: [packages/contract/src/helpers/create-fetch.ts:6](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L6)
+Defined in: [packages/contract/src/helpers/create-fetch.ts:6](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L6)
 
 #### Inherited from
 
@@ -30,7 +30,7 @@ Defined in: [packages/contract/src/helpers/create-fetch.ts:6](https://github.com
 
 > **path**: `string`
 
-Defined in: [packages/contract/src/helpers/create-fetch.ts:5](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L5)
+Defined in: [packages/contract/src/helpers/create-fetch.ts:5](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L5)
 
 #### Inherited from
 
@@ -42,4 +42,4 @@ Defined in: [packages/contract/src/helpers/create-fetch.ts:5](https://github.com
 
 > **status**: `number`
 
-Defined in: [packages/contract/src/helpers/create-fetch.ts:10](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L10)
+Defined in: [packages/contract/src/helpers/create-fetch.ts:10](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L10)

@@ -8,12 +8,7 @@
 
 > **bearerScheme**(`options`): [`AuthScheme`](../interfaces/AuthScheme.md)
 
-Defined in: [packages/auth/src/schemes/bearer-scheme.ts:27](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/schemes/bearer-scheme.ts#L27)
-
-Creates a Bearer token [AuthScheme](../interfaces/AuthScheme.md).
-
-Attaches an `Authorization: Bearer <token>` header to each request.
-Optionally supports proactive token refresh before expiry.
+Defined in: [packages/auth/src/schemes/bearer-scheme.ts:38](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/schemes/bearer-scheme.ts#L38)
 
 ## Parameters
 
@@ -24,19 +19,3 @@ Optionally supports proactive token refresh before expiry.
 ## Returns
 
 [`AuthScheme`](../interfaces/AuthScheme.md)
-
-## Example
-
-```ts
-const store = localStorageStore("myapp:");
-const scheme = bearerScheme({
-  store,
-  token: () => store.get("access_token"),
-  refresh: {
-    refreshFn: async () => {
-      const res = await fetch("/auth/refresh", { method: "POST" });
-      return res.json();
-    },
-  },
-});
-```

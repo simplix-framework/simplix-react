@@ -6,7 +6,7 @@
 
 # Interface: SchemaAdapter
 
-Defined in: [openapi/plugin-registry.ts:49](https://github.com/simplix-react/simplix-react/blob/main/openapi/plugin-registry.ts#L49)
+Defined in: [openapi/plugin-registry.ts:49](https://github.com/simplix-framework/simplix-react/blob/main/openapi/plugin-registry.ts#L49)
 
 Adapter for unwrapping vendor-specific schema wrappers during code generation.
 
@@ -32,7 +32,7 @@ registerSchemaAdapter(adapter);
 
 > **id**: `string`
 
-Defined in: [openapi/plugin-registry.ts:51](https://github.com/simplix-react/simplix-react/blob/main/openapi/plugin-registry.ts#L51)
+Defined in: [openapi/plugin-registry.ts:51](https://github.com/simplix-framework/simplix-react/blob/main/openapi/plugin-registry.ts#L51)
 
 Unique identifier for this adapter.
 
@@ -42,7 +42,7 @@ Unique identifier for this adapter.
 
 > **canUnwrap**(`schema`): `boolean`
 
-Defined in: [openapi/plugin-registry.ts:53](https://github.com/simplix-react/simplix-react/blob/main/openapi/plugin-registry.ts#L53)
+Defined in: [openapi/plugin-registry.ts:53](https://github.com/simplix-framework/simplix-react/blob/main/openapi/plugin-registry.ts#L53)
 
 Returns `true` if this adapter can unwrap the given schema object.
 
@@ -62,7 +62,7 @@ Returns `true` if this adapter can unwrap the given schema object.
 
 > `optional` **stripPrefix**(`typeName`): `string`
 
-Defined in: [openapi/plugin-registry.ts:57](https://github.com/simplix-react/simplix-react/blob/main/openapi/plugin-registry.ts#L57)
+Defined in: [openapi/plugin-registry.ts:57](https://github.com/simplix-framework/simplix-react/blob/main/openapi/plugin-registry.ts#L57)
 
 Optionally strips a vendor prefix from a generated type name.
 
@@ -82,7 +82,7 @@ Optionally strips a vendor prefix from a generated type name.
 
 > **unwrap**(`schema`): `Record`\<`string`, `unknown`\>
 
-Defined in: [openapi/plugin-registry.ts:55](https://github.com/simplix-react/simplix-react/blob/main/openapi/plugin-registry.ts#L55)
+Defined in: [openapi/plugin-registry.ts:55](https://github.com/simplix-framework/simplix-react/blob/main/openapi/plugin-registry.ts#L55)
 
 Extracts the inner schema from a vendor wrapper.
 

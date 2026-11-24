@@ -8,7 +8,7 @@
 
 > **FilterActions**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/crud/filters/filter-actions.tsx:17](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-actions.tsx#L17)
+Defined in: [packages/ui/src/crud/filters/filter-actions.tsx:19](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-actions.tsx#L19)
 
 ## Parameters
 

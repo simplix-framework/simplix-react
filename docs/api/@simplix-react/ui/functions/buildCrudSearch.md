@@ -6,11 +6,17 @@
 
 # Function: buildCrudSearch()
 
-> **buildCrudSearch**(`view`, `id?`): [`CrudSearch`](../interfaces/CrudSearch.md)
+> **buildCrudSearch**(`view`, `id?`, `tab?`, `filters?`): [`CrudSearch`](../interfaces/CrudSearch.md)
 
-Defined in: [packages/ui/src/crud/patterns/crud-search.ts:38](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/crud-search.ts#L38)
+Defined in: [packages/ui/src/crud/patterns/crud-search.ts:128](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/crud-search.ts#L128)
 
 **`Internal`**
+
+The search a view is addressed by.
+
+<p>`tab` and `filters` survive every transition: opening a record from the third tab and closing
+it again returns to the third tab, and opening a record from a filtered list and closing it
+returns to the same filtered list, which is where the reader was.
 
 ## Parameters
 
@@ -21,6 +27,14 @@ Defined in: [packages/ui/src/crud/patterns/crud-search.ts:38](https://github.com
 ### id?
 
 `string`
+
+### tab?
+
+`string`
+
+### filters?
+
+[`CrudSearchFilters`](../type-aliases/CrudSearchFilters.md)
 
 ## Returns
 

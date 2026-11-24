@@ -8,7 +8,7 @@
 
 > **dateMarkers**(`project`, `schedule`, `now`): [`DateMarker`](../interfaces/DateMarker.md)[]
 
-Defined in: [lib/markers.ts:33](https://github.com/simplix-react/simplix-react/blob/main/lib/markers.ts#L33)
+Defined in: [lib/markers.ts:33](https://github.com/simplix-framework/simplix-react/blob/main/lib/markers.ts#L33)
 
 The dates a timeline marks: today, the status date when the plan has one,
 and the two ends of the plan. They come in the order they are drawn, so the

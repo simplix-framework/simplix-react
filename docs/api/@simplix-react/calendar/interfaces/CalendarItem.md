@@ -6,7 +6,7 @@
 
 # Interface: CalendarItem\<T\>
 
-Defined in: [model/types.ts:93](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L93)
+Defined in: [model/types.ts:93](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L93)
 
 A single scheduled item. The core works exclusively with `Date` fields;
 consumers convert their DTOs (usually ISO strings) via an adapter and keep
@@ -34,7 +34,7 @@ The original domain DTO carried through untouched.
 
 > `optional` **allDay**: `boolean`
 
-Defined in: [model/types.ts:105](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L105)
+Defined in: [model/types.ts:105](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L105)
 
 ***
 
@@ -42,7 +42,7 @@ Defined in: [model/types.ts:105](https://github.com/simplix-react/simplix-react/
 
 > **color**: [`CalendarColor`](../type-aliases/CalendarColor.md)
 
-Defined in: [model/types.ts:100](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L100)
+Defined in: [model/types.ts:100](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L100)
 
 ***
 
@@ -50,7 +50,7 @@ Defined in: [model/types.ts:100](https://github.com/simplix-react/simplix-react/
 
 > **end**: `Date`
 
-Defined in: [model/types.ts:99](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L99)
+Defined in: [model/types.ts:99](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L99)
 
 End of the item — a `Date` whose LOCAL fields are the display wall clock.
 
@@ -60,7 +60,7 @@ End of the item — a `Date` whose LOCAL fields are the display wall clock.
 
 > **id**: `string`
 
-Defined in: [model/types.ts:94](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L94)
+Defined in: [model/types.ts:94](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L94)
 
 ***
 
@@ -68,7 +68,7 @@ Defined in: [model/types.ts:94](https://github.com/simplix-react/simplix-react/b
 
 > `optional` **pattern**: [`EventPattern`](../type-aliases/EventPattern.md)
 
-Defined in: [model/types.ts:102](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L102)
+Defined in: [model/types.ts:102](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L102)
 
 Visual treatment hint; defaults to a solid fill.
 
@@ -78,7 +78,7 @@ Visual treatment hint; defaults to a solid fill.
 
 > **payload**: `T`
 
-Defined in: [model/types.ts:109](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L109)
+Defined in: [model/types.ts:109](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L109)
 
 The untouched domain object this item was derived from.
 
@@ -88,7 +88,7 @@ The untouched domain object this item was derived from.
 
 > `optional` **resizable**: `boolean`
 
-Defined in: [model/types.ts:104](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L104)
+Defined in: [model/types.ts:104](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L104)
 
 Enables edge drag-resize in the week/day time grids (requires `onItemResize`).
 
@@ -98,7 +98,7 @@ Enables edge drag-resize in the week/day time grids (requires `onItemResize`).
 
 > `optional` **resourceId**: `string`
 
-Defined in: [model/types.ts:107](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L107)
+Defined in: [model/types.ts:107](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L107)
 
 Owning resource id; looked up against the provider's `resources`.
 
@@ -108,7 +108,7 @@ Owning resource id; looked up against the provider's `resources`.
 
 > **start**: `Date`
 
-Defined in: [model/types.ts:97](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L97)
+Defined in: [model/types.ts:97](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L97)
 
 Start of the item — a `Date` whose LOCAL fields are the display wall clock.
 
@@ -118,4 +118,4 @@ Start of the item — a `Date` whose LOCAL fields are the display wall clock.
 
 > **title**: `string`
 
-Defined in: [model/types.ts:95](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L95)
+Defined in: [model/types.ts:95](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L95)

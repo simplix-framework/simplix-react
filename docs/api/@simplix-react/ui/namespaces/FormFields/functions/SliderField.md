@@ -8,7 +8,7 @@
 
 > **SliderField**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/fields/form/slider-field.tsx:28](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/slider-field.tsx#L28)
+Defined in: [packages/ui/src/fields/form/slider-field.tsx:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/slider-field.tsx#L30)
 
 Range slider field using native HTML range input.
 

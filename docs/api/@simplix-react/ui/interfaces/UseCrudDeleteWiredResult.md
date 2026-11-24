@@ -6,7 +6,7 @@
 
 # Interface: UseCrudDeleteWiredResult
 
-Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:25](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L25)
+Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:25](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L25)
 
 Return type of [useCrudDeleteWired](../functions/useCrudDeleteWired.md).
 
@@ -16,7 +16,7 @@ Return type of [useCrudDeleteWired](../functions/useCrudDeleteWired.md).
 
 > **deleteDialog**: `ReactElement`\<`unknown`, `string` \| `JSXElementConstructor`\<`any`\>\> \| `null`
 
-Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:27](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L27)
+Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:27](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L27)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:27](https://g
 
 > **requestDelete**: (`target`) => `void`
 
-Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:26](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L26)
+Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:26](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L26)
 
 #### Parameters
 

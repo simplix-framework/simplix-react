@@ -8,4 +8,4 @@
 
 > `const` **TabsList**: `ForwardRefExoticComponent`\<`Omit`\<[`TabsListProps`](../interfaces/TabsListProps.md), `"ref"`\> & `RefAttributes`\<`HTMLDivElement`\>\>
 
-Defined in: [packages/ui/src/base/navigation/tabs.tsx:63](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/navigation/tabs.tsx#L63)
+Defined in: [packages/ui/src/base/navigation/tabs.tsx:71](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/navigation/tabs.tsx#L71)

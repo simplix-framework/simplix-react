@@ -8,7 +8,7 @@
 
 > `const` **ModalSidebar**: (`__namedParameters`) => `Element` & `object`
 
-Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:93](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/modal/modal-sidebar.tsx#L93)
+Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:98](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/modal/modal-sidebar.tsx#L98)
 
 ## Type Declaration
 

@@ -8,7 +8,7 @@
 
 > **CalendarShell**(`__namedParameters`): `Element`
 
-Defined in: [components/calendar-shell.tsx:27](https://github.com/simplix-react/simplix-react/blob/main/components/calendar-shell.tsx#L27)
+Defined in: [components/calendar-shell.tsx:27](https://github.com/simplix-framework/simplix-react/blob/main/components/calendar-shell.tsx#L27)
 
 Standard calendar chrome inside a [CalendarProvider](CalendarProvider.md): a fixed
 [CalendarHeader](CalendarHeader.md) above a [CalendarBody](CalendarBody.md) that scrolls in its own

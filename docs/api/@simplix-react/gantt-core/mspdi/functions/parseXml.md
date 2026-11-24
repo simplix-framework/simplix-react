@@ -8,7 +8,7 @@
 
 > **parseXml**(`source`): [`XmlElement`](../interfaces/XmlElement.md)
 
-Defined in: [packages/gantt-core/src/mspdi/xml.ts:266](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/mspdi/xml.ts#L266)
+Defined in: [packages/gantt-core/src/mspdi/xml.ts:266](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/mspdi/xml.ts#L266)
 
 Parses an XML document into its root element. A leading byte order mark is
 ignored. Raises `ScheduleError("invalid-xml")` for a document that is not

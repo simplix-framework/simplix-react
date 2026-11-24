@@ -8,7 +8,7 @@
 
 > **createTask**(`project`, `patch?`): [`Task`](../interfaces/Task.md)
 
-Defined in: [packages/gantt-core/src/edit-tasks.ts:39](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-tasks.ts#L39)
+Defined in: [packages/gantt-core/src/edit-tasks.ts:39](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-tasks.ts#L39)
 
 A new task with the defaults of the project: one estimated day, scheduled
 automatically, as soon as possible (as late as possible in a project

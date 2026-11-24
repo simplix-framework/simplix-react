@@ -8,7 +8,7 @@
 
 > **DetailPhoneField**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/fields/detail/phone-field.tsx:27](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/phone-field.tsx#L27)
+Defined in: [packages/ui/src/fields/detail/phone-field.tsx:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/phone-field.tsx#L30)
 
 Read-only phone display field: the country flag plus the stored E.164 number
 formatted in its national convention (international when the country is

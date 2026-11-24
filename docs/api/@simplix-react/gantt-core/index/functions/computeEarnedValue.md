@@ -8,7 +8,7 @@
 
 > **computeEarnedValue**(`project`, `schedule`, `baselineNumber?`, `date?`): `Map`\<`string`, [`EarnedValue`](../interfaces/EarnedValue.md)\>
 
-Defined in: [packages/gantt-core/src/progress.ts:95](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/progress.ts#L95)
+Defined in: [packages/gantt-core/src/progress.ts:95](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/progress.ts#L95)
 
 Computes earned value against a baseline as of a date (the status date when
 omitted).

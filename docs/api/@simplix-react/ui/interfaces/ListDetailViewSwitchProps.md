@@ -6,7 +6,7 @@
 
 # Interface: ListDetailViewSwitchProps
 
-Defined in: [packages/ui/src/crud/patterns/list-detail-view-switch.tsx:7](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail-view-switch.tsx#L7)
+Defined in: [packages/ui/src/crud/patterns/list-detail-view-switch.tsx:7](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail-view-switch.tsx#L7)
 
 Props for [ListDetailViewSwitch](../functions/ListDetailViewSwitch.md).
 
@@ -16,7 +16,7 @@ Props for [ListDetailViewSwitch](../functions/ListDetailViewSwitch.md).
 
 > **fade**: [`UseFadeTransitionResult`](UseFadeTransitionResult.md)
 
-Defined in: [packages/ui/src/crud/patterns/list-detail-view-switch.tsx:9](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail-view-switch.tsx#L9)
+Defined in: [packages/ui/src/crud/patterns/list-detail-view-switch.tsx:9](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail-view-switch.tsx#L9)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/ui/src/crud/patterns/list-detail-view-switch.tsx:9](https:
 
 > **renderDetail**: (`entityId`) => `ReactNode`
 
-Defined in: [packages/ui/src/crud/patterns/list-detail-view-switch.tsx:10](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail-view-switch.tsx#L10)
+Defined in: [packages/ui/src/crud/patterns/list-detail-view-switch.tsx:10](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail-view-switch.tsx#L10)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/ui/src/crud/patterns/list-detail-view-switch.tsx:10](https
 
 > `optional` **renderEdit**: (`entityId`) => `ReactNode`
 
-Defined in: [packages/ui/src/crud/patterns/list-detail-view-switch.tsx:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail-view-switch.tsx#L12)
+Defined in: [packages/ui/src/crud/patterns/list-detail-view-switch.tsx:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail-view-switch.tsx#L12)
 
 #### Parameters
 
@@ -60,7 +60,7 @@ Defined in: [packages/ui/src/crud/patterns/list-detail-view-switch.tsx:12](https
 
 > `optional` **renderNew**: () => `ReactNode`
 
-Defined in: [packages/ui/src/crud/patterns/list-detail-view-switch.tsx:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail-view-switch.tsx#L11)
+Defined in: [packages/ui/src/crud/patterns/list-detail-view-switch.tsx:11](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail-view-switch.tsx#L11)
 
 #### Returns
 
@@ -72,4 +72,4 @@ Defined in: [packages/ui/src/crud/patterns/list-detail-view-switch.tsx:11](https
 
 > **state**: [`UseListDetailStateResult`](UseListDetailStateResult.md)
 
-Defined in: [packages/ui/src/crud/patterns/list-detail-view-switch.tsx:8](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail-view-switch.tsx#L8)
+Defined in: [packages/ui/src/crud/patterns/list-detail-view-switch.tsx:8](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail-view-switch.tsx#L8)

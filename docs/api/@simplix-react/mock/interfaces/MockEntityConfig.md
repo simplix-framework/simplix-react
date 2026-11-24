@@ -6,7 +6,7 @@
 
 # Interface: MockEntityConfig
 
-Defined in: [derive-mock-handlers.ts:41](https://github.com/simplix-react/simplix-react/blob/main/derive-mock-handlers.ts#L41)
+Defined in: [derive-mock-handlers.ts:41](https://github.com/simplix-framework/simplix-react/blob/main/derive-mock-handlers.ts#L41)
 
 Provides per-entity configuration for mock handler generation.
 
@@ -42,7 +42,7 @@ const taskConfig: MockEntityConfig = {
 
 > `optional` **defaultLimit**: `number`
 
-Defined in: [derive-mock-handlers.ts:47](https://github.com/simplix-react/simplix-react/blob/main/derive-mock-handlers.ts#L47)
+Defined in: [derive-mock-handlers.ts:47](https://github.com/simplix-framework/simplix-react/blob/main/derive-mock-handlers.ts#L47)
 
 Default number of rows per page.
 
@@ -58,7 +58,7 @@ Default number of rows per page.
 
 > `optional` **defaultSort**: `string`
 
-Defined in: [derive-mock-handlers.ts:59](https://github.com/simplix-react/simplix-react/blob/main/derive-mock-handlers.ts#L59)
+Defined in: [derive-mock-handlers.ts:59](https://github.com/simplix-framework/simplix-react/blob/main/derive-mock-handlers.ts#L59)
 
 Default sort in `"field:direction"` format (camelCase).
 
@@ -72,7 +72,7 @@ Default sort in `"field:direction"` format (camelCase).
 
 > `optional` **maxLimit**: `number`
 
-Defined in: [derive-mock-handlers.ts:53](https://github.com/simplix-react/simplix-react/blob/main/derive-mock-handlers.ts#L53)
+Defined in: [derive-mock-handlers.ts:53](https://github.com/simplix-framework/simplix-react/blob/main/derive-mock-handlers.ts#L53)
 
 Maximum allowed rows per page.
 
@@ -88,7 +88,7 @@ Maximum allowed rows per page.
 
 > `optional` **relations**: `Record`\<`string`, \{ `entity`: `string`; `foreignKey?`: `string`; `localKey`: `string`; `type`: `"belongsTo"`; \}\>
 
-Defined in: [derive-mock-handlers.ts:61](https://github.com/simplix-react/simplix-react/blob/main/derive-mock-handlers.ts#L61)
+Defined in: [derive-mock-handlers.ts:61](https://github.com/simplix-framework/simplix-react/blob/main/derive-mock-handlers.ts#L61)
 
 Map of relation names to their `belongsTo` join configuration.
 
@@ -98,6 +98,6 @@ Map of relation names to their `belongsTo` join configuration.
 
 > `optional` **resolvers**: `Record`\<`string`, (`info`) => `Response` \| `Promise`\<`Response`\>\>
 
-Defined in: [derive-mock-handlers.ts:68](https://github.com/simplix-react/simplix-react/blob/main/derive-mock-handlers.ts#L68)
+Defined in: [derive-mock-handlers.ts:68](https://github.com/simplix-framework/simplix-react/blob/main/derive-mock-handlers.ts#L68)
 
 Custom resolvers for non-CRUD operations, keyed by operation name.

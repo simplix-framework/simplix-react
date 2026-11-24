@@ -6,7 +6,7 @@
 
 # Interface: SliderFieldProps
 
-Defined in: [packages/ui/src/fields/form/slider-field.tsx:6](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/slider-field.tsx#L6)
+Defined in: [packages/ui/src/fields/form/slider-field.tsx:8](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/slider-field.tsx#L8)
 
 Props for the [SliderField](../functions/SliderField.md) form component.
 
@@ -20,7 +20,7 @@ Props for the [SliderField](../functions/SliderField.md) form component.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:49](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L49)
+Defined in: [packages/ui/src/crud/shared/types.ts:49](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L49)
 
 #### Inherited from
 
@@ -32,7 +32,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:49](https://github.com/simplix
 
 > `optional` **description**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:34](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L34)
+Defined in: [packages/ui/src/crud/shared/types.ts:34](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L34)
 
 #### Inherited from
 
@@ -44,7 +44,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:34](https://github.com/simplix
 
 > `optional` **disabled**: `boolean`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:36](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L36)
+Defined in: [packages/ui/src/crud/shared/types.ts:36](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L36)
 
 #### Inherited from
 
@@ -56,7 +56,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:36](https://github.com/simplix
 
 > `optional` **error**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:32](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L32)
+Defined in: [packages/ui/src/crud/shared/types.ts:32](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L32)
 
 #### Inherited from
 
@@ -68,7 +68,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:32](https://github.com/simplix
 
 > `optional` **inputProps**: `DetailedHTMLProps`\<`InputHTMLAttributes`\<`HTMLInputElement`\>, `HTMLInputElement`\>
 
-Defined in: [packages/ui/src/fields/form/slider-field.tsx:17](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/slider-field.tsx#L17)
+Defined in: [packages/ui/src/fields/form/slider-field.tsx:19](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/slider-field.tsx#L19)
 
 Additional props forwarded to the underlying input element.
 
@@ -78,7 +78,7 @@ Additional props forwarded to the underlying input element.
 
 > `optional` **label**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L30)
+Defined in: [packages/ui/src/crud/shared/types.ts:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L30)
 
 #### Inherited from
 
@@ -90,7 +90,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:30](https://github.com/simplix
 
 > `optional` **labelKey**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:31](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L31)
+Defined in: [packages/ui/src/crud/shared/types.ts:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L31)
 
 #### Inherited from
 
@@ -102,7 +102,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:31](https://github.com/simplix
 
 > `optional` **layout**: `"inline"` \| `"left"` \| `"top"` \| `"hidden"` \| `"trailing"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
+Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
 
 Label placement. `"top"` stacks the label above the input, `"left"` puts
 it in a leading column, `"inline"` keeps label and input on one row,
@@ -120,7 +120,7 @@ label for screen readers only.
 
 > `optional` **max**: `number`
 
-Defined in: [packages/ui/src/fields/form/slider-field.tsx:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/slider-field.tsx#L12)
+Defined in: [packages/ui/src/fields/form/slider-field.tsx:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/slider-field.tsx#L14)
 
 ***
 
@@ -128,7 +128,7 @@ Defined in: [packages/ui/src/fields/form/slider-field.tsx:12](https://github.com
 
 > `optional` **min**: `number`
 
-Defined in: [packages/ui/src/fields/form/slider-field.tsx:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/slider-field.tsx#L11)
+Defined in: [packages/ui/src/fields/form/slider-field.tsx:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/slider-field.tsx#L13)
 
 ***
 
@@ -136,7 +136,7 @@ Defined in: [packages/ui/src/fields/form/slider-field.tsx:11](https://github.com
 
 > **onChange**: (`value`) => `void`
 
-Defined in: [packages/ui/src/fields/form/slider-field.tsx:10](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/slider-field.tsx#L10)
+Defined in: [packages/ui/src/fields/form/slider-field.tsx:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/slider-field.tsx#L12)
 
 Called when the value changes.
 
@@ -156,7 +156,7 @@ Called when the value changes.
 
 > `optional` **prefixControl**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:41](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L41)
+Defined in: [packages/ui/src/crud/shared/types.ts:41](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L41)
 
 Control rendered on the leading (left in LTR) side of the input, on the
 same row. Use for IconPicker, ColorPicker, or similar adornments.
@@ -171,7 +171,7 @@ same row. Use for IconPicker, ColorPicker, or similar adornments.
 
 > `optional` **required**: `boolean`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:35](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L35)
+Defined in: [packages/ui/src/crud/shared/types.ts:35](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L35)
 
 #### Inherited from
 
@@ -183,7 +183,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:35](https://github.com/simplix
 
 > `optional` **showValue**: `boolean`
 
-Defined in: [packages/ui/src/fields/form/slider-field.tsx:15](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/slider-field.tsx#L15)
+Defined in: [packages/ui/src/fields/form/slider-field.tsx:17](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/slider-field.tsx#L17)
 
 Whether to display the current value next to the slider.
 
@@ -193,7 +193,7 @@ Whether to display the current value next to the slider.
 
 > `optional` **size**: `"sm"` \| `"lg"` \| `"md"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
+Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
 
 #### Inherited from
 
@@ -205,7 +205,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix
 
 > `optional` **step**: `number`
 
-Defined in: [packages/ui/src/fields/form/slider-field.tsx:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/slider-field.tsx#L13)
+Defined in: [packages/ui/src/fields/form/slider-field.tsx:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/slider-field.tsx#L15)
 
 ***
 
@@ -213,7 +213,7 @@ Defined in: [packages/ui/src/fields/form/slider-field.tsx:13](https://github.com
 
 > `optional` **suffixControl**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:48](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L48)
+Defined in: [packages/ui/src/crud/shared/types.ts:48](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L48)
 
 Control rendered on the trailing (right in LTR) side of the input, on the
 same row. Use instead of composing a button next to the field — the
@@ -230,7 +230,7 @@ below at full width.
 
 > **value**: `number`
 
-Defined in: [packages/ui/src/fields/form/slider-field.tsx:8](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/slider-field.tsx#L8)
+Defined in: [packages/ui/src/fields/form/slider-field.tsx:10](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/slider-field.tsx#L10)
 
 Current slider value.
 
@@ -240,7 +240,7 @@ Current slider value.
 
 > `optional` **warning**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:33](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L33)
+Defined in: [packages/ui/src/crud/shared/types.ts:33](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L33)
 
 #### Inherited from
 

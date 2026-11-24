@@ -8,4 +8,4 @@
 
 > `const` **SheetTrigger**: `ForwardRefExoticComponent`\<`DialogTriggerProps` & `RefAttributes`\<`HTMLButtonElement`\>\> = `DialogPrimitive.Trigger`
 
-Defined in: [packages/ui/src/base/overlay/sheet.tsx:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/overlay/sheet.tsx#L12)
+Defined in: [packages/ui/src/base/overlay/sheet.tsx:22](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/overlay/sheet.tsx#L22)

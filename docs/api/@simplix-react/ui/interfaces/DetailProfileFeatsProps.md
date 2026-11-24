@@ -6,7 +6,7 @@
 
 # Interface: DetailProfileFeatsProps
 
-Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:63](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L63)
+Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:77](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L77)
 
 Props for the [DetailProfile.Feats](../variables/DetailProfile.md) sub-component.
 
@@ -16,7 +16,7 @@ Props for the [DetailProfile.Feats](../variables/DetailProfile.md) sub-component
 
 > **emptyLabel**: `string`
 
-Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:72](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L72)
+Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:86](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L86)
 
 Already-localized "no active features" text. Required — the library ships no
 default string (visible strings are caller-owned).
@@ -27,7 +27,7 @@ default string (visible strings are caller-owned).
 
 > **items**: readonly `string`[]
 
-Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:65](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L65)
+Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:79](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L79)
 
 Already-localized badge labels. Empty array → `emptyLabel` is shown instead.
 
@@ -37,7 +37,7 @@ Already-localized badge labels. Empty array → `emptyLabel` is shown instead.
 
 > `optional` **max**: `number`
 
-Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:67](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L67)
+Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:81](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L81)
 
 Max badges before collapsing the remainder into a "+N" badge. Default `5`.
 
@@ -47,7 +47,7 @@ Max badges before collapsing the remainder into a "+N" badge. Default `5`.
 
 > `optional` **overflowLabel**: (`hiddenCount`) => `string`
 
-Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:77](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L77)
+Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:91](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L91)
 
 Already-localized accessible label for the "+N" overflow badge, e.g.
 `(n) => t("detail.moreFeatures", { count: n })`. Falls back to the visible "+N".

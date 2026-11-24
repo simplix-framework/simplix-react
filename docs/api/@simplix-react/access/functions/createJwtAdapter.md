@@ -8,7 +8,7 @@
 
 > **createJwtAdapter**(`options?`): [`AccessAdapter`](../interfaces/AccessAdapter.md)
 
-Defined in: [packages/access/src/adapters/jwt-adapter.ts:92](https://github.com/simplix-react/simplix-react/blob/main/packages/access/src/adapters/jwt-adapter.ts#L92)
+Defined in: [packages/access/src/adapters/jwt-adapter.ts:92](https://github.com/simplix-framework/simplix-react/blob/main/packages/access/src/adapters/jwt-adapter.ts#L92)
 
 Creates an adapter that extracts access rules from a JWT token.
 

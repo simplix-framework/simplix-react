@@ -8,6 +8,6 @@
 
 > **GanttView** = `"gantt"` \| `"resources"` \| `"usage"` \| `"taskUsage"` \| `"graph"` \| `"calendar"` \| `"network"`
 
-Defined in: [model/gantt-store-types.ts:32](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L32)
+Defined in: [model/gantt-store-types.ts:32](https://github.com/simplix-framework/simplix-react/blob/main/model/gantt-store-types.ts#L32)
 
 The screen a chart shows: the Gantt chart, the resource sheet or the resource usage table.

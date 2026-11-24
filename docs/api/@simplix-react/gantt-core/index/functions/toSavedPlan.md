@@ -8,7 +8,7 @@
 
 > **toSavedPlan**(`project`): [`SavedPlan`](../interfaces/SavedPlan.md)
 
-Defined in: [packages/gantt-core/src/plan-format.ts:35](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/plan-format.ts#L35)
+Defined in: [packages/gantt-core/src/plan-format.ts:35](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/plan-format.ts#L35)
 
 Wraps a project in the form it is saved in.
 

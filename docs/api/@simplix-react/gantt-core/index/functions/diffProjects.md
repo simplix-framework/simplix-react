@@ -8,7 +8,7 @@
 
 > **diffProjects**(`before`, `after`): [`ProjectChange`](../type-aliases/ProjectChange.md)[]
 
-Defined in: [packages/gantt-core/src/diff.ts:43](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/diff.ts#L43)
+Defined in: [packages/gantt-core/src/diff.ts:43](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/diff.ts#L43)
 
 Lists what changed between two versions of a project, record by record:
 the form a server needs to store an edit without rewriting the plan.

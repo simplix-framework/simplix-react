@@ -8,6 +8,6 @@
 
 > **CrudView** = `"list"` \| `"detail"` \| `"new"` \| `"edit"`
 
-Defined in: [packages/ui/src/crud/patterns/crud-search.ts:27](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/crud-search.ts#L27)
+Defined in: [packages/ui/src/crud/patterns/crud-search.ts:104](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/crud-search.ts#L104)
 
 Derives the CRUD view from search params.

@@ -6,7 +6,7 @@
 
 # Interface: SimplixChecksConfig
 
-Defined in: [config/types.ts:343](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L343)
+Defined in: [config/types.ts:369](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L369)
 
 Inputs of `simplix cycles` and `simplix meta-removals`, relative to the project root.
 
@@ -16,7 +16,7 @@ Inputs of `simplix cycles` and `simplix meta-removals`, relative to the project 
 
 > `optional` **cycles**: `object`
 
-Defined in: [config/types.ts:344](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L344)
+Defined in: [config/types.ts:370](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L370)
 
 #### roots?
 
@@ -30,7 +30,7 @@ Directories whose source files are the nodes of the import graph.
 
 > `optional` **metaRemovals**: `object`
 
-Defined in: [config/types.ts:348](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L348)
+Defined in: [config/types.ts:374](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L374)
 
 #### acknowledged?
 

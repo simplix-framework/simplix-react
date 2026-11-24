@@ -8,7 +8,7 @@
 
 > **addResource**(`project`, `resource`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-links.ts:62](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-links.ts#L62)
+Defined in: [packages/gantt-core/src/edit-links.ts:62](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-links.ts#L62)
 
 Adds a resource. Omitted fields default to a full-time work resource.
 

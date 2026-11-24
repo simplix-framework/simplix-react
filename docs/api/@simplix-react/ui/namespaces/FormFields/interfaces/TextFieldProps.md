@@ -6,7 +6,7 @@
 
 # Interface: TextFieldProps
 
-Defined in: [packages/ui/src/fields/form/text-field.tsx:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L11)
+Defined in: [packages/ui/src/fields/form/text-field.tsx:10](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L10)
 
 Props for the [TextField](../functions/TextField.md) form component.
 
@@ -20,7 +20,7 @@ Props for the [TextField](../functions/TextField.md) form component.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:49](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L49)
+Defined in: [packages/ui/src/crud/shared/types.ts:49](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L49)
 
 #### Inherited from
 
@@ -32,7 +32,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:49](https://github.com/simplix
 
 > `optional` **colorValue**: `string`
 
-Defined in: [packages/ui/src/fields/form/text-field.tsx:34](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L34)
+Defined in: [packages/ui/src/fields/form/text-field.tsx:33](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L33)
 
 Convenience: current color (hex). When provided, a ColorPicker is rendered as suffixControl.
 
@@ -42,7 +42,7 @@ Convenience: current color (hex). When provided, a ColorPicker is rendered as su
 
 > `optional` **description**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:34](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L34)
+Defined in: [packages/ui/src/crud/shared/types.ts:34](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L34)
 
 #### Inherited from
 
@@ -54,7 +54,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:34](https://github.com/simplix
 
 > `optional` **disabled**: `boolean`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:36](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L36)
+Defined in: [packages/ui/src/crud/shared/types.ts:36](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L36)
 
 #### Inherited from
 
@@ -66,7 +66,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:36](https://github.com/simplix
 
 > `optional` **error**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:32](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L32)
+Defined in: [packages/ui/src/crud/shared/types.ts:32](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L32)
 
 #### Inherited from
 
@@ -78,7 +78,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:32](https://github.com/simplix
 
 > `optional` **iconValue**: `string`
 
-Defined in: [packages/ui/src/fields/form/text-field.tsx:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L30)
+Defined in: [packages/ui/src/fields/form/text-field.tsx:29](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L29)
 
 Convenience: current icon name. When provided, an IconPicker is rendered as prefixControl.
 
@@ -88,7 +88,7 @@ Convenience: current icon name. When provided, an IconPicker is rendered as pref
 
 > `optional` **inputProps**: `DetailedHTMLProps`\<`InputHTMLAttributes`\<`HTMLInputElement`\>, `HTMLInputElement`\>
 
-Defined in: [packages/ui/src/fields/form/text-field.tsx:21](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L21)
+Defined in: [packages/ui/src/fields/form/text-field.tsx:20](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L20)
 
 Additional props forwarded to the underlying input element.
 
@@ -98,7 +98,7 @@ Additional props forwarded to the underlying input element.
 
 > `optional` **label**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L30)
+Defined in: [packages/ui/src/crud/shared/types.ts:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L30)
 
 #### Inherited from
 
@@ -110,7 +110,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:30](https://github.com/simplix
 
 > `optional` **labelKey**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:31](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L31)
+Defined in: [packages/ui/src/crud/shared/types.ts:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L31)
 
 #### Inherited from
 
@@ -122,7 +122,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:31](https://github.com/simplix
 
 > `optional` **layout**: `"inline"` \| `"left"` \| `"top"` \| `"hidden"` \| `"trailing"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
+Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
 
 Label placement. `"top"` stacks the label above the input, `"left"` puts
 it in a leading column, `"inline"` keeps label and input on one row,
@@ -140,7 +140,7 @@ label for screen readers only.
 
 > `optional` **maxLength**: `number`
 
-Defined in: [packages/ui/src/fields/form/text-field.tsx:17](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L17)
+Defined in: [packages/ui/src/fields/form/text-field.tsx:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L16)
 
 ***
 
@@ -148,7 +148,7 @@ Defined in: [packages/ui/src/fields/form/text-field.tsx:17](https://github.com/s
 
 > **onChange**: (`value`) => `void`
 
-Defined in: [packages/ui/src/fields/form/text-field.tsx:15](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L15)
+Defined in: [packages/ui/src/fields/form/text-field.tsx:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L14)
 
 Called when the value changes.
 
@@ -168,7 +168,7 @@ Called when the value changes.
 
 > `optional` **onColorChange**: (`value`) => `void`
 
-Defined in: [packages/ui/src/fields/form/text-field.tsx:36](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L36)
+Defined in: [packages/ui/src/fields/form/text-field.tsx:35](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L35)
 
 Convenience: called when the color changes.
 
@@ -188,7 +188,7 @@ Convenience: called when the color changes.
 
 > `optional` **onIconChange**: (`value`) => `void`
 
-Defined in: [packages/ui/src/fields/form/text-field.tsx:32](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L32)
+Defined in: [packages/ui/src/fields/form/text-field.tsx:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L31)
 
 Convenience: called when the icon changes.
 
@@ -208,7 +208,7 @@ Convenience: called when the icon changes.
 
 > `optional` **placeholder**: `string`
 
-Defined in: [packages/ui/src/fields/form/text-field.tsx:16](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L16)
+Defined in: [packages/ui/src/fields/form/text-field.tsx:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L15)
 
 ***
 
@@ -216,7 +216,7 @@ Defined in: [packages/ui/src/fields/form/text-field.tsx:16](https://github.com/s
 
 > `optional` **prefixControl**: `ReactNode`
 
-Defined in: [packages/ui/src/fields/form/text-field.tsx:26](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L26)
+Defined in: [packages/ui/src/fields/form/text-field.tsx:25](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L25)
 
 Control rendered on the leading side of the input (same row).
 Use for IconPicker, ColorPicker, or similar adornments. Takes precedence over [iconValue](#iconvalue).
@@ -231,7 +231,7 @@ Use for IconPicker, ColorPicker, or similar adornments. Takes precedence over [i
 
 > `optional` **required**: `boolean`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:35](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L35)
+Defined in: [packages/ui/src/crud/shared/types.ts:35](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L35)
 
 #### Inherited from
 
@@ -243,7 +243,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:35](https://github.com/simplix
 
 > `optional` **size**: `"sm"` \| `"lg"` \| `"md"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
+Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
 
 #### Inherited from
 
@@ -255,7 +255,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix
 
 > `optional` **suffixControl**: `ReactNode`
 
-Defined in: [packages/ui/src/fields/form/text-field.tsx:28](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L28)
+Defined in: [packages/ui/src/fields/form/text-field.tsx:27](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L27)
 
 Control rendered on the trailing side of the input (same row).
 
@@ -269,7 +269,7 @@ Control rendered on the trailing side of the input (same row).
 
 > `optional` **type**: `"text"` \| `"tel"` \| `"url"` \| `"email"` \| `"password"`
 
-Defined in: [packages/ui/src/fields/form/text-field.tsx:19](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L19)
+Defined in: [packages/ui/src/fields/form/text-field.tsx:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L18)
 
 HTML input type. Defaults to `"text"`.
 
@@ -279,7 +279,7 @@ HTML input type. Defaults to `"text"`.
 
 > **value**: `string`
 
-Defined in: [packages/ui/src/fields/form/text-field.tsx:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L13)
+Defined in: [packages/ui/src/fields/form/text-field.tsx:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L12)
 
 Current input value.
 
@@ -289,7 +289,7 @@ Current input value.
 
 > `optional` **warning**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:33](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L33)
+Defined in: [packages/ui/src/crud/shared/types.ts:33](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L33)
 
 #### Inherited from
 

@@ -8,7 +8,7 @@
 
 > **setTaskStart**(`project`, `id`, `start`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-tasks.ts:157](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-tasks.ts#L157)
+Defined in: [packages/gantt-core/src/edit-tasks.ts:157](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-tasks.ts#L157)
 
 Moves a task to start at `start`, keeping its duration. An automatic task
 gets a start-no-earlier-than constraint (finish-no-later-than keeps its

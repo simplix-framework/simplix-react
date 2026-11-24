@@ -8,7 +8,7 @@
 
 > **isHourDisabled**(`base`, `hour24`, `minDate?`, `maxDate?`): `boolean`
 
-Defined in: [time-select.ts:34](https://github.com/simplix-react/simplix-react/blob/main/time-select.ts#L34)
+Defined in: [time-select.ts:34](https://github.com/simplix-framework/simplix-react/blob/main/time-select.ts#L34)
 
 True when no minute within the given hour of `base` falls inside [minDate, maxDate].
 

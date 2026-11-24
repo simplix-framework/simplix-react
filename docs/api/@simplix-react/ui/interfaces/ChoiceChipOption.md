@@ -6,7 +6,7 @@
 
 # Interface: ChoiceChipOption\<T\>
 
-Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:8](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L8)
+Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:10](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L10)
 
 One option of a [ChoiceChips](../functions/ChoiceChips.md) row.
 
@@ -22,7 +22,7 @@ One option of a [ChoiceChips](../functions/ChoiceChips.md) row.
 
 > `optional` **disabled**: `boolean`
 
-Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:21](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L21)
+Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:23](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L23)
 
 Whether this option can be chosen right now.
 
@@ -32,7 +32,7 @@ Whether this option can be chosen right now.
 
 > `optional` **disabledReason**: `string`
 
-Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L30)
+Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:32](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L32)
 
 Why it cannot be, in the reader's words.
 
@@ -47,7 +47,7 @@ sentence is what makes the difference legible, so a disabled chip without one is
 
 > `optional` **icon**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:19](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L19)
+Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:21](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L21)
 
 Replaces the chosen/unchosen mark with something else — a colour dot, a count.
 
@@ -60,7 +60,7 @@ the chip's own colour already carries that.
 
 > **label**: `string`
 
-Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L12)
+Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L14)
 
 Display label.
 
@@ -70,6 +70,6 @@ Display label.
 
 > **value**: `T`
 
-Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:10](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L10)
+Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L12)
 
 The value this chip stands for.

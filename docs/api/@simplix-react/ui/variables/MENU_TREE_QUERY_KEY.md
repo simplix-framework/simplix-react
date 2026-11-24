@@ -8,4 +8,4 @@
 
 > `const` **MENU\_TREE\_QUERY\_KEY**: readonly \[`"menu"`, `"tree"`\]
 
-Defined in: [packages/ui/src/menu/menu-provider.tsx:17](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/menu-provider.tsx#L17)
+Defined in: [packages/ui/src/menu/menu-provider.tsx:17](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/menu-provider.tsx#L17)

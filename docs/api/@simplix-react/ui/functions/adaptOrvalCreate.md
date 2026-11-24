@@ -8,7 +8,7 @@
 
 > **adaptOrvalCreate**\<`T`\>(`mutation`, `opts?`): [`CrudMutation`](../interfaces/CrudMutation.md)\<`T`\>
 
-Defined in: [packages/headless/dist/index.d.ts:298](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L298)
+Defined in: [packages/headless/dist/index.d.ts:327](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L327)
 
 Adapts an Orval **create** mutation (`mutate({ data: T })`) to the
 [CrudMutation](../interfaces/CrudMutation.md) interface (`mutate(values)`).

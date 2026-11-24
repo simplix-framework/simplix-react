@@ -6,7 +6,7 @@
 
 # Interface: DetailI18nTextareaFieldProps
 
-Defined in: [packages/ui/src/fields/detail/i18n-text-field.tsx:33](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/i18n-text-field.tsx#L33)
+Defined in: [packages/ui/src/fields/detail/i18n-text-field.tsx:33](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/i18n-text-field.tsx#L33)
 
 Shared props for all detail (read-only) field components.
 
@@ -20,7 +20,7 @@ Shared props for all detail (read-only) field components.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
+Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
 
 #### Inherited from
 
@@ -32,7 +32,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix
 
 > `optional` **fallback**: `string`
 
-Defined in: [packages/ui/src/fields/detail/i18n-text-field.tsx:35](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/i18n-text-field.tsx#L35)
+Defined in: [packages/ui/src/fields/detail/i18n-text-field.tsx:35](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/i18n-text-field.tsx#L35)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [packages/ui/src/fields/detail/i18n-text-field.tsx:35](https://githu
 
 > `optional` **label**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
+Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
 
 #### Inherited from
 
@@ -52,7 +52,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix
 
 > `optional` **labelKey**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
+Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
 
 #### Inherited from
 
@@ -64,7 +64,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix
 
 > `optional` **layout**: `"inline"` \| `"left"` \| `"top"` \| `"hidden"` \| `"trailing"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
+Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
 
 Label placement. `"top"` stacks the label above the input, `"left"` puts
 it in a leading column, `"inline"` keeps label and input on one row,
@@ -82,7 +82,7 @@ label for screen readers only.
 
 > `optional` **size**: `"sm"` \| `"lg"` \| `"md"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
+Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
 
 #### Inherited from
 
@@ -94,4 +94,4 @@ Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix
 
 > **value**: `Record`\<`string`, `string`\> \| `null` \| `undefined`
 
-Defined in: [packages/ui/src/fields/detail/i18n-text-field.tsx:34](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/i18n-text-field.tsx#L34)
+Defined in: [packages/ui/src/fields/detail/i18n-text-field.tsx:34](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/i18n-text-field.tsx#L34)

@@ -6,7 +6,7 @@
 
 # Interface: DetailLocationFieldProps
 
-Defined in: [packages/ui/src/fields/detail/location-field.tsx:19](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/location-field.tsx#L19)
+Defined in: [packages/ui/src/fields/detail/location-field.tsx:33](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/location-field.tsx#L33)
 
 Props for the [DetailLocationField](../functions/DetailLocationField.md) component.
 
@@ -20,7 +20,7 @@ Props for the [DetailLocationField](../functions/DetailLocationField.md) compone
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
+Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
 
 #### Inherited from
 
@@ -32,7 +32,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix
 
 > `optional` **fallback**: `string`
 
-Defined in: [packages/ui/src/fields/detail/location-field.tsx:24](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/location-field.tsx#L24)
+Defined in: [packages/ui/src/fields/detail/location-field.tsx:38](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/location-field.tsx#L38)
 
 Fallback text when coordinates are empty (0,0). Defaults to the shared no-value badge.
 
@@ -42,7 +42,7 @@ Fallback text when coordinates are empty (0,0). Defaults to the shared no-value 
 
 > `optional` **fallbackTileUrl**: `string`
 
-Defined in: [packages/ui/src/fields/detail/location-field.tsx:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/location-field.tsx#L30)
+Defined in: [packages/ui/src/fields/detail/location-field.tsx:44](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/location-field.tsx#L44)
 
 PMTiles file URL for offline map fallback (e.g. "/offline-map.pmtiles").
 
@@ -52,7 +52,7 @@ PMTiles file URL for offline map fallback (e.g. "/offline-map.pmtiles").
 
 > `optional` **hideWhenEmpty**: `boolean`
 
-Defined in: [packages/ui/src/fields/detail/location-field.tsx:26](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/location-field.tsx#L26)
+Defined in: [packages/ui/src/fields/detail/location-field.tsx:40](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/location-field.tsx#L40)
 
 When true, renders nothing if coordinates are empty. Defaults to false.
 
@@ -62,7 +62,7 @@ When true, renders nothing if coordinates are empty. Defaults to false.
 
 > `optional` **label**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
+Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
 
 #### Inherited from
 
@@ -74,7 +74,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix
 
 > `optional` **labelKey**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
+Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
 
 #### Inherited from
 
@@ -86,7 +86,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix
 
 > **latitude**: `number`
 
-Defined in: [packages/ui/src/fields/detail/location-field.tsx:20](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/location-field.tsx#L20)
+Defined in: [packages/ui/src/fields/detail/location-field.tsx:34](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/location-field.tsx#L34)
 
 ***
 
@@ -94,7 +94,7 @@ Defined in: [packages/ui/src/fields/detail/location-field.tsx:20](https://github
 
 > `optional` **layout**: `"inline"` \| `"left"` \| `"top"` \| `"hidden"` \| `"trailing"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
+Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
 
 Label placement. `"top"` stacks the label above the input, `"left"` puts
 it in a leading column, `"inline"` keeps label and input on one row,
@@ -112,7 +112,7 @@ label for screen readers only.
 
 > **longitude**: `number`
 
-Defined in: [packages/ui/src/fields/detail/location-field.tsx:21](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/location-field.tsx#L21)
+Defined in: [packages/ui/src/fields/detail/location-field.tsx:35](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/location-field.tsx#L35)
 
 ***
 
@@ -120,7 +120,7 @@ Defined in: [packages/ui/src/fields/detail/location-field.tsx:21](https://github
 
 > `optional` **markerIcon**: `ReactNode`
 
-Defined in: [packages/ui/src/fields/detail/location-field.tsx:28](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/location-field.tsx#L28)
+Defined in: [packages/ui/src/fields/detail/location-field.tsx:42](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/location-field.tsx#L42)
 
 Custom marker icon. Replaces the default blue dot.
 
@@ -130,7 +130,7 @@ Custom marker icon. Replaces the default blue dot.
 
 > `optional` **size**: `"sm"` \| `"lg"` \| `"md"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
+Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
 
 #### Inherited from
 
@@ -142,4 +142,4 @@ Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix
 
 > `optional` **zoom**: `number`
 
-Defined in: [packages/ui/src/fields/detail/location-field.tsx:22](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/location-field.tsx#L22)
+Defined in: [packages/ui/src/fields/detail/location-field.tsx:36](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/location-field.tsx#L36)

@@ -8,7 +8,7 @@
 
 > **undo**\<`T`\>(`history`): [`History`](../interfaces/History.md)\<`T`\>
 
-Defined in: [packages/gantt-core/src/history.ts:35](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/history.ts#L35)
+Defined in: [packages/gantt-core/src/history.ts:35](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/history.ts#L35)
 
 Steps back one change. Returns the history unchanged when there is none.
 

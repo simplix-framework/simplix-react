@@ -8,7 +8,7 @@
 
 > **startOfMonth**(`d`): `Date`
 
-Defined in: [date-math.ts:28](https://github.com/simplix-react/simplix-react/blob/main/date-math.ts#L28)
+Defined in: [date-math.ts:28](https://github.com/simplix-framework/simplix-react/blob/main/date-math.ts#L28)
 
 ## Parameters
 

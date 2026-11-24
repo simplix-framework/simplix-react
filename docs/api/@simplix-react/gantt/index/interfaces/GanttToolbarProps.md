@@ -6,7 +6,7 @@
 
 # Interface: GanttToolbarProps
 
-Defined in: [components/gantt-toolbar.tsx:36](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L36)
+Defined in: [components/gantt-toolbar.tsx:36](https://github.com/simplix-framework/simplix-react/blob/main/components/gantt-toolbar.tsx#L36)
 
 Props for [GanttToolbar](../functions/GanttToolbar.md).
 
@@ -16,7 +16,7 @@ Props for [GanttToolbar](../functions/GanttToolbar.md).
 
 > `optional` **planFiles**: `boolean`
 
-Defined in: [components/gantt-toolbar.tsx:40](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L40)
+Defined in: [components/gantt-toolbar.tsx:40](https://github.com/simplix-framework/simplix-react/blob/main/components/gantt-toolbar.tsx#L40)
 
 Shows the commands that save the plan to a file of its own form and open one.
 
@@ -26,7 +26,7 @@ Shows the commands that save the plan to a file of its own form and open one.
 
 > `optional` **trailing**: `ReactNode`
 
-Defined in: [components/gantt-toolbar.tsx:42](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L42)
+Defined in: [components/gantt-toolbar.tsx:42](https://github.com/simplix-framework/simplix-react/blob/main/components/gantt-toolbar.tsx#L42)
 
 Extra controls at the end of the bar.
 
@@ -36,6 +36,6 @@ Extra controls at the end of the bar.
 
 > `optional` **xmlExchange**: `boolean`
 
-Defined in: [components/gantt-toolbar.tsx:38](https://github.com/simplix-react/simplix-react/blob/main/components/gantt-toolbar.tsx#L38)
+Defined in: [components/gantt-toolbar.tsx:38](https://github.com/simplix-framework/simplix-react/blob/main/components/gantt-toolbar.tsx#L38)
 
 Shows the commands that read and write a Microsoft Project XML file.

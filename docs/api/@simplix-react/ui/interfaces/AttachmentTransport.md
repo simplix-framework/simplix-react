@@ -6,7 +6,7 @@
 
 # Interface: AttachmentTransport
 
-Defined in: [packages/ui/src/fields/file-attachment/attachment-transport.ts:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/attachment-transport.ts#L11)
+Defined in: [packages/ui/src/fields/file-attachment/attachment-transport.ts:11](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/attachment-transport.ts#L11)
 
 Host-registered transport for attachment upload (with real progress) and
 authenticated blob reads.
@@ -23,7 +23,7 @@ plain mutator (terminal progress, no authenticated blob).
 
 > `optional` **fetchBlob**: (`url`) => `Promise`\<`Blob`\>
 
-Defined in: [packages/ui/src/fields/file-attachment/attachment-transport.ts:19](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/attachment-transport.ts#L19)
+Defined in: [packages/ui/src/fields/file-attachment/attachment-transport.ts:19](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/attachment-transport.ts#L19)
 
 Authenticated blob fetch for download/thumbnail bytes.
 
@@ -43,7 +43,7 @@ Authenticated blob fetch for download/thumbnail bytes.
 
 > `optional` **upload**: \<`T`\>(`url`, `formData`, `opts?`) => `Promise`\<`T`\>
 
-Defined in: [packages/ui/src/fields/file-attachment/attachment-transport.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/attachment-transport.ts#L13)
+Defined in: [packages/ui/src/fields/file-attachment/attachment-transport.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/attachment-transport.ts#L13)
 
 Multipart upload reporting 0–100 progress; resolves the unwrapped record.
 

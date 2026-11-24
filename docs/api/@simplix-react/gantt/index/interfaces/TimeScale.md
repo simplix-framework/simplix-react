@@ -6,7 +6,7 @@
 
 # Interface: TimeScale
 
-Defined in: [lib/time-scale.ts:29](https://github.com/simplix-react/simplix-react/blob/main/lib/time-scale.ts#L29)
+Defined in: [lib/time-scale.ts:29](https://github.com/simplix-framework/simplix-react/blob/main/lib/time-scale.ts#L29)
 
 Maps instants to horizontal pixels over a fixed range of whole days.
 
@@ -16,7 +16,7 @@ Maps instants to horizontal pixels over a fixed range of whole days.
 
 > **end**: `number`
 
-Defined in: [lib/time-scale.ts:33](https://github.com/simplix-react/simplix-react/blob/main/lib/time-scale.ts#L33)
+Defined in: [lib/time-scale.ts:33](https://github.com/simplix-framework/simplix-react/blob/main/lib/time-scale.ts#L33)
 
 Instant at the right edge; midnight.
 
@@ -26,7 +26,7 @@ Instant at the right edge; midnight.
 
 > **pxPerDay**: `number`
 
-Defined in: [lib/time-scale.ts:34](https://github.com/simplix-react/simplix-react/blob/main/lib/time-scale.ts#L34)
+Defined in: [lib/time-scale.ts:34](https://github.com/simplix-framework/simplix-react/blob/main/lib/time-scale.ts#L34)
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: [lib/time-scale.ts:34](https://github.com/simplix-react/simplix-reac
 
 > **start**: `number`
 
-Defined in: [lib/time-scale.ts:31](https://github.com/simplix-react/simplix-react/blob/main/lib/time-scale.ts#L31)
+Defined in: [lib/time-scale.ts:31](https://github.com/simplix-framework/simplix-react/blob/main/lib/time-scale.ts#L31)
 
 First instant drawn; midnight.
 
@@ -44,7 +44,7 @@ First instant drawn; midnight.
 
 > **width**: `number`
 
-Defined in: [lib/time-scale.ts:35](https://github.com/simplix-react/simplix-react/blob/main/lib/time-scale.ts#L35)
+Defined in: [lib/time-scale.ts:35](https://github.com/simplix-framework/simplix-react/blob/main/lib/time-scale.ts#L35)
 
 ## Methods
 
@@ -52,7 +52,7 @@ Defined in: [lib/time-scale.ts:35](https://github.com/simplix-react/simplix-reac
 
 > **at**(`x`, `snap?`): `number`
 
-Defined in: [lib/time-scale.ts:38](https://github.com/simplix-react/simplix-react/blob/main/lib/time-scale.ts#L38)
+Defined in: [lib/time-scale.ts:38](https://github.com/simplix-framework/simplix-react/blob/main/lib/time-scale.ts#L38)
 
 The instant at a pixel, rounded to `snap` minutes.
 
@@ -76,7 +76,7 @@ The instant at a pixel, rounded to `snap` minutes.
 
 > **x**(`t`): `number`
 
-Defined in: [lib/time-scale.ts:36](https://github.com/simplix-react/simplix-react/blob/main/lib/time-scale.ts#L36)
+Defined in: [lib/time-scale.ts:36](https://github.com/simplix-framework/simplix-react/blob/main/lib/time-scale.ts#L36)
 
 #### Parameters
 

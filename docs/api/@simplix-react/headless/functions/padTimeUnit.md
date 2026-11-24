@@ -8,7 +8,7 @@
 
 > **padTimeUnit**(`value`): `string`
 
-Defined in: [time-select.ts:72](https://github.com/simplix-react/simplix-react/blob/main/time-select.ts#L72)
+Defined in: [time-select.ts:72](https://github.com/simplix-framework/simplix-react/blob/main/time-select.ts#L72)
 
 Pad a time unit to two digits ("7" → "07").
 

@@ -8,7 +8,7 @@
 
 > **updateRecurringTask**(`project`, `id`, `change`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-extras.ts:229](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-extras.ts#L229)
+Defined in: [packages/gantt-core/src/edit-extras.ts:229](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-extras.ts#L229)
 
 Changes a recurring task: its name, the length of an occurrence or its
 rule. The occurrences are made again from the changed rule, in the place

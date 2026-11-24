@@ -6,7 +6,7 @@
 
 # Interface: TimezoneFilterDef
 
-Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:139](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L139)
+Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:170](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L170)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:139](https://github.com
 
 > `optional` **columnBreak**: `boolean`
 
-Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:35](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L35)
+Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:66](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L66)
 
 When the filter popover renders in multiple columns, start a new column at
 this filter. Up to (columns - 1) flags take effect, in order; without flags
@@ -34,7 +34,7 @@ the fields are split evenly (column-major). Ignored in single-column layout.
 
 > **field**: `string`
 
-Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:28](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L28)
+Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:59](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L59)
 
 #### Inherited from
 
@@ -46,7 +46,7 @@ Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:28](https://github.com/
 
 > **label**: `string`
 
-Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:29](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L29)
+Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:60](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L60)
 
 #### Inherited from
 
@@ -58,4 +58,4 @@ Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:29](https://github.com/
 
 > **type**: `"timezone"`
 
-Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:140](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L140)
+Defined in: [packages/ui/src/crud/filters/filter-bar.tsx:171](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/filter-bar.tsx#L171)

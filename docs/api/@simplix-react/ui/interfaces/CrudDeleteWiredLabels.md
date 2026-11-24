@@ -6,7 +6,7 @@
 
 # Interface: CrudDeleteWiredLabels
 
-Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:9](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L9)
+Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:9](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L9)
 
 Labels required by the [useCrudDeleteWired](../functions/useCrudDeleteWired.md) hook.
 
@@ -16,7 +16,7 @@ Labels required by the [useCrudDeleteWired](../functions/useCrudDeleteWired.md) 
 
 > **cancel**: `string`
 
-Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L12)
+Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L12)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:12](https://g
 
 > **delete**: `string`
 
-Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L13)
+Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L13)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:13](https://g
 
 > **deleting**: `string`
 
-Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L14)
+Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L14)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:14](https://g
 
 > **description**: (`target`) => `string`
 
-Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L11)
+Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:11](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L11)
 
 #### Parameters
 
@@ -58,7 +58,7 @@ Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:11](https://g
 
 > **title**: (`target`) => `string`
 
-Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:10](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L10)
+Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:10](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L10)
 
 #### Parameters
 

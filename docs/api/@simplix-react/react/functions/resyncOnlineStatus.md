@@ -8,7 +8,7 @@
 
 > **resyncOnlineStatus**(): `boolean`
 
-Defined in: [packages/react/src/online-status-sync.ts:41](https://github.com/simplix-react/simplix-react/blob/main/packages/react/src/online-status-sync.ts#L41)
+Defined in: [packages/react/src/online-status-sync.ts:41](https://github.com/simplix-framework/simplix-react/blob/main/packages/react/src/online-status-sync.ts#L41)
 
 Repairs React Query's cached connectivity flag from `navigator.onLine`.
 

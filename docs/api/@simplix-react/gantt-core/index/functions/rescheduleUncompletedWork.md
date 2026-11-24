@@ -8,7 +8,7 @@
 
 > **rescheduleUncompletedWork**(`project`, `schedule`, `date?`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/progress.ts:17](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/progress.ts#L17)
+Defined in: [packages/gantt-core/src/progress.ts:17](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/progress.ts#L17)
 
 Moves work that has not been done to after `date` (the status date when
 omitted). A task that has not started gets a start-no-earlier-than

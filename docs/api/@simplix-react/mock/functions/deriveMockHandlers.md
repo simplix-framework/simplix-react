@@ -8,7 +8,7 @@
 
 > **deriveMockHandlers**\<`TEntities`, `TOperations`\>(`config`, `mockConfig?`, `options?`): `HttpHandler`[]
 
-Defined in: [derive-mock-handlers.ts:142](https://github.com/simplix-react/simplix-react/blob/main/derive-mock-handlers.ts#L142)
+Defined in: [derive-mock-handlers.ts:142](https://github.com/simplix-framework/simplix-react/blob/main/derive-mock-handlers.ts#L142)
 
 Derives MSW request handlers from an [@simplix-react/contract!ApiContractConfig](../../contract/interfaces/ApiContractConfig.md).
 

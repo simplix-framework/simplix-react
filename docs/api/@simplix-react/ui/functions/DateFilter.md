@@ -8,7 +8,7 @@
 
 > **DateFilter**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/crud/filters/date-filter.tsx:26](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/date-filter.tsx#L26)
+Defined in: [packages/ui/src/crud/filters/date-filter.tsx:34](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/date-filter.tsx#L34)
 
 ## Parameters
 

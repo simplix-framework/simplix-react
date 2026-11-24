@@ -8,7 +8,7 @@
 
 > **asZonedInstant**(`date`, `displayZone`): `Date`
 
-Defined in: [packages/headless/dist/index.d.ts:659](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L659)
+Defined in: [packages/headless/dist/index.d.ts:704](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L704)
 
 Tag a FLOATING instant `Date` (local fields = display-zone wall clock) so JSON
 serialization emits [serializeInstant](serializeInstant.md)(this, displayZone). Reads LOCAL

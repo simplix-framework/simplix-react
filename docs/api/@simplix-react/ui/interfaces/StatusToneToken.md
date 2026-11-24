@@ -6,7 +6,7 @@
 
 # Interface: StatusToneToken
 
-Defined in: [packages/ui/src/base/status-tone.ts:44](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/status-tone.ts#L44)
+Defined in: [packages/ui/src/base/status-tone.ts:40](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/status-tone.ts#L40)
 
 Per-tone Tailwind class bundle (every slot carries its own `dark:` variant).
 
@@ -16,7 +16,7 @@ Per-tone Tailwind class bundle (every slot carries its own `dark:` variant).
 
 > **badge**: `string`
 
-Defined in: [packages/ui/src/base/status-tone.ts:46](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/status-tone.ts#L46)
+Defined in: [packages/ui/src/base/status-tone.ts:42](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/status-tone.ts#L42)
 
 Filled badge: solid soft background + readable text.
 
@@ -26,7 +26,7 @@ Filled badge: solid soft background + readable text.
 
 > **chart**: `string`
 
-Defined in: [packages/ui/src/base/status-tone.ts:58](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/status-tone.ts#L58)
+Defined in: [packages/ui/src/base/status-tone.ts:54](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/status-tone.ts#L54)
 
 Chart hex for light mode.
 
@@ -36,7 +36,7 @@ Chart hex for light mode.
 
 > **chartDark**: `string`
 
-Defined in: [packages/ui/src/base/status-tone.ts:60](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/status-tone.ts#L60)
+Defined in: [packages/ui/src/base/status-tone.ts:56](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/status-tone.ts#L56)
 
 Chart hex for dark mode.
 
@@ -46,7 +46,7 @@ Chart hex for dark mode.
 
 > **dot**: `string`
 
-Defined in: [packages/ui/src/base/status-tone.ts:50](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/status-tone.ts#L50)
+Defined in: [packages/ui/src/base/status-tone.ts:46](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/status-tone.ts#L46)
 
 Solid indicator dot background (500-level).
 
@@ -56,7 +56,7 @@ Solid indicator dot background (500-level).
 
 > **icon**: `string`
 
-Defined in: [packages/ui/src/base/status-tone.ts:54](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/status-tone.ts#L54)
+Defined in: [packages/ui/src/base/status-tone.ts:50](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/status-tone.ts#L50)
 
 Standalone icon color.
 
@@ -66,7 +66,7 @@ Standalone icon color.
 
 > **outline**: `string`
 
-Defined in: [packages/ui/src/base/status-tone.ts:48](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/status-tone.ts#L48)
+Defined in: [packages/ui/src/base/status-tone.ts:44](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/status-tone.ts#L44)
 
 Outline badge: colored border + text on a transparent background.
 
@@ -76,7 +76,7 @@ Outline badge: colored border + text on a transparent background.
 
 > **ring**: `string`
 
-Defined in: [packages/ui/src/base/status-tone.ts:52](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/status-tone.ts#L52)
+Defined in: [packages/ui/src/base/status-tone.ts:48](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/status-tone.ts#L48)
 
 Translucent ring background used behind a dot/icon for ping/flash.
 
@@ -86,6 +86,6 @@ Translucent ring background used behind a dot/icon for ping/flash.
 
 > **surface**: `string`
 
-Defined in: [packages/ui/src/base/status-tone.ts:56](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/status-tone.ts#L56)
+Defined in: [packages/ui/src/base/status-tone.ts:52](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/status-tone.ts#L52)
 
 Soft surface tint (border + background) for cards/banners.

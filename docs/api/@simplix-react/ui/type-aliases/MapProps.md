@@ -8,7 +8,7 @@
 
 > **MapProps** = `object` & `Omit`\<`MapLibreGL.MapOptions`, `"container"` \| `"style"`\>
 
-Defined in: [packages/ui/src/base/map/map.tsx:183](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L183)
+Defined in: [packages/ui/src/base/map/map.tsx:192](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L192)
 
 Props for the [Map](../variables/Map.md) component.
 
@@ -35,6 +35,13 @@ PMTiles file URL for offline fallback (e.g. "/offline-map.pmtiles").
 #### Returns
 
 `void`
+
+### partProps?
+
+> `optional` **partProps**: `Record`\<`string`, `string`\>
+
+Attributes for the map's container element, for a caller that marks it as a part of its own
+(`partAttributes`). The other props configure the map rather than the element.
 
 ### projection?
 

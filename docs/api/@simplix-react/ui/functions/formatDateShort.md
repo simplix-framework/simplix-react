@@ -8,7 +8,7 @@
 
 > **formatDateShort**(`date`, `locale?`, `timeZone?`): `string`
 
-Defined in: [packages/headless/dist/index.d.ts:454](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L454)
+Defined in: [packages/headless/dist/index.d.ts:499](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L499)
 
 Short date — e.g. "Mar 3" this year, "Mar 3, 2024" in any other, localized.
 

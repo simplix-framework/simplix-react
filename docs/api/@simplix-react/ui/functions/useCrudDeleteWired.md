@@ -8,7 +8,7 @@
 
 > **useCrudDeleteWired**(`options`): [`UseCrudDeleteWiredResult`](../interfaces/UseCrudDeleteWiredResult.md)
 
-Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:49](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L49)
+Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:49](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L49)
 
 Combines [useCrudDeleteList](useCrudDeleteList.md) state + [CrudDelete](CrudDelete.md) rendering into
 a single hook.  Eliminates the ~12-line boilerplate that every list/list-detail

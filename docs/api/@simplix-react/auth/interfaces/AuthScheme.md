@@ -6,7 +6,7 @@
 
 # Interface: AuthScheme
 
-Defined in: [packages/auth/src/types.ts:16](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L16)
+Defined in: [packages/auth/src/types.ts:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L16)
 
 Defines the contract for an authentication strategy.
 
@@ -26,7 +26,7 @@ how tokens are refreshed, and how auth state is managed.
 
 > `readonly` **name**: `string`
 
-Defined in: [packages/auth/src/types.ts:18](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L18)
+Defined in: [packages/auth/src/types.ts:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L18)
 
 Unique identifier for this scheme.
 
@@ -36,7 +36,7 @@ Unique identifier for this scheme.
 
 > **clear**(): `void`
 
-Defined in: [packages/auth/src/types.ts:36](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L36)
+Defined in: [packages/auth/src/types.ts:36](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L36)
 
 Clears all stored credentials for this scheme.
 
@@ -50,7 +50,7 @@ Clears all stored credentials for this scheme.
 
 > **getHeaders**(): `Promise`\<`Record`\<`string`, `string`\>\>
 
-Defined in: [packages/auth/src/types.ts:24](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L24)
+Defined in: [packages/auth/src/types.ts:24](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L24)
 
 Returns headers to attach to each outgoing request.
 May perform async work (e.g., decrypt a stored token).
@@ -65,7 +65,7 @@ May perform async work (e.g., decrypt a stored token).
 
 > **isAuthenticated**(): `boolean`
 
-Defined in: [packages/auth/src/types.ts:33](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L33)
+Defined in: [packages/auth/src/types.ts:33](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L33)
 
 Returns whether the scheme currently holds valid credentials.
 
@@ -79,7 +79,7 @@ Returns whether the scheme currently holds valid credentials.
 
 > `optional` **refresh**(): `Promise`\<`void`\>
 
-Defined in: [packages/auth/src/types.ts:30](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L30)
+Defined in: [packages/auth/src/types.ts:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L30)
 
 Attempts to refresh the authentication credentials.
 Called when a 401 response is received.
@@ -87,3 +87,19 @@ Called when a 401 response is received.
 #### Returns
 
 `Promise`\<`void`\>
+
+***
+
+### tokensChanged()?
+
+> `optional` **tokensChanged**(): `void`
+
+Defined in: [packages/auth/src/types.ts:43](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L43)
+
+Called after new tokens were stored from outside the scheme: a sign-in on this page, or a
+refresh made by another tab. A scheme with a background refresh re-arms it here, since the
+expiry it was timed against has moved.
+
+#### Returns
+
+`void`

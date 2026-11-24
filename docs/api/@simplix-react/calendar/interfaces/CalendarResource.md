@@ -6,7 +6,7 @@
 
 # Interface: CalendarResource
 
-Defined in: [model/types.ts:67](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L67)
+Defined in: [model/types.ts:67](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L67)
 
 An owner of calendar items (a worker, room, team, ...). Domain-agnostic:
 the consumer maps its own entities onto this shape.
@@ -17,7 +17,7 @@ the consumer maps its own entities onto this shape.
 
 > `optional` **avatarFallbackUrl**: `string`
 
-Defined in: [model/types.ts:75](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L75)
+Defined in: [model/types.ts:75](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L75)
 
 Optional image used when `avatarUrl` fails to load (e.g. the endpoint 404s).
 
@@ -27,7 +27,7 @@ Optional image used when `avatarUrl` fails to load (e.g. the endpoint 404s).
 
 > `optional` **avatarUrl**: `string`
 
-Defined in: [model/types.ts:73](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L73)
+Defined in: [model/types.ts:73](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L73)
 
 Optional avatar image URL; falls back to an initials circle when absent.
 
@@ -37,7 +37,7 @@ Optional avatar image URL; falls back to an initials circle when absent.
 
 > `optional` **badge**: `string`
 
-Defined in: [model/types.ts:71](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L71)
+Defined in: [model/types.ts:71](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L71)
 
 Optional short label rendered next to the resource name.
 
@@ -47,7 +47,7 @@ Optional short label rendered next to the resource name.
 
 > **id**: `string`
 
-Defined in: [model/types.ts:68](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L68)
+Defined in: [model/types.ts:68](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L68)
 
 ***
 
@@ -55,4 +55,4 @@ Defined in: [model/types.ts:68](https://github.com/simplix-react/simplix-react/b
 
 > **name**: `string`
 
-Defined in: [model/types.ts:69](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L69)
+Defined in: [model/types.ts:69](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L69)

@@ -6,23 +6,15 @@
 
 # Interface: Toast
 
-Defined in: [packages/headless/dist/index.d.ts:410](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L410)
+Defined in: [packages/headless/dist/index.d.ts:439](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L439)
 
 ## Properties
 
 ### action?
 
-> `optional` **action**: `object`
+> `optional` **action**: `ToastAction`
 
-Defined in: [packages/headless/dist/index.d.ts:414](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L414)
-
-#### href
-
-> **href**: `string`
-
-#### label
-
-> **label**: `string`
+Defined in: [packages/headless/dist/index.d.ts:443](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L443)
 
 ***
 
@@ -30,7 +22,7 @@ Defined in: [packages/headless/dist/index.d.ts:414](https://github.com/simplix-r
 
 > **id**: `string`
 
-Defined in: [packages/headless/dist/index.d.ts:411](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L411)
+Defined in: [packages/headless/dist/index.d.ts:440](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L440)
 
 ***
 
@@ -38,7 +30,7 @@ Defined in: [packages/headless/dist/index.d.ts:411](https://github.com/simplix-r
 
 > **message**: `string`
 
-Defined in: [packages/headless/dist/index.d.ts:413](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L413)
+Defined in: [packages/headless/dist/index.d.ts:442](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L442)
 
 ***
 
@@ -46,4 +38,4 @@ Defined in: [packages/headless/dist/index.d.ts:413](https://github.com/simplix-r
 
 > **type**: `"success"` \| `"warning"` \| `"info"` \| `"error"`
 
-Defined in: [packages/headless/dist/index.d.ts:412](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L412)
+Defined in: [packages/headless/dist/index.d.ts:441](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L441)

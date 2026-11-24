@@ -8,7 +8,7 @@
 
 > **isSameMonth**(`a`, `b`): `boolean`
 
-Defined in: [date-math.ts:60](https://github.com/simplix-react/simplix-react/blob/main/date-math.ts#L60)
+Defined in: [date-math.ts:60](https://github.com/simplix-framework/simplix-react/blob/main/date-math.ts#L60)
 
 ## Parameters
 

@@ -8,6 +8,6 @@
 
 > **Id** = `string`
 
-Defined in: [packages/gantt-core/src/types.ts:4](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L4)
+Defined in: [packages/gantt-core/src/types.ts:4](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/types.ts#L4)
 
 Identifier of a record. Unique within its collection.

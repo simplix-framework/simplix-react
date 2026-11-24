@@ -8,7 +8,7 @@
 
 > **CardList**\<`T`\>(`props`): `Element`
 
-Defined in: [packages/ui/src/crud/list/card-list.tsx:40](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/card-list.tsx#L40)
+Defined in: [packages/ui/src/crud/list/card-list.tsx:41](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/card-list.tsx#L41)
 
 Mobile-friendly card-based list layout alternative to the table view.
 

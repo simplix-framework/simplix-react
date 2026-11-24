@@ -8,7 +8,7 @@
 
 > `const` **PACKAGE\_NAMESPACE**: `"simplix-calendar/calendar"` = `"simplix-calendar/calendar"`
 
-Defined in: [locales/index.ts:10](https://github.com/simplix-react/simplix-react/blob/main/locales/index.ts#L10)
+Defined in: [locales/index.ts:10](https://github.com/simplix-framework/simplix-react/blob/main/locales/index.ts#L10)
 
 i18next namespace all calendar-core components translate against.
 

@@ -6,7 +6,7 @@
 
 # Interface: DetailCurrencyFieldProps
 
-Defined in: [packages/ui/src/fields/detail/currency-field.tsx:9](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/currency-field.tsx#L9)
+Defined in: [packages/ui/src/fields/detail/currency-field.tsx:11](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/currency-field.tsx#L11)
 
 Props for the [DetailCurrencyField](../functions/DetailCurrencyField.md) component.
 
@@ -20,7 +20,7 @@ Props for the [DetailCurrencyField](../functions/DetailCurrencyField.md) compone
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
+Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
 
 #### Inherited from
 
@@ -32,7 +32,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix
 
 > `optional` **fallback**: `string`
 
-Defined in: [packages/ui/src/fields/detail/currency-field.tsx:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/currency-field.tsx#L13)
+Defined in: [packages/ui/src/fields/detail/currency-field.tsx:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/currency-field.tsx#L15)
 
 Fallback text when value is null, undefined, or empty string. Defaults to the shared no-value badge.
 
@@ -42,7 +42,7 @@ Fallback text when value is null, undefined, or empty string. Defaults to the sh
 
 > `optional` **label**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
+Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
 
 #### Inherited from
 
@@ -54,7 +54,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix
 
 > `optional` **labelKey**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
+Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
 
 #### Inherited from
 
@@ -66,7 +66,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix
 
 > `optional` **layout**: `"inline"` \| `"left"` \| `"top"` \| `"hidden"` \| `"trailing"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
+Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
 
 Label placement. `"top"` stacks the label above the input, `"left"` puts
 it in a leading column, `"inline"` keeps label and input on one row,
@@ -84,7 +84,7 @@ label for screen readers only.
 
 > `optional` **size**: `"sm"` \| `"lg"` \| `"md"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
+Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
 
 #### Inherited from
 
@@ -96,6 +96,6 @@ Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix
 
 > **value**: `string` \| `null` \| `undefined`
 
-Defined in: [packages/ui/src/fields/detail/currency-field.tsx:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/currency-field.tsx#L11)
+Defined in: [packages/ui/src/fields/detail/currency-field.tsx:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/currency-field.tsx#L13)
 
 ISO 4217 currency code (e.g. "KRW").

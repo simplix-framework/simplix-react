@@ -6,7 +6,7 @@
 
 # Interface: LocalQueryDef\<TData\>
 
-Defined in: [packages/react/src/local-query.ts:38](https://github.com/simplix-react/simplix-react/blob/main/packages/react/src/local-query.ts#L38)
+Defined in: [packages/react/src/local-query.ts:38](https://github.com/simplix-framework/simplix-react/blob/main/packages/react/src/local-query.ts#L38)
 
 A single locally-persisted, refetch-averse query definition.
 
@@ -24,7 +24,7 @@ The resolved query data type.
 
 > `optional` **gcTime**: `number`
 
-Defined in: [packages/react/src/local-query.ts:49](https://github.com/simplix-react/simplix-react/blob/main/packages/react/src/local-query.ts#L49)
+Defined in: [packages/react/src/local-query.ts:49](https://github.com/simplix-framework/simplix-react/blob/main/packages/react/src/local-query.ts#L49)
 
 GC window. Defaults to the store's `maxAge` so persisted data survives restore.
 
@@ -34,7 +34,7 @@ GC window. Defaults to the store's `maxAge` so persisted data survives restore.
 
 > **key**: readonly `unknown`[]
 
-Defined in: [packages/react/src/local-query.ts:40](https://github.com/simplix-react/simplix-react/blob/main/packages/react/src/local-query.ts#L40)
+Defined in: [packages/react/src/local-query.ts:40](https://github.com/simplix-framework/simplix-react/blob/main/packages/react/src/local-query.ts#L40)
 
 Stable query key; also the persistence-registry key (prefix-matched).
 
@@ -44,7 +44,7 @@ Stable query key; also the persistence-registry key (prefix-matched).
 
 > **queryFn**: (`ctx`) => `Promise`\<`TData`\>
 
-Defined in: [packages/react/src/local-query.ts:43](https://github.com/simplix-react/simplix-react/blob/main/packages/react/src/local-query.ts#L43)
+Defined in: [packages/react/src/local-query.ts:43](https://github.com/simplix-framework/simplix-react/blob/main/packages/react/src/local-query.ts#L43)
 
 Fetcher invoked by react-query when the cache is missing or stale.
 
@@ -66,6 +66,6 @@ Fetcher invoked by react-query when the cache is missing or stale.
 
 > `optional` **staleTime**: `number`
 
-Defined in: [packages/react/src/local-query.ts:46](https://github.com/simplix-react/simplix-react/blob/main/packages/react/src/local-query.ts#L46)
+Defined in: [packages/react/src/local-query.ts:46](https://github.com/simplix-framework/simplix-react/blob/main/packages/react/src/local-query.ts#L46)
 
 Freshness window. Defaults to `Infinity` (refetch only on invalidation).

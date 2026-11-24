@@ -8,7 +8,7 @@
 
 > **addDays**(`d`, `n`): `Date`
 
-Defined in: [date-math.ts:48](https://github.com/simplix-react/simplix-react/blob/main/date-math.ts#L48)
+Defined in: [date-math.ts:48](https://github.com/simplix-framework/simplix-react/blob/main/date-math.ts#L48)
 
 ## Parameters
 

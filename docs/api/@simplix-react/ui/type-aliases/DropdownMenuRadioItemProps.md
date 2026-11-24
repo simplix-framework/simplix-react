@@ -8,4 +8,4 @@
 
 > **DropdownMenuRadioItemProps** = `ComponentPropsWithRef`\<*typeof* `DropdownMenuPrimitive.RadioItem`\>
 
-Defined in: [packages/ui/src/base/navigation/dropdown-menu.tsx:118](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/navigation/dropdown-menu.tsx#L118)
+Defined in: [packages/ui/src/base/navigation/dropdown-menu.tsx:141](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/navigation/dropdown-menu.tsx#L141)

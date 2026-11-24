@@ -8,7 +8,7 @@
 
 > **BooleanBadge**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/base/display/boolean-badge.tsx:17](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/boolean-badge.tsx#L17)
+Defined in: [packages/ui/src/base/display/boolean-badge.tsx:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/boolean-badge.tsx#L16)
 
 ## Parameters
 

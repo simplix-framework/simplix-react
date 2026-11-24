@@ -6,7 +6,7 @@
 
 # Interface: MenuProviderProps
 
-Defined in: [packages/ui/src/menu/menu-types.ts:80](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L80)
+Defined in: [packages/ui/src/menu/menu-types.ts:80](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L80)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/menu/menu-types.ts:80](https://github.com/simplix-r
 
 > **children**: `ReactNode`
 
-Defined in: [packages/ui/src/menu/menu-types.ts:89](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L89)
+Defined in: [packages/ui/src/menu/menu-types.ts:89](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L89)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [packages/ui/src/menu/menu-types.ts:89](https://github.com/simplix-r
 
 > **fetchMenuTree**: (`menuCode`, `signal?`) => `Promise`\<[`MenuNode`](MenuNode.md)[]\>
 
-Defined in: [packages/ui/src/menu/menu-types.ts:81](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L81)
+Defined in: [packages/ui/src/menu/menu-types.ts:81](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L81)
 
 #### Parameters
 
@@ -44,7 +44,7 @@ Defined in: [packages/ui/src/menu/menu-types.ts:81](https://github.com/simplix-r
 
 > `optional` **fixedGroups**: [`FixedMenuGroup`](FixedMenuGroup.md)[]
 
-Defined in: [packages/ui/src/menu/menu-types.ts:83](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L83)
+Defined in: [packages/ui/src/menu/menu-types.ts:83](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L83)
 
 ***
 
@@ -52,7 +52,7 @@ Defined in: [packages/ui/src/menu/menu-types.ts:83](https://github.com/simplix-r
 
 > `optional` **locale**: `string`
 
-Defined in: [packages/ui/src/menu/menu-types.ts:85](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L85)
+Defined in: [packages/ui/src/menu/menu-types.ts:85](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L85)
 
 ***
 
@@ -60,7 +60,7 @@ Defined in: [packages/ui/src/menu/menu-types.ts:85](https://github.com/simplix-r
 
 > **menuGroups**: [`MenuGroupConfig`](MenuGroupConfig.md)[]
 
-Defined in: [packages/ui/src/menu/menu-types.ts:82](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L82)
+Defined in: [packages/ui/src/menu/menu-types.ts:82](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L82)
 
 ***
 
@@ -68,7 +68,7 @@ Defined in: [packages/ui/src/menu/menu-types.ts:82](https://github.com/simplix-r
 
 > `optional` **permissionFilter**: [`MenuPermissionFilter`](../type-aliases/MenuPermissionFilter.md)
 
-Defined in: [packages/ui/src/menu/menu-types.ts:84](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L84)
+Defined in: [packages/ui/src/menu/menu-types.ts:84](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L84)
 
 ***
 
@@ -76,4 +76,4 @@ Defined in: [packages/ui/src/menu/menu-types.ts:84](https://github.com/simplix-r
 
 > `optional` **staleTime**: `number`
 
-Defined in: [packages/ui/src/menu/menu-types.ts:88](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L88)
+Defined in: [packages/ui/src/menu/menu-types.ts:88](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L88)

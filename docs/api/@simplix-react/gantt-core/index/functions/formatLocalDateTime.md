@@ -8,7 +8,7 @@
 
 > **formatLocalDateTime**(`t`): `string`
 
-Defined in: [packages/gantt-core/src/time.ts:101](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/time.ts#L101)
+Defined in: [packages/gantt-core/src/time.ts:101](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/time.ts#L101)
 
 Writes an instant as `YYYY-MM-DDTHH:MM:00`.
 

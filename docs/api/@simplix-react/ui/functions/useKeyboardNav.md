@@ -8,7 +8,7 @@
 
 > **useKeyboardNav**(`options`): `object`
 
-Defined in: [packages/ui/src/crud/list/use-keyboard-nav.ts:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-keyboard-nav.ts#L30)
+Defined in: [packages/ui/src/crud/list/use-keyboard-nav.ts:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-keyboard-nav.ts#L30)
 
 Keyboard navigation hook for list components.
 

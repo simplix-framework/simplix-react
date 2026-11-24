@@ -6,7 +6,7 @@
 
 # Interface: TaskRecurrence
 
-Defined in: [packages/gantt-core/src/types.ts:122](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L122)
+Defined in: [packages/gantt-core/src/types.ts:122](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/types.ts#L122)
 
 When a recurring task happens, and how long each occurrence takes.
 
@@ -16,7 +16,7 @@ When a recurring task happens, and how long each occurrence takes.
 
 > `optional` **count**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:135](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L135)
+Defined in: [packages/gantt-core/src/types.ts:135](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/types.ts#L135)
 
 Number of occurrences.
 
@@ -26,7 +26,7 @@ Number of occurrences.
 
 > **duration**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:137](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L137)
+Defined in: [packages/gantt-core/src/types.ts:137](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/types.ts#L137)
 
 Working minutes each occurrence takes, and the unit it is shown in.
 
@@ -36,7 +36,7 @@ Working minutes each occurrence takes, and the unit it is shown in.
 
 > **durationUnit**: [`DurationUnit`](../type-aliases/DurationUnit.md)
 
-Defined in: [packages/gantt-core/src/types.ts:138](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L138)
+Defined in: [packages/gantt-core/src/types.ts:138](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/types.ts#L138)
 
 ***
 
@@ -44,7 +44,7 @@ Defined in: [packages/gantt-core/src/types.ts:138](https://github.com/simplix-re
 
 > **frequency**: `"daily"` \| `"weekly"` \| `"monthly"`
 
-Defined in: [packages/gantt-core/src/types.ts:123](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L123)
+Defined in: [packages/gantt-core/src/types.ts:123](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/types.ts#L123)
 
 ***
 
@@ -52,7 +52,7 @@ Defined in: [packages/gantt-core/src/types.ts:123](https://github.com/simplix-re
 
 > **from**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:131](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L131)
+Defined in: [packages/gantt-core/src/types.ts:131](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/types.ts#L131)
 
 First day considered.
 
@@ -62,7 +62,7 @@ First day considered.
 
 > **interval**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:125](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L125)
+Defined in: [packages/gantt-core/src/types.ts:125](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/types.ts#L125)
 
 Every `interval`-th day, week or month.
 
@@ -72,7 +72,7 @@ Every `interval`-th day, week or month.
 
 > `optional` **monthDay**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:129](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L129)
+Defined in: [packages/gantt-core/src/types.ts:129](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/types.ts#L129)
 
 Day of the month of a monthly recurrence. A month without that day is skipped.
 
@@ -82,7 +82,7 @@ Day of the month of a monthly recurrence. A month without that day is skipped.
 
 > `optional` **until**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:133](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L133)
+Defined in: [packages/gantt-core/src/types.ts:133](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/types.ts#L133)
 
 Last day considered. One of `until` and `count` is required.
 
@@ -92,6 +92,6 @@ Last day considered. One of `until` and `count` is required.
 
 > `optional` **weekdays**: readonly `number`[]
 
-Defined in: [packages/gantt-core/src/types.ts:127](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L127)
+Defined in: [packages/gantt-core/src/types.ts:127](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/types.ts#L127)
 
 Weekdays of a weekly recurrence, 0 for Sunday.

@@ -6,7 +6,7 @@
 
 # Interface: SimplixHttpEnvironment
 
-Defined in: [config/types.ts:27](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L27)
+Defined in: [config/types.ts:27](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L27)
 
 Environment entry for `.http` file generation.
 
@@ -20,6 +20,6 @@ Environment entry for `.http` file generation.
 
 > **baseUrl**: `string`
 
-Defined in: [config/types.ts:29](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L29)
+Defined in: [config/types.ts:29](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L29)
 
 Absolute base URL for HTTP requests in this environment.

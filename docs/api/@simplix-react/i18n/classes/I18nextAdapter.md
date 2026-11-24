@@ -6,7 +6,7 @@
 
 # Class: I18nextAdapter
 
-Defined in: [i18next-adapter.ts:80](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L80)
+Defined in: [i18next-adapter.ts:81](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L81)
 
 Implements [II18nAdapter](../interfaces/II18nAdapter.md) using i18next as the underlying translation engine.
 
@@ -40,7 +40,7 @@ adapter.tn("common", "greeting", { name: "Alice" }); // "안녕하세요, Alice!
 
 > **new I18nextAdapter**(`options?`): `I18nextAdapter`
 
-Defined in: [i18next-adapter.ts:95](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L95)
+Defined in: [i18next-adapter.ts:96](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L96)
 
 #### Parameters
 
@@ -58,7 +58,7 @@ Defined in: [i18next-adapter.ts:95](https://github.com/simplix-react/simplix-rea
 
 > `readonly` **id**: `"i18next"` = `"i18next"`
 
-Defined in: [i18next-adapter.ts:81](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L81)
+Defined in: [i18next-adapter.ts:82](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L82)
 
 Unique identifier for this adapter implementation.
 
@@ -72,7 +72,7 @@ Unique identifier for this adapter implementation.
 
 > `readonly` **name**: `"i18next Adapter"` = `"i18next Adapter"`
 
-Defined in: [i18next-adapter.ts:82](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L82)
+Defined in: [i18next-adapter.ts:83](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L83)
 
 Human-readable name for this adapter.
 
@@ -88,7 +88,7 @@ Human-readable name for this adapter.
 
 > **get** **availableLocales**(): `string`[]
 
-Defined in: [i18next-adapter.ts:114](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L114)
+Defined in: [i18next-adapter.ts:115](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L115)
 
 List of all locale codes supported by this adapter.
 
@@ -110,7 +110,7 @@ List of all locale codes supported by this adapter.
 
 > **get** **fallbackLocale**(): `string`
 
-Defined in: [i18next-adapter.ts:110](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L110)
+Defined in: [i18next-adapter.ts:111](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L111)
 
 Locale code used when a translation key is missing in the active locale.
 
@@ -132,7 +132,7 @@ Locale code used when a translation key is missing in the active locale.
 
 > **get** **locale**(): `string`
 
-Defined in: [i18next-adapter.ts:106](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L106)
+Defined in: [i18next-adapter.ts:107](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L107)
 
 Currently active locale code.
 
@@ -154,7 +154,7 @@ Currently active locale code.
 
 > **get** **resourcesVersion**(): `number`
 
-Defined in: [i18next-adapter.ts:345](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L345)
+Defined in: [i18next-adapter.ts:350](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L350)
 
 A monotonically increasing counter bumped on every [addResources](#addresources) call.
 Reactive bindings pair it with [onResourcesChange](#onresourceschange) to detect
@@ -178,7 +178,7 @@ resources (lazy bundles register after the first render).
 
 > **addResources**(`locale`, `namespace`, `resources`): `void`
 
-Defined in: [i18next-adapter.ts:366](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L366)
+Defined in: [i18next-adapter.ts:371](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L371)
 
 Adds translation resources to the underlying i18next instance, merging with any existing resources.
 
@@ -215,7 +215,7 @@ The translation key-value pairs to add.
 
 > **dispose**(): `Promise`\<`void`\>
 
-Defined in: [i18next-adapter.ts:147](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L147)
+Defined in: [i18next-adapter.ts:152](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L152)
 
 Disposes of the adapter and releases all resources.
 
@@ -235,7 +235,7 @@ A promise that resolves when disposal is complete.
 
 > **exists**(`key`, `namespace?`): `boolean`
 
-Defined in: [i18next-adapter.ts:194](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L194)
+Defined in: [i18next-adapter.ts:199](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L199)
 
 Checks whether a translation key exists.
 
@@ -269,7 +269,7 @@ Optional namespace to scope the lookup.
 
 > **formatCurrency**(`value`, `currency?`): `string`
 
-Defined in: [i18next-adapter.ts:300](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L300)
+Defined in: [i18next-adapter.ts:305](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L305)
 
 Formats a number as a currency string according to the active locale.
 
@@ -303,7 +303,7 @@ The formatted currency string.
 
 > **formatDate**(`date`, `options?`): `string`
 
-Defined in: [i18next-adapter.ts:199](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L199)
+Defined in: [i18next-adapter.ts:204](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L204)
 
 Formats a date according to the active locale.
 
@@ -337,7 +337,7 @@ The formatted date string.
 
 > **formatDateTime**(`date`, `options?`): `string`
 
-Defined in: [i18next-adapter.ts:233](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L233)
+Defined in: [i18next-adapter.ts:238](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L238)
 
 Formats a date and time together according to the active locale.
 
@@ -371,7 +371,7 @@ The formatted date-time string.
 
 > **formatNumber**(`value`, `options?`): `string`
 
-Defined in: [i18next-adapter.ts:277](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L277)
+Defined in: [i18next-adapter.ts:282](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L282)
 
 Formats a number according to the active locale.
 
@@ -405,7 +405,7 @@ The formatted number string.
 
 > **formatRelativeTime**(`date`): `string`
 
-Defined in: [i18next-adapter.ts:255](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L255)
+Defined in: [i18next-adapter.ts:260](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L260)
 
 Formats a date as a human-readable relative time string (e.g., "3 hours ago").
 
@@ -433,7 +433,7 @@ The relative time string.
 
 > **formatTime**(`date`, `options?`): `string`
 
-Defined in: [i18next-adapter.ts:214](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L214)
+Defined in: [i18next-adapter.ts:219](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L219)
 
 Formats a time according to the active locale.
 
@@ -467,7 +467,7 @@ The formatted time string.
 
 > **getI18nextInstance**(): `i18n`
 
-Defined in: [i18next-adapter.ts:385](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L385)
+Defined in: [i18next-adapter.ts:390](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L390)
 
 Returns the underlying i18next instance for advanced usage or direct integration with `react-i18next`.
 
@@ -481,7 +481,7 @@ Returns the underlying i18next instance for advanced usage or direct integration
 
 > **getLoadState**(`locale`, `namespace?`): [`TranslationLoadState`](../type-aliases/TranslationLoadState.md)
 
-Defined in: [i18next-adapter.ts:319](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L319)
+Defined in: [i18next-adapter.ts:324](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L324)
 
 Returns the loading state of translation resources.
 
@@ -515,7 +515,7 @@ The current [TranslationLoadState](../type-aliases/TranslationLoadState.md) for 
 
 > **getLocaleInfo**(`locale`): [`LocaleInfo`](../interfaces/LocaleInfo.md) \| `null`
 
-Defined in: [i18next-adapter.ts:160](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L160)
+Defined in: [i18next-adapter.ts:165](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L165)
 
 Returns metadata for the given locale, or `null` if unsupported.
 
@@ -543,7 +543,7 @@ The [LocaleInfo](../interfaces/LocaleInfo.md) for the locale, or `null` if not s
 
 > **initialize**(`defaultLocale?`): `Promise`\<`void`\>
 
-Defined in: [i18next-adapter.ts:118](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L118)
+Defined in: [i18next-adapter.ts:119](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L119)
 
 Initializes the adapter with an optional default locale.
 
@@ -571,7 +571,7 @@ A promise that resolves when initialization is complete.
 
 > **loadTranslations**(`locale`, `namespace`, `translations`): `void`
 
-Defined in: [i18next-adapter.ts:311](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L311)
+Defined in: [i18next-adapter.ts:316](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L316)
 
 Loads translation resources for a given locale and namespace.
 
@@ -609,7 +609,7 @@ The translation key-value pairs to load.
 
 > **onLocaleChange**(`handler`): () => `void`
 
-Defined in: [i18next-adapter.ts:333](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L333)
+Defined in: [i18next-adapter.ts:338](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L338)
 
 Registers a callback invoked whenever the active locale changes.
 
@@ -641,7 +641,7 @@ A function that unregisters the handler when called.
 
 > **onResourcesChange**(`handler`): () => `void`
 
-Defined in: [i18next-adapter.ts:349](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L349)
+Defined in: [i18next-adapter.ts:354](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L354)
 
 Registers a callback invoked whenever translation resources are added or
 replaced after initialization. Reactive bindings subscribe to re-render
@@ -675,7 +675,7 @@ A function that unregisters the handler when called.
 
 > **setLocale**(`locale`): `Promise`\<`void`\>
 
-Defined in: [i18next-adapter.ts:152](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L152)
+Defined in: [i18next-adapter.ts:157](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L157)
 
 Changes the active locale.
 
@@ -703,7 +703,7 @@ A promise that resolves when the locale change is applied.
 
 > **t**(`key`, `values?`): `string`
 
-Defined in: [i18next-adapter.ts:175](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L175)
+Defined in: [i18next-adapter.ts:180](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L180)
 
 Translates a key with optional interpolation values.
 
@@ -737,7 +737,7 @@ The translated string.
 
 > **tn**(`namespace`, `key`, `values?`): `string`
 
-Defined in: [i18next-adapter.ts:179](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L179)
+Defined in: [i18next-adapter.ts:184](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L184)
 
 Translates a namespaced key with optional interpolation values.
 
@@ -777,7 +777,7 @@ The translated string.
 
 > **tp**(`key`, `count`, `values?`): `string`
 
-Defined in: [i18next-adapter.ts:190](https://github.com/simplix-react/simplix-react/blob/main/i18next-adapter.ts#L190)
+Defined in: [i18next-adapter.ts:195](https://github.com/simplix-framework/simplix-react/blob/main/i18next-adapter.ts#L195)
 
 Translates a key with plural form selection based on count.
 

@@ -6,7 +6,7 @@
 
 # Interface: ZoomLevel
 
-Defined in: [lib/time-scale.ts:8](https://github.com/simplix-react/simplix-react/blob/main/lib/time-scale.ts#L8)
+Defined in: [lib/time-scale.ts:8](https://github.com/simplix-framework/simplix-react/blob/main/lib/time-scale.ts#L8)
 
 One zoom step: how wide a day is drawn and what the two header rows count.
 
@@ -16,7 +16,7 @@ One zoom step: how wide a day is drawn and what the two header rows count.
 
 > **bottom**: [`ScaleUnit`](../type-aliases/ScaleUnit.md)
 
-Defined in: [lib/time-scale.ts:11](https://github.com/simplix-react/simplix-react/blob/main/lib/time-scale.ts#L11)
+Defined in: [lib/time-scale.ts:11](https://github.com/simplix-framework/simplix-react/blob/main/lib/time-scale.ts#L11)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [lib/time-scale.ts:11](https://github.com/simplix-react/simplix-reac
 
 > **pxPerDay**: `number`
 
-Defined in: [lib/time-scale.ts:9](https://github.com/simplix-react/simplix-react/blob/main/lib/time-scale.ts#L9)
+Defined in: [lib/time-scale.ts:9](https://github.com/simplix-framework/simplix-react/blob/main/lib/time-scale.ts#L9)
 
 ***
 
@@ -32,4 +32,4 @@ Defined in: [lib/time-scale.ts:9](https://github.com/simplix-react/simplix-react
 
 > **top**: [`ScaleUnit`](../type-aliases/ScaleUnit.md)
 
-Defined in: [lib/time-scale.ts:10](https://github.com/simplix-react/simplix-react/blob/main/lib/time-scale.ts#L10)
+Defined in: [lib/time-scale.ts:10](https://github.com/simplix-framework/simplix-react/blob/main/lib/time-scale.ts#L10)

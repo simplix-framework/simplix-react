@@ -8,7 +8,7 @@
 
 > **padTimeUnit**(`value`): `string`
 
-Defined in: [packages/headless/dist/index.d.ts:573](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L573)
+Defined in: [packages/headless/dist/index.d.ts:618](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L618)
 
 Pad a time unit to two digits ("7" → "07").
 

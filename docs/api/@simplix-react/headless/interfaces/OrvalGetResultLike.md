@@ -6,7 +6,7 @@
 
 # Interface: OrvalGetResultLike
 
-Defined in: [adapt-orval-get.ts:7](https://github.com/simplix-react/simplix-react/blob/main/adapt-orval-get.ts#L7)
+Defined in: [adapt-orval-get.ts:7](https://github.com/simplix-framework/simplix-react/blob/main/adapt-orval-get.ts#L7)
 
 Minimal shape required of an Orval-generated single-resource query result:
 only `data` is needed at the boundary. Orval types `data` as the raw HTTP
@@ -19,4 +19,4 @@ runtime so `data` is the plain entity DTO. This adapter bridges that gap.
 
 > **data**: `unknown`
 
-Defined in: [adapt-orval-get.ts:8](https://github.com/simplix-react/simplix-react/blob/main/adapt-orval-get.ts#L8)
+Defined in: [adapt-orval-get.ts:8](https://github.com/simplix-framework/simplix-react/blob/main/adapt-orval-get.ts#L8)

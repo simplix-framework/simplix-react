@@ -8,7 +8,7 @@
 
 > **isSameDay**(`a`, `b`): `boolean`
 
-Defined in: [date-math.ts:52](https://github.com/simplix-react/simplix-react/blob/main/date-math.ts#L52)
+Defined in: [date-math.ts:52](https://github.com/simplix-framework/simplix-react/blob/main/date-math.ts#L52)
 
 ## Parameters
 

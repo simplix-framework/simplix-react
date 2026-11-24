@@ -8,7 +8,7 @@
 
 > **OrvalMutator** = \<`T`\>(`url`, `options?`) => `Promise`\<`T`\>
 
-Defined in: [packages/api/src/index.ts:15](https://github.com/simplix-react/simplix-react/blob/main/packages/api/src/index.ts#L15)
+Defined in: [packages/api/src/index.ts:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/api/src/index.ts#L15)
 
 Fetch function signature used by Orval-generated API clients.
 

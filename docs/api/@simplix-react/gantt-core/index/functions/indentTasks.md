@@ -8,7 +8,7 @@
 
 > **indentTasks**(`project`, `ids`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-outline.ts:41](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-outline.ts#L41)
+Defined in: [packages/gantt-core/src/edit-outline.ts:41](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-outline.ts#L41)
 
 Moves tasks one level deeper, with the tasks under them. A task with no
 earlier row at its own level has nothing to go under and stays.

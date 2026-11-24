@@ -6,7 +6,7 @@
 
 # Interface: SteplineItem
 
-Defined in: [packages/ui/src/base/display/stepline.tsx:6](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/stepline.tsx#L6)
+Defined in: [packages/ui/src/base/display/stepline.tsx:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/stepline.tsx#L13)
 
 One entry of [Stepline](../functions/Stepline.md).
 
@@ -16,7 +16,7 @@ One entry of [Stepline](../functions/Stepline.md).
 
 > **key**: `string`
 
-Defined in: [packages/ui/src/base/display/stepline.tsx:8](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/stepline.tsx#L8)
+Defined in: [packages/ui/src/base/display/stepline.tsx:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/stepline.tsx#L15)
 
 Stable key (also the value [SteplineProps.current](SteplineProps.md#current) points at).
 
@@ -26,6 +26,6 @@ Stable key (also the value [SteplineProps.current](SteplineProps.md#current) poi
 
 > **label**: `ReactNode`
 
-Defined in: [packages/ui/src/base/display/stepline.tsx:10](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/stepline.tsx#L10)
+Defined in: [packages/ui/src/base/display/stepline.tsx:17](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/stepline.tsx#L17)
 
 Step label.

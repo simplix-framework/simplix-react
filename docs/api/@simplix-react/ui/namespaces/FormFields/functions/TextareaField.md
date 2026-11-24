@@ -8,7 +8,7 @@
 
 > **TextareaField**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/fields/form/textarea-field.tsx:31](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/textarea-field.tsx#L31)
+Defined in: [packages/ui/src/fields/form/textarea-field.tsx:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/textarea-field.tsx#L31)
 
 Multi-line text input field with label, error, and description support.
 

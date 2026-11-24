@@ -6,7 +6,7 @@
 
 # Interface: UseOrvalOptionsResult
 
-Defined in: [packages/ui/src/crud/list/use-orval-options.ts:22](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-orval-options.ts#L22)
+Defined in: [packages/ui/src/crud/list/use-orval-options.ts:22](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-orval-options.ts#L22)
 
 Return type of [useOrvalOptions](../functions/useOrvalOptions.md).
 
@@ -16,7 +16,7 @@ Return type of [useOrvalOptions](../functions/useOrvalOptions.md).
 
 > **isLoading**: `boolean`
 
-Defined in: [packages/ui/src/crud/list/use-orval-options.ts:24](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-orval-options.ts#L24)
+Defined in: [packages/ui/src/crud/list/use-orval-options.ts:24](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-orval-options.ts#L24)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/ui/src/crud/list/use-orval-options.ts:24](https://github.c
 
 > **options**: `object`[]
 
-Defined in: [packages/ui/src/crud/list/use-orval-options.ts:23](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-orval-options.ts#L23)
+Defined in: [packages/ui/src/crud/list/use-orval-options.ts:23](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-orval-options.ts#L23)
 
 #### icon?
 

@@ -8,7 +8,7 @@
 
 > **GeoPoint** = `object`
 
-Defined in: [packages/ui/src/utils/geo.ts:29](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L29)
+Defined in: [packages/ui/src/utils/geo.ts:29](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L29)
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: [packages/ui/src/utils/geo.ts:29](https://github.com/simplix-react/s
 
 > **latitude**: `number`
 
-Defined in: [packages/ui/src/utils/geo.ts:29](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L29)
+Defined in: [packages/ui/src/utils/geo.ts:29](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L29)
 
 ***
 
@@ -24,4 +24,4 @@ Defined in: [packages/ui/src/utils/geo.ts:29](https://github.com/simplix-react/s
 
 > **longitude**: `number`
 
-Defined in: [packages/ui/src/utils/geo.ts:29](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L29)
+Defined in: [packages/ui/src/utils/geo.ts:29](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L29)

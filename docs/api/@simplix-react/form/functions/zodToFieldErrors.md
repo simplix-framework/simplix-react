@@ -8,7 +8,7 @@
 
 > **zodToFieldErrors**\<`S`\>(`schema`, `values`): `Record`\<`string`, `string`\> \| `null`
 
-Defined in: [utils/zod-field-errors.ts:46](https://github.com/simplix-react/simplix-react/blob/main/utils/zod-field-errors.ts#L46)
+Defined in: [utils/zod-field-errors.ts:46](https://github.com/simplix-framework/simplix-react/blob/main/utils/zod-field-errors.ts#L46)
 
 Adapter that turns a failed Zod `safeParse` into the
 `Record<field, message>` shape used by `@simplix-react/ui`'s

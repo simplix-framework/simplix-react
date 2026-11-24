@@ -6,7 +6,7 @@
 
 # Interface: FacetedFilterProps
 
-Defined in: [packages/ui/src/crud/filters/faceted-filter.tsx:25](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/faceted-filter.tsx#L25)
+Defined in: [packages/ui/src/crud/filters/faceted-filter.tsx:34](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/faceted-filter.tsx#L34)
 
 Props for the [FacetedFilter](../functions/FacetedFilter.md) component.
 
@@ -16,7 +16,7 @@ Props for the [FacetedFilter](../functions/FacetedFilter.md) component.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/filters/faceted-filter.tsx:38](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/faceted-filter.tsx#L38)
+Defined in: [packages/ui/src/crud/filters/faceted-filter.tsx:47](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/faceted-filter.tsx#L47)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/ui/src/crud/filters/faceted-filter.tsx:38](https://github.
 
 > **label**: `string`
 
-Defined in: [packages/ui/src/crud/filters/faceted-filter.tsx:27](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/faceted-filter.tsx#L27)
+Defined in: [packages/ui/src/crud/filters/faceted-filter.tsx:36](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/faceted-filter.tsx#L36)
 
 Button label (e.g. `"Status"`, `"Category"`).
 
@@ -34,7 +34,7 @@ Button label (e.g. `"Status"`, `"Category"`).
 
 > `optional` **maxDisplayCount**: `number`
 
-Defined in: [packages/ui/src/crud/filters/faceted-filter.tsx:37](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/faceted-filter.tsx#L37)
+Defined in: [packages/ui/src/crud/filters/faceted-filter.tsx:46](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/faceted-filter.tsx#L46)
 
 Max badges to show before collapsing to count. Defaults to `5`.
 
@@ -44,7 +44,7 @@ Max badges to show before collapsing to count. Defaults to `5`.
 
 > `optional` **multiSelect**: `boolean`
 
-Defined in: [packages/ui/src/crud/filters/faceted-filter.tsx:35](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/faceted-filter.tsx#L35)
+Defined in: [packages/ui/src/crud/filters/faceted-filter.tsx:44](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/faceted-filter.tsx#L44)
 
 Enable multi-select mode. Defaults to `true`.
 
@@ -54,7 +54,7 @@ Enable multi-select mode. Defaults to `true`.
 
 > **onChange**: (`value`) => `void`
 
-Defined in: [packages/ui/src/crud/filters/faceted-filter.tsx:31](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/faceted-filter.tsx#L31)
+Defined in: [packages/ui/src/crud/filters/faceted-filter.tsx:40](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/faceted-filter.tsx#L40)
 
 Called when selection changes.
 
@@ -74,7 +74,7 @@ Called when selection changes.
 
 > **options**: [`FacetedFilterOption`](FacetedFilterOption.md)[]
 
-Defined in: [packages/ui/src/crud/filters/faceted-filter.tsx:33](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/faceted-filter.tsx#L33)
+Defined in: [packages/ui/src/crud/filters/faceted-filter.tsx:42](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/faceted-filter.tsx#L42)
 
 Available filter options.
 
@@ -84,6 +84,6 @@ Available filter options.
 
 > **value**: `string` \| `string`[]
 
-Defined in: [packages/ui/src/crud/filters/faceted-filter.tsx:29](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/faceted-filter.tsx#L29)
+Defined in: [packages/ui/src/crud/filters/faceted-filter.tsx:38](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/faceted-filter.tsx#L38)
 
 Currently selected value(s). String for single-select, string array for multi-select.

@@ -8,7 +8,7 @@
 
 > **TextField**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/fields/form/text-field.tsx:51](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L51)
+Defined in: [packages/ui/src/fields/form/text-field.tsx:50](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/text-field.tsx#L50)
 
 Text input field with label, error, and description support.
 

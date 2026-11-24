@@ -8,6 +8,6 @@
 
 > **BarColoring** = `"none"` \| `"task"` \| `"resource"`
 
-Defined in: [model/gantt-store-types.ts:37](https://github.com/simplix-react/simplix-react/blob/main/model/gantt-store-types.ts#L37)
+Defined in: [model/gantt-store-types.ts:37](https://github.com/simplix-framework/simplix-react/blob/main/model/gantt-store-types.ts#L37)
 
 What decides a bar's colour: the chart's own colour, the task's own, or one per resource.

@@ -6,7 +6,7 @@
 
 # Interface: DetailBlockFieldProps
 
-Defined in: [packages/ui/src/fields/detail/block-field.tsx:8](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/block-field.tsx#L8)
+Defined in: [packages/ui/src/fields/detail/block-field.tsx:10](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/block-field.tsx#L10)
 
 Props for the [DetailBlockField](../functions/DetailBlockField.md) component.
 
@@ -20,7 +20,7 @@ Props for the [DetailBlockField](../functions/DetailBlockField.md) component.
 
 > `optional` **children**: `ReactNode`
 
-Defined in: [packages/ui/src/fields/detail/block-field.tsx:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/block-field.tsx#L13)
+Defined in: [packages/ui/src/fields/detail/block-field.tsx:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/block-field.tsx#L15)
 
 Rich block content (e.g. a stack of labeled lines). Takes precedence over `value`.
 
@@ -30,7 +30,7 @@ Rich block content (e.g. a stack of labeled lines). Takes precedence over `value
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
+Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
 
 #### Inherited from
 
@@ -42,7 +42,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix
 
 > `optional` **fallback**: `string`
 
-Defined in: [packages/ui/src/fields/detail/block-field.tsx:15](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/block-field.tsx#L15)
+Defined in: [packages/ui/src/fields/detail/block-field.tsx:17](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/block-field.tsx#L17)
 
 Fallback text when there is neither a value nor children. Defaults to the shared no-value badge.
 
@@ -52,7 +52,7 @@ Fallback text when there is neither a value nor children. Defaults to the shared
 
 > `optional` **label**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
+Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
 
 #### Inherited from
 
@@ -64,7 +64,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix
 
 > `optional` **labelKey**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
+Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
 
 #### Inherited from
 
@@ -76,7 +76,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix
 
 > `optional` **size**: `"sm"` \| `"lg"` \| `"md"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
+Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
 
 #### Inherited from
 
@@ -88,6 +88,6 @@ Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix
 
 > `optional` **value**: `string` \| `null`
 
-Defined in: [packages/ui/src/fields/detail/block-field.tsx:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/block-field.tsx#L11)
+Defined in: [packages/ui/src/fields/detail/block-field.tsx:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/block-field.tsx#L13)
 
 Plain multi-line text; line breaks are preserved. Ignored when `children` is set.

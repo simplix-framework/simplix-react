@@ -6,7 +6,7 @@
 
 # Interface: FetchContext
 
-Defined in: [packages/contract/src/helpers/create-fetch.ts:4](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L4)
+Defined in: [packages/contract/src/helpers/create-fetch.ts:4](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L4)
 
 ## Extended by
 
@@ -18,7 +18,7 @@ Defined in: [packages/contract/src/helpers/create-fetch.ts:4](https://github.com
 
 > **method**: `string`
 
-Defined in: [packages/contract/src/helpers/create-fetch.ts:6](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L6)
+Defined in: [packages/contract/src/helpers/create-fetch.ts:6](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L6)
 
 ***
 
@@ -26,4 +26,4 @@ Defined in: [packages/contract/src/helpers/create-fetch.ts:6](https://github.com
 
 > **path**: `string`
 
-Defined in: [packages/contract/src/helpers/create-fetch.ts:5](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L5)
+Defined in: [packages/contract/src/helpers/create-fetch.ts:5](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/helpers/create-fetch.ts#L5)

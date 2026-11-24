@@ -8,7 +8,7 @@
 
 > **createAuth**(`config`): [`AuthInstance`](../interfaces/AuthInstance.md)
 
-Defined in: [packages/auth/src/create-auth.ts:34](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/create-auth.ts#L34)
+Defined in: [packages/auth/src/create-auth.ts:34](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/create-auth.ts#L34)
 
 Creates a reactive [AuthInstance](../interfaces/AuthInstance.md) with state management and subscriptions.
 

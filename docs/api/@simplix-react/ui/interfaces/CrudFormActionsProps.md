@@ -6,7 +6,7 @@
 
 # Interface: CrudFormActionsProps
 
-Defined in: [packages/ui/src/crud/form/crud-form.tsx:184](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/crud-form.tsx#L184)
+Defined in: [packages/ui/src/crud/form/crud-form.tsx:201](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/crud-form.tsx#L201)
 
 Props for the CrudForm.Actions sub-component.
 
@@ -16,7 +16,7 @@ Props for the CrudForm.Actions sub-component.
 
 > `optional` **children**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/form/crud-form.tsx:188](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/crud-form.tsx#L188)
+Defined in: [packages/ui/src/crud/form/crud-form.tsx:205](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/crud-form.tsx#L205)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/ui/src/crud/form/crud-form.tsx:188](https://github.com/sim
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/form/crud-form.tsx:187](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/crud-form.tsx#L187)
+Defined in: [packages/ui/src/crud/form/crud-form.tsx:204](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/crud-form.tsx#L204)
 
 ***
 
@@ -32,6 +32,6 @@ Defined in: [packages/ui/src/crud/form/crud-form.tsx:187](https://github.com/sim
 
 > `optional` **spread**: `boolean`
 
-Defined in: [packages/ui/src/crud/form/crud-form.tsx:186](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/crud-form.tsx#L186)
+Defined in: [packages/ui/src/crud/form/crud-form.tsx:203](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/crud-form.tsx#L203)
 
 When true, uses justify-between (e.g. back button on left, save on right). Defaults to justify-end.

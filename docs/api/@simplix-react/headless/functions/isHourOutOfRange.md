@@ -8,7 +8,7 @@
 
 > **isHourOutOfRange**(`hour24`, `minTime?`, `maxTime?`): `boolean`
 
-Defined in: [time-select.ts:89](https://github.com/simplix-react/simplix-react/blob/main/time-select.ts#L89)
+Defined in: [time-select.ts:89](https://github.com/simplix-framework/simplix-react/blob/main/time-select.ts#L89)
 
 True when no minute within the given hour falls inside [minTime, maxTime].
 

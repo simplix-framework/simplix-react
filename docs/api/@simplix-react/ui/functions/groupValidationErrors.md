@@ -8,7 +8,7 @@
 
 > **groupValidationErrors**(`error`): `Record`\<`string`, `string`\> \| `null`
 
-Defined in: [packages/ui/src/crud/form/group-validation-errors.ts:22](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/group-validation-errors.ts#L22)
+Defined in: [packages/ui/src/crud/form/group-validation-errors.ts:22](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/group-validation-errors.ts#L22)
 
 Extract and group server-side validation errors by field name.
 

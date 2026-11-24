@@ -6,7 +6,7 @@
 
 # Interface: TabsComponents
 
-Defined in: [packages/ui/src/provider/types.ts:137](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/types.ts#L137)
+Defined in: [packages/ui/src/provider/types.ts:141](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/types.ts#L141)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/provider/types.ts:137](https://github.com/simplix-r
 
 > **Content**: `ComponentType`\<[`TabsContentProps`](TabsContentProps.md)\>
 
-Defined in: [packages/ui/src/provider/types.ts:141](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/types.ts#L141)
+Defined in: [packages/ui/src/provider/types.ts:145](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/types.ts#L145)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [packages/ui/src/provider/types.ts:141](https://github.com/simplix-r
 
 > **List**: `ComponentType`\<[`TabsListProps`](TabsListProps.md)\>
 
-Defined in: [packages/ui/src/provider/types.ts:139](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/types.ts#L139)
+Defined in: [packages/ui/src/provider/types.ts:143](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/types.ts#L143)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [packages/ui/src/provider/types.ts:139](https://github.com/simplix-r
 
 > **Root**: `ComponentType`\<\{ `children?`: `ReactNode`; `defaultValue?`: `string`; `onValueChange?`: (`value`) => `void`; `value?`: `string`; \}\>
 
-Defined in: [packages/ui/src/provider/types.ts:138](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/types.ts#L138)
+Defined in: [packages/ui/src/provider/types.ts:142](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/types.ts#L142)
 
 ***
 
@@ -38,4 +38,4 @@ Defined in: [packages/ui/src/provider/types.ts:138](https://github.com/simplix-r
 
 > **Trigger**: `ComponentType`\<`TabsTriggerProps` & `RefAttributes`\<`HTMLButtonElement`\>\>
 
-Defined in: [packages/ui/src/provider/types.ts:140](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/types.ts#L140)
+Defined in: [packages/ui/src/provider/types.ts:144](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/types.ts#L144)

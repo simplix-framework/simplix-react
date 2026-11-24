@@ -8,7 +8,7 @@
 
 > **ConfirmDialog**(`props`): `Element`
 
-Defined in: [packages/ui/src/crud/shared/confirm-dialog.tsx:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/confirm-dialog.tsx#L30)
+Defined in: [packages/ui/src/crud/shared/confirm-dialog.tsx:32](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/confirm-dialog.tsx#L32)
 
 Confirmation dialog: a title, an optional description, and a footer that commits or cancels.
 

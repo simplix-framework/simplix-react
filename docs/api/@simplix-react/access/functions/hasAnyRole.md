@@ -8,7 +8,7 @@
 
 > **hasAnyRole**(`roles`, `targetRoles`): `boolean`
 
-Defined in: [packages/access/src/helpers/role-utils.ts:43](https://github.com/simplix-react/simplix-react/blob/main/packages/access/src/helpers/role-utils.ts#L43)
+Defined in: [packages/access/src/helpers/role-utils.ts:43](https://github.com/simplix-framework/simplix-react/blob/main/packages/access/src/helpers/role-utils.ts#L43)
 
 Checks if any of the target roles exist in the given role list.
 

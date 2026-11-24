@@ -8,7 +8,7 @@
 
 > **viewRows**(`project`, `schedule`, `collapsed`, `view`): [`ViewRow`](../type-aliases/ViewRow.md)[]
 
-Defined in: [lib/view-rows.ts:109](https://github.com/simplix-react/simplix-react/blob/main/lib/view-rows.ts#L109)
+Defined in: [lib/view-rows.ts:109](https://github.com/simplix-framework/simplix-react/blob/main/lib/view-rows.ts#L109)
 
 The rows a chart draws under a view.
 

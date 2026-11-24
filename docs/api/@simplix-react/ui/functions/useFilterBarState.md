@@ -8,7 +8,7 @@
 
 > **useFilterBarState**(`options?`): [`CrudListFilters`](../interfaces/CrudListFilters.md)
 
-Defined in: [packages/ui/src/crud/filters/use-filter-bar-state.ts:29](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/use-filter-bar-state.ts#L29)
+Defined in: [packages/ui/src/crud/filters/use-filter-bar-state.ts:29](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/use-filter-bar-state.ts#L29)
 
 Standalone filter state for a [FilterBar](FilterBar.md) that is not backed by
 `useCrudList` — an aggregation report, a dashboard section, or any custom

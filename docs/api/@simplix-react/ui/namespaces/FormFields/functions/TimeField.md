@@ -8,7 +8,7 @@
 
 > **TimeField**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/fields/form/time-field.tsx:36](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/time-field.tsx#L36)
+Defined in: [packages/ui/src/fields/form/time-field.tsx:36](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/time-field.tsx#L36)
 
 Time-of-day picker field: hour/minute spinner inputs with an AM/PM toggle
 and drop-open option lists, wrapped with label/error/description.

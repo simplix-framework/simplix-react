@@ -8,7 +8,7 @@
 
 > **getMonthNames**(`locale`): `string`[]
 
-Defined in: [format-date.ts:28](https://github.com/simplix-react/simplix-react/blob/main/format-date.ts#L28)
+Defined in: [format-date.ts:28](https://github.com/simplix-framework/simplix-react/blob/main/format-date.ts#L28)
 
 Localized short month names — e.g. ["Jan", …] in the given locale.
 

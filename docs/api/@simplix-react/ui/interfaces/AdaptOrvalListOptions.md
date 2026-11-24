@@ -6,7 +6,7 @@
 
 # Interface: AdaptOrvalListOptions
 
-Defined in: [packages/headless/dist/index.d.ts:191](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L191)
+Defined in: [packages/headless/dist/index.d.ts:217](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L217)
 
 ## Properties
 
@@ -14,10 +14,21 @@ Defined in: [packages/headless/dist/index.d.ts:191](https://github.com/simplix-r
 
 > `optional` **queryOptions**: `Record`\<`string`, `unknown`\>
 
-Defined in: [packages/headless/dist/index.d.ts:194](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L194)
+Defined in: [packages/headless/dist/index.d.ts:221](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L221)
 
 Extra query options forwarded to Orval's second argument (`{ query: {...} }`).
- Merged with defaults (`staleTime: 0, gcTime: 0`).
+ Merged with defaults (`staleTime: 0, gcTime: 0`, `meta: LIST_READ_META`); a `meta` given here
+ is merged over [LIST\_READ\_META](../variables/LIST_READ_META.md).
+
+***
+
+### searchKey?
+
+> `optional` **searchKey**: `string`
+
+Defined in: [packages/headless/dist/index.d.ts:227](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L227)
+
+The `field.operator` key the list's free text is sent under; see `buildSearchableParams`.
 
 ***
 
@@ -25,7 +36,7 @@ Extra query options forwarded to Orval's second argument (`{ query: {...} }`).
 
 > `optional` **transformFilters**: (`filters`) => `Record`\<`string`, `unknown`\>
 
-Defined in: [packages/headless/dist/index.d.ts:198](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L198)
+Defined in: [packages/headless/dist/index.d.ts:225](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L225)
 
 Transform filter key-value pairs before sending to the API.
  Use this to convert generic filter formats to backend-specific formats

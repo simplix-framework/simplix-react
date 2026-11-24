@@ -6,7 +6,7 @@
 
 # Interface: CivilDateTime
 
-Defined in: [packages/gantt-core/src/time.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/time.ts#L13)
+Defined in: [packages/gantt-core/src/time.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/time.ts#L13)
 
 Calendar fields of an instant. `month` is 1-12, `weekday` is 0 (Sunday) to 6.
 
@@ -16,7 +16,7 @@ Calendar fields of an instant. `month` is 1-12, `weekday` is 0 (Sunday) to 6.
 
 > **day**: `number`
 
-Defined in: [packages/gantt-core/src/time.ts:16](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/time.ts#L16)
+Defined in: [packages/gantt-core/src/time.ts:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/time.ts#L16)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/gantt-core/src/time.ts:16](https://github.com/simplix-reac
 
 > **hour**: `number`
 
-Defined in: [packages/gantt-core/src/time.ts:17](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/time.ts#L17)
+Defined in: [packages/gantt-core/src/time.ts:17](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/time.ts#L17)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [packages/gantt-core/src/time.ts:17](https://github.com/simplix-reac
 
 > **minute**: `number`
 
-Defined in: [packages/gantt-core/src/time.ts:18](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/time.ts#L18)
+Defined in: [packages/gantt-core/src/time.ts:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/time.ts#L18)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [packages/gantt-core/src/time.ts:18](https://github.com/simplix-reac
 
 > **month**: `number`
 
-Defined in: [packages/gantt-core/src/time.ts:15](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/time.ts#L15)
+Defined in: [packages/gantt-core/src/time.ts:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/time.ts#L15)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [packages/gantt-core/src/time.ts:15](https://github.com/simplix-reac
 
 > **weekday**: `number`
 
-Defined in: [packages/gantt-core/src/time.ts:19](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/time.ts#L19)
+Defined in: [packages/gantt-core/src/time.ts:19](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/time.ts#L19)
 
 ***
 
@@ -56,4 +56,4 @@ Defined in: [packages/gantt-core/src/time.ts:19](https://github.com/simplix-reac
 
 > **year**: `number`
 
-Defined in: [packages/gantt-core/src/time.ts:14](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/time.ts#L14)
+Defined in: [packages/gantt-core/src/time.ts:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/time.ts#L14)

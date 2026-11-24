@@ -6,7 +6,7 @@
 
 # Interface: I18nConfigResult
 
-Defined in: [create-i18n-config.ts:53](https://github.com/simplix-react/simplix-react/blob/main/create-i18n-config.ts#L53)
+Defined in: [create-i18n-config.ts:71](https://github.com/simplix-framework/simplix-react/blob/main/create-i18n-config.ts#L71)
 
 Represents the result of [createI18nConfig](../functions/createI18nConfig.md).
 
@@ -16,7 +16,7 @@ Represents the result of [createI18nConfig](../functions/createI18nConfig.md).
 
 > **adapter**: [`I18nextAdapter`](../classes/I18nextAdapter.md)
 
-Defined in: [create-i18n-config.ts:55](https://github.com/simplix-react/simplix-react/blob/main/create-i18n-config.ts#L55)
+Defined in: [create-i18n-config.ts:73](https://github.com/simplix-framework/simplix-react/blob/main/create-i18n-config.ts#L73)
 
 The configured i18next adapter instance.
 
@@ -26,6 +26,6 @@ The configured i18next adapter instance.
 
 > **i18nReady**: `Promise`\<`void`\>
 
-Defined in: [create-i18n-config.ts:57](https://github.com/simplix-react/simplix-react/blob/main/create-i18n-config.ts#L57)
+Defined in: [create-i18n-config.ts:75](https://github.com/simplix-framework/simplix-react/blob/main/create-i18n-config.ts#L75)
 
 A promise that resolves when all translations (including module translations) are loaded.

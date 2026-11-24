@@ -8,7 +8,7 @@
 
 > **CalendarApiBridge**(`__namedParameters`): `null`
 
-Defined in: [context/calendar-api-bridge.tsx:28](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-api-bridge.tsx#L28)
+Defined in: [context/calendar-api-bridge.tsx:28](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-api-bridge.tsx#L28)
 
 Bridges the calendar store (owned by the enclosing provider) up to the
 widget through a ref, so handlers living outside the provider can drive

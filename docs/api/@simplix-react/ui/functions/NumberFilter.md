@@ -8,7 +8,7 @@
 
 > **NumberFilter**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/crud/filters/number-filter.tsx:23](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/number-filter.tsx#L23)
+Defined in: [packages/ui/src/crud/filters/number-filter.tsx:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/number-filter.tsx#L30)
 
 ## Parameters
 

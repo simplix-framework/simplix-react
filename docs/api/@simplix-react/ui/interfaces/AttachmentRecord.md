@@ -6,7 +6,7 @@
 
 # Interface: AttachmentRecord
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:8](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L8)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:8](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L8)
 
 Loose base record for an attachment returned by the server.
 [key: string]: unknown allows free extension fields without casting.
@@ -21,7 +21,7 @@ Loose base record for an attachment returned by the server.
 
 > `optional` **attachmentId**: `string`
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:9](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L9)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:9](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L9)
 
 ***
 
@@ -29,7 +29,7 @@ Defined in: [packages/ui/src/fields/file-attachment/types.ts:9](https://github.c
 
 > `optional` **description**: `string`
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:19](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L19)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:19](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L19)
 
 Attachment item meta description.
 NOTE (R3-2): this is NOT the same as CommonFieldProps.description (field help text).
@@ -40,7 +40,7 @@ NOTE (R3-2): this is NOT the same as CommonFieldProps.description (field help te
 
 > `optional` **descriptionI18n**: `Record`\<`string`, `string`\>
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:20](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L20)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:20](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L20)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [packages/ui/src/fields/file-attachment/types.ts:20](https://github.
 
 > `optional` **fileSize**: `number`
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L11)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:11](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L11)
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: [packages/ui/src/fields/file-attachment/types.ts:11](https://github.
 
 > `optional` **height**: `number`
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:24](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L24)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:24](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L24)
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: [packages/ui/src/fields/file-attachment/types.ts:24](https://github.
 
 > `optional` **mimeType**: `string`
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L12)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L12)
 
 ***
 
@@ -72,7 +72,7 @@ Defined in: [packages/ui/src/fields/file-attachment/types.ts:12](https://github.
 
 > `optional` **originalName**: `string`
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:10](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L10)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:10](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L10)
 
 ***
 
@@ -80,7 +80,7 @@ Defined in: [packages/ui/src/fields/file-attachment/types.ts:10](https://github.
 
 > `optional` **representative**: `boolean`
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:21](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L21)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:21](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L21)
 
 ***
 
@@ -88,7 +88,7 @@ Defined in: [packages/ui/src/fields/file-attachment/types.ts:21](https://github.
 
 > `optional` **sortOrder**: `number`
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:22](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L22)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:22](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L22)
 
 ***
 
@@ -96,7 +96,7 @@ Defined in: [packages/ui/src/fields/file-attachment/types.ts:22](https://github.
 
 > `optional` **thumbnailUrl**: `string`
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L14)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L14)
 
 ***
 
@@ -104,7 +104,7 @@ Defined in: [packages/ui/src/fields/file-attachment/types.ts:14](https://github.
 
 > `optional` **url**: `string`
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L13)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L13)
 
 ***
 
@@ -112,4 +112,4 @@ Defined in: [packages/ui/src/fields/file-attachment/types.ts:13](https://github.
 
 > `optional` **width**: `number`
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:23](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L23)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:23](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L23)

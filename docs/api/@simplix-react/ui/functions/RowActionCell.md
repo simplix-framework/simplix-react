@@ -8,7 +8,7 @@
 
 > **RowActionCell**\<`T`\>(`__namedParameters`): `Element` \| `null`
 
-Defined in: [packages/ui/src/crud/shared/row-actions.tsx:136](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/row-actions.tsx#L136)
+Defined in: [packages/ui/src/crud/shared/row-actions.tsx:150](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/row-actions.tsx#L150)
 
 Per-row action cluster shared by the list and tree tables.
 

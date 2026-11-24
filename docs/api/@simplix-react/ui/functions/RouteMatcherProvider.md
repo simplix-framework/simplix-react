@@ -8,7 +8,7 @@
 
 > **RouteMatcherProvider**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/menu/route-matcher-context.tsx:15](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/route-matcher-context.tsx#L15)
+Defined in: [packages/ui/src/menu/route-matcher-context.tsx:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/route-matcher-context.tsx#L15)
 
 ## Parameters
 

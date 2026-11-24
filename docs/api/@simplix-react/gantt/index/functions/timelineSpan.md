@@ -8,7 +8,7 @@
 
 > **timelineSpan**(`project`, `schedule`, `now`): `object`
 
-Defined in: [lib/markers.ts:47](https://github.com/simplix-react/simplix-react/blob/main/lib/markers.ts#L47)
+Defined in: [lib/markers.ts:47](https://github.com/simplix-framework/simplix-react/blob/main/lib/markers.ts#L47)
 
 The span a timeline covers: the plan, widened to today when today lies within a month of it.
 

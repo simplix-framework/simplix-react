@@ -6,7 +6,7 @@
 
 # Interface: UseTreeExpansionResult
 
-Defined in: [packages/ui/src/crud/tree/use-tree-expansion.ts:17](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/use-tree-expansion.ts#L17)
+Defined in: [packages/ui/src/crud/tree/use-tree-expansion.ts:17](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/use-tree-expansion.ts#L17)
 
 Return value of the [useTreeExpansion](../functions/useTreeExpansion.md) hook.
 
@@ -16,7 +16,7 @@ Return value of the [useTreeExpansion](../functions/useTreeExpansion.md) hook.
 
 > **collapseAll**: () => `void`
 
-Defined in: [packages/ui/src/crud/tree/use-tree-expansion.ts:25](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/use-tree-expansion.ts#L25)
+Defined in: [packages/ui/src/crud/tree/use-tree-expansion.ts:25](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/use-tree-expansion.ts#L25)
 
 Collapse all nodes in the tree.
 
@@ -30,7 +30,7 @@ Collapse all nodes in the tree.
 
 > **expandAll**: () => `void`
 
-Defined in: [packages/ui/src/crud/tree/use-tree-expansion.ts:23](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/use-tree-expansion.ts#L23)
+Defined in: [packages/ui/src/crud/tree/use-tree-expansion.ts:23](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/use-tree-expansion.ts#L23)
 
 Expand all nodes in the tree.
 
@@ -44,7 +44,7 @@ Expand all nodes in the tree.
 
 > **expandedIds**: `Set`\<`string`\>
 
-Defined in: [packages/ui/src/crud/tree/use-tree-expansion.ts:19](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/use-tree-expansion.ts#L19)
+Defined in: [packages/ui/src/crud/tree/use-tree-expansion.ts:19](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/use-tree-expansion.ts#L19)
 
 Set of currently expanded node IDs.
 
@@ -54,7 +54,7 @@ Set of currently expanded node IDs.
 
 > **expandToNode**: (`id`) => `void`
 
-Defined in: [packages/ui/src/crud/tree/use-tree-expansion.ts:29](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/use-tree-expansion.ts#L29)
+Defined in: [packages/ui/src/crud/tree/use-tree-expansion.ts:29](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/use-tree-expansion.ts#L29)
 
 Expand all ancestor nodes to reveal a specific node.
 
@@ -74,7 +74,7 @@ Expand all ancestor nodes to reveal a specific node.
 
 > **isExpanded**: (`id`) => `boolean`
 
-Defined in: [packages/ui/src/crud/tree/use-tree-expansion.ts:27](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/use-tree-expansion.ts#L27)
+Defined in: [packages/ui/src/crud/tree/use-tree-expansion.ts:27](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/use-tree-expansion.ts#L27)
 
 Check whether a specific node is expanded.
 
@@ -94,7 +94,7 @@ Check whether a specific node is expanded.
 
 > **toggleExpand**: (`id`) => `void`
 
-Defined in: [packages/ui/src/crud/tree/use-tree-expansion.ts:21](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/use-tree-expansion.ts#L21)
+Defined in: [packages/ui/src/crud/tree/use-tree-expansion.ts:21](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/use-tree-expansion.ts#L21)
 
 Toggle a single node between expanded/collapsed.
 

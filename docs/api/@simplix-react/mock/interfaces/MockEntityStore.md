@@ -6,7 +6,7 @@
 
 # Interface: MockEntityStore\<T\>
 
-Defined in: [mock-entity-store.ts:20](https://github.com/simplix-react/simplix-react/blob/main/mock-entity-store.ts#L20)
+Defined in: [mock-entity-store.ts:20](https://github.com/simplix-framework/simplix-react/blob/main/mock-entity-store.ts#L20)
 
 ## Type Parameters
 
@@ -20,7 +20,7 @@ Defined in: [mock-entity-store.ts:20](https://github.com/simplix-react/simplix-r
 
 > **create**(`data`): `T`
 
-Defined in: [mock-entity-store.ts:30](https://github.com/simplix-react/simplix-react/blob/main/mock-entity-store.ts#L30)
+Defined in: [mock-entity-store.ts:30](https://github.com/simplix-framework/simplix-react/blob/main/mock-entity-store.ts#L30)
 
 Create a new record (auto-assigns ID if missing)
 
@@ -40,7 +40,7 @@ Create a new record (auto-assigns ID if missing)
 
 > **filter**(`predicate`): `T`[]
 
-Defined in: [mock-entity-store.ts:26](https://github.com/simplix-react/simplix-react/blob/main/mock-entity-store.ts#L26)
+Defined in: [mock-entity-store.ts:26](https://github.com/simplix-framework/simplix-react/blob/main/mock-entity-store.ts#L26)
 
 Filter records by predicate
 
@@ -60,7 +60,7 @@ Filter records by predicate
 
 > **getById**(`id`): `T` \| `undefined`
 
-Defined in: [mock-entity-store.ts:28](https://github.com/simplix-react/simplix-react/blob/main/mock-entity-store.ts#L28)
+Defined in: [mock-entity-store.ts:28](https://github.com/simplix-framework/simplix-react/blob/main/mock-entity-store.ts#L28)
 
 Find by primary key
 
@@ -80,7 +80,7 @@ Find by primary key
 
 > **list**(): `T`[]
 
-Defined in: [mock-entity-store.ts:22](https://github.com/simplix-react/simplix-react/blob/main/mock-entity-store.ts#L22)
+Defined in: [mock-entity-store.ts:22](https://github.com/simplix-framework/simplix-react/blob/main/mock-entity-store.ts#L22)
 
 All records
 
@@ -94,7 +94,7 @@ All records
 
 > **listPaged**(`page`, `size`, `sort?`): [`PagedResult`](PagedResult.md)\<`T`\>
 
-Defined in: [mock-entity-store.ts:24](https://github.com/simplix-react/simplix-react/blob/main/mock-entity-store.ts#L24)
+Defined in: [mock-entity-store.ts:24](https://github.com/simplix-framework/simplix-react/blob/main/mock-entity-store.ts#L24)
 
 Paginated list (0-based page index). Sort format: `"field.direction"` (e.g. `"createdAt.desc"`).
 
@@ -122,7 +122,7 @@ Paginated list (0-based page index). Sort format: `"field.direction"` (e.g. `"cr
 
 > **remove**(`id`): `boolean`
 
-Defined in: [mock-entity-store.ts:36](https://github.com/simplix-react/simplix-react/blob/main/mock-entity-store.ts#L36)
+Defined in: [mock-entity-store.ts:36](https://github.com/simplix-framework/simplix-react/blob/main/mock-entity-store.ts#L36)
 
 Delete by PK
 
@@ -142,7 +142,7 @@ Delete by PK
 
 > **reset**(): `void`
 
-Defined in: [mock-entity-store.ts:38](https://github.com/simplix-react/simplix-react/blob/main/mock-entity-store.ts#L38)
+Defined in: [mock-entity-store.ts:38](https://github.com/simplix-framework/simplix-react/blob/main/mock-entity-store.ts#L38)
 
 Reset to initial seed data
 
@@ -156,7 +156,7 @@ Reset to initial seed data
 
 > **update**(`id`, `data`): `T` \| `undefined`
 
-Defined in: [mock-entity-store.ts:32](https://github.com/simplix-react/simplix-react/blob/main/mock-entity-store.ts#L32)
+Defined in: [mock-entity-store.ts:32](https://github.com/simplix-framework/simplix-react/blob/main/mock-entity-store.ts#L32)
 
 Update an existing record by PK
 
@@ -180,7 +180,7 @@ Update an existing record by PK
 
 > **upsert**(`data`): `T`
 
-Defined in: [mock-entity-store.ts:34](https://github.com/simplix-react/simplix-react/blob/main/mock-entity-store.ts#L34)
+Defined in: [mock-entity-store.ts:34](https://github.com/simplix-framework/simplix-react/blob/main/mock-entity-store.ts#L34)
 
 Update if exists, create if not
 

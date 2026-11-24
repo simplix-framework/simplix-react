@@ -6,7 +6,7 @@
 
 # Interface: SimplixConfig
 
-Defined in: [config/types.ts:64](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L64)
+Defined in: [config/types.ts:64](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L64)
 
 Project-level configuration loaded from `simplix.config.ts` at the project root.
 
@@ -49,7 +49,7 @@ export default defineConfig({
 
 > `optional` **api**: `object`
 
-Defined in: [config/types.ts:81](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L81)
+Defined in: [config/types.ts:81](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L81)
 
 API settings — used for basePath in code generation
 
@@ -65,7 +65,7 @@ API base path (default: "/api")
 
 > `optional` **apps**: `Readonly`\<`Record`\<`string`, [`SimplixAppConfig`](SimplixAppConfig.md)\>\>
 
-Defined in: [config/types.ts:133](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L133)
+Defined in: [config/types.ts:133](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L133)
 
 Settings that differ between the apps of one workspace, keyed by the app's directory name under
 `apps/` (`"acme-admin"`).
@@ -101,7 +101,7 @@ apps: {
 
 > `optional` **checks**: [`SimplixChecksConfig`](SimplixChecksConfig.md)
 
-Defined in: [config/types.ts:251](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L251)
+Defined in: [config/types.ts:274](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L274)
 
 What the project checks run over; each command also takes its roots as arguments.
 
@@ -111,7 +111,7 @@ What the project checks run over; each command also takes its roots as arguments
 
 > `optional` **codegen**: `object`
 
-Defined in: [config/types.ts:234](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L234)
+Defined in: [config/types.ts:250](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L250)
 
 Code generation options
 
@@ -127,7 +127,7 @@ Prepend auto-generated header comment to generated files (default: true)
 
 > `optional` **generated**: `object`
 
-Defined in: [config/types.ts:228](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L228)
+Defined in: [config/types.ts:244](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L244)
 
 How generated files are written.
 
@@ -174,7 +174,7 @@ are skipped, the exit code is reported and the command fails. Without it nothing
 
 > `optional` **http**: `object`
 
-Defined in: [config/types.ts:96](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L96)
+Defined in: [config/types.ts:96](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L96)
 
 .http file environment settings
 
@@ -188,7 +188,7 @@ Defined in: [config/types.ts:96](https://github.com/simplix-react/simplix-react/
 
 > `optional` **i18n**: `object`
 
-Defined in: [config/types.ts:240](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L240)
+Defined in: [config/types.ts:256](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L256)
 
 Internationalization settings
 
@@ -197,6 +197,15 @@ Internationalization settings
 > `optional` **defaultLocale**: `string`
 
 Default locale code (default: "en")
+
+#### localeOnlyKeys?
+
+> `optional` **localeOnlyKeys**: `Readonly`\<`Record`\<`string`, readonly `string`[]\>\>
+
+Keys a locale may hold that the reference locale does not, by locale code
+(`{ ko: ["help.particles"] }`): a word list one language needs and another has no use for. The
+catalogue check of `simplix validate` neither reports such a key as extra nor removes it under
+`--fix`; a key beneath a listed one is covered too.
 
 #### locales?
 
@@ -210,7 +219,7 @@ Supported locale codes (default: ["en", "ko", "ja"])
 
 > `optional` **modules**: `object`
 
-Defined in: [config/types.ts:141](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L141)
+Defined in: [config/types.ts:141](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L141)
 
 How UI modules are laid out under `modules/`. `groups` names directories that hold modules
 rather than being one (`["admin", "portal", "shared"]`), so `--module admin/user` addresses
@@ -236,7 +245,7 @@ without a hand edit. Absent or empty, a module declares none of its own.
 
 > `optional` **openapi**: [`OpenAPISpecConfig`](OpenAPISpecConfig.md)[]
 
-Defined in: [config/types.ts:248](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L248)
+Defined in: [config/types.ts:271](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L271)
 
 OpenAPI code generation — array of per-spec configurations
 
@@ -246,7 +255,7 @@ OpenAPI code generation — array of per-spec configurations
 
 > `optional` **packages**: `object`
 
-Defined in: [config/types.ts:90](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L90)
+Defined in: [config/types.ts:90](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L90)
 
 Package naming options
 
@@ -262,7 +271,7 @@ Short prefix for generated package names (default: derived from root package.jso
 
 > `optional` **plugins**: `string`[]
 
-Defined in: [config/types.ts:78](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L78)
+Defined in: [config/types.ts:78](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L78)
 
 CLI extension plugin modules to load before running any command.
 
@@ -283,7 +292,7 @@ and exits rather than silently generating incorrect code.
 
 > `optional` **queryBuilder**: `unknown`
 
-Defined in: [config/types.ts:87](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L87)
+Defined in: [config/types.ts:87](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L87)
 
 Global QueryBuilder — applied to all domains
 
@@ -293,11 +302,24 @@ Global QueryBuilder — applied to all domains
 
 > `optional` **references**: `object`
 
-Defined in: [config/types.ts:207](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L207)
+Defined in: [config/types.ts:223](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L223)
+
+How references are drawn.
 
 #### peeks?
 
 > `optional` **peeks**: `Readonly`\<`Record`\<`string`, `string`\>\>
+
+#### Remarks
+
+`peeks` names the peek a reference opens. Where the contract does not name the referenced
+entity it is keyed by the reference's stem (`user` for `userId` beside `userName`): a key whose
+record arrives nested is named by that record's type, a flat key only by its own name, which
+need not be the entity the app registers a peek for (`{ user: "userAccount", owner: "userAccount" }`).
+A reference SimpliX Meta declares names its entity, and the entity's name in camel case is the
+peek kind; an entry keyed by that name maps it to the kind the app registers
+(`{ userRole: "role" }`). A stem entry is not read for a declared reference, and the scaffold
+warns where one names another kind than the one the reference opens.
 
 ***
 
@@ -305,7 +327,7 @@ Defined in: [config/types.ts:207](https://github.com/simplix-react/simplix-react
 
 > `optional` **routes**: `Readonly`\<`Record`\<`string`, `RouteTarget`\>\>
 
-Defined in: [config/types.ts:167](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L167)
+Defined in: [config/types.ts:167](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L167)
 
 The route file a list screen is reached through, by module group (`admin` for
 `--module admin/<name>`). Absent, no route is written.
@@ -328,7 +350,7 @@ keeps its groups in one table instead of writing them inline.
 
 > `optional` **scaffold**: `object`
 
-Defined in: [config/types.ts:201](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L201)
+Defined in: [config/types.ts:203](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L203)
 
 What a scaffold decides where SimpliX Meta is silent.
 
@@ -336,13 +358,17 @@ What a scaffold decides where SimpliX Meta is silent.
 
 > `readonly` `optional` **defaultSortFields**: readonly (`string` \| \{ `direction?`: `"asc"` \| `"desc"`; `field`: `string`; \})[]
 
+#### holders?
+
+> `readonly` `optional` **holders**: `Readonly`\<`Record`\<`string`, \{ `exclude?`: readonly `string`[]; \}\>\>
+
 #### maskedSuffix?
 
 > `readonly` `optional` **maskedSuffix**: `string`
 
 #### referencePickers?
 
-> `readonly` `optional` **referencePickers**: `Readonly`\<`Record`\<`string`, \{ `facet?`: `string`; `from`: `string`; `hook`: `string`; \}\>\>
+> `readonly` `optional` **referencePickers**: `Readonly`\<`Record`\<`string`, \{ `facet?`: `string`; `facetFor?`: `string`; `from`: `string`; `hook`: `string`; \}\>\>
 
 #### Remarks
 
@@ -364,6 +390,17 @@ that references an entity listed here is edited through that picker; a required 
 an entity not listed is reported by `simplix check-screen`, since its id would be typed by hand.
 `facet` names the hook (from the same module, made by `createEntityFacet`) that searches the
 entity for a list filter: a list over a key of that entity is filtered by the record's name.
+A facet resolves the records it has picked by one column of the filtered list, so a fixed hook
+serves only the column it was made for. `facetFor` names a factory instead (from the same
+module, taking the filtered column and returning the hook), which a generated list calls once
+per filtered column (`createUserFacet("ownerUserId")`); it wins over `facet`.
+
+`holders` maps a scaffolded entity (camel case, as `scaffold <entity>` names it) to the holders
+its detail leaves out: `exclude` lists a holding entity (`"creditAccount"`, every holder of that
+entity) or one holder by its key field (`"userNote.authorId"`). An excluded holder gets no tab,
+no import and no module dependency, so a regeneration never adds a tab a screen dropped on
+purpose. A holder whose module already depends on the screen's own module is left out without
+being listed, since its tab would close a dependency cycle.
 
 ***
 
@@ -371,7 +408,7 @@ entity for a list filter: a list over a key of that entity is filtered by the re
 
 > `optional` **templates**: [`SimplixTemplatesConfig`](SimplixTemplatesConfig.md)
 
-Defined in: [config/types.ts:104](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L104)
+Defined in: [config/types.ts:104](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L104)
 
 Where the page and widget templates come from, beneath the project's own
 `.simplix/templates`. An app listed in [SimplixConfig.apps](#apps) may override each key.

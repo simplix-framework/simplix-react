@@ -8,7 +8,7 @@
 
 > **buildOutline**(`tasks`): [`Outline`](../interfaces/Outline.md)
 
-Defined in: [packages/gantt-core/src/outline.ts:25](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/outline.ts#L25)
+Defined in: [packages/gantt-core/src/outline.ts:25](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/outline.ts#L25)
 
 Reads the tree out of a row list.
 

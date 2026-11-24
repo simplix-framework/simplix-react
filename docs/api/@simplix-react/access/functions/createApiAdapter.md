@@ -8,7 +8,7 @@
 
 > **createApiAdapter**(`options?`): [`AccessAdapter`](../interfaces/AccessAdapter.md)
 
-Defined in: [packages/access/src/adapters/api-adapter.ts:77](https://github.com/simplix-react/simplix-react/blob/main/packages/access/src/adapters/api-adapter.ts#L77)
+Defined in: [packages/access/src/adapters/api-adapter.ts:77](https://github.com/simplix-framework/simplix-react/blob/main/packages/access/src/adapters/api-adapter.ts#L77)
 
 Creates an adapter that fetches access rules from an API endpoint.
 

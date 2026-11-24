@@ -8,7 +8,7 @@
 
 > `const` **DetailProfile**: *typeof* `DetailProfileRoot` & `object`
 
-Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:162](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L162)
+Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:176](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L176)
 
 Detail/form modal profile strip. Compound: `DetailProfile` +
 DetailProfile.Feats + DetailProfile.Meta.

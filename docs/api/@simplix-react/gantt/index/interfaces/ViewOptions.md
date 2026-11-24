@@ -6,7 +6,7 @@
 
 # Interface: ViewOptions
 
-Defined in: [lib/view-rows.ts:14](https://github.com/simplix-react/simplix-react/blob/main/lib/view-rows.ts#L14)
+Defined in: [lib/view-rows.ts:14](https://github.com/simplix-framework/simplix-react/blob/main/lib/view-rows.ts#L14)
 
 How a chart narrows, orders and gathers its rows.
 
@@ -16,7 +16,7 @@ How a chart narrows, orders and gathers its rows.
 
 > **filter**: [`TaskFilter`](../type-aliases/TaskFilter.md)
 
-Defined in: [lib/view-rows.ts:15](https://github.com/simplix-react/simplix-react/blob/main/lib/view-rows.ts#L15)
+Defined in: [lib/view-rows.ts:15](https://github.com/simplix-framework/simplix-react/blob/main/lib/view-rows.ts#L15)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [lib/view-rows.ts:15](https://github.com/simplix-react/simplix-react
 
 > **group**: [`GroupKey`](../type-aliases/GroupKey.md)
 
-Defined in: [lib/view-rows.ts:22](https://github.com/simplix-react/simplix-react/blob/main/lib/view-rows.ts#L22)
+Defined in: [lib/view-rows.ts:22](https://github.com/simplix-framework/simplix-react/blob/main/lib/view-rows.ts#L22)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [lib/view-rows.ts:22](https://github.com/simplix-react/simplix-react
 
 > **resourceId**: `string` \| `null`
 
-Defined in: [lib/view-rows.ts:17](https://github.com/simplix-react/simplix-react/blob/main/lib/view-rows.ts#L17)
+Defined in: [lib/view-rows.ts:17](https://github.com/simplix-framework/simplix-react/blob/main/lib/view-rows.ts#L17)
 
 Shows only the tasks this resource is assigned to.
 
@@ -42,7 +42,7 @@ Shows only the tasks this resource is assigned to.
 
 > **search**: `string`
 
-Defined in: [lib/view-rows.ts:19](https://github.com/simplix-react/simplix-react/blob/main/lib/view-rows.ts#L19)
+Defined in: [lib/view-rows.ts:19](https://github.com/simplix-framework/simplix-react/blob/main/lib/view-rows.ts#L19)
 
 Shows only the tasks whose name contains this text, in any letter case.
 
@@ -52,7 +52,7 @@ Shows only the tasks whose name contains this text, in any letter case.
 
 > **sort**: [`SortKey`](../type-aliases/SortKey.md)
 
-Defined in: [lib/view-rows.ts:20](https://github.com/simplix-react/simplix-react/blob/main/lib/view-rows.ts#L20)
+Defined in: [lib/view-rows.ts:20](https://github.com/simplix-framework/simplix-react/blob/main/lib/view-rows.ts#L20)
 
 ***
 
@@ -60,4 +60,4 @@ Defined in: [lib/view-rows.ts:20](https://github.com/simplix-react/simplix-react
 
 > **sortDescending**: `boolean`
 
-Defined in: [lib/view-rows.ts:21](https://github.com/simplix-react/simplix-react/blob/main/lib/view-rows.ts#L21)
+Defined in: [lib/view-rows.ts:21](https://github.com/simplix-framework/simplix-react/blob/main/lib/view-rows.ts#L21)

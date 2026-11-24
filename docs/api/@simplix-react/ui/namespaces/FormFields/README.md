@@ -119,6 +119,12 @@ Re-exports [IconFieldProps](../../interfaces/IconFieldProps.md)
 
 ***
 
+### LanguageSelectorPlacement
+
+Re-exports [LanguageSelectorPlacement](../../type-aliases/LanguageSelectorPlacement.md)
+
+***
+
 ### TreeMultiSelectField
 
 Re-exports [TreeMultiSelectField](../../functions/TreeMultiSelectField.md)

@@ -6,7 +6,7 @@
 
 # Interface: WorkingRange
 
-Defined in: [packages/gantt-core/src/types.ts:7](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L7)
+Defined in: [packages/gantt-core/src/types.ts:7](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/types.ts#L7)
 
 A span of working time inside one day, in minutes after midnight. `to` may be 1440.
 
@@ -16,7 +16,7 @@ A span of working time inside one day, in minutes after midnight. `to` may be 14
 
 > **from**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:8](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L8)
+Defined in: [packages/gantt-core/src/types.ts:8](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/types.ts#L8)
 
 ***
 
@@ -24,4 +24,4 @@ Defined in: [packages/gantt-core/src/types.ts:8](https://github.com/simplix-reac
 
 > **to**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:9](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L9)
+Defined in: [packages/gantt-core/src/types.ts:9](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/types.ts#L9)

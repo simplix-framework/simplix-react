@@ -6,7 +6,7 @@
 
 # Interface: RowActionDef\<T\>
 
-Defined in: [packages/ui/src/crud/shared/row-actions.tsx:39](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/row-actions.tsx#L39)
+Defined in: [packages/ui/src/crud/shared/row-actions.tsx:41](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/row-actions.tsx#L41)
 
 One row action. `label`/`icon` fall back to the type's defaults when omitted.
 
@@ -22,7 +22,7 @@ One row action. `label`/`icon` fall back to the type's defaults when omitted.
 
 > `optional` **disabled**: (`row`) => `boolean`
 
-Defined in: [packages/ui/src/crud/shared/row-actions.tsx:45](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/row-actions.tsx#L45)
+Defined in: [packages/ui/src/crud/shared/row-actions.tsx:53](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/row-actions.tsx#L53)
 
 #### Parameters
 
@@ -40,7 +40,7 @@ Defined in: [packages/ui/src/crud/shared/row-actions.tsx:45](https://github.com/
 
 > `optional` **disabledReason**: (`row`) => `string` \| `undefined`
 
-Defined in: [packages/ui/src/crud/shared/row-actions.tsx:58](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/row-actions.tsx#L58)
+Defined in: [packages/ui/src/crud/shared/row-actions.tsx:66](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/row-actions.tsx#L66)
 
 Why this row cannot take the action, when it cannot.
 
@@ -69,7 +69,7 @@ returns.
 
 > `optional` **href**: (`row`) => `string` \| `undefined`
 
-Defined in: [packages/ui/src/crud/shared/row-actions.tsx:70](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/row-actions.tsx#L70)
+Defined in: [packages/ui/src/crud/shared/row-actions.tsx:78](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/row-actions.tsx#L78)
 
 Where the action takes the reader, when it is a destination rather than a change.
 
@@ -97,15 +97,20 @@ departure. A disabled action never navigates.
 
 > `optional` **icon**: `ReactNode` \| (`row`) => `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/row-actions.tsx:43](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/row-actions.tsx#L43)
+Defined in: [packages/ui/src/crud/shared/row-actions.tsx:51](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/row-actions.tsx#L51)
 
 ***
 
 ### label?
 
-> `optional` **label**: `string`
+> `optional` **label**: `string` \| (`row`) => `string`
 
-Defined in: [packages/ui/src/crud/shared/row-actions.tsx:42](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/row-actions.tsx#L42)
+Defined in: [packages/ui/src/crud/shared/row-actions.tsx:50](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/row-actions.tsx#L50)
+
+The action's name. A function reads it from the row, so one toggle verb says what it will do
+to this row (Enable or Disable, Suspend or Reinstate) instead of the list carrying two
+actions of which one is always disabled. Pair it with an `icon` function so the glyph follows.
+Omitted, the type's own label is used.
 
 ***
 
@@ -113,7 +118,7 @@ Defined in: [packages/ui/src/crud/shared/row-actions.tsx:42](https://github.com/
 
 > **onClick**: (`row`) => `void`
 
-Defined in: [packages/ui/src/crud/shared/row-actions.tsx:41](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/row-actions.tsx#L41)
+Defined in: [packages/ui/src/crud/shared/row-actions.tsx:43](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/row-actions.tsx#L43)
 
 #### Parameters
 
@@ -131,7 +136,7 @@ Defined in: [packages/ui/src/crud/shared/row-actions.tsx:41](https://github.com/
 
 > **type**: [`ActionType`](../type-aliases/ActionType.md)
 
-Defined in: [packages/ui/src/crud/shared/row-actions.tsx:40](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/row-actions.tsx#L40)
+Defined in: [packages/ui/src/crud/shared/row-actions.tsx:42](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/row-actions.tsx#L42)
 
 ***
 
@@ -139,7 +144,7 @@ Defined in: [packages/ui/src/crud/shared/row-actions.tsx:40](https://github.com/
 
 > `optional` **when**: (`row`) => `boolean`
 
-Defined in: [packages/ui/src/crud/shared/row-actions.tsx:44](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/row-actions.tsx#L44)
+Defined in: [packages/ui/src/crud/shared/row-actions.tsx:52](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/row-actions.tsx#L52)
 
 #### Parameters
 

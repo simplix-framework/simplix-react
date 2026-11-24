@@ -8,7 +8,7 @@
 
 > **fitMapToBounds**(`map`, `points`, `options?`): `void`
 
-Defined in: [packages/ui/src/utils/geo.ts:56](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L56)
+Defined in: [packages/ui/src/utils/geo.ts:56](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L56)
 
 Fit a MapLibre map instance to the given points.
 Single-point case uses flyTo; multi-point uses fitBounds.

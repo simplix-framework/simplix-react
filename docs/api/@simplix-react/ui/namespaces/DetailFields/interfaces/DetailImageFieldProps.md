@@ -6,7 +6,7 @@
 
 # Interface: DetailImageFieldProps
 
-Defined in: [packages/ui/src/fields/detail/image-field.tsx:8](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/image-field.tsx#L8)
+Defined in: [packages/ui/src/fields/detail/image-field.tsx:10](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/image-field.tsx#L10)
 
 Props for the [DetailImageField](../functions/DetailImageField.md) component.
 
@@ -20,7 +20,7 @@ Props for the [DetailImageField](../functions/DetailImageField.md) component.
 
 > `optional` **alt**: `string`
 
-Defined in: [packages/ui/src/fields/detail/image-field.tsx:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/image-field.tsx#L12)
+Defined in: [packages/ui/src/fields/detail/image-field.tsx:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/image-field.tsx#L14)
 
 Alt text for the image.
 
@@ -30,7 +30,7 @@ Alt text for the image.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
+Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
 
 #### Inherited from
 
@@ -42,7 +42,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix
 
 > `optional` **height**: `string` \| `number`
 
-Defined in: [packages/ui/src/fields/detail/image-field.tsx:16](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/image-field.tsx#L16)
+Defined in: [packages/ui/src/fields/detail/image-field.tsx:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/image-field.tsx#L18)
 
 Image height in pixels or CSS value. Defaults to `96`.
 
@@ -52,7 +52,7 @@ Image height in pixels or CSS value. Defaults to `96`.
 
 > `optional` **imageClassName**: `string`
 
-Defined in: [packages/ui/src/fields/detail/image-field.tsx:18](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/image-field.tsx#L18)
+Defined in: [packages/ui/src/fields/detail/image-field.tsx:20](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/image-field.tsx#L20)
 
 Additional CSS class for the image element.
 
@@ -62,7 +62,7 @@ Additional CSS class for the image element.
 
 > `optional` **label**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
+Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
 
 #### Inherited from
 
@@ -74,7 +74,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix
 
 > `optional` **labelKey**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
+Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
 
 #### Inherited from
 
@@ -86,7 +86,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix
 
 > `optional` **layout**: `"inline"` \| `"left"` \| `"top"` \| `"hidden"` \| `"trailing"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
+Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
 
 Label placement. `"top"` stacks the label above the input, `"left"` puts
 it in a leading column, `"inline"` keeps label and input on one row,
@@ -104,7 +104,7 @@ label for screen readers only.
 
 > `optional` **size**: `"sm"` \| `"lg"` \| `"md"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
+Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
 
 #### Inherited from
 
@@ -116,7 +116,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix
 
 > **value**: `string` \| `null` \| `undefined`
 
-Defined in: [packages/ui/src/fields/detail/image-field.tsx:10](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/image-field.tsx#L10)
+Defined in: [packages/ui/src/fields/detail/image-field.tsx:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/image-field.tsx#L12)
 
 Image source URL.
 
@@ -126,6 +126,6 @@ Image source URL.
 
 > `optional` **width**: `string` \| `number`
 
-Defined in: [packages/ui/src/fields/detail/image-field.tsx:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/image-field.tsx#L14)
+Defined in: [packages/ui/src/fields/detail/image-field.tsx:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/image-field.tsx#L16)
 
 Image width in pixels or CSS value. Defaults to `96`.

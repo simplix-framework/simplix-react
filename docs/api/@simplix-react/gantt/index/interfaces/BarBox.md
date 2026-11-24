@@ -6,7 +6,7 @@
 
 # Interface: BarBox
 
-Defined in: [lib/link-path.ts:4](https://github.com/simplix-react/simplix-react/blob/main/lib/link-path.ts#L4)
+Defined in: [lib/link-path.ts:4](https://github.com/simplix-framework/simplix-react/blob/main/lib/link-path.ts#L4)
 
 Horizontal extent and vertical centre of a bar.
 
@@ -16,7 +16,7 @@ Horizontal extent and vertical centre of a bar.
 
 > **left**: `number`
 
-Defined in: [lib/link-path.ts:5](https://github.com/simplix-react/simplix-react/blob/main/lib/link-path.ts#L5)
+Defined in: [lib/link-path.ts:5](https://github.com/simplix-framework/simplix-react/blob/main/lib/link-path.ts#L5)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [lib/link-path.ts:5](https://github.com/simplix-react/simplix-react/
 
 > **right**: `number`
 
-Defined in: [lib/link-path.ts:6](https://github.com/simplix-react/simplix-react/blob/main/lib/link-path.ts#L6)
+Defined in: [lib/link-path.ts:6](https://github.com/simplix-framework/simplix-react/blob/main/lib/link-path.ts#L6)
 
 ***
 
@@ -32,4 +32,4 @@ Defined in: [lib/link-path.ts:6](https://github.com/simplix-react/simplix-react/
 
 > **y**: `number`
 
-Defined in: [lib/link-path.ts:7](https://github.com/simplix-react/simplix-react/blob/main/lib/link-path.ts#L7)
+Defined in: [lib/link-path.ts:7](https://github.com/simplix-framework/simplix-react/blob/main/lib/link-path.ts#L7)

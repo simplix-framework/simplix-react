@@ -6,7 +6,7 @@
 
 # Interface: CalendarApi
 
-Defined in: [context/calendar-api-bridge.tsx:8](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-api-bridge.tsx#L8)
+Defined in: [context/calendar-api-bridge.tsx:8](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-api-bridge.tsx#L8)
 
 Imperative calendar control exposed through [CalendarApiBridge](../functions/CalendarApiBridge.md).
 
@@ -16,7 +16,7 @@ Imperative calendar control exposed through [CalendarApiBridge](../functions/Cal
 
 > **goTo**: (`date`, `view?`) => `void`
 
-Defined in: [context/calendar-api-bridge.tsx:14](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-api-bridge.tsx#L14)
+Defined in: [context/calendar-api-bridge.tsx:14](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-api-bridge.tsx#L14)
 
 Navigate to a date, optionally switching the view (drill-down).
 
@@ -40,7 +40,7 @@ Navigate to a date, optionally switching the view (drill-down).
 
 > **setDate**: (`date`) => `void`
 
-Defined in: [context/calendar-api-bridge.tsx:12](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-api-bridge.tsx#L12)
+Defined in: [context/calendar-api-bridge.tsx:12](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-api-bridge.tsx#L12)
 
 Move the selected date without changing the view.
 
@@ -60,7 +60,7 @@ Move the selected date without changing the view.
 
 > **setView**: (`view`) => `void`
 
-Defined in: [context/calendar-api-bridge.tsx:10](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-api-bridge.tsx#L10)
+Defined in: [context/calendar-api-bridge.tsx:10](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-api-bridge.tsx#L10)
 
 Switch the active view.
 

@@ -8,7 +8,7 @@
 
 > **getErrorCode**(`error`): `string` \| `null`
 
-Defined in: [packages/api/src/error-utils.ts:205](https://github.com/simplix-react/simplix-react/blob/main/packages/api/src/error-utils.ts#L205)
+Defined in: [packages/api/src/error-utils.ts:246](https://github.com/simplix-framework/simplix-react/blob/main/packages/api/src/error-utils.ts#L246)
 
 Extract an application-specific error code from any error value.
 

@@ -8,4 +8,4 @@
 
 > `const` **TabsTrigger**: `ForwardRefExoticComponent`\<`Omit`\<`TabsTriggerProps` & `RefAttributes`\<`HTMLButtonElement`\>, `"ref"`\> & `RefAttributes`\<`HTMLButtonElement`\>\>
 
-Defined in: [packages/ui/src/base/navigation/tabs.tsx:116](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/navigation/tabs.tsx#L116)
+Defined in: [packages/ui/src/base/navigation/tabs.tsx:276](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/navigation/tabs.tsx#L276)

@@ -8,7 +8,7 @@
 
 > **CalendarYearView**(`__namedParameters`): `Element`
 
-Defined in: [components/year-view/calendar-year-view.tsx:12](https://github.com/simplix-react/simplix-react/blob/main/components/year-view/calendar-year-view.tsx#L12)
+Defined in: [components/year-view/calendar-year-view.tsx:12](https://github.com/simplix-framework/simplix-react/blob/main/components/year-view/calendar-year-view.tsx#L12)
 
 ## Parameters
 

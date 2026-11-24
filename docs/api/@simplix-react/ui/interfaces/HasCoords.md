@@ -6,7 +6,7 @@
 
 # Interface: HasCoords
 
-Defined in: [packages/ui/src/utils/geo.ts:3](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L3)
+Defined in: [packages/ui/src/utils/geo.ts:3](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L3)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/utils/geo.ts:3](https://github.com/simplix-react/si
 
 > `optional` **latitude**: `number` \| `null`
 
-Defined in: [packages/ui/src/utils/geo.ts:4](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L4)
+Defined in: [packages/ui/src/utils/geo.ts:4](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L4)
 
 ***
 
@@ -22,4 +22,4 @@ Defined in: [packages/ui/src/utils/geo.ts:4](https://github.com/simplix-react/si
 
 > `optional` **longitude**: `number` \| `null`
 
-Defined in: [packages/ui/src/utils/geo.ts:5](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L5)
+Defined in: [packages/ui/src/utils/geo.ts:5](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L5)

@@ -8,7 +8,7 @@
 
 > **renameCustomField**(`project`, `id`, `name`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-extras.ts:71](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-extras.ts#L71)
+Defined in: [packages/gantt-core/src/edit-extras.ts:71](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-extras.ts#L71)
 
 Renames a custom field.
 

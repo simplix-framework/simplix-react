@@ -8,7 +8,7 @@
 
 > **registerResponseAdapterPreset**(`name`, `preset`): `void`
 
-Defined in: [openapi/plugin-registry.ts:124](https://github.com/simplix-react/simplix-react/blob/main/openapi/plugin-registry.ts#L124)
+Defined in: [openapi/plugin-registry.ts:124](https://github.com/simplix-framework/simplix-react/blob/main/openapi/plugin-registry.ts#L124)
 
 Registers a named response adapter preset into the global registry.
 

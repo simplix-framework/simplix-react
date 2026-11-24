@@ -8,7 +8,7 @@
 
 > **generateLocalId**(): `string`
 
-Defined in: [local-id.ts:9](https://github.com/simplix-react/simplix-react/blob/main/local-id.ts#L9)
+Defined in: [local-id.ts:9](https://github.com/simplix-framework/simplix-react/blob/main/local-id.ts#L9)
 
 Generate a client-only id from a millisecond timestamp and a base36 random suffix.
 

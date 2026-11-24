@@ -6,7 +6,7 @@
 
 # Interface: ListHookResult\<T\>
 
-Defined in: [list-types.ts:8](https://github.com/simplix-react/simplix-react/blob/main/list-types.ts#L8)
+Defined in: [list-types.ts:8](https://github.com/simplix-framework/simplix-react/blob/main/list-types.ts#L8)
 
 Minimal return shape for list data hooks passed to a list state machine
 (the web `useCrudList` page model or the native `useEntityFeed` feed model).
@@ -25,7 +25,7 @@ Row data type.
 
 > **data**: `T`[] \| `undefined`
 
-Defined in: [list-types.ts:10](https://github.com/simplix-react/simplix-react/blob/main/list-types.ts#L10)
+Defined in: [list-types.ts:10](https://github.com/simplix-framework/simplix-react/blob/main/list-types.ts#L10)
 
 Array of row items, or `undefined` while loading.
 
@@ -35,7 +35,7 @@ Array of row items, or `undefined` while loading.
 
 > **error**: `Error` \| `null`
 
-Defined in: [list-types.ts:16](https://github.com/simplix-react/simplix-react/blob/main/list-types.ts#L16)
+Defined in: [list-types.ts:16](https://github.com/simplix-framework/simplix-react/blob/main/list-types.ts#L16)
 
 Error object if the query failed, otherwise `null`.
 
@@ -45,7 +45,7 @@ Error object if the query failed, otherwise `null`.
 
 > `optional` **failureCount**: `number`
 
-Defined in: [list-types.ts:34](https://github.com/simplix-react/simplix-react/blob/main/list-types.ts#L34)
+Defined in: [list-types.ts:34](https://github.com/simplix-framework/simplix-react/blob/main/list-types.ts#L34)
 
 Number of consecutive failed fetch attempts — React Query's
 `failureCount`. A value greater than `0` while `error` is still `null`
@@ -58,7 +58,7 @@ state rather than an empty result.
 
 > **isLoading**: `boolean`
 
-Defined in: [list-types.ts:14](https://github.com/simplix-react/simplix-react/blob/main/list-types.ts#L14)
+Defined in: [list-types.ts:14](https://github.com/simplix-framework/simplix-react/blob/main/list-types.ts#L14)
 
 Whether the query is currently loading.
 
@@ -68,7 +68,7 @@ Whether the query is currently loading.
 
 > `optional` **isPaused**: `boolean`
 
-Defined in: [list-types.ts:27](https://github.com/simplix-react/simplix-react/blob/main/list-types.ts#L27)
+Defined in: [list-types.ts:27](https://github.com/simplix-framework/simplix-react/blob/main/list-types.ts#L27)
 
 Whether the query is in flight but stalled — React Query's
 `fetchStatus === "paused"`. A paused query reports `isLoading: false` and
@@ -86,6 +86,6 @@ and the list falls back to the settled-only interpretation.
 
 > `optional` **total**: `number`
 
-Defined in: [list-types.ts:12](https://github.com/simplix-react/simplix-react/blob/main/list-types.ts#L12)
+Defined in: [list-types.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/list-types.ts#L12)
 
 Total number of items (for server-side pagination).

@@ -6,7 +6,7 @@
 
 # Interface: BooleanBadgeProps
 
-Defined in: [packages/ui/src/base/display/boolean-badge.tsx:6](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/boolean-badge.tsx#L6)
+Defined in: [packages/ui/src/base/display/boolean-badge.tsx:5](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/boolean-badge.tsx#L5)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/base/display/boolean-badge.tsx:6](https://github.co
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/base/display/boolean-badge.tsx:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/boolean-badge.tsx#L14)
+Defined in: [packages/ui/src/base/display/boolean-badge.tsx:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/boolean-badge.tsx#L13)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [packages/ui/src/base/display/boolean-badge.tsx:14](https://github.c
 
 > `optional` **falseLabel**: `string`
 
-Defined in: [packages/ui/src/base/display/boolean-badge.tsx:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/boolean-badge.tsx#L13)
+Defined in: [packages/ui/src/base/display/boolean-badge.tsx:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/boolean-badge.tsx#L12)
 
 Accessible name for the false state (default "no").
 
@@ -32,7 +32,7 @@ Accessible name for the false state (default "no").
 
 > `optional` **falseVariant**: `"default"` \| `"success"` \| `"warning"` \| `"outline"` \| `"blue"` \| `"cyan"` \| `"fuchsia"` \| `"green"` \| `"indigo"` \| `"lime"` \| `"orange"` \| `"pink"` \| `"purple"` \| `"red"` \| `"teal"` \| `"violet"` \| `"yellow"` \| `"destructive"` \| `"secondary"` \| `"slate"` \| `"amber"` \| `"emerald"` \| `"sky"` \| `"rose"` \| `null`
 
-Defined in: [packages/ui/src/base/display/boolean-badge.tsx:9](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/boolean-badge.tsx#L9)
+Defined in: [packages/ui/src/base/display/boolean-badge.tsx:8](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/boolean-badge.tsx#L8)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [packages/ui/src/base/display/boolean-badge.tsx:9](https://github.co
 
 > `optional` **trueLabel**: `string`
 
-Defined in: [packages/ui/src/base/display/boolean-badge.tsx:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/boolean-badge.tsx#L11)
+Defined in: [packages/ui/src/base/display/boolean-badge.tsx:10](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/boolean-badge.tsx#L10)
 
 Accessible name for the true state (default "yes").
 
@@ -50,7 +50,7 @@ Accessible name for the true state (default "yes").
 
 > `optional` **trueVariant**: `"default"` \| `"success"` \| `"warning"` \| `"outline"` \| `"blue"` \| `"cyan"` \| `"fuchsia"` \| `"green"` \| `"indigo"` \| `"lime"` \| `"orange"` \| `"pink"` \| `"purple"` \| `"red"` \| `"teal"` \| `"violet"` \| `"yellow"` \| `"destructive"` \| `"secondary"` \| `"slate"` \| `"amber"` \| `"emerald"` \| `"sky"` \| `"rose"` \| `null`
 
-Defined in: [packages/ui/src/base/display/boolean-badge.tsx:8](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/boolean-badge.tsx#L8)
+Defined in: [packages/ui/src/base/display/boolean-badge.tsx:7](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/boolean-badge.tsx#L7)
 
 ***
 
@@ -58,4 +58,4 @@ Defined in: [packages/ui/src/base/display/boolean-badge.tsx:8](https://github.co
 
 > **value**: `boolean` \| `null` \| `undefined`
 
-Defined in: [packages/ui/src/base/display/boolean-badge.tsx:7](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/boolean-badge.tsx#L7)
+Defined in: [packages/ui/src/base/display/boolean-badge.tsx:6](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/boolean-badge.tsx#L6)

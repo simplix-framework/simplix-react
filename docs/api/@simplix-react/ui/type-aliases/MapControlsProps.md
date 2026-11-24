@@ -8,7 +8,7 @@
 
 > **MapControlsProps** = `object`
 
-Defined in: [packages/ui/src/base/map/map.tsx:381](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L381)
+Defined in: [packages/ui/src/base/map/map.tsx:395](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L395)
 
 Props for the [MapControls](../functions/MapControls.md) component.
 
@@ -18,7 +18,7 @@ Props for the [MapControls](../functions/MapControls.md) component.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/base/map/map.tsx:393](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L393)
+Defined in: [packages/ui/src/base/map/map.tsx:407](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L407)
 
 Additional CSS classes for the control group.
 
@@ -28,7 +28,7 @@ Additional CSS classes for the control group.
 
 > `optional` **compassPoints**: [`GeoPoint`](GeoPoint.md)[]
 
-Defined in: [packages/ui/src/base/map/map.tsx:399](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L399)
+Defined in: [packages/ui/src/base/map/map.tsx:413](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L413)
 
 Points to fit when compass is clicked. When provided but empty, falls back to geolocation.
 
@@ -38,7 +38,7 @@ Points to fit when compass is clicked. When provided but empty, falls back to ge
 
 > `optional` **onCompass**: () => `void`
 
-Defined in: [packages/ui/src/base/map/map.tsx:397](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L397)
+Defined in: [packages/ui/src/base/map/map.tsx:411](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L411)
 
 Custom handler for compass button. Replaces default resetNorthPitch.
 
@@ -52,7 +52,7 @@ Custom handler for compass button. Replaces default resetNorthPitch.
 
 > `optional` **onLocate**: (`coords`) => `void`
 
-Defined in: [packages/ui/src/base/map/map.tsx:395](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L395)
+Defined in: [packages/ui/src/base/map/map.tsx:409](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L409)
 
 Callback with user coordinates when located.
 
@@ -78,7 +78,7 @@ Callback with user coordinates when located.
 
 > `optional` **position**: [`MapControlsPosition`](MapControlsPosition.md)
 
-Defined in: [packages/ui/src/base/map/map.tsx:383](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L383)
+Defined in: [packages/ui/src/base/map/map.tsx:397](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L397)
 
 Placement location for the controls.
 
@@ -88,7 +88,7 @@ Placement location for the controls.
 
 > `optional` **showCompass**: `boolean`
 
-Defined in: [packages/ui/src/base/map/map.tsx:387](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L387)
+Defined in: [packages/ui/src/base/map/map.tsx:401](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L401)
 
 Enable compass button to reset bearing.
 
@@ -98,7 +98,7 @@ Enable compass button to reset bearing.
 
 > `optional` **showFullscreen**: `boolean`
 
-Defined in: [packages/ui/src/base/map/map.tsx:391](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L391)
+Defined in: [packages/ui/src/base/map/map.tsx:405](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L405)
 
 Enable fullscreen toggle button.
 
@@ -108,7 +108,7 @@ Enable fullscreen toggle button.
 
 > `optional` **showLocate**: `boolean`
 
-Defined in: [packages/ui/src/base/map/map.tsx:389](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L389)
+Defined in: [packages/ui/src/base/map/map.tsx:403](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L403)
 
 Enable locate button for user's location.
 
@@ -118,6 +118,6 @@ Enable locate button for user's location.
 
 > `optional` **showZoom**: `boolean`
 
-Defined in: [packages/ui/src/base/map/map.tsx:385](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L385)
+Defined in: [packages/ui/src/base/map/map.tsx:399](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L399)
 
 Enable zoom in/out buttons.

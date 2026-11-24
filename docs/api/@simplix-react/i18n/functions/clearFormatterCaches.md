@@ -8,7 +8,7 @@
 
 > **clearFormatterCaches**(): `void`
 
-Defined in: [datetime.ts:318](https://github.com/simplix-react/simplix-react/blob/main/datetime.ts#L318)
+Defined in: [datetime.ts:318](https://github.com/simplix-framework/simplix-react/blob/main/datetime.ts#L318)
 
 Clear formatter caches (useful for testing or memory management)
 

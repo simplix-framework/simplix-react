@@ -8,6 +8,6 @@
 
 > **FlexProps** = [`StackProps`](../interfaces/StackProps.md)
 
-Defined in: [packages/ui/src/primitives/flex.tsx:7](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/primitives/flex.tsx#L7)
+Defined in: [packages/ui/src/primitives/flex.tsx:7](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/primitives/flex.tsx#L7)
 
 Props for the [Flex](../variables/Flex.md) component (alias for [StackProps](../interfaces/StackProps.md)).

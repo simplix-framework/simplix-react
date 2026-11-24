@@ -6,7 +6,7 @@
 
 # Interface: UseListDetailStateOptions
 
-Defined in: [packages/ui/src/crud/patterns/use-list-detail-state.ts:17](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/use-list-detail-state.ts#L17)
+Defined in: [packages/ui/src/crud/patterns/use-list-detail-state.ts:17](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/use-list-detail-state.ts#L17)
 
 Options for [useListDetailState](../functions/useListDetailState.md).
 
@@ -16,4 +16,4 @@ Options for [useListDetailState](../functions/useListDetailState.md).
 
 > `optional` **initialView**: [`DetailView`](../type-aliases/DetailView.md)
 
-Defined in: [packages/ui/src/crud/patterns/use-list-detail-state.ts:18](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/use-list-detail-state.ts#L18)
+Defined in: [packages/ui/src/crud/patterns/use-list-detail-state.ts:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/use-list-detail-state.ts#L18)

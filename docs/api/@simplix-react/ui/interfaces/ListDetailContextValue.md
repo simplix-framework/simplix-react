@@ -6,7 +6,7 @@
 
 # Interface: ListDetailContextValue
 
-Defined in: [packages/ui/src/crud/patterns/list-detail.tsx:32](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail.tsx#L32)
+Defined in: [packages/ui/src/crud/patterns/list-detail.tsx:45](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail.tsx#L45)
 
 ## Properties
 
@@ -14,7 +14,17 @@ Defined in: [packages/ui/src/crud/patterns/list-detail.tsx:32](https://github.co
 
 > **activePanel**: `"list"` \| `"detail"`
 
-Defined in: [packages/ui/src/crud/patterns/list-detail.tsx:34](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail.tsx#L34)
+Defined in: [packages/ui/src/crud/patterns/list-detail.tsx:47](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail.tsx#L47)
+
+***
+
+### detailWidth?
+
+> `optional` **detailWidth**: `number`
+
+Defined in: [packages/ui/src/crud/patterns/list-detail.tsx:51](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail.tsx#L51)
+
+The detail's width in px, which the drawer and the dialog cap themselves at as the panel does.
 
 ***
 
@@ -22,7 +32,17 @@ Defined in: [packages/ui/src/crud/patterns/list-detail.tsx:34](https://github.co
 
 > `optional` **dialogHeight**: `string`
 
-Defined in: [packages/ui/src/crud/patterns/list-detail.tsx:36](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail.tsx#L36)
+Defined in: [packages/ui/src/crud/patterns/list-detail.tsx:49](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail.tsx#L49)
+
+***
+
+### resize?
+
+> `optional` **resize**: `DetailResizeControl`
+
+Defined in: [packages/ui/src/crud/patterns/list-detail.tsx:53](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail.tsx#L53)
+
+What the detail's resize handle reads and moves, in every variant.
 
 ***
 
@@ -30,7 +50,7 @@ Defined in: [packages/ui/src/crud/patterns/list-detail.tsx:36](https://github.co
 
 > **setActivePanel**: (`panel`) => `void`
 
-Defined in: [packages/ui/src/crud/patterns/list-detail.tsx:35](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail.tsx#L35)
+Defined in: [packages/ui/src/crud/patterns/list-detail.tsx:48](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail.tsx#L48)
 
 #### Parameters
 
@@ -48,4 +68,4 @@ Defined in: [packages/ui/src/crud/patterns/list-detail.tsx:35](https://github.co
 
 > **variant**: [`ListDetailVariant`](../type-aliases/ListDetailVariant.md)
 
-Defined in: [packages/ui/src/crud/patterns/list-detail.tsx:33](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail.tsx#L33)
+Defined in: [packages/ui/src/crud/patterns/list-detail.tsx:46](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail.tsx#L46)

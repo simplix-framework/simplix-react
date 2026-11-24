@@ -259,6 +259,7 @@ Next Step -> [`@simplix-react/auth`](../auth/README.md)
 - [ErrorCategory](type-aliases/ErrorCategory.md)
 - [ErrorType](type-aliases/ErrorType.md)
 - [OrvalMutator](type-aliases/OrvalMutator.md)
+- [StatusTone](type-aliases/StatusTone.md)
 
 ## Functions
 
@@ -272,4 +273,8 @@ Next Step -> [`@simplix-react/auth`](../auth/README.md)
 - [getRequestLocale](functions/getRequestLocale.md)
 - [getRequestTimezone](functions/getRequestTimezone.md)
 - [getValidationErrors](functions/getValidationErrors.md)
+- [recordIsAbsent](functions/recordIsAbsent.md)
+- [recordIsOutOfScope](functions/recordIsOutOfScope.md)
+- [serverMessage](functions/serverMessage.md)
 - [setRequestLocale](functions/setRequestLocale.md)
+- [statusOnlyMessage](functions/statusOnlyMessage.md)

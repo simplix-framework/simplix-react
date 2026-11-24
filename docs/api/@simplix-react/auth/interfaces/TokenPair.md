@@ -6,9 +6,13 @@
 
 # Interface: TokenPair
 
-Defined in: [packages/auth/src/types.ts:60](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L60)
+Defined in: [packages/auth/src/types.ts:90](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L90)
 
 Represents an access/refresh token pair returned from an auth endpoint.
+
+## Extended by
+
+- [`OidcTokens`](OidcTokens.md)
 
 ## Properties
 
@@ -16,7 +20,7 @@ Represents an access/refresh token pair returned from an auth endpoint.
 
 > **accessToken**: `string`
 
-Defined in: [packages/auth/src/types.ts:61](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L61)
+Defined in: [packages/auth/src/types.ts:91](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L91)
 
 ***
 
@@ -24,7 +28,7 @@ Defined in: [packages/auth/src/types.ts:61](https://github.com/simplix-react/sim
 
 > `optional` **expiresAt**: `string` \| `number`
 
-Defined in: [packages/auth/src/types.ts:66](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L66)
+Defined in: [packages/auth/src/types.ts:96](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L96)
 
 Absolute expiry time as ISO 8601 string or epoch milliseconds.
 
@@ -34,7 +38,7 @@ Absolute expiry time as ISO 8601 string or epoch milliseconds.
 
 > `optional` **expiresIn**: `number`
 
-Defined in: [packages/auth/src/types.ts:64](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L64)
+Defined in: [packages/auth/src/types.ts:94](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L94)
 
 Token validity duration in seconds.
 
@@ -44,7 +48,7 @@ Token validity duration in seconds.
 
 > `optional` **refreshToken**: `string`
 
-Defined in: [packages/auth/src/types.ts:62](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L62)
+Defined in: [packages/auth/src/types.ts:92](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L92)
 
 ***
 
@@ -52,6 +56,6 @@ Defined in: [packages/auth/src/types.ts:62](https://github.com/simplix-react/sim
 
 > `optional` **refreshTokenExpiresAt**: `string` \| `number`
 
-Defined in: [packages/auth/src/types.ts:68](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L68)
+Defined in: [packages/auth/src/types.ts:98](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L98)
 
 Absolute refresh token expiry as ISO 8601 string or epoch milliseconds.

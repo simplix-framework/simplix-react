@@ -8,7 +8,7 @@
 
 > **adaptOrvalList**\<`T`\>(`useApiHook`, `options?`): [`ListHook`](../interfaces/ListHook.md)\<`T`\>
 
-Defined in: [packages/headless/dist/index.d.ts:226](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L226)
+Defined in: [packages/headless/dist/index.d.ts:255](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L255)
 
 Adapt an Orval-generated list hook to the [ListHook](../interfaces/ListHook.md) interface
 expected by a list state machine in `"server"` mode (the web `useCrudList`

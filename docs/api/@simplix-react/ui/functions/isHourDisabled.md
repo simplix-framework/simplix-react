@@ -8,7 +8,7 @@
 
 > **isHourDisabled**(`base`, `hour24`, `minDate?`, `maxDate?`): `boolean`
 
-Defined in: [packages/headless/dist/index.d.ts:567](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L567)
+Defined in: [packages/headless/dist/index.d.ts:612](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L612)
 
 True when no minute within the given hour of `base` falls inside [minDate, maxDate].
 

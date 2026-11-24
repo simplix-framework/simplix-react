@@ -6,7 +6,7 @@
 
 # Interface: DetailListRowProps
 
-Defined in: [packages/ui/src/base/display/detail-list-row.tsx:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/detail-list-row.tsx#L13)
+Defined in: [packages/ui/src/base/display/detail-list-row.tsx:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/detail-list-row.tsx#L18)
 
 Props for the [DetailListRow](../variables/DetailListRow.md) component.
 
@@ -16,7 +16,7 @@ Props for the [DetailListRow](../variables/DetailListRow.md) component.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/base/display/detail-list-row.tsx:26](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/detail-list-row.tsx#L26)
+Defined in: [packages/ui/src/base/display/detail-list-row.tsx:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/detail-list-row.tsx#L31)
 
 Additional classes merged onto the row root.
 
@@ -26,7 +26,7 @@ Additional classes merged onto the row root.
 
 > `optional` **icon**: `ReactNode`
 
-Defined in: [packages/ui/src/base/display/detail-list-row.tsx:15](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/detail-list-row.tsx#L15)
+Defined in: [packages/ui/src/base/display/detail-list-row.tsx:20](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/detail-list-row.tsx#L20)
 
 Leading slot rendered before the primary content (icon or status dot).
 
@@ -36,7 +36,7 @@ Leading slot rendered before the primary content (icon or status dot).
 
 > `optional` **onClick**: () => `void`
 
-Defined in: [packages/ui/src/base/display/detail-list-row.tsx:24](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/detail-list-row.tsx#L24)
+Defined in: [packages/ui/src/base/display/detail-list-row.tsx:29](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/detail-list-row.tsx#L29)
 
 When set, the row becomes an interactive button: it gains button
 semantics, keyboard activation (Enter / Space), and a hover affordance.
@@ -51,7 +51,7 @@ semantics, keyboard activation (Enter / Space), and a hover affordance.
 
 > **primary**: `ReactNode`
 
-Defined in: [packages/ui/src/base/display/detail-list-row.tsx:17](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/detail-list-row.tsx#L17)
+Defined in: [packages/ui/src/base/display/detail-list-row.tsx:22](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/detail-list-row.tsx#L22)
 
 Primary content rendered as medium-weight, truncating body text.
 
@@ -61,6 +61,6 @@ Primary content rendered as medium-weight, truncating body text.
 
 > `optional` **trailing**: `ReactNode`
 
-Defined in: [packages/ui/src/base/display/detail-list-row.tsx:19](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/detail-list-row.tsx#L19)
+Defined in: [packages/ui/src/base/display/detail-list-row.tsx:24](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/detail-list-row.tsx#L24)
 
 Trailing slot rendered at the row end (badge, secondary text, flow node).

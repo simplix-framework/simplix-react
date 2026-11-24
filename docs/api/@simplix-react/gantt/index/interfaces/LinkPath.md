@@ -6,7 +6,7 @@
 
 # Interface: LinkPath
 
-Defined in: [lib/link-path.ts:17](https://github.com/simplix-react/simplix-react/blob/main/lib/link-path.ts#L17)
+Defined in: [lib/link-path.ts:17](https://github.com/simplix-framework/simplix-react/blob/main/lib/link-path.ts#L17)
 
 A link's route and the direction its arrowhead points: 1 to the right, -1 to the left.
 
@@ -16,7 +16,7 @@ A link's route and the direction its arrowhead points: 1 to the right, -1 to the
 
 > **arrow**: `-1` \| `1`
 
-Defined in: [lib/link-path.ts:19](https://github.com/simplix-react/simplix-react/blob/main/lib/link-path.ts#L19)
+Defined in: [lib/link-path.ts:19](https://github.com/simplix-framework/simplix-react/blob/main/lib/link-path.ts#L19)
 
 ***
 
@@ -24,4 +24,4 @@ Defined in: [lib/link-path.ts:19](https://github.com/simplix-react/simplix-react
 
 > **points**: [`PathPoint`](PathPoint.md)[]
 
-Defined in: [lib/link-path.ts:18](https://github.com/simplix-react/simplix-react/blob/main/lib/link-path.ts#L18)
+Defined in: [lib/link-path.ts:18](https://github.com/simplix-framework/simplix-react/blob/main/lib/link-path.ts#L18)

@@ -6,7 +6,7 @@
 
 # Interface: SelectFieldProps\<T\>
 
-Defined in: [packages/ui/src/fields/form/select-field.tsx:10](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/select-field.tsx#L10)
+Defined in: [packages/ui/src/fields/form/select-field.tsx:21](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/select-field.tsx#L21)
 
 Props for the [SelectField](../functions/SelectField.md) form component.
 
@@ -26,7 +26,7 @@ Props for the [SelectField](../functions/SelectField.md) form component.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:49](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L49)
+Defined in: [packages/ui/src/crud/shared/types.ts:49](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L49)
 
 #### Inherited from
 
@@ -38,7 +38,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:49](https://github.com/simplix
 
 > `optional` **clearable**: `boolean`
 
-Defined in: [packages/ui/src/fields/form/select-field.tsx:51](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/select-field.tsx#L51)
+Defined in: [packages/ui/src/fields/form/select-field.tsx:62](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/select-field.tsx#L62)
 
 Offer an entry that returns the field to unset.
 
@@ -59,7 +59,7 @@ the empty string, so a sentinel carries it and is translated back before the cal
 
 > `optional` **clearLabel**: `string`
 
-Defined in: [packages/ui/src/fields/form/select-field.tsx:61](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/select-field.tsx#L61)
+Defined in: [packages/ui/src/fields/form/select-field.tsx:72](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/select-field.tsx#L72)
 
 What the clearing entry reads as.
 
@@ -76,7 +76,7 @@ generic word stand in.
 
 > `optional` **compact**: `boolean`
 
-Defined in: [packages/ui/src/fields/form/select-field.tsx:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/select-field.tsx#L30)
+Defined in: [packages/ui/src/fields/form/select-field.tsx:41](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/select-field.tsx#L41)
 
 Compact mode: renders without FieldWrapper, and sizes itself to its longest option label
 using a hidden native `<select>`. That measurement also means `className` never reaches the
@@ -94,7 +94,7 @@ column (`List.Column`'s `required`).
 
 > `optional` **description**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:34](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L34)
+Defined in: [packages/ui/src/crud/shared/types.ts:34](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L34)
 
 #### Inherited from
 
@@ -106,7 +106,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:34](https://github.com/simplix
 
 > `optional` **disabled**: `boolean`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:36](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L36)
+Defined in: [packages/ui/src/crud/shared/types.ts:36](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L36)
 
 #### Inherited from
 
@@ -118,7 +118,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:36](https://github.com/simplix
 
 > `optional` **error**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:32](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L32)
+Defined in: [packages/ui/src/crud/shared/types.ts:32](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L32)
 
 #### Inherited from
 
@@ -130,7 +130,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:32](https://github.com/simplix
 
 > `optional` **fill**: `boolean`
 
-Defined in: [packages/ui/src/fields/form/select-field.tsx:37](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/select-field.tsx#L37)
+Defined in: [packages/ui/src/fields/form/select-field.tsx:48](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/select-field.tsx#L48)
 
 Compact mode only: give the width back to the parent. The hidden measuring `<select>` is
 dropped, the field fills its container, and `className` lands on the wrapper — so a grid or
@@ -143,7 +143,7 @@ the non-compact path already passes `className` to the wrapper.
 
 > `optional` **label**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L30)
+Defined in: [packages/ui/src/crud/shared/types.ts:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L30)
 
 #### Inherited from
 
@@ -155,7 +155,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:30](https://github.com/simplix
 
 > `optional` **labelKey**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:31](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L31)
+Defined in: [packages/ui/src/crud/shared/types.ts:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L31)
 
 #### Inherited from
 
@@ -167,7 +167,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:31](https://github.com/simplix
 
 > `optional` **layout**: `"inline"` \| `"left"` \| `"top"` \| `"hidden"` \| `"trailing"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
+Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
 
 Label placement. `"top"` stacks the label above the input, `"left"` puts
 it in a leading column, `"inline"` keeps label and input on one row,
@@ -185,7 +185,7 @@ label for screen readers only.
 
 > **onChange**: (`value`) => `void`
 
-Defined in: [packages/ui/src/fields/form/select-field.tsx:15](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/select-field.tsx#L15)
+Defined in: [packages/ui/src/fields/form/select-field.tsx:26](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/select-field.tsx#L26)
 
 Called when the selection changes.
 
@@ -205,7 +205,7 @@ Called when the selection changes.
 
 > **options**: `object`[]
 
-Defined in: [packages/ui/src/fields/form/select-field.tsx:17](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/select-field.tsx#L17)
+Defined in: [packages/ui/src/fields/form/select-field.tsx:28](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/select-field.tsx#L28)
 
 Available options with label/value pairs.
 
@@ -235,7 +235,7 @@ Available options with label/value pairs.
 
 > `optional` **placeholder**: `string`
 
-Defined in: [packages/ui/src/fields/form/select-field.tsx:18](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/select-field.tsx#L18)
+Defined in: [packages/ui/src/fields/form/select-field.tsx:29](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/select-field.tsx#L29)
 
 ***
 
@@ -243,12 +243,26 @@ Defined in: [packages/ui/src/fields/form/select-field.tsx:18](https://github.com
 
 > `optional` **prefixControl**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:41](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L41)
+Defined in: [packages/ui/src/fields/form/select-field.tsx:90](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/select-field.tsx#L90)
 
-Control rendered on the leading (left in LTR) side of the input, on the
-same row. Use for IconPicker, ColorPicker, or similar adornments.
+A control rendered to the LEFT of the trigger, on the trigger's own row.
 
-#### Inherited from
+#### Remarks
+
+`TextField` has carried this pair since it needed an icon picker beside its input; a select
+needs it for the same reason and could not have it, so every screen that wanted a button
+beside a select built the row by hand — a grid for the width and a measured offset to put the
+button level with the trigger rather than with the field's outer box, which is where a plain
+flex row leaves it once an error line appears underneath.
+
+`FieldWrapper` owns that geometry: the control takes `flex-1 min-w-0` and the adornment sits
+beside it, so the trigger fills whatever the field is given instead of sizing to the option
+that happens to be selected.
+
+Non-compact only. `compact` measures itself against its longest option label and has no
+wrapper to hang an adornment on.
+
+#### Overrides
 
 [`CommonFieldProps`](../../../interfaces/CommonFieldProps.md).[`prefixControl`](../../../interfaces/CommonFieldProps.md#prefixcontrol)
 
@@ -258,7 +272,7 @@ same row. Use for IconPicker, ColorPicker, or similar adornments.
 
 > `optional` **required**: `boolean`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:35](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L35)
+Defined in: [packages/ui/src/crud/shared/types.ts:35](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L35)
 
 #### Inherited from
 
@@ -270,7 +284,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:35](https://github.com/simplix
 
 > `optional` **size**: `"sm"` \| `"lg"` \| `"md"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
+Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
 
 #### Inherited from
 
@@ -282,14 +296,11 @@ Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix
 
 > `optional` **suffixControl**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:48](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L48)
+Defined in: [packages/ui/src/fields/form/select-field.tsx:92](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/select-field.tsx#L92)
 
-Control rendered on the trailing (right in LTR) side of the input, on the
-same row. Use instead of composing a button next to the field — the
-control stays aligned with the input while description and error render
-below at full width.
+A control rendered to the RIGHT of the trigger, on the trigger's own row. See [SelectFieldProps.prefixControl](#prefixcontrol).
 
-#### Inherited from
+#### Overrides
 
 [`CommonFieldProps`](../../../interfaces/CommonFieldProps.md).[`suffixControl`](../../../interfaces/CommonFieldProps.md#suffixcontrol)
 
@@ -299,7 +310,7 @@ below at full width.
 
 > **value**: `T`
 
-Defined in: [packages/ui/src/fields/form/select-field.tsx:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/select-field.tsx#L13)
+Defined in: [packages/ui/src/fields/form/select-field.tsx:24](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/select-field.tsx#L24)
 
 Currently selected value.
 
@@ -309,7 +320,7 @@ Currently selected value.
 
 > `optional` **warning**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:33](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L33)
+Defined in: [packages/ui/src/crud/shared/types.ts:33](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L33)
 
 #### Inherited from
 

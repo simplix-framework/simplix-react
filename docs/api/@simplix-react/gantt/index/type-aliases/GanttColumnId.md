@@ -8,6 +8,6 @@
 
 > **GanttColumnId** = [`BuiltInColumnId`](BuiltInColumnId.md) \| `` `custom:${string}` ``
 
-Defined in: [lib/grid-columns.ts:47](https://github.com/simplix-react/simplix-react/blob/main/lib/grid-columns.ts#L47)
+Defined in: [lib/grid-columns.ts:47](https://github.com/simplix-framework/simplix-react/blob/main/lib/grid-columns.ts#L47)
 
 A column of the task table: a built-in one, or `custom:` followed by the id of a custom field of the plan.

@@ -8,7 +8,7 @@
 
 > **chipFilterValues**\<`T`\>(`state`, `field`): readonly `T`[]
 
-Defined in: [packages/ui/src/crud/filters/chip-filter.tsx:68](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/chip-filter.tsx#L68)
+Defined in: [packages/ui/src/crud/filters/chip-filter.tsx:70](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/chip-filter.tsx#L70)
 
 What a chip row has narrowed to, for whoever consumes the narrowing.
 

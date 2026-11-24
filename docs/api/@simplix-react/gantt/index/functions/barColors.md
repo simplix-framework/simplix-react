@@ -8,7 +8,7 @@
 
 > **barColors**(`project`, `coloring`): (`task`) => `string` \| `undefined`
 
-Defined in: [lib/bar-color.ts:13](https://github.com/simplix-react/simplix-react/blob/main/lib/bar-color.ts#L13)
+Defined in: [lib/bar-color.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/lib/bar-color.ts#L13)
 
 Returns the colour of each task's bar under a colouring, or `undefined`
 where the bar keeps the chart's own colour. The screen and the PDF both

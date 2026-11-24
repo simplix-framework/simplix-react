@@ -8,7 +8,7 @@
 
 > **ListDetailViewSwitch**(`__namedParameters`): `Element` \| `null`
 
-Defined in: [packages/ui/src/crud/patterns/list-detail-view-switch.tsx:33](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail-view-switch.tsx#L33)
+Defined in: [packages/ui/src/crud/patterns/list-detail-view-switch.tsx:33](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail-view-switch.tsx#L33)
 
 Declarative view-switch for list-detail layouts.
 Replaces the repeated conditional rendering block (~20 lines) in every

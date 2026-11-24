@@ -8,7 +8,7 @@
 
 > **ComboboxField**\<`T`\>(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/fields/form/combobox-field.tsx:45](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/combobox-field.tsx#L45)
+Defined in: [packages/ui/src/fields/form/combobox-field.tsx:60](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/combobox-field.tsx#L60)
 
 Searchable dropdown field with popover-based filtering.
 Trigger displays selected value as text; search input is inside the popover.

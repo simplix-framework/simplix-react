@@ -6,7 +6,7 @@
 
 # Interface: CreateI18nConfigOptions
 
-Defined in: [create-i18n-config.ts:19](https://github.com/simplix-react/simplix-react/blob/main/create-i18n-config.ts#L19)
+Defined in: [create-i18n-config.ts:37](https://github.com/simplix-framework/simplix-react/blob/main/create-i18n-config.ts#L37)
 
 Configures the [createI18nConfig](../functions/createI18nConfig.md) factory function.
 
@@ -16,7 +16,7 @@ Configures the [createI18nConfig](../functions/createI18nConfig.md) factory func
 
 > `optional` **appTranslations**: `Record`\<`string`, `unknown`\>
 
-Defined in: [create-i18n-config.ts:43](https://github.com/simplix-react/simplix-react/blob/main/create-i18n-config.ts#L43)
+Defined in: [create-i18n-config.ts:61](https://github.com/simplix-framework/simplix-react/blob/main/create-i18n-config.ts#L61)
 
 Eagerly imported application translations, typically from `import.meta.glob`.
 
@@ -28,7 +28,7 @@ Keys should follow the pattern `/locales/{namespace}/{locale}.json`.
 
 > `optional` **debug**: `boolean`
 
-Defined in: [create-i18n-config.ts:47](https://github.com/simplix-react/simplix-react/blob/main/create-i18n-config.ts#L47)
+Defined in: [create-i18n-config.ts:65](https://github.com/simplix-framework/simplix-react/blob/main/create-i18n-config.ts#L65)
 
 Enables i18next debug logging.
 
@@ -38,7 +38,7 @@ Enables i18next debug logging.
 
 > `optional` **defaultLocale**: `string`
 
-Defined in: [create-i18n-config.ts:21](https://github.com/simplix-react/simplix-react/blob/main/create-i18n-config.ts#L21)
+Defined in: [create-i18n-config.ts:39](https://github.com/simplix-framework/simplix-react/blob/main/create-i18n-config.ts#L39)
 
 Initial locale to activate (defaults to `"en"`).
 
@@ -48,7 +48,7 @@ Initial locale to activate (defaults to `"en"`).
 
 > `optional` **detection**: `object`
 
-Defined in: [create-i18n-config.ts:33](https://github.com/simplix-react/simplix-react/blob/main/create-i18n-config.ts#L33)
+Defined in: [create-i18n-config.ts:51](https://github.com/simplix-framework/simplix-react/blob/main/create-i18n-config.ts#L51)
 
 Language detection configuration.
 
@@ -68,7 +68,7 @@ localStorage key for persisting the selected locale (defaults to `"i18n:locale"`
 
 > `optional` **fallbackLocale**: `string`
 
-Defined in: [create-i18n-config.ts:23](https://github.com/simplix-react/simplix-react/blob/main/create-i18n-config.ts#L23)
+Defined in: [create-i18n-config.ts:41](https://github.com/simplix-framework/simplix-react/blob/main/create-i18n-config.ts#L41)
 
 Fallback locale for missing translations (defaults to `"en"`).
 
@@ -78,7 +78,7 @@ Fallback locale for missing translations (defaults to `"en"`).
 
 > `optional` **moduleTranslations**: [`ModuleTranslations`](ModuleTranslations.md)[]
 
-Defined in: [create-i18n-config.ts:45](https://github.com/simplix-react/simplix-react/blob/main/create-i18n-config.ts#L45)
+Defined in: [create-i18n-config.ts:63](https://github.com/simplix-framework/simplix-react/blob/main/create-i18n-config.ts#L63)
 
 Lazy-loadable module translation descriptors built via [buildModuleTranslations](../functions/buildModuleTranslations.md).
 
@@ -88,7 +88,7 @@ Lazy-loadable module translation descriptors built via [buildModuleTranslations]
 
 > `optional` **supportedLocales**: (`string` \| [`LocaleConfig`](LocaleConfig.md))[]
 
-Defined in: [create-i18n-config.ts:31](https://github.com/simplix-react/simplix-react/blob/main/create-i18n-config.ts#L31)
+Defined in: [create-i18n-config.ts:49](https://github.com/simplix-framework/simplix-react/blob/main/create-i18n-config.ts#L49)
 
 Supported locale configurations (defaults to [DEFAULT\_LOCALES](../variables/DEFAULT_LOCALES.md)).
 

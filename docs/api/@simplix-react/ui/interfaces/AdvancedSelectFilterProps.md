@@ -6,7 +6,7 @@
 
 # Interface: AdvancedSelectFilterProps
 
-Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:19](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L19)
+Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L30)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:19](https:/
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:29](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L29)
+Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:40](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L40)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:29](https:/
 
 > `optional` **defaultOperator**: [`SearchOperator`](../enumerations/SearchOperator.md)
 
-Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:26](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L26)
+Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:37](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L37)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:26](https:/
 
 > `optional` **label**: `string`
 
-Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:20](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L20)
+Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L31)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:20](https:/
 
 > `optional` **maxDisplayCount**: `number`
 
-Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:28](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L28)
+Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:39](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L39)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:28](https:/
 
 > **onChange**: (`value`) => `void`
 
-Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:23](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L23)
+Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:34](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L34)
 
 #### Parameters
 
@@ -64,7 +64,7 @@ Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:23](https:/
 
 > **onOperatorChange**: (`operator`) => `void`
 
-Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:24](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L24)
+Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:35](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L35)
 
 #### Parameters
 
@@ -82,7 +82,7 @@ Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:24](https:/
 
 > **operator**: [`SearchOperator`](../enumerations/SearchOperator.md)
 
-Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:22](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L22)
+Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:33](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L33)
 
 ***
 
@@ -90,7 +90,7 @@ Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:22](https:/
 
 > **operators**: [`SearchOperator`](../enumerations/SearchOperator.md)[]
 
-Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:25](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L25)
+Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:36](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L36)
 
 ***
 
@@ -98,7 +98,7 @@ Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:25](https:/
 
 > **options**: [`AdvancedSelectFilterOption`](AdvancedSelectFilterOption.md)[]
 
-Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:27](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L27)
+Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:38](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L38)
 
 ***
 
@@ -106,4 +106,4 @@ Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:27](https:/
 
 > **value**: `string` \| `string`[]
 
-Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:21](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L21)
+Defined in: [packages/ui/src/crud/filters/advanced-select-filter.tsx:32](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/advanced-select-filter.tsx#L32)

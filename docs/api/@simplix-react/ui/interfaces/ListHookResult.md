@@ -6,7 +6,7 @@
 
 # Interface: ListHookResult\<T\>
 
-Defined in: [packages/headless/dist/index.d.ts:39](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L39)
+Defined in: [packages/headless/dist/index.d.ts:39](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L39)
 
 Minimal return shape for list data hooks passed to a list state machine
 (the web `useCrudList` page model or the native `useEntityFeed` feed model).
@@ -25,7 +25,7 @@ Row data type.
 
 > **data**: `T`[] \| `undefined`
 
-Defined in: [packages/headless/dist/index.d.ts:41](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L41)
+Defined in: [packages/headless/dist/index.d.ts:41](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L41)
 
 Array of row items, or `undefined` while loading.
 
@@ -35,7 +35,7 @@ Array of row items, or `undefined` while loading.
 
 > **error**: `Error` \| `null`
 
-Defined in: [packages/headless/dist/index.d.ts:47](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L47)
+Defined in: [packages/headless/dist/index.d.ts:47](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L47)
 
 Error object if the query failed, otherwise `null`.
 
@@ -45,7 +45,7 @@ Error object if the query failed, otherwise `null`.
 
 > `optional` **failureCount**: `number`
 
-Defined in: [packages/headless/dist/index.d.ts:65](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L65)
+Defined in: [packages/headless/dist/index.d.ts:65](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L65)
 
 Number of consecutive failed fetch attempts — React Query's
 `failureCount`. A value greater than `0` while `error` is still `null`
@@ -58,7 +58,7 @@ state rather than an empty result.
 
 > **isLoading**: `boolean`
 
-Defined in: [packages/headless/dist/index.d.ts:45](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L45)
+Defined in: [packages/headless/dist/index.d.ts:45](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L45)
 
 Whether the query is currently loading.
 
@@ -68,7 +68,7 @@ Whether the query is currently loading.
 
 > `optional` **isPaused**: `boolean`
 
-Defined in: [packages/headless/dist/index.d.ts:58](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L58)
+Defined in: [packages/headless/dist/index.d.ts:58](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L58)
 
 Whether the query is in flight but stalled — React Query's
 `fetchStatus === "paused"`. A paused query reports `isLoading: false` and
@@ -86,6 +86,6 @@ and the list falls back to the settled-only interpretation.
 
 > `optional` **total**: `number`
 
-Defined in: [packages/headless/dist/index.d.ts:43](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L43)
+Defined in: [packages/headless/dist/index.d.ts:43](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L43)
 
 Total number of items (for server-side pagination).

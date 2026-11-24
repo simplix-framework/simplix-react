@@ -8,7 +8,7 @@
 
 > **WithValidCoords**\<`T`\> = `T` & `object`
 
-Defined in: [packages/ui/src/utils/geo.ts:8](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L8)
+Defined in: [packages/ui/src/utils/geo.ts:8](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L8)
 
 ## Type Declaration
 

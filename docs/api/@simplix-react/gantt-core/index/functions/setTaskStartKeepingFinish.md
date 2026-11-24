@@ -8,7 +8,7 @@
 
 > **setTaskStartKeepingFinish**(`project`, `schedule`, `id`, `start`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-tasks.ts:203](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-tasks.ts#L203)
+Defined in: [packages/gantt-core/src/edit-tasks.ts:203](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-tasks.ts#L203)
 
 Moves a task's start to `start`, keeping its finish: the duration becomes
 the working time between the two.

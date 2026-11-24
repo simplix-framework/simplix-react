@@ -8,7 +8,7 @@
 
 > **buildEmbeddedTree**\<`T`\>(`rows`, `identityField?`, `parentField?`): `T` & `object`[]
 
-Defined in: [tree-builder.ts:28](https://github.com/simplix-react/simplix-react/blob/main/tree-builder.ts#L28)
+Defined in: [tree-builder.ts:28](https://github.com/simplix-framework/simplix-react/blob/main/tree-builder.ts#L28)
 
 Converts flat database rows into a recursive embedded tree structure.
 

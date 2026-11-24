@@ -6,7 +6,7 @@
 
 # Interface: BearerSchemeOptions
 
-Defined in: [packages/auth/src/types.ts:147](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L147)
+Defined in: [packages/auth/src/types.ts:177](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L177)
 
 Options for [bearerScheme](../functions/bearerScheme.md).
 
@@ -16,15 +16,35 @@ Options for [bearerScheme](../functions/bearerScheme.md).
 
 > `optional` **refresh**: `object`
 
-Defined in: [packages/auth/src/types.ts:158](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L158)
+Defined in: [packages/auth/src/types.ts:188](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L188)
 
 Optional refresh configuration.
+
+#### activity?
+
+> `optional` **activity**: [`ActivitySource`](ActivitySource.md)
+
+Makes the background refresh activity-aware: a scheduled refresh runs only when the user was
+active since the tokens were last stored, and otherwise waits for the next activity. An idle
+page then lets the issuer's idle timeout end the session, and an active one never meets it.
 
 #### autoSchedule?
 
 > `optional` **autoSchedule**: `boolean`
 
 Enable background timer-based auto refresh. Defaults to `false`.
+
+#### lock?
+
+> `optional` **lock**: [`RefreshLock`](../type-aliases/RefreshLock.md)
+
+Lock that serialises refreshes across tabs. Defaults to the Web Locks API where present.
+
+#### lockName?
+
+> `optional` **lockName**: `string`
+
+Lock name, unique per token store. Without it, refreshes are serialised within the tab only.
 
 #### minIntervalSeconds?
 
@@ -34,9 +54,17 @@ Minimum interval between scheduled refreshes in seconds. Defaults to `30`.
 
 #### onScheduledRefreshFailed()?
 
-> `optional` **onScheduledRefreshFailed**: () => `void`
+> `optional` **onScheduledRefreshFailed**: (`error`) => `void`
 
-Called when a scheduled background refresh fails.
+Called when a scheduled background refresh is refused. A refresh that never reached the
+issuer (a `TypeError` from `fetch`: offline, a laptop waking up) is retried after
+`minIntervalSeconds` instead, since the session itself may still be alive.
+
+##### Parameters
+
+###### error
+
+`unknown`
 
 ##### Returns
 
@@ -64,7 +92,7 @@ Async function that returns a fresh token pair.
 
 > **store**: [`TokenStore`](TokenStore.md)
 
-Defined in: [packages/auth/src/types.ts:149](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L149)
+Defined in: [packages/auth/src/types.ts:179](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L179)
 
 Token store for persisting access and refresh tokens.
 
@@ -74,7 +102,7 @@ Token store for persisting access and refresh tokens.
 
 > **token**: `string` \| () => `string` \| `null`
 
-Defined in: [packages/auth/src/types.ts:155](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L155)
+Defined in: [packages/auth/src/types.ts:185](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L185)
 
 Static token string or function returning the current access token.
 If a function, called on each request.

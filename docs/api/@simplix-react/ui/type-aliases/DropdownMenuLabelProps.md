@@ -8,7 +8,7 @@
 
 > **DropdownMenuLabelProps** = `ComponentPropsWithRef`\<*typeof* `DropdownMenuPrimitive.Label`\> & `object`
 
-Defined in: [packages/ui/src/base/navigation/dropdown-menu.tsx:155](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/navigation/dropdown-menu.tsx#L155)
+Defined in: [packages/ui/src/base/navigation/dropdown-menu.tsx:180](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/navigation/dropdown-menu.tsx#L180)
 
 ## Type Declaration
 

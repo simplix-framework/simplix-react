@@ -6,7 +6,7 @@
 
 # Interface: TreeToolbarProps
 
-Defined in: [packages/ui/src/crud/tree/crud-tree.tsx:144](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/crud-tree.tsx#L144)
+Defined in: [packages/ui/src/crud/tree/crud-tree.tsx:164](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/crud-tree.tsx#L164)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/crud/tree/crud-tree.tsx:144](https://github.com/sim
 
 > `optional` **children**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/tree/crud-tree.tsx:169](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/crud-tree.tsx#L169)
+Defined in: [packages/ui/src/crud/tree/crud-tree.tsx:189](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/crud-tree.tsx#L189)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [packages/ui/src/crud/tree/crud-tree.tsx:169](https://github.com/sim
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/tree/crud-tree.tsx:145](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/crud-tree.tsx#L145)
+Defined in: [packages/ui/src/crud/tree/crud-tree.tsx:165](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/crud-tree.tsx#L165)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [packages/ui/src/crud/tree/crud-tree.tsx:145](https://github.com/sim
 
 > `optional` **count**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/tree/crud-tree.tsx:159](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/crud-tree.tsx#L159)
+Defined in: [packages/ui/src/crud/tree/crud-tree.tsx:179](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/crud-tree.tsx#L179)
 
 The figure the row is about, drawn in the badge a list's `FilterBar` draws.
 
@@ -50,7 +50,7 @@ row wearing two shapes, and nothing about the screen says why.
 
 > `optional` **leading**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/tree/crud-tree.tsx:168](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/crud-tree.tsx#L168)
+Defined in: [packages/ui/src/crud/tree/crud-tree.tsx:188](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/crud-tree.tsx#L188)
 
 What narrows the rows, drawn immediately after the count it changes.
 

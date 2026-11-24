@@ -8,7 +8,7 @@
 
 > **serializeWallClockTime**(`time`, `opts?`): `string` \| `undefined`
 
-Defined in: [packages/headless/dist/index.d.ts:680](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L680)
+Defined in: [packages/headless/dist/index.d.ts:725](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L725)
 
 Serialize a wall-clock time to `HH:mm` (or `HH:mm:ss` with `opts.seconds`).
 

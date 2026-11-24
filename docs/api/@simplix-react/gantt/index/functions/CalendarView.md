@@ -8,7 +8,7 @@
 
 > **CalendarView**(`__namedParameters`): `Element`
 
-Defined in: [components/calendar-view.tsx:28](https://github.com/simplix-react/simplix-react/blob/main/components/calendar-view.tsx#L28)
+Defined in: [components/calendar-view.tsx:28](https://github.com/simplix-framework/simplix-react/blob/main/components/calendar-view.tsx#L28)
 
 The calendar view: one month as a grid of days, each naming the tasks that
 work on it. Choosing a task opens its information dialog, and dragging a

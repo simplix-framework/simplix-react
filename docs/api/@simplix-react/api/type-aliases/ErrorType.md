@@ -8,7 +8,7 @@
 
 > **ErrorType**\<`T`\> = `Error` & `object`
 
-Defined in: [packages/api/src/index.ts:159](https://github.com/simplix-react/simplix-react/blob/main/packages/api/src/index.ts#L159)
+Defined in: [packages/api/src/index.ts:159](https://github.com/simplix-framework/simplix-react/blob/main/packages/api/src/index.ts#L159)
 
 Error wrapper type used by Orval-generated code.
 

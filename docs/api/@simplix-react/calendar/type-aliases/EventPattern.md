@@ -8,6 +8,6 @@
 
 > **EventPattern** = `"solid"` \| `"hatched"` \| `"translucent"`
 
-Defined in: [model/types.ts:55](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L55)
+Defined in: [model/types.ts:55](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L55)
 
 Render hint for future/specialized views; core applies a light visual treatment.

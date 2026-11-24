@@ -8,7 +8,7 @@
 
 > **undoLabel**\<`T`\>(`history`): `string` \| `null`
 
-Defined in: [packages/gantt-core/src/history.ts:59](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/history.ts#L59)
+Defined in: [packages/gantt-core/src/history.ts:59](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/history.ts#L59)
 
 Label of the change undo would revert, or `null`.
 

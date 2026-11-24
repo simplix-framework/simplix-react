@@ -8,7 +8,7 @@
 
 > **mergeProjects**(`base`, `mine`, `theirs`): `object`
 
-Defined in: [packages/gantt-core/src/diff.ts:105](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/diff.ts#L105)
+Defined in: [packages/gantt-core/src/diff.ts:105](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/diff.ts#L105)
 
 Brings changes made elsewhere into a plan that was also edited here.
 

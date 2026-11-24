@@ -8,7 +8,7 @@
 
 > **withTime**(`date`, `hours`, `minutes`): `Date`
 
-Defined in: [packages/headless/dist/index.d.ts:565](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L565)
+Defined in: [packages/headless/dist/index.d.ts:610](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L610)
 
 Return a copy of `date` with the given hours/minutes and zeroed seconds.
 

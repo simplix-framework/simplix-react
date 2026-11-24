@@ -8,7 +8,7 @@
 
 > **MapControls**(`__namedParameters`): `Element` \| `null`
 
-Defined in: [packages/ui/src/base/map/map.tsx:429](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L429)
+Defined in: [packages/ui/src/base/map/map.tsx:441](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L441)
 
 Map control buttons rendered inside a [Map](../variables/Map.md) component.
 Uses `useMap()` context to control the map instance.

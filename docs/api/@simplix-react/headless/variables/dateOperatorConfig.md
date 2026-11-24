@@ -8,6 +8,6 @@
 
 > `const` **dateOperatorConfig**: `Record`\<`string`, \{ `requiresRange`: `boolean`; \}\>
 
-Defined in: [filter-types.ts:29](https://github.com/simplix-react/simplix-react/blob/main/filter-types.ts#L29)
+Defined in: [filter-types.ts:29](https://github.com/simplix-framework/simplix-react/blob/main/filter-types.ts#L29)
 
 Date operators that require range selection vs single date

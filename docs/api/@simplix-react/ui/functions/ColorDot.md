@@ -8,7 +8,7 @@
 
 > **ColorDot**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/base/display/color-dot.tsx:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/color-dot.tsx#L30)
+Defined in: [packages/ui/src/base/display/color-dot.tsx:32](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/color-dot.tsx#L32)
 
 Small circular swatch filled with an arbitrary CSS color. Use for
 user-defined / data-driven colors (e.g. a holiday-type palette) where the

@@ -8,7 +8,7 @@
 
 > **computeCosts**(`project`, `schedule?`): `Map`\<`string`, [`TaskCost`](../interfaces/TaskCost.md)\>
 
-Defined in: [packages/gantt-core/src/costs.ts:35](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/costs.ts#L35)
+Defined in: [packages/gantt-core/src/costs.ts:35](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/costs.ts#L35)
 
 Totals the work and the cost of every task.
 

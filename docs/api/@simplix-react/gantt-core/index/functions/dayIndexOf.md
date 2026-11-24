@@ -8,7 +8,7 @@
 
 > **dayIndexOf**(`t`): `number`
 
-Defined in: [packages/gantt-core/src/time.ts:33](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/time.ts#L33)
+Defined in: [packages/gantt-core/src/time.ts:33](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/time.ts#L33)
 
 Index of the day an instant falls on, counted from 1970-01-01.
 

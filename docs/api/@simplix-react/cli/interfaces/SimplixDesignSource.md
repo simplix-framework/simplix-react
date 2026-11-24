@@ -6,7 +6,7 @@
 
 # Interface: SimplixDesignSource
 
-Defined in: [config/types.ts:334](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L334)
+Defined in: [config/types.ts:360](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L360)
 
 The design reference an app's routed screens are checked against by `simplix generated` and
 `simplix check-screen`: every routed screen of the app needs its design before it is made.
@@ -32,7 +32,7 @@ path is the route's id, so a manifest names `login_.complete.tsx` as `"/login_/c
 
 > `readonly` **manifest**: `string`
 
-Defined in: [config/types.ts:337](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L337)
+Defined in: [config/types.ts:363](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L363)
 
 The manifest, relative to the project root.
 
@@ -42,7 +42,7 @@ The manifest, relative to the project root.
 
 > `readonly` `optional` **routes**: `string`
 
-Defined in: [config/types.ts:339](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L339)
+Defined in: [config/types.ts:365](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L365)
 
 The app's file-route directory, relative to the project root. Default `apps/<app>/src/routes`.
 
@@ -52,4 +52,4 @@ The app's file-route directory, relative to the project root. Default `apps/<app
 
 > `readonly` **source**: `"screen-design"` \| `"story-manifest"`
 
-Defined in: [config/types.ts:335](https://github.com/simplix-react/simplix-react/blob/main/config/types.ts#L335)
+Defined in: [config/types.ts:361](https://github.com/simplix-framework/simplix-react/blob/main/config/types.ts#L361)

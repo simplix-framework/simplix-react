@@ -8,7 +8,7 @@
 
 > **defineCrudMap**(`map`): [`CrudMap`](../type-aliases/CrudMap.md)
 
-Defined in: [config/define-crud-map.ts:25](https://github.com/simplix-react/simplix-react/blob/main/config/define-crud-map.ts#L25)
+Defined in: [config/define-crud-map.ts:25](https://github.com/simplix-framework/simplix-react/blob/main/config/define-crud-map.ts#L25)
 
 Identity function that provides type-safe autocompletion for `crud.config.ts`.
 

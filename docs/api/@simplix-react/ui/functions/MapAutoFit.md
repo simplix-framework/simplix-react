@@ -8,7 +8,7 @@
 
 > **MapAutoFit**(`__namedParameters`): `null`
 
-Defined in: [packages/ui/src/base/map/map-auto-fit.tsx:16](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map-auto-fit.tsx#L16)
+Defined in: [packages/ui/src/base/map/map-auto-fit.tsx:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map-auto-fit.tsx#L16)
 
 Automatically fits the map viewport to the given points.
 Must be rendered as a child of [Map](../variables/Map.md).

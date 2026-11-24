@@ -8,7 +8,7 @@
 
 > **nextId**(`records`): `string`
 
-Defined in: [packages/gantt-core/src/edit-tasks.ts:25](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-tasks.ts#L25)
+Defined in: [packages/gantt-core/src/edit-tasks.ts:25](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-tasks.ts#L25)
 
 An id no record of the collection uses: one more than the largest numeric id.
 

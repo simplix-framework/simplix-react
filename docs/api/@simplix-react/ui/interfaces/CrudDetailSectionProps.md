@@ -6,7 +6,7 @@
 
 # Interface: CrudDetailSectionProps
 
-Defined in: [packages/ui/src/crud/detail/crud-detail.tsx:215](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail.tsx#L215)
+Defined in: [packages/ui/src/crud/detail/crud-detail.tsx:281](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail.tsx#L281)
 
 Shared props for section components (CrudDetail.Section, CrudForm.Section).
 
@@ -20,7 +20,7 @@ Shared props for section components (CrudDetail.Section, CrudForm.Section).
 
 > `optional` **children**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/section-shell.tsx:78](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/section-shell.tsx#L78)
+Defined in: [packages/ui/src/crud/shared/section-shell.tsx:89](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/section-shell.tsx#L89)
 
 #### Inherited from
 
@@ -32,7 +32,7 @@ Defined in: [packages/ui/src/crud/shared/section-shell.tsx:78](https://github.co
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/shared/section-shell.tsx:77](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/section-shell.tsx#L77)
+Defined in: [packages/ui/src/crud/shared/section-shell.tsx:88](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/section-shell.tsx#L88)
 
 #### Inherited from
 
@@ -44,7 +44,7 @@ Defined in: [packages/ui/src/crud/shared/section-shell.tsx:77](https://github.co
 
 > `optional` **collapsible**: `boolean`
 
-Defined in: [packages/ui/src/crud/shared/section-shell.tsx:74](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/section-shell.tsx#L74)
+Defined in: [packages/ui/src/crud/shared/section-shell.tsx:85](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/section-shell.tsx#L85)
 
 Enable collapsible behavior (default: false).
 
@@ -58,7 +58,7 @@ Enable collapsible behavior (default: false).
 
 > `optional` **defaultOpen**: `boolean`
 
-Defined in: [packages/ui/src/crud/shared/section-shell.tsx:76](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/section-shell.tsx#L76)
+Defined in: [packages/ui/src/crud/shared/section-shell.tsx:87](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/section-shell.tsx#L87)
 
 Initial open state when collapsible (default: true).
 
@@ -72,7 +72,7 @@ Initial open state when collapsible (default: true).
 
 > `optional` **description**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/section-shell.tsx:66](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/section-shell.tsx#L66)
+Defined in: [packages/ui/src/crud/shared/section-shell.tsx:77](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/section-shell.tsx#L77)
 
 #### Inherited from
 
@@ -84,7 +84,7 @@ Defined in: [packages/ui/src/crud/shared/section-shell.tsx:66](https://github.co
 
 > `optional` **layout**: `"single-column"` \| `"two-column"` \| `"three-column"`
 
-Defined in: [packages/ui/src/crud/detail/crud-detail.tsx:223](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail.tsx#L223)
+Defined in: [packages/ui/src/crud/detail/crud-detail.tsx:289](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail.tsx#L289)
 
 Field arrangement inside the section body. `"single-column"` (default)
 stacks rows; `"two-column"` / `"three-column"` lay fields out in a grid
@@ -98,7 +98,7 @@ stay framework-governed across every detail screen.
 
 > `optional` **sectionTitle**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/section-shell.tsx:68](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/section-shell.tsx#L68)
+Defined in: [packages/ui/src/crud/shared/section-shell.tsx:79](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/section-shell.tsx#L79)
 
 Group title rendered above the card.
 
@@ -112,7 +112,7 @@ Group title rendered above the card.
 
 > `optional` **title**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/section-shell.tsx:65](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/section-shell.tsx#L65)
+Defined in: [packages/ui/src/crud/shared/section-shell.tsx:76](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/section-shell.tsx#L76)
 
 #### Inherited from
 
@@ -124,7 +124,7 @@ Defined in: [packages/ui/src/crud/shared/section-shell.tsx:65](https://github.co
 
 > `optional` **trailing**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/section-shell.tsx:72](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/section-shell.tsx#L72)
+Defined in: [packages/ui/src/crud/shared/section-shell.tsx:83](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/section-shell.tsx#L83)
 
 Content rendered on the right side of the section header.
 
@@ -138,7 +138,7 @@ Content rendered on the right side of the section header.
 
 > `optional` **variant**: `"flat"` \| `"card"` \| `"lined"`
 
-Defined in: [packages/ui/src/crud/shared/section-shell.tsx:70](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/section-shell.tsx#L70)
+Defined in: [packages/ui/src/crud/shared/section-shell.tsx:81](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/section-shell.tsx#L81)
 
 Visual style: `"card"` (default) renders with border and shadow, `"flat"` renders without, `"lined"` adds a left border on the body.
 

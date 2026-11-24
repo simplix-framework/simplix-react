@@ -8,7 +8,7 @@
 
 > **DropdownMenuSubTriggerProps** = `ComponentPropsWithRef`\<*typeof* `DropdownMenuPrimitive.SubTrigger`\> & `object`
 
-Defined in: [packages/ui/src/base/navigation/dropdown-menu.tsx:197](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/navigation/dropdown-menu.tsx#L197)
+Defined in: [packages/ui/src/base/navigation/dropdown-menu.tsx:221](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/navigation/dropdown-menu.tsx#L221)
 
 ## Type Declaration
 

@@ -6,7 +6,7 @@
 
 # Interface: SteplineProps
 
-Defined in: [packages/ui/src/base/display/stepline.tsx:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/stepline.tsx#L14)
+Defined in: [packages/ui/src/base/display/stepline.tsx:21](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/stepline.tsx#L21)
 
 Props for the [Stepline](../functions/Stepline.md) component.
 
@@ -16,7 +16,7 @@ Props for the [Stepline](../functions/Stepline.md) component.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/base/display/stepline.tsx:31](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/stepline.tsx#L31)
+Defined in: [packages/ui/src/base/display/stepline.tsx:38](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/stepline.tsx#L38)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/ui/src/base/display/stepline.tsx:31](https://github.com/si
 
 > `optional` **completedKeys**: `string`[]
 
-Defined in: [packages/ui/src/base/display/stepline.tsx:23](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/stepline.tsx#L23)
+Defined in: [packages/ui/src/base/display/stepline.tsx:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/stepline.tsx#L30)
 
 Keys rendered as done regardless of position — for flows whose completion
 is judged out of order (e.g. server-reported step states).
@@ -35,7 +35,7 @@ is judged out of order (e.g. server-reported step states).
 
 > `optional` **current**: `string`
 
-Defined in: [packages/ui/src/base/display/stepline.tsx:18](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/stepline.tsx#L18)
+Defined in: [packages/ui/src/base/display/stepline.tsx:25](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/stepline.tsx#L25)
 
 Key of the active step; steps before it render as done.
 
@@ -45,7 +45,7 @@ Key of the active step; steps before it render as done.
 
 > **items**: [`SteplineItem`](SteplineItem.md)[]
 
-Defined in: [packages/ui/src/base/display/stepline.tsx:16](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/stepline.tsx#L16)
+Defined in: [packages/ui/src/base/display/stepline.tsx:23](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/stepline.tsx#L23)
 
 Ordered steps.
 
@@ -55,7 +55,7 @@ Ordered steps.
 
 > `optional` **orientation**: `"horizontal"` \| `"vertical"`
 
-Defined in: [packages/ui/src/base/display/stepline.tsx:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/stepline.tsx#L30)
+Defined in: [packages/ui/src/base/display/stepline.tsx:37](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/stepline.tsx#L37)
 
 Layout direction. Horizontal (default) renders numbered circles joined by
 connector lines — the classic wizard stepper; vertical stacks the same

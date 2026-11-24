@@ -8,7 +8,7 @@
 
 > **TreeMoveDialog**\<`T`\>(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:164](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/tree-move-dialog.tsx#L164)
+Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:169](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/tree-move-dialog.tsx#L169)
 
 ## Type Parameters
 

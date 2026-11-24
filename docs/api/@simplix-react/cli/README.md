@@ -261,7 +261,7 @@ The validator applies different rule sets to packages and modules:
 | **Contract** | packages/ | Entity schemas completeness (`schema`, `createSchema`, `updateSchema`), operation `input`/`output`, mock handler config |
 | **FSD** | modules/ | `manifest.ts` exists, `features/` does not import from `widgets/`, `shared/` does not import from `features/` or `widgets/` |
 | **Import** | modules/ | No cross-module direct imports (must use package exports) |
-| **i18n** | modules/ | Missing keys across locales, extra keys (except those `i18n.localeOnlyKeys` lists), empty values, interpolation variable consistency (a placeholder with a formatter, `{{plan, josa(을/를)}}`, counts as its variable) |
+| **i18n** | modules/ | Missing keys across locales, extra keys, empty values, interpolation variable (`{{var}}`) consistency |
 
 Auto-fixable issues, by the check `--fix` names:
 
@@ -717,8 +717,7 @@ export default {
 | `openapi.meta.source` | SimpliX Meta endpoint URL or snapshot path | The spec's origin plus the profile's `metaEndpoint` |
 | `openapi.meta.snapshot` | Where the fetched SimpliX Meta is committed, for `--offline` and for the change gate | `undefined` (the meta half runs every time) |
 | `openapi.meta.export` | Domains whose barrel exports `src/generated-meta/` instead of the Orval output | `[]` |
-| `i18n.localeOnlyKeys` | Keys a locale may hold that the reference locale does not, by locale code (`{ ko: ["help.particles"] }`); `simplix validate` neither reports them as extra nor removes them under `--fix` | `undefined` |
-| `templates.from` | UI kit package or template directory pages and widgets are drawn from | The one root dependency declaring `simplix.templates` |
+| `templates.from` | UI kit package or template directory pages and widgets are drawn from | The one root dependency that is a UI kit (a kit and the base it extends count as one) |
 | `templates.storiesDir` | Directory generated design-reference stories are written to | `undefined` (no stories) |
 | `templates.story` | Story id and title patterns, and the story file per scaffold key | Storybook's title-derived id under `Generated/{Entity}` |
 | `apps.<app>.moduleGroups` | Module groups whose pages are drawn for this app | `[]` |
@@ -758,7 +757,38 @@ Templates are read name by name in this order:
 | 1 | `.simplix/templates/<app>/<name>.hbs` |
 | 2 | `.simplix/templates/<name>.hbs` |
 | 3 | The kit `apps.<app>.templates.from` names, else `templates.from` |
-| 4 | The CLI's bundled template |
+| 4 | Each kit it extends (`simplix.extends`), nearest first |
+| 5 | The CLI's bundled template |
+
+A UI kit declares its templates in its `package.json`. A kit whose templates are its family's
+shared ones extends the base kit that holds them, and keeps only the templates of its own:
+
+```json
+{
+  "name": "@acme-kits/console-clarity",
+  "simplix": {
+    "templates": "templates",
+    "extends": "@acme-kits/console-core",
+    "id": "clarity"
+  }
+}
+```
+
+| Field | Meaning |
+| --- | --- |
+| `simplix.templates` | The kit's template directory, relative to the package |
+| `simplix.extends` | The kit whose templates are read beneath this kit's, resolved from this kit's own directory |
+| `simplix.id` | The short name of the kit that `{{@kit.id}}` stands for |
+
+A base kit's template names the kit the project draws with through three values, written into the
+template before it is rendered. A value with nothing to stand for is refused rather than rendered
+as an empty string:
+
+| Token | Value for `@acme-kits/console-clarity` |
+| --- | --- |
+| `{{@kit.package}}` | `@acme-kits/console-clarity` |
+| `{{@kit.label}}` | `console-clarity` |
+| `{{@kit.id}}` | `clarity` |
 
 `apps.<app>.design` gates the app's routed screens. `simplix generated` and `simplix check-screen` (run without an entity) exit 1 on a TanStack file route of the app with no design:
 
@@ -950,7 +980,10 @@ pnpm add simplix-react
 - [CrudEndpointPattern](interfaces/CrudEndpointPattern.md)
 - [CrudEntityConfig](interfaces/CrudEntityConfig.md)
 - [EntityNameContext](interfaces/EntityNameContext.md)
+- [FencedImport](interfaces/FencedImport.md)
 - [I18nEntityInfo](interfaces/I18nEntityInfo.md)
+- [KitChain](interfaces/KitChain.md)
+- [KitLayer](interfaces/KitLayer.md)
 - [MetaExtensionOutput](interfaces/MetaExtensionOutput.md)
 - [OpenAPIMetaConfig](interfaces/OpenAPIMetaConfig.md)
 - [OpenApiNamingStrategy](interfaces/OpenApiNamingStrategy.md)
@@ -971,6 +1004,7 @@ pnpm add simplix-react
 
 - [CrudMap](type-aliases/CrudMap.md)
 - [I18nDownloader](type-aliases/I18nDownloader.md)
+- [ProjectTemplates](type-aliases/ProjectTemplates.md)
 - [ResponseAdapterConfig](type-aliases/ResponseAdapterConfig.md)
 
 ## Functions
@@ -980,7 +1014,12 @@ pnpm add simplix-react
 - [getResponseAdapterPreset](functions/getResponseAdapterPreset.md)
 - [getSchemaAdapters](functions/getSchemaAdapters.md)
 - [getSpecProfile](functions/getSpecProfile.md)
+- [kitFenceOf](functions/kitFenceOf.md)
+- [loadProjectTemplates](functions/loadProjectTemplates.md)
+- [readKitFence](functions/readKitFence.md)
 - [registerPlugin](functions/registerPlugin.md)
 - [registerResponseAdapterPreset](functions/registerResponseAdapterPreset.md)
 - [registerSchemaAdapter](functions/registerSchemaAdapter.md)
 - [registerSpecProfile](functions/registerSpecProfile.md)
+- [renderTemplate](functions/renderTemplate.md)
+- [resolveKitChain](functions/resolveKitChain.md)

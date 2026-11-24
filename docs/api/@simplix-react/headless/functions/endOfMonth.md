@@ -8,7 +8,7 @@
 
 > **endOfMonth**(`d`): `Date`
 
-Defined in: [date-math.ts:32](https://github.com/simplix-react/simplix-react/blob/main/date-math.ts#L32)
+Defined in: [date-math.ts:32](https://github.com/simplix-framework/simplix-react/blob/main/date-math.ts#L32)
 
 ## Parameters
 

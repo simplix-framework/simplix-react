@@ -8,7 +8,7 @@
 
 > **isOnPath**\<`T`\>(`pathname`, `item`): `boolean`
 
-Defined in: [packages/ui/src/menu/nav-utils.ts:7](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/nav-utils.ts#L7)
+Defined in: [packages/ui/src/menu/nav-utils.ts:7](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/nav-utils.ts#L7)
 
 ## Type Parameters
 

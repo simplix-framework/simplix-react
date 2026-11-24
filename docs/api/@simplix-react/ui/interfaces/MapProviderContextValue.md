@@ -6,7 +6,7 @@
 
 # Interface: MapProviderContextValue
 
-Defined in: [packages/ui/src/base/map/map-provider.tsx:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map-provider.tsx#L11)
+Defined in: [packages/ui/src/base/map/map-provider.tsx:11](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map-provider.tsx#L11)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/base/map/map-provider.tsx:11](https://github.com/si
 
 > `optional` **defaultFallbackTileUrl**: `string`
 
-Defined in: [packages/ui/src/base/map/map-provider.tsx:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map-provider.tsx#L12)
+Defined in: [packages/ui/src/base/map/map-provider.tsx:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map-provider.tsx#L12)
 
 ***
 
@@ -22,4 +22,4 @@ Defined in: [packages/ui/src/base/map/map-provider.tsx:12](https://github.com/si
 
 > `optional` **defaultMarkerIcon**: `ReactNode`
 
-Defined in: [packages/ui/src/base/map/map-provider.tsx:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map-provider.tsx#L13)
+Defined in: [packages/ui/src/base/map/map-provider.tsx:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map-provider.tsx#L13)

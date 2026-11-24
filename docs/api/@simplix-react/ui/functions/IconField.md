@@ -8,7 +8,7 @@
 
 > **IconField**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/fields/form/icon-field.tsx:33](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/icon-field.tsx#L33)
+Defined in: [packages/ui/src/fields/form/icon-field.tsx:33](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/icon-field.tsx#L33)
 
 Icon picker field integrating [IconPicker](../variables/IconPicker.md) with [FieldWrapper](FieldWrapper.md) for
 label, description, error, and required-marker support.

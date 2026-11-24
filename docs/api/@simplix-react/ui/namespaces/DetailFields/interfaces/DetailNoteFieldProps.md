@@ -6,7 +6,7 @@
 
 # Interface: DetailNoteFieldProps
 
-Defined in: [packages/ui/src/fields/detail/note-field.tsx:4](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/note-field.tsx#L4)
+Defined in: [packages/ui/src/fields/detail/note-field.tsx:6](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/note-field.tsx#L6)
 
 Props for the [DetailNoteField](../functions/DetailNoteField.md) component.
 
@@ -16,7 +16,7 @@ Props for the [DetailNoteField](../functions/DetailNoteField.md) component.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/fields/detail/note-field.tsx:9](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/note-field.tsx#L9)
+Defined in: [packages/ui/src/fields/detail/note-field.tsx:11](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/note-field.tsx#L11)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/ui/src/fields/detail/note-field.tsx:9](https://github.com/
 
 > `optional` **fallback**: `string`
 
-Defined in: [packages/ui/src/fields/detail/note-field.tsx:8](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/note-field.tsx#L8)
+Defined in: [packages/ui/src/fields/detail/note-field.tsx:10](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/note-field.tsx#L10)
 
 Fallback text when value is null/undefined.
 
@@ -34,6 +34,6 @@ Fallback text when value is null/undefined.
 
 > **value**: `string` \| `null` \| `undefined`
 
-Defined in: [packages/ui/src/fields/detail/note-field.tsx:6](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/note-field.tsx#L6)
+Defined in: [packages/ui/src/fields/detail/note-field.tsx:8](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/note-field.tsx#L8)
 
 Text value to display.

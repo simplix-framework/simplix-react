@@ -8,7 +8,7 @@
 
 > **getViewDateRange**(`view`, `date`, `locale?`): `object`
 
-Defined in: [helpers.ts:103](https://github.com/simplix-react/simplix-react/blob/main/helpers.ts#L103)
+Defined in: [helpers.ts:103](https://github.com/simplix-framework/simplix-react/blob/main/helpers.ts#L103)
 
 Inclusive date range currently visible for a view (drives `onRangeChange`).
 

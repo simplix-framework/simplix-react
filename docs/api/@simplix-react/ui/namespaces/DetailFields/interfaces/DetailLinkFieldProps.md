@@ -6,7 +6,7 @@
 
 # Interface: DetailLinkFieldProps
 
-Defined in: [packages/ui/src/fields/detail/link-field.tsx:6](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/link-field.tsx#L6)
+Defined in: [packages/ui/src/fields/detail/link-field.tsx:8](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/link-field.tsx#L8)
 
 Props for the [DetailLinkField](../functions/DetailLinkField.md) component.
 
@@ -20,7 +20,7 @@ Props for the [DetailLinkField](../functions/DetailLinkField.md) component.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
+Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
 
 #### Inherited from
 
@@ -32,7 +32,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix
 
 > `optional` **external**: `boolean`
 
-Defined in: [packages/ui/src/fields/detail/link-field.tsx:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/link-field.tsx#L12)
+Defined in: [packages/ui/src/fields/detail/link-field.tsx:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/link-field.tsx#L14)
 
 Whether the link opens in a new tab with `rel="noopener noreferrer"`.
 
@@ -42,7 +42,7 @@ Whether the link opens in a new tab with `rel="noopener noreferrer"`.
 
 > `optional` **fallback**: `string`
 
-Defined in: [packages/ui/src/fields/detail/link-field.tsx:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/link-field.tsx#L14)
+Defined in: [packages/ui/src/fields/detail/link-field.tsx:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/link-field.tsx#L16)
 
 Fallback text when value is null, undefined, or empty string. Defaults to the shared no-value badge.
 
@@ -52,7 +52,7 @@ Fallback text when value is null, undefined, or empty string. Defaults to the sh
 
 > **href**: `string` \| `null` \| `undefined`
 
-Defined in: [packages/ui/src/fields/detail/link-field.tsx:10](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/link-field.tsx#L10)
+Defined in: [packages/ui/src/fields/detail/link-field.tsx:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/link-field.tsx#L12)
 
 Link URL.
 
@@ -62,7 +62,7 @@ Link URL.
 
 > `optional` **label**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
+Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
 
 #### Inherited from
 
@@ -74,7 +74,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix
 
 > `optional` **labelKey**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
+Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
 
 #### Inherited from
 
@@ -86,7 +86,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix
 
 > `optional` **layout**: `"inline"` \| `"left"` \| `"top"` \| `"hidden"` \| `"trailing"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
+Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
 
 Label placement. `"top"` stacks the label above the input, `"left"` puts
 it in a leading column, `"inline"` keeps label and input on one row,
@@ -104,7 +104,7 @@ label for screen readers only.
 
 > `optional` **size**: `"sm"` \| `"lg"` \| `"md"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
+Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
 
 #### Inherited from
 
@@ -116,6 +116,6 @@ Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix
 
 > **value**: `string` \| `null` \| `undefined`
 
-Defined in: [packages/ui/src/fields/detail/link-field.tsx:8](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/link-field.tsx#L8)
+Defined in: [packages/ui/src/fields/detail/link-field.tsx:10](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/link-field.tsx#L10)
 
 Display text for the link.

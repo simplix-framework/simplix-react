@@ -6,7 +6,7 @@
 
 # Interface: CliPlugin
 
-Defined in: [openapi/plugin-registry.ts:22](https://github.com/simplix-react/simplix-react/blob/main/openapi/plugin-registry.ts#L22)
+Defined in: [openapi/plugin-registry.ts:22](https://github.com/simplix-framework/simplix-react/blob/main/openapi/plugin-registry.ts#L22)
 
 Defines a CLI plugin that bundles spec profiles and response adapter presets.
 
@@ -32,7 +32,7 @@ registerPlugin(myPlugin);
 
 > **id**: `string`
 
-Defined in: [openapi/plugin-registry.ts:24](https://github.com/simplix-react/simplix-react/blob/main/openapi/plugin-registry.ts#L24)
+Defined in: [openapi/plugin-registry.ts:24](https://github.com/simplix-framework/simplix-react/blob/main/openapi/plugin-registry.ts#L24)
 
 Unique identifier for this plugin.
 
@@ -42,7 +42,7 @@ Unique identifier for this plugin.
 
 > `optional` **responseAdapters**: `Record`\<`string`, [`ResponseAdapterPreset`](ResponseAdapterPreset.md)\>
 
-Defined in: [openapi/plugin-registry.ts:28](https://github.com/simplix-react/simplix-react/blob/main/openapi/plugin-registry.ts#L28)
+Defined in: [openapi/plugin-registry.ts:28](https://github.com/simplix-framework/simplix-react/blob/main/openapi/plugin-registry.ts#L28)
 
 Named response adapter presets to register (key = preset name).
 
@@ -52,6 +52,6 @@ Named response adapter presets to register (key = preset name).
 
 > `optional` **specs**: `Record`\<`string`, [`SpecProfile`](SpecProfile.md)\>
 
-Defined in: [openapi/plugin-registry.ts:26](https://github.com/simplix-react/simplix-react/blob/main/openapi/plugin-registry.ts#L26)
+Defined in: [openapi/plugin-registry.ts:26](https://github.com/simplix-framework/simplix-react/blob/main/openapi/plugin-registry.ts#L26)
 
 Named spec profiles to register (key = profile name).

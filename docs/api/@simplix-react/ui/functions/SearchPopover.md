@@ -8,7 +8,7 @@
 
 > **SearchPopover**\<`T`\>(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/base/inputs/search-popover.tsx:112](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/search-popover.tsx#L112)
+Defined in: [packages/ui/src/base/inputs/search-popover.tsx:112](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/search-popover.tsx#L112)
 
 Searchable popover for selecting items from a flat or grouped list.
 Uses a unified trigger button design with PlusIcon.

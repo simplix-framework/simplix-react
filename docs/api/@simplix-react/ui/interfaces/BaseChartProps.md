@@ -6,7 +6,7 @@
 
 # Interface: BaseChartProps
 
-Defined in: [packages/ui/src/base/charts/types.ts:29](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L29)
+Defined in: [packages/ui/src/base/charts/types.ts:29](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L29)
 
 ## Extended by
 
@@ -23,7 +23,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:29](https://github.com/simplix
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/base/charts/types.ts:31](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L31)
+Defined in: [packages/ui/src/base/charts/types.ts:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L31)
 
 ***
 
@@ -31,4 +31,4 @@ Defined in: [packages/ui/src/base/charts/types.ts:31](https://github.com/simplix
 
 > `optional` **height**: `string` \| `number`
 
-Defined in: [packages/ui/src/base/charts/types.ts:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L30)
+Defined in: [packages/ui/src/base/charts/types.ts:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L30)

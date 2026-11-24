@@ -6,7 +6,7 @@
 
 # Interface: UseCrudFormSubmitOptions\<T, TId\>
 
-Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L13)
+Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L13)
 
 Options for the [useCrudFormSubmit](../functions/useCrudFormSubmit.md) hook.
 
@@ -26,7 +26,7 @@ Options for the [useCrudFormSubmit](../functions/useCrudFormSubmit.md) hook.
 
 > `optional` **create**: [`CrudMutation`](CrudMutation.md)\<`T`\>
 
-Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:26](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L26)
+Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:26](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L26)
 
 Create mutation hook result. Omit it on a form that only ever edits.
 
@@ -44,9 +44,31 @@ mode the form is in.
 
 > `optional` **entityId**: `TId`
 
-Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:15](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L15)
+Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L15)
 
 Entity ID for edit mode. When nullish, create mode is used.
+
+***
+
+### fields?
+
+> `optional` **fields**: [`DeclaredFields`](DeclaredFields.md)
+
+Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:53](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L53)
+
+How the form's values become the DTO, declared rather than assembled by hand.
+
+#### Remarks
+
+**A form that builds its own DTO in the submit handler is writing the field list twice.**
+Across one console, 168 such assignments did four mechanical things and 73 of them did
+nothing at all — `holidayName: values.holidayName`, a field copied across so that the object
+literal would be complete. What that costs is not the typing: a key left out of the literal
+is a value that silently never leaves the browser, and the request still answers 200. That is
+how a translation map came to be dropped on ten screens at once.
+
+Every value passes through untouched unless named here, so the copies disappear and what
+remains in the call is only what is actually being done to a field.
 
 ***
 
@@ -54,7 +76,7 @@ Entity ID for edit mode. When nullish, create mode is used.
 
 > `optional` **i18nFields**: `Record`\<`string`, `string`\>
 
-Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:33](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L33)
+Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:33](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L33)
 
 Map of i18n field name → plain field name. Before submit, each plain
 field is populated from `applyI18nFallback(values[i18nField], locales)`.
@@ -65,7 +87,7 @@ field is populated from `applyI18nFallback(values[i18nField], locales)`.
 
 > `optional` **locales**: readonly `object`[]
 
-Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:38](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L38)
+Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:38](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L38)
 
 Locale config order for fallback (typically `useLocalePicker().locales`).
 Required when `i18nFields` is provided.
@@ -76,7 +98,7 @@ Required when `i18nFields` is provided.
 
 > `optional` **onSuccess**: (`result`) => `void`
 
-Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:48](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L48)
+Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:72](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L72)
 
 Called after a successful create or update, with whatever the mutation answered.
 
@@ -99,11 +121,37 @@ not need it ignore it, as they always have.
 
 ***
 
+### prepare()?
+
+> `optional` **prepare**: (`dto`) => `T`
+
+Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:62](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L62)
+
+The last word, for what the four shapes above cannot say.
+
+#### Parameters
+
+##### dto
+
+`T`
+
+#### Returns
+
+`T`
+
+#### Remarks
+
+Runs after every declared transform and after the i18n derivation, so it sees the DTO as it
+would have been sent. Kept deliberately narrow: a form reaching for this to do a trim has
+moved the field list back into its own body, which is what `fields` exists to end.
+
+***
+
 ### update?
 
 > `optional` **update**: [`CrudMutation`](CrudMutation.md)\<\{ `dto`: `T`; `id`: `TId`; \}\>
 
-Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:28](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L28)
+Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:28](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L28)
 
 Update mutation hook result. Required for edit mode.
 
@@ -113,7 +161,7 @@ Update mutation hook result. Required for edit mode.
 
 > `optional` **validator**: (`values`) => `Record`\<`string`, `string`\> \| `null`
 
-Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:84](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L84)
+Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:108](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L108)
 
 Optional client-side validator. Runs on submit BEFORE the server
 mutation. Receives the raw form values (pre-i18n-fallback) and must

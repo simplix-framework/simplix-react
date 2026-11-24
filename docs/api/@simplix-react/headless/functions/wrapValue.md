@@ -8,7 +8,7 @@
 
 > **wrapValue**(`value`, `min`, `max`): `number`
 
-Defined in: [time-select.ts:20](https://github.com/simplix-react/simplix-react/blob/main/time-select.ts#L20)
+Defined in: [time-select.ts:20](https://github.com/simplix-framework/simplix-react/blob/main/time-select.ts#L20)
 
 Wrap a value into [min, max], cycling past either bound.
 

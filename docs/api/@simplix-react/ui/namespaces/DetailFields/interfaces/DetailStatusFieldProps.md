@@ -6,7 +6,7 @@
 
 # Interface: DetailStatusFieldProps
 
-Defined in: [packages/ui/src/fields/detail/status-field.tsx:10](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/status-field.tsx#L10)
+Defined in: [packages/ui/src/fields/detail/status-field.tsx:10](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/status-field.tsx#L10)
 
 Props for the [DetailStatusField](../functions/DetailStatusField.md) component.
 
@@ -20,7 +20,7 @@ Props for the [DetailStatusField](../functions/DetailStatusField.md) component.
 
 > `optional` **appearance**: `"outline"` \| `"filled"`
 
-Defined in: [packages/ui/src/fields/detail/status-field.tsx:24](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/status-field.tsx#L24)
+Defined in: [packages/ui/src/fields/detail/status-field.tsx:24](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/status-field.tsx#L24)
 
 Pill appearance; defaults to `outline`.
 
@@ -30,7 +30,7 @@ Pill appearance; defaults to `outline`.
 
 > `optional` **badgeSize**: `"default"` \| `"xs"` \| `"sm"`
 
-Defined in: [packages/ui/src/fields/detail/status-field.tsx:26](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/status-field.tsx#L26)
+Defined in: [packages/ui/src/fields/detail/status-field.tsx:26](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/status-field.tsx#L26)
 
 Pill size; defaults to `sm` (detail density).
 
@@ -40,7 +40,7 @@ Pill size; defaults to `sm` (detail density).
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
+Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
 
 #### Inherited from
 
@@ -52,7 +52,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix
 
 > `optional` **fallback**: `string`
 
-Defined in: [packages/ui/src/fields/detail/status-field.tsx:28](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/status-field.tsx#L28)
+Defined in: [packages/ui/src/fields/detail/status-field.tsx:28](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/status-field.tsx#L28)
 
 Fallback text when value is null, undefined, or empty string. Defaults to the shared no-value badge.
 
@@ -62,7 +62,7 @@ Fallback text when value is null, undefined, or empty string. Defaults to the sh
 
 > `optional` **icon**: [`IconComponent`](../../../type-aliases/IconComponent.md)
 
-Defined in: [packages/ui/src/fields/detail/status-field.tsx:22](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/status-field.tsx#L22)
+Defined in: [packages/ui/src/fields/detail/status-field.tsx:22](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/status-field.tsx#L22)
 
 Optional leading icon (mutually exclusive with `showDot`).
 
@@ -72,7 +72,7 @@ Optional leading icon (mutually exclusive with `showDot`).
 
 > `optional` **label**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
+Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
 
 #### Inherited from
 
@@ -84,7 +84,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix
 
 > `optional` **labelKey**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
+Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
 
 #### Inherited from
 
@@ -96,7 +96,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix
 
 > `optional` **layout**: `"inline"` \| `"left"` \| `"top"` \| `"hidden"` \| `"trailing"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
+Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
 
 Label placement. `"top"` stacks the label above the input, `"left"` puts
 it in a leading column, `"inline"` keeps label and input on one row,
@@ -114,7 +114,7 @@ label for screen readers only.
 
 > `optional` **showDot**: `boolean`
 
-Defined in: [packages/ui/src/fields/detail/status-field.tsx:20](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/status-field.tsx#L20)
+Defined in: [packages/ui/src/fields/detail/status-field.tsx:20](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/status-field.tsx#L20)
 
 Render a leading [StatusDot](../../../variables/StatusDot.md) of the same tone (mutually exclusive with `icon`).
 
@@ -124,7 +124,7 @@ Render a leading [StatusDot](../../../variables/StatusDot.md) of the same tone (
 
 > `optional` **size**: `"sm"` \| `"lg"` \| `"md"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
+Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
 
 #### Inherited from
 
@@ -136,11 +136,11 @@ Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix
 
 > **tone**: [`StatusTone`](../../../type-aliases/StatusTone.md)
 
-Defined in: [packages/ui/src/fields/detail/status-field.tsx:16](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/status-field.tsx#L16)
+Defined in: [packages/ui/src/fields/detail/status-field.tsx:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/status-field.tsx#L16)
 
 Resolved semantic tone for the status pill. Look this up via a shared tone
 map (e.g. `@pacs-studio/pacs-ui` `cardholderStatusToTone[value] ?? "neutral"`)
-— never hand-write an enum→color map at the call site.
+- never hand-write an enum→color map at the call site.
 
 ***
 
@@ -148,6 +148,6 @@ map (e.g. `@pacs-studio/pacs-ui` `cardholderStatusToTone[value] ?? "neutral"`)
 
 > **value**: `ReactNode`
 
-Defined in: [packages/ui/src/fields/detail/status-field.tsx:18](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/status-field.tsx#L18)
+Defined in: [packages/ui/src/fields/detail/status-field.tsx:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/status-field.tsx#L18)
 
 Already-translated status label shown inside the pill.

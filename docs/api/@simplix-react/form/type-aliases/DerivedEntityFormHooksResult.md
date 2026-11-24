@@ -8,7 +8,7 @@
 
 > **DerivedEntityFormHooksResult**\<`TEntities`\> = `{ [K in keyof TEntities]: EntityFormHooks<TEntities[K]["schema"]> }`
 
-Defined in: [derive-form-hooks.ts:69](https://github.com/simplix-react/simplix-react/blob/main/derive-form-hooks.ts#L69)
+Defined in: [derive-form-hooks.ts:69](https://github.com/simplix-framework/simplix-react/blob/main/derive-form-hooks.ts#L69)
 
 Mapped type that produces per-entity [EntityFormHooks](../interfaces/EntityFormHooks.md) from the contract's entity map.
 

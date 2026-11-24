@@ -8,7 +8,7 @@
 
 > **updateTask**(`project`, `id`, `patch`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-tasks.ts:98](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-tasks.ts#L98)
+Defined in: [packages/gantt-core/src/edit-tasks.ts:98](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-tasks.ts#L98)
 
 Changes fields of a task as given, with no side effect on other fields.
 

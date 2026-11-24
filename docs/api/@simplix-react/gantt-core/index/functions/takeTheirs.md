@@ -8,7 +8,7 @@
 
 > **takeTheirs**(`project`, `theirs`, `conflicts`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/diff.ts:203](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/diff.ts#L203)
+Defined in: [packages/gantt-core/src/diff.ts:203](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/diff.ts#L203)
 
 Settles conflicts of a merge the other way: for each listed record the
 plan takes the other side's version, and loses the record where the other

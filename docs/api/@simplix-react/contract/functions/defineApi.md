@@ -8,7 +8,7 @@
 
 > **defineApi**\<`TEntities`, `TOperations`\>(`config`, `options?`): [`ApiContract`](../interfaces/ApiContract.md)\<`TEntities`, `TOperations`\>
 
-Defined in: [packages/contract/src/define-api.ts:63](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/define-api.ts#L63)
+Defined in: [packages/contract/src/define-api.ts:63](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/define-api.ts#L63)
 
 Creates a fully-typed API contract from an [ApiContractConfig](../interfaces/ApiContractConfig.md).
 

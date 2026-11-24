@@ -8,7 +8,7 @@
 
 > **DetailNoteField**(`__namedParameters`): `Element` \| `null`
 
-Defined in: [packages/ui/src/fields/detail/note-field.tsx:21](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/note-field.tsx#L21)
+Defined in: [packages/ui/src/fields/detail/note-field.tsx:23](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/note-field.tsx#L23)
 
 Label-less card for displaying description or note text
 with a subtle background.

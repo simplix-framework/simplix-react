@@ -8,7 +8,7 @@
 
 > **useCalendarView**(): `object`
 
-Defined in: [context/calendar-context.tsx:228](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L228)
+Defined in: [context/calendar-context.tsx:247](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L247)
 
 View state and its setter.
 

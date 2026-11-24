@@ -8,7 +8,7 @@
 
 > **computeBounds**(`points`): [`Bounds`](../interfaces/Bounds.md) \| `null`
 
-Defined in: [packages/ui/src/utils/geo.ts:31](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L31)
+Defined in: [packages/ui/src/utils/geo.ts:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L31)
 
 ## Parameters
 

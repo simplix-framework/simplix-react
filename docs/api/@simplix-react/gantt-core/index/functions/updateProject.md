@@ -8,7 +8,7 @@
 
 > **updateProject**(`project`, `patch`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-project.ts:15](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-project.ts#L15)
+Defined in: [packages/gantt-core/src/edit-project.ts:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-project.ts#L15)
 
 Changes plan-level settings.
 

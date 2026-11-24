@@ -8,7 +8,7 @@
 
 > **useInvalidateEntity**(`apiPrefix`): () => `Promise`\<`void`\>
 
-Defined in: [packages/ui/src/crud/form/use-invalidate-entity.ts:18](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/use-invalidate-entity.ts#L18)
+Defined in: [packages/ui/src/crud/form/use-invalidate-entity.ts:34](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/use-invalidate-entity.ts#L34)
 
 Returns a stable callback that invalidates all queries whose first key
 element starts with the given URL prefix.
@@ -22,6 +22,9 @@ by the return type change.
 Works with Orval-generated query keys like:
 - `['/api/v1/company/4']` (detail)
 - `['/api/v1/company/search', params]` (list)
+
+A Meta-generated domain exports each entity's prefix as `<entity>EntityPath`; pass that rather
+than typing the route.
 
 ## Parameters
 

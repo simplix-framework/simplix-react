@@ -8,7 +8,7 @@
 
 > `const` **Container**: `ForwardRefExoticComponent`\<`Omit`\<[`ContainerProps`](../interfaces/ContainerProps.md), `"ref"`\> & `RefAttributes`\<`HTMLDivElement`\>\>
 
-Defined in: [packages/ui/src/primitives/container.tsx:41](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/primitives/container.tsx#L41)
+Defined in: [packages/ui/src/primitives/container.tsx:50](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/primitives/container.tsx#L50)
 
 Centered, max-width container with horizontal padding.
 

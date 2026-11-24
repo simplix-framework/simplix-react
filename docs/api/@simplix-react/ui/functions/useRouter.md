@@ -8,7 +8,7 @@
 
 > **useRouter**(): [`RouterAdapter`](../interfaces/RouterAdapter.md) \| `null`
 
-Defined in: [packages/ui/src/adapters/router-provider.ts:18](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/adapters/router-provider.ts#L18)
+Defined in: [packages/ui/src/adapters/router-provider.ts:43](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/adapters/router-provider.ts#L43)
 
 Retrieves the router adapter from the nearest CrudProvider, or null if unavailable.
 

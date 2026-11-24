@@ -6,7 +6,7 @@
 
 # Interface: CropModalProps
 
-Defined in: [packages/ui/src/fields/image-attachment/components/crop-modal.tsx:16](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/image-attachment/components/crop-modal.tsx#L16)
+Defined in: [packages/ui/src/fields/image-attachment/components/crop-modal.tsx:39](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/image-attachment/components/crop-modal.tsx#L39)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/fields/image-attachment/components/crop-modal.tsx:1
 
 > **file**: `File` \| `null`
 
-Defined in: [packages/ui/src/fields/image-attachment/components/crop-modal.tsx:18](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/image-attachment/components/crop-modal.tsx#L18)
+Defined in: [packages/ui/src/fields/image-attachment/components/crop-modal.tsx:41](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/image-attachment/components/crop-modal.tsx#L41)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [packages/ui/src/fields/image-attachment/components/crop-modal.tsx:1
 
 > `optional` **initialRatio**: `number`
 
-Defined in: [packages/ui/src/fields/image-attachment/components/crop-modal.tsx:26](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/image-attachment/components/crop-modal.tsx#L26)
+Defined in: [packages/ui/src/fields/image-attachment/components/crop-modal.tsx:49](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/image-attachment/components/crop-modal.tsx#L49)
 
 Aspect ratio preselected each time the modal opens: -1 = original (default),
 0 = free, > 0 = fixed ratio (e.g. 1 for a square avatar crop).
@@ -33,7 +33,7 @@ Aspect ratio preselected each time the modal opens: -1 = original (default),
 
 > **onClose**: () => `void`
 
-Defined in: [packages/ui/src/fields/image-attachment/components/crop-modal.tsx:19](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/image-attachment/components/crop-modal.tsx#L19)
+Defined in: [packages/ui/src/fields/image-attachment/components/crop-modal.tsx:42](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/image-attachment/components/crop-modal.tsx#L42)
 
 #### Returns
 
@@ -45,9 +45,9 @@ Defined in: [packages/ui/src/fields/image-attachment/components/crop-modal.tsx:1
 
 > **onSave**: (`area`) => `void`
 
-Defined in: [packages/ui/src/fields/image-attachment/components/crop-modal.tsx:21](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/image-attachment/components/crop-modal.tsx#L21)
+Defined in: [packages/ui/src/fields/image-attachment/components/crop-modal.tsx:44](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/image-attachment/components/crop-modal.tsx#L44)
 
-area === null means "original" — upload the source file without cropping.
+area === null means "original" - upload the source file without cropping.
 
 #### Parameters
 
@@ -65,4 +65,4 @@ area === null means "original" — upload the source file without cropping.
 
 > **open**: `boolean`
 
-Defined in: [packages/ui/src/fields/image-attachment/components/crop-modal.tsx:17](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/image-attachment/components/crop-modal.tsx#L17)
+Defined in: [packages/ui/src/fields/image-attachment/components/crop-modal.tsx:40](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/image-attachment/components/crop-modal.tsx#L40)

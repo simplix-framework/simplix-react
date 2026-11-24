@@ -6,7 +6,7 @@
 
 # Interface: MediaEmbedProps
 
-Defined in: [packages/ui/src/base/display/media-embed.tsx:4](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/media-embed.tsx#L4)
+Defined in: [packages/ui/src/base/display/media-embed.tsx:6](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/media-embed.tsx#L6)
 
 Props for the [MediaEmbed](../functions/MediaEmbed.md) component.
 
@@ -16,7 +16,7 @@ Props for the [MediaEmbed](../functions/MediaEmbed.md) component.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/base/display/media-embed.tsx:20](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/media-embed.tsx#L20)
+Defined in: [packages/ui/src/base/display/media-embed.tsx:22](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/media-embed.tsx#L22)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/ui/src/base/display/media-embed.tsx:20](https://github.com
 
 > `optional` **height**: `number`
 
-Defined in: [packages/ui/src/base/display/media-embed.tsx:17](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/media-embed.tsx#L17)
+Defined in: [packages/ui/src/base/display/media-embed.tsx:19](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/media-embed.tsx#L19)
 
 Frame height in CSS pixels; `video`/16:9 frames size themselves. Defaults to 384 for document frames.
 
@@ -34,7 +34,7 @@ Frame height in CSS pixels; `video`/16:9 frames size themselves. Defaults to 384
 
 > **kind**: `"video"` \| `"frame"`
 
-Defined in: [packages/ui/src/base/display/media-embed.tsx:9](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/media-embed.tsx#L9)
+Defined in: [packages/ui/src/base/display/media-embed.tsx:11](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/media-embed.tsx#L11)
 
 `video` renders a native player for a self-hosted stream (playback-end
 observable); `frame` embeds an external player or document viewer.
@@ -45,7 +45,7 @@ observable); `frame` embeds an external player or document viewer.
 
 > `optional` **onEnded**: () => `void`
 
-Defined in: [packages/ui/src/base/display/media-embed.tsx:15](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/media-embed.tsx#L15)
+Defined in: [packages/ui/src/base/display/media-embed.tsx:17](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/media-embed.tsx#L17)
 
 Fires when a `video` finishes playing (completion tracking).
 
@@ -59,7 +59,7 @@ Fires when a `video` finishes playing (completion tracking).
 
 > **src**: `string`
 
-Defined in: [packages/ui/src/base/display/media-embed.tsx:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/media-embed.tsx#L11)
+Defined in: [packages/ui/src/base/display/media-embed.tsx:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/media-embed.tsx#L13)
 
 Media/document source URL.
 
@@ -69,7 +69,7 @@ Media/document source URL.
 
 > `optional` **title**: `string`
 
-Defined in: [packages/ui/src/base/display/media-embed.tsx:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/media-embed.tsx#L13)
+Defined in: [packages/ui/src/base/display/media-embed.tsx:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/media-embed.tsx#L15)
 
 Accessible title for the embedded frame.
 
@@ -79,6 +79,6 @@ Accessible title for the embedded frame.
 
 > `optional` **widescreen**: `boolean`
 
-Defined in: [packages/ui/src/base/display/media-embed.tsx:19](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/media-embed.tsx#L19)
+Defined in: [packages/ui/src/base/display/media-embed.tsx:21](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/media-embed.tsx#L21)
 
 Render `frame` at a 16:9 aspect (external video embeds); defaults to false.

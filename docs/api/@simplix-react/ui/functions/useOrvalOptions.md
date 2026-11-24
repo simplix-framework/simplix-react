@@ -8,7 +8,7 @@
 
 > **useOrvalOptions**\<`TItem`\>(`useQuery`, `config`): [`UseOrvalOptionsResult`](../interfaces/UseOrvalOptionsResult.md)
 
-Defined in: [packages/ui/src/crud/list/use-orval-options.ts:44](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-orval-options.ts#L44)
+Defined in: [packages/ui/src/crud/list/use-orval-options.ts:44](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-orval-options.ts#L44)
 
 Convert an Orval-generated list/search hook result into `{ label, value }[]` options
 suitable for ComboboxField, SelectField, or MultiSelectField.

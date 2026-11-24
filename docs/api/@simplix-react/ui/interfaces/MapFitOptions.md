@@ -6,7 +6,7 @@
 
 # Interface: MapFitOptions
 
-Defined in: [packages/ui/src/utils/geo.ts:44](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L44)
+Defined in: [packages/ui/src/utils/geo.ts:44](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L44)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/utils/geo.ts:44](https://github.com/simplix-react/s
 
 > `optional` **maxZoom**: `number`
 
-Defined in: [packages/ui/src/utils/geo.ts:46](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L46)
+Defined in: [packages/ui/src/utils/geo.ts:46](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L46)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [packages/ui/src/utils/geo.ts:46](https://github.com/simplix-react/s
 
 > `optional` **padding**: `number`
 
-Defined in: [packages/ui/src/utils/geo.ts:45](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L45)
+Defined in: [packages/ui/src/utils/geo.ts:45](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L45)
 
 ***
 
@@ -30,4 +30,4 @@ Defined in: [packages/ui/src/utils/geo.ts:45](https://github.com/simplix-react/s
 
 > `optional` **zoom**: `number`
 
-Defined in: [packages/ui/src/utils/geo.ts:47](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L47)
+Defined in: [packages/ui/src/utils/geo.ts:47](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L47)

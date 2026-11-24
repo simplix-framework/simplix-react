@@ -8,7 +8,7 @@
 
 > **endOfWeek**(`d`): `Date`
 
-Defined in: [packages/headless/dist/index.d.ts:504](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L504)
+Defined in: [packages/headless/dist/index.d.ts:549](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L549)
 
 Sunday end of week (Monday-based).
 

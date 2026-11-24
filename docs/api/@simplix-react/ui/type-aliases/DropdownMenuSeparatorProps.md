@@ -8,4 +8,4 @@
 
 > **DropdownMenuSeparatorProps** = `ComponentPropsWithRef`\<*typeof* `DropdownMenuPrimitive.Separator`\>
 
-Defined in: [packages/ui/src/base/navigation/dropdown-menu.tsx:179](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/navigation/dropdown-menu.tsx#L179)
+Defined in: [packages/ui/src/base/navigation/dropdown-menu.tsx:202](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/navigation/dropdown-menu.tsx#L202)

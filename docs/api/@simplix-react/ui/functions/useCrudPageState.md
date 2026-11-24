@@ -8,7 +8,7 @@
 
 > **useCrudPageState**(`variant`, `nav`): [`UseCrudPageStateResult`](../interfaces/UseCrudPageStateResult.md)
 
-Defined in: [packages/ui/src/crud/patterns/use-crud-page.ts:64](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/use-crud-page.ts#L64)
+Defined in: [packages/ui/src/crud/patterns/use-crud-page.ts:94](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/use-crud-page.ts#L94)
 
 Composes fade transition and list-detail state from navigation result.
 
@@ -20,7 +20,7 @@ Composes fade transition and list-detail state from navigation result.
 
 ### nav
 
-[`UseCrudNavigationResult`](../interfaces/UseCrudNavigationResult.md)
+`Pick`\<[`UseCrudNavigationResult`](../interfaces/UseCrudNavigationResult.md), `"view"` \| `"selectedId"` \| `"showList"` \| `"showDetail"` \| `"showNew"` \| `"showEdit"`\>
 
 ## Returns
 

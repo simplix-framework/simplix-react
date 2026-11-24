@@ -8,4 +8,4 @@
 
 > `const` **Stack**: `ComponentType`\<`Omit`\<[`StackProps`](../interfaces/StackProps.md), `"ref"`\> & `RefAttributes`\<`HTMLDivElement`\>\>
 
-Defined in: [packages/ui/src/primitives/stack.tsx:163](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/primitives/stack.tsx#L163)
+Defined in: [packages/ui/src/primitives/stack.tsx:167](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/primitives/stack.tsx#L167)

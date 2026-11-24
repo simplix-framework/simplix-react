@@ -571,6 +571,8 @@ Next Step → [`@simplix-react/react`](../react/README.md)
 
 ## Interfaces
 
+- [ActivitySource](interfaces/ActivitySource.md)
+- [ActivityTrackerOptions](interfaces/ActivityTrackerOptions.md)
 - [ApiKeySchemeOptions](interfaces/ApiKeySchemeOptions.md)
 - [AuthConfig](interfaces/AuthConfig.md)
 - [AuthInstance](interfaces/AuthInstance.md)
@@ -581,6 +583,12 @@ Next Step → [`@simplix-react/react`](../react/README.md)
 - [CustomSchemeOptions](interfaces/CustomSchemeOptions.md)
 - [OAuth2PopupOptions](interfaces/OAuth2PopupOptions.md)
 - [OAuth2SchemeOptions](interfaces/OAuth2SchemeOptions.md)
+- [OidcClient](interfaces/OidcClient.md)
+- [OidcClientOptions](interfaces/OidcClientOptions.md)
+- [OidcDiscovery](interfaces/OidcDiscovery.md)
+- [OidcPendingStorage](interfaces/OidcPendingStorage.md)
+- [OidcTokens](interfaces/OidcTokens.md)
+- [RememberMe](interfaces/RememberMe.md)
 - [TokenPair](interfaces/TokenPair.md)
 - [TokenStore](interfaces/TokenStore.md)
 
@@ -588,15 +596,20 @@ Next Step → [`@simplix-react/react`](../react/README.md)
 
 - [AuthErrorCode](type-aliases/AuthErrorCode.md)
 - [OAuth2PopupResult](type-aliases/OAuth2PopupResult.md)
+- [RefreshLock](type-aliases/RefreshLock.md)
+- [SignInFailure](type-aliases/SignInFailure.md)
 
 ## Functions
 
 - [apiKeyScheme](functions/apiKeyScheme.md)
 - [bearerScheme](functions/bearerScheme.md)
 - [composeSchemes](functions/composeSchemes.md)
+- [createActivityTracker](functions/createActivityTracker.md)
 - [createAuth](functions/createAuth.md)
 - [createAuthFetch](functions/createAuthFetch.md)
 - [createCrossTabSync](functions/createCrossTabSync.md)
+- [createOidcClient](functions/createOidcClient.md)
+- [createRememberMe](functions/createRememberMe.md)
 - [customScheme](functions/customScheme.md)
 - [localStorageStore](functions/localStorageStore.md)
 - [memoryStore](functions/memoryStore.md)

@@ -52,13 +52,17 @@ typography, status indicator animations) consumed by the components. Apps may ov
 redefining it after the import. Projects scaffolded via `simplix init`
 wire this up automatically.
 
+Every component draws its look from slot declarations, so one app can switch between designs
+(`classic`, `clarity`) at run time while behaviour stays the same. See
+[Choose and add a design](../../_media/designs.md).
+
 ## App Architecture (FSD)
 
-simplix-react apps follow **Feature-Sliced Design (FSD)** — UI code lives in **modules**, not in domain packages:
+simplix-react apps follow **Feature-Sliced Design (FSD)** - UI code lives in **modules**, not in domain packages:
 
 ```
 my-app/
-├── packages/                     Domain packages (generated) — NO UI code
+├── packages/                     Domain packages (generated) - NO UI code
 │   ├── user/
 │   │   ├── schemas.ts                Zod schemas
 │   │   ├── contract.ts               API contracts
@@ -67,12 +71,12 @@ my-app/
 │   └── product/
 │       └── ...
 │
-├── modules/                      FSD modules — compose domain packages + @simplix-react/ui
+├── modules/                      FSD modules - compose domain packages + @simplix-react/ui
 │   └── myapp-admin/
 │       └── src/
 │           ├── manifest.ts           Module manifest (navigation, capabilities)
 │           ├── index.ts              Root exports
-│           ├── features/             Feature layer — CRUD screens
+│           ├── features/             Feature layer - CRUD screens
 │           │   ├── user/                 uses @myapp/user hooks
 │           │   │   ├── user-list.tsx
 │           │   │   ├── user-form.tsx
@@ -80,7 +84,7 @@ my-app/
 │           │   │   └── index.ts
 │           │   └── product/              uses @myapp/product hooks
 │           │       └── ...
-│           ├── widgets/              Widget layer — compose multiple features
+│           ├── widgets/              Widget layer - compose multiple features
 │           │   └── dashboard/
 │           ├── shared/               Shared layer
 │           │   ├── ui/
@@ -88,7 +92,7 @@ my-app/
 │           │   └── config/
 │           └── locales/              i18n (optional)
 │
-└── app/                          Final app — composes modules only
+└── app/                          Final app - composes modules only
     └── src/
         ├── features/
         ├── widgets/
@@ -101,7 +105,7 @@ my-app/
 | --- | --- | --- |
 | `shared/` | external packages only | `features/`, `widgets/` |
 | `features/` | `shared/`, domain packages | `widgets/` |
-| `widgets/` | `shared/`, `features/`, domain packages | — |
+| `widgets/` | `shared/`, `features/`, domain packages | - |
 
 ### Module can compose multiple domain packages
 
@@ -132,7 +136,7 @@ simplix scaffold user --module myapp-admin
 Every field component requires explicit `value` and `onChange` props. There is no hidden form state, no automatic binding, and no implicit context dependencies.
 
 ```tsx
-// Explicit value/onChange — always
+// Explicit value/onChange - always
 <FormFields.TextField
   label="Name"
   value={name}
@@ -213,6 +217,7 @@ Unstyled Radix UI primitives with Tailwind CSS styling. Used internally by field
 
 - `Button` (with CVA variants: `variant`, `size`)
 - `Input`, `Textarea`, `Label`, `Badge`, `Switch`, `Checkbox`
+- `CodeInput` (a one-time code entered one digit per cell: typing moves on, Backspace steps back, a paste or an autofill fills every cell; `codeType`, `codeBackspace` and `codePaste` are its editing rules)
 - `Select` (Root, Trigger, Value, Content, Item, Group, Label, Separator)
 - `RadioGroup` (Root, Item)
 - `Calendar` (date picker grid)
@@ -230,14 +235,14 @@ Unstyled Radix UI primitives with Tailwind CSS styling. Used internally by field
 
 ### Status & Display
 
-Tone-driven components sharing a single semantic color vocabulary. Each `StatusTone` (`success`, `warning`, `danger`, `info`, `neutral`, `pending`, `processing`) bundles every Tailwind class — badge, dot, ring, icon, surface — with its `dark:` variant, so adopting them keeps colors consistent across light/dark.
+Tone-driven components sharing a single semantic color vocabulary. Each `StatusTone` (`success`, `warning`, `danger`, `info`, `neutral`, `pending`, `processing`) bundles every Tailwind class - badge, dot, ring, icon, surface - with its `dark:` variant, so adopting them keeps colors consistent across light/dark.
 
-- `StatusBadge` — compact status pill (tone + label, optional leading dot/icon, `filled`/`outline` appearance)
-- `StatusDot` — small indicator dot with an optional `ping`/`flash` ring animation
-- `AlertBanner` — tinted status banner with icon, title/subtitle (or free-form children), trailing slot, and `default`/`sm`/`hint` density
-- `DetailList` / `DetailListRow` — bordered key-value rows, optionally interactive (`onClick` upgrades a row to button semantics)
-- `LabeledField` — label + description row paired with an arbitrary trailing control
-- `SettingSwitch` — labeled toggle row built on `LabeledField` + `Switch`
+- `StatusBadge` - compact status pill (tone + label, optional leading dot/icon, `filled`/`outline` appearance)
+- `StatusDot` - small indicator dot with an optional `ping`/`flash` ring animation
+- `AlertBanner` - tinted status banner with icon, title/subtitle (or free-form children), trailing slot, and `default`/`sm`/`hint` density
+- `DetailList` / `DetailListRow` - bordered key-value rows, optionally interactive (`onClick` upgrades a row to button semantics)
+- `LabeledField` - label + description row paired with an arbitrary trailing control
+- `SettingSwitch` - labeled toggle row built on `LabeledField` + `Switch`
 
 Tone tokens are exported directly for custom rendering: `STATUS_TONES`, `STATUS_TONE_NAMES`, `statusToneClass(tone, slot)`, plus the `StatusTone` / `StatusToneToken` / `IconComponent` types.
 
@@ -250,7 +255,7 @@ Tone tokens are exported directly for custom rendering: `STATUS_TONES`, `STATUS_
 
 All form fields follow the same pattern: `value` + `onChange` + common field props (label, error, description, required, disabled, className).
 
-Every field also accepts `prefixControl` / `suffixControl` — a control rendered on the same row as the input (e.g. an add button, IconPicker, ColorPicker). Use these instead of composing a button next to the field: the control stays aligned with the input while description and error render below at full width.
+Every field also accepts `prefixControl` / `suffixControl` - a control rendered on the same row as the input (e.g. an add button, IconPicker, ColorPicker). Use these instead of composing a button next to the field: the control stays aligned with the input while description and error render below at full width.
 
 ```tsx
 <FormFields.TextField
@@ -369,7 +374,7 @@ import { FieldVariantContext } from "@simplix-react/ui";
 ```
 
 Options:
-- `layout`: `"top"` (default) | `"left"` | `"inline"` | `"trailing"` (control right-aligned with a dashed leader line from the label — the `SwitchField` default) | `"hidden"` (sr-only for accessibility)
+- `layout`: `"top"` (default) | `"left"` | `"inline"` | `"trailing"` (control right-aligned with a dashed leader line from the label - the `SwitchField` default) | `"hidden"` (sr-only for accessibility)
 - `size`: `"sm"` | `"md"` (default) | `"lg"`
 
 ### CRUD Layout Components
@@ -430,7 +435,7 @@ const { data, filters, sort, pagination, selection, emptyReason } = useCrudList(
 
 Sub-components: `List.Toolbar`, `List.Search`, `List.Filter`, `List.Table`, `List.Column`, `List.RowActions`, `List.Action`, `List.Pagination`, `List.BulkActions`, `List.BulkAction`, `List.Empty`
 
-`List.Table` and `Tree.Table` render a sticky header by default — once scrolling an outer container (a page, dialog, or detail-pane body) would hide the header row, it sticks to the top of the nearest scrollable ancestor. Wide tables keep their own horizontal scrollbar, and the floating header scrolls with its columns. Pass `stickyHeader={false}` to disable. Inside a `List.TableCard` the table owns its scroll region and the header is always sticky.
+`List.Table` and `Tree.Table` render a sticky header by default - once scrolling an outer container (a page, dialog, or detail-pane body) would hide the header row, it sticks to the top of the nearest scrollable ancestor. Wide tables keep their own horizontal scrollbar, and the floating header scrolls with its columns. Pass `stickyHeader={false}` to disable. Inside a `List.TableCard` the table owns its scroll region and the header is always sticky.
 
 #### CardList
 
@@ -678,7 +683,7 @@ Returns: `{ isVisible, shouldRender }`
 
 #### useListDetailState
 
-State management for the ListDetail pattern — tracks selected item and panel toggle.
+State management for the ListDetail pattern - tracks selected item and panel toggle.
 
 ```tsx
 const { selectedId, select, deselect, isDetailOpen } = useListDetailState({
@@ -704,7 +709,7 @@ Returns: `{ data, isLoading, error, isPaused, failureCount, filters, sort, pagin
 
 `emptyReason` is `"no-data"`, `"no-filter"`, `"no-search"`, `"error"`,
 `"unavailable"`, or `null`. `"unavailable"` covers a query that is neither
-settled successfully nor settled with an error — paused (React Query
+settled successfully nor settled with an error - paused (React Query
 `fetchStatus === "paused"`, which happens while the document is hidden or the
 browser reports offline) or waiting to retry after a failed attempt. Such a
 query reports `isLoading: false` and `error: null`, so it is reported as "the
@@ -820,7 +825,76 @@ Panel variant features:
 - Responsive: collapses to single-panel on mobile
 - Draggable divider with keyboard support (ArrowLeft/Right)
 
-`ListDetailRoot` is the same component as `ListDetail` — exported as an alias for compound pattern composition.
+`ListDetailRoot` is the same component as `ListDetail` - exported as an alias for compound pattern composition.
+
+#### CRUD search params
+
+`CrudSearch` is the address of a CRUD page. `validateCrudSearch` reads it from a router's raw search
+object and drops anything that is not one of its members, never throwing.
+
+| Member | Type | Meaning |
+|---|---|---|
+| `id` | `string` | The open record. |
+| `mode` | `"new" \| "edit"` | Whether the open view is a form. |
+| `tab` | `string` | The open tab. |
+| `filters` | `Record<string, string \| string[]>` | The list filters, keyed by filter key (`field.operator`, such as `status.in`). |
+
+`id`, `mode` and `tab` are reserved and are dropped from inside `filters`. A value that is a number,
+a boolean, a nested object or an array holding one, and any empty value, is dropped as well; a
+one-element array stays an array. `buildCrudSearch(view, id, tab, filters)` carries `tab` and
+`filters` through every view, so a record opened from a filtered list and closed again returns to the
+same filtered list.
+
+The framework knows no entity's filter keys. A page narrows `search.filters` to the keys its list
+declares before applying them, so a stale link never sends a parameter the server refuses, and it
+leaves out a filter over a field a tab already forces.
+
+**Applying and writing back.** `useCrudList` takes `addressedFilters` to keep its committed filters
+in the address:
+
+```tsx
+const nav = useCrudNavigation(search, onNavigate);
+const list = useCrudList(useListJobs, {
+  filterMode: "immediate",
+  addressedFilters: {
+    value: nav.filters,          // what the address carries now
+    onChange: nav.setFilters,    // writes the reader's change with `replace: true`
+    controls: filterDefs,        // so a toggle's "true" reads back as a boolean
+    forced: tabParams,           // filters over a field the tab pins are not applied
+  },
+});
+```
+
+A list opened with filters starts on them, draws them as badges in `CrudList.FilterBar` and sends
+its first request with them. A change the reader commits is handed to `onChange`; an address that
+changes under the list (a followed link, Back) is adopted and returns the list to its first page.
+`defaultFilters` apply only where the address names none. A filter over a field a tab pins is left
+out of the list but stays in the address until the reader's next filter change writes it out, and
+it applies again if the reader moves to a tab that no longer pins that field. A list without
+`addressedFilters` is unchanged. `onNavigate` is called as `onNavigate(search, { replace: true })` for a filter change, so
+the route's handler passes `replace` on:
+
+```tsx
+onNavigate={(next, options) => navigate({ to: "/jobs", search: next, replace: options?.replace })}
+```
+
+**One request for a count and its list.** `filtersToRequestParams(filters, { controls, forced,
+transformFilters, searchKey })` returns the request parameters the list sends for a set of filters,
+without its page window. A tile that counts what its link opens calls it for both:
+
+```tsx
+const failed = { "status.in": ["FAILED"] };
+const count = useListCount(useListJobs, filtersToRequestParams(failed));
+const href = { to: "/jobs", search: { filters: failed } };
+```
+
+**Wire form.** With `flatSearch` (the search serializer of `createRouter`), each filter is one
+bracketed parameter, an array repeated once per member:
+`/jobs?filters[status.in]=FAILED&filters[status.in]=PAUSED`. A filter written once reads back as a
+string; `decodeAddressedFilters` reads the set operators (`in`, `notIn`) as arrays either way. With
+a router's default serializer the object travels as JSON. `useUrlSync` is a separate, flat
+query-string mechanism; it writes `filters[key]` for the same keys but replaces the whole search, so
+a page that carries `id` or `tab` uses `addressedFilters` instead.
 
 ### Router Adapters
 
@@ -919,6 +993,7 @@ See root LICENSE file.
 ## Interfaces
 
 - [AdaptOrvalListOptions](interfaces/AdaptOrvalListOptions.md)
+- [AddressedFilters](interfaces/AddressedFilters.md)
 - [AdvancedSelectFilterOption](interfaces/AdvancedSelectFilterOption.md)
 - [AdvancedSelectFilterProps](interfaces/AdvancedSelectFilterProps.md)
 - [AdvancedTextFilterProps](interfaces/AdvancedTextFilterProps.md)
@@ -946,6 +1021,8 @@ See root LICENSE file.
 - [ChipFilterProps](interfaces/ChipFilterProps.md)
 - [ChoiceChipOption](interfaces/ChoiceChipOption.md)
 - [ChoiceChipsProps](interfaces/ChoiceChipsProps.md)
+- [CodeEdit](interfaces/CodeEdit.md)
+- [CodeInputProps](interfaces/CodeInputProps.md)
 - [ColorPickerProps](interfaces/ColorPickerProps.md)
 - [ColorTheme](interfaces/ColorTheme.md)
 - [ColumnInfo](interfaces/ColumnInfo.md)
@@ -978,6 +1055,7 @@ See root LICENSE file.
 - [CrudListSelection](interfaces/CrudListSelection.md)
 - [CrudListSort](interfaces/CrudListSort.md)
 - [CrudMutation](interfaces/CrudMutation.md)
+- [CrudNavigateOptions](interfaces/CrudNavigateOptions.md)
 - [CrudProviderProps](interfaces/CrudProviderProps.md)
 - [CrudSearch](interfaces/CrudSearch.md)
 - [CurrencyOption](interfaces/CurrencyOption.md)
@@ -988,6 +1066,8 @@ See root LICENSE file.
 - [DateRangeFilterDef](interfaces/DateRangeFilterDef.md)
 - [DateRangeFilterProps](interfaces/DateRangeFilterProps.md)
 - [DateRangePickerProps](interfaces/DateRangePickerProps.md)
+- [DeclaredFields](interfaces/DeclaredFields.md)
+- [DecodeAddressedFiltersOptions](interfaces/DecodeAddressedFiltersOptions.md)
 - [DeleteTarget](interfaces/DeleteTarget.md)
 - [DetailFieldWrapperProps](interfaces/DetailFieldWrapperProps.md)
 - [DetailListProps](interfaces/DetailListProps.md)
@@ -1002,6 +1082,13 @@ See root LICENSE file.
 - [DynamicColorIconProps](interfaces/DynamicColorIconProps.md)
 - [EditorFooterProps](interfaces/EditorFooterProps.md)
 - [EmptyStateProps](interfaces/EmptyStateProps.md)
+- [EmptyValueBadgeProps](interfaces/EmptyValueBadgeProps.md)
+- [EntityFacet](interfaces/EntityFacet.md)
+- [EntityFacetConfig](interfaces/EntityFacetConfig.md)
+- [EntityOption](interfaces/EntityOption.md)
+- [EntityOptionsConfig](interfaces/EntityOptionsConfig.md)
+- [EntitySearch](interfaces/EntitySearch.md)
+- [EntitySearchConfig](interfaces/EntitySearchConfig.md)
 - [ErrorBoundaryState](interfaces/ErrorBoundaryState.md)
 - [FacetedFilterDef](interfaces/FacetedFilterDef.md)
 - [FacetedFilterOption](interfaces/FacetedFilterOption.md)
@@ -1018,6 +1105,7 @@ See root LICENSE file.
 - [FilterBarProps](interfaces/FilterBarProps.md)
 - [FilterDateRange](interfaces/FilterDateRange.md)
 - [FilterState](interfaces/FilterState.md)
+- [FiltersToRequestParamsOptions](interfaces/FiltersToRequestParamsOptions.md)
 - [FixedMenuGroup](interfaces/FixedMenuGroup.md)
 - [FixedMenuItem](interfaces/FixedMenuItem.md)
 - [GridProps](interfaces/GridProps.md)
@@ -1050,6 +1138,7 @@ See root LICENSE file.
 - [ListHookResult](interfaces/ListHookResult.md)
 - [ListPaginationProps](interfaces/ListPaginationProps.md)
 - [ListProps](interfaces/ListProps.md)
+- [ListSearchParamsOptions](interfaces/ListSearchParamsOptions.md)
 - [ListSearchProps](interfaces/ListSearchProps.md)
 - [ListTableProps](interfaces/ListTableProps.md)
 - [ListTableSlots](interfaces/ListTableSlots.md)
@@ -1095,7 +1184,10 @@ See root LICENSE file.
 - [ResolveEmptyReasonInput](interfaces/ResolveEmptyReasonInput.md)
 - [RouteMatcherProviderProps](interfaces/RouteMatcherProviderProps.md)
 - [RouterAdapter](interfaces/RouterAdapter.md)
+- [RouterBlockDecision](interfaces/RouterBlockDecision.md)
+- [RouterBlockRequest](interfaces/RouterBlockRequest.md)
 - [RowActionDef](interfaces/RowActionDef.md)
+- [RunWithToastOptions](interfaces/RunWithToastOptions.md)
 - [SaveButtonProps](interfaces/SaveButtonProps.md)
 - [ScrollBoxProps](interfaces/ScrollBoxProps.md)
 - [SearchPopoverGroup](interfaces/SearchPopoverGroup.md)
@@ -1113,6 +1205,7 @@ See root LICENSE file.
 - [StatusBadgeProps](interfaces/StatusBadgeProps.md)
 - [StatusDotProps](interfaces/StatusDotProps.md)
 - [StatusToneToken](interfaces/StatusToneToken.md)
+- [StepIndicatorProps](interfaces/StepIndicatorProps.md)
 - [SteplineItem](interfaces/SteplineItem.md)
 - [SteplineProps](interfaces/SteplineProps.md)
 - [TableCardFrameProps](interfaces/TableCardFrameProps.md)
@@ -1121,6 +1214,7 @@ See root LICENSE file.
 - [TabsComponents](interfaces/TabsComponents.md)
 - [TabsContentProps](interfaces/TabsContentProps.md)
 - [TabsListProps](interfaces/TabsListProps.md)
+- [TanstackRouterLike](interfaces/TanstackRouterLike.md)
 - [TextFilterDef](interfaces/TextFilterDef.md)
 - [TextFilterOptionDef](interfaces/TextFilterOptionDef.md)
 - [TextFilterProps](interfaces/TextFilterProps.md)
@@ -1158,6 +1252,8 @@ See root LICENSE file.
 - [UseActiveMenuItemOptions](interfaces/UseActiveMenuItemOptions.md)
 - [UseAutosaveOptions](interfaces/UseAutosaveOptions.md)
 - [UseAutosaveReturn](interfaces/UseAutosaveReturn.md)
+- [UseCommandOptions](interfaces/UseCommandOptions.md)
+- [UseCommandResult](interfaces/UseCommandResult.md)
 - [UseCrudDeleteDetailResult](interfaces/UseCrudDeleteDetailResult.md)
 - [UseCrudDeleteListResult](interfaces/UseCrudDeleteListResult.md)
 - [UseCrudDeleteWiredOptions](interfaces/UseCrudDeleteWiredOptions.md)
@@ -1205,12 +1301,19 @@ See root LICENSE file.
 - [CardTag](type-aliases/CardTag.md)
 - [CardVariants](type-aliases/CardVariants.md)
 - [CheckboxProps](type-aliases/CheckboxProps.md)
+- [CommandDone](type-aliases/CommandDone.md)
+- [CommandFailed](type-aliases/CommandFailed.md)
+- [CommandInvalidation](type-aliases/CommandInvalidation.md)
+- [CommandMutationHook](type-aliases/CommandMutationHook.md)
+- [CommandOutcome](type-aliases/CommandOutcome.md)
 - [ContainerVariants](type-aliases/ContainerVariants.md)
 - [CrudDetailVariant](type-aliases/CrudDetailVariant.md)
 - [CrudListViewMode](type-aliases/CrudListViewMode.md)
+- [CrudSearchFilters](type-aliases/CrudSearchFilters.md)
 - [CrudView](type-aliases/CrudView.md)
 - [DateLike](type-aliases/DateLike.md)
 - [DetailView](type-aliases/DetailView.md)
+- [DialogBodyProps](type-aliases/DialogBodyProps.md)
 - [DialogContentProps](type-aliases/DialogContentProps.md)
 - [DialogDescriptionProps](type-aliases/DialogDescriptionProps.md)
 - [DialogFooterProps](type-aliases/DialogFooterProps.md)
@@ -1228,6 +1331,7 @@ See root LICENSE file.
 - [DynamicColorIconPreset](type-aliases/DynamicColorIconPreset.md)
 - [EmptyReason](type-aliases/EmptyReason.md)
 - [FieldWrapperChildren](type-aliases/FieldWrapperChildren.md)
+- [FilterControl](type-aliases/FilterControl.md)
 - [FilterDef](type-aliases/FilterDef.md)
 - [FlexProps](type-aliases/FlexProps.md)
 - [GeoPoint](type-aliases/GeoPoint.md)
@@ -1235,12 +1339,14 @@ See root LICENSE file.
 - [HeadingTag](type-aliases/HeadingTag.md)
 - [HeadingVariants](type-aliases/HeadingVariants.md)
 - [HeatmapColorTheme](type-aliases/HeatmapColorTheme.md)
+- [I18nFieldPairs](type-aliases/I18nFieldPairs.md)
 - [IconComponent](type-aliases/IconComponent.md)
 - [IconData](type-aliases/IconData.md)
 - [IconLibrary](type-aliases/IconLibrary.md)
 - [IconName](type-aliases/IconName.md)
 - [InputProps](type-aliases/InputProps.md)
 - [LabelProps](type-aliases/LabelProps.md)
+- [LanguageSelectorPlacement](type-aliases/LanguageSelectorPlacement.md)
 - [LinkTarget](type-aliases/LinkTarget.md)
 - [ListDetailProps](type-aliases/ListDetailProps.md)
 - [ListDetailVariant](type-aliases/ListDetailVariant.md)
@@ -1296,6 +1402,7 @@ See root LICENSE file.
 - [TextVariants](type-aliases/TextVariants.md)
 - [TooltipContentProps](type-aliases/TooltipContentProps.md)
 - [TooltipProviderProps](type-aliases/TooltipProviderProps.md)
+- [UnderForced](type-aliases/UnderForced.md)
 - [WithValidCoords](type-aliases/WithValidCoords.md)
 
 ## Variables
@@ -1309,7 +1416,6 @@ See root LICENSE file.
 - [buttonVariants](variables/buttonVariants.md)
 - [Calendar](variables/Calendar.md)
 - [Card](variables/Card.md)
-- [cardVariants](variables/cardVariants.md)
 - [Checkbox](variables/Checkbox.md)
 - [Command](variables/Command.md)
 - [CommandEmpty](variables/CommandEmpty.md)
@@ -1319,7 +1425,6 @@ See root LICENSE file.
 - [CommandList](variables/CommandList.md)
 - [CommandSeparator](variables/CommandSeparator.md)
 - [Container](variables/Container.md)
-- [containerVariants](variables/containerVariants.md)
 - [CrudDetail](variables/CrudDetail.md)
 - [CrudForm](variables/CrudForm.md)
 - [CrudList](variables/CrudList.md)
@@ -1354,10 +1459,11 @@ See root LICENSE file.
 - [DropdownMenuSubTrigger](variables/DropdownMenuSubTrigger.md)
 - [DropdownMenuTrigger](variables/DropdownMenuTrigger.md)
 - [DynamicColorIconPresets](variables/DynamicColorIconPresets.md)
+- [EMPTY\_VALUE\_TEXT](variables/EMPTY_VALUE_TEXT.md)
 - [FieldVariantContext](variables/FieldVariantContext.md)
+- [flatSearch](variables/flatSearch.md)
 - [Flex](variables/Flex.md)
 - [Grid](variables/Grid.md)
-- [gridVariants](variables/gridVariants.md)
 - [Heading](variables/Heading.md)
 - [headingVariants](variables/headingVariants.md)
 - [HEATMAP\_THEMES](variables/HEATMAP_THEMES.md)
@@ -1365,6 +1471,7 @@ See root LICENSE file.
 - [IconPicker](variables/IconPicker.md)
 - [Input](variables/Input.md)
 - [Label](variables/Label.md)
+- [LIST\_READ\_META](variables/LIST_READ_META.md)
 - [ListDetail](variables/ListDetail.md)
 - [Map](variables/Map.md)
 - [MENU\_TREE\_QUERY\_KEY](variables/MENU_TREE_QUERY_KEY.md)
@@ -1375,11 +1482,11 @@ See root LICENSE file.
 - [NavigationMenuLink](variables/NavigationMenuLink.md)
 - [NavigationMenuList](variables/NavigationMenuList.md)
 - [NavigationMenuTrigger](variables/NavigationMenuTrigger.md)
-- [navigationMenuTriggerStyle](variables/navigationMenuTriggerStyle.md)
 - [NavigationMenuViewport](variables/NavigationMenuViewport.md)
 - [NumberInput](variables/NumberInput.md)
 - [numberOperatorOrder](variables/numberOperatorOrder.md)
 - [operatorConfig](variables/operatorConfig.md)
+- [OWN\_REFUSAL\_META](variables/OWN_REFUSAL_META.md)
 - [Popover](variables/Popover.md)
 - [PopoverAnchor](variables/PopoverAnchor.md)
 - [PopoverContent](variables/PopoverContent.md)
@@ -1388,6 +1495,7 @@ See root LICENSE file.
 - [RadioGroupItem](variables/RadioGroupItem.md)
 - [RouteMatcherContext](variables/RouteMatcherContext.md)
 - [RouterContext](variables/RouterContext.md)
+- [SEARCHABLE\_KEYWORD\_PARAM](variables/SEARCHABLE_KEYWORD_PARAM.md)
 - [Section](variables/Section.md)
 - [Select](variables/Select.md)
 - [SelectContent](variables/SelectContent.md)
@@ -1407,7 +1515,6 @@ See root LICENSE file.
 - [SheetTrigger](variables/SheetTrigger.md)
 - [Skeleton](variables/Skeleton.md)
 - [Stack](variables/Stack.md)
-- [stackVariants](variables/stackVariants.md)
 - [STATUS\_TONE\_NAMES](variables/STATUS_TONE_NAMES.md)
 - [STATUS\_TONES](variables/STATUS_TONES.md)
 - [StatusBadge](variables/StatusBadge.md)
@@ -1442,6 +1549,7 @@ See root LICENSE file.
 
 ## Functions
 
+- [adaptForcedList](functions/adaptForcedList.md)
 - [adaptOrvalCreate](functions/adaptOrvalCreate.md)
 - [adaptOrvalDelete](functions/adaptOrvalDelete.md)
 - [adaptOrvalGet](functions/adaptOrvalGet.md)
@@ -1459,6 +1567,7 @@ See root LICENSE file.
 - [buildCrudSearch](functions/buildCrudSearch.md)
 - [CalendarDateText](functions/CalendarDateText.md)
 - [CardList](functions/CardList.md)
+- [cardVariants](functions/cardVariants.md)
 - [ChartProvider](functions/ChartProvider.md)
 - [ChipFilter](functions/ChipFilter.md)
 - [chipFilterValues](functions/chipFilterValues.md)
@@ -1466,6 +1575,11 @@ See root LICENSE file.
 - [clampTimeValue](functions/clampTimeValue.md)
 - [clampToRange](functions/clampToRange.md)
 - [cn](functions/cn.md)
+- [codeBackspace](functions/codeBackspace.md)
+- [codeFocusable](functions/codeFocusable.md)
+- [CodeInput](functions/CodeInput.md)
+- [codePaste](functions/codePaste.md)
+- [codeType](functions/codeType.md)
 - [collectExpandKeys](functions/collectExpandKeys.md)
 - [ColorDot](functions/ColorDot.md)
 - [ColorPicker](functions/ColorPicker.md)
@@ -1473,11 +1587,16 @@ See root LICENSE file.
 - [computeBounds](functions/computeBounds.md)
 - [configureAttachmentTransport](functions/configureAttachmentTransport.md)
 - [ConfirmDialog](functions/ConfirmDialog.md)
+- [containerVariants](functions/containerVariants.md)
 - [countryFromTimezone](functions/countryFromTimezone.md)
 - [createAppConfig](functions/createAppConfig.md)
+- [createEntityFacet](functions/createEntityFacet.md)
+- [createEntityOptions](functions/createEntityOptions.md)
+- [createEntitySearch](functions/createEntitySearch.md)
 - [createFileFieldApi](functions/createFileFieldApi.md)
 - [createOverrides](functions/createOverrides.md)
 - [createReactRouterAdapter](functions/createReactRouterAdapter.md)
+- [createTanstackRouterAdapter](functions/createTanstackRouterAdapter.md)
 - [cropImageToFile](functions/cropImageToFile.md)
 - [CropModal](functions/CropModal.md)
 - [CrudDelete](functions/CrudDelete.md)
@@ -1488,18 +1607,25 @@ See root LICENSE file.
 - [DatePicker](functions/DatePicker.md)
 - [DateRangeFilter](functions/DateRangeFilter.md)
 - [DateRangePicker](functions/DateRangePicker.md)
+- [decodeAddressedFilters](functions/decodeAddressedFilters.md)
 - [decodeCalendarDate](functions/decodeCalendarDate.md)
 - [decodeInstant](functions/decodeInstant.md)
 - [decodeWallClockTime](functions/decodeWallClockTime.md)
 - [destinationPoint](functions/destinationPoint.md)
 - [DetailFieldWrapper](functions/DetailFieldWrapper.md)
+- [DialogBody](functions/DialogBody.md)
 - [DialogFooter](functions/DialogFooter.md)
 - [DialogHeader](functions/DialogHeader.md)
+- [dismissAllErrors](functions/dismissAllErrors.md)
+- [dismissError](functions/dismissError.md)
+- [dispatchError](functions/dispatchError.md)
 - [DisplayZoneProvider](functions/DisplayZoneProvider.md)
 - [DynamicColorIcon](functions/DynamicColorIcon.md)
 - [EditorFooter](functions/EditorFooter.md)
 - [EmptyState](functions/EmptyState.md)
 - [EmptyValue](functions/EmptyValue.md)
+- [EmptyValueBadge](functions/EmptyValueBadge.md)
+- [encodeAddressedFilters](functions/encodeAddressedFilters.md)
 - [endOfDay](functions/endOfDay.md)
 - [endOfMonth](functions/endOfMonth.md)
 - [endOfWeek](functions/endOfWeek.md)
@@ -1510,7 +1636,10 @@ See root LICENSE file.
 - [FieldWrapper](functions/FieldWrapper.md)
 - [FilterActions](functions/FilterActions.md)
 - [FilterBar](functions/FilterBar.md)
+- [filtersOutsideForced](functions/filtersOutsideForced.md)
+- [filtersToRequestParams](functions/filtersToRequestParams.md)
 - [fitMapToBounds](functions/fitMapToBounds.md)
+- [forcedScope](functions/forcedScope.md)
 - [formatBytes](functions/formatBytes.md)
 - [formatDateMedium](functions/formatDateMedium.md)
 - [formatDateRange](functions/formatDateRange.md)
@@ -1523,12 +1652,15 @@ See root LICENSE file.
 - [getAttachmentTransport](functions/getAttachmentTransport.md)
 - [getFilterLayout](functions/getFilterLayout.md)
 - [getSiblings](functions/getSiblings.md)
+- [gridVariants](functions/gridVariants.md)
 - [GroupedToggleField](functions/GroupedToggleField.md)
 - [groupValidationErrors](functions/groupValidationErrors.md)
 - [haversineDistance](functions/haversineDistance.md)
 - [I18nText](functions/I18nText.md)
 - [IconField](functions/IconField.md)
 - [insertFilterSeparators](functions/insertFilterSeparators.md)
+- [installClipboardFallback](functions/installClipboardFallback.md)
+- [installRandomUUIDFallback](functions/installRandomUUIDFallback.md)
 - [InstantText](functions/InstantText.md)
 - [isHourDisabled](functions/isHourDisabled.md)
 - [isHourOutOfRange](functions/isHourOutOfRange.md)
@@ -1542,6 +1674,7 @@ See root LICENSE file.
 - [LabeledField](functions/LabeledField.md)
 - [ListDetailRoot](functions/ListDetailRoot.md)
 - [ListDetailViewSwitch](functions/ListDetailViewSwitch.md)
+- [listSearchParams](functions/listSearchParams.md)
 - [ListTotalBadge](functions/ListTotalBadge.md)
 - [makeFilterKey](functions/makeFilterKey.md)
 - [MapAutoFit](functions/MapAutoFit.md)
@@ -1556,6 +1689,7 @@ See root LICENSE file.
 - [MenuProvider](functions/MenuProvider.md)
 - [MultiTextFilter](functions/MultiTextFilter.md)
 - [NavigationMenu](functions/NavigationMenu.md)
+- [navigationMenuTriggerStyle](functions/navigationMenuTriggerStyle.md)
 - [NumberFilter](functions/NumberFilter.md)
 - [padTimeUnit](functions/padTimeUnit.md)
 - [PageHeaderProvider](functions/PageHeaderProvider.md)
@@ -1564,13 +1698,17 @@ See root LICENSE file.
 - [parseDate](functions/parseDate.md)
 - [parseFilterKey](functions/parseFilterKey.md)
 - [parseRfc3339](functions/parseRfc3339.md)
+- [prepareValues](functions/prepareValues.md)
 - [QrCode](functions/QrCode.md)
 - [QueryFallback](functions/QueryFallback.md)
+- [readsUnder](functions/readsUnder.md)
 - [removeToast](functions/removeToast.md)
 - [resolveEmptyReason](functions/resolveEmptyReason.md)
 - [RouteMatcherProvider](functions/RouteMatcherProvider.md)
 - [RowActionCell](functions/RowActionCell.md)
+- [runWithToast](functions/runWithToast.md)
 - [sanitizeHtml](functions/sanitizeHtml.md)
+- [saveBlob](functions/saveBlob.md)
 - [SaveButton](functions/SaveButton.md)
 - [ScrollBox](functions/ScrollBox.md)
 - [SearchPopover](functions/SearchPopover.md)
@@ -1582,13 +1720,16 @@ See root LICENSE file.
 - [SettingSwitch](functions/SettingSwitch.md)
 - [SheetFooter](functions/SheetFooter.md)
 - [SheetHeader](functions/SheetHeader.md)
+- [shortEntityId](functions/shortEntityId.md)
 - [SignaturePad](functions/SignaturePad.md)
+- [stackVariants](functions/stackVariants.md)
 - [startOfDay](functions/startOfDay.md)
 - [startOfMonth](functions/startOfMonth.md)
 - [startOfWeek](functions/startOfWeek.md)
 - [startOfYear](functions/startOfYear.md)
 - [StatCard](functions/StatCard.md)
 - [statusToneClass](functions/statusToneClass.md)
+- [StepIndicator](functions/StepIndicator.md)
 - [Stepline](functions/Stepline.md)
 - [subDays](functions/subDays.md)
 - [TableCardFrame](functions/TableCardFrame.md)
@@ -1613,6 +1754,7 @@ See root LICENSE file.
 - [useAutosave](functions/useAutosave.md)
 - [useBeforeUnload](functions/useBeforeUnload.md)
 - [useChartAdapter](functions/useChartAdapter.md)
+- [useCommand](functions/useCommand.md)
 - [useContainerWidth](functions/useContainerWidth.md)
 - [useCountryOptions](functions/useCountryOptions.md)
 - [useCrudDeleteDetail](functions/useCrudDeleteDetail.md)
@@ -1626,6 +1768,7 @@ See root LICENSE file.
 - [useCurrencyOptions](functions/useCurrencyOptions.md)
 - [useDefaultDisplayZone](functions/useDefaultDisplayZone.md)
 - [useDialogMaximized](functions/useDialogMaximized.md)
+- [useErrorStore](functions/useErrorStore.md)
 - [useFadeTransition](functions/useFadeTransition.md)
 - [useFieldVariant](functions/useFieldVariant.md)
 - [useFilePolicy](functions/useFilePolicy.md)
@@ -1661,6 +1804,7 @@ See root LICENSE file.
 - [useVirtualList](functions/useVirtualList.md)
 - [validateCrudSearch](functions/validateCrudSearch.md)
 - [WallClockText](functions/WallClockText.md)
+- [withForced](functions/withForced.md)
 - [withOverride](functions/withOverride.md)
 - [withTime](functions/withTime.md)
 - [wrapValue](functions/wrapValue.md)

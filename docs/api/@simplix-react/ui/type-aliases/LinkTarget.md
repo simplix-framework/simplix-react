@@ -8,4 +8,4 @@
 
 > **LinkTarget** = `"SELF"` \| `"BLANK"` \| `"WINDOW"`
 
-Defined in: [packages/ui/src/menu/menu-types.ts:4](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L4)
+Defined in: [packages/ui/src/menu/menu-types.ts:4](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L4)

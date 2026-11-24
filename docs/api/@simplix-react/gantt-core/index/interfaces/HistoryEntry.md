@@ -6,7 +6,7 @@
 
 # Interface: HistoryEntry\<T\>
 
-Defined in: [packages/gantt-core/src/history.ts:14](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/history.ts#L14)
+Defined in: [packages/gantt-core/src/history.ts:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/history.ts#L14)
 
 A state and the label of the change that replaced it.
 
@@ -22,7 +22,7 @@ A state and the label of the change that replaced it.
 
 > `readonly` **label**: `string`
 
-Defined in: [packages/gantt-core/src/history.ts:16](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/history.ts#L16)
+Defined in: [packages/gantt-core/src/history.ts:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/history.ts#L16)
 
 ***
 
@@ -30,4 +30,4 @@ Defined in: [packages/gantt-core/src/history.ts:16](https://github.com/simplix-r
 
 > `readonly` **state**: `T`
 
-Defined in: [packages/gantt-core/src/history.ts:15](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/history.ts#L15)
+Defined in: [packages/gantt-core/src/history.ts:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/history.ts#L15)

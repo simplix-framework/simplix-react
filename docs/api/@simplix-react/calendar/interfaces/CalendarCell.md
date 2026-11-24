@@ -6,7 +6,7 @@
 
 # Interface: CalendarCell
 
-Defined in: [model/types.ts:113](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L113)
+Defined in: [model/types.ts:113](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L113)
 
 A single month-grid cell descriptor.
 
@@ -16,7 +16,7 @@ A single month-grid cell descriptor.
 
 > **currentMonth**: `boolean`
 
-Defined in: [model/types.ts:115](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L115)
+Defined in: [model/types.ts:115](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L115)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [model/types.ts:115](https://github.com/simplix-react/simplix-react/
 
 > **date**: `Date`
 
-Defined in: [model/types.ts:116](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L116)
+Defined in: [model/types.ts:116](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L116)
 
 ***
 
@@ -32,4 +32,4 @@ Defined in: [model/types.ts:116](https://github.com/simplix-react/simplix-react/
 
 > **day**: `number`
 
-Defined in: [model/types.ts:114](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L114)
+Defined in: [model/types.ts:114](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L114)

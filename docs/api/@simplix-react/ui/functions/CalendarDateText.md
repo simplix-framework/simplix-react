@@ -8,7 +8,7 @@
 
 > **CalendarDateText**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/base/display/date-time-text.tsx:70](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/date-time-text.tsx#L70)
+Defined in: [packages/ui/src/base/display/date-time-text.tsx:70](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/date-time-text.tsx#L70)
 
 Inline text for a zone-neutral calendar date (a `LocalDate`), rendered without a
 display zone so it never shifts with the viewer's location.

@@ -8,4 +8,4 @@
 
 > `const` **CommandItem**: `ForwardRefExoticComponent`\<`Omit`\<`Children` & `Omit`\<`Pick`\<`Pick`\<`DetailedHTMLProps`\<`HTMLAttributes`\<`HTMLDivElement`\>, `HTMLDivElement`\>, `"key"` \| keyof HTMLAttributes\<HTMLDivElement\>\> & `object` & `object`, `"asChild"` \| `"key"` \| keyof HTMLAttributes\<HTMLDivElement\>\>, `"value"` \| `"disabled"` \| `"onSelect"`\> & `object` & `RefAttributes`\<`HTMLDivElement`\>, `"ref"`\> & `RefAttributes`\<`HTMLDivElement`\>\>
 
-Defined in: [packages/ui/src/base/inputs/command.tsx:80](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/command.tsx#L80)
+Defined in: [packages/ui/src/base/inputs/command.tsx:98](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/command.tsx#L98)

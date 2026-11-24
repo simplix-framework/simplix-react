@@ -8,7 +8,7 @@
 
 > **useCalendarResourceFilter**(): `object`
 
-Defined in: [context/calendar-context.tsx:264](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L264)
+Defined in: [context/calendar-context.tsx:283](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L283)
 
 Resource filter state plus the resource directory.
 

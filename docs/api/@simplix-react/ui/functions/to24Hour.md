@@ -8,7 +8,7 @@
 
 > **to24Hour**(`hour12`, `pm`): `number`
 
-Defined in: [packages/headless/dist/index.d.ts:561](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L561)
+Defined in: [packages/headless/dist/index.d.ts:606](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L606)
 
 Convert a 12-hour clock value (1-12) with meridiem to a 24-hour value (0-23).
 

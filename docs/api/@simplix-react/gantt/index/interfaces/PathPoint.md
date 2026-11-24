@@ -6,7 +6,7 @@
 
 # Interface: PathPoint
 
-Defined in: [lib/link-path.ts:11](https://github.com/simplix-react/simplix-react/blob/main/lib/link-path.ts#L11)
+Defined in: [lib/link-path.ts:11](https://github.com/simplix-framework/simplix-react/blob/main/lib/link-path.ts#L11)
 
 A point of a link's polyline.
 
@@ -16,7 +16,7 @@ A point of a link's polyline.
 
 > **x**: `number`
 
-Defined in: [lib/link-path.ts:12](https://github.com/simplix-react/simplix-react/blob/main/lib/link-path.ts#L12)
+Defined in: [lib/link-path.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/lib/link-path.ts#L12)
 
 ***
 
@@ -24,4 +24,4 @@ Defined in: [lib/link-path.ts:12](https://github.com/simplix-react/simplix-react
 
 > **y**: `number`
 
-Defined in: [lib/link-path.ts:13](https://github.com/simplix-react/simplix-react/blob/main/lib/link-path.ts#L13)
+Defined in: [lib/link-path.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/lib/link-path.ts#L13)

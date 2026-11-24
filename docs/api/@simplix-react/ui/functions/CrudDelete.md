@@ -8,7 +8,7 @@
 
 > **CrudDelete**(`props`): `Element`
 
-Defined in: [packages/ui/src/crud/delete/crud-delete.tsx:49](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/delete/crud-delete.tsx#L49)
+Defined in: [packages/ui/src/crud/delete/crud-delete.tsx:49](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/delete/crud-delete.tsx#L49)
 
 Delete confirmation dialog using Radix AlertDialog.
 

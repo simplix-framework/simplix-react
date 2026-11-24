@@ -6,7 +6,7 @@
 
 # Interface: ModalSidebarBlockProps
 
-Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:26](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/modal/modal-sidebar.tsx#L26)
+Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/modal/modal-sidebar.tsx#L31)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:26](https://github.com
 
 > **children**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:28](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/modal/modal-sidebar.tsx#L28)
+Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:33](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/modal/modal-sidebar.tsx#L33)
 
 ***
 
@@ -22,4 +22,4 @@ Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:28](https://github.com
 
 > **title**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:27](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/modal/modal-sidebar.tsx#L27)
+Defined in: [packages/ui/src/crud/modal/modal-sidebar.tsx:32](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/modal/modal-sidebar.tsx#L32)

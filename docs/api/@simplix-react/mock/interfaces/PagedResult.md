@@ -6,7 +6,7 @@
 
 # Interface: PagedResult\<T\>
 
-Defined in: [mock-entity-store.ts:9](https://github.com/simplix-react/simplix-react/blob/main/mock-entity-store.ts#L9)
+Defined in: [mock-entity-store.ts:9](https://github.com/simplix-framework/simplix-react/blob/main/mock-entity-store.ts#L9)
 
 Typed in-memory entity store for Orval-based mock handlers.
 
@@ -26,7 +26,7 @@ and provides a simple CRUD API backed by an array.
 
 > **content**: `T`[]
 
-Defined in: [mock-entity-store.ts:10](https://github.com/simplix-react/simplix-react/blob/main/mock-entity-store.ts#L10)
+Defined in: [mock-entity-store.ts:10](https://github.com/simplix-framework/simplix-react/blob/main/mock-entity-store.ts#L10)
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: [mock-entity-store.ts:10](https://github.com/simplix-react/simplix-r
 
 > **empty**: `boolean`
 
-Defined in: [mock-entity-store.ts:17](https://github.com/simplix-react/simplix-react/blob/main/mock-entity-store.ts#L17)
+Defined in: [mock-entity-store.ts:17](https://github.com/simplix-framework/simplix-react/blob/main/mock-entity-store.ts#L17)
 
 ***
 
@@ -42,7 +42,7 @@ Defined in: [mock-entity-store.ts:17](https://github.com/simplix-react/simplix-r
 
 > **first**: `boolean`
 
-Defined in: [mock-entity-store.ts:15](https://github.com/simplix-react/simplix-react/blob/main/mock-entity-store.ts#L15)
+Defined in: [mock-entity-store.ts:15](https://github.com/simplix-framework/simplix-react/blob/main/mock-entity-store.ts#L15)
 
 ***
 
@@ -50,7 +50,7 @@ Defined in: [mock-entity-store.ts:15](https://github.com/simplix-react/simplix-r
 
 > **last**: `boolean`
 
-Defined in: [mock-entity-store.ts:16](https://github.com/simplix-react/simplix-react/blob/main/mock-entity-store.ts#L16)
+Defined in: [mock-entity-store.ts:16](https://github.com/simplix-framework/simplix-react/blob/main/mock-entity-store.ts#L16)
 
 ***
 
@@ -58,7 +58,7 @@ Defined in: [mock-entity-store.ts:16](https://github.com/simplix-react/simplix-r
 
 > **number**: `number`
 
-Defined in: [mock-entity-store.ts:13](https://github.com/simplix-react/simplix-react/blob/main/mock-entity-store.ts#L13)
+Defined in: [mock-entity-store.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/mock-entity-store.ts#L13)
 
 ***
 
@@ -66,7 +66,7 @@ Defined in: [mock-entity-store.ts:13](https://github.com/simplix-react/simplix-r
 
 > **size**: `number`
 
-Defined in: [mock-entity-store.ts:14](https://github.com/simplix-react/simplix-react/blob/main/mock-entity-store.ts#L14)
+Defined in: [mock-entity-store.ts:14](https://github.com/simplix-framework/simplix-react/blob/main/mock-entity-store.ts#L14)
 
 ***
 
@@ -74,7 +74,7 @@ Defined in: [mock-entity-store.ts:14](https://github.com/simplix-react/simplix-r
 
 > **totalElements**: `number`
 
-Defined in: [mock-entity-store.ts:11](https://github.com/simplix-react/simplix-react/blob/main/mock-entity-store.ts#L11)
+Defined in: [mock-entity-store.ts:11](https://github.com/simplix-framework/simplix-react/blob/main/mock-entity-store.ts#L11)
 
 ***
 
@@ -82,4 +82,4 @@ Defined in: [mock-entity-store.ts:11](https://github.com/simplix-react/simplix-r
 
 > **totalPages**: `number`
 
-Defined in: [mock-entity-store.ts:12](https://github.com/simplix-react/simplix-react/blob/main/mock-entity-store.ts#L12)
+Defined in: [mock-entity-store.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/mock-entity-store.ts#L12)

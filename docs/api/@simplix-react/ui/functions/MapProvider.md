@@ -8,7 +8,7 @@
 
 > **MapProvider**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/base/map/map-provider.tsx:18](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map-provider.tsx#L18)
+Defined in: [packages/ui/src/base/map/map-provider.tsx:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map-provider.tsx#L18)
 
 ## Parameters
 

@@ -8,7 +8,7 @@
 
 > **EditorFooter**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/layout/editor-footer.tsx:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/layout/editor-footer.tsx#L11)
+Defined in: [packages/ui/src/layout/editor-footer.tsx:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/layout/editor-footer.tsx#L12)
 
 ## Parameters
 

@@ -6,7 +6,7 @@
 
 # Interface: DetailTextFieldProps
 
-Defined in: [packages/ui/src/fields/detail/text-field.tsx:9](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/text-field.tsx#L9)
+Defined in: [packages/ui/src/fields/detail/text-field.tsx:10](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/text-field.tsx#L10)
 
 Props for the [DetailTextField](../functions/DetailTextField.md) component.
 
@@ -20,7 +20,7 @@ Props for the [DetailTextField](../functions/DetailTextField.md) component.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
+Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
 
 #### Inherited from
 
@@ -32,7 +32,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix
 
 > `optional` **copyable**: `boolean`
 
-Defined in: [packages/ui/src/fields/detail/text-field.tsx:15](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/text-field.tsx#L15)
+Defined in: [packages/ui/src/fields/detail/text-field.tsx:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/text-field.tsx#L16)
 
 Whether to show a copy-to-clipboard button.
 
@@ -42,7 +42,7 @@ Whether to show a copy-to-clipboard button.
 
 > `optional` **fallback**: `string`
 
-Defined in: [packages/ui/src/fields/detail/text-field.tsx:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/text-field.tsx#L13)
+Defined in: [packages/ui/src/fields/detail/text-field.tsx:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/text-field.tsx#L14)
 
 Fallback text when value is null, undefined, or empty string. Defaults to the shared no-value badge.
 
@@ -52,7 +52,7 @@ Fallback text when value is null, undefined, or empty string. Defaults to the sh
 
 > `optional` **label**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
+Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
 
 #### Inherited from
 
@@ -64,7 +64,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix
 
 > `optional` **labelKey**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
+Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
 
 #### Inherited from
 
@@ -76,7 +76,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix
 
 > `optional` **layout**: `"inline"` \| `"left"` \| `"top"` \| `"hidden"` \| `"trailing"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
+Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
 
 Label placement. `"top"` stacks the label above the input, `"left"` puts
 it in a leading column, `"inline"` keeps label and input on one row,
@@ -94,7 +94,7 @@ label for screen readers only.
 
 > `optional` **size**: `"sm"` \| `"lg"` \| `"md"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
+Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
 
 #### Inherited from
 
@@ -106,6 +106,6 @@ Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix
 
 > **value**: `string` \| `null` \| `undefined`
 
-Defined in: [packages/ui/src/fields/detail/text-field.tsx:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/text-field.tsx#L11)
+Defined in: [packages/ui/src/fields/detail/text-field.tsx:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/text-field.tsx#L12)
 
 Text value to display.

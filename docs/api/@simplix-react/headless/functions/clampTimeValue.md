@@ -8,7 +8,7 @@
 
 > **clampTimeValue**(`time`, `minTime?`, `maxTime?`): [`TimeValue`](../interfaces/TimeValue.md)
 
-Defined in: [time-select.ts:113](https://github.com/simplix-react/simplix-react/blob/main/time-select.ts#L113)
+Defined in: [time-select.ts:113](https://github.com/simplix-framework/simplix-react/blob/main/time-select.ts#L113)
 
 Clamp a time of day into [minTime, maxTime].
 

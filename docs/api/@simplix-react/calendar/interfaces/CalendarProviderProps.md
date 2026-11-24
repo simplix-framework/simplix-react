@@ -6,7 +6,7 @@
 
 # Interface: CalendarProviderProps
 
-Defined in: [context/calendar-context.tsx:78](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L78)
+Defined in: [context/calendar-context.tsx:94](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L94)
 
 Props for [CalendarProvider](../functions/CalendarProvider.md).
 
@@ -20,7 +20,7 @@ Props for [CalendarProvider](../functions/CalendarProvider.md).
 
 > `optional` **agendaScope**: [`AgendaScope`](../type-aliases/AgendaScope.md)
 
-Defined in: [model/calendar-store.ts:48](https://github.com/simplix-react/simplix-react/blob/main/model/calendar-store.ts#L48)
+Defined in: [model/calendar-store.ts:48](https://github.com/simplix-framework/simplix-react/blob/main/model/calendar-store.ts#L48)
 
 Agenda view span: one month (default) or the whole year.
 
@@ -34,7 +34,7 @@ Agenda view span: one month (default) or the whole year.
 
 > `optional` **badgeVariant**: [`BadgeVariant`](../type-aliases/BadgeVariant.md)
 
-Defined in: [model/calendar-store.ts:51](https://github.com/simplix-react/simplix-react/blob/main/model/calendar-store.ts#L51)
+Defined in: [model/calendar-store.ts:51](https://github.com/simplix-framework/simplix-react/blob/main/model/calendar-store.ts#L51)
 
 #### Inherited from
 
@@ -46,7 +46,7 @@ Defined in: [model/calendar-store.ts:51](https://github.com/simplix-react/simpli
 
 > **children**: `ReactNode`
 
-Defined in: [context/calendar-context.tsx:85](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L85)
+Defined in: [context/calendar-context.tsx:101](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L101)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: [context/calendar-context.tsx:85](https://github.com/simplix-react/s
 
 > `optional` **dayHighlights**: [`DayHighlight`](DayHighlight.md)[]
 
-Defined in: [context/calendar-context.tsx:46](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L46)
+Defined in: [context/calendar-context.tsx:46](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L46)
 
 Generic per-day emphasis applied across month/day/week/timeline (holiday mechanism).
 
@@ -68,7 +68,7 @@ Generic per-day emphasis applied across month/day/week/timeline (holiday mechani
 
 > `optional` **defaultDate**: `Date`
 
-Defined in: [model/calendar-store.ts:49](https://github.com/simplix-react/simplix-react/blob/main/model/calendar-store.ts#L49)
+Defined in: [model/calendar-store.ts:49](https://github.com/simplix-framework/simplix-react/blob/main/model/calendar-store.ts#L49)
 
 #### Inherited from
 
@@ -80,7 +80,7 @@ Defined in: [model/calendar-store.ts:49](https://github.com/simplix-react/simpli
 
 > `optional` **defaultResourceId**: `string`
 
-Defined in: [model/calendar-store.ts:50](https://github.com/simplix-react/simplix-react/blob/main/model/calendar-store.ts#L50)
+Defined in: [model/calendar-store.ts:50](https://github.com/simplix-framework/simplix-react/blob/main/model/calendar-store.ts#L50)
 
 #### Inherited from
 
@@ -92,7 +92,7 @@ Defined in: [model/calendar-store.ts:50](https://github.com/simplix-react/simpli
 
 > `optional` **defaultView**: [`CalendarView`](../type-aliases/CalendarView.md)
 
-Defined in: [model/calendar-store.ts:46](https://github.com/simplix-react/simplix-react/blob/main/model/calendar-store.ts#L46)
+Defined in: [model/calendar-store.ts:46](https://github.com/simplix-framework/simplix-react/blob/main/model/calendar-store.ts#L46)
 
 #### Inherited from
 
@@ -104,7 +104,7 @@ Defined in: [model/calendar-store.ts:46](https://github.com/simplix-react/simpli
 
 > `optional` **dndEnabled**: `boolean`
 
-Defined in: [context/calendar-context.tsx:84](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L84)
+Defined in: [context/calendar-context.tsx:100](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L100)
 
 Enable react-dnd drag-drop of items across cells/time slots.
 
@@ -114,7 +114,7 @@ Enable react-dnd drag-drop of items across cells/time slots.
 
 > `optional` **heatmap**: [`HeatmapCell`](HeatmapCell.md)[]
 
-Defined in: [context/calendar-context.tsx:42](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L42)
+Defined in: [context/calendar-context.tsx:42](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L42)
 
 Aggregate date×hour×count buckets for the heatmap month view.
 
@@ -128,7 +128,7 @@ Aggregate date×hour×count buckets for the heatmap month view.
 
 > `optional` **heatmapMax**: `number`
 
-Defined in: [context/calendar-context.tsx:44](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L44)
+Defined in: [context/calendar-context.tsx:44](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L44)
 
 Relative scale denominator; when absent, the visible month's max count is used.
 
@@ -142,7 +142,7 @@ Relative scale denominator; when absent, the visible month's max count is used.
 
 > `optional` **hourHeight**: `number` \| `"fit"`
 
-Defined in: [model/calendar-store.ts:55](https://github.com/simplix-react/simplix-react/blob/main/model/calendar-store.ts#L55)
+Defined in: [model/calendar-store.ts:55](https://github.com/simplix-framework/simplix-react/blob/main/model/calendar-store.ts#L55)
 
 Pixels per hour in the time grids (default 96); `"fit"` fills the body height.
 
@@ -156,7 +156,7 @@ Pixels per hour in the time grids (default 96); `"fit"` fills the body height.
 
 > **items**: [`CalendarItem`](CalendarItem.md)\<`unknown`\>[]
 
-Defined in: [context/calendar-context.tsx:80](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L80)
+Defined in: [context/calendar-context.tsx:96](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L96)
 
 Items to render. Consumer converts DTOs to the [CalendarItem](CalendarItem.md) shape.
 
@@ -166,7 +166,7 @@ Items to render. Consumer converts DTOs to the [CalendarItem](CalendarItem.md) s
 
 > `optional` **onCellClick**: (`date`) => `void`
 
-Defined in: [context/calendar-context.tsx:23](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L23)
+Defined in: [context/calendar-context.tsx:23](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L23)
 
 Fired when an empty cell/time slot is activated; receives the slot instant.
 
@@ -190,7 +190,7 @@ Fired when an empty cell/time slot is activated; receives the slot instant.
 
 > `optional` **onItemClick**: (`item`) => `void`
 
-Defined in: [context/calendar-context.tsx:21](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L21)
+Defined in: [context/calendar-context.tsx:21](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L21)
 
 Fired when an item is activated (click/keyboard).
 
@@ -214,7 +214,7 @@ Fired when an item is activated (click/keyboard).
 
 > `optional` **onItemMove**: (`item`, `start`, `end`) => `void`
 
-Defined in: [context/calendar-context.tsx:25](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L25)
+Defined in: [context/calendar-context.tsx:25](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L25)
 
 Fired on a drag-drop move; receives the moved item and its new bounds.
 
@@ -246,7 +246,7 @@ Fired on a drag-drop move; receives the moved item and its new bounds.
 
 > `optional` **onItemResize**: (`item`, `start`, `end`) => `void`
 
-Defined in: [context/calendar-context.tsx:27](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L27)
+Defined in: [context/calendar-context.tsx:27](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L27)
 
 Fired when a resizable item's edge is drag-resized in the week/day grids.
 
@@ -278,7 +278,7 @@ Fired when a resizable item's edge is drag-resized in the week/day grids.
 
 > `optional` **onRangeChange**: (`range`) => `void`
 
-Defined in: [context/calendar-context.tsx:29](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L29)
+Defined in: [context/calendar-context.tsx:29](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L29)
 
 Fired whenever view/date navigation changes the visible range.
 
@@ -302,7 +302,7 @@ Fired whenever view/date navigation changes the visible range.
 
 > `optional` **onResourceClick**: (`resource`, `date?`) => `void`
 
-Defined in: [context/calendar-context.tsx:34](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L34)
+Defined in: [context/calendar-context.tsx:34](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L34)
 
 Fired when a resource label is activated (timeline column header or gantt
 row label). Gantt rows also pass the row's date.
@@ -331,7 +331,7 @@ row label). Gantt rows also pass the row's date.
 
 > `optional` **renderDayBadge**: (`date`) => `ReactNode`
 
-Defined in: [context/calendar-context.tsx:48](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L48)
+Defined in: [context/calendar-context.tsx:48](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L48)
 
 Render extra summary badges inside a heatmap day cell.
 
@@ -355,11 +355,14 @@ Render extra summary badges inside a heatmap day cell.
 
 > `optional` **renderDayContent**: (`date`, `items`) => `ReactNode`
 
-Defined in: [context/calendar-context.tsx:54](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L54)
+Defined in: [context/calendar-context.tsx:57](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L57)
 
 Replaces the month-view day-cell item badges with consumer-rendered content
 (e.g. per-day aggregate chips). Receives the cell date and the items that
 overlap it; the day number and highlight label still render above.
+
+Consumed by the month view only — the year view has its own slot,
+[CalendarPlugins.renderYearDayContent](CalendarPlugins.md#renderyeardaycontent).
 
 #### Parameters
 
@@ -385,7 +388,7 @@ overlap it; the day number and highlight label still render above.
 
 > `optional` **renderGanttRowExtra**: (`resource`, `date`) => `ReactNode`
 
-Defined in: [context/calendar-context.tsx:64](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L64)
+Defined in: [context/calendar-context.tsx:80](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L80)
 
 Appends metadata (worked totals, badges) after the resource name on a
 gantt-view row. Receives the row's resource and date.
@@ -414,7 +417,7 @@ gantt-view row. Receives the row's resource and date.
 
 > `optional` **renderItemOverlay**: (`item`) => `ReactNode`
 
-Defined in: [context/calendar-context.tsx:68](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L68)
+Defined in: [context/calendar-context.tsx:84](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L84)
 
 Render an action overlay pinned to a time-grid item's bottom-right corner.
 
@@ -438,7 +441,7 @@ Render an action overlay pinned to a time-grid item's bottom-right corner.
 
 > `optional` **renderWeekDayHeader**: (`date`) => `ReactNode`
 
-Defined in: [context/calendar-context.tsx:66](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L66)
+Defined in: [context/calendar-context.tsx:82](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L82)
 
 Render an extra per-day summary block under the week-view day header.
 
@@ -458,11 +461,48 @@ Render an extra per-day summary block under the week-view day header.
 
 ***
 
+### renderYearDayContent()?
+
+> `optional` **renderYearDayContent**: (`date`, `items`) => `ReactNode`
+
+Defined in: [context/calendar-context.tsx:70](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L70)
+
+Replaces the year-view day-cell indicator dots with consumer-rendered
+content (e.g. one dot plus a `+N` count). Receives the cell date and the
+items that overlap it; the day number still renders above, and the returned
+node owns its own row layout, so a consumer that wants the dots aligned
+differently sets that here.
+
+Consumed by the year view only — the month view has its own slot,
+[CalendarPlugins.renderDayContent](CalendarPlugins.md#renderdaycontent). When it is absent, the year cell
+keeps its built-in rendering: one dot per item up to three, then a single
+dot in `items[0]`'s color followed by `+N`.
+
+#### Parameters
+
+##### date
+
+`Date`
+
+##### items
+
+[`CalendarItem`](CalendarItem.md)\<`unknown`\>[]
+
+#### Returns
+
+`ReactNode`
+
+#### Inherited from
+
+[`CalendarPlugins`](CalendarPlugins.md).[`renderYearDayContent`](CalendarPlugins.md#renderyeardaycontent)
+
+***
+
 ### resources?
 
 > `optional` **resources**: [`CalendarResource`](CalendarResource.md)[]
 
-Defined in: [context/calendar-context.tsx:82](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L82)
+Defined in: [context/calendar-context.tsx:98](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L98)
 
 Resource directory used to resolve `item.resourceId`.
 
@@ -472,7 +512,7 @@ Resource directory used to resolve `item.resourceId`.
 
 > `optional` **showItemCountBadge**: `boolean`
 
-Defined in: [context/calendar-context.tsx:59](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L59)
+Defined in: [context/calendar-context.tsx:75](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L75)
 
 Shows the item-count badge next to the header title. Defaults to true;
 consumers whose data is not item-based (aggregate views) turn it off.
@@ -487,7 +527,7 @@ consumers whose data is not item-based (aggregate views) turn it off.
 
 > `optional` **timeBands**: [`TimeBand`](TimeBand.md)[]
 
-Defined in: [context/calendar-context.tsx:40](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L40)
+Defined in: [context/calendar-context.tsx:40](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L40)
 
 Full-width background bands drawn on the resource-timeline axis.
 
@@ -501,7 +541,7 @@ Full-width background bands drawn on the resource-timeline axis.
 
 > `optional` **timelineEmptyState**: `ReactNode`
 
-Defined in: [context/calendar-context.tsx:74](https://github.com/simplix-react/simplix-react/blob/main/context/calendar-context.tsx#L74)
+Defined in: [context/calendar-context.tsx:90](https://github.com/simplix-framework/simplix-react/blob/main/context/calendar-context.tsx#L90)
 
 Replaces the built-in empty state of the gantt and resource-timeline views.
 Consumers whose rows only exist for timed records use this to explain what
@@ -517,7 +557,7 @@ a rowless day means (e.g. "absences appear in the side panel").
 
 > `optional` **visibleHours**: [`VisibleHours`](../type-aliases/VisibleHours.md)
 
-Defined in: [model/calendar-store.ts:53](https://github.com/simplix-react/simplix-react/blob/main/model/calendar-store.ts#L53)
+Defined in: [model/calendar-store.ts:53](https://github.com/simplix-framework/simplix-react/blob/main/model/calendar-store.ts#L53)
 
 #### Inherited from
 
@@ -529,7 +569,7 @@ Defined in: [model/calendar-store.ts:53](https://github.com/simplix-react/simpli
 
 > `optional` **workingHours**: [`WorkingHours`](../type-aliases/WorkingHours.md)
 
-Defined in: [model/calendar-store.ts:52](https://github.com/simplix-react/simplix-react/blob/main/model/calendar-store.ts#L52)
+Defined in: [model/calendar-store.ts:52](https://github.com/simplix-framework/simplix-react/blob/main/model/calendar-store.ts#L52)
 
 #### Inherited from
 

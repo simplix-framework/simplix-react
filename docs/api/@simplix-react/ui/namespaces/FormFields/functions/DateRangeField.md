@@ -8,7 +8,7 @@
 
 > **DateRangeField**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/fields/form/date-range-field.tsx:33](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/date-range-field.tsx#L33)
+Defined in: [packages/ui/src/fields/form/date-range-field.tsx:33](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/date-range-field.tsx#L33)
 
 Date range picker field with calendar popover, preset ranges, and i18n support.
 

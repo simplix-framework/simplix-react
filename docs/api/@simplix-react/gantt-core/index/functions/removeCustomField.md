@@ -8,7 +8,7 @@
 
 > **removeCustomField**(`project`, `id`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-extras.ts:78](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-extras.ts#L78)
+Defined in: [packages/gantt-core/src/edit-extras.ts:78](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-extras.ts#L78)
 
 Removes a custom field and the values every task holds for it.
 

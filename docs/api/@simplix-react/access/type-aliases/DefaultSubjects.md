@@ -8,6 +8,6 @@
 
 > **DefaultSubjects** = `string`
 
-Defined in: [packages/access/src/types.ts:36](https://github.com/simplix-react/simplix-react/blob/main/packages/access/src/types.ts#L36)
+Defined in: [packages/access/src/types.ts:36](https://github.com/simplix-framework/simplix-react/blob/main/packages/access/src/types.ts#L36)
 
 Default subject type — any string identifier for a resource.

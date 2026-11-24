@@ -8,7 +8,7 @@
 
 > **adaptOrvalOrder**\<`T`\>(`mutation`, `idField`, `orderField`, `opts?`): (`items`) => `Promise`\<`void`\>
 
-Defined in: [adapt-orval-mutation.ts:97](https://github.com/simplix-react/simplix-react/blob/main/adapt-orval-mutation.ts#L97)
+Defined in: [adapt-orval-mutation.ts:97](https://github.com/simplix-framework/simplix-react/blob/main/adapt-orval-mutation.ts#L97)
 
 Adapts an Orval **order** mutation to produce a reorder callback.
 Transforms reordered data into `[{ [idField]: id, [orderField]: index+1 }]`

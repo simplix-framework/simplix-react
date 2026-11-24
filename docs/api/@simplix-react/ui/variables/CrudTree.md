@@ -8,7 +8,7 @@
 
 > `const` **CrudTree**: (`__namedParameters`) => `Element` & `object`
 
-Defined in: [packages/ui/src/crud/tree/crud-tree.tsx:826](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/crud-tree.tsx#L826)
+Defined in: [packages/ui/src/crud/tree/crud-tree.tsx:850](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/crud-tree.tsx#L850)
 
 Compound component for building hierarchical tree views with
 expand/collapse, search filtering, sorting, and row actions.
@@ -33,6 +33,10 @@ Table, Column, Empty.
 ### Column()
 
 > **Column**: \<`T`\>(`_props`) => `ReactNode` = `TreeColumn`
+
+A tree column, declared with the same props a list column takes and rendered through the same
+cell function — so `display` and `format` mean here exactly what they mean in `CrudList.Column`,
+and a temporal column shows a formatted date rather than the instant the API sent.
 
 #### Type Parameters
 

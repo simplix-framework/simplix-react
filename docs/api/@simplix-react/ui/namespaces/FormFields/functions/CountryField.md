@@ -8,7 +8,7 @@
 
 > **CountryField**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/fields/form/country-field.tsx:25](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/country-field.tsx#L25)
+Defined in: [packages/ui/src/fields/form/country-field.tsx:34](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/country-field.tsx#L34)
 
 Country selector field with flag icons and localized names.
 Supports search by country code, localized name, and English name.

@@ -8,7 +8,7 @@
 
 > **cn**(...`inputs`): `string`
 
-Defined in: [packages/ui/src/utils/cn.ts:20](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/cn.ts#L20)
+Defined in: [packages/ui/src/utils/cn.ts:20](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/cn.ts#L20)
 
 Merge class names with Tailwind CSS conflict resolution.
 

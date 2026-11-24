@@ -8,7 +8,7 @@
 
 > **useMediaQuery**(`query`): `boolean`
 
-Defined in: [packages/ui/src/hooks/use-media-query.ts:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/hooks/use-media-query.ts#L14)
+Defined in: [packages/ui/src/hooks/use-media-query.ts:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/hooks/use-media-query.ts#L14)
 
 Responsive media-query detection hook using the `matchMedia` API.
 

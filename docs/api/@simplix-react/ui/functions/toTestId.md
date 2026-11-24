@@ -8,7 +8,7 @@
 
 > **toTestId**(`label`): `string`
 
-Defined in: [packages/ui/src/utils/cn.ts:36](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/cn.ts#L36)
+Defined in: [packages/ui/src/utils/cn.ts:36](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/cn.ts#L36)
 
 Convert a label string to a kebab-case `data-testid` value.
 

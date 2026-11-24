@@ -6,7 +6,7 @@
 
 # Interface: ErrorBoundaryState
 
-Defined in: [packages/ui/src/crud/shared/error-boundary.tsx:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/error-boundary.tsx#L13)
+Defined in: [packages/ui/src/crud/shared/error-boundary.tsx:19](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/error-boundary.tsx#L19)
 
 ## Properties
 
@@ -14,4 +14,4 @@ Defined in: [packages/ui/src/crud/shared/error-boundary.tsx:13](https://github.c
 
 > **error**: `Error` \| `null`
 
-Defined in: [packages/ui/src/crud/shared/error-boundary.tsx:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/error-boundary.tsx#L14)
+Defined in: [packages/ui/src/crud/shared/error-boundary.tsx:20](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/error-boundary.tsx#L20)

@@ -8,7 +8,7 @@
 
 > **endOfDay**(`d`): `Date`
 
-Defined in: [packages/headless/dist/index.d.ts:500](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L500)
+Defined in: [packages/headless/dist/index.d.ts:545](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L545)
 
 ## Parameters
 

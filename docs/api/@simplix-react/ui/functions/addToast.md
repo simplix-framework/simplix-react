@@ -8,7 +8,7 @@
 
 > **addToast**(`toast`): `void`
 
-Defined in: [packages/headless/dist/index.d.ts:419](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L419)
+Defined in: [packages/headless/dist/index.d.ts:458](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L458)
 
 ## Parameters
 

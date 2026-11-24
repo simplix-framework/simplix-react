@@ -8,7 +8,7 @@
 
 > **deriveClient**\<`TEntities`, `TOperations`\>(`config`, `fetchFn?`): \{ \[K in string \| number \| symbol\]: EntityClient\<TEntities\[K\]\["schema"\], TEntities\[K\]\["operations"\]\> \} & \{ \[K in string \| number \| symbol\]: TOperations\[K\] extends OperationDefinition\<\_TInput, TOutput\> ? (args: unknown\[\]) =\> Promise\<output\<TOutput\>\> : never \}
 
-Defined in: [packages/contract/src/derive/client.ts:41](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/derive/client.ts#L41)
+Defined in: [packages/contract/src/derive/client.ts:41](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/derive/client.ts#L41)
 
 Derives a type-safe HTTP client from an [ApiContractConfig](../interfaces/ApiContractConfig.md).
 

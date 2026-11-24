@@ -8,7 +8,7 @@
 
 > `const` **Section**: `ForwardRefExoticComponent`\<`Omit`\<[`SectionProps`](../interfaces/SectionProps.md), `"ref"`\> & `RefAttributes`\<`HTMLElement`\>\>
 
-Defined in: [packages/ui/src/primitives/section.tsx:39](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/primitives/section.tsx#L39)
+Defined in: [packages/ui/src/primitives/section.tsx:40](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/primitives/section.tsx#L40)
 
 Semantic section container with optional title and description.
 

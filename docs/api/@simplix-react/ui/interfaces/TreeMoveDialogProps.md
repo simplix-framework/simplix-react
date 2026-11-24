@@ -6,7 +6,7 @@
 
 # Interface: TreeMoveDialogProps\<T\>
 
-Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:152](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/tree-move-dialog.tsx#L152)
+Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:157](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/tree-move-dialog.tsx#L157)
 
 ## Type Parameters
 
@@ -20,7 +20,7 @@ Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:152](https://github.
 
 > **config**: [`TreeMoveConfig`](TreeMoveConfig.md)\<`T`\>
 
-Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:158](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/tree-move-dialog.tsx#L158)
+Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:163](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/tree-move-dialog.tsx#L163)
 
 ***
 
@@ -28,7 +28,7 @@ Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:158](https://github.
 
 > **currentItemId**: `string`
 
-Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:156](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/tree-move-dialog.tsx#L156)
+Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:161](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/tree-move-dialog.tsx#L161)
 
 ***
 
@@ -36,7 +36,7 @@ Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:156](https://github.
 
 > **currentParentId**: `string` \| `null`
 
-Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:157](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/tree-move-dialog.tsx#L157)
+Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:162](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/tree-move-dialog.tsx#L162)
 
 ***
 
@@ -44,7 +44,7 @@ Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:157](https://github.
 
 > `optional` **description**: `string`
 
-Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:160](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/tree-move-dialog.tsx#L160)
+Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:165](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/tree-move-dialog.tsx#L165)
 
 ***
 
@@ -52,7 +52,7 @@ Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:160](https://github.
 
 > **onOpenChange**: (`open`) => `void`
 
-Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:154](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/tree-move-dialog.tsx#L154)
+Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:159](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/tree-move-dialog.tsx#L159)
 
 #### Parameters
 
@@ -70,7 +70,7 @@ Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:154](https://github.
 
 > **open**: `boolean`
 
-Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:153](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/tree-move-dialog.tsx#L153)
+Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:158](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/tree-move-dialog.tsx#L158)
 
 ***
 
@@ -78,7 +78,7 @@ Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:153](https://github.
 
 > `optional` **rootLabel**: `string`
 
-Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:161](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/tree-move-dialog.tsx#L161)
+Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:166](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/tree-move-dialog.tsx#L166)
 
 ***
 
@@ -86,7 +86,7 @@ Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:161](https://github.
 
 > `optional` **title**: `string`
 
-Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:159](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/tree-move-dialog.tsx#L159)
+Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:164](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/tree-move-dialog.tsx#L164)
 
 ***
 
@@ -94,4 +94,4 @@ Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:159](https://github.
 
 > **treeData**: `T`[]
 
-Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:155](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/tree/tree-move-dialog.tsx#L155)
+Defined in: [packages/ui/src/crud/tree/tree-move-dialog.tsx:160](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/tree/tree-move-dialog.tsx#L160)

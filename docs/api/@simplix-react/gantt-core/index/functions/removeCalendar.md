@@ -8,7 +8,7 @@
 
 > **removeCalendar**(`project`, `id`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-links.ts:248](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-links.ts#L248)
+Defined in: [packages/gantt-core/src/edit-links.ts:248](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-links.ts#L248)
 
 Removes a calendar.
 

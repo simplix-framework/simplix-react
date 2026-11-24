@@ -8,7 +8,7 @@
 
 > **ChipFilter**\<`T`\>(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/crud/filters/chip-filter.tsx:103](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/chip-filter.tsx#L103)
+Defined in: [packages/ui/src/crud/filters/chip-filter.tsx:105](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/chip-filter.tsx#L105)
 
 Toggle chips that integrate with [CrudListFilters](../interfaces/CrudListFilters.md) for server-side filtering.
 

@@ -8,7 +8,7 @@
 
 > **adaptOrvalGet**\<`T`, `Q`\>(`query`): `Omit`\<`Q`, `"data"`\> & `object`
 
-Defined in: [packages/headless/dist/index.d.ts:279](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L279)
+Defined in: [packages/headless/dist/index.d.ts:308](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L308)
 
 Re-type an Orval-generated GET/detail query result so `data` is the entity
 DTO (`T | undefined`) instead of the raw response envelope, while preserving

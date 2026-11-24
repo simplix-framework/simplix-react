@@ -8,7 +8,7 @@
 
 > **MediaEmbed**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/base/display/media-embed.tsx:35](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/media-embed.tsx#L35)
+Defined in: [packages/ui/src/base/display/media-embed.tsx:37](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/media-embed.tsx#L37)
 
 Bordered media container for in-app content: a native video player for
 self-hosted streams or an iframe for external embeds and document viewers.

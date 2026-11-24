@@ -6,7 +6,7 @@
 
 # Interface: CalendarColorLegendProps
 
-Defined in: [components/calendar-color-legend.tsx:14](https://github.com/simplix-react/simplix-react/blob/main/components/calendar-color-legend.tsx#L14)
+Defined in: [components/calendar-color-legend.tsx:14](https://github.com/simplix-framework/simplix-react/blob/main/components/calendar-color-legend.tsx#L14)
 
 Props for [CalendarColorLegend](../functions/CalendarColorLegend.md).
 
@@ -16,7 +16,7 @@ Props for [CalendarColorLegend](../functions/CalendarColorLegend.md).
 
 > `optional` **className**: `string`
 
-Defined in: [components/calendar-color-legend.tsx:16](https://github.com/simplix-react/simplix-react/blob/main/components/calendar-color-legend.tsx#L16)
+Defined in: [components/calendar-color-legend.tsx:16](https://github.com/simplix-framework/simplix-react/blob/main/components/calendar-color-legend.tsx#L16)
 
 ***
 
@@ -24,4 +24,4 @@ Defined in: [components/calendar-color-legend.tsx:16](https://github.com/simplix
 
 > **items**: [`CalendarLegendItem`](CalendarLegendItem.md)[]
 
-Defined in: [components/calendar-color-legend.tsx:15](https://github.com/simplix-react/simplix-react/blob/main/components/calendar-color-legend.tsx#L15)
+Defined in: [components/calendar-color-legend.tsx:15](https://github.com/simplix-framework/simplix-react/blob/main/components/calendar-color-legend.tsx#L15)

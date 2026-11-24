@@ -8,7 +8,7 @@
 
 > **removeTasks**(`project`, `ids`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-tasks.ts:72](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-tasks.ts#L72)
+Defined in: [packages/gantt-core/src/edit-tasks.ts:72](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-tasks.ts#L72)
 
 Removes tasks with every task under them, and the links, assignments and baseline entries that name them.
 

@@ -8,7 +8,7 @@
 
 > **decodeInstant**(`value`, `displayZone?`): `Date` \| `undefined`
 
-Defined in: [rfc3339-date.ts:122](https://github.com/simplix-react/simplix-react/blob/main/rfc3339-date.ts#L122)
+Defined in: [rfc3339-date.ts:122](https://github.com/simplix-framework/simplix-react/blob/main/rfc3339-date.ts#L122)
 
 Parse an offset-aware / instant value and return a FLOATING `Date` whose LOCAL
 fields equal the wall clock IN `displayZone` (so a picker renders the site's

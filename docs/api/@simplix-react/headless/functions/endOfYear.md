@@ -8,7 +8,7 @@
 
 > **endOfYear**(`d`): `Date`
 
-Defined in: [date-math.ts:40](https://github.com/simplix-react/simplix-react/blob/main/date-math.ts#L40)
+Defined in: [date-math.ts:40](https://github.com/simplix-framework/simplix-react/blob/main/date-math.ts#L40)
 
 ## Parameters
 

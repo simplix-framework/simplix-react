@@ -6,7 +6,7 @@
 
 # Interface: ChoiceChipsProps\<T\>
 
-Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:34](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L34)
+Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:36](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L36)
 
 Props for [ChoiceChips](../functions/ChoiceChips.md).
 
@@ -22,7 +22,7 @@ Props for [ChoiceChips](../functions/ChoiceChips.md).
 
 > `optional` **gap**: `"none"` \| `"xs"` \| `"sm"` \| `"lg"` \| `"md"`
 
-Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:44](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L44)
+Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:46](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L46)
 
 Space between chips.
 
@@ -38,7 +38,7 @@ Space between chips.
 
 > **label**: `string`
 
-Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:42](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L42)
+Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:44](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L44)
 
 Names the group for assistive technology — 「인증 수단」.
 
@@ -48,7 +48,7 @@ Names the group for assistive technology — 「인증 수단」.
 
 > **onChange**: (`value`) => `void`
 
-Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:38](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L38)
+Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:40](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L40)
 
 Called with the pressed option's value. Pressing the lit chip does nothing.
 
@@ -68,7 +68,7 @@ Called with the pressed option's value. Pressing the lit chip does nothing.
 
 > **options**: [`ChoiceChipOption`](ChoiceChipOption.md)\<`T`\>[]
 
-Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:40](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L40)
+Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:42](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L42)
 
 The options, in the order they are drawn.
 
@@ -78,6 +78,6 @@ The options, in the order they are drawn.
 
 > **value**: `T` \| `null`
 
-Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:36](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L36)
+Defined in: [packages/ui/src/crud/filters/choice-chips.tsx:38](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/choice-chips.tsx#L38)
 
 What is chosen now, `null` while nothing is.

@@ -8,7 +8,7 @@
 
 > **StaticField**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/fields/form/static-field.tsx:29](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/static-field.tsx#L29)
+Defined in: [packages/ui/src/fields/form/static-field.tsx:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/static-field.tsx#L31)
 
 Read-only display field that uses form-style label.
 Use this instead of `DetailFields.*` when mixing read-only values

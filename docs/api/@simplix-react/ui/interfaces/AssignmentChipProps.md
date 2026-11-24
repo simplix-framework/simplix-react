@@ -6,7 +6,7 @@
 
 # Interface: AssignmentChipProps
 
-Defined in: [packages/ui/src/crud/assignment/assignment-panel.tsx:78](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/assignment/assignment-panel.tsx#L78)
+Defined in: [packages/ui/src/crud/assignment/assignment-panel.tsx:88](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/assignment/assignment-panel.tsx#L88)
 
 Props for pre-styled chip element.
 
@@ -16,7 +16,7 @@ Props for pre-styled chip element.
 
 > `optional` **icon**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/assignment/assignment-panel.tsx:82](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/assignment/assignment-panel.tsx#L82)
+Defined in: [packages/ui/src/crud/assignment/assignment-panel.tsx:92](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/assignment/assignment-panel.tsx#L92)
 
 Optional icon before label.
 
@@ -26,7 +26,7 @@ Optional icon before label.
 
 > **label**: `string`
 
-Defined in: [packages/ui/src/crud/assignment/assignment-panel.tsx:80](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/assignment/assignment-panel.tsx#L80)
+Defined in: [packages/ui/src/crud/assignment/assignment-panel.tsx:90](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/assignment/assignment-panel.tsx#L90)
 
 Display label.
 
@@ -36,7 +36,7 @@ Display label.
 
 > `optional` **onRemove**: () => `void`
 
-Defined in: [packages/ui/src/crud/assignment/assignment-panel.tsx:86](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/assignment/assignment-panel.tsx#L86)
+Defined in: [packages/ui/src/crud/assignment/assignment-panel.tsx:96](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/assignment/assignment-panel.tsx#L96)
 
 Called when remove button is clicked. Omit to hide remove button.
 
@@ -50,6 +50,6 @@ Called when remove button is clicked. Omit to hide remove button.
 
 > `optional` **trailing**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/assignment/assignment-panel.tsx:84](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/assignment/assignment-panel.tsx#L84)
+Defined in: [packages/ui/src/crud/assignment/assignment-panel.tsx:94](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/assignment/assignment-panel.tsx#L94)
 
 Optional trailing element rendered after the label (e.g. a count Badge).

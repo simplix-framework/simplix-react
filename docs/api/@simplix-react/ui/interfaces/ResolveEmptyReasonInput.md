@@ -6,7 +6,7 @@
 
 # Interface: ResolveEmptyReasonInput
 
-Defined in: [packages/headless/dist/index.d.ts:77](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L77)
+Defined in: [packages/headless/dist/index.d.ts:77](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L77)
 
 Query and filter state a list view derives its [EmptyReason](../type-aliases/EmptyReason.md) from.
 
@@ -16,7 +16,7 @@ Query and filter state a list view derives its [EmptyReason](../type-aliases/Emp
 
 > **error**: `unknown`
 
-Defined in: [packages/headless/dist/index.d.ts:83](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L83)
+Defined in: [packages/headless/dist/index.d.ts:83](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L83)
 
 Settled rejection, if any.
 
@@ -26,7 +26,7 @@ Settled rejection, if any.
 
 > `optional` **failureCount**: `number`
 
-Defined in: [packages/headless/dist/index.d.ts:87](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L87)
+Defined in: [packages/headless/dist/index.d.ts:87](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L87)
 
 Consecutive failed fetch attempts — React Query `failureCount`.
 
@@ -36,7 +36,7 @@ Consecutive failed fetch attempts — React Query `failureCount`.
 
 > `optional` **hasFilters**: `boolean`
 
-Defined in: [packages/headless/dist/index.d.ts:91](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L91)
+Defined in: [packages/headless/dist/index.d.ts:91](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L91)
 
 Whether at least one filter is committed.
 
@@ -46,7 +46,7 @@ Whether at least one filter is committed.
 
 > **hasRows**: `boolean`
 
-Defined in: [packages/headless/dist/index.d.ts:79](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L79)
+Defined in: [packages/headless/dist/index.d.ts:79](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L79)
 
 Whether the view currently renders at least one row.
 
@@ -56,7 +56,7 @@ Whether the view currently renders at least one row.
 
 > `optional` **hasSearch**: `boolean`
 
-Defined in: [packages/headless/dist/index.d.ts:89](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L89)
+Defined in: [packages/headless/dist/index.d.ts:89](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L89)
 
 Whether a search term is active.
 
@@ -66,7 +66,7 @@ Whether a search term is active.
 
 > **isLoading**: `boolean`
 
-Defined in: [packages/headless/dist/index.d.ts:81](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L81)
+Defined in: [packages/headless/dist/index.d.ts:81](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L81)
 
 Whether the query is loading (React Query `isLoading`).
 
@@ -76,6 +76,6 @@ Whether the query is loading (React Query `isLoading`).
 
 > `optional` **isPaused**: `boolean`
 
-Defined in: [packages/headless/dist/index.d.ts:85](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L85)
+Defined in: [packages/headless/dist/index.d.ts:85](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L85)
 
 Whether the query is stalled — React Query `fetchStatus === "paused"`.

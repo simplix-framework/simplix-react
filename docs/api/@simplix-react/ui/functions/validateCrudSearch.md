@@ -8,7 +8,7 @@
 
 > **validateCrudSearch**(`search`): [`CrudSearch`](../interfaces/CrudSearch.md)
 
-Defined in: [packages/ui/src/crud/patterns/crud-search.ts:19](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/crud-search.ts#L19)
+Defined in: [packages/ui/src/crud/patterns/crud-search.ts:94](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/crud-search.ts#L94)
 
 Validates and extracts CRUD search params from a raw search object.
 Use as `validateSearch` in TanStack Router route definitions.

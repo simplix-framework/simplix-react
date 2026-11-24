@@ -6,7 +6,7 @@
 
 # Interface: CalendarWorkWeek
 
-Defined in: [packages/gantt-core/src/types.ts:28](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L28)
+Defined in: [packages/gantt-core/src/types.ts:28](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/types.ts#L28)
 
 A dated override of the week pattern. Both ends are day indexes and inclusive.
 
@@ -16,7 +16,7 @@ A dated override of the week pattern. Both ends are day indexes and inclusive.
 
 > **fromDay**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:30](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L30)
+Defined in: [packages/gantt-core/src/types.ts:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/types.ts#L30)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/gantt-core/src/types.ts:30](https://github.com/simplix-rea
 
 > `optional` **name**: `string`
 
-Defined in: [packages/gantt-core/src/types.ts:29](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L29)
+Defined in: [packages/gantt-core/src/types.ts:29](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/types.ts#L29)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [packages/gantt-core/src/types.ts:29](https://github.com/simplix-rea
 
 > **toDay**: `number`
 
-Defined in: [packages/gantt-core/src/types.ts:31](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L31)
+Defined in: [packages/gantt-core/src/types.ts:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/types.ts#L31)
 
 ***
 
@@ -40,4 +40,4 @@ Defined in: [packages/gantt-core/src/types.ts:31](https://github.com/simplix-rea
 
 > **weekDays**: [`WeekPattern`](../type-aliases/WeekPattern.md)
 
-Defined in: [packages/gantt-core/src/types.ts:32](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/types.ts#L32)
+Defined in: [packages/gantt-core/src/types.ts:32](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/types.ts#L32)

@@ -8,7 +8,7 @@
 
 > **recurrenceDays**(`project`, `recurrence`): `number`[]
 
-Defined in: [packages/gantt-core/src/edit-extras.ts:126](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-extras.ts#L126)
+Defined in: [packages/gantt-core/src/edit-extras.ts:126](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-extras.ts#L126)
 
 The days a recurrence falls on, as day indexes. A daily recurrence skips
 days the project calendar does not work.

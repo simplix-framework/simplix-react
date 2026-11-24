@@ -8,7 +8,7 @@
 
 > **makeFilterKey**(`field`, `operator`): `string`
 
-Defined in: [filter-utils.ts:7](https://github.com/simplix-react/simplix-react/blob/main/filter-utils.ts#L7)
+Defined in: [filter-utils.ts:7](https://github.com/simplix-framework/simplix-react/blob/main/filter-utils.ts#L7)
 
 Build a filter key from field name and operator.
 Example: makeFilterKey("name", "contains") -> "name.contains"

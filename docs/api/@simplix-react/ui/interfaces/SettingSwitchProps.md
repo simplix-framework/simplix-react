@@ -6,7 +6,7 @@
 
 # Interface: SettingSwitchProps
 
-Defined in: [packages/ui/src/base/controls/setting-switch.tsx:6](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/controls/setting-switch.tsx#L6)
+Defined in: [packages/ui/src/base/controls/setting-switch.tsx:6](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/controls/setting-switch.tsx#L6)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/base/controls/setting-switch.tsx:6](https://github.
 
 > **checked**: `boolean`
 
-Defined in: [packages/ui/src/base/controls/setting-switch.tsx:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/controls/setting-switch.tsx#L12)
+Defined in: [packages/ui/src/base/controls/setting-switch.tsx:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/controls/setting-switch.tsx#L12)
 
 Current toggle state.
 
@@ -24,7 +24,7 @@ Current toggle state.
 
 > `optional` **description**: `string`
 
-Defined in: [packages/ui/src/base/controls/setting-switch.tsx:10](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/controls/setting-switch.tsx#L10)
+Defined in: [packages/ui/src/base/controls/setting-switch.tsx:10](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/controls/setting-switch.tsx#L10)
 
 Optional helper text below the label. Already translated by the caller.
 
@@ -34,7 +34,7 @@ Optional helper text below the label. Already translated by the caller.
 
 > `optional` **disabled**: `boolean`
 
-Defined in: [packages/ui/src/base/controls/setting-switch.tsx:16](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/controls/setting-switch.tsx#L16)
+Defined in: [packages/ui/src/base/controls/setting-switch.tsx:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/controls/setting-switch.tsx#L16)
 
 Disables the switch when true.
 
@@ -44,7 +44,7 @@ Disables the switch when true.
 
 > `optional` **id**: `string`
 
-Defined in: [packages/ui/src/base/controls/setting-switch.tsx:18](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/controls/setting-switch.tsx#L18)
+Defined in: [packages/ui/src/base/controls/setting-switch.tsx:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/controls/setting-switch.tsx#L18)
 
 Explicit control id; an auto-generated id is used when omitted.
 
@@ -54,7 +54,7 @@ Explicit control id; an auto-generated id is used when omitted.
 
 > **label**: `string`
 
-Defined in: [packages/ui/src/base/controls/setting-switch.tsx:8](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/controls/setting-switch.tsx#L8)
+Defined in: [packages/ui/src/base/controls/setting-switch.tsx:8](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/controls/setting-switch.tsx#L8)
 
 Label text rendered on the left. Already translated by the caller.
 
@@ -64,7 +64,7 @@ Label text rendered on the left. Already translated by the caller.
 
 > **onCheckedChange**: (`checked`) => `void`
 
-Defined in: [packages/ui/src/base/controls/setting-switch.tsx:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/controls/setting-switch.tsx#L14)
+Defined in: [packages/ui/src/base/controls/setting-switch.tsx:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/controls/setting-switch.tsx#L14)
 
 Fired with the next state when the user toggles the switch.
 

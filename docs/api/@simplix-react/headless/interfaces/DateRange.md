@@ -6,7 +6,7 @@
 
 # Interface: DateRange
 
-Defined in: [filter-types.ts:23](https://github.com/simplix-react/simplix-react/blob/main/filter-types.ts#L23)
+Defined in: [filter-types.ts:23](https://github.com/simplix-framework/simplix-react/blob/main/filter-types.ts#L23)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [filter-types.ts:23](https://github.com/simplix-react/simplix-react/
 
 > **from**: `Date` \| `undefined`
 
-Defined in: [filter-types.ts:24](https://github.com/simplix-react/simplix-react/blob/main/filter-types.ts#L24)
+Defined in: [filter-types.ts:24](https://github.com/simplix-framework/simplix-react/blob/main/filter-types.ts#L24)
 
 ***
 
@@ -22,4 +22,4 @@ Defined in: [filter-types.ts:24](https://github.com/simplix-react/simplix-react/
 
 > **to**: `Date` \| `undefined`
 
-Defined in: [filter-types.ts:25](https://github.com/simplix-react/simplix-react/blob/main/filter-types.ts#L25)
+Defined in: [filter-types.ts:25](https://github.com/simplix-framework/simplix-react/blob/main/filter-types.ts#L25)

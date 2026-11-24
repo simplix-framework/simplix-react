@@ -6,7 +6,7 @@
 
 # Interface: FilterDateRange
 
-Defined in: [packages/headless/dist/index.d.ts:364](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L364)
+Defined in: [packages/headless/dist/index.d.ts:393](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L393)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/headless/dist/index.d.ts:364](https://github.com/simplix-r
 
 > **from**: `Date` \| `undefined`
 
-Defined in: [packages/headless/dist/index.d.ts:365](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L365)
+Defined in: [packages/headless/dist/index.d.ts:394](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L394)
 
 ***
 
@@ -22,4 +22,4 @@ Defined in: [packages/headless/dist/index.d.ts:365](https://github.com/simplix-r
 
 > **to**: `Date` \| `undefined`
 
-Defined in: [packages/headless/dist/index.d.ts:366](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L366)
+Defined in: [packages/headless/dist/index.d.ts:395](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L395)

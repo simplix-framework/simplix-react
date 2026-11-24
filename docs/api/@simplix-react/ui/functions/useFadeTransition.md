@@ -8,7 +8,7 @@
 
 > **useFadeTransition**(`options`): [`UseFadeTransitionResult`](../interfaces/UseFadeTransitionResult.md)
 
-Defined in: [packages/ui/src/crud/patterns/use-fade-transition.ts:34](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/use-fade-transition.ts#L34)
+Defined in: [packages/ui/src/crud/patterns/use-fade-transition.ts:39](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/use-fade-transition.ts#L39)
 
 Drives a fade-out → swap → fade-in transition when the displayed
 detail item changes.  Pairs naturally with [useListDetailState](useListDetailState.md).

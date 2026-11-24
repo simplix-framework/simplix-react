@@ -8,7 +8,7 @@
 
 > **visibleRows**(`tasks`, `collapsed`): [`VisibleRow`](../interfaces/VisibleRow.md)[]
 
-Defined in: [lib/rows.ts:14](https://github.com/simplix-react/simplix-react/blob/main/lib/rows.ts#L14)
+Defined in: [lib/rows.ts:14](https://github.com/simplix-framework/simplix-react/blob/main/lib/rows.ts#L14)
 
 The rows on screen: every task except those under a collapsed summary task.
 

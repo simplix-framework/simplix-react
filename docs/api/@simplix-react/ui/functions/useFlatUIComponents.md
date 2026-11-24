@@ -8,7 +8,7 @@
 
 > **useFlatUIComponents**(): `object`
 
-Defined in: [packages/ui/src/provider/ui-provider.tsx:130](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/provider/ui-provider.tsx#L130)
+Defined in: [packages/ui/src/provider/ui-provider.tsx:179](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/provider/ui-provider.tsx#L179)
 
 Flat-destructuring variant of [useUIComponents](useUIComponents.md).
 
@@ -189,7 +189,7 @@ with the same names used in direct base imports (e.g. `Table`, `TableRow`).
 
 ### Popover
 
-> **Popover**: `ComponentType`\<\{ `children?`: `ReactNode`; `onOpenChange?`: (`open`) => `void`; `open?`: `boolean`; \}\> = `ui.Popover.Root`
+> **Popover**: `ComponentType`\<\{ `children?`: `ReactNode`; `modal?`: `boolean`; `onOpenChange?`: (`open`) => `void`; `open?`: `boolean`; \}\> = `ui.Popover.Root`
 
 ### PopoverAnchor
 
@@ -197,7 +197,7 @@ with the same names used in direct base imports (e.g. `Table`, `TableRow`).
 
 ### PopoverContent
 
-> **PopoverContent**: `ComponentType`\<`PopoverContentProps` & `RefAttributes`\<`HTMLDivElement`\>\> = `ui.Popover.Content`
+> **PopoverContent**: `ComponentType`\<[`PopoverContentProps`](../type-aliases/PopoverContentProps.md)\> = `ui.Popover.Content`
 
 ### PopoverTrigger
 

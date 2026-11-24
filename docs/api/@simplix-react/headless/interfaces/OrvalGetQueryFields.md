@@ -6,7 +6,7 @@
 
 # Interface: OrvalGetQueryFields
 
-Defined in: [adapt-orval-get.ts:16](https://github.com/simplix-react/simplix-react/blob/main/adapt-orval-get.ts#L16)
+Defined in: [adapt-orval-get.ts:16](https://github.com/simplix-framework/simplix-react/blob/main/adapt-orval-get.ts#L16)
 
 Common React Query fields preserved when the query type is not supplied
 explicitly. Used as the default for the `Q` type parameter so the single
@@ -18,7 +18,7 @@ type-argument form (`adaptOrvalGet<Dto>(query)`) keeps the usual fields.
 
 > **error**: `unknown`
 
-Defined in: [adapt-orval-get.ts:19](https://github.com/simplix-react/simplix-react/blob/main/adapt-orval-get.ts#L19)
+Defined in: [adapt-orval-get.ts:19](https://github.com/simplix-framework/simplix-react/blob/main/adapt-orval-get.ts#L19)
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: [adapt-orval-get.ts:19](https://github.com/simplix-react/simplix-rea
 
 > **isError**: `boolean`
 
-Defined in: [adapt-orval-get.ts:18](https://github.com/simplix-react/simplix-react/blob/main/adapt-orval-get.ts#L18)
+Defined in: [adapt-orval-get.ts:18](https://github.com/simplix-framework/simplix-react/blob/main/adapt-orval-get.ts#L18)
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: [adapt-orval-get.ts:18](https://github.com/simplix-react/simplix-rea
 
 > **isFetching**: `boolean`
 
-Defined in: [adapt-orval-get.ts:20](https://github.com/simplix-react/simplix-react/blob/main/adapt-orval-get.ts#L20)
+Defined in: [adapt-orval-get.ts:20](https://github.com/simplix-framework/simplix-react/blob/main/adapt-orval-get.ts#L20)
 
 ***
 
@@ -42,7 +42,7 @@ Defined in: [adapt-orval-get.ts:20](https://github.com/simplix-react/simplix-rea
 
 > **isLoading**: `boolean`
 
-Defined in: [adapt-orval-get.ts:17](https://github.com/simplix-react/simplix-react/blob/main/adapt-orval-get.ts#L17)
+Defined in: [adapt-orval-get.ts:17](https://github.com/simplix-framework/simplix-react/blob/main/adapt-orval-get.ts#L17)
 
 ***
 
@@ -50,7 +50,7 @@ Defined in: [adapt-orval-get.ts:17](https://github.com/simplix-react/simplix-rea
 
 > **isSuccess**: `boolean`
 
-Defined in: [adapt-orval-get.ts:21](https://github.com/simplix-react/simplix-react/blob/main/adapt-orval-get.ts#L21)
+Defined in: [adapt-orval-get.ts:21](https://github.com/simplix-framework/simplix-react/blob/main/adapt-orval-get.ts#L21)
 
 ***
 
@@ -58,7 +58,7 @@ Defined in: [adapt-orval-get.ts:21](https://github.com/simplix-react/simplix-rea
 
 > **refetch**: (...`args`) => `unknown`
 
-Defined in: [adapt-orval-get.ts:22](https://github.com/simplix-react/simplix-react/blob/main/adapt-orval-get.ts#L22)
+Defined in: [adapt-orval-get.ts:22](https://github.com/simplix-framework/simplix-react/blob/main/adapt-orval-get.ts#L22)
 
 #### Parameters
 

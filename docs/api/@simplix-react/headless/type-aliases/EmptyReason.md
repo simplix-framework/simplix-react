@@ -8,7 +8,7 @@
 
 > **EmptyReason** = `"no-data"` \| `"no-filter"` \| `"no-search"` \| `"error"` \| `"unavailable"`
 
-Defined in: [shared-types.ts:36](https://github.com/simplix-react/simplix-react/blob/main/shared-types.ts#L36)
+Defined in: [shared-types.ts:36](https://github.com/simplix-framework/simplix-react/blob/main/shared-types.ts#L36)
 
 Reason a list renders no rows.
 

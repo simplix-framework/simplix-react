@@ -6,7 +6,7 @@
 
 # Interface: GroupHeaderRow
 
-Defined in: [lib/view-rows.ts:34](https://github.com/simplix-react/simplix-react/blob/main/lib/view-rows.ts#L34)
+Defined in: [lib/view-rows.ts:34](https://github.com/simplix-framework/simplix-react/blob/main/lib/view-rows.ts#L34)
 
 A heading above the rows of one group.
 
@@ -16,7 +16,7 @@ A heading above the rows of one group.
 
 > **count**: `number`
 
-Defined in: [lib/view-rows.ts:38](https://github.com/simplix-react/simplix-react/blob/main/lib/view-rows.ts#L38)
+Defined in: [lib/view-rows.ts:38](https://github.com/simplix-framework/simplix-react/blob/main/lib/view-rows.ts#L38)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [lib/view-rows.ts:38](https://github.com/simplix-react/simplix-react
 
 > **key**: `string`
 
-Defined in: [lib/view-rows.ts:37](https://github.com/simplix-react/simplix-react/blob/main/lib/view-rows.ts#L37)
+Defined in: [lib/view-rows.ts:37](https://github.com/simplix-framework/simplix-react/blob/main/lib/view-rows.ts#L37)
 
 What the rows under it share: a resource id, or a fixed word such as `critical`.
 
@@ -34,4 +34,4 @@ What the rows under it share: a resource id, or a fixed word such as `critical`.
 
 > **kind**: `"group"`
 
-Defined in: [lib/view-rows.ts:35](https://github.com/simplix-react/simplix-react/blob/main/lib/view-rows.ts#L35)
+Defined in: [lib/view-rows.ts:35](https://github.com/simplix-framework/simplix-react/blob/main/lib/view-rows.ts#L35)

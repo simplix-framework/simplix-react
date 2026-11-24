@@ -8,7 +8,7 @@
 
 > **Stepline**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/base/display/stepline.tsx:84](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/stepline.tsx#L84)
+Defined in: [packages/ui/src/base/display/stepline.tsx:87](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/stepline.tsx#L87)
 
 Wizard step indicator: numbered circles joined by connector lines, so a step
 reads as a position in a sequence — done steps show a check, the active step

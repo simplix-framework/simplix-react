@@ -6,7 +6,7 @@
 
 # Interface: UseCrudFormSubmitResult\<T\>
 
-Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:88](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L88)
+Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:112](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L112)
 
 Return type of [useCrudFormSubmit](../functions/useCrudFormSubmit.md).
 
@@ -22,7 +22,7 @@ Return type of [useCrudFormSubmit](../functions/useCrudFormSubmit.md).
 
 > **fieldErrors**: `Record`\<`string`, `string`\>
 
-Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:96](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L96)
+Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:120](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L120)
 
 Server validation errors keyed by field name. Empty when no errors.
 
@@ -32,7 +32,7 @@ Server validation errors keyed by field name. Empty when no errors.
 
 > **fieldLabels**: `Record`\<`string`, `string`\>
 
-Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:107](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L107)
+Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:131](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L131)
 
 What the server calls each refused field, keyed by field name. Empty when no errors, and
 missing entries for fields the server labelled nothing.
@@ -50,7 +50,7 @@ the server's own names, already localized, so that case has something readable t
 
 > **handleSubmit**: (`values`) => `void`
 
-Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:92](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L92)
+Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:116](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L116)
 
 Submit handler that dispatches to create or update mutation.
 
@@ -70,7 +70,7 @@ Submit handler that dispatches to create or update mutation.
 
 > **isEdit**: `boolean`
 
-Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:90](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L90)
+Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:114](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L114)
 
 Whether the form is in edit mode (entity already exists).
 
@@ -80,6 +80,6 @@ Whether the form is in edit mode (entity already exists).
 
 > **isPending**: `boolean`
 
-Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:94](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L94)
+Defined in: [packages/ui/src/crud/form/use-crud-form-submit.ts:118](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/use-crud-form-submit.ts#L118)
 
 Whether the active mutation is pending.

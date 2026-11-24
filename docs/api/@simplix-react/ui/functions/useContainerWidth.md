@@ -8,7 +8,7 @@
 
 > **useContainerWidth**(`ref`): `number`
 
-Defined in: [packages/ui/src/crud/list/use-container-width.ts:4](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-container-width.ts#L4)
+Defined in: [packages/ui/src/crud/list/use-container-width.ts:4](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-container-width.ts#L4)
 
 Tracks the width of a container element via ResizeObserver.
 

@@ -8,7 +8,7 @@
 
 > **isValidCoord**\<`T`\>(`item`): `item is WithValidCoords<T>`
 
-Defined in: [packages/ui/src/utils/geo.ts:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L14)
+Defined in: [packages/ui/src/utils/geo.ts:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/geo.ts#L14)
 
 Type guard that narrows items to those with valid latitude/longitude.
 Rejects null/undefined, (0,0), and out-of-range values.

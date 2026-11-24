@@ -8,7 +8,7 @@
 
 > **getActionColumnWidth**(`actions`, `variant`): `number`
 
-Defined in: [packages/ui/src/crud/shared/row-actions.tsx:129](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/row-actions.tsx#L129)
+Defined in: [packages/ui/src/crud/shared/row-actions.tsx:137](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/row-actions.tsx#L137)
 
 Column width the action cluster needs for the given variant.
 

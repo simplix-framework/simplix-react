@@ -6,7 +6,7 @@
 
 # Interface: CrudDetailListProps
 
-Defined in: [packages/ui/src/crud/detail/crud-detail-list.tsx:7](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-list.tsx#L7)
+Defined in: [packages/ui/src/crud/detail/crud-detail-list.tsx:7](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-list.tsx#L7)
 
 Props for the [DetailPagedList](../variables/CrudDetail.md) sub-component.
 
@@ -16,7 +16,7 @@ Props for the [DetailPagedList](../variables/CrudDetail.md) sub-component.
 
 > **children**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/detail/crud-detail-list.tsx:9](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-list.tsx#L9)
+Defined in: [packages/ui/src/crud/detail/crud-detail-list.tsx:9](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-list.tsx#L9)
 
 `DetailListRow` elements for the page currently shown.
 
@@ -26,7 +26,7 @@ Defined in: [packages/ui/src/crud/detail/crud-detail-list.tsx:9](https://github.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/detail/crud-detail-list.tsx:27](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-list.tsx#L27)
+Defined in: [packages/ui/src/crud/detail/crud-detail-list.tsx:27](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-list.tsx#L27)
 
 Additional classes merged onto the container root.
 
@@ -36,7 +36,7 @@ Additional classes merged onto the container root.
 
 > **onPageChange**: (`page`) => `void`
 
-Defined in: [packages/ui/src/crud/detail/crud-detail-list.tsx:25](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-list.tsx#L25)
+Defined in: [packages/ui/src/crud/detail/crud-detail-list.tsx:25](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-list.tsx#L25)
 
 Called with the page the reader asked for.
 
@@ -56,7 +56,7 @@ Called with the page the reader asked for.
 
 > **page**: `number`
 
-Defined in: [packages/ui/src/crud/detail/crud-detail-list.tsx:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-list.tsx#L11)
+Defined in: [packages/ui/src/crud/detail/crud-detail-list.tsx:11](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-list.tsx#L11)
 
 The page being shown, 1-based.
 
@@ -66,7 +66,7 @@ The page being shown, 1-based.
 
 > **pageSize**: `number`
 
-Defined in: [packages/ui/src/crud/detail/crud-detail-list.tsx:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-list.tsx#L13)
+Defined in: [packages/ui/src/crud/detail/crud-detail-list.tsx:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-list.tsx#L13)
 
 How many rows a page holds.
 
@@ -76,7 +76,7 @@ How many rows a page holds.
 
 > **total**: `number`
 
-Defined in: [packages/ui/src/crud/detail/crud-detail-list.tsx:15](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-list.tsx#L15)
+Defined in: [packages/ui/src/crud/detail/crud-detail-list.tsx:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-list.tsx#L15)
 
 How many rows there are in total, across every page.
 
@@ -86,7 +86,7 @@ How many rows there are in total, across every page.
 
 > **totalPages**: `number`
 
-Defined in: [packages/ui/src/crud/detail/crud-detail-list.tsx:23](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-list.tsx#L23)
+Defined in: [packages/ui/src/crud/detail/crud-detail-list.tsx:23](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail-list.tsx#L23)
 
 How many pages that comes to.
 

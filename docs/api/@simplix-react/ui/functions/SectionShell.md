@@ -8,7 +8,7 @@
 
 > **SectionShell**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/crud/shared/section-shell.tsx:81](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/section-shell.tsx#L81)
+Defined in: [packages/ui/src/crud/shared/section-shell.tsx:92](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/section-shell.tsx#L92)
 
 ## Parameters
 

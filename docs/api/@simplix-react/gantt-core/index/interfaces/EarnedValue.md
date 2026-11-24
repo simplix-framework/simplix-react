@@ -6,7 +6,7 @@
 
 # Interface: EarnedValue
 
-Defined in: [packages/gantt-core/src/progress.ts:53](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/progress.ts#L53)
+Defined in: [packages/gantt-core/src/progress.ts:53](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/progress.ts#L53)
 
 Earned value figures of one task, or of the tasks under a summary task.
 
@@ -16,7 +16,7 @@ Earned value figures of one task, or of the tasks under a summary task.
 
 > **actualCost**: `number`
 
-Defined in: [packages/gantt-core/src/progress.ts:61](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/progress.ts#L61)
+Defined in: [packages/gantt-core/src/progress.ts:61](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/progress.ts#L61)
 
 Actual cost: the recorded one, or the earned value when none is recorded.
 
@@ -26,7 +26,7 @@ Actual cost: the recorded one, or the earned value when none is recorded.
 
 > **budget**: `number`
 
-Defined in: [packages/gantt-core/src/progress.ts:55](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/progress.ts#L55)
+Defined in: [packages/gantt-core/src/progress.ts:55](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/progress.ts#L55)
 
 Budget at completion: the baseline cost, or the current cost when the baseline holds none.
 
@@ -36,7 +36,7 @@ Budget at completion: the baseline cost, or the current cost when the baseline h
 
 > **costPerformance**: `number` \| `null`
 
-Defined in: [packages/gantt-core/src/progress.ts:67](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/progress.ts#L67)
+Defined in: [packages/gantt-core/src/progress.ts:67](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/progress.ts#L67)
 
 Earned value over actual cost; `null` when nothing has been spent.
 
@@ -46,7 +46,7 @@ Earned value over actual cost; `null` when nothing has been spent.
 
 > **costVariance**: `number`
 
-Defined in: [packages/gantt-core/src/progress.ts:63](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/progress.ts#L63)
+Defined in: [packages/gantt-core/src/progress.ts:63](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/progress.ts#L63)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: [packages/gantt-core/src/progress.ts:63](https://github.com/simplix-
 
 > **earnedValue**: `number`
 
-Defined in: [packages/gantt-core/src/progress.ts:59](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/progress.ts#L59)
+Defined in: [packages/gantt-core/src/progress.ts:59](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/progress.ts#L59)
 
 Earned value: the share of the budget the completed work stands for.
 
@@ -64,7 +64,7 @@ Earned value: the share of the budget the completed work stands for.
 
 > **plannedValue**: `number`
 
-Defined in: [packages/gantt-core/src/progress.ts:57](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/progress.ts#L57)
+Defined in: [packages/gantt-core/src/progress.ts:57](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/progress.ts#L57)
 
 Planned value: the share of the budget the baseline had scheduled by the status date.
 
@@ -74,7 +74,7 @@ Planned value: the share of the budget the baseline had scheduled by the status 
 
 > **schedulePerformance**: `number` \| `null`
 
-Defined in: [packages/gantt-core/src/progress.ts:65](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/progress.ts#L65)
+Defined in: [packages/gantt-core/src/progress.ts:65](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/progress.ts#L65)
 
 Earned over planned value; `null` when nothing was planned yet.
 
@@ -84,4 +84,4 @@ Earned over planned value; `null` when nothing was planned yet.
 
 > **scheduleVariance**: `number`
 
-Defined in: [packages/gantt-core/src/progress.ts:62](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/progress.ts#L62)
+Defined in: [packages/gantt-core/src/progress.ts:62](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/progress.ts#L62)

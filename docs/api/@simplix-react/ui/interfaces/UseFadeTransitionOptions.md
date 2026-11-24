@@ -6,7 +6,7 @@
 
 # Interface: UseFadeTransitionOptions
 
-Defined in: [packages/ui/src/crud/patterns/use-fade-transition.ts:5](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/use-fade-transition.ts#L5)
+Defined in: [packages/ui/src/crud/patterns/use-fade-transition.ts:7](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/use-fade-transition.ts#L7)
 
 Options for [useFadeTransition](../functions/useFadeTransition.md).
 
@@ -16,7 +16,7 @@ Options for [useFadeTransition](../functions/useFadeTransition.md).
 
 > **active**: `boolean`
 
-Defined in: [packages/ui/src/crud/patterns/use-fade-transition.ts:7](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/use-fade-transition.ts#L7)
+Defined in: [packages/ui/src/crud/patterns/use-fade-transition.ts:9](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/use-fade-transition.ts#L9)
 
 Whether the detail panel is currently showing (e.g. `view === "detail"`).
 
@@ -26,15 +26,10 @@ Whether the detail panel is currently showing (e.g. `view === "detail"`).
 
 > `optional` **duration**: `number`
 
-Defined in: [packages/ui/src/crud/patterns/use-fade-transition.ts:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/use-fade-transition.ts#L11)
+Defined in: [packages/ui/src/crud/patterns/use-fade-transition.ts:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/use-fade-transition.ts#L16)
 
-Fade duration in milliseconds.
-
-#### Default Value
-
-```ts
-200
-```
+Fade duration in milliseconds. When omitted the fade runs on the `--dur-base` motion token
+(and `--ease`), so a design's timing and reduced motion apply.
 
 ***
 
@@ -42,6 +37,6 @@ Fade duration in milliseconds.
 
 > **targetId**: `string` \| `null`
 
-Defined in: [packages/ui/src/crud/patterns/use-fade-transition.ts:9](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/use-fade-transition.ts#L9)
+Defined in: [packages/ui/src/crud/patterns/use-fade-transition.ts:11](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/use-fade-transition.ts#L11)
 
 The id of the item to display.

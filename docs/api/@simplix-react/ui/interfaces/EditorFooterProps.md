@@ -6,7 +6,7 @@
 
 # Interface: EditorFooterProps
 
-Defined in: [packages/ui/src/layout/editor-footer.tsx:6](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/layout/editor-footer.tsx#L6)
+Defined in: [packages/ui/src/layout/editor-footer.tsx:7](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/layout/editor-footer.tsx#L7)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/layout/editor-footer.tsx:6](https://github.com/simp
 
 > **children**: `ReactNode`
 
-Defined in: [packages/ui/src/layout/editor-footer.tsx:7](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/layout/editor-footer.tsx#L7)
+Defined in: [packages/ui/src/layout/editor-footer.tsx:8](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/layout/editor-footer.tsx#L8)
 
 ***
 
@@ -22,4 +22,4 @@ Defined in: [packages/ui/src/layout/editor-footer.tsx:7](https://github.com/simp
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/layout/editor-footer.tsx:8](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/layout/editor-footer.tsx#L8)
+Defined in: [packages/ui/src/layout/editor-footer.tsx:9](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/layout/editor-footer.tsx#L9)

@@ -6,7 +6,7 @@
 
 # Interface: AreaChartProps
 
-Defined in: [packages/ui/src/base/charts/types.ts:41](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L41)
+Defined in: [packages/ui/src/base/charts/types.ts:41](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L41)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:41](https://github.com/simplix
 
 > **categories**: `string`[]
 
-Defined in: [packages/ui/src/base/charts/types.ts:43](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L43)
+Defined in: [packages/ui/src/base/charts/types.ts:43](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L43)
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:43](https://github.com/simplix
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/base/charts/types.ts:31](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L31)
+Defined in: [packages/ui/src/base/charts/types.ts:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L31)
 
 #### Inherited from
 
@@ -38,7 +38,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:31](https://github.com/simplix
 
 > `optional` **curve**: `"smooth"` \| `"straight"` \| `"stepline"`
 
-Defined in: [packages/ui/src/base/charts/types.ts:44](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L44)
+Defined in: [packages/ui/src/base/charts/types.ts:44](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L44)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:44](https://github.com/simplix
 
 > `optional` **gradient**: `boolean`
 
-Defined in: [packages/ui/src/base/charts/types.ts:46](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L46)
+Defined in: [packages/ui/src/base/charts/types.ts:46](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L46)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:46](https://github.com/simplix
 
 > `optional` **height**: `string` \| `number`
 
-Defined in: [packages/ui/src/base/charts/types.ts:30](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L30)
+Defined in: [packages/ui/src/base/charts/types.ts:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L30)
 
 #### Inherited from
 
@@ -66,7 +66,7 @@ Defined in: [packages/ui/src/base/charts/types.ts:30](https://github.com/simplix
 
 > **series**: [`ChartSeries`](ChartSeries.md)[]
 
-Defined in: [packages/ui/src/base/charts/types.ts:42](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L42)
+Defined in: [packages/ui/src/base/charts/types.ts:42](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L42)
 
 ***
 
@@ -74,4 +74,4 @@ Defined in: [packages/ui/src/base/charts/types.ts:42](https://github.com/simplix
 
 > `optional` **stacked**: `boolean`
 
-Defined in: [packages/ui/src/base/charts/types.ts:45](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L45)
+Defined in: [packages/ui/src/base/charts/types.ts:45](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/charts/types.ts#L45)

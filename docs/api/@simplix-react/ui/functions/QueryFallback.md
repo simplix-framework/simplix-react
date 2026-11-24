@@ -8,7 +8,7 @@
 
 > **QueryFallback**(`__namedParameters`): `ReactNode`
 
-Defined in: [packages/ui/src/crud/shared/query-fallback.tsx:29](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/query-fallback.tsx#L29)
+Defined in: [packages/ui/src/crud/shared/query-fallback.tsx:35](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/query-fallback.tsx#L35)
 
 Fallback component for query loading and not-found states.
 

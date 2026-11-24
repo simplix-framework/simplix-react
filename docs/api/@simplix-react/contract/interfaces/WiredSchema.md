@@ -6,7 +6,7 @@
 
 # Interface: WiredSchema\<TWire, TData\>
 
-Defined in: [packages/contract/src/types.ts:30](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/types.ts#L30)
+Defined in: [packages/contract/src/types.ts:30](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/types.ts#L30)
 
 Compound output type carrying both the server wire format and the business
 data schema. Used for operations where the transport envelope (e.g. a
@@ -51,7 +51,7 @@ Zod schema for the business data after envelope removal.
 
 > `readonly` **\_tag**: `"WiredSchema"`
 
-Defined in: [packages/contract/src/types.ts:34](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/types.ts#L34)
+Defined in: [packages/contract/src/types.ts:34](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/types.ts#L34)
 
 ***
 
@@ -59,7 +59,7 @@ Defined in: [packages/contract/src/types.ts:34](https://github.com/simplix-react
 
 > `readonly` **data**: `TData`
 
-Defined in: [packages/contract/src/types.ts:38](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/types.ts#L38)
+Defined in: [packages/contract/src/types.ts:38](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/types.ts#L38)
 
 Zod schema describing the business data after transport envelope removal.
 
@@ -69,7 +69,7 @@ Zod schema describing the business data after transport envelope removal.
 
 > **unwrap**: (`wire`) => `output`\<`TData`\>
 
-Defined in: [packages/contract/src/types.ts:42](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/types.ts#L42)
+Defined in: [packages/contract/src/types.ts:42](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/types.ts#L42)
 
 Extracts business data from the wire format (used for type inference).
 
@@ -89,7 +89,7 @@ Extracts business data from the wire format (used for type inference).
 
 > `readonly` **wire**: `TWire`
 
-Defined in: [packages/contract/src/types.ts:36](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/types.ts#L36)
+Defined in: [packages/contract/src/types.ts:36](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/types.ts#L36)
 
 Zod schema describing the full server response (wire format).
 
@@ -99,7 +99,7 @@ Zod schema describing the full server response (wire format).
 
 > **wrap**: (`data`) => `output`\<`TWire`\>
 
-Defined in: [packages/contract/src/types.ts:40](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/types.ts#L40)
+Defined in: [packages/contract/src/types.ts:40](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/types.ts#L40)
 
 Wraps business data into the wire format (used by mock handlers).
 

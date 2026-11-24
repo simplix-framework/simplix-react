@@ -6,8 +6,8 @@
 
 # Type Alias: CardVariants
 
-> **CardVariants** = `VariantProps`\<*typeof* [`cardVariants`](../variables/cardVariants.md)\>
+> **CardVariants** = `VariantProps`\<*typeof* `cardLayout`\> & `VariantProps`\<*typeof* `cardLook`\>
 
-Defined in: [packages/ui/src/primitives/card.tsx:45](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/primitives/card.tsx#L45)
+Defined in: [packages/ui/src/primitives/card.tsx:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/primitives/card.tsx#L31)
 
-Variant props extracted from [cardVariants](../variables/cardVariants.md).
+Variant props extracted from [cardVariants](../functions/cardVariants.md).

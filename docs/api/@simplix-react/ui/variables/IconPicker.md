@@ -8,4 +8,4 @@
 
 > `const` **IconPicker**: `ForwardRefExoticComponent`\<[`IconPickerProps`](../interfaces/IconPickerProps.md) & `RefAttributes`\<`HTMLButtonElement`\>\>
 
-Defined in: [packages/ui/src/base/inputs/icon-picker.tsx:165](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/icon-picker.tsx#L165)
+Defined in: [packages/ui/src/base/inputs/icon-picker.tsx:189](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/icon-picker.tsx#L189)

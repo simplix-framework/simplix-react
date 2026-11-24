@@ -8,7 +8,7 @@
 
 > **ColorPicker**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/base/inputs/color-picker.tsx:87](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/color-picker.tsx#L87)
+Defined in: [packages/ui/src/base/inputs/color-picker.tsx:101](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/color-picker.tsx#L101)
 
 Standalone color picker with a popover palette, optional custom native picker, and clear action.
 

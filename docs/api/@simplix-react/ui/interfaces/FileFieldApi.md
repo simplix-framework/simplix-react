@@ -6,7 +6,7 @@
 
 # Interface: FileFieldApi
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:48](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L48)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:48](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L48)
 
 API surface the caller must provide.
 NOTE (R2-3): this is a NEW abstraction — NOT a port of matilo AttachmentApiOperations.
@@ -21,7 +21,7 @@ reorder / updateDescription / setRepresentative are optional — hook no-ops whe
 
 > **delete**: (`attachmentId`) => `Promise`\<`void`\>
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:55](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L55)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:55](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L55)
 
 #### Parameters
 
@@ -39,7 +39,7 @@ Defined in: [packages/ui/src/fields/file-attachment/types.ts:55](https://github.
 
 > `optional` **fetchBlobUrl**: (`attachmentId`, `opts?`) => `Promise`\<`string`\>
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:67](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L67)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:67](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L67)
 
 Fetches an authenticated object URL for an attachment's bytes.
 Provide this when the file URL is permission-gated (Bearer auth) so the
@@ -74,7 +74,7 @@ falls back to the record's public `url`.
 
 > **list**: () => `Promise`\<[`AttachmentRecord`](AttachmentRecord.md)[]\>
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:54](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L54)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:54](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L54)
 
 #### Returns
 
@@ -86,7 +86,7 @@ Defined in: [packages/ui/src/fields/file-attachment/types.ts:54](https://github.
 
 > `optional` **reorder**: (`orders`) => `Promise`\<`void`\>
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:56](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L56)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:56](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L56)
 
 #### Parameters
 
@@ -104,7 +104,7 @@ Defined in: [packages/ui/src/fields/file-attachment/types.ts:56](https://github.
 
 > `optional` **setRepresentative**: (`attachmentId`, `representative`) => `Promise`\<`void`\>
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:58](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L58)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:58](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L58)
 
 #### Parameters
 
@@ -126,7 +126,7 @@ Defined in: [packages/ui/src/fields/file-attachment/types.ts:58](https://github.
 
 > `optional` **updateDescription**: (`attachmentId`, `dto`) => `Promise`\<[`AttachmentRecord`](AttachmentRecord.md)\>
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:57](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L57)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:57](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L57)
 
 #### Parameters
 
@@ -148,7 +148,7 @@ Defined in: [packages/ui/src/fields/file-attachment/types.ts:57](https://github.
 
 > **upload**: (`file`, `onProgress?`, `signal?`) => `Promise`\<[`AttachmentRecord`](AttachmentRecord.md)\>
 
-Defined in: [packages/ui/src/fields/file-attachment/types.ts:49](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L49)
+Defined in: [packages/ui/src/fields/file-attachment/types.ts:49](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/types.ts#L49)
 
 #### Parameters
 

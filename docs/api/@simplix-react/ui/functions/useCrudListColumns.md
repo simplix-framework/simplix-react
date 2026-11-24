@@ -8,7 +8,7 @@
 
 > **useCrudListColumns**(): [`CrudListColumnContextValue`](../interfaces/CrudListColumnContextValue.md) \| `null`
 
-Defined in: [packages/ui/src/crud/shared/column-context.tsx:31](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L31)
+Defined in: [packages/ui/src/crud/shared/column-context.tsx:36](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/column-context.tsx#L36)
 
 ## Returns
 

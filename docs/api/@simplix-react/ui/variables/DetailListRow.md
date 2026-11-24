@@ -8,7 +8,7 @@
 
 > `const` **DetailListRow**: `ForwardRefExoticComponent`\<[`DetailListRowProps`](../interfaces/DetailListRowProps.md) & `RefAttributes`\<`HTMLDivElement`\>\>
 
-Defined in: [packages/ui/src/base/display/detail-list-row.tsx:51](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/detail-list-row.tsx#L51)
+Defined in: [packages/ui/src/base/display/detail-list-row.tsx:56](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/detail-list-row.tsx#L56)
 
 A single fixed-height row inside a [DetailList](DetailList.md). Renders an optional
 leading icon, a truncating primary label, and an optional trailing slot.

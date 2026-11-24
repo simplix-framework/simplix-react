@@ -8,7 +8,7 @@
 
 > **useGantt**\<`T`\>(`selector`): `T`
 
-Defined in: [context/gantt-context.tsx:46](https://github.com/simplix-react/simplix-react/blob/main/context/gantt-context.tsx#L46)
+Defined in: [context/gantt-context.tsx:46](https://github.com/simplix-framework/simplix-react/blob/main/context/gantt-context.tsx#L46)
 
 Subscribes to a slice of the enclosing chart's state.
 

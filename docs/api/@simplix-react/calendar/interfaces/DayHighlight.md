@@ -6,7 +6,7 @@
 
 # Interface: DayHighlight
 
-Defined in: [model/types.ts:34](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L34)
+Defined in: [model/types.ts:34](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L34)
 
 Generic per-day emphasis (the mechanism consumers feed holidays into).
 `date` is `"yyyy-MM-dd"`; applied as cell/axis shading and a header badge.
@@ -17,7 +17,7 @@ Generic per-day emphasis (the mechanism consumers feed holidays into).
 
 > **color**: [`CalendarColor`](../type-aliases/CalendarColor.md)
 
-Defined in: [model/types.ts:36](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L36)
+Defined in: [model/types.ts:36](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L36)
 
 ***
 
@@ -25,7 +25,7 @@ Defined in: [model/types.ts:36](https://github.com/simplix-react/simplix-react/b
 
 > **date**: `string`
 
-Defined in: [model/types.ts:35](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L35)
+Defined in: [model/types.ts:35](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L35)
 
 ***
 
@@ -33,4 +33,4 @@ Defined in: [model/types.ts:35](https://github.com/simplix-react/simplix-react/b
 
 > `optional` **label**: `string`
 
-Defined in: [model/types.ts:37](https://github.com/simplix-react/simplix-react/blob/main/model/types.ts#L37)
+Defined in: [model/types.ts:37](https://github.com/simplix-framework/simplix-react/blob/main/model/types.ts#L37)

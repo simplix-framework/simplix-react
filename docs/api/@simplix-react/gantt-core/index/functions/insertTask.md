@@ -8,7 +8,7 @@
 
 > **insertTask**(`project`, `task`, `index?`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-tasks.ts:60](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-tasks.ts#L60)
+Defined in: [packages/gantt-core/src/edit-tasks.ts:60](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-tasks.ts#L60)
 
 Inserts a row at `index` (the end when omitted). An outline level deeper
 than one under the row before it is pulled up to that depth.

@@ -6,7 +6,7 @@
 
 # Interface: TimezoneOption
 
-Defined in: [packages/ui/src/utils/use-timezone-options.ts:4](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/use-timezone-options.ts#L4)
+Defined in: [packages/ui/src/utils/use-timezone-options.ts:4](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/use-timezone-options.ts#L4)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/utils/use-timezone-options.ts:4](https://github.com
 
 > **label**: `string`
 
-Defined in: [packages/ui/src/utils/use-timezone-options.ts:6](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/use-timezone-options.ts#L6)
+Defined in: [packages/ui/src/utils/use-timezone-options.ts:6](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/use-timezone-options.ts#L6)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [packages/ui/src/utils/use-timezone-options.ts:6](https://github.com
 
 > **localizedName**: `string`
 
-Defined in: [packages/ui/src/utils/use-timezone-options.ts:7](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/use-timezone-options.ts#L7)
+Defined in: [packages/ui/src/utils/use-timezone-options.ts:7](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/use-timezone-options.ts#L7)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [packages/ui/src/utils/use-timezone-options.ts:7](https://github.com
 
 > **region**: `string`
 
-Defined in: [packages/ui/src/utils/use-timezone-options.ts:8](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/use-timezone-options.ts#L8)
+Defined in: [packages/ui/src/utils/use-timezone-options.ts:8](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/use-timezone-options.ts#L8)
 
 ***
 
@@ -38,4 +38,4 @@ Defined in: [packages/ui/src/utils/use-timezone-options.ts:8](https://github.com
 
 > **value**: `string`
 
-Defined in: [packages/ui/src/utils/use-timezone-options.ts:5](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/utils/use-timezone-options.ts#L5)
+Defined in: [packages/ui/src/utils/use-timezone-options.ts:5](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/utils/use-timezone-options.ts#L5)

@@ -6,7 +6,7 @@
 
 # Interface: UseMapPageDataOptions\<T\>
 
-Defined in: [packages/ui/src/map/use-map-page-data.ts:3](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/map/use-map-page-data.ts#L3)
+Defined in: [packages/ui/src/map/use-map-page-data.ts:3](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/map/use-map-page-data.ts#L3)
 
 ## Type Parameters
 
@@ -20,7 +20,7 @@ Defined in: [packages/ui/src/map/use-map-page-data.ts:3](https://github.com/simp
 
 > **data**: `T`[]
 
-Defined in: [packages/ui/src/map/use-map-page-data.ts:5](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/map/use-map-page-data.ts#L5)
+Defined in: [packages/ui/src/map/use-map-page-data.ts:5](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/map/use-map-page-data.ts#L5)
 
 List hook result data array
 
@@ -30,7 +30,7 @@ List hook result data array
 
 > **hasValidCoords**: (`item`) => `boolean`
 
-Defined in: [packages/ui/src/map/use-map-page-data.ts:8](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/map/use-map-page-data.ts#L8)
+Defined in: [packages/ui/src/map/use-map-page-data.ts:8](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/map/use-map-page-data.ts#L8)
 
 Function to check if an item has valid coordinates
 
@@ -50,4 +50,4 @@ Function to check if an item has valid coordinates
 
 > **isLoading**: `boolean`
 
-Defined in: [packages/ui/src/map/use-map-page-data.ts:6](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/map/use-map-page-data.ts#L6)
+Defined in: [packages/ui/src/map/use-map-page-data.ts:6](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/map/use-map-page-data.ts#L6)

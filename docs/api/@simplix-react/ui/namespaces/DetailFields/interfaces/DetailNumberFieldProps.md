@@ -6,7 +6,7 @@
 
 # Interface: DetailNumberFieldProps
 
-Defined in: [packages/ui/src/fields/detail/number-field.tsx:8](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/number-field.tsx#L8)
+Defined in: [packages/ui/src/fields/detail/number-field.tsx:8](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/number-field.tsx#L8)
 
 Props for the [DetailNumberField](../functions/DetailNumberField.md) component.
 
@@ -20,7 +20,7 @@ Props for the [DetailNumberField](../functions/DetailNumberField.md) component.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
+Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L56)
 
 #### Inherited from
 
@@ -32,7 +32,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:56](https://github.com/simplix
 
 > `optional` **currency**: `string`
 
-Defined in: [packages/ui/src/fields/detail/number-field.tsx:16](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/number-field.tsx#L16)
+Defined in: [packages/ui/src/fields/detail/number-field.tsx:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/number-field.tsx#L16)
 
 Currency code when `format="currency"` (e.g., `"USD"`).
 
@@ -42,7 +42,7 @@ Currency code when `format="currency"` (e.g., `"USD"`).
 
 > `optional` **fallback**: `string`
 
-Defined in: [packages/ui/src/fields/detail/number-field.tsx:18](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/number-field.tsx#L18)
+Defined in: [packages/ui/src/fields/detail/number-field.tsx:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/number-field.tsx#L18)
 
 Fallback text when value is null. Defaults to the shared no-value badge.
 
@@ -52,7 +52,7 @@ Fallback text when value is null. Defaults to the shared no-value badge.
 
 > `optional` **format**: `"decimal"` \| `"currency"` \| `"percent"`
 
-Defined in: [packages/ui/src/fields/detail/number-field.tsx:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/number-field.tsx#L12)
+Defined in: [packages/ui/src/fields/detail/number-field.tsx:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/number-field.tsx#L12)
 
 Number formatting style. Defaults to `"decimal"`.
 
@@ -62,7 +62,7 @@ Number formatting style. Defaults to `"decimal"`.
 
 > `optional` **label**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
+Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L54)
 
 #### Inherited from
 
@@ -74,7 +74,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:54](https://github.com/simplix
 
 > `optional` **labelKey**: `string`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
+Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L55)
 
 #### Inherited from
 
@@ -86,7 +86,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:55](https://github.com/simplix
 
 > `optional` **layout**: `"inline"` \| `"left"` \| `"top"` \| `"hidden"` \| `"trailing"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
+Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
 
 Label placement. `"top"` stacks the label above the input, `"left"` puts
 it in a leading column, `"inline"` keeps label and input on one row,
@@ -104,7 +104,7 @@ label for screen readers only.
 
 > `optional` **locale**: `string`
 
-Defined in: [packages/ui/src/fields/detail/number-field.tsx:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/number-field.tsx#L14)
+Defined in: [packages/ui/src/fields/detail/number-field.tsx:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/number-field.tsx#L14)
 
 Locale for number formatting (e.g., `"en-US"`).
 
@@ -114,7 +114,7 @@ Locale for number formatting (e.g., `"en-US"`).
 
 > `optional` **size**: `"sm"` \| `"lg"` \| `"md"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
+Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
 
 #### Inherited from
 
@@ -126,6 +126,6 @@ Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix
 
 > **value**: `number` \| `null`
 
-Defined in: [packages/ui/src/fields/detail/number-field.tsx:10](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/number-field.tsx#L10)
+Defined in: [packages/ui/src/fields/detail/number-field.tsx:10](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/number-field.tsx#L10)
 
 Numeric value to display.

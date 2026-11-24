@@ -8,4 +8,4 @@
 
 > **I18nValue** = `Record`\<`LocaleCode`, `string`\>
 
-Defined in: [packages/ui/src/fields/form/i18n-text-field.tsx:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/i18n-text-field.tsx#L12)
+Defined in: [packages/ui/src/fields/form/i18n-text-field.tsx:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/i18n-text-field.tsx#L13)

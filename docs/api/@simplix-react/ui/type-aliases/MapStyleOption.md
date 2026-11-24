@@ -8,4 +8,4 @@
 
 > **MapStyleOption** = `string` \| `MapLibreGL.StyleSpecification`
 
-Defined in: [packages/ui/src/base/map/map.tsx:180](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L180)
+Defined in: [packages/ui/src/base/map/map.tsx:189](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map.tsx#L189)

@@ -8,7 +8,7 @@
 
 > **extractPathParams**(`path`): `string`[]
 
-Defined in: [packages/contract/src/helpers/path-params.ts:16](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/helpers/path-params.ts#L16)
+Defined in: [packages/contract/src/helpers/path-params.ts:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/helpers/path-params.ts#L16)
 
 Extracts `:paramName` placeholders from a URL path template.
 

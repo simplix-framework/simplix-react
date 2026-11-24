@@ -8,4 +8,4 @@
 
 > `const` **Sheet**: `FC`\<`DialogProps`\> = `DialogPrimitive.Root`
 
-Defined in: [packages/ui/src/base/overlay/sheet.tsx:9](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/overlay/sheet.tsx#L9)
+Defined in: [packages/ui/src/base/overlay/sheet.tsx:19](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/overlay/sheet.tsx#L19)

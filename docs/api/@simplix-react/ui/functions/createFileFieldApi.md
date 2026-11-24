@@ -8,7 +8,7 @@
 
 > **createFileFieldApi**(`source`): [`FileFieldApi`](../interfaces/FileFieldApi.md)
 
-Defined in: [packages/ui/src/fields/file-attachment/create-file-field-api.ts:24](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/file-attachment/create-file-field-api.ts#L24)
+Defined in: [packages/ui/src/fields/file-attachment/create-file-field-api.ts:24](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/file-attachment/create-file-field-api.ts#L24)
 
 Builds a [FileFieldApi](../interfaces/FileFieldApi.md) for the standard per-module attachment endpoints.
 

@@ -8,7 +8,7 @@
 
 > **intersectWorkingTime**(`a`, `b`): [`WorkingTime`](../interfaces/WorkingTime.md)
 
-Defined in: [packages/gantt-core/src/calendar.ts:275](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/calendar.ts#L275)
+Defined in: [packages/gantt-core/src/calendar.ts:275](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/calendar.ts#L275)
 
 Working time that is working in both calendars.
 

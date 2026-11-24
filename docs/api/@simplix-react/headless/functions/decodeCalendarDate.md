@@ -8,7 +8,7 @@
 
 > **decodeCalendarDate**(`value`): `Date` \| `undefined`
 
-Defined in: [rfc3339-date.ts:200](https://github.com/simplix-react/simplix-react/blob/main/rfc3339-date.ts#L200)
+Defined in: [rfc3339-date.ts:200](https://github.com/simplix-framework/simplix-react/blob/main/rfc3339-date.ts#L200)
 
 Decode a textual `yyyy-MM-dd` into a local-midnight floating `Date` tagged via
 [asPlainDate](asPlainDate.md). Restores from the string's OWN components — NO local-getter

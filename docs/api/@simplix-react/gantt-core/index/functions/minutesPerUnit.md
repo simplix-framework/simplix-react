@@ -8,7 +8,7 @@
 
 > **minutesPerUnit**(`unit`, `elapsed`, `sizes`): `number`
 
-Defined in: [packages/gantt-core/src/duration.ts:43](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L43)
+Defined in: [packages/gantt-core/src/duration.ts:43](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L43)
 
 Minutes one unit stands for. An elapsed unit is counted on the clock.
 

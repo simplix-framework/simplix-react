@@ -8,7 +8,7 @@
 
 > **buildSearchableParams**(`params`, `options?`): `Record`\<`string`, `unknown`\>
 
-Defined in: [build-searchable-params.ts:40](https://github.com/simplix-react/simplix-react/blob/main/build-searchable-params.ts#L40)
+Defined in: [build-searchable-params.ts:58](https://github.com/simplix-framework/simplix-react/blob/main/build-searchable-params.ts#L58)
 
 Serialize list state into flat searchable query params.
 
@@ -38,5 +38,6 @@ Implements the searchable backend conventions shared by every platform:
 - Page: 1-based to 0-based (`page`).
 - Size: `pagination.limit` to `size`.
 - Sort: `{ field, direction }` to `["field.direction"]`.
-- Filters: spread flat as `field.operator` keys, dropping `_search`,
-  `undefined` / `null` / `""`, and empty arrays.
+- Filters: spread flat as `field.operator` keys, dropping `undefined` / `null` / `""` and
+  empty arrays.
+- Free text: `_search`, trimmed, is sent under `options.searchKey`; without one it is dropped.

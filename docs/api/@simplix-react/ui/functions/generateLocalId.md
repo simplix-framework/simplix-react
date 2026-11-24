@@ -8,7 +8,7 @@
 
 > **generateLocalId**(): `string`
 
-Defined in: [packages/headless/dist/index.d.ts:707](https://github.com/simplix-react/simplix-react/blob/main/packages/headless/dist/index.d.ts#L707)
+Defined in: [packages/headless/dist/index.d.ts:752](https://github.com/simplix-framework/simplix-react/blob/main/packages/headless/dist/index.d.ts#L752)
 
 Generate a client-only id from a millisecond timestamp and a base36 random suffix.
 

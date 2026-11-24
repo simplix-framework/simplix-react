@@ -8,7 +8,7 @@
 
 > **DetailField**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/fields/detail/field.tsx:22](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/field.tsx#L22)
+Defined in: [packages/ui/src/fields/detail/field.tsx:22](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/field.tsx#L22)
 
 Generic detail field wrapper for custom content.
 Provides label display around arbitrary children.

@@ -8,7 +8,7 @@
 
 > **toBcp47**(`locale`): `string`
 
-Defined in: [format-date.ts:18](https://github.com/simplix-react/simplix-react/blob/main/format-date.ts#L18)
+Defined in: [format-date.ts:18](https://github.com/simplix-framework/simplix-react/blob/main/format-date.ts#L18)
 
 Convert a short locale code to BCP 47 tag. Pass-through if already a tag.
 

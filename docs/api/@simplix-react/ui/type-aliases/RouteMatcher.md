@@ -8,7 +8,7 @@
 
 > **RouteMatcher** = (`to`, `opts?`) => `boolean`
 
-Defined in: [packages/ui/src/menu/menu-types.ts:102](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L102)
+Defined in: [packages/ui/src/menu/menu-types.ts:102](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L102)
 
 ## Parameters
 

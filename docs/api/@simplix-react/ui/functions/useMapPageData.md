@@ -8,7 +8,7 @@
 
 > **useMapPageData**\<`T`\>(`__namedParameters`): [`UseMapPageDataReturn`](../interfaces/UseMapPageDataReturn.md)\<`T`\>
 
-Defined in: [packages/ui/src/map/use-map-page-data.ts:17](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/map/use-map-page-data.ts#L17)
+Defined in: [packages/ui/src/map/use-map-page-data.ts:17](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/map/use-map-page-data.ts#L17)
 
 ## Type Parameters
 

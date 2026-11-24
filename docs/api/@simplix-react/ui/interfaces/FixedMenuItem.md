@@ -6,7 +6,7 @@
 
 # Interface: FixedMenuItem
 
-Defined in: [packages/ui/src/menu/menu-types.ts:57](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L57)
+Defined in: [packages/ui/src/menu/menu-types.ts:57](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L57)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/menu/menu-types.ts:57](https://github.com/simplix-r
 
 > `optional` **action**: () => `void`
 
-Defined in: [packages/ui/src/menu/menu-types.ts:63](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L63)
+Defined in: [packages/ui/src/menu/menu-types.ts:63](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L63)
 
 #### Returns
 
@@ -26,7 +26,7 @@ Defined in: [packages/ui/src/menu/menu-types.ts:63](https://github.com/simplix-r
 
 > `optional` **children**: `FixedMenuItem`[]
 
-Defined in: [packages/ui/src/menu/menu-types.ts:64](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L64)
+Defined in: [packages/ui/src/menu/menu-types.ts:64](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L64)
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: [packages/ui/src/menu/menu-types.ts:64](https://github.com/simplix-r
 
 > `optional` **href**: `string`
 
-Defined in: [packages/ui/src/menu/menu-types.ts:60](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L60)
+Defined in: [packages/ui/src/menu/menu-types.ts:60](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L60)
 
 ***
 
@@ -42,7 +42,7 @@ Defined in: [packages/ui/src/menu/menu-types.ts:60](https://github.com/simplix-r
 
 > `optional` **icon**: `string`
 
-Defined in: [packages/ui/src/menu/menu-types.ts:61](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L61)
+Defined in: [packages/ui/src/menu/menu-types.ts:61](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L61)
 
 ***
 
@@ -50,7 +50,7 @@ Defined in: [packages/ui/src/menu/menu-types.ts:61](https://github.com/simplix-r
 
 > **key**: `string`
 
-Defined in: [packages/ui/src/menu/menu-types.ts:58](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L58)
+Defined in: [packages/ui/src/menu/menu-types.ts:58](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L58)
 
 ***
 
@@ -58,7 +58,7 @@ Defined in: [packages/ui/src/menu/menu-types.ts:58](https://github.com/simplix-r
 
 > **labelKey**: `string`
 
-Defined in: [packages/ui/src/menu/menu-types.ts:59](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L59)
+Defined in: [packages/ui/src/menu/menu-types.ts:59](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L59)
 
 ***
 
@@ -66,4 +66,4 @@ Defined in: [packages/ui/src/menu/menu-types.ts:59](https://github.com/simplix-r
 
 > `optional` **linkTarget**: [`LinkTarget`](../type-aliases/LinkTarget.md)
 
-Defined in: [packages/ui/src/menu/menu-types.ts:62](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L62)
+Defined in: [packages/ui/src/menu/menu-types.ts:62](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/menu-types.ts#L62)

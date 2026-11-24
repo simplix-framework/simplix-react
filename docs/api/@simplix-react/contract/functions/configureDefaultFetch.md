@@ -8,7 +8,7 @@
 
 > **configureDefaultFetch**(`fn`): `void`
 
-Defined in: [packages/contract/src/helpers/fetch.ts:11](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/helpers/fetch.ts#L11)
+Defined in: [packages/contract/src/helpers/fetch.ts:11](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/helpers/fetch.ts#L11)
 
 Sets the default fetch function used by all contracts without explicit fetchFn.
 

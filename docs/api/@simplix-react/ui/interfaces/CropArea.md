@@ -6,7 +6,7 @@
 
 # Interface: CropArea
 
-Defined in: [packages/ui/src/fields/image-attachment/lib/crop-image.ts:2](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/image-attachment/lib/crop-image.ts#L2)
+Defined in: [packages/ui/src/fields/image-attachment/lib/crop-image.ts:2](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/image-attachment/lib/crop-image.ts#L2)
 
 Crop rectangle in natural (source) image pixels — matches CropModal onSave output.
 
@@ -16,7 +16,7 @@ Crop rectangle in natural (source) image pixels — matches CropModal onSave out
 
 > **height**: `number`
 
-Defined in: [packages/ui/src/fields/image-attachment/lib/crop-image.ts:6](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/image-attachment/lib/crop-image.ts#L6)
+Defined in: [packages/ui/src/fields/image-attachment/lib/crop-image.ts:6](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/image-attachment/lib/crop-image.ts#L6)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/ui/src/fields/image-attachment/lib/crop-image.ts:6](https:
 
 > **width**: `number`
 
-Defined in: [packages/ui/src/fields/image-attachment/lib/crop-image.ts:5](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/image-attachment/lib/crop-image.ts#L5)
+Defined in: [packages/ui/src/fields/image-attachment/lib/crop-image.ts:5](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/image-attachment/lib/crop-image.ts#L5)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [packages/ui/src/fields/image-attachment/lib/crop-image.ts:5](https:
 
 > **x**: `number`
 
-Defined in: [packages/ui/src/fields/image-attachment/lib/crop-image.ts:3](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/image-attachment/lib/crop-image.ts#L3)
+Defined in: [packages/ui/src/fields/image-attachment/lib/crop-image.ts:3](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/image-attachment/lib/crop-image.ts#L3)
 
 ***
 
@@ -40,4 +40,4 @@ Defined in: [packages/ui/src/fields/image-attachment/lib/crop-image.ts:3](https:
 
 > **y**: `number`
 
-Defined in: [packages/ui/src/fields/image-attachment/lib/crop-image.ts:4](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/image-attachment/lib/crop-image.ts#L4)
+Defined in: [packages/ui/src/fields/image-attachment/lib/crop-image.ts:4](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/image-attachment/lib/crop-image.ts#L4)

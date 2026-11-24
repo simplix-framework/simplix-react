@@ -8,7 +8,7 @@
 
 > **isPlainView**(`view`): `boolean`
 
-Defined in: [lib/view-rows.ts:29](https://github.com/simplix-react/simplix-react/blob/main/lib/view-rows.ts#L29)
+Defined in: [lib/view-rows.ts:29](https://github.com/simplix-framework/simplix-react/blob/main/lib/view-rows.ts#L29)
 
 Whether a view shows the plan as it is, so rows can be dragged to a new place.
 

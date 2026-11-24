@@ -8,7 +8,7 @@
 
 > **generateYears**(`start`, `end`, `reverse?`): `number`[]
 
-Defined in: [format-date.ts:35](https://github.com/simplix-react/simplix-react/blob/main/format-date.ts#L35)
+Defined in: [format-date.ts:35](https://github.com/simplix-framework/simplix-react/blob/main/format-date.ts#L35)
 
 Generate a sequential array of years.
 

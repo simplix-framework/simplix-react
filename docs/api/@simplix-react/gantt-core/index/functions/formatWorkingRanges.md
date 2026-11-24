@@ -8,7 +8,7 @@
 
 > **formatWorkingRanges**(`ranges`): `string`
 
-Defined in: [packages/gantt-core/src/edit-project.ts:55](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-project.ts#L55)
+Defined in: [packages/gantt-core/src/edit-project.ts:55](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-project.ts#L55)
 
 Writes the working time of a day as `08:00-12:00, 13:00-17:00`.
 

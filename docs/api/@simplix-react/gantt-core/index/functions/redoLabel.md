@@ -8,7 +8,7 @@
 
 > **redoLabel**\<`T`\>(`history`): `string` \| `null`
 
-Defined in: [packages/gantt-core/src/history.ts:64](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/history.ts#L64)
+Defined in: [packages/gantt-core/src/history.ts:64](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/history.ts#L64)
 
 Label of the change redo would reapply, or `null`.
 

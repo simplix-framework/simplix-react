@@ -8,7 +8,7 @@
 
 > **InferEntityData**\<`TSchema`\> = `TSchema` *extends* `z.ZodType` ? `z.infer`\<`TSchema`\> : `unknown`
 
-Defined in: [packages/contract/src/types.ts:123](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/types.ts#L123)
+Defined in: [packages/contract/src/types.ts:123](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/types.ts#L123)
 
 Infers the entity data type from its Zod schema (`unknown` when not a schema).
 

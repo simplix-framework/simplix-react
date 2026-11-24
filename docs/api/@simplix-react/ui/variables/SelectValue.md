@@ -8,4 +8,4 @@
 
 > `const` **SelectValue**: `ForwardRefExoticComponent`\<`SelectValueProps` & `RefAttributes`\<`HTMLSpanElement`\>\> = `SelectPrimitive.Value`
 
-Defined in: [packages/ui/src/base/inputs/select.tsx:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/inputs/select.tsx#L12)
+Defined in: [packages/ui/src/base/inputs/select.tsx:21](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/inputs/select.tsx#L21)

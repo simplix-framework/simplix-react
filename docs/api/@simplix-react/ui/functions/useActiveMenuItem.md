@@ -8,7 +8,7 @@
 
 > **useActiveMenuItem**(`options?`): [`NavigationItem`](../interfaces/NavigationItem.md) \| `undefined`
 
-Defined in: [packages/ui/src/menu/use-active-menu-item.ts:18](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/menu/use-active-menu-item.ts#L18)
+Defined in: [packages/ui/src/menu/use-active-menu-item.ts:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/menu/use-active-menu-item.ts#L18)
 
 Returns the menu item matching the current route, or undefined.
 

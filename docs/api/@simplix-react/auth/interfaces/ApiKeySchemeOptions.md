@@ -6,7 +6,7 @@
 
 # Interface: ApiKeySchemeOptions
 
-Defined in: [packages/auth/src/types.ts:179](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L179)
+Defined in: [packages/auth/src/types.ts:226](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L226)
 
 Options for [apiKeyScheme](../functions/apiKeyScheme.md).
 
@@ -16,7 +16,7 @@ Options for [apiKeyScheme](../functions/apiKeyScheme.md).
 
 > **in**: `"header"` \| `"query"`
 
-Defined in: [packages/auth/src/types.ts:181](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L181)
+Defined in: [packages/auth/src/types.ts:228](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L228)
 
 Where to place the API key.
 
@@ -26,7 +26,7 @@ Where to place the API key.
 
 > **key**: `string` \| () => `string` \| `null`
 
-Defined in: [packages/auth/src/types.ts:187](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L187)
+Defined in: [packages/auth/src/types.ts:234](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L234)
 
 Static key string or function returning the current key.
 
@@ -36,6 +36,6 @@ Static key string or function returning the current key.
 
 > **name**: `string`
 
-Defined in: [packages/auth/src/types.ts:184](https://github.com/simplix-react/simplix-react/blob/main/packages/auth/src/types.ts#L184)
+Defined in: [packages/auth/src/types.ts:231](https://github.com/simplix-framework/simplix-react/blob/main/packages/auth/src/types.ts#L231)
 
 Header name or query parameter name (e.g., `"X-API-Key"`).

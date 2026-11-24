@@ -8,7 +8,7 @@
 
 > **formatDuration**(`value`, `sizes`): `string`
 
-Defined in: [packages/gantt-core/src/duration.ts:87](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L87)
+Defined in: [packages/gantt-core/src/duration.ts:87](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/duration.ts#L87)
 
 Writes a duration in its own unit, such as `3d`, `2ed` or `5d?`.
 

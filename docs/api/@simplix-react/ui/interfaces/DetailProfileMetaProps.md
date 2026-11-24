@@ -6,7 +6,7 @@
 
 # Interface: DetailProfileMetaProps
 
-Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:124](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L124)
+Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:138](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L138)
 
 Props for the [DetailProfile.Meta](../variables/DetailProfile.md) sub-component.
 
@@ -16,7 +16,7 @@ Props for the [DetailProfile.Meta](../variables/DetailProfile.md) sub-component.
 
 > `optional` **code**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:129](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L129)
+Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:143](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L143)
 
 Code chip content. The library supplies no empty placeholder — the caller
 passes the raw code or an already-localized placeholder.
@@ -27,6 +27,6 @@ passes the raw code or an already-localized placeholder.
 
 > `optional` **items**: readonly `ReactNode`[]
 
-Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:131](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L131)
+Defined in: [packages/ui/src/crud/detail/detail-profile.tsx:145](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/detail-profile.tsx#L145)
 
 Already-localized meta items (type / status labels, parent name, …).

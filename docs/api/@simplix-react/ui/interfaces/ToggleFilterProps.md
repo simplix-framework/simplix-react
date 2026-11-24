@@ -6,7 +6,7 @@
 
 # Interface: ToggleFilterProps
 
-Defined in: [packages/ui/src/crud/filters/toggle-filter.tsx:7](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/toggle-filter.tsx#L7)
+Defined in: [packages/ui/src/crud/filters/toggle-filter.tsx:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/toggle-filter.tsx#L13)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [packages/ui/src/crud/filters/toggle-filter.tsx:7](https://github.co
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/filters/toggle-filter.tsx:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/toggle-filter.tsx#L11)
+Defined in: [packages/ui/src/crud/filters/toggle-filter.tsx:17](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/toggle-filter.tsx#L17)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [packages/ui/src/crud/filters/toggle-filter.tsx:11](https://github.c
 
 > **label**: `string`
 
-Defined in: [packages/ui/src/crud/filters/toggle-filter.tsx:8](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/toggle-filter.tsx#L8)
+Defined in: [packages/ui/src/crud/filters/toggle-filter.tsx:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/toggle-filter.tsx#L14)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [packages/ui/src/crud/filters/toggle-filter.tsx:8](https://github.co
 
 > **onChange**: (`value`) => `void`
 
-Defined in: [packages/ui/src/crud/filters/toggle-filter.tsx:10](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/toggle-filter.tsx#L10)
+Defined in: [packages/ui/src/crud/filters/toggle-filter.tsx:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/toggle-filter.tsx#L16)
 
 #### Parameters
 
@@ -48,4 +48,4 @@ Defined in: [packages/ui/src/crud/filters/toggle-filter.tsx:10](https://github.c
 
 > **value**: `boolean` \| `undefined`
 
-Defined in: [packages/ui/src/crud/filters/toggle-filter.tsx:9](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/toggle-filter.tsx#L9)
+Defined in: [packages/ui/src/crud/filters/toggle-filter.tsx:15](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/toggle-filter.tsx#L15)

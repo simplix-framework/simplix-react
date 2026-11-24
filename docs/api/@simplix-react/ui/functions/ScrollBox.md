@@ -8,7 +8,7 @@
 
 > **ScrollBox**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/base/display/scroll-box.tsx:25](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/scroll-box.tsx#L25)
+Defined in: [packages/ui/src/base/display/scroll-box.tsx:27](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/scroll-box.tsx#L27)
 
 Bounded scroll container for long read-through content (agreement bodies,
 terms, logs): a bordered box that scrolls its own overflow instead of

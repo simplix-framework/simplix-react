@@ -6,7 +6,7 @@
 
 # Interface: UseMapNavigatorOptions\<T\>
 
-Defined in: [packages/ui/src/base/map/map-navigator.tsx:10](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map-navigator.tsx#L10)
+Defined in: [packages/ui/src/base/map/map-navigator.tsx:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map-navigator.tsx#L18)
 
 ## Type Parameters
 
@@ -20,7 +20,7 @@ Defined in: [packages/ui/src/base/map/map-navigator.tsx:10](https://github.com/s
 
 > `optional` **fitOptions**: [`MapFitOptions`](MapFitOptions.md)
 
-Defined in: [packages/ui/src/base/map/map-navigator.tsx:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map-navigator.tsx#L14)
+Defined in: [packages/ui/src/base/map/map-navigator.tsx:22](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map-navigator.tsx#L22)
 
 ***
 
@@ -28,7 +28,7 @@ Defined in: [packages/ui/src/base/map/map-navigator.tsx:14](https://github.com/s
 
 > **items**: `T`[]
 
-Defined in: [packages/ui/src/base/map/map-navigator.tsx:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map-navigator.tsx#L11)
+Defined in: [packages/ui/src/base/map/map-navigator.tsx:19](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map-navigator.tsx#L19)
 
 ***
 
@@ -36,4 +36,4 @@ Defined in: [packages/ui/src/base/map/map-navigator.tsx:11](https://github.com/s
 
 > **mapRef**: `RefObject`\<\{ `fitBounds`: (...`args`) => `any`; `flyTo`: (...`args`) => `any`; \} \| `null`\>
 
-Defined in: [packages/ui/src/base/map/map-navigator.tsx:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/map/map-navigator.tsx#L13)
+Defined in: [packages/ui/src/base/map/map-navigator.tsx:21](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/map/map-navigator.tsx#L21)

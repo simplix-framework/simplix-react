@@ -8,4 +8,4 @@
 
 > `const` **DropdownMenuGroup**: `ForwardRefExoticComponent`\<`DropdownMenuGroupProps` & `RefAttributes`\<`HTMLDivElement`\>\> = `DropdownMenuPrimitive.Group`
 
-Defined in: [packages/ui/src/base/navigation/dropdown-menu.tsx:16](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/navigation/dropdown-menu.tsx#L16)
+Defined in: [packages/ui/src/base/navigation/dropdown-menu.tsx:29](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/navigation/dropdown-menu.tsx#L29)

@@ -8,9 +8,9 @@
 
 > `const` **headingVariants**: (`props?`) => `string`
 
-Defined in: [packages/ui/src/primitives/heading.tsx:8](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/primitives/heading.tsx#L8)
+Defined in: [packages/ui/src/primitives/heading.tsx:9](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/primitives/heading.tsx#L9)
 
-CVA variants for the Heading component typography scale.
+Class string of the heading scale, drawn from headingStyle.
 
 ## Parameters
 

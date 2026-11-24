@@ -8,7 +8,7 @@
 
 > **setTaskDuration**(`project`, `id`, `minutes`, `options?`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-tasks.ts:128](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-tasks.ts#L128)
+Defined in: [packages/gantt-core/src/edit-tasks.ts:128](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-tasks.ts#L128)
 
 Sets a task's duration. Assignments follow the task's type: fixed work
 changes their units, the other types change their work. A recorded actual

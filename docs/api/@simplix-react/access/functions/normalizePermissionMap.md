@@ -8,7 +8,7 @@
 
 > **normalizePermissionMap**(`permissions`): `SubjectRawRule`\<`string`, `string`, `MongoQuery`\>[]
 
-Defined in: [packages/access/src/helpers/normalize-rules.ts:26](https://github.com/simplix-react/simplix-react/blob/main/packages/access/src/helpers/normalize-rules.ts#L26)
+Defined in: [packages/access/src/helpers/normalize-rules.ts:26](https://github.com/simplix-framework/simplix-react/blob/main/packages/access/src/helpers/normalize-rules.ts#L26)
 
 Converts a [PermissionMap](../interfaces/PermissionMap.md) into an array of CASL rules.
 

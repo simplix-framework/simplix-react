@@ -8,7 +8,7 @@
 
 > **createCalendarStore**(`options?`): `StoreApi`\<[`CalendarStoreState`](../interfaces/CalendarStoreState.md)\>
 
-Defined in: [model/calendar-store.ts:66](https://github.com/simplix-react/simplix-react/blob/main/model/calendar-store.ts#L66)
+Defined in: [model/calendar-store.ts:66](https://github.com/simplix-framework/simplix-react/blob/main/model/calendar-store.ts#L66)
 
 Creates an isolated calendar store so multiple calendars can coexist on one page.
 

@@ -8,7 +8,7 @@
 
 > **setPercentComplete**(`project`, `schedule`, `id`, `percent`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/edit-tasks.ts:221](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/edit-tasks.ts#L221)
+Defined in: [packages/gantt-core/src/edit-tasks.ts:221](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/edit-tasks.ts#L221)
 
 Records progress. Above zero the scheduled start becomes the actual start,
 and at 100 the scheduled finish becomes the actual finish; zero clears

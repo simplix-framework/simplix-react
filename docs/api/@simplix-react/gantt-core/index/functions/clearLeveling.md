@@ -8,7 +8,7 @@
 
 > **clearLeveling**(`project`): [`Project`](../interfaces/Project.md)
 
-Defined in: [packages/gantt-core/src/leveling.ts:35](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/leveling.ts#L35)
+Defined in: [packages/gantt-core/src/leveling.ts:35](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/leveling.ts#L35)
 
 Removes every delay and every pause leveling added.
 

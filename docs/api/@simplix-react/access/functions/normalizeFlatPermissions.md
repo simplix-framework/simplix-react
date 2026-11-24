@@ -8,7 +8,7 @@
 
 > **normalizeFlatPermissions**(`permissions`, `separator?`): `SubjectRawRule`\<`string`, `string`, `MongoQuery`\>[]
 
-Defined in: [packages/access/src/helpers/normalize-rules.ts:57](https://github.com/simplix-react/simplix-react/blob/main/packages/access/src/helpers/normalize-rules.ts#L57)
+Defined in: [packages/access/src/helpers/normalize-rules.ts:57](https://github.com/simplix-framework/simplix-react/blob/main/packages/access/src/helpers/normalize-rules.ts#L57)
 
 Converts flat permission strings like `"PET:list"` into CASL rules.
 

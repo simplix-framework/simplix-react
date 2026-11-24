@@ -6,7 +6,7 @@
 
 # Interface: ScrollBoxProps
 
-Defined in: [packages/ui/src/base/display/scroll-box.tsx:5](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/scroll-box.tsx#L5)
+Defined in: [packages/ui/src/base/display/scroll-box.tsx:7](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/scroll-box.tsx#L7)
 
 Props for the [ScrollBox](../functions/ScrollBox.md) component.
 
@@ -16,7 +16,7 @@ Props for the [ScrollBox](../functions/ScrollBox.md) component.
 
 > `optional` **children**: `ReactNode`
 
-Defined in: [packages/ui/src/base/display/scroll-box.tsx:11](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/scroll-box.tsx#L11)
+Defined in: [packages/ui/src/base/display/scroll-box.tsx:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/scroll-box.tsx#L13)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/ui/src/base/display/scroll-box.tsx:11](https://github.com/
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/base/display/scroll-box.tsx:10](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/scroll-box.tsx#L10)
+Defined in: [packages/ui/src/base/display/scroll-box.tsx:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/scroll-box.tsx#L12)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [packages/ui/src/base/display/scroll-box.tsx:10](https://github.com/
 
 > `optional` **maxHeight**: `number`
 
-Defined in: [packages/ui/src/base/display/scroll-box.tsx:7](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/scroll-box.tsx#L7)
+Defined in: [packages/ui/src/base/display/scroll-box.tsx:9](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/scroll-box.tsx#L9)
 
 Maximum height in CSS pixels before the content scrolls; defaults to 288.
 
@@ -42,6 +42,6 @@ Maximum height in CSS pixels before the content scrolls; defaults to 288.
 
 > `optional` **preserveWhitespace**: `boolean`
 
-Defined in: [packages/ui/src/base/display/scroll-box.tsx:9](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/base/display/scroll-box.tsx#L9)
+Defined in: [packages/ui/src/base/display/scroll-box.tsx:11](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/base/display/scroll-box.tsx#L11)
 
 Preserve whitespace/line breaks (long agreement bodies); defaults to true.

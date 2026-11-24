@@ -8,7 +8,7 @@
 
 > **compileCalendars**(`calendars`): `Map`\<`string`, [`WorkingTime`](../interfaces/WorkingTime.md)\>
 
-Defined in: [packages/gantt-core/src/calendar.ts:192](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/calendar.ts#L192)
+Defined in: [packages/gantt-core/src/calendar.ts:192](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/calendar.ts#L192)
 
 Builds the working-time arithmetic of every calendar of a project.
 

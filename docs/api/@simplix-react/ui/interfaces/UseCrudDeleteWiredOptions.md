@@ -6,7 +6,7 @@
 
 # Interface: UseCrudDeleteWiredOptions
 
-Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:18](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L18)
+Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L18)
 
 Options for [useCrudDeleteWired](../functions/useCrudDeleteWired.md).
 
@@ -16,7 +16,7 @@ Options for [useCrudDeleteWired](../functions/useCrudDeleteWired.md).
 
 > **deleteMutation**: [`CrudMutation`](CrudMutation.md)\<`string` \| `number`\>
 
-Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:19](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L19)
+Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:19](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L19)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:19](https://g
 
 > **labels**: [`CrudDeleteWiredLabels`](CrudDeleteWiredLabels.md)
 
-Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:20](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L20)
+Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:20](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L20)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:20](https://g
 
 > `optional` **onDeleted**: () => `void`
 
-Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:21](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L21)
+Defined in: [packages/ui/src/crud/delete/use-crud-delete-wired.tsx:21](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/delete/use-crud-delete-wired.tsx#L21)
 
 #### Returns
 

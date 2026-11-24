@@ -8,7 +8,7 @@
 
 > **DateRangeFilter**(`props`): `Element`
 
-Defined in: [packages/ui/src/crud/filters/date-range-filter.tsx:42](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/filters/date-range-filter.tsx#L42)
+Defined in: [packages/ui/src/crud/filters/date-range-filter.tsx:48](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/filters/date-range-filter.tsx#L48)
 
 Date range filter with dual-month calendar popover.
 

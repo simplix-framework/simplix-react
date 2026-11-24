@@ -6,7 +6,7 @@
 
 # Interface: FieldWrapperProps
 
-Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:62](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L62)
+Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:54](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L54)
 
 Props for the [FieldWrapper](../functions/FieldWrapper.md) component.
 
@@ -20,7 +20,7 @@ Props for the [FieldWrapper](../functions/FieldWrapper.md) component.
 
 > **children**: [`FieldWrapperChildren`](../type-aliases/FieldWrapperChildren.md)
 
-Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:89](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L89)
+Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:81](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L81)
 
 ***
 
@@ -28,7 +28,7 @@ Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:89](https://github.
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:88](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L88)
+Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:80](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L80)
 
 ***
 
@@ -36,7 +36,7 @@ Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:88](https://github.
 
 > `optional` **description**: `string`
 
-Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:74](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L74)
+Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:66](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L66)
 
 Help text displayed below the field.
 
@@ -46,7 +46,7 @@ Help text displayed below the field.
 
 > `optional` **disabled**: `boolean`
 
-Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:78](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L78)
+Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:70](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L70)
 
 Whether the field is disabled.
 
@@ -56,7 +56,7 @@ Whether the field is disabled.
 
 > `optional` **error**: `string`
 
-Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:70](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L70)
+Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:62](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L62)
 
 Error message displayed below the field (highest priority).
 
@@ -66,7 +66,7 @@ Error message displayed below the field (highest priority).
 
 > `optional` **label**: `string`
 
-Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:64](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L64)
+Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:56](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L56)
 
 Visible label text for the field.
 
@@ -76,7 +76,7 @@ Visible label text for the field.
 
 > `optional` **labelExtra**: `ReactNode`
 
-Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:68](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L68)
+Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:60](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L60)
 
 Content rendered at the right side of the label area (e.g., LanguageSelector).
 
@@ -86,7 +86,7 @@ Content rendered at the right side of the label area (e.g., LanguageSelector).
 
 > `optional` **labelKey**: `string`
 
-Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:66](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L66)
+Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:58](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L58)
 
 i18n key for label resolution.
 
@@ -96,7 +96,7 @@ i18n key for label resolution.
 
 > `optional` **layout**: `"inline"` \| `"left"` \| `"top"` \| `"hidden"` \| `"trailing"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
+Defined in: [packages/ui/src/crud/shared/types.ts:12](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L12)
 
 Label placement. `"top"` stacks the label above the input, `"left"` puts
 it in a leading column, `"inline"` keeps label and input on one row,
@@ -114,7 +114,7 @@ label for screen readers only.
 
 > `optional` **prefixControl**: `ReactNode`
 
-Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:83](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L83)
+Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:75](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L75)
 
 Control rendered on the leading (left in LTR) side of the input, on the same row.
 Use for IconPicker, ColorPicker, or similar adornments.
@@ -125,7 +125,7 @@ Use for IconPicker, ColorPicker, or similar adornments.
 
 > `optional` **required**: `boolean`
 
-Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:76](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L76)
+Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:68](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L68)
 
 Whether the field is required (shows asterisk).
 
@@ -135,7 +135,7 @@ Whether the field is required (shows asterisk).
 
 > `optional` **size**: `"sm"` \| `"lg"` \| `"md"`
 
-Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
+Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/shared/types.ts#L13)
 
 #### Inherited from
 
@@ -147,7 +147,7 @@ Defined in: [packages/ui/src/crud/shared/types.ts:13](https://github.com/simplix
 
 > `optional` **suffixControl**: `ReactNode`
 
-Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:87](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L87)
+Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:79](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L79)
 
 Control rendered on the trailing (right in LTR) side of the input, on the same row.
 
@@ -157,6 +157,6 @@ Control rendered on the trailing (right in LTR) side of the input, on the same r
 
 > `optional` **warning**: `string`
 
-Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:72](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L72)
+Defined in: [packages/ui/src/fields/shared/field-wrapper.tsx:64](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/shared/field-wrapper.tsx#L64)
 
 Warning message displayed below the field (shown when no error).

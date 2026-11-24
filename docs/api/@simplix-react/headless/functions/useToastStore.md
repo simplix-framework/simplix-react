@@ -8,7 +8,7 @@
 
 > **useToastStore**(): [`Toast`](../interfaces/Toast.md)[]
 
-Defined in: [toast-store.ts:79](https://github.com/simplix-react/simplix-react/blob/main/toast-store.ts#L79)
+Defined in: [toast-store.ts:100](https://github.com/simplix-framework/simplix-react/blob/main/toast-store.ts#L100)
 
 ## Returns
 

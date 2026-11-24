@@ -6,7 +6,7 @@
 
 # Interface: MspdiWarning
 
-Defined in: [packages/gantt-core/src/mspdi/warnings.ts:31](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/mspdi/warnings.ts#L31)
+Defined in: [packages/gantt-core/src/mspdi/warnings.ts:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/mspdi/warnings.ts#L31)
 
 Something an MSPDI import could not carry into the model.
 
@@ -16,7 +16,7 @@ Something an MSPDI import could not carry into the model.
 
 > **code**: [`MspdiWarningCode`](../type-aliases/MspdiWarningCode.md)
 
-Defined in: [packages/gantt-core/src/mspdi/warnings.ts:32](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/mspdi/warnings.ts#L32)
+Defined in: [packages/gantt-core/src/mspdi/warnings.ts:32](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/mspdi/warnings.ts#L32)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/gantt-core/src/mspdi/warnings.ts:32](https://github.com/si
 
 > **id**: `string`
 
-Defined in: [packages/gantt-core/src/mspdi/warnings.ts:34](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/mspdi/warnings.ts#L34)
+Defined in: [packages/gantt-core/src/mspdi/warnings.ts:34](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/mspdi/warnings.ts#L34)
 
 UID of the calendar, task, resource or assignment the warning is about.
 
@@ -34,4 +34,4 @@ UID of the calendar, task, resource or assignment the warning is about.
 
 > **message**: `string`
 
-Defined in: [packages/gantt-core/src/mspdi/warnings.ts:35](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/mspdi/warnings.ts#L35)
+Defined in: [packages/gantt-core/src/mspdi/warnings.ts:35](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/mspdi/warnings.ts#L35)

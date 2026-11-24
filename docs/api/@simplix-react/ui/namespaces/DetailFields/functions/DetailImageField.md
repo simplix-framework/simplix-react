@@ -8,7 +8,7 @@
 
 > **DetailImageField**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/fields/detail/image-field.tsx:29](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/detail/image-field.tsx#L29)
+Defined in: [packages/ui/src/fields/detail/image-field.tsx:31](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/detail/image-field.tsx#L31)
 
 Read-only image display field with error fallback placeholder.
 

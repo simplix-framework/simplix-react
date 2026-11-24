@@ -6,7 +6,7 @@
 
 # Interface: UseFadeTransitionResult
 
-Defined in: [packages/ui/src/crud/patterns/use-fade-transition.ts:15](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/use-fade-transition.ts#L15)
+Defined in: [packages/ui/src/crud/patterns/use-fade-transition.ts:20](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/use-fade-transition.ts#L20)
 
 Return type of [useFadeTransition](../functions/useFadeTransition.md).
 
@@ -16,7 +16,7 @@ Return type of [useFadeTransition](../functions/useFadeTransition.md).
 
 > **displayedId**: `string` \| `null`
 
-Defined in: [packages/ui/src/crud/patterns/use-fade-transition.ts:16](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/use-fade-transition.ts#L16)
+Defined in: [packages/ui/src/crud/patterns/use-fade-transition.ts:21](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/use-fade-transition.ts#L21)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/ui/src/crud/patterns/use-fade-transition.ts:16](https://gi
 
 > **fading**: `boolean`
 
-Defined in: [packages/ui/src/crud/patterns/use-fade-transition.ts:17](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/use-fade-transition.ts#L17)
+Defined in: [packages/ui/src/crud/patterns/use-fade-transition.ts:22](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/use-fade-transition.ts#L22)
 
 ***
 
@@ -32,4 +32,4 @@ Defined in: [packages/ui/src/crud/patterns/use-fade-transition.ts:17](https://gi
 
 > **style**: `CSSProperties`
 
-Defined in: [packages/ui/src/crud/patterns/use-fade-transition.ts:18](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/patterns/use-fade-transition.ts#L18)
+Defined in: [packages/ui/src/crud/patterns/use-fade-transition.ts:23](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/use-fade-transition.ts#L23)

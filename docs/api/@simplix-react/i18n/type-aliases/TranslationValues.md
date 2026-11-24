@@ -8,7 +8,7 @@
 
 > **TranslationValues** = `Record`\<`string`, `string` \| `number` \| `boolean`\>
 
-Defined in: [types.ts:15](https://github.com/simplix-react/simplix-react/blob/main/types.ts#L15)
+Defined in: [types.ts:15](https://github.com/simplix-framework/simplix-react/blob/main/types.ts#L15)
 
 Represents key-value pairs for translation string interpolation.
 

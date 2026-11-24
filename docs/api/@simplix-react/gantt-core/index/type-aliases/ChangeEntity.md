@@ -8,6 +8,6 @@
 
 > **ChangeEntity** = `"task"` \| `"link"` \| `"resource"` \| `"assignment"` \| `"calendar"` \| `"customField"`
 
-Defined in: [packages/gantt-core/src/diff.ts:7](https://github.com/simplix-react/simplix-react/blob/main/packages/gantt-core/src/diff.ts#L7)
+Defined in: [packages/gantt-core/src/diff.ts:7](https://github.com/simplix-framework/simplix-react/blob/main/packages/gantt-core/src/diff.ts#L7)
 
 The collections of a project a change can be in.

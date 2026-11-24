@@ -6,7 +6,7 @@
 
 # Interface: UseOrvalOptionsConfig\<TItem\>
 
-Defined in: [packages/ui/src/crud/list/use-orval-options.ts:14](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-orval-options.ts#L14)
+Defined in: [packages/ui/src/crud/list/use-orval-options.ts:14](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-orval-options.ts#L14)
 
 Configuration for [useOrvalOptions](../functions/useOrvalOptions.md).
 
@@ -22,7 +22,7 @@ Configuration for [useOrvalOptions](../functions/useOrvalOptions.md).
 
 > `optional` **params**: `Record`\<`string`, `unknown`\>
 
-Defined in: [packages/ui/src/crud/list/use-orval-options.ts:18](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-orval-options.ts#L18)
+Defined in: [packages/ui/src/crud/list/use-orval-options.ts:18](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-orval-options.ts#L18)
 
 Query params forwarded to the Orval hook (default: `{ page: 0, size: 100 }`).
 
@@ -32,7 +32,7 @@ Query params forwarded to the Orval hook (default: `{ page: 0, size: 100 }`).
 
 > **toOption**: (`item`) => `object`
 
-Defined in: [packages/ui/src/crud/list/use-orval-options.ts:16](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/list/use-orval-options.ts#L16)
+Defined in: [packages/ui/src/crud/list/use-orval-options.ts:16](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/list/use-orval-options.ts#L16)
 
 Map each item to a combobox option.
 

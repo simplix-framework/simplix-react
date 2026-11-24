@@ -8,7 +8,7 @@
 
 > **wired**\<`TWire`, `TData`\>(`wire`, `data`, `wrap`, `unwrap`): [`WiredSchema`](../interfaces/WiredSchema.md)\<`TWire`, `TData`\>
 
-Defined in: [packages/contract/src/types.ts:64](https://github.com/simplix-react/simplix-react/blob/main/packages/contract/src/types.ts#L64)
+Defined in: [packages/contract/src/types.ts:64](https://github.com/simplix-framework/simplix-react/blob/main/packages/contract/src/types.ts#L64)
 
 Creates a [WiredSchema](../interfaces/WiredSchema.md) that pairs a wire-format schema with a
 business-data schema, along with `wrap` / `unwrap` transform functions.

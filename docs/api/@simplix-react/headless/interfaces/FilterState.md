@@ -6,7 +6,7 @@
 
 # Interface: FilterState
 
-Defined in: [shared-types.ts:17](https://github.com/simplix-react/simplix-react/blob/main/shared-types.ts#L17)
+Defined in: [shared-types.ts:17](https://github.com/simplix-framework/simplix-react/blob/main/shared-types.ts#L17)
 
 Represents filter state with search text and key-value filters.
 
@@ -16,7 +16,7 @@ Represents filter state with search text and key-value filters.
 
 > **search**: `string`
 
-Defined in: [shared-types.ts:18](https://github.com/simplix-react/simplix-react/blob/main/shared-types.ts#L18)
+Defined in: [shared-types.ts:18](https://github.com/simplix-framework/simplix-react/blob/main/shared-types.ts#L18)
 
 ***
 
@@ -24,4 +24,4 @@ Defined in: [shared-types.ts:18](https://github.com/simplix-react/simplix-react/
 
 > **values**: `Record`\<`string`, `unknown`\>
 
-Defined in: [shared-types.ts:19](https://github.com/simplix-react/simplix-react/blob/main/shared-types.ts#L19)
+Defined in: [shared-types.ts:19](https://github.com/simplix-framework/simplix-react/blob/main/shared-types.ts#L19)

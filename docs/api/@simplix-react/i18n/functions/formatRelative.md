@@ -8,7 +8,7 @@
 
 > **formatRelative**(`date`, `locale`, `baseDate?`): `string`
 
-Defined in: [datetime.ts:291](https://github.com/simplix-react/simplix-react/blob/main/datetime.ts#L291)
+Defined in: [datetime.ts:291](https://github.com/simplix-framework/simplix-react/blob/main/datetime.ts#L291)
 
 Format relative time (e.g., "3 minutes ago", "yesterday", "in 2 hours").
 

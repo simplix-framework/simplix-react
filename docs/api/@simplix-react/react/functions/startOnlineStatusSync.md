@@ -8,7 +8,7 @@
 
 > **startOnlineStatusSync**(): () => `void`
 
-Defined in: [packages/react/src/online-status-sync.ts:71](https://github.com/simplix-react/simplix-react/blob/main/packages/react/src/online-status-sync.ts#L71)
+Defined in: [packages/react/src/online-status-sync.ts:71](https://github.com/simplix-framework/simplix-react/blob/main/packages/react/src/online-status-sync.ts#L71)
 
 Keeps React Query's connectivity flag in sync with `navigator.onLine`.
 

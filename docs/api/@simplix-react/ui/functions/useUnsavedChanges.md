@@ -8,7 +8,7 @@
 
 > **useUnsavedChanges**(`options`): [`UseUnsavedChangesReturn`](../interfaces/UseUnsavedChangesReturn.md)
 
-Defined in: [packages/ui/src/crud/form/use-unsaved-changes.tsx:46](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/crud/form/use-unsaved-changes.tsx#L46)
+Defined in: [packages/ui/src/crud/form/use-unsaved-changes.tsx:50](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/use-unsaved-changes.tsx#L50)
 
 Guard navigation with an unsaved changes confirmation dialog.
 
@@ -28,8 +28,11 @@ Guard navigation with an unsaved changes confirmation dialog.
 
 ## Remarks
 
-Combines `useBeforeUnload` (browser tab close) with an in-app
-alert dialog for programmatic navigation (e.g. route changes).
+Combines `useBeforeUnload` (browser tab close) with an in-app alert dialog. While the form is
+dirty the dialog is asked for every way out of the route: a callback wrapped in
+`guardedNavigate`, and, when the router adapter offers `useBlocker`, the browser's Back and
+Forward and any link or `navigate` call that the page does not wrap. Without a router adapter
+(or one with no `useBlocker`) only the wrapped callbacks and the tab close are guarded.
 
 ## Example
 

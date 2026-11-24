@@ -8,7 +8,7 @@
 
 > **Field**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/fields/form/field.tsx:24](https://github.com/simplix-react/simplix-react/blob/main/packages/ui/src/fields/form/field.tsx#L24)
+Defined in: [packages/ui/src/fields/form/field.tsx:24](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/fields/form/field.tsx#L24)
 
 Generic field wrapper for custom content. Provides label, error,
 and description display around arbitrary children.
