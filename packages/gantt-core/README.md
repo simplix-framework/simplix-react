@@ -180,4 +180,4 @@ Limits of the exchange:
 
 ## License
 
-MIT
+SimpleCORE License 1.0 (SCL-1.0). See [LICENSE](../../LICENSE); a Korean translation is in [LICENSE_KO](../../LICENSE_KO).
