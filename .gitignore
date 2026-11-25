@@ -5,6 +5,13 @@ dist/
 .idea/
 .plans/
 .claude/
+/CLAUDE.md
+/AGENTS.md
+/AGENT.md
+/GEMINI.md
+.cursor/
+.cursorrules
+.codex/
 *.tsbuildinfo
 .changeset/
 .ckb/
