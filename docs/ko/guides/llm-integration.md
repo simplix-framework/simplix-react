@@ -16,21 +16,18 @@ simplix-react는 LLM 에이전트용 자료를 여러 형태로 제공합니다.
 | 자료 | URL | 설명 |
 | --- | --- | --- |
 | llms.txt | `https://raw.githubusercontent.com/simplix-framework/simplix-react/main/docs/llms.txt` | 링크를 모은 문서 색인 |
-| Claude Code 스킬 | `https://github.com/simplix-framework/simplix-react/tree/main/skills/simplix-react` | 스킬 폴더: `SKILL.md`와 `references/` |
-| 스킬 매니페스트 | `https://raw.githubusercontent.com/simplix-framework/simplix-react/main/skills/simplix-react.skill` | 스킬의 이름, 버전, 진입 파일, 참조 파일 |
+| 에이전트 스킬 | `https://github.com/simplix-framework/simplix-skills` | Claude Code와 Codex용 `simplix` 플러그인: 프론트엔드, 백엔드, 화면 브라우저 점검 핸드북 |
 | README | `https://raw.githubusercontent.com/simplix-framework/simplix-react/main/README.md` | 프로젝트 개요 |
 
 ## 에이전트별 설정
 
 ### Claude Code
 
-가장 깊이 연동됩니다. 스킬 폴더 `skills/simplix-react/`를 프로젝트의 `.claude/skills/`에 복사하세요. 모든 프로젝트에서 쓰려면 `~/.claude/skills/`에 복사합니다. 작업이 스킬 설명과 맞으면 Claude Code가 스킬을 불러오고, `/simplix-react` 명령으로 직접 불러올 수도 있습니다.
+가장 깊이 연동됩니다. simplix-skills 저장소의 `simplix` 플러그인을 설치하세요. 작업이 스킬 설명과 맞으면 Claude Code가 `simplix:frontend` 핸드북을 불러오고, `/simplix:frontend` 명령으로 직접 불러올 수도 있습니다.
 
 ```bash
-git clone --depth 1 https://github.com/simplix-framework/simplix-react.git simplix-react-src
-mkdir -p .claude/skills
-cp -R simplix-react-src/skills/simplix-react .claude/skills/
-rm -rf simplix-react-src
+git clone https://github.com/simplix-framework/simplix-skills.git
+node simplix-skills/tools/install.mjs claude
 ```
 
 CLAUDE.md에 참조를 직접 추가해도 됩니다.
@@ -44,7 +41,13 @@ Reference: https://raw.githubusercontent.com/simplix-framework/simplix-react/mai
 
 ### OpenAI Codex
 
-Codex는 저장소 루트의 `AGENTS.md`를 읽습니다. 이 파일에 프레임워크 맥락을 추가하세요.
+Codex도 같은 플러그인을 불러옵니다. 위에서 복제한 저장소의 스킬을 연결하세요.
+
+```bash
+node simplix-skills/tools/install.mjs codex
+```
+
+Codex는 저장소 루트의 `AGENTS.md`도 읽습니다. 이 파일에 프레임워크 맥락을 추가하세요.
 
 ```markdown
 ## Framework: simplix-react

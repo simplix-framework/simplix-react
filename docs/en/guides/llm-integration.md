@@ -16,21 +16,18 @@ simplix-react provides several resources for LLM agents. Choose the appropriate 
 | Resource | URL | Description |
 | --- | --- | --- |
 | llms.txt | `https://raw.githubusercontent.com/simplix-framework/simplix-react/main/docs/llms.txt` | Navigation index with links |
-| Claude Code skill | `https://github.com/simplix-framework/simplix-react/tree/main/skills/simplix-react` | Skill folder: `SKILL.md` and its `references/` |
-| Skill manifest | `https://raw.githubusercontent.com/simplix-framework/simplix-react/main/skills/simplix-react.skill` | Name, version, entry file and reference files of the skill |
+| Agent skills | `https://github.com/simplix-framework/simplix-skills` | The `simplix` plugin for Claude Code and Codex: handbooks for the frontend, the backend and the browser audit of screens |
 | README | `https://raw.githubusercontent.com/simplix-framework/simplix-react/main/README.md` | Project overview |
 
 ## Agent-Specific Setup
 
 ### Claude Code
 
-Provides the deepest level of integration. Copy the skill folder `skills/simplix-react/` into `.claude/skills/` of your project (or `~/.claude/skills/` for every project). Claude Code loads the skill when a task matches its description, and the `/simplix-react` command loads it on demand.
+Provides the deepest level of integration. Install the `simplix` plugin of the simplix-skills repository. Claude Code loads the `simplix:frontend` handbook when a task matches its description, and the `/simplix:frontend` command loads it on demand.
 
 ```bash
-git clone --depth 1 https://github.com/simplix-framework/simplix-react.git simplix-react-src
-mkdir -p .claude/skills
-cp -R simplix-react-src/skills/simplix-react .claude/skills/
-rm -rf simplix-react-src
+git clone https://github.com/simplix-framework/simplix-skills.git
+node simplix-skills/tools/install.mjs claude
 ```
 
 Alternatively, add a direct reference in CLAUDE.md:
@@ -44,7 +41,13 @@ Reference: https://raw.githubusercontent.com/simplix-framework/simplix-react/mai
 
 ### OpenAI Codex
 
-Codex reads `AGENTS.md` at the repository root. Add the framework context there:
+Codex loads the same plugin. With the repository cloned as above, link its skills:
+
+```bash
+node simplix-skills/tools/install.mjs codex
+```
+
+Codex also reads `AGENTS.md` at the repository root. Add the framework context there:
 
 ```markdown
 ## Framework: simplix-react
