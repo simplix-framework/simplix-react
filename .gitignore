@@ -5,10 +5,10 @@ dist/
 .idea/
 .plans/
 .claude/
-/CLAUDE.md
-/AGENTS.md
-/AGENT.md
-/GEMINI.md
+CLAUDE.md
+AGENTS.md
+AGENT.md
+GEMINI.md
 .cursor/
 .cursorrules
 .codex/
