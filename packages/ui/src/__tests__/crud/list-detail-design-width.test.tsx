@@ -24,15 +24,15 @@ const columns = (props: { listWidth?: number; detailWidth?: number }) => {
 
 describe("ListDetail width under a design that names one", () => {
   it("takes the design's width only where the screen names none", () => {
-    expect(columns({})).toBe("1fr 17px 440px");
+    expect(columns({})).toBe("1fr 16px 440px");
   });
 
   it("keeps the detail width the screen passes", () => {
-    expect(columns({ detailWidth: 600 })).toBe("1fr 17px 600px");
+    expect(columns({ detailWidth: 600 })).toBe("1fr 16px 600px");
   });
 
   it("keeps the list width the screen passes", () => {
-    expect(columns({ listWidth: 500 })).toBe("500px 17px 1fr");
+    expect(columns({ listWidth: 500 })).toBe("500px 16px 1fr");
   });
 });
 

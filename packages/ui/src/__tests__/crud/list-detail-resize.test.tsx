@@ -215,6 +215,33 @@ describe("ListDetail dialog edges", () => {
     expect(right?.getAttribute("role")).toBe("separator");
   });
 
+  it("stands each handle of the dialog inside the window, its grip faint at rest", () => {
+    render(tree("dialog"));
+    const [left, right] = edges();
+    // The slot's `edge` variant draws the grip: a class handed to the handle loses to the slot's rule.
+    expect(left?.dataset.edge).toBe("true");
+    expect(right?.dataset.edge).toBe("true");
+    expect(left?.className).not.toMatch(/before:/);
+    expect(right?.className).not.toMatch(/before:/);
+    // Inside the edge, and inside the wrapper whose clip rounds the corners.
+    expect(left?.className).toMatch(/(^| )left-1( |$)/);
+    expect(right?.className).toMatch(/(^| )right-1( |$)/);
+    expect(left?.parentElement?.className).toContain("overflow-hidden");
+    expect(left?.parentElement?.className).toContain("relative");
+  });
+
+  it("stands the handle of a drawer inside the sheet, its grip faint at rest", () => {
+    render(tree("drawer"));
+    expect(handle().dataset.edge).toBe("true");
+    expect(handle().className).not.toMatch(/before:/);
+    expect(handle().className).toMatch(/(^| )left-1( |$)/);
+  });
+
+  it("leaves the grip of the panel's divider to hover, press and focus", () => {
+    render(tree("panel"));
+    expect(handle().dataset.edge).toBe("false");
+  });
+
   it("widens the dialog from the left edge too, at two px of width for each px dragged", () => {
     render(tree("dialog"));
     const [left] = edges();
@@ -254,9 +281,9 @@ describe("ListDetail panel columns", () => {
   it("draws the detail column at the width of the handle", () => {
     const { container } = render(tree("panel"));
     const section = container.querySelector("section") as HTMLElement;
-    expect(section.style.gridTemplateColumns).toBe("1fr 17px 600px");
+    expect(section.style.gridTemplateColumns).toBe("1fr 16px 600px");
     fireEvent.keyDown(handle(), { key: "ArrowLeft" });
-    expect(section.style.gridTemplateColumns).toBe("1fr 17px 620px");
+    expect(section.style.gridTemplateColumns).toBe("1fr 16px 620px");
   });
 
   it("keeps the handle out of the tab order while the detail is closed", () => {
@@ -277,7 +304,7 @@ describe("ListDetail panel columns", () => {
       </ListDetail>,
     );
     const section = container.querySelector("section") as HTMLElement;
-    expect(section.style.gridTemplateColumns).toBe("500px 17px 1fr");
+    expect(section.style.gridTemplateColumns).toBe("500px 16px 1fr");
     // jsdom has no layout, so the section's width is never measured and the list's own is not moved;
     // the detail's width is still chosen and clamped to its bounds.
     fireEvent.keyDown(handle(), { key: "End" });
@@ -342,10 +369,10 @@ describe("ListDetail panel room", () => {
     const watched = FakeResizeObserver.watching.find((entry) => entry.element === section);
     expect(watched).toBeTruthy();
     act(() => watched?.report(800));
-    // 800 less the 17px divider and the list's 280.
-    expect(handle().getAttribute("aria-valuemax")).toBe("503");
+    // 800 less the 16px divider and the list's 280.
+    expect(handle().getAttribute("aria-valuemax")).toBe("504");
     fireEvent.keyDown(handle(), { key: "End" });
-    expect(widthOf()).toBe(503);
+    expect(widthOf()).toBe(504);
   });
 
   it("measures the panel's section after a presentation switch from a drawer", () => {
@@ -355,6 +382,6 @@ describe("ListDetail panel room", () => {
     const watched = FakeResizeObserver.watching.find((entry) => entry.element === section);
     expect(watched).toBeTruthy();
     act(() => watched?.report(800));
-    expect(handle().getAttribute("aria-valuemax")).toBe("503");
+    expect(handle().getAttribute("aria-valuemax")).toBe("504");
   });
 });

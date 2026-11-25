@@ -11,10 +11,12 @@ const dialogGutter = { true: "px-5", false: "" };
 export const crudDetailHeaderStyle = defineSlotStyle({
   slot: "crud-detail-header",
   as: "part",
-  // No rule at rest; a soft edge appears once the body has scrolled under the header. The close
-  // control is a 32px corner button, the same in every panel and overlay.
+  // A rule under the head sets it apart from the body, as a form's head and a dialog's are; a
+  // soft edge joins it once the body has scrolled under the header. The close control is a 28 by
+  // 24px corner button with a 14px glyph, the same in every panel and overlay: the metrics of the
+  // small controls a head holds beside it.
   base:
-    "px-4 pt-4 pb-3 transition-shadow duration-[var(--dur-base)] ease-[var(--ease)] [&_[data-slot=button][data-size=icon-xs]]:size-8 [&_[data-slot=button][data-size=icon-xs]]:border-0 [&_[data-slot=button][data-size=icon-xs]]:bg-transparent [&_[data-slot=button][data-size=icon-xs]]:text-muted-foreground [&_[data-slot=button][data-size=icon-xs]]:shadow-none [&_[data-slot=button][data-size=icon-xs]:focus-visible]:shadow-[var(--focus-halo)] [&_[data-slot=button][data-size=icon-xs]:hover]:bg-[var(--hover-bg-strong)] [&_[data-slot=button][data-size=icon-xs]:hover]:text-foreground [&_[data-slot=button][data-size=icon-xs]_svg]:!size-4",
+    "border-b px-4 pt-4 pb-3 transition-shadow duration-[var(--dur-base)] ease-[var(--ease)] [&_[data-slot=button][data-size=icon-xs]]:h-6 [&_[data-slot=button][data-size=icon-xs]]:w-7 [&_[data-slot=button][data-size=icon-xs]]:border-0 [&_[data-slot=button][data-size=icon-xs]]:bg-transparent [&_[data-slot=button][data-size=icon-xs]]:text-muted-foreground [&_[data-slot=button][data-size=icon-xs]]:shadow-none [&_[data-slot=button][data-size=icon-xs]:focus-visible]:shadow-[var(--focus-halo)] [&_[data-slot=button][data-size=icon-xs]:hover]:bg-[var(--hover-bg-strong)] [&_[data-slot=button][data-size=icon-xs]:hover]:text-foreground [&_[data-slot=button][data-size=icon-xs]_svg]:!size-3.5",
   variants: {
     dialog: { true: "px-5 pt-3", false: "" },
     // The body has scrolled under the header.
@@ -71,10 +73,10 @@ export const crudDetailAuditStyle = defineSlotStyle({
   defaultVariants: {},
 });
 
-/** The footer area below the body. */
+/** The footer area below the body. It draws nothing when all it holds is a bare actions row. */
 export const crudDetailFooterStyle = defineSlotStyle({
   slot: "crud-detail-footer",
-  base: "transition-shadow duration-[var(--dur-base)] ease-[var(--ease)]",
+  base: "transition-shadow duration-[var(--dur-base)] ease-[var(--ease)] has-[>[data-part-bare=true]:only-child]:hidden",
   variants: {
     dialog: { true: "px-5 pb-3", false: "" },
     // More of the body lies below the footer: a soft edge rises above it.
@@ -108,9 +110,14 @@ export const crudDetailActionsStyle = defineSlotStyle({
   as: "part",
   // Inset as the body is, 12px above and below the buttons.
   base: "border-t px-4 pt-3 pb-3",
-  // `spread` pushes the first action to the far start, the rest to the end.
-  variants: { spread: { true: "[&>*:first-child]:mr-auto", false: "" } },
-  defaultVariants: { spread: false },
+  variants: {
+    // `spread` pushes the first action to the far start, the rest to the end.
+    spread: { true: "[&>*:first-child]:mr-auto", false: "" },
+    // `bare`: the row holds nothing but a close the header already draws, so the row, its rule and
+    // its padding are not drawn. A design that shows that second close shows the row with it.
+    bare: { true: "hidden", false: "" },
+  },
+  defaultVariants: { spread: false, bare: false },
 });
 
 /** The two-tier footer block. */

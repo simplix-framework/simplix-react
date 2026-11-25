@@ -178,7 +178,7 @@ describe("ListDetail (dialog variant extended)", () => {
 });
 
 describe("ListDetail.List panel classes", () => {
-  it("has pr-4 when detail is open in panel mode", () => {
+  it("keeps no padding toward the divider: the divider's track is the whole gap", () => {
     const { container } = render(
       <ListDetail activePanel="detail">
         <ListDetail.List>List</ListDetail.List>
@@ -186,17 +186,21 @@ describe("ListDetail.List panel classes", () => {
       </ListDetail>,
     );
     const listPanel = container.querySelector("[data-panel='list']");
-    expect(drawnClasses(listPanel ?? null)).toContain("md:pr-4");
+    expect(drawnClasses(listPanel ?? null)).not.toMatch(/(^|\s)(md:)?pr-/);
   });
 
-  it("does not have pr-4 when detail is closed", () => {
+  it("stands the divider in the middle of its own track, the gap between the two cards", () => {
     const { container } = render(
-      <ListDetail activePanel="list">
+      <ListDetail activePanel="detail">
         <ListDetail.List>List</ListDetail.List>
+        <ListDetail.Detail>Detail</ListDetail.Detail>
       </ListDetail>,
     );
-    const listPanel = container.querySelector("[data-panel='list']");
-    expect(drawnClasses(listPanel ?? null)).not.toContain("md:pr-4");
+    const section = container.querySelector("section");
+    expect(section?.style.gridTemplateColumns).toMatch(/ 16px /);
+    const divider = container.querySelector('[data-slot="crud-list-detail-divider"]');
+    expect(divider).toBeTruthy();
+    expect(divider?.className ?? "").not.toMatch(/translate-x/);
   });
 
   it("hides list on mobile when detail is active", () => {

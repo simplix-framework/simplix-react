@@ -11,8 +11,8 @@ const panelGutter = { true: "", false: "px-4" };
 export const crudFormHeaderStyle = defineSlotStyle({
   slot: "crud-form-header",
   as: "part",
-  // The close control is the 32px corner button every panel shares.
-  base: "border-b pt-3.5 pb-3 transition-shadow duration-[var(--dur-base)] ease-[var(--ease)] [&_[data-slot=button][data-size=icon-xs]]:size-8 [&_[data-slot=button][data-size=icon-xs]_svg]:!size-4",
+  // The close control is the 28 by 24px corner button every panel shares.
+  base: "border-b pt-3.5 pb-3 transition-shadow duration-[var(--dur-base)] ease-[var(--ease)] [&_[data-slot=button][data-size=icon-xs]]:h-6 [&_[data-slot=button][data-size=icon-xs]]:w-7 [&_[data-slot=button][data-size=icon-xs]_svg]:!size-3.5",
   variants: {
     page: { true: "", false: "px-4" },
     /** The body is scrolled, so fields pass under this strip: a soft edge shows under it. */

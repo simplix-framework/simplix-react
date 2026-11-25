@@ -1,6 +1,6 @@
 import { useTranslation } from "@simplix-react/i18n/react";
 import { DetailPlacementContext } from "../shared/detail-placement";
-import { createContext, useContext, useRef, type ReactNode } from "react";
+import { Children, createContext, useContext, useRef, type ReactNode } from "react";
 
 import { Flex } from "../../primitives/flex";
 import { Grid } from "../../primitives/grid";
@@ -128,7 +128,8 @@ export interface CrudDetailProps {
 /**
  * Whether the detail's header already draws a close control. A footer 「닫기」 beside it is the same
  * verb twice, and a design may hide the second one; the button still renders so every design keeps
- * the choice.
+ * the choice. A row that holds nothing else is marked `bare`, so a design that hides the button
+ * hides the row with it.
  */
 const HeaderCloseContext = createContext(false);
 
@@ -148,14 +149,15 @@ function DetailRoot({ isLoading, onClose, header, footer, variant = "default", a
   const content = (
     <div className={cn("flex flex-col flex-1 min-h-0 w-full", className)} data-testid="crud-detail">
       {(onClose || header) && (
-        <Flex data-crud-slot="header" justify={header ? "between" : "end"} align="center" className="shrink-0" {...partAttributes(crudDetailHeaderStyle, { dialog: isDialog, scrolled: edges.above })}>
+        <Flex data-crud-slot="header" justify={header ? "between" : "end"} align="start" className="shrink-0" {...partAttributes(crudDetailHeaderStyle, { dialog: isDialog, scrolled: edges.above })}>
           {header}
           {onClose && (
             // Icon-only: without this the button has no accessible name at all, and a screen
             // reader announces the one way out of the panel as an unlabelled button.
             //
-            // The designs draw it as the 32px corner button every panel and overlay shares, at the
-            // body's inset, so the way out sits in the same place on every surface.
+            // The designs draw it as the corner button every panel and overlay shares, at the
+            // body's inset and on the head's first line, so the way out sits in the same place on
+            // every surface and level with the controls a head holds at its top.
             <Button type="button" variant="outline" size="icon-xs" aria-label={t("common.close")} onClick={onClose}>
               <XIcon className="h-3 w-3" aria-hidden />
             </Button>
@@ -360,11 +362,20 @@ const ACTION_TIER_FILL = "flex-wrap [&>*]:min-w-fit [&>*]:flex-1";
 
 function DetailActions({ spread, className, children }: CrudDetailActionsProps) {
   return (
+    <ActionsRow spread={spread} className={className}>
+      {children}
+    </ActionsRow>
+  );
+}
+
+/** The actions row; `bare` when all it holds is a close the header already draws. */
+function ActionsRow({ spread, bare = false, className, children }: CrudDetailActionsProps & { bare?: boolean }) {
+  return (
     <Flex
       gap="sm"
       justify="start"
       className={className}
-      {...partAttributes(crudDetailActionsStyle, { spread: !!spread })}
+      {...partAttributes(crudDetailActionsStyle, { spread: !!spread, bare })}
     >
       {children}
     </Flex>
@@ -424,6 +435,8 @@ function useStandardDetailActions({ onClose, onBack, onDelete, onEdit, isPending
   const { t } = useTranslation("simplix/ui");
   const hasLeft = Boolean(onBack || onClose);
   const headerHasClose = useContext(HeaderCloseContext);
+  // Nothing but a close the header already draws: no way back, no command, no extra action.
+  const bare = !onBack && !onDelete && !onEdit && Children.toArray(children).length === 0 && (!onClose || headerHasClose);
 
   // Close and Back leave the record, and they are the only way back out of the panel — so they
   // are drawn as ordinary buttons, with a border the reader can find without hovering. A ghost
@@ -476,7 +489,7 @@ function useStandardDetailActions({ onClose, onBack, onDelete, onEdit, isPending
     </Flex>
   );
 
-  return { leftButton, rightGroup, hasLeft };
+  return { leftButton, rightGroup, hasLeft, bare };
 }
 
 /**
@@ -485,15 +498,15 @@ function useStandardDetailActions({ onClose, onBack, onDelete, onEdit, isPending
  * lifecycle actions that need their own row above this one.
  */
 function DetailDefaultActions(props: CrudDetailDefaultActionsProps) {
-  const { leftButton, rightGroup, hasLeft } = useStandardDetailActions(props);
+  const { leftButton, rightGroup, hasLeft, bare } = useStandardDetailActions(props);
   return (
     // `flex-wrap` without a grow: the buttons keep their own widths, and where they no longer fit
     // the row takes a second line rather than pushing one of them outside the panel with nothing
     // to scroll it back.
-    <DetailActions className={cn("flex-wrap", hasLeft ? "justify-between" : "justify-end", props.className)}>
+    <ActionsRow bare={bare} className={cn("flex-wrap", hasLeft ? "justify-between" : "justify-end", props.className)}>
       {leftButton}
       {rightGroup}
-    </DetailActions>
+    </ActionsRow>
   );
 }
 

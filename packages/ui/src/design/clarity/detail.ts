@@ -18,8 +18,9 @@ export const detailSlots: Record<string, string> = {
   // size) belongs to the dialog design.
   "crud-list-detail-drawer": "border-[var(--border)] bg-card shadow-[var(--shadow-3)]",
 
-  // The head's close control on the control radius; the scroll edge in the cool shadow.
-  "crud-detail-header": "[&_[data-slot=button][data-size=icon-xs]]:rounded-[var(--radius-control)] [&_[data-slot=button][data-size=icon-xs]]:bg-[var(--surface-2)] [&_[data-slot=button][data-size=icon-xs]:hover]:bg-[color-mix(in_oklch,var(--surface-2),var(--foreground)_7%)]",
+  // The head's rule as a hairline; its close control on the control radius; the scroll edge in the
+  // cool shadow.
+  "crud-detail-header": "border-[var(--border)] [&_[data-slot=button][data-size=icon-xs]]:rounded-[var(--radius-control)] [&_[data-slot=button][data-size=icon-xs]]:bg-[var(--surface-2)] [&_[data-slot=button][data-size=icon-xs]:hover]:bg-[color-mix(in_oklch,var(--surface-2),var(--foreground)_7%)]",
   "crud-detail-header scrolled=true": "shadow-[0_8px_12px_-12px_oklch(0.2_0.03_265/0.45)]",
 
   // Tabs: a hairline under the strip, the chosen trigger ruled in the accent at 600. Detail list

@@ -113,11 +113,12 @@ function FormRoot({
   const content = (
     <form onSubmit={handleSubmit} noValidate={noValidate} className={cn("flex flex-col w-full", !isPage && "flex-1 min-h-0", className)} data-testid="crud-form" data-submitting={isSubmitting || undefined}>
       {(onClose || header) && (
-        <Flex data-crud-slot="header" justify={header ? "between" : "end"} align="center" className="shrink-0" {...partAttributes(crudFormHeaderStyle, { page: isPage, scrolled: edges.above })}>
+        <Flex data-crud-slot="header" justify={header ? "between" : "end"} align="start" className="shrink-0" {...partAttributes(crudFormHeaderStyle, { page: isPage, scrolled: edges.above })}>
           {header}
           {onClose && (
             // Icon-only: without this the button has no accessible name at all, and a screen
-            // reader announces the one way out of the panel as an unlabelled button.
+            // reader announces the one way out of the panel as an unlabelled button. It sits on
+            // the head's first line, where a detail draws it.
             <Button type="button" variant="ghost" size="icon-xs" aria-label={t("common.close")} onClick={onClose}>
               <XIcon className="h-3 w-3" aria-hidden />
             </Button>

@@ -3792,6 +3792,9 @@
   :where([data-part="crud-detail-actions"][data-part-spread="true"])[data-part][data-p-crud-detail-actions] {
     @apply [&>*:first-child]:mr-auto;
   }
+  :where([data-part="crud-detail-actions"][data-part-bare="true"])[data-part][data-p-crud-detail-actions] {
+    @apply hidden;
+  }
   :where([data-part="crud-detail-close-action"][data-part-redundant="true"])[data-part][data-p-crud-detail-close-action] {
     @apply hidden;
   }
@@ -3799,7 +3802,7 @@
     @apply py-1 [&_[data-slot=section-shell][data-variant=flat]]:!gap-3 [&_[data-slot=section-shell][data-variant=flat]]:!py-5 [&_[data-slot=section-shell][data-variant=flat]:first-child]:!pt-2 [&_[data-slot=section-shell][data-variant=flat]:last-child]:!pb-1;
   }
   :where([data-part="crud-detail-header"])[data-part][data-p-crud-detail-header] {
-    @apply px-4 pt-4 pb-3 transition-shadow duration-[var(--dur-base)] ease-[var(--ease)] [&_[data-slot=button][data-size=icon-xs]]:size-8 [&_[data-slot=button][data-size=icon-xs]]:border-0 [&_[data-slot=button][data-size=icon-xs]]:bg-transparent [&_[data-slot=button][data-size=icon-xs]]:text-muted-foreground [&_[data-slot=button][data-size=icon-xs]]:shadow-none [&_[data-slot=button][data-size=icon-xs]:focus-visible]:shadow-[var(--focus-halo)] [&_[data-slot=button][data-size=icon-xs]:hover]:bg-[var(--hover-bg-strong)] [&_[data-slot=button][data-size=icon-xs]:hover]:text-foreground [&_[data-slot=button][data-size=icon-xs]_svg]:!size-4;
+    @apply border-b px-4 pt-4 pb-3 transition-shadow duration-[var(--dur-base)] ease-[var(--ease)] [&_[data-slot=button][data-size=icon-xs]]:h-6 [&_[data-slot=button][data-size=icon-xs]]:w-7 [&_[data-slot=button][data-size=icon-xs]]:border-0 [&_[data-slot=button][data-size=icon-xs]]:bg-transparent [&_[data-slot=button][data-size=icon-xs]]:text-muted-foreground [&_[data-slot=button][data-size=icon-xs]]:shadow-none [&_[data-slot=button][data-size=icon-xs]:focus-visible]:shadow-[var(--focus-halo)] [&_[data-slot=button][data-size=icon-xs]:hover]:bg-[var(--hover-bg-strong)] [&_[data-slot=button][data-size=icon-xs]:hover]:text-foreground [&_[data-slot=button][data-size=icon-xs]_svg]:!size-3.5;
   }
   :where([data-part="crud-detail-header"][data-part-dialog="true"])[data-part][data-p-crud-detail-header] {
     @apply px-5 pt-3;
@@ -3832,7 +3835,7 @@
     @apply py-3 gap-4;
   }
   :where([data-part="crud-form-header"])[data-part][data-p-crud-form-header] {
-    @apply border-b pt-3.5 pb-3 transition-shadow duration-[var(--dur-base)] ease-[var(--ease)] [&_[data-slot=button][data-size=icon-xs]]:size-8 [&_[data-slot=button][data-size=icon-xs]_svg]:!size-4;
+    @apply border-b pt-3.5 pb-3 transition-shadow duration-[var(--dur-base)] ease-[var(--ease)] [&_[data-slot=button][data-size=icon-xs]]:h-6 [&_[data-slot=button][data-size=icon-xs]]:w-7 [&_[data-slot=button][data-size=icon-xs]_svg]:!size-3.5;
   }
   :where([data-part="crud-form-header"][data-part-page="false"])[data-part][data-p-crud-form-header] {
     @apply px-4;
@@ -4551,6 +4554,9 @@
   :where([data-slot="crud-detail-body"])[data-s-crud-detail-body] {
     @apply [&_[data-slot=tabs-list][data-variant=underline]]:mb-1 [&_[data-slot=tabs-list][data-variant=underline]]:gap-1 [&_[data-slot=tabs-trigger][data-variant=underline]]:px-2.5 [&_[data-slot=tabs-trigger][data-variant=underline]]:transition-[color,background-color,border-color] [&_[data-slot=tabs-trigger][data-variant=underline]]:duration-[var(--dur-fast)] [&_[data-slot=tabs-trigger][data-variant=underline]:hover]:bg-[var(--hover-bg)] [&_[data-slot=detail-list-row]]:px-3 [&_[data-slot=detail-list-row]]:transition-colors [&_[data-slot=detail-list-row]]:duration-[var(--dur-fast)] [&_[data-slot=detail-list-row]:hover]:bg-[var(--surface-2)] [&_[data-slot=detail-list-row]:focus-visible]:ring-0 [&_[data-slot=detail-list-row]:focus-visible]:shadow-[var(--focus-halo)];
   }
+  :where([data-slot="crud-detail-footer"])[data-s-crud-detail-footer] {
+    @apply has-[>[data-part-bare=true]:only-child]:hidden;
+  }
   :where([data-slot="crud-chip-filter-chip"])[data-s-crud-chip-filter-chip] {
     @apply active:scale-[0.98] focus-visible:outline-none focus-visible:shadow-[var(--focus-halo)];
   }
@@ -4725,11 +4731,11 @@
   :where([data-slot="crud-list-detail-divider"])[data-s-crud-list-detail-divider] {
     @apply hover:bg-primary/30 active:bg-primary/50 focus-visible:bg-primary/50 focus-visible:outline-none focus-visible:before:shadow-[var(--focus-halo)] before:absolute before:top-1/2 before:left-1/2 before:h-9 before:w-[5px] before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:border before:border-[var(--border-strong)] before:bg-card before:opacity-0 before:shadow-[var(--shadow-1)] before:transition-opacity before:duration-[var(--dur-fast)] before:content-[''] hover:before:opacity-100 focus-visible:before:opacity-100 active:before:opacity-100;
   }
+  :where([data-slot="crud-list-detail-divider"][data-edge="true"])[data-s-crud-list-detail-divider] {
+    @apply before:opacity-40;
+  }
   :where([data-slot="crud-list-detail-drawer-body"])[data-s-crud-list-detail-drawer-body] {
     @apply [&_[data-crud-slot=header]]:px-4 [&_[data-crud-slot=body]]:px-0 [&_[data-crud-slot=body]>*]:px-4 [&_[data-crud-slot=footer]]:px-0 [&_[data-crud-slot=footer]>*]:px-4;
-  }
-  :where([data-slot="crud-list-detail-list"][data-beside="true"])[data-s-crud-list-detail-list] {
-    @apply md:pr-4;
   }
   :where([data-slot="crud-list-detail-root"][data-dragging="false"])[data-s-crud-list-detail-root] {
     @apply md:transition-[grid-template-columns] md:duration-[var(--dur-slow)] md:ease-[var(--ease)];

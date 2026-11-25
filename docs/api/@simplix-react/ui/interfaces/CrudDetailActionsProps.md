@@ -6,7 +6,7 @@
 
 # Interface: CrudDetailActionsProps
 
-Defined in: [packages/ui/src/crud/detail/crud-detail.tsx:328](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail.tsx#L328)
+Defined in: [packages/ui/src/crud/detail/crud-detail.tsx:330](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail.tsx#L330)
 
 Props for the CrudDetail.Actions sub-component.
 
@@ -16,7 +16,7 @@ Props for the CrudDetail.Actions sub-component.
 
 > `optional` **children**: `ReactNode`
 
-Defined in: [packages/ui/src/crud/detail/crud-detail.tsx:345](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail.tsx#L345)
+Defined in: [packages/ui/src/crud/detail/crud-detail.tsx:347](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail.tsx#L347)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [packages/ui/src/crud/detail/crud-detail.tsx:345](https://github.com
 
 > `optional` **className**: `string`
 
-Defined in: [packages/ui/src/crud/detail/crud-detail.tsx:344](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail.tsx#L344)
+Defined in: [packages/ui/src/crud/detail/crud-detail.tsx:346](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail.tsx#L346)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [packages/ui/src/crud/detail/crud-detail.tsx:344](https://github.com
 
 > `optional` **spread**: `boolean`
 
-Defined in: [packages/ui/src/crud/detail/crud-detail.tsx:343](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail.tsx#L343)
+Defined in: [packages/ui/src/crud/detail/crud-detail.tsx:345](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/detail/crud-detail.tsx#L345)
 
 Push the first action away from the rest.
 

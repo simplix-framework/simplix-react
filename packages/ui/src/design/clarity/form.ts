@@ -85,7 +85,7 @@ export const formSlots: Record<string, string> = {
   "tooltip-arrow": "bg-[var(--popover-strong)] fill-[var(--popover-strong)]",
 
   // ── The form in a panel or a page: a 15/600 head, a 16px inset, the footer ruled off ──
-  "crud-form-header": "border-[var(--border)] pt-3.5 pb-3 transition-shadow duration-[var(--dur-base)] ease-[var(--ease)] [&_[data-slot=heading]]:text-(length:--fs-title-sm) [&_[data-slot=heading]]:font-semibold [&_[data-slot=heading]]:leading-6 [&_[data-slot=heading]]:text-foreground [&_[data-slot=button][data-size=icon-xs]]:size-8 [&_[data-slot=button][data-size=icon-xs]_svg]:!size-4",
+  "crud-form-header": "border-[var(--border)] pt-3.5 pb-3 transition-shadow duration-[var(--dur-base)] ease-[var(--ease)] [&_[data-slot=heading]]:text-(length:--fs-title-sm) [&_[data-slot=heading]]:font-semibold [&_[data-slot=heading]]:leading-6 [&_[data-slot=heading]]:text-foreground [&_[data-slot=button][data-size=icon-xs]]:h-6 [&_[data-slot=button][data-size=icon-xs]]:w-7 [&_[data-slot=button][data-size=icon-xs]_svg]:!size-3.5",
   "crud-form-header page=false": "px-4",
   // Fields scrolled under the head and more fields waiting below the footer each cast a soft edge.
   "crud-form-header scrolled=true": "relative z-[1] shadow-[0_8px_12px_-12px_oklch(0.2_0.03_265/0.45)]",

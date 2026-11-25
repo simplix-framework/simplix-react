@@ -8,7 +8,7 @@
 
 > `const` **CrudForm**: (`__namedParameters`) => `Element` & `object`
 
-Defined in: [packages/ui/src/crud/form/crud-form.tsx:241](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/crud-form.tsx#L241)
+Defined in: [packages/ui/src/crud/form/crud-form.tsx:242](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/form/crud-form.tsx#L242)
 
 Compound component for building CRUD create/edit form layouts.
 

@@ -153,6 +153,17 @@ describe("CrudForm (FormRoot)", () => {
     expect(form.getAttribute("data-submitting")).toBeNull();
   });
 
+  it("sets the close on the head's first line, whatever the head's height", () => {
+    const { container } = render(
+      <CrudForm onSubmit={vi.fn()} onClose={vi.fn()} header={<div>Title<br />Progress</div>}>
+        Body
+      </CrudForm>,
+    );
+    const head = container.querySelector('[data-crud-slot="header"]');
+    expect(head?.className).toContain("items-start");
+    expect(head?.className).not.toContain("items-center");
+  });
+
   it("does not render header bar when neither onClose nor header provided", () => {
     render(<CrudForm onSubmit={vi.fn()}>Body</CrudForm>);
     const headerSlot = document.querySelector("[data-crud-slot='header']");

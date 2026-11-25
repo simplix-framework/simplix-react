@@ -65,8 +65,11 @@ function useListDetail() {
 
 // ── Width mapping (3-column: list | divider | detail) ──
 
-/** Divider track width in px: 1px visible line + 8px padding on each side. */
-const DIVIDER_TRACK = 17;
+/**
+ * Divider track width in px: the whole gap between the list and the detail card, a 2px rule with
+ * 7px of padding on each side. It equals the gap a page leaves between its stacked cards.
+ */
+const DIVIDER_TRACK = 16;
 
 // ── Root ──
 //
@@ -467,7 +470,7 @@ export function ListDetailRoot({
         {...slotAttributes(crudListDetailRootStyle, { dragging: isDragging || !toggling })}
       >
         {children}
-        <DetailResizeHandle control={resize} grows="left" collapsed={!isDetailOpen} className="md:order-2 md:z-[1] self-stretch md:translate-x-1/2" />
+        <DetailResizeHandle control={resize} grows="left" collapsed={!isDetailOpen} className="md:order-2 self-stretch" />
       </section>
     </ListDetailContext.Provider>
   );
@@ -479,15 +482,15 @@ ListDetailRoot.displayName = "ListDetail";
 //
 // Detail open (desktop):          Detail closed:
 // ┌──┐                            (hidden)
-// │||│ ← 1px line + 8px padding
-// │||│   each side (17px total)
+// │||│ ← 2px rule + 7px padding
+// │||│   each side (16px total)
 // │||│   cursor: col-resize
 // └──┘
 //
 // The handle itself is `DetailResizeHandle`, shared with the drawer and the dialog; the panel
-// places it as the grid's middle track and moves it half its width right, so its centre line is
-// the detail card's left edge. A grid paints its items in `order`, so the card (order 3) would
-// cover the half of the handle that reaches over it; the handle takes a `z-index` above it.
+// places it as the grid's middle track, which is the whole gap between the list and the detail
+// card, so its rule and grip stand in the middle of that gap. The list keeps no padding of its
+// own toward the handle: its scrollbar is drawn inside its own edge, as the detail's is.
 
 // ── List panel ──
 //
@@ -523,9 +526,7 @@ const ListPanel = forwardRef<HTMLElement, PanelProps>(({ children, className }, 
         variant === "panel" && activePanel !== "list" && "max-md:hidden",
         className,
       )}
-      {...slotAttributes(crudListDetailListStyle, {
-        beside: variant === "panel" && activePanel === "detail",
-      })}
+      {...slotAttributes(crudListDetailListStyle, {})}
     >
       {children}
       {/* Room under the last row, for the state where the page is what scrolls.
@@ -602,12 +603,11 @@ const DetailPanel = forwardRef<HTMLElement, PanelProps>(({ children, className }
           {children}
         </div>
         {/* Last in the DOM, so the first control of the detail takes the focus the drawer moves
-            into itself as it opens, rather than this handle. It is centred on the sheet's outer
-            edge, one px outside the border the offsets are measured from, and runs the sheet's
-            full height, which is the window's. Its grip is drawn at rest: nothing beside the edge
-            of a drawer says it can be dragged, where the panel's divider sits between two cards
-            that do. */}
-        {resize ? <DetailResizeHandle control={resize} grows="left" className="absolute inset-y-0 -left-px z-[3] w-[3px] -translate-x-1/2 before:opacity-100" /> : null}
+            into itself as it opens, rather than this handle. It stands just inside the sheet's
+            left edge and runs the sheet's full height, which is the window's. Its grip is drawn
+            faint at rest (`edge`): nothing beside the edge of a drawer says it can be dragged,
+            where the panel's divider sits between two cards that do. */}
+        {resize ? <DetailResizeHandle control={resize} grows="left" edge className="absolute inset-y-0 left-1 z-[3] w-[3px] -translate-x-1/2" /> : null}
       </SheetContent>
     );
   }
@@ -627,18 +627,22 @@ const DetailPanel = forwardRef<HTMLElement, PanelProps>(({ children, className }
         style={{ "--detail-open-width": `${detailWidth}px`, ...(dialogHeight ? { height: dialogHeight } : {}) } as React.CSSProperties}
       >
         <DialogPrimitive.Title className="sr-only">{t("common.detail")}</DialogPrimitive.Title>
-        {/* The clip that rounds the detail's corners sits on this wrapper, not on the dialog, so the
-            handles can straddle the dialog's side edges instead of being cut at them. */}
-        <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[inherit]">{children}</div>
-        {/* Last in the DOM for the reason the drawer's is. A centred dialog grows on both sides, so
-            each edge under the pointer keeps up with it at two px of width for each px dragged;
-            the right edge is the keyboard's. */}
-        {resize ? (
-          <>
-            <DetailResizeHandle control={resize} grows="left" ratio={2} pointerOnly className="absolute -inset-y-px -left-px z-[3] w-[3px] -translate-x-1/2 before:opacity-100" />
-            <DetailResizeHandle control={resize} grows="right" ratio={2} className="absolute -inset-y-px -right-px z-[3] w-[3px] translate-x-1/2 before:opacity-100" />
-          </>
-        ) : null}
+        {/* The clip that rounds the detail's corners sits on this wrapper. The handles stand inside
+            it, so the rule that runs their height follows the rounded corners instead of passing
+            them. */}
+        <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden rounded-[inherit]">
+          {children}
+          {/* Last in the DOM for the reason the drawer's is. A centred dialog grows on both sides, so
+              each edge under the pointer keeps up with it at two px of width for each px dragged;
+              the right edge is the keyboard's. Each handle stands just inside its edge, its grip
+              faint at rest (`edge`). */}
+          {resize ? (
+            <>
+              <DetailResizeHandle control={resize} grows="left" ratio={2} pointerOnly edge className="absolute inset-y-0 left-1 z-[3] w-[3px] -translate-x-1/2" />
+              <DetailResizeHandle control={resize} grows="right" ratio={2} edge className="absolute inset-y-0 right-1 z-[3] w-[3px] translate-x-1/2" />
+            </>
+          ) : null}
+        </div>
       </DialogContent>
     );
   }

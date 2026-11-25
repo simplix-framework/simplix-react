@@ -92,6 +92,54 @@ describe("CrudDetail (DetailRoot)", () => {
     expect(container.querySelector("[aria-busy]")).toBeNull();
   });
 
+  it("sets the close on the head's first line, whatever the head's height", () => {
+    const { container } = render(
+      <CrudDetail onClose={vi.fn()} header={<div>Title<br />Subtitle</div>}>
+        Body
+      </CrudDetail>,
+    );
+    const head = container.querySelector('[data-crud-slot="header"]');
+    expect(head?.className).toContain("items-start");
+    expect(head?.className).not.toContain("items-center");
+  });
+
+  it("marks the actions row bare when all it holds is the close the header draws", () => {
+    const { container } = render(
+      <CrudDetail onClose={vi.fn()} footer={<CrudDetail.DefaultActions onClose={vi.fn()} />}>
+        Body
+      </CrudDetail>,
+    );
+    const row = container.querySelector('[data-part="crud-detail-actions"]');
+    expect(row?.getAttribute("data-part-bare")).toBe("true");
+  });
+
+  it("draws the actions row when it holds a command beside that close", () => {
+    const { container } = render(
+      <CrudDetail onClose={vi.fn()} footer={<CrudDetail.DefaultActions onClose={vi.fn()} onEdit={vi.fn()} />}>
+        Body
+      </CrudDetail>,
+    );
+    expect(container.querySelector('[data-part="crud-detail-actions"]')?.getAttribute("data-part-bare")).toBe("false");
+  });
+
+  it("draws the actions row when an extra action is handed to it", () => {
+    const { container } = render(
+      <CrudDetail onClose={vi.fn()} footer={<CrudDetail.DefaultActions onClose={vi.fn()}><button type="button">Approve</button></CrudDetail.DefaultActions>}>
+        Body
+      </CrudDetail>,
+    );
+    expect(container.querySelector('[data-part="crud-detail-actions"]')?.getAttribute("data-part-bare")).toBe("false");
+  });
+
+  it("draws the footer close when the header draws none", () => {
+    const { container } = render(
+      <CrudDetail header={<div>Title</div>} footer={<CrudDetail.DefaultActions onClose={vi.fn()} />}>
+        Body
+      </CrudDetail>,
+    );
+    expect(container.querySelector('[data-part="crud-detail-actions"]')?.getAttribute("data-part-bare")).toBe("false");
+  });
+
   it("does not render header bar when neither onClose nor header provided", () => {
     const { container } = render(<CrudDetail>Content</CrudDetail>);
     const headerSlot = container.querySelector("[data-crud-slot='header']");

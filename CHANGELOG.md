@@ -24,6 +24,11 @@ workflow stamps it with the released version and date, then opens a fresh
 ### Changed
 
 - `@simplix-react/ui`: a `ListDetail` dialog with no `dialogHeight` fits its content up to the ceiling of the shared dialog frame, the window less a margin (`100dvh - 2rem`), and sets no `85vh` ceiling of its own
+- `@simplix-react/ui`: the close control in the head of `CrudDetail` and `CrudForm` is 28 by 24px with a 14px glyph and sits on the head's first line, level with the controls a head holds at its top, in the classic and the clarity design
+- `@simplix-react/ui`: the panel shape of `ListDetail` leaves 16px between the list and the detail card, the gap a page leaves between its stacked cards, and its resize handle stands in the middle of that gap. The list keeps no padding toward the handle, so its scrollbar is drawn inside its own edge
+- `@simplix-react/ui`: the resize handle of a `ListDetail` drawer or dialog stands just inside the surface's side edge, with its rule running through its grip. The grip is drawn faint at rest and whole on hover, press and keyboard focus (`DetailResizeHandle` `edge`)
+- `@simplix-react/ui`: the head of `CrudDetail` is set apart from the body by a rule, as the head of `CrudForm` and of a dialog are
+- `@simplix-react/ui`: `CrudDetail.DefaultActions` marks its row `bare` when all it would hold is a close the header already draws, and the row, its rule and the footer around it are then not drawn
 
 ### Fixed
 

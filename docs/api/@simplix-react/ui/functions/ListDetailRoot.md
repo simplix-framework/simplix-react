@@ -8,7 +8,7 @@
 
 > **ListDetailRoot**(`__namedParameters`): `Element`
 
-Defined in: [packages/ui/src/crud/patterns/list-detail.tsx:241](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail.tsx#L241)
+Defined in: [packages/ui/src/crud/patterns/list-detail.tsx:244](https://github.com/simplix-framework/simplix-react/blob/main/packages/ui/src/crud/patterns/list-detail.tsx#L244)
 
 ## Parameters
 

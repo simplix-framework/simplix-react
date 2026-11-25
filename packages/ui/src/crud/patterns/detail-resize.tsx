@@ -70,6 +70,12 @@ export interface DetailResizeHandleProps {
    * dialog draws one on each side edge and only one of them is the keyboard's.
    */
   readonly pointerOnly?: boolean;
+  /**
+   * The handle stands just inside the side edge of a surface over the page (a drawer, a dialog):
+   * its grip is drawn faint at rest. Left out, the handle is a track between two cards and its
+   * grip shows only on hover, press and keyboard focus.
+   */
+  readonly edge?: boolean;
   readonly className?: string;
 }
 
@@ -79,7 +85,7 @@ export interface DetailResizeHandleProps {
  * step), Home and End go to the narrowest and widest, and a double press returns to the width the
  * detail opened at.
  */
-export function DetailResizeHandle({ control, grows, ratio = 1, collapsed = false, pointerOnly = false, className }: DetailResizeHandleProps) {
+export function DetailResizeHandle({ control, grows, ratio = 1, collapsed = false, pointerOnly = false, edge = false, className }: DetailResizeHandleProps) {
   const { t } = useTranslation("simplix/ui");
   const dragging = useRef(false);
   const startX = useRef(0);
@@ -154,7 +160,7 @@ export function DetailResizeHandle({ control, grows, ratio = 1, collapsed = fals
           })}
       data-grows={grows}
       className={cn("box-content cursor-col-resize select-none max-md:hidden", collapsed && "pointer-events-none", className)}
-      {...slotAttributes(crudListDetailDividerStyle, { collapsed })}
+      {...slotAttributes(crudListDetailDividerStyle, { collapsed, edge })}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerEnd}

@@ -15,8 +15,11 @@ export const crudListDetailRootStyle = defineSlotStyle({
 });
 
 /**
- * The drag handle between the list and the detail. The detail is a framed card, so the handle draws
- * no line at rest: a thin rule and a grip appear on hover, press and keyboard focus.
+ * The drag handle of a detail's width. Between the list and the detail card it draws nothing at
+ * rest: a thin rule and a grip appear on hover, press and keyboard focus. Just inside the side edge
+ * of a surface that stands over the page (`edge`), nothing beside the edge says it can be dragged,
+ * so the grip is drawn faint at rest and whole once the pointer is on the handle. The rule runs
+ * through the grip in both places.
  */
 export const crudListDetailDividerStyle = defineSlotStyle({
   slot: "crud-list-detail-divider",
@@ -24,19 +27,19 @@ export const crudListDetailDividerStyle = defineSlotStyle({
     "relative bg-transparent bg-clip-content hover:bg-primary/30 active:bg-primary/50 focus-visible:bg-primary/50 focus-visible:outline-none focus-visible:before:shadow-[var(--focus-halo)] transition-[padding,opacity,background-color] duration-[var(--dur-base)] ease-[var(--ease)] before:absolute before:top-1/2 before:left-1/2 before:h-9 before:w-[5px] before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:border before:border-[var(--border-strong)] before:bg-card before:opacity-0 before:shadow-[var(--shadow-1)] before:transition-opacity before:duration-[var(--dur-fast)] before:content-[''] hover:before:opacity-100 focus-visible:before:opacity-100 active:before:opacity-100",
   variants: {
     collapsed: { true: "opacity-0 px-0", false: "px-[7px]" },
+    // The handle stands inside the side edge of a surface over the page, not between two cards.
+    edge: { true: "before:opacity-40", false: "" },
   },
-  defaultVariants: { collapsed: false },
+  defaultVariants: { collapsed: false, edge: false },
 });
 
 /** The list column. */
 export const crudListDetailListStyle = defineSlotStyle({
   slot: "crud-list-detail-list",
+  // No padding toward the divider: the divider's track is the whole gap to the detail.
   base: "gap-3",
-  variants: {
-    // Beside an open detail the list leaves room between itself and the divider.
-    beside: { true: "md:pr-4", false: "" },
-  },
-  defaultVariants: { beside: false },
+  variants: {},
+  defaultVariants: {},
 });
 
 /**
