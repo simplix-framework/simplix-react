@@ -171,7 +171,7 @@ function FinishDate() {
 
 ## 라이선스
 
-MIT
+SimpleCORE License 1.0 (SCL-1.0). 전문은 [LICENSE](https://github.com/simplix-framework/simplix-react/blob/main/LICENSE), 한국어 번역은 [LICENSE_KO](https://github.com/simplix-framework/simplix-react/blob/main/LICENSE_KO)에 있습니다.
 
 ---
 

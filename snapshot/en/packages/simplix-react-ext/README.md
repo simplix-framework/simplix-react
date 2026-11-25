@@ -54,7 +54,7 @@ pnpm add @simplix-react-ext/simplix-boot-utils @simplix-react-ext/simplix-boot-s
 
 ## License
 
-MIT
+SimpleCORE License 1.0 (SCL-1.0). See [LICENSE](https://github.com/simplix-framework/simplix-react/blob/main/LICENSE); a Korean translation is in [LICENSE_KO](https://github.com/simplix-framework/simplix-react/blob/main/LICENSE_KO).
 
 ---
 
