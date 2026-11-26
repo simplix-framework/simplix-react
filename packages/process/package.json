@@ -1,6 +1,6 @@
 {
   "name": "@simplix-react/process",
-  "version": "0.3.12-SNAPSHOT",
+  "version": "0.3.12",
   "description": "Procedure lanes for React: steps and acts on a grid of lanes with jumps, parallel runs and conditions, laid out as one column on a narrow container",
   "type": "module",
   "sideEffects": [

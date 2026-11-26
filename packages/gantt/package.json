@@ -1,6 +1,6 @@
 {
   "name": "@simplix-react/gantt",
-  "version": "0.3.12-SNAPSHOT",
+  "version": "0.3.12",
   "description": "Project Gantt chart for React: task table with inline editing, timeline with drag scheduling and dependency links, critical path, baselines, resource sheet and usage, undo, MS Project XML interchange",
   "type": "module",
   "sideEffects": [

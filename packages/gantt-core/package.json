@@ -1,6 +1,6 @@
 {
   "name": "@simplix-react/gantt-core",
-  "version": "0.3.12-SNAPSHOT",
+  "version": "0.3.12",
   "description": "Framework-free project scheduling engine: working calendars, dependency and constraint scheduling, critical path, baselines, resources and leveling, undo history, MS Project XML interchange",
   "type": "module",
   "sideEffects": false,
