@@ -1,6 +1,6 @@
 {
   "name": "@simplix-react/process-core",
-  "version": "0.3.12",
+  "version": "0.3.13-SNAPSHOT",
   "description": "Framework-free procedure model: definition format, validation, condition evaluation, reading order, lane and stacked layout, editing operations with undo, version comparison",
   "type": "module",
   "sideEffects": false,
